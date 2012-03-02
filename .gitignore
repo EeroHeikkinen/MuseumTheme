@@ -22,6 +22,6 @@ solr/biblio/index/*
 solr/biblio/spellShingle/*
 solr/biblio/spellchecker/*
 solr/jetty/logs/*
-solr/logs/*
+solr/logs/solr*
 solr/stats/index/*
 
