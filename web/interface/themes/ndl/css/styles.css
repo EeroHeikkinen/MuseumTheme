@@ -1,0 +1,40 @@
+<?php
+Header ("Content-type: text/css");
+$configArray = parse_ini_file('../../../../conf/config.ini', true);
+?>
+
+@import "/vufind/interface/themes/default/css/styles.css";
+
+.searchHomeForm {
+    background-color: #0096b0;
+    border-top: 2px solid #00B6c0;
+    margin-top: 0.5em;
+    padding: 1em 1.5em;
+}
+
+.searchHomeBrowseHeader h2 {
+    color: #0096b0;
+    font-size: 110%;
+}
+
+.searchHomeBrowse {
+    background-color: #0096b0;
+}
+
+.userMsg {
+	color: #0096b0;
+}
+
+/************* Dom Corners (http://web-graphics.com/mtarchive/001660.php)    ****************/
+
+b.btop, b.btop b, b.bbot, b.bbot b{
+    display: block;height: 10px;font-size: 1px;
+    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/default/images/rc.jpg);
+    background-repeat: no-repeat}
+b.gtop, b.gtop b, b.gbot, b.gbot b{
+    display: block;height: 10px;font-size: 1px;
+    background-image:url(<?php echo $configArray['Site']['path'];?>/interface/themes/ndl/images/rc2.jpg);
+    background-repeat: no-repeat}
+b.btop b, b.gtop b{background-position: 100% -10px}
+b.bbot, b.gbot{background-position: 0 -20px}
+b.bbot b, b.gbot b{background-position: 100% -30px}

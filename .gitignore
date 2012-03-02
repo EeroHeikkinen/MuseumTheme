@@ -1,0 +1,27 @@
+# OS Created Files
+
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Eclipse Files
+.metadata/*
+.settings/*
+.project
+.buildpath
+
+# Local VuFind files
+vufind.sh
+web/conf/config.local.ini
+web/images/covers/*
+web/interface/cache/*
+web/interface/compile/*
+solr/authority/index/*
+solr/biblio/index/*
+solr/biblio/spellShingle/*
+solr/biblio/spellchecker/*
+solr/jetty/logs/*
+solr/logs/*
+solr/stats/index/*
+

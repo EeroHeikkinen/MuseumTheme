@@ -107,10 +107,7 @@ findDirectory()
 # Set Performance options for JETTY
 ##################################################
 #JAVA_OPTIONS="-server -Xms1048576k -Xmx1048576k -XX:+UseParallelGC -XX:NewRatio=5"
-if [ -z "$JAVA_OPTIONS" ]
-then
-  JAVA_OPTIONS="-server -Xms1024m -Xmx1024m -XX:+UseParallelGC -XX:NewRatio=5"
-fi
+JAVA_OPTIONS="-server -Xms1024m -Xmx1024m -XX:+UseParallelGC -XX:NewRatio=5 -Djava.util.logging.config.file=/usr/local/vufind/solr/logging.properties"
 
 ##################################################
 # Set VUFIND_HOME
@@ -289,6 +286,7 @@ fi
 #####################################################
 # Find a location for the jetty console
 #####################################################
+JETTY_CONSOLE=${JETTY_HOME}/logs/jetty.log
 if [  -z "$JETTY_CONSOLE" ]
 then
   if [ -w /dev/console ]

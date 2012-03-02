@@ -1,0 +1,5 @@
+<ul class="componentparts">
+  {foreach from=$componentparts item=line}
+    <li>{$line|escape}</li>
+  {/foreach}
+</ul>

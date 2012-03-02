@@ -130,6 +130,21 @@ class Solr implements IndexEngine
     private $_specCache = false;
 
     /**
+     * Field to use for collapsing duplicate records
+     */
+    private $_collapseField = '';
+
+    /**
+    * Comma-separated list of institution codes in order of priority (most desired first)
+    */
+    private $_collapsingInstitutionPriority = '';
+    
+    /**
+    * Allow left truncation?
+    */
+    private $_leftTruncation = false;
+        
+    /**
      * Constructor
      *
      * @param string $host  The URL for the local Solr Server
@@ -219,6 +234,18 @@ class Solr implements IndexEngine
             // need to filter fields and facets:
             $this->setShards($shards);
         }
+        
+    	// Field Collapsing for deduplication
+		if (isset($searchSettings['Field_Collapsing'])) {
+	       	$this->_collapseField = $searchSettings['Field_Collapsing']['field'];
+	       	$this->_collapsingInstitutionPriority = $searchSettings['Field_Collapsing']['institution_priority'];
+		}
+	    
+	    // Allow left truncation?
+	    if (isset($searchSettings['General']['allow_left_truncation'])) {
+	    	$this->_leftTruncation
+	    	= $searchSettings['General']['allow_left_truncation'];
+	    }	    	 
     }
 
     /**
@@ -1048,6 +1075,14 @@ class Solr implements IndexEngine
             $options['hl.simple.pre'] = '{{{{START_HILITE}}}}';
             $options['hl.simple.post'] = '{{{{END_HILITE}}}}';
         }
+        
+        if ($this->_collapseField && $query != '*:*') {
+        	$options['group'] = 'true';
+        	$options['group.field'] = $this->_collapseField;
+        	$options['group.limit'] = 400;
+        	$options['group.ngroups'] = 'true';
+        	$options['group.truncate'] = 'true';
+        }
 
         if ($this->debug) {
             echo '<pre>Search options: ' . print_r($options, true) . "\n";
@@ -1465,6 +1500,65 @@ class Solr implements IndexEngine
         }
         $result = json_decode($result, true);
 
+        // De-group if field collapsing is in use
+        if ($this->_collapseField && isset($result['responseHeader']['params']['group'])) {
+        	$degrouped = array();
+        	foreach ($result as $key => $value) {
+        		if ($key == 'grouped') {
+        			$degrouped['response'] = array();
+        			$degrouped['response']['docs'] = array();
+        			$degrouped['response']['numFound'] = $value[$this->_collapseField]['ngroups'];
+
+        			$instPriority = array_flip(explode(',', $this->_collapsingInstitutionPriority));
+        			
+        			foreach ($value[$this->_collapseField]['groups'] as $groupKey => $group) {
+        				//error_log("Degrouping set of {$group['doclist']['numFound']} records, id {$group['doclist']['docs'][0]['id']}");
+        				$dedupDoc = $group['doclist']['docs'][0];
+        				$docPriority = 99999;
+        				if ($group['doclist']['numFound'] > 1) {
+        					// Find the document that matches the organisation priority best
+        					foreach ($group['doclist']['docs'] as $doc) {
+	        					$inst = $doc['institution'][0];
+	        					//error_log("  check $inst with priority " . $instPriority[$inst] . ", doc prio: $docPriority");
+	        					if (isset($instPriority[$inst])) {
+	        						if ($instPriority[$inst] < $docPriority) {
+	        							$dedupDoc = $doc;
+	        							//error_log("  select $inst with priority " . $instPriority[$inst]);
+	        							$docPriority = $instPriority[$inst];
+	        						}
+	        					}
+        					}
+        				}        				
+        				
+        				$dedupData = array();
+        				foreach ($group['doclist']['docs'] as $doc) {
+        					$dedupData[$doc['institution'][0]][] = array('id' => $doc['id']);
+        					//error_log($doc['institution'][0] . ': ' . $doc['title'] . ' (' . $doc['id'] . ')');
+        				}
+        				
+        				// Sort dedupData by institution priority
+        				$dedupDoc['dedup_data'] = array();
+        				foreach ($instPriority as $inst => $priority) {
+        					if (isset($dedupData[$inst])) {
+        						$dedupDoc['dedup_data'][$inst] = $dedupData[$inst];
+        					}
+        				}
+        				// All the rest non-prioritized
+        				foreach ($dedupData as $inst => $data) {
+        					if (!isset($instPriority[$inst])) {
+        						$dedupDoc['dedup_data'][$inst] = $data;
+        					}
+        				}
+
+        				$degrouped['response']['docs'][] = $dedupDoc;
+        			}
+        		} else {
+        			$degrouped[$key] = $value;
+        		}
+        	}
+        	$result = $degrouped;
+        }
+        
         // Inject highlighting details into results if necessary:
         if (isset($result['highlighting'])) {
             foreach ($result['response']['docs'] as $key => $current) {
@@ -1570,7 +1664,7 @@ class Solr implements IndexEngine
         }
 
         // Ensure wildcards are not at beginning of input
-        if ((substr($input, 0, 1) == '*') || (substr($input, 0, 1) == '?')) {
+        if (!$this->_leftTruncation && ((substr($input, 0, 1) == '*') || (substr($input, 0, 1) == '?'))) {
             $input = substr($input, 1);
         }
 

@@ -214,7 +214,7 @@ class IndexRecord implements RecordInterface
         // tabs, since every tab can assume that the core data is already assigned):
         $this->assignTagList();
         $interface->assign('isbn', $this->getCleanISBN());  // needed for covers
-        $interface->assign('recordFormat', $this->getFormats());
+        $interface->assign('recordFormat', $this->getFormats(true));
         $interface->assign('recordLanguage', $this->getLanguages());
 
         // These variables are only used by the core template, and they are prefixed
@@ -275,6 +275,9 @@ class IndexRecord implements RecordInterface
         $summary = count($summary) > 0 ? $summary[0] : null;
         $interface->assign('coreSummary', $summary);
 
+        $componentParts = $this->getComponentPartCount();
+        $interface->assign('coreComponentPartCount', $componentParts);
+        
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
     }
@@ -535,7 +538,7 @@ class IndexRecord implements RecordInterface
         // Extract bibliographic metadata from the record:
         $id = $this->getUniqueID();
         $interface->assign('listId', $id);
-        $interface->assign('listFormats', $this->getFormats());
+        $interface->assign('listFormats', $this->getFormats(true));
         $interface->assign('listTitle', $this->getTitle());
         $interface->assign('listAuthor', $this->getPrimaryAuthor());
         $interface->assign('listThumb', $this->getThumbnail());
@@ -730,7 +733,7 @@ class IndexRecord implements RecordInterface
         global $interface;
 
         $interface->assign('summId', $this->getUniqueID());
-        $interface->assign('summFormats', $this->getFormats());
+        $interface->assign('summFormats', $this->getFormats(true));
         $interface->assign('summHighlightedTitle', $this->getHighlightedTitle());
         $interface->assign('summTitle', $this->getTitle());
         $interface->assign('summHighlightedAuthor', $this->getHighlightedAuthor());
@@ -744,6 +747,8 @@ class IndexRecord implements RecordInterface
         $interface->assign('summLCCN', $this->getLCCN());
         $interface->assign('summOCLC', $this->getOCLC());
         $interface->assign('summCallNo', $this->getCallNumber());
+        $interface->assign('hostRecordTitle', $this->getHostRecordTitle());
+        $interface->assign('hostRecordId', $this->getHostRecordId());
 
         // Obtain and assign snippet information:
         $snippet = $this->getHighlightedSnippet();
@@ -778,6 +783,9 @@ class IndexRecord implements RecordInterface
         // to turn on AJAX as needed:
         $interface->assign('summAjaxStatus', false);
 
+        // Display institutions and links to deduplicated records.
+        $interface->assign('summDedupData', $this->getDedupData());
+        
         // Send back the template to display:
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
     }
@@ -817,6 +825,21 @@ class IndexRecord implements RecordInterface
         return 'RecordDrivers/Index/toc.tpl';
     }
 
+    /**
+     * If there are new formats with component parts consider
+     * making a driver for them! 
+     * Assign necessary Smarty variables and return a template name to
+     * load in order to display the Table of Contents extracted from the
+     * record.  Returns null if no Table of Contents is available.
+     *
+     * @return string Name of Smarty template file to display.
+     * @access public
+     */
+    public function getContainedComponentParts()
+    {
+            return null;
+    }    
+    
     /**
      * Return the unique identifier of this record within the Solr index;
      * useful for retrieving additional information (like tags and user
@@ -970,6 +993,19 @@ class IndexRecord implements RecordInterface
     }
 
     /**
+     * Does this record have Component parts available?
+     *
+     * @return bool
+     * @access public
+     */
+    public function hasContainedComponentParts()
+    {
+ 
+        return null;
+    }    
+    
+    
+    /**
      * Does this record have video content available?
      *
      * @return bool
@@ -982,6 +1018,18 @@ class IndexRecord implements RecordInterface
         return false;
     }
 
+    /**
+    * Return an array of URLs to images of the record, if available; false
+    * otherwise. Like getThumbnail, but multiple images.
+    *
+    * @return mixed
+    * @access protected
+    */
+    public function getAllImages()
+    {
+        return false;
+    }
+    
     /**
      * Assign a tag list to the interface based on the current unique ID.
      *
@@ -1225,12 +1273,21 @@ class IndexRecord implements RecordInterface
     /**
      * Get an array of all the formats associated with the record.
      *
+     * @param prefixed  boolean  Add prefix from config ([Record] format_prefix)
+     *                           for translation.
      * @return array
      * @access protected
      */
-    protected function getFormats()
+    protected function getFormats($prefixed = false)
     {
-        return isset($this->fields['format']) ? $this->fields['format'] : array();
+        global $configArray;
+        $formats = isset($this->fields['format']) ? $this->fields['format'] : array();
+        if ($prefixed && isset($configArray['Record']['format_prefix'])) {
+            $prefix = $configArray['Record']['format_prefix'];
+            $callback = create_function('$str','return "'.$prefix.'".$str;');
+            $formats = array_map($callback, $formats);
+        }
+        return $formats;
     }
 
     /**
@@ -1853,6 +1910,65 @@ class IndexRecord implements RecordInterface
             )
         );
         return json_encode($markers);
+    }
+    
+    protected function getComponentPartCount()
+    {
+		// TODO: this is all quite ugly. Come up with a nicer way to do this?
+        $searchObject = SearchObjectFactory::initSearchObject();
+        $query = 'host_id:"' . addcslashes($this->getUniqueID(), '"') . '"';
+		// TODO: HACK: pretend this is a browse to avoid spellcheck and facets
+        $searchObject->initBrowseScreen();
+		$searchObject->disableLogging();
+        $searchObject->setQueryString($query);
+       	$result = $searchObject->processSearch();
+        $searchObject->close();
+        if (PEAR::isError($result)) {
+        	PEAR::raiseError($result->getMessage());
+        }
+        return $result['response']['numFound'];
+    }
+    
+    /**
+     * Returns a title of host record if any
+     *
+     * @access protected
+     * @return array
+     *
+     */
+    protected function getHostRecordTitle() {
+        if (!isset($this->fields['host_id']) || !$this->fields['host_id']) {
+            return '';
+        }
+		$searchObject = SearchObjectFactory::initSearchObject();
+		$record = $searchObject->getIndexEngine()->getRecord($this->fields['host_id']);
+        if (PEAR::isError($record)) {
+        	PEAR::raiseError($record->getMessage());
+        }
+        $recordDriver = RecordDriverFactory::initRecordDriver($record);
+        return $recordDriver->getTitle();
+    }
+    
+    /**
+     * Returns an id of host record if any
+     *
+     * @access protected
+     * @return array
+     *
+     */
+    protected function getHostRecordId() {
+		return isset($this->fields['host_id']) ? $this->fields['host_id'] : null;
+    }
+
+    /**
+    * Get an array of all the dedup data associated with the record.
+    *
+    * @return array
+    * @access protected
+    */
+    protected function getDedupData()
+    {
+        return isset($this->fields['dedup_data']) ? $this->fields['dedup_data'] : array();
     }
 }
 

@@ -155,6 +155,7 @@ class Record extends Action
             $interface->assign('hasExcerpt', $this->recordDriver->hasExcerpt());
         }
         $interface->assign('hasTOC', $this->recordDriver->hasTOC());
+        $interface->assign('hasContainedComponentParts', $this->recordDriver->hasContainedComponentParts());
         $interface->assign('hasMap', $this->recordDriver->hasMap());
 
         // Assign the next/previous record data:

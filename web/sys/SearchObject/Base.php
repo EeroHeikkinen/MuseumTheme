@@ -74,6 +74,7 @@ abstract class SearchObject_Base
     protected $facetConfig = array();    // Array of valid facet fields=>labels
     protected $checkboxFacets = array(); // Boolean facets represented as checkboxes
     protected $translatedFacets = array();  // Facets that need to be translated
+    protected $facetTranslationPrefix = null; // Prefix prepended to translated facet values
     // Default Search Handler
     protected $defaultIndex = null;
     // Available sort options
@@ -283,6 +284,9 @@ abstract class SearchObject_Base
             }
         }
 
+        $translationPrefix = isset($this->facetTranslationPrefix)
+            ? $this->facetTranslationPrefix : '';
+        
         $list = array();
         // Loop through all the current filter fields
         foreach ($this->filterList as $field => $values) {
@@ -294,7 +298,7 @@ abstract class SearchObject_Base
                     || !in_array($value, $skipList[$field])
                 ) {
                     $facetLabel = $this->getFacetLabel($field);
-                    $display = $translate ? translate($value) : $value;
+                    $display = $translate ? translate($translationPrefix . $value) : $value;
                     $list[$facetLabel][] = array(
                         'value'      => $value,     // raw value for use with Solr
                         'display'    => $display,   // version to display to user

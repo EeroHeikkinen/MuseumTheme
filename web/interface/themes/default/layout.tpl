@@ -2,7 +2,7 @@
 <html lang="{$userLang}">
 
 {* We should hide the top search bar and breadcrumbs in some contexts: *}
-{if ($module=="Search" || $module=="Summon" || $module=="WorldCat" || $module=="Authority") && $pageTemplate=="home.tpl"}
+{if ($module=="Search" || $module=="Summon" || $module=="WorldCat" || $module=="Authority" || $module=="EBSCO") && $pageTemplate=="home.tpl"}
     {assign var="showTopSearchBox" value=0}
     {assign var="showBreadcrumbs" value=0}
 {else}
@@ -15,6 +15,7 @@
     {if $addHeader}{$addHeader}{/if}
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe">
     {css media="screen" filename="styles.css"}
+    {css media="screen" filename="datatables.css"}
     {css media="print" filename="print.css"}
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <script language="JavaScript" type="text/javascript">
@@ -70,7 +71,7 @@
         {if $showTopSearchBox}
           <a href="{$url}"><img src="{$path}/interface/themes/default/images/vufind_logo.png" alt="VuFind" class="alignleft"></a>
           {if $pageTemplate != 'advanced.tpl'}
-            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority"}
+            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority" || $module=="EBSCO"}
               {include file="`$module`/searchbox.tpl"}
             {else}
               {include file="Search/searchbox.tpl"}
@@ -93,7 +94,7 @@
     
     <div id="doc2" class="yui-t{if $sidebarOnLeft}2{else}4{/if}"> {* Change id for page width, class for menu layout. *}
 
-      {if $useSolr || $useWorldcat || $useSummon}
+      {if $useSolr || $useWorldcat || $useSummon || $useEBSCO}
       <div id="toptab">
         <ul>
           {if $useSolr}
@@ -104,6 +105,9 @@
           {/if}
           {if $useSummon}
           <li{if $module == "Summon"} class="active"{/if}><a href="{$url}/Summon/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
+          {/if}
+          {if $useEBSCO}
+          <li{if $module == "EBSCO"} class="active"{/if}><a href="{$url}/EBSCO/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
           {/if}
         </ul>
       </div>

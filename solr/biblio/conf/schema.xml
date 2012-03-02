@@ -86,6 +86,13 @@
       </analyzer>
     </fieldType>
     <fieldType name="date" class="solr.DateField" sortMissingLast="true" omitNorms="true"/>
+    
+    <!-- Field types for e.g. museum data -->
+    <fieldType name="negativeSupportingDate" class="solr.NegativeSupportingDateField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
+    <fieldType name="dateRange" class="solr.RangeField" subFieldType="negativeSupportingDate" separator=","/>
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="tdouble" class="solr.TrieField" type="double" omitNorms="true" positionIncrementGap="0" indexed="true" stored="false" />
   </types>
  <fields>
    <!-- Core Fields  -->
@@ -170,11 +177,23 @@
    <field name="era_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="illustrated" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="long_lat" type="textFacet" indexed="true" stored="true" multiValued="false"/>
+   <!-- Hierarchy Fields -->
+   <field name="hierarchy_top_id" type="textFacet" index="true" stored="true" multiValued="false"/>
+   <field name="hierarchy_top_title" type="textFacet" index="true" stored="true" multiValued="false"/>
+   <field name="hierarchy_parent_id" type="textFacet" indexed="true" stored="true" multiValued="true"/>
+   <field name="hierarchy_parent_title" type="textFacet" indexed="true" stored="true" multiValued="true"/>
+   <field name="hierarchy_browse" type="textFacet" indexed="true" stored="false" multiValued="true"/>
+   <field name="is_hierarchy_top_id" type="textFacet" indexed="true" stored="true" multiValued="false"/>
+   <field name="is_hierarchy_top_title" type="textFacet" indexed="true" stored="true" multiValued="false"/>
    <!-- Used for loading correct record driver -->
    <field name="recordtype" type="string" indexed="false" stored="true"/>
    <!-- Tracking fields to keep track of oldest and most recent index times -->
    <field name="first_indexed" type="date" indexed="true" stored="true"/>
    <field name="last_indexed" type="date" indexed="true" stored="true"/>
+   <!-- Dedup grouping field -->
+   <field name="dedup_key" type="string" indexed="true" stored="true"/>
+   <!-- Host record ID -->
+   <field name="host_id" type="string" indexed="true" stored="true"/>
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>
@@ -188,6 +207,34 @@
    <dynamicField name="*_txtF_mv" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <dynamicField name="*_txtP" type="textProper" indexed="true" stored="true"/>
    <dynamicField name="*_txtP_mv" type="textProper" indexed="true" stored="true" multiValued="true"/>
+
+   <dynamicField name="*_coords"  type="location"  indexed="true" stored="true" multiValued="false"/>
+   <dynamicField name="*_daterange"  type="dateRange"  indexed="true"  stored="true" multiValued="false"/>
+   <dynamicField name="*_boolean" type="boolean" index="true" stored="true" required="false" />
+
+   <!-- Fields for museum data (LIDO) -->
+   <field name="measurements" type="text" indexed="true" stored="true" multiValued="true"/>
+   <field name="material" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="identifier" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="culture" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="rights" type="string" indexed="true" stored="true" multiValued="true"/>
+   
+   <!-- Event-based museum data -->
+   <!-- The following utilise the dynamic fields above
+   <dynamicField name="*_place_coords"  type="location"  indexed="true" stored="true" multiValued="false"/>
+   <dynamicField name="*_daterange"  type="dateRange"  indexed="true"  stored="false" multiValued="false"/>
+   <dynamicField name="*_place_city_txtF"  type="textFacet"  indexed="true" stored="true" multiValued="false"/>
+   <dynamicField name="*_place_state_txtF"  type="textFacet"  indexed="true" stored="true" multiValued="false"/>
+   <dynamicField name="*_place_country_txtF"  type="textFacet"  indexed="true" stored="true" multiValued="false"/>
+   <dynamicField name="*_displayplace_str"  type="string"  indexed="true"  stored="true" multiValued="false"/>
+   <dynamicField name="*_displaydate_str"  type="string"  indexed="true"  stored="true" multiValued="false"/>
+   <dynamicField name="*_actor_str"  type="string"  indexed="true"  stored="true" multiValued="true"/>
+   <dynamicField name="*_place_notfound_boolean" type="boolean" index="true" stored="true" required="false" />
+    -->
+   
+   <!-- MUISTI paikkojen koordinaatit -->
+   <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
+   
  </fields>
  <uniqueKey>id</uniqueKey>
  <defaultSearchField>allfields</defaultSearchField>
@@ -214,6 +261,7 @@
  <copyField source="topic"    dest="topic_browse"/>
  <copyField source="author"    dest="author_browse"/>
  <copyField source="author2"    dest="author_browse"/>
+ <copyField source="hierarchy_parent_title" dest="hierarchy_browse"/>
  <!-- Default Boolean Operator -->
  <solrQueryParser defaultOperator="AND"/>
 </schema>

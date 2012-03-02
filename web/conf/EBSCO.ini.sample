@@ -1,0 +1,34 @@
+[General]
+url = http://eit.ebscohost.com/Services/SearchService.asmx/Search
+orgid =
+prof =
+pwd =
+authType = profile
+ipprof =  
+;db = a9h
+
+default_side_recommend[] = SideFacets:Facets::EBSCO
+
+[Basic_Searches]
+AllFields           = "All Fields"
+Title               = Title
+Author              = Author
+#SubjectTerms        = Subject
+
+[Sorting]
+relevance = sort_relevance
+PublicationDate:desc = sort_year
+PublicationDate:asc = "sort_year asc"
+
+[Facets]
+DE = Topic
+ZE = Topic
+MM = Topic
+JN = JournalName
+AE = SubjectAge
+PT = TypeOfPublication
+
+[Facet_Settings]
+facet_limit        = 30 
+
+
