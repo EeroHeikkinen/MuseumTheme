@@ -22,7 +22,7 @@
     <link rel="alternate" type="application/rdf+xml" title="RDF Representation" href="{$url}/Record/{$id|escape}/RDF"/>    
     {/if}
 
-    <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe">
+    <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe"/>
 
     {* Load Blueprint CSS framework *}
     {css media="screen, projection" filename="blueprint/screen.css"}
@@ -159,7 +159,7 @@
 
       {include file="$module/$pageTemplate"}
 
-      <div class="footer small">
+      <div id="footer">
         {include file="footer.tpl"}
       </div>
 

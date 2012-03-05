@@ -1,0 +1,27 @@
+/****** Footer ******/
+
+#footer {
+    margin-top: 24px;
+}
+#footer div {
+    float: left;
+    margin: 6px 24px 0 0;
+    width: 160px;    
+}
+#footer ul {
+    list-style-type: none;
+    margin-top:6px;
+    padding-left: 0;
+}
+#footer div.footerLogos {
+    margin-top: 0;
+    width: 252px;    
+}
+#footer div.footerLogos a {
+    display: block;
+}
+#footer div.footerLogos img {
+    margin: 0 10px 0 0;
+    vertical-align: -10px;
+}
+

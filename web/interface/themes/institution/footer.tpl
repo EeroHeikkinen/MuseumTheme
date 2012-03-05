@@ -1,4 +1,5 @@
 {* Your footer *}
+<span class="small">
 <div><p><strong>{translate text='Search Options'}</strong></p>
   <ul>
     <li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
@@ -21,11 +22,12 @@
   </ul>
 </div>
 <div class="footerLogos">
-	<a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_small.png" width="60" height="31" alt=""}Kansallinen digitaalinen kirjasto</a>
+	<a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_small.png" alt=""}Kansallinen digitaalinen kirjasto</a>
 	<br />
-	<a href="http://www.vufind.org" class="footerLogo">{image src="vufind_logo_small.png" width="88" height="33" alt=""}www.vufind.org</a>
+	<a href="http://www.vufind.org" class="footerLogo">{image src="vufind_logo_small.png" alt=""}www.vufind.org</a>
 </div>
 <div class="clear"></div>
 
 {* Comply with Serials Solutions terms of service -- this is intentionally left untranslated. *}
 {if $module == "Summon"}Powered by Summon™ from Serials Solutions, a division of ProQuest.{/if}
+</span>
