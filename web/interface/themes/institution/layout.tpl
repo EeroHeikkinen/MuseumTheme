@@ -28,13 +28,15 @@
     {css media="screen, projection" filename="blueprint/screen.css"}
     {css media="print" filename="blueprint/print.css"}
     <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    {* Adjust some default Blueprint CSS styles *}
+    {css media="screen, projection" filename="blueprint/blueprint-adjust.css"}
 
-    <link rel="stylesheet" media="all" href=""/>
     {* Load VuFind specific stylesheets *}
     {css media="screen, projection" filename="styles.css"}
     {css media="screen" filename="datatables.css"}
     {css media="print" filename="print.css"}
     <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 7]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/iepngfix/iepngfix.css" type="text/css" media="screen, projection"><![endif]-->
 
     {* Set global javascript variables *}
     <script type="text/javascript">
@@ -63,15 +65,21 @@
     {* Load common javascript functions *}
     {js filename="common.js"}
 
+    {* **** IE fixes **** *}
+    {* Load IE CSS1 background-repeat and background-position fix *}
+    <!--[if lt IE 7]><script type="text/javascript" src="{$url}/interface/themes/institution/css/iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+    {* Enable HTML5 in old IE  http://code.google.com/p/html5shim/
+       (for future reference, commented out for now) *}
+    {*
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    *}
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
 
-{* Enable HTML5 in old IE (for future reference) http://code.google.com/p/html5shim/ *}
-{*
-    <!--[if lt IE 9]>
-        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-*}
     </head>
 
   <body>
@@ -165,6 +173,8 @@
 
     </div>
     </div> {* End doc *}
+{* Google Analytics, commented out - remove when/if not needed *}
+{*
 {literal}    
 <script type="text/javascript">
   <!--//--><![CDATA[//><!--
@@ -182,5 +192,6 @@
   //--><!]]>
 </script>
 {/literal}
+*}
   </body>
 </html>

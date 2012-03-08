@@ -1,0 +1,11 @@
+/* adjust some default blueprint styles */
+p,ul,dl,form,input,textarea,select,label { margin-bottom: 0.2em; }
+h1 { font-size: 1.5em; margin-top: 0.5em; margin-bottom: 0.5em; }
+h2 { font-size: 1.4em; margin-top: 0.5em; margin-bottom: 0.5em; }
+h3 { font-size: 1.3em; margin-top: 0.5em; margin-bottom: 0.5em; }
+h4 { font-size: 1.2em; margin-top: 0.5em; margin-bottom: 0.5em; }
+h5 { font-size: 1.1em; font-weight: bold; margin-bottom: 0.5em; }
+h6 { font-size: 1em; font-weight: bold; margin-bottom: 0.4em; }
+fieldset { padding:0 .4em .8em 1em; }
+legend { font-size:100%;}
+fieldset, #IE8#HACK { padding-top:0.4em; }

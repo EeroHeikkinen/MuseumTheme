@@ -1,27 +1,18 @@
 /****** Footer ******/
 
 #footer {
-    margin-top: 24px;
-}
-#footer div {
-    float: left;
-    margin: 6px 24px 0 0;
-    width: 160px;    
+    margin-top: 12px;
 }
 #footer ul {
     list-style-type: none;
-    margin-top:6px;
+    margin-top: 6px;
     padding-left: 0;
 }
-#footer div.footerLogos {
-    margin-top: 0;
-    width: 252px;    
-}
-#footer div.footerLogos a {
+#footer a.footerLogo {
     display: block;
 }
-#footer div.footerLogos img {
+#footer a.footerLogo img {
     margin: 0 10px 0 0;
-    vertical-align: -10px;
+    vertical-align: middle;
 }
 

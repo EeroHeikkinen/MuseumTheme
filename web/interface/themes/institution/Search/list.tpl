@@ -1,12 +1,14 @@
 {* Main Listing *}
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-13 authorbox" style="padding-left:0;>
   {* Recommendations *}
   {if $topRecommendations}
     {foreach from=$topRecommendations item="recommendations"}
       {include file=$recommendations}
     {/foreach}
   {/if}
+</div>
 
+<div class="span-10{if $sidebarOnLeft} push-3 last{/if}">
   {* Listing Options *}
   <div class="resulthead">
     <div class="floatleft">
@@ -79,7 +81,7 @@
 {* End Main Listing *}
 
 {* Narrow Search Options *}
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   {if $sideRecommendations}
     {foreach from=$sideRecommendations item="recommendations"}
       {include file=$recommendations}
