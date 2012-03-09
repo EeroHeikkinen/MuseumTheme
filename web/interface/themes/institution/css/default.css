@@ -109,10 +109,10 @@ a:focus, a:hover {
 }
 
 #logo {
-    background:url("../images/vufind_logo.jpg") no-repeat scroll left center transparent;
-    float:left;
-    height:65px;
-    width:300px;
+    background: url("../images/morgan_logo_small.gif") no-repeat scroll left center transparent;
+    float: left;
+    height: 46px;
+    width: 211px;
 }
 
 #headerRight {

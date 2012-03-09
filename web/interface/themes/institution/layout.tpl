@@ -46,13 +46,12 @@
     </script>
 
 	{* Load jQuery framework and plugins *}
-    {js filename="jquery-1.4.4.min.js"}
+    {js filename="jquery-1.7.1.min.js"}
     {js filename="jquery.form.js"}
     {js filename="jquery.metadata.js"}
     {js filename="jquery.validate.min.js"} 
     
-    {* Load jQuery files needed for datatables *}
-    {js filename="jquery.js"}
+    {* Component parts *}
     {js filename="jquery.dataTables.js"}   
     
     {* Load jQuery UI *}
@@ -76,12 +75,11 @@
     <![endif]-->
     *}
 
-
+    {* For mobile devices *}
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
 
-    </head>
-
+  </head>
   <body>
 
     {* LightBox *}
@@ -92,7 +90,11 @@
     {* End LightBox *}
 
     <div class="container">
-    
+<!-- make the header like this
+      <div class="header">
+        {include file="header.tpl"}
+      </div>
+-->
     <div class="searchheader">
       <div class="searchcontent">
         <div class="alignright">
@@ -121,8 +123,11 @@
           </div>
         </div>
 
+
+
         {if $showTopSearchBox}
-          <a href="{$url}">{image src="morgan_logo_small.gif" width="211" height="46" alt="Morgan" class="alignleft"}</a>
+        <div class="searchbox">
+          <a {*id="logo"*} href="{$url}">{image src="morgan_logo_small.gif" alt="Morgan" class="alignleft"}</a>
           {if $pageTemplate != 'advanced.tpl'}
             {if $module=="Summon" || $module=="WorldCat" || $module=="Authority"}
               {include file="`$module`/searchbox.tpl"}
@@ -131,6 +136,7 @@
               {include file="Search/searchbox.tpl"}
             {/if}
           {/if}
+        </div>
         {/if}
 
         <div class="clear"></div>
@@ -147,7 +153,6 @@
     {/if}
     
 	<div class="main">
-
       {if $useSolr || $useWorldcat || $useSummon}
       <div id="toptab">
         <ul>
@@ -162,9 +167,7 @@
           {/if}
         </ul>
       </div>
-      <div style="clear: left;"></div>
       {/if}
-
       {include file="$module/$pageTemplate"}
 
       <div id="footer">
