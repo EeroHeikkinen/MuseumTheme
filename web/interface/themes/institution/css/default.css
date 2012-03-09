@@ -329,21 +329,21 @@ ul.recordSet {
     list-style-type: none;
 }
 ul.recordSet li {
-    padding: .4em;
+    padding: .4em 0;
 }
 
 ul.recordSet li.alt {
-    background-color: #eee;
+    background-color: #f3f3f3;
 }
 ul.recordSet input.checkbox_ui {
     float: left;
     margin-top: 3em;
     margin-left: -1em;
     margin-right: .4em;
-        margin:3em 6px 6px -30px;
+    margin:3em 6px 6px -30px;
 }
 ul.recordSet .recordNumber {
-        width:30px;
+    width:30px;
     float: left;
     font-weight: bold;
     margin-right: 0.2em;
@@ -352,14 +352,23 @@ ul.recordSet .addToFavLink {
     float: right;
     text-align: right;
 }
+ul.recordSet .coverDiv {
+		width:100px;
+		height:100px;
+		border:1px solid #ddd;
+		text-align:center;
+		overflow:hidden;
+}
+ul.recordSet .resultItemLine2{
+	margin:0.2em 0 0 0;
+}
 .summcover {
-    max-width: 120px;
     padding:0;
     margin:0;
 }
 .resultImages {
-        float:left;
-        margin:0 10px 0 0;
+    float:left;
+    margin:0 10px 0 0;
 }
 .result .imagelinks a {
         float:left;
@@ -464,6 +473,13 @@ dl.narrowList a {
 
 /* Icon Classes */
 
+
+.tool { /* common styles */
+    background-repeat:no-repeat;
+    background-position:5px;
+    padding:.5em .5em .5em 25px;
+}
+
 .bookbag {
     background-image:url(../images/fugue/bookbag.png);
     background-repeat:no-repeat;
@@ -565,10 +581,10 @@ dl.narrowList a {
 }
 .fav {
     background-image:url(../images/silk/heart.png);
-    background-repeat:no-repeat;
+    /* background-repeat:no-repeat;
     background-position:5px;
     padding:.5em .5em .5em 25px;
-    margin-right:1em;
+    margin-right:1em; */
 }
 .fav.tool {
         font-size:0.9em;
