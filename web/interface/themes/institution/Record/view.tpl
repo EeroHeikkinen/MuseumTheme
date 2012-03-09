@@ -29,7 +29,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {js filename="openurl.js"}
 {/if}
 
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
   <div class="toolbar">
     <ul>
       <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li>
@@ -141,7 +141,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   <span class="Z3988" title="{$openURL|escape}"></span>
 </div>
 
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
   <div class="sidegroup">
     <h4>{translate text="Similar Items"}</h4>
     {if is_array($similarRecords)}
