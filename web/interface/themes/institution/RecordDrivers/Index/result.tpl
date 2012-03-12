@@ -6,14 +6,15 @@
   <input type="hidden" name="idsAll[]" value="{$summId|escape}" />
   {/if}
   
-  <div class="span-2">
+  <div class="coverDiv span-2">
   {if $summThumb}
     <img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
     {else}
     <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
   {/if}
   </div>
-  <div class="span-9">
+  <div class="span-5">
+  
     <div class="resultItemLine1">
       <a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
     </div>
@@ -23,7 +24,6 @@
       {translate text='by'}
       <a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       {/if}
-
       {if $summDate}{translate text='Published'} {$summDate.0|escape}{/if}
     </div>
 
@@ -90,7 +90,7 @@
     {/if}
   </div>
 
-  <div class="span-4 last">
+  <div class="span-3 last addToFavLink">
     <a id="saveRecord{$summId|escape}" href="{$url}/Record/{$summId|escape:"url"}/Save" class="fav tool saveRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
 
     {* Display the lists that this record is saved to *}

@@ -1,6 +1,7 @@
 {if $topFacetSet}
   {foreach from=$topFacetSet item=cluster key=title}
-  <div class="authorbox">
+  <div class="{if $cluster.label == "Suggested Topics"}span-3 last" style="line-height: 1.4;{else}authorbox{/if}">
+    {* $cluster.label *}
     <strong>{translate text=$cluster.label}</strong>{translate text="top_facet_suffix"}
     {foreach from=$cluster.list item=thisFacet name="narrowLoop"}
       {if $smarty.foreach.narrowLoop.iteration == ($topFacetSettings.rows * $topFacetSettings.cols) + 1}
@@ -13,7 +14,7 @@
       {if $smarty.foreach.narrowLoop.iteration % $topFacetSettings.cols == 1}
         <br/>
       {/if}
-      <span class="span-5">
+      <span class="{*span-3*}">
       {if $thisFacet.isApplied}
         {$thisFacet.value|escape} <img src="{$path}/images/silk/tick.png" alt="Selected"/>
       {else}

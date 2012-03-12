@@ -1,4 +1,4 @@
-<div class="searchform">
+<div class="searchform span-7 last">
   {if $searchType == 'advanced'}
     <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
     <a href="{$path}/Search/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
@@ -7,7 +7,7 @@
   {else}
     <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
       <label for="searchForm_lookfor" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_lookfor" type="text" name="lookfor" size="40" value="{$lookfor|escape}" {if $autocomplete}class="autocomplete typeSelector:searchForm_type"{/if}/>
+      <input id="searchForm_lookfor" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if}"/>
       <label for="searchForm_type" class="offscreen">{translate text="Search Type"}</label>
       <select id="searchForm_type" name="type">
       {foreach from=$basicSearchTypes item=searchDesc key=searchVal}
@@ -15,7 +15,7 @@
       {/foreach}
       </select>
       <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
-      <a href="{$path}/Search/Advanced" class="small">{translate text="Advanced"}</a>
+      <a href="{$path}/Search/Advanced" class="small span-2 last">{translate text="Advanced"}</a>
 
       {* Do we have any checkbox filters? *}
       {assign var="hasCheckboxFilters" value="0"}

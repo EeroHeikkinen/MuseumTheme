@@ -252,15 +252,9 @@ table.display tr.even.gradeU {
 	background-color: #eee;
 }
 
-
-tr.odd {
-	background-color:#ffffff;
-}
-
-tr.even {
-	background-color:#ffffff;
-}
-
+/* Remove even row coloration from component parts tables
+ */
+table#componentparts tbody tr:nth-child(even) td, table#componentparts tbody tr.even td {background:#ffffff;}
 
 
 

@@ -191,6 +191,7 @@ var infowindow = new google.maps.InfoWindow({maxWidth: 480, minWidth: 480});
 </script>
 {/literal}
   {*map goes here*}
+<div class="clear"></div>
 <div id="mapWrap" onload="initialize()" style="width: 710px; height: 479px; display:none;">
   <div id="map_canvas" style="width: 100%; height: 100%"></div>
   <div class="mapClusterToggle" id="useCluster" style="display:none;">
