@@ -9,6 +9,11 @@
         <filter class="solr.PatternReplaceFilterFactory" pattern="(?&lt;!\b[A-Z])[.\s]*$" replacement="" replace="first"/>
       </analyzer>
     </fieldType>
+    <fieldType name="textBrowseFacet" class="solr.TextField" sortMissingLast="true" omitNorms="true">
+      <analyzer>
+        <tokenizer class="solr.KeywordTokenizerFactory"/>
+      </analyzer>
+    </fieldType>
     <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.ICUTokenizerFactory"/>
@@ -178,13 +183,15 @@
    <field name="illustrated" type="string" indexed="true" stored="true" multiValued="false"/>
    <field name="long_lat" type="textFacet" indexed="true" stored="true" multiValued="false"/>
    <!-- Hierarchy Fields -->
-   <field name="hierarchy_top_id" type="textFacet" index="true" stored="true" multiValued="false"/>
-   <field name="hierarchy_top_title" type="textFacet" index="true" stored="true" multiValued="false"/>
-   <field name="hierarchy_parent_id" type="textFacet" indexed="true" stored="true" multiValued="true"/>
-   <field name="hierarchy_parent_title" type="textFacet" indexed="true" stored="true" multiValued="true"/>
-   <field name="hierarchy_browse" type="textFacet" indexed="true" stored="false" multiValued="true"/>
-   <field name="is_hierarchy_top_id" type="textFacet" indexed="true" stored="true" multiValued="false"/>
-   <field name="is_hierarchy_top_title" type="textFacet" indexed="true" stored="true" multiValued="false"/>
+   <field name="hierarchytype" type="string" index="true" stored="true" multiValued="false"/>
+   <field name="hierarchy_top_id" type="string" index="true" stored="true" multiValued="true"/>
+   <field name="hierarchy_top_title" type="string" index="true" stored="true" multiValued="true"/>
+   <field name="hierarchy_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="hierarchy_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="hierarchy_sequence" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="is_hierarchy_id" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="is_hierarchy_title" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="hierarchy_browse" type="textBrowseFacet" indexed="true" stored="false" multiValued="true"/>
    <!-- Used for loading correct record driver -->
    <field name="recordtype" type="string" indexed="false" stored="true"/>
    <!-- Tracking fields to keep track of oldest and most recent index times -->
@@ -208,6 +215,7 @@
    <dynamicField name="*_txtP" type="textProper" indexed="true" stored="true"/>
    <dynamicField name="*_txtP_mv" type="textProper" indexed="true" stored="true" multiValued="true"/>
 
+   <!-- Local dynamic fields for customization without schema modification -->
    <dynamicField name="*_coords"  type="location"  indexed="true" stored="true" multiValued="false"/>
    <dynamicField name="*_daterange"  type="dateRange"  indexed="true"  stored="true" multiValued="false"/>
    <dynamicField name="*_boolean" type="boolean" index="true" stored="true" required="false" />
@@ -219,20 +227,7 @@
    <field name="culture" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="rights" type="string" indexed="true" stored="true" multiValued="true"/>
    
-   <!-- Event-based museum data -->
-   <!-- The following utilise the dynamic fields above
-   <dynamicField name="*_place_coords"  type="location"  indexed="true" stored="true" multiValued="false"/>
-   <dynamicField name="*_daterange"  type="dateRange"  indexed="true"  stored="false" multiValued="false"/>
-   <dynamicField name="*_place_city_txtF"  type="textFacet"  indexed="true" stored="true" multiValued="false"/>
-   <dynamicField name="*_place_state_txtF"  type="textFacet"  indexed="true" stored="true" multiValued="false"/>
-   <dynamicField name="*_place_country_txtF"  type="textFacet"  indexed="true" stored="true" multiValued="false"/>
-   <dynamicField name="*_displayplace_str"  type="string"  indexed="true"  stored="true" multiValued="false"/>
-   <dynamicField name="*_displaydate_str"  type="string"  indexed="true"  stored="true" multiValued="false"/>
-   <dynamicField name="*_actor_str"  type="string"  indexed="true"  stored="true" multiValued="true"/>
-   <dynamicField name="*_place_notfound_boolean" type="boolean" index="true" stored="true" required="false" />
-    -->
-   
-   <!-- MUISTI paikkojen koordinaatit -->
+   <!-- Coordinates -->
    <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
    
  </fields>
@@ -261,7 +256,7 @@
  <copyField source="topic"    dest="topic_browse"/>
  <copyField source="author"    dest="author_browse"/>
  <copyField source="author2"    dest="author_browse"/>
- <copyField source="hierarchy_parent_title" dest="hierarchy_browse"/>
+ <copyField source="hierarchy_top_title" dest="hierarchy_browse"/>
  <!-- Default Boolean Operator -->
  <solrQueryParser defaultOperator="AND"/>
 </schema>
