@@ -50,6 +50,33 @@ class Search extends Base
         global $interface;
         global $configArray;
 
+        // TODO: something else than a hacky IP address check
+        $config = getExtraConfigArray("EBSCO");
+        if (isset($config['Access']['ip_ranges'])) {
+            $found = false;
+            $remote = sprintf('%u', ip2long($_SERVER['REMOTE_ADDR']));
+            $ranges = explode(',', $config['Access']['ip_ranges']);
+            foreach ($ranges as $range) {
+                $ips = explode('-', $range);
+                if (!isset($ips[0])) {
+                    continue;
+                }
+                $start = sprintf('%u', ip2long($ips[0]));
+                if (!isset($ips[1])) {
+                    $end = $start;
+                } else {
+                    $end = sprintf('%u', ip2long($ips[1]));
+                }
+                if ($remote >= $start && $remote <= $end) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                die ("Access denied from '" . $_SERVER['REMOTE_ADDR'] . "'");
+            }
+        }
+        
         // Initialise SearchObject.
         $this->searchObject->init();
 
@@ -127,7 +154,7 @@ class Search extends Base
                     // Unexpected error -- let's treat this as a fatal condition.
                     PEAR::raiseError(
                         new PEAR_Error(
-                            'Unable to process query<br />Summon Returned: ' . $error
+                            'Unable to process query<br />EBSCO Returned: ' . $error
                         )
                     );
                 }
