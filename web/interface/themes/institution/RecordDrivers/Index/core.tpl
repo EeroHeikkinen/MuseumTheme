@@ -1,4 +1,4 @@
-<div>
+<div class="span-6">
   {* Display Title *}
   <h1>{$coreShortTitle|escape}
   {if $coreSubtitle}{$coreSubtitle|escape}{/if}
