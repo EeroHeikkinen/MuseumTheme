@@ -195,6 +195,7 @@ p.listDescription {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
+		display:none;
     border-bottom: 1px solid #eee;
     padding: 1em 0;
 }
@@ -414,7 +415,6 @@ ul.recordSet .resultItemLine2{
     /*background-color: #f5f5f5;*/
     border-top: #eee solid 1px;
     padding: 1em;
-    font-size: 90%;
 }
 .resulthead {
     padding:.4em .4em 0em .4em;
@@ -455,26 +455,25 @@ ul.filters a {
 div.sidegroup {
 }
 div.sidegroup h4 {
-    border-bottom:1px solid #ddd;
     margin:0 0 0.5em 0;
     padding:0 0 0.5em 0;
-    font-size:1.1667em;
-    line-height:1.2857em;
 }
 dl.narrowList img {
     vertical-align: top;
 }
 dl.narrowList a:hover {
     /*text-decoration: underline;*/
+    background-color:#f9f9f9;
 }
 dl.narrowList a {
+		display:block;
     text-decoration: none;
+    padding: 0.1em 0 0.1em 0.4em;
 }
 .navmenu dd {
-    padding: 0.1em 0 0.1em 0.4em;
     list-style-type: none;
-    border-bottom: 1px solid #e3e3e3;
-    margin: 0;
+    /* border-bottom: 1px solid #e3e3e3; */
+    margin:0;
 }
 .navmenu dt {
     margin-top:.75em;
@@ -482,15 +481,25 @@ dl.narrowList a {
     padding:0.2em 0.4em;
     background-color: #eee;
 }
-
-
+.suggestedTopicsHidden {
+		margin-top:1em;
+}
+.facetWrapper {
+		float:left;
+		width:auto;
+		margin-right:0.4em;
+}
+.facetCount {
+		font-size:0.8em;
+		color:#999;
+}
 
 
 /* Icon Classes */
 
 /* common styles */
 
-.toolbar li a, ul.recordSet .addToFavLink a {
+.toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch {
 		display:block;
 		text-align:left;
     background-repeat:no-repeat;
@@ -501,7 +510,9 @@ ul.recordSet .addToFavLink a {
     background-position:5px 3px;
     padding:.1em .5em .5em 25px;
 }
-
+.searchtools a.mailSearch {
+		display:inline-block;
+}
 
 .bookbag {
     background-image:url(../images/fugue/bookbag.png);
@@ -1053,7 +1064,7 @@ h5.recordTabHeader{
     height:27px;
     margin:0;
     padding:0 0 0 1em;
-    border-bottom:1px solid #dddddd;
+    /* border-bottom:1px solid #dddddd; */
 }
 
 /*********** Toolbar (Favorites View) ************/
