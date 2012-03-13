@@ -443,26 +443,25 @@ ul.filters a {
 div.sidegroup {
 }
 div.sidegroup h4 {
-    border-bottom:1px solid #ddd;
     margin:0 0 0.5em 0;
     padding:0 0 0.5em 0;
-    font-size:1.1667em;
-    line-height:1.2857em;
 }
 dl.narrowList img {
     vertical-align: top;
 }
 dl.narrowList a:hover {
     /*text-decoration: underline;*/
+    background-color:#f9f9f9;
 }
 dl.narrowList a {
+		display:block;
     text-decoration: none;
+    padding: 0.1em 0 0.1em 0.4em;
 }
 .navmenu dd {
-    padding: 0.1em 0 0.1em 0.4em;
     list-style-type: none;
     /* border-bottom: 1px solid #e3e3e3; */
-    margin: 0;
+    margin:0;
 }
 .navmenu dt {
     margin-top:.75em;
@@ -478,7 +477,10 @@ dl.narrowList a {
 		width:auto;
 		margin-right:0.4em;
 }
-
+.facetCount {
+		font-size:0.8em;
+		color:#999;
+}
 
 
 /* Icon Classes */
