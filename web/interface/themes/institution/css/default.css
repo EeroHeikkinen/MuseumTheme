@@ -33,27 +33,39 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
-
+/** Languages **/
+div.lang {
+    line-height: 30px;
+}
+div.lang ul {
+    margin: 0 .4em;
+}
+div.lang li, div.lang a {
+    float: left;
+    overflow: hidden;
+    height: 30px;
+    font-style: normal;
+}
+div.lang li {
+    padding: 0 8px;
+    font-size: 90%;
+}
 
 
 
 .alignright {
     text-align: right;
 }
-.alignright form {
-    float: right;
-}
+
 #loginOptions, #logoutOptions {
     float: right;
     margin-right: 48px;
 }
-.searchheader {
-    margin-top: 10px;
-}
+/*
 .searchheader .alignright a {
     margin-left: 18px;
 }
-
+*/
 .hiddenLabel {
     display: none;
 }

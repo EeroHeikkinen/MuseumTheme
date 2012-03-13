@@ -90,14 +90,51 @@
     {* End LightBox *}
 
     <div class="container">
+
+      {if $showBreadcrumbs}
+      <div class="breadcrumbs">
+        <div class="breadcrumbinner">
+          <a href="{$url}">{translate text="Home"}</a> <span>&gt;</span>
+          {include file="$module/breadcrumbs.tpl"}
+        </div>
+      {/if}
+        <div class="lang right">
+          {if is_array($allLangs) && count($allLangs) > 1}
+            <form method="post" name="langForm" action="">
+              <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label>
+              </div>
+              <ul>
+              {foreach from=$allLangs key=langCode item=langName}
+                {if $userLang == $langCode}
+                <li class="strong">{translate text=$langName}</li>
+                {else}
+                <li><input type="hidden" name="mylang" value="{$langCode}"/><a href="#" onClick="document.langForm.submit();">{translate text=$langName}</a></li>
+                {/if}
+              {/foreach}
+              </ul>
+              <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
+            </form>
+          {/if}
+        </div>
+      {if $showBreadcrumbs} {* Let's close that DIV, too *}
+      </div>
+      {/if}
+
+
+
+
 <!-- make the header like this
       <div class="header">
         {include file="header.tpl"}
       </div>
 -->
+
+
+
     <div class="searchheader">
       <div class="searchcontent">
         <div class="alignright">
+<!--
           {if is_array($allLangs) && count($allLangs) > 1}
             <form method="post" name="langForm" action="">
               <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label></div>
@@ -109,6 +146,7 @@
               <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
             </form>
           {/if}
+-->
           <div id="logoutOptions"{if !$user} style="display: none;"{/if}>
             <a href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
             <a href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
@@ -142,16 +180,8 @@
         <div class="clear"></div>
       </div>
     </div>
-    
-    {if $showBreadcrumbs}
-    <div class="breadcrumbs">
-      <div class="breadcrumbinner">
-        <a href="{$url}">{translate text="Home"}</a> <span>&gt;</span>
-        {include file="$module/breadcrumbs.tpl"}
-      </div>
-    </div>
-    {/if}
-    
+
+        
 	<div class="main">
       {if $useSolr || $useWorldcat || $useSummon}
       <div id="toptab">
