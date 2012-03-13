@@ -470,7 +470,14 @@ dl.narrowList a {
     padding:0.2em 0.4em;
     background-color: #eee;
 }
-
+.suggestedTopicsHidden {
+		margin-top:1em;
+}
+.facetWrapper {
+		float:left;
+		width:auto;
+		margin-right:0.4em;
+}
 
 
 
