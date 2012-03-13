@@ -79,6 +79,10 @@ class Results extends Action
         if (isset($configArray['Content']['previews'])) {
             $interface->assignPreviews();
         }
+        
+        // Determine if we want to magnify thumbnails on hover (theme has to support this)
+        $interface->assign('enableThumbnailMagnifier', isset($configArray['Content']['enableThumbnailMagnifier']) ? 
+        		$configArray['Content']['enableThumbnailMagnifier'] : false);
 
         $interface->assign(
         	"showContext",

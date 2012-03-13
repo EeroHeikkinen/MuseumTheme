@@ -50,6 +50,7 @@ class_location    = /usr/local/vufind/web/services/MyResearch/lib
 coverimages    = Google,OpenLibrary
 previews       = Google,OpenLibrary,HathiTrust
 recordMap = google
+enableThumbnailMagnifier = true
 
 [OpenURL]
 url             = "http://sfx.nelliportaali.fi/sfxtst3"

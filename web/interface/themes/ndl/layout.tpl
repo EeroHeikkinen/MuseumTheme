@@ -17,6 +17,8 @@
     {css media="screen" filename="styles.css"}
     {css media="screen" filename="datatables.css"}
     {css media="print" filename="print.css"}
+    {if $enableThumbnailMagnifier}{css media="screen" filename="loupe.css"}{/if}
+    
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <script language="JavaScript" type="text/javascript">
       path = '{$url}';
@@ -30,6 +32,22 @@
     {js filename="scripts.js"}
     {js filename="rc4.js"}
     {js filename="ajax.yui.js"}
+    
+    {if $enableThumbnailMagnifier}
+		{js filename="jquery.js"}
+		{js filename="jquery.loupe.js"}
+		
+		<script language="JavaScript" type="text/javascript">
+		  {literal}
+		  jQuery(document).ready(function($) {
+			$(".yui-u a[id]").loupe({
+				width: 300,
+				height: 250
+			});
+		  });
+		  {/literal}
+	    </script>
+    {/if}
   </head>
 
   <body>
