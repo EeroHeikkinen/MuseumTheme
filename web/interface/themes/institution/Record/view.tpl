@@ -29,11 +29,15 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {js filename="openurl.js"}
 {/if}
 
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
   <div class="toolbar">
     <ul>
-      <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li>
+      <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
+      
+      {* SMS commented out for now
       <li><a href="{$url}/Record/{$id|escape:"url"}/SMS" class="smsRecord sms" id="smsRecord{$id|escape}" title="{translate text="Text this"}">{translate text="Text this"}</a></li>
+      *}
+      
       <li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li>
       {if is_array($exportFormats) && count($exportFormats) > 0}
       <li>
@@ -45,7 +49,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         </ul>
       </li>
       {/if}
-      <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
+      <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li>
       {if !empty($addThis)}
       <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text='Bookmark'}</a></li>
       {/if}
@@ -141,7 +145,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   <span class="Z3988" title="{$openURL|escape}"></span>
 </div>
 
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
   <div class="sidegroup">
     <h4>{translate text="Similar Items"}</h4>
     {if is_array($similarRecords)}

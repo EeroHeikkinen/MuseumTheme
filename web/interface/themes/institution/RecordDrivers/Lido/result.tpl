@@ -10,7 +10,7 @@
   
   
   
-    <div class="resultImages">
+    <div class="coverDiv span-2">
     	<div>
     	{if $summThumb}
         <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
@@ -41,7 +41,7 @@
     
     
     
-    <div class="span-9">
+    <div class="span-5">
       <div class="resultItemLine1">
       	<a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
       </div>
@@ -109,7 +109,7 @@
     </div>
   </div>
 
-  <div class="span-4 last">
+  <div class="span-3 last addToFavLink">
     <div id="saveLink{$summId|escape}">
       <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool">{translate text='Add to favorites'}</a>
       <ul id="lists{$summId|escape}"></ul>

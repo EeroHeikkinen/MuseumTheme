@@ -71,7 +71,7 @@
         {if $showTopSearchBox}
           <a href="{$url}">{image src="kui.png" alt="Kui?" class="alignleft"}</a>
           {if $pageTemplate != 'advanced.tpl'}
-            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority"}
+            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority" ||Ê$module=="EBSCO"}
               {include file="`$module`/searchbox.tpl"}
             {else}
               {include file="Search/searchbox.tpl"}

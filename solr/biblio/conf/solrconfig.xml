@@ -330,9 +330,21 @@
     <listener event="firstSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
         <lst>
-          <str name="q">science art business engineering history markkinointi historia tieteellinen lehti</str>
+          <str name="q">science art business engineering history</str>
           <str name="facet.field">format</str>
           <str name="fq">format:book</str>
+        </lst>
+        <lst>
+          <str name="q">markkinointi</str>
+        </lst>
+        <lst>
+          <str name="q">historia</str>
+        </lst>
+        <lst>
+          <str name="q">tieteellinen</str>
+        </lst>
+        <lst>
+          <str name="q">lehti</str>
         </lst>
       </arr>
     </listener>

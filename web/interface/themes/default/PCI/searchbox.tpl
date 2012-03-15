@@ -1,21 +1,21 @@
 <div class="searchform">
-  {if $searchType == 'SummonAdvanced'}
-    <a href="{$path}/EBSCO/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
-    <a href="{$path}/EBSCO/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
-    <a href="{$path}/EBSCO/Home" class="small">{translate text="Start a new Basic Search"}</a>
+  {if $searchType == 'PCIAdvanced'}
+    <a href="{$path}/PCI/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
+    <a href="{$path}/PCI/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
+    <a href="{$path}/PCI/Home" class="small">{translate text="Start a new Basic Search"}</a>
     <br>{translate text="Your search terms"} : "<b>{$lookfor|escape:"html"}</b>"
   {else}
-    <form method="GET" action="{$path}/EBSCO/Search" name="searchForm" id="searchForm" class="search">
+    <form method="GET" action="{$path}/PCI/Search" name="searchForm" id="searchForm" class="search">
       <div class="hiddenLabel"><label for="lookfor">{translate text="Search For"}:</label></div>
       <input id="lookfor" type="text" name="lookfor" size="30" value="{$lookfor|escape:"html"}">
       <div class="hiddenLabel"><label for="type">{translate text="in"}:</label></div>
       <select id="type" name="type">
-        {foreach from=$EBSCOSearchTypes item=searchDesc key=searchVal}
+        {foreach from=$basicSearchTypes item=searchDesc key=searchVal}
           <option value="{$searchVal}"{if $searchIndex == $searchVal} selected{/if}>{translate text=$searchDesc}</option>
         {/foreach}
       </select>
       <input type="submit" name="submit" value="{translate text="Find"}">
-      <!-- <a href="{$path}/EBSCO/Advanced" class="small">{translate text="Advanced"}</a> -->
+      <!-- <a href="{$path}/PCI/Advanced" class="small">{translate text="Advanced"}</a> -->
 
       {* Do we have any checkbox filters? *}
       {assign var="hasCheckboxFilters" value="0"}

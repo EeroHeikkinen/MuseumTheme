@@ -71,7 +71,7 @@
         {if $showTopSearchBox}
           <a href="{$url}"><img src="{$path}/interface/themes/default/images/vufind_logo.png" alt="VuFind" class="alignleft"></a>
           {if $pageTemplate != 'advanced.tpl'}
-            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority" || $module=="EBSCO"}
+            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority" || $module=="EBSCO" || $module=="PCI"}
               {include file="`$module`/searchbox.tpl"}
             {else}
               {include file="Search/searchbox.tpl"}
@@ -94,7 +94,7 @@
     
     <div id="doc2" class="yui-t{if $sidebarOnLeft}2{else}4{/if}"> {* Change id for page width, class for menu layout. *}
 
-      {if $useSolr || $useWorldcat || $useSummon || $useEBSCO}
+      {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI}
       <div id="toptab">
         <ul>
           {if $useSolr}
@@ -108,6 +108,9 @@
           {/if}
           {if $useEBSCO}
           <li{if $module == "EBSCO"} class="active"{/if}><a href="{$url}/EBSCO/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
+          {/if}
+          {if $usePCI}
+          <li{if $module == "PCI"} class="active"{/if}><a href="{$url}/PCI/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
           {/if}
         </ul>
       </div>

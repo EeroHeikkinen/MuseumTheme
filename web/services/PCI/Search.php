@@ -1,6 +1,6 @@
 <?php
 /**
- * Search action for EBSCO module
+ * Search action for PCI module
  *
  * PHP version 5
  *
@@ -29,10 +29,10 @@ require_once 'Base.php';
 require_once 'sys/Pager.php';
 
 /**
- * Search action for EBSCO module
+ * Search action for PCI module
  *
  * @category VuFind
- * @package  Controller_EBSCO
+ * @package  Controller_PCI
  * @author   Andrew Nagy <vufind-tech@lists.sourceforge.net>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
@@ -50,33 +50,6 @@ class Search extends Base
         global $interface;
         global $configArray;
 
-        // TODO: something else than a hacky IP address check
-        $config = getExtraConfigArray("EBSCO");
-        if (isset($config['Access']['ip_ranges'])) {
-            $found = false;
-            $remote = sprintf('%u', ip2long($_SERVER['REMOTE_ADDR']));
-            $ranges = explode(',', $config['Access']['ip_ranges']);
-            foreach ($ranges as $range) {
-                $ips = explode('-', $range);
-                if (!isset($ips[0])) {
-                    continue;
-                }
-                $start = sprintf('%u', ip2long($ips[0]));
-                if (!isset($ips[1])) {
-                    $end = $start;
-                } else {
-                    $end = sprintf('%u', ip2long($ips[1]));
-                }
-                if ($remote >= $start && $remote <= $end) {
-                    $found = true;
-                    break;
-                }
-            }
-            if (!$found) {
-                die ("Access denied from '" . $_SERVER['REMOTE_ADDR'] . "'");
-            }
-        }
-        
         // Initialise SearchObject.
         $this->searchObject->init();
 
@@ -90,7 +63,7 @@ class Search extends Base
         $interface->assign('searchIndex', $this->searchObject->getSearchIndex());
         $interface->assign('searchType', $this->searchObject->getSearchType());
 
-        // Search EBSCO
+        // Search PCI
         $result = $this->searchObject->processSearch(true, true);
 
         // We'll need recommendations no matter how many results we found:
@@ -122,7 +95,7 @@ class Search extends Base
             // If our result set is larger than the number of records that
             // EDS will let us page through, we should cut off the number
             // before passing it to our paging mechanism:
-            $config = getExtraConfigArray('EBSCO');
+            $config = getExtraConfigArray('PCI');
             $pageLimit = isset($config['General']['result_limit']) ?
                 $config['General']['result_limit'] : 2000;
             $totalPagerItems = $summary['resultTotal'] < $pageLimit ?
@@ -138,7 +111,7 @@ class Search extends Base
 
             // Display Listing of Results
             $interface->setTemplate('list.tpl');
-            $interface->assign('subpage', 'EBSCO/list-list.tpl');
+            $interface->assign('subpage', 'PCI/list-list.tpl');
         } else {
             $interface->assign('recordCount', 0);
             // Was the empty result set due to an error?
@@ -154,12 +127,12 @@ class Search extends Base
                     // Unexpected error -- let's treat this as a fatal condition.
                     PEAR::raiseError(
                         new PEAR_Error(
-                            'Unable to process query<br />EBSCO Returned: ' . $error
+                            'Unable to process query<br />PCI Returned: ' . $error
                         )
                     );
                 }
             }
-            $interface->setTemplate('list-none.tpl');
+            $interface->setTemplate('PCI/list-none.tpl');
         }
 
         // 'Finish' the search... complete timers and log search history.
@@ -181,7 +154,7 @@ class Search extends Base
     /**
      * Process the "jumpto" parameter.
      *
-     * @param array $result Summon result
+     * @param array $result PCI result
      *
      * @return void
      * @access private

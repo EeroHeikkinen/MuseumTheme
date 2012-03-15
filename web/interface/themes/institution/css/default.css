@@ -33,27 +33,39 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
-
+/** Languages **/
+div.lang {
+    line-height: 30px;
+}
+div.lang ul {
+    margin: 0 .4em;
+}
+div.lang li, div.lang a {
+    float: left;
+    overflow: hidden;
+    height: 30px;
+    font-style: normal;
+}
+div.lang li {
+    padding: 0 8px;
+    font-size: 90%;
+}
 
 
 
 .alignright {
     text-align: right;
 }
-.alignright form {
-    float: right;
-}
+
 #loginOptions, #logoutOptions {
     float: right;
     margin-right: 48px;
 }
-.searchheader {
-    margin-top: 10px;
-}
+/*
 .searchheader .alignright a {
     margin-left: 18px;
 }
-
+*/
 .hiddenLabel {
     display: none;
 }
@@ -109,10 +121,10 @@ a:focus, a:hover {
 }
 
 #logo {
-    background:url("../images/vufind_logo.jpg") no-repeat scroll left center transparent;
-    float:left;
-    height:65px;
-    width:300px;
+    background: url("../images/morgan_logo_small.gif") no-repeat scroll left center transparent;
+    float: left;
+    height: 46px;
+    width: 211px;
 }
 
 #headerRight {
@@ -183,6 +195,7 @@ p.listDescription {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
+		display:none;
     border-bottom: 1px solid #eee;
     padding: 1em 0;
 }
@@ -329,37 +342,46 @@ ul.recordSet {
     list-style-type: none;
 }
 ul.recordSet li {
-    padding: .4em;
+    padding: .4em 0;
 }
 
 ul.recordSet li.alt {
-    background-color: #eee;
+    background-color: #f3f3f3;
 }
 ul.recordSet input.checkbox_ui {
     float: left;
     margin-top: 3em;
     margin-left: -1em;
     margin-right: .4em;
-        margin:3em 6px 6px -30px;
+    margin:3em 6px 6px -30px;
 }
 ul.recordSet .recordNumber {
-        width:30px;
+    width:30px;
     float: left;
     font-weight: bold;
     margin-right: 0.2em;
 }
 ul.recordSet .addToFavLink {
-    float: right;
-    text-align: right;
+		width:auto;
+		float:right;
+}
+ul.recordSet .coverDiv {
+		width:100px;
+		height:100px;
+		border:1px solid #ddd;
+		text-align:center;
+		overflow:hidden;
+}
+ul.recordSet .resultItemLine2{
+	margin:0.2em 0 0 0;
 }
 .summcover {
-    max-width: 120px;
     padding:0;
     margin:0;
 }
 .resultImages {
-        float:left;
-        margin:0 10px 0 0;
+    float:left;
+    margin:0 10px 0 0;
 }
 .result .imagelinks a {
         float:left;
@@ -393,7 +415,6 @@ ul.recordSet .addToFavLink {
     /*background-color: #f5f5f5;*/
     border-top: #eee solid 1px;
     padding: 1em;
-    font-size: 90%;
 }
 .resulthead {
     padding:.4em .4em 0em .4em;
@@ -434,26 +455,25 @@ ul.filters a {
 div.sidegroup {
 }
 div.sidegroup h4 {
-    border-bottom:1px solid #ddd;
     margin:0 0 0.5em 0;
     padding:0 0 0.5em 0;
-    font-size:1.1667em;
-    line-height:1.2857em;
 }
 dl.narrowList img {
     vertical-align: top;
 }
 dl.narrowList a:hover {
     /*text-decoration: underline;*/
+    background-color:#f9f9f9;
 }
 dl.narrowList a {
+		display:block;
     text-decoration: none;
+    padding: 0.1em 0 0.1em 0.4em;
 }
 .navmenu dd {
-    padding: 0.1em 0 0.1em 0.4em;
     list-style-type: none;
-    border-bottom: 1px solid #e3e3e3;
-    margin: 0;
+    /* border-bottom: 1px solid #e3e3e3; */
+    margin:0;
 }
 .navmenu dt {
     margin-top:.75em;
@@ -461,8 +481,38 @@ dl.narrowList a {
     padding:0.2em 0.4em;
     background-color: #eee;
 }
+.suggestedTopicsHidden {
+		margin-top:1em;
+}
+.facetWrapper {
+		float:left;
+		width:auto;
+		margin-right:0.4em;
+}
+.facetCount {
+		font-size:0.8em;
+		color:#999;
+}
+
 
 /* Icon Classes */
+
+/* common styles */
+
+.toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch {
+		display:block;
+		text-align:left;
+    background-repeat:no-repeat;
+    background-position:5px;
+    padding:.5em .5em .5em 25px;
+}
+ul.recordSet .addToFavLink a {
+    background-position:5px 3px;
+    padding:.1em .5em .5em 25px;
+}
+.searchtools a.mailSearch {
+		display:inline-block;
+}
 
 .bookbag {
     background-image:url(../images/fugue/bookbag.png);
@@ -471,7 +521,6 @@ dl.narrowList a {
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
-
 .bookbagView {
     background-image:url(../images/fugue/bookbag.png);
     background-repeat:no-repeat;
@@ -479,7 +528,6 @@ dl.narrowList a {
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
-
 .bookbagAdd {
     background-image:url(../images/fugue/bookbagAdd.png);
     background-repeat:no-repeat;
@@ -487,7 +535,6 @@ dl.narrowList a {
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
-
 .bookbagDelete {
     background-image:url(../images/fugue/bookbagDelete.png);
     background-repeat:no-repeat;
@@ -495,7 +542,6 @@ dl.narrowList a {
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
-
 .bookbagEmpty {
     background-image:url(../images/fugue/bookbagEmpty.png);
     background-repeat:no-repeat;
@@ -504,6 +550,7 @@ dl.narrowList a {
     margin-right:1em;
 }
 
+
 .print {
     background-image:url(../images/silk/printer.png);
     background-repeat:no-repeat;
@@ -511,7 +558,6 @@ dl.narrowList a {
     padding:0 .5em .5em 20px;
     margin-right:1em;
 }
-
 .login {
     background-image:url(../images/silk/user.png);
     background-repeat:no-repeat;
@@ -538,40 +584,26 @@ dl.narrowList a {
 }
 .cite {
     background-image:url(../images/silk/report.png);
-    padding:.5em .5em .5em 25px;
-    margin-right:1em;
 }
 .export {
     background-image:url(../images/silk/application_add.png);
-    padding:.5em .5em .5em 20px;
-    margin-right:1em;
 }
 .sms {
     background-image:url(../images/silk/phone.png);
-    padding:.5em .5em .5em 20px;
-    margin-right:1em;
+}
+.mail {
+    background-image:url(../images/silk/email.png);
+}
+.fav {
+    background-image:url(../images/silk/heart.png);
+}
+.addThis {
+    background-image:url(../images/silk/tag_yellow.png);
 }
 .tag {
     background-image:url(../images/silk/tag_blue.png);
     padding:.5em .5em .5em 20px;
     margin-right:1em;
-}
-.mail {
-    background-image:url(../images/silk/email.png);
-    background-repeat:no-repeat;
-    background-position:5px;
-    padding:.5em .5em .5em 25px;
-    margin-right:1em;
-}
-.fav {
-    background-image:url(../images/silk/heart.png);
-    background-repeat:no-repeat;
-    background-position:5px;
-    padding:.5em .5em .5em 25px;
-    margin-right:1em;
-}
-.fav.tool {
-        font-size:0.9em;
 }
 .edit {
     background-image:url(../images/silk/edit.png);
@@ -773,13 +805,6 @@ dl.narrowList a {
     font-size: 8pt;
     font-weight: bold;
 }
-.addThis {
-    background-image:url(../images/silk/tag_yellow.png);
-    background-repeat:no-repeat;
-    background-position: left;
-    padding:.5em .5em .5em 20px;
-    margin-right:1em;
-}
 .holdPlace {
     background-image:url(../images/fugue/holdPlace.png);
     background-repeat:no-repeat;
@@ -825,6 +850,8 @@ dl.narrowList a {
     background-repeat:no-repeat;
     padding-left:18px;
 }
+
+
 
 /***** Pagination *****/
 
@@ -999,31 +1026,17 @@ h5.recordTabHeader{
 
 /*********** Toolbar (Record View) ************/
 .toolbar {
-        float:right;
-    text-align:left;
-    font-size:90%;
-    min-height:2em;
+    float:right;
     padding-left:1em;
-    margin:31px 10px 1em 0;
+    margin:0;
 }
 .toolbar ul {
-    display:block;
-    height:23px;
     list-style-type:none;
 }
-.toolbar ul li {
-
-}
-.toolbar ul li a {
-    display:block;
-    background-repeat:no-repeat;
-    background-position:5px;
-    padding-left:26px;
-    padding-right:5px;
-}
 .toolbar ul li a:hover{
-        background-color:#f9f9f9;
+    background-color:#f9f9f9;
 }
+/*
 .toolbar ul.menu {
     display:block;
     margin-top: 0;
@@ -1044,14 +1057,14 @@ h5.recordTabHeader{
     background:white;
     margin: 0px;
 }
-
+*/
 /*********** Next / prev *************************/
 
 .resultscroller {
     height:27px;
     margin:0;
     padding:0 0 0 1em;
-    border-bottom:1px solid #dddddd;
+    /* border-bottom:1px solid #dddddd; */
 }
 
 /*********** Toolbar (Favorites View) ************/

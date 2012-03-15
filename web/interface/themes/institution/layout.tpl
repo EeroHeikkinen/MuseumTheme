@@ -46,13 +46,12 @@
     </script>
 
 	{* Load jQuery framework and plugins *}
-    {js filename="jquery-1.4.4.min.js"}
+    {js filename="jquery-1.7.1.min.js"}
     {js filename="jquery.form.js"}
     {js filename="jquery.metadata.js"}
     {js filename="jquery.validate.min.js"} 
     
-    {* Load jQuery files needed for datatables *}
-    {js filename="jquery.js"}
+    {* Component parts *}
     {js filename="jquery.dataTables.js"}   
     
     {* Load jQuery UI *}
@@ -76,12 +75,11 @@
     <![endif]-->
     *}
 
-
+    {* For mobile devices *}
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
 
-    </head>
-
+  </head>
   <body>
 
     {* LightBox *}
@@ -92,10 +90,51 @@
     {* End LightBox *}
 
     <div class="container">
-    
+
+      {if $showBreadcrumbs}
+      <div class="breadcrumbs">
+        <div class="breadcrumbinner">
+          <a href="{$url}">{translate text="Home"}</a> <span>&gt;</span>
+          {include file="$module/breadcrumbs.tpl"}
+        </div>
+      {/if}
+        <div class="lang right">
+          {if is_array($allLangs) && count($allLangs) > 1}
+            <form method="post" name="langForm" action="">
+              <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label>
+              </div>
+              <ul>
+              {foreach from=$allLangs key=langCode item=langName}
+                {if $userLang == $langCode}
+                <li class="strong">{translate text=$langName}</li>
+                {else}
+                <li><input type="hidden" name="mylang" value="{$langCode}"/><a href="#" onClick="document.langForm.submit();">{translate text=$langName}</a></li>
+                {/if}
+              {/foreach}
+              </ul>
+              <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
+            </form>
+          {/if}
+        </div>
+      {if $showBreadcrumbs} {* Let's close that DIV, too *}
+      </div>
+      {/if}
+
+
+
+
+<!-- make the header like this
+      <div class="header">
+        {include file="header.tpl"}
+      </div>
+-->
+
+
+
     <div class="searchheader">
       <div class="searchcontent">
         <div class="alignright">
+<!--
           {if is_array($allLangs) && count($allLangs) > 1}
             <form method="post" name="langForm" action="">
               <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label></div>
@@ -107,6 +146,7 @@
               <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
             </form>
           {/if}
+-->
           <div id="logoutOptions"{if !$user} style="display: none;"{/if}>
             <a href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
             <a href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
@@ -121,8 +161,11 @@
           </div>
         </div>
 
+
+
         {if $showTopSearchBox}
-          <a href="{$url}">{image src="morgan_logo_small.gif" width="211" height="46" alt="Morgan" class="alignleft"}</a>
+        <div class="searchbox">
+          <a {*id="logo"*} href="{$url}">{image src="morgan_logo_small.gif" alt="Morgan" class="alignleft"}</a>
           {if $pageTemplate != 'advanced.tpl'}
             {if $module=="Summon" || $module=="WorldCat" || $module=="Authority"}
               {include file="`$module`/searchbox.tpl"}
@@ -131,23 +174,15 @@
               {include file="Search/searchbox.tpl"}
             {/if}
           {/if}
+        </div>
         {/if}
 
         <div class="clear"></div>
       </div>
     </div>
-    
-    {if $showBreadcrumbs}
-    <div class="breadcrumbs">
-      <div class="breadcrumbinner">
-        <a href="{$url}">{translate text="Home"}</a> <span>&gt;</span>
-        {include file="$module/breadcrumbs.tpl"}
-      </div>
-    </div>
-    {/if}
-    
-	<div class="main">
 
+        
+	<div class="main">
       {if $useSolr || $useWorldcat || $useSummon}
       <div id="toptab">
         <ul>
@@ -162,9 +197,7 @@
           {/if}
         </ul>
       </div>
-      <div style="clear: left;"></div>
       {/if}
-
       {include file="$module/$pageTemplate"}
 
       <div id="footer">
