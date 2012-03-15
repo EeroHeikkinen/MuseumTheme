@@ -16,14 +16,21 @@ body {
 }
 .container {
     width: 950px; /* make this match the body width above */
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: none/*1px solid #dddddd;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px*/;
 }
 
 
+/****** General ******/
 
-/***** General *****/
+ul {
+    list-style-type: none;
+}
 
-
-/** Links **/
+/*** Links ***/
 a {
     color: #0066cc;
     text-decoration: none;
@@ -33,7 +40,7 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
-/** Languages **/
+/*** Languages ***/
 div.lang {
     line-height: 30px;
 }
@@ -51,21 +58,47 @@ div.lang li {
     font-size: 90%;
 }
 
-
-
+/*** Position ***/
+img.alignright {
+    float: right;
+    margin: 0 0 0 10px;
+}
+img.alignleft {
+    float: left;
+    margin: 0 10px 0 0;
+}
 .alignright {
     text-align: right;
 }
+.clear {
+    clear: both;
+}
+.clearer {
+    clear: both;
+}
+.floatleft {
+    float: left;
+}
+.floatright {
+    float: right;
+}
+/* class to make stuff "invisible" but still readable by screen readers */
+.offscreen {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    display:inline;
+}
+
+
+
 
 #loginOptions, #logoutOptions {
-    float: right;
-    margin-right: 48px;
 }
-/*
-.searchheader .alignright a {
-    margin-left: 18px;
-}
-*/
+
 .hiddenLabel {
     display: none;
 }
@@ -100,42 +133,24 @@ div.lang li {
     cursor:pointer;
 }
 */
-.container {
-    -moz-border-radius: 5px 5px 5px 5px;
-    border: none/*1px solid #ddd*/;
-    background: none repeat scroll 0 0 #FFFFFF;
-}
 
-.searchbox,.breadcrumbs,.main,#footer {
+.breadcrumbs, .searchbox, .main, .footer {
     border-top: 1px solid #ddd;
 }
 
-.header,.searchbox,.breadcrumbs,.main,#footer {
+.breadcrumbs, .searchbox, .main, .footer {
     padding: .8em 0;
 }
-.clear {
-    clear: both;
-}
-.clearer {
-    clear: both;
-}
+
 
 #logo {
     background: url("../images/morgan_logo_small.gif") no-repeat scroll left center transparent;
     float: left;
+    margin-top: 25px;
     height: 46px;
     width: 211px;
 }
 
-#headerRight {
-    width: 400px;
-    float: right;
-    text-align: right;
-}
-
-#langForm {
-    margin-top: .3em;
-}
 
 label.invalid {
     background:url("../images/unchecked.gif") no-repeat scroll 0 0 transparent;
@@ -146,16 +161,6 @@ label.invalid {
     margin-left: 5px;
 }
 
-/** class to make stuff "invisible" but still readable by screen readers */
-.offscreen {
-    position:absolute;
-    left:-10000px;
-    top:auto;
-    width:1px;
-    height:1px;
-    overflow:hidden;
-    display:inline;
-}
 
 div#modalDialog {
     text-align: left;
@@ -173,16 +178,6 @@ div.dialogLoading {
 .highlight {
     font-weight: bold;
     background: none;
-}
-.floatleft { float:left; }
-.floatright { float:right; }
-img.alignright {
-    float: right;
-    margin: 0 0 0 10px;
-}
-img.alignleft {
-    float: left;
-    margin: 0 10px 0 0;
 }
 .searchheader img.alignleft {
     margin: 20px 24px 12px 0;

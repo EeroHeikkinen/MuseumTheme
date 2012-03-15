@@ -1,4 +1,4 @@
-{* Your footer *}
+{** Footer **}
 <span class="small">
 <div class="span-3"><p><strong>{translate text='Search Options'}</strong></p>
   <ul>

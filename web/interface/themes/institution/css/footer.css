@@ -1,17 +1,16 @@
 /****** Footer ******/
 
-#footer {
+.footer {
     margin-top: 12px;
 }
-#footer ul {
-    list-style-type: none;
+.footer ul {
     margin-top: 6px;
     padding-left: 0;
 }
-#footer a.footerLogo {
+a.footerLogo {
     display: block;
 }
-#footer a.footerLogo img {
+a.footerLogo img {
     margin: 0 10px 0 0;
     vertical-align: middle;
 }
