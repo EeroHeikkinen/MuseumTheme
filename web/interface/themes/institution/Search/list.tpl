@@ -1,5 +1,5 @@
 {* Main Listing *}
-<div class="span-13 authorbox" style="padding-left:0;>
+<div class="span-13 authorbox" style="padding-left:0;">
   {* Recommendations *}
   {if $topRecommendations}
     {foreach from=$topRecommendations item="recommendations"}

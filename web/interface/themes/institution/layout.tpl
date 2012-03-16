@@ -67,7 +67,7 @@
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
     <!--[if lt IE 7]><script type="text/javascript" src="{$url}/interface/themes/institution/css/iepngfix/iepngfix_tilebg.js"></script><![endif]-->
-    {* Enable HTML5 in old IE  http://code.google.com/p/html5shim/
+    {* Enable HTML5 in old IE - http://code.google.com/p/html5shim/
        (for future reference, commented out for now) *}
     {*
     <!--[if lt IE 9]>
@@ -85,7 +85,7 @@
     {* LightBox *}
     <div id="lightboxLoading" style="display: none;">{translate text="Loading"}...</div>
     <div id="lightboxError" style="display: none;">{translate text="lightbox_error"}</div>
-    <div id="lightbox" onClick="hideLightbox(); return false;"></div>
+    <div id="lightbox" onclick="hideLightbox(); return false;"></div>
     <div id="popupbox" class="popupBox"><b class="btop"><b></b></b></div>
     {* End LightBox *}
 
@@ -108,7 +108,7 @@
                 {if $userLang == $langCode}
                 <li class="strong">{translate text=$langName}</li>
                 {else}
-                <li><input type="hidden" name="mylang" value="{$langCode}"/><a href="#" onClick="document.langForm.submit();">{translate text=$langName}</a></li>
+                <li><input type="hidden" id="mylang" name="mylang" value="{$langCode}"/><a href="#" onclick="document.langForm.submit();">{translate text=$langName}</a></li>
                 {/if}
               {/foreach}
               </ul>
@@ -120,91 +120,34 @@
       </div>
       {/if}
 
-
-
-
-<!-- make the header like this
-      <div class="header">
+      {* make the header like this (remove this comment when done) *}
+      <div class="header clear">
         {include file="header.tpl"}
       </div>
--->
-
-
-
-    <div class="searchheader">
-      <div class="searchcontent">
-        <div class="alignright">
-<!--
-          {if is_array($allLangs) && count($allLangs) > 1}
-            <form method="post" name="langForm" action="">
-              <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label></div>
-              <select id="mylang" name="mylang" onChange="document.langForm.submit();">
-                {foreach from=$allLangs key=langCode item=langName}
-                  <option value="{$langCode}"{if $userLang == $langCode} selected{/if}>{translate text=$langName}</option>
-                {/foreach}
-              </select>
-              <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
-            </form>
-          {/if}
--->
-          <div id="logoutOptions"{if !$user} style="display: none;"{/if}>
-            <a href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
-            <a href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
-          </div>
-          <div id="loginOptions"{if $user} style="display: none;"{/if}>
-            <span style="font-weight: bold;">{translate text="Guest"}</span>
-            {if $authMethod == 'Shibboleth'}
-              <a href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
-            {else}
-              <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
+        
+	  <div class="main clear">
+        {if $useSolr || $useWorldcat || $useSummon}
+        <div id="toptab">
+          <ul>
+            {if $useSolr}
+            <li{if $module != "WorldCat" && $module != "Summon"} class="active"{/if}><a href="{$url}/Search/Results?lookfor={$lookfor|escape:"url"}">{translate text="University Library"}</a></li>
             {/if}
-          </div>
-        </div>
-
-
-
-        {if $showTopSearchBox}
-        <div class="searchbox">
-          <a {*id="logo"*} href="{$url}">{image src="morgan_logo_small.gif" alt="Morgan" class="alignleft"}</a>
-          {if $pageTemplate != 'advanced.tpl'}
-            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority"}
-              {include file="`$module`/searchbox.tpl"}
-            {else}
-
-              {include file="Search/searchbox.tpl"}
+            {if $useWorldcat}
+            <li{if $module == "WorldCat"} class="active"{/if}><a href="{$url}/WorldCat/Search?lookfor={$lookfor|escape:"url"}">{translate text="Other Libraries"}</a></li>
             {/if}
-          {/if}
+            {if $useSummon}
+            <li{if $module == "Summon"} class="active"{/if}><a href="{$url}/Summon/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
+            {/if}
+          </ul>
         </div>
         {/if}
+        {include file="$module/$pageTemplate"}
 
-        <div class="clear"></div>
+        <div class="footer small">
+          {include file="footer.tpl"}
+        </div>
+
       </div>
-    </div>
-
-        
-	<div class="main">
-      {if $useSolr || $useWorldcat || $useSummon}
-      <div id="toptab">
-        <ul>
-          {if $useSolr}
-          <li{if $module != "WorldCat" && $module != "Summon"} class="active"{/if}><a href="{$url}/Search/Results?lookfor={$lookfor|escape:"url"}">{translate text="University Library"}</a></li>
-          {/if}
-          {if $useWorldcat}
-          <li{if $module == "WorldCat"} class="active"{/if}><a href="{$url}/WorldCat/Search?lookfor={$lookfor|escape:"url"}">{translate text="Other Libraries"}</a></li>
-          {/if}
-          {if $useSummon}
-          <li{if $module == "Summon"} class="active"{/if}><a href="{$url}/Summon/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
-          {/if}
-        </ul>
-      </div>
-      {/if}
-      {include file="$module/$pageTemplate"}
-
-      <div id="footer">
-        {include file="footer.tpl"}
-      </div>
-
-    </div>
     </div> {* End doc *}
 {* Google Analytics, commented out - remove when/if not needed *}
 {*
