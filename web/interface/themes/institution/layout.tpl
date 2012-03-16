@@ -85,7 +85,7 @@
     {* LightBox *}
     <div id="lightboxLoading" style="display: none;">{translate text="Loading"}...</div>
     <div id="lightboxError" style="display: none;">{translate text="lightbox_error"}</div>
-    <div id="lightbox" onClick="hideLightbox(); return false;"></div>
+    <div id="lightbox" onclick="hideLightbox(); return false;"></div>
     <div id="popupbox" class="popupBox"><b class="btop"><b></b></b></div>
     {* End LightBox *}
 
@@ -108,7 +108,7 @@
                 {if $userLang == $langCode}
                 <li class="strong">{translate text=$langName}</li>
                 {else}
-                <li><input type="hidden" name="mylang" value="{$langCode}"/><a href="#" onClick="document.langForm.submit();">{translate text=$langName}</a></li>
+                <li><input type="hidden" id="mylang" name="mylang" value="{$langCode}"/><a href="#" onclick="document.langForm.submit();">{translate text=$langName}</a></li>
                 {/if}
               {/foreach}
               </ul>
@@ -143,7 +143,7 @@
         {/if}
         {include file="$module/$pageTemplate"}
 
-        <div class="footer">
+        <div class="footer small">
           {include file="footer.tpl"}
         </div>
 

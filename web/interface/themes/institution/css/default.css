@@ -134,8 +134,8 @@ img.alignleft {
 }
 */
 
-.breadcrumbs, .searchbox, .main, .footer {
-    border-top: 1px solid #ddd;
+.breadcrumbs, .main, .footer {
+    border-top: 1px solid #dddddd;
 }
 
 .breadcrumbs, .searchbox, .main, .footer {
