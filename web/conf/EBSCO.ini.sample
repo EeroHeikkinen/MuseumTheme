@@ -9,16 +9,20 @@ ipprof =
 
 default_side_recommend[] = SideFacets:Facets::EBSCO
 
+[Access]
+ip_ranges = ::1,124.218.91.1-124.218.91.12
+
 [Basic_Searches]
-AllFields           = "All Fields"
-Title               = Title
-Author              = Author
-#SubjectTerms        = Subject
+AllFields    = "All Fields"
+TI           = Title
+AU           = Author
+SU           = Subject
+AB           = Abstract
+IS           = ISSN
 
 [Sorting]
 relevance = sort_relevance
-PublicationDate:desc = sort_year
-PublicationDate:asc = "sort_year asc"
+date = "sort_year asc"
 
 [Facets]
 DE = Topic
@@ -30,5 +34,3 @@ PT = TypeOfPublication
 
 [Facet_Settings]
 facet_limit        = 30 
-
-
