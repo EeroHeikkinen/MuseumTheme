@@ -33,16 +33,20 @@
   {else}
     <a class="login" href="{$path}/MyResearch/Home">{translate text="Login"}</a>
     <a class="" href="">{translate text="Create Account"}</a>
+<!--
     <span class="strong account">{translate text="Guest"}</span>
+-->
   {/if}
 
+<!--
   {* if $bookBagItems|@count > 0 can be used below to show only when items exist but visibility needs to be taken care of somehow to show the bookbag without hitting refresh *}
   {if $bookBag} 
-  <span id="cartSummary" class="cartSummary clear">
-    <a id="cartItems" title="{translate text='View Book Bag'}" class="bookbag" href="{$url}/Cart/Home"><span class="strong">{$bookBagItems|@count}</span> {translate text='items'} {if $bookBag->isFull()}({translate text='bookbag_full'}){/if}</a>
-    <a id="viewCart" title="{translate text='View Book Bag'}" class="viewCart bookbag offscreen" href="{$url}/Cart/Home"><span id="cartSize" class="strong">{$bookBagItems|@count}</span> {translate text='items'}<span id="cartStatus">{if $bookBag->isFull()}({translate text='bookbag_full'}){else}&nbsp;{/if}</span></a>
-  </span>
-  </div>
+    <span id="cartSummary" class="cartSummary clear">
+      <a id="cartItems" title="{translate text='View Book Bag'}" class="bookbag" href="{$url}/Cart/Home"><span class="strong">{$bookBagItems|@count}</span> {translate text='items'} {if $bookBag->isFull()}({translate text='bookbag_full'}){/if}</a>
+      <a id="viewCart" title="{translate text='View Book Bag'}" class="viewCart bookbag offscreen" href="{$url}/Cart/Home"><span id="cartSize" class="strong">{$bookBagItems|@count}</span> {translate text='items'}<span id="cartStatus">{if $bookBag->isFull()}({translate text='bookbag_full'}){else}&nbsp;{/if}</span></a>
+    </span>
   {/if}
+-->
+  </div>
 </div>
 

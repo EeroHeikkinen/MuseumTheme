@@ -108,7 +108,7 @@
                 {if $userLang == $langCode}
                 <li class="strong">{translate text=$langName}</li>
                 {else}
-                <li><input type="hidden" id="mylang" name="mylang" value="{$langCode}"/><a href="#" onclick="document.langForm.submit();">{translate text=$langName}</a></li>
+                <li><input type="hidden" {* id="mylang" *} name="mylang" value="{$langCode}"/><a href="#" onclick="document.langForm.submit();">{translate text=$langName}</a></li>
                 {/if}
               {/foreach}
               </ul>
@@ -143,7 +143,7 @@
         {/if}
         {include file="$module/$pageTemplate"}
 
-        <div class="footer small">
+        <div class="footer small clear">
           {include file="footer.tpl"}
         </div>
 
