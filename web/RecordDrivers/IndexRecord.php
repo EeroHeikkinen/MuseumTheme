@@ -616,6 +616,8 @@ class IndexRecord implements RecordInterface
         // If we have multiple formats, Book and Journal are most important...
         if (in_array('Book', $formats)) {
             $format = 'Book';
+        } else if (in_array('eBook', $formats)) {
+            $format = 'eBook';
         } else if (in_array('Journal', $formats)) {
             $format = 'Journal';
         } else {
@@ -623,6 +625,7 @@ class IndexRecord implements RecordInterface
         }
         switch($format) {
         case 'Book':
+        case 'eBook':
             $params['rft_val_fmt'] = 'info:ofi/fmt:kev:mtx:book';
             $params['rft.genre'] = 'book';
             $params['rft.btitle'] = $params['rft.title'];
@@ -760,8 +763,11 @@ class IndexRecord implements RecordInterface
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
-        // the way we display items on the search results list.
-        $hasOpenURL = ($this->openURLActive('results') && $issn);
+        // the way we display items on the search results list. Actually,
+        // display OpenURL link for eBooks with ISBNs too.
+        $hasOpenURL = ($this->openURLActive('results') && $issn ||
+                       ($this->getCleanISBN() &&
+                        in_array('eBook', $this->getFormats())));
         $openURL = $this->getOpenURL();
         $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
 
