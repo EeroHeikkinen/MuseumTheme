@@ -100,20 +100,16 @@
       {/if}
         <div class="lang right">
           {if is_array($allLangs) && count($allLangs) > 1}
-            <form method="post" name="langForm" action="">
-              <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label>
-              </div>
               <ul>
               {foreach from=$allLangs key=langCode item=langName}
                 {if $userLang == $langCode}
                 <li class="strong">{translate text=$langName}</li>
                 {else}
-                <li><input type="hidden" {* id="mylang" *} name="mylang" value="{$langCode}"/><a href="#" onclick="document.langForm.submit();">{translate text=$langName}</a></li>
+                <li><a 
+             href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"}">{translate text=$langName}</a></li>
                 {/if}
               {/foreach}
               </ul>
-              <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
-            </form>
           {/if}
         </div>
       {if $showBreadcrumbs} {* Let's close that DIV, too *}

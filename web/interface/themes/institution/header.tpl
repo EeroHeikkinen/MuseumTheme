@@ -29,10 +29,10 @@
   <div id="loginOptions"{if $user} class="hide"{/if}>
   {if $authMethod == 'Shibboleth'}
     <a class="login" href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
-    </br><a class="" href="">{translate text="Create Account"}</a>
+    <br/><a class="" href="">{translate text="Create Account"}</a>
   {else}
-    <a class="login" href="{$path}/MyResearch/Home">{translate text="Login"}</a>
-    <a class="" href="">{translate text="Create Account"}</a>
+    <a class="" href="{$path}/MyResearch/Home">{translate text="Login"}</a>
+    <a class="right" href="">{translate text="Create Account"}</a>
 <!--
     <span class="strong account">{translate text="Guest"}</span>
 -->

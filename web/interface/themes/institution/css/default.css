@@ -97,6 +97,11 @@ img.alignleft {
 
 
 #loginOptions, #logoutOptions {
+    padding-top: .5em;
+}
+
+#loginOptions a, #logoutOptions a {
+    margin-bottom: .5em;
 }
 
 .hiddenLabel {
@@ -134,7 +139,7 @@ img.alignleft {
 }
 */
 
-.breadcrumbs, .main, .footer {
+.main, .footer {
     border-top: 1px solid #dddddd;
 }
 
