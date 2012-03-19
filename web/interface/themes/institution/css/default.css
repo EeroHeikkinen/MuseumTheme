@@ -54,7 +54,7 @@ div.lang li, div.lang a {
     font-style: normal;
 }
 div.lang li {
-    padding: 0 8px;
+    padding: 0 6px;
     font-size: 90%;
 }
 
@@ -97,7 +97,7 @@ img.alignleft {
 
 
 #loginOptions, #logoutOptions {
-    padding-top: .5em;
+    padding: .5em 1.1em .5em .2em;
 }
 
 #loginOptions a, #logoutOptions a {
@@ -151,7 +151,7 @@ img.alignleft {
 #logo {
     background: url("../images/morgan_logo_small.gif") no-repeat scroll left center transparent;
     float: left;
-    margin-top: 25px;
+    margin: 25px 0;
     height: 46px;
     width: 211px;
 }
