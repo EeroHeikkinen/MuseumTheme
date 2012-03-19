@@ -149,24 +149,37 @@ img.alignleft {
 
 
 #logo {
-    /* background: url("../images/morgan_logo_small.gif") no-repeat scroll left center transparent; */
+    background: url("../images/morgan_logo_small.png") no-repeat scroll left center transparent;
     float: left;
-    margin: 30px;
-    width:180px;
+    height: 39px;
+    width: 180px;
+    margin: 30px 0 30px 30px;
 }
 
 .header {
 		height:100px;
 		background-color:#f3f3f3;
 }
-#slogan {
-		font-size:24px;
-		margin:0 0 5px 0;
-		color:#4499cc;
+.slogan {
+		margin: 0 0 5px;
+/*
+		color: #4499cc;
+*/
 }
+.color_arc {
+    color: #619bdd;
+}
+.color_lib {
+    color: #62c683;
+}
+.color_mus {
+    color: #fa61bf;
+}
+
 .searchbox {
-		margin:0 0 0 30px;
+		margin: 0 0 0 30px;
 }
+
 label.invalid {
     background:url("../images/unchecked.gif") no-repeat scroll 0 0 transparent;
     color:#EA5200;

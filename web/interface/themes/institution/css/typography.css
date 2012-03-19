@@ -17,9 +17,17 @@ body {
 	font-size: 18px;
 	line-height: 30px;
 }
-.bigger, h3, .title { /* Result list title */
+/* .title could be fitted into some existing size.
+   How about re-thinking all sizes in em based on some default size, say 16px?
+   That way only body font-size would be in px, others in em... possible exeptions in %.
+ */
+.title /* Result list title */ {
 	font-size: 1.25em;
 	line-height: 1.25em;
+}
+.bigger, h3, .slogan {
+	font-size: 24px/*1.25em*/;
+	line-height: 32px/*1.25em*/;
 }
 .large, h2 {
 	font-size: 42px;
