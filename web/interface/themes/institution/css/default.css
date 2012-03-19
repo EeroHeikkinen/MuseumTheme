@@ -468,6 +468,9 @@ div.sidegroup h4 {
     margin:0 0 0.5em 0;
     padding:0 0 0.5em 0;
 }
+div.sidegroup h4.account, div.sidegroup h4.list {
+		padding:0 0 1px 20px;
+}
 dl.narrowList img {
     vertical-align: top;
 }
@@ -509,7 +512,7 @@ dl.narrowList a {
 
 /* common styles */
 
-.toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch {
+.toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch, .accountFavorites h3 {
 		display:block;
 		text-align:left;
     background-repeat:no-repeat;
