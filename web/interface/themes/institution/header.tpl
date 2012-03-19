@@ -2,9 +2,10 @@
 
 {if $showTopSearchBox}
 <div class="span-3">
-  <a id="logo" href="{$url}">{image src="morgan_logo_small.gif" alt="Morgan"}</a>
+  <a id="logo" href="{$url}">{image src="morgan_logo_small.png" width="180" height="39" alt="Morgan"}</a>
 </div>
 <div class="searchbox span-7">
+	<h3 id="slogan">{translate text="searchbox_headline_text"}</h3>
   {if $pageTemplate != 'advanced.tpl'}
     {if $module=="Summon" || $module=="WorldCat" || $module=="Authority"}
       {include file="`$module`/searchbox.tpl"}
