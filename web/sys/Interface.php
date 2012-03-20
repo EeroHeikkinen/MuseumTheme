@@ -207,6 +207,12 @@ class UInterface extends Smarty
             !isset($configArray['Site']['sidebarOnLeft'])
             ? false : $configArray['Site']['sidebarOnLeft'] 
         );
+        
+        $this->assign(
+            'piwikUrl', 
+            !isset($configArray['Piwik']['url'])
+            ? false : $configArray['Piwik']['url'] 
+        );
     }
 
     /**
