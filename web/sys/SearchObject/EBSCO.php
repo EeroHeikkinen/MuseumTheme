@@ -352,8 +352,7 @@ class SearchObject_EBSCO extends SearchObject_Base
         if ($startRec > 0) {
            $params = array_merge($params, array("startrec" => $startRec));
         }
-        $url = $this->_baseUrl . '?' . http_build_query($params) . "&query=($query)";
-        echo $url;
+        $url = $this->_baseUrl . '?' . http_build_query($params) . "&query=$query";
         if ($filterQuery) {
             $url .= "+AND+$filterQuery";
         }
