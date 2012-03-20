@@ -1,4 +1,4 @@
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
   {if $user->cat_username}
     <h3>{translate text='Your Holds and Recalls'}</h3>
 
@@ -146,7 +146,7 @@
   {/if}
 </div>
 
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
   {include file="MyResearch/menu.tpl"}
 </div>
 

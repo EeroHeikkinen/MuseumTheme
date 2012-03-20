@@ -16,14 +16,21 @@ body {
 }
 .container {
     width: 950px; /* make this match the body width above */
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: none/*1px solid #dddddd;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px*/;
 }
 
 
+/****** General ******/
 
-/***** General *****/
+ul {
+    list-style-type: none;
+}
 
-
-/** Links **/
+/*** Links ***/
 a {
     color: #0066cc;
     text-decoration: none;
@@ -33,25 +40,68 @@ a:focus, a:hover {
     text-decoration: underline;
 }
 
+/*** Languages ***/
+div.lang {
+    line-height: 30px;
+}
+div.lang ul {
+    margin: 0 .4em;
+}
+div.lang li, div.lang a {
+    float: left;
+    overflow: hidden;
+    height: 30px;
+    font-style: normal;
+}
+div.lang li {
+    padding: 0 6px;
+    font-size: 90%;
+}
 
-
-
-
+/*** Position ***/
+img.alignright {
+    float: right;
+    margin: 0 0 0 10px;
+}
+img.alignleft {
+    float: left;
+    margin: 0 10px 0 0;
+}
 .alignright {
     text-align: right;
 }
-.alignright form {
+.clear {
+    clear: both;
+}
+.clearer {
+    clear: both;
+}
+.floatleft {
+    float: left;
+}
+.floatright {
     float: right;
 }
+/* class to make stuff "invisible" but still readable by screen readers */
+.offscreen {
+    position:absolute;
+    left:-10000px;
+    top:auto;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    display:inline;
+}
+
+
+
+
 #loginOptions, #logoutOptions {
-    float: right;
-    margin-right: 48px;
+    padding: .5em 1.1em .5em .2em;
 }
-.searchheader {
-    margin-top: 10px;
-}
-.searchheader .alignright a {
-    margin-left: 18px;
+
+#loginOptions a, #logoutOptions a {
+    margin-bottom: .5em;
 }
 
 .hiddenLabel {
@@ -88,41 +138,46 @@ a:focus, a:hover {
     cursor:pointer;
 }
 */
-.container {
-    -moz-border-radius: 5px 5px 5px 5px;
-    border: none/*1px solid #ddd*/;
-    background: none repeat scroll 0 0 #FFFFFF;
+
+.main, .footer {
+    border-top: 1px solid #dddddd;
 }
 
-.searchbox,.breadcrumbs,.main,#footer {
-    border-top: 1px solid #ddd;
-}
-
-.header,.searchbox,.breadcrumbs,.main,#footer {
+.breadcrumbs, .searchbox, .main, .footer {
     padding: .8em 0;
 }
-.clear {
-    clear: both;
-}
-.clearer {
-    clear: both;
-}
+
 
 #logo {
-    background: url("../images/morgan_logo_small.gif") no-repeat scroll left center transparent;
+    background: url("../images/morgan_logo_small.png") no-repeat scroll left center transparent;
     float: left;
-    height: 46px;
-    width: 211px;
+    height: 39px;
+    width: 180px;
+    margin: 30px 0 30px 30px;
 }
 
-#headerRight {
-    width: 400px;
-    float: right;
-    text-align: right;
+.header {
+		height:100px;
+		background-color:#f3f3f3;
+}
+.slogan {
+		margin: 0 0 5px;
+/*
+		color: #4499cc;
+*/
+}
+.color_arc {
+    color: #619bdd;
+}
+.color_lib {
+    color: #62c683;
+}
+.color_mus {
+    color: #fa61bf;
 }
 
-#langForm {
-    margin-top: .3em;
+.searchbox {
+		margin: 0 0 0 30px;
 }
 
 label.invalid {
@@ -134,16 +189,6 @@ label.invalid {
     margin-left: 5px;
 }
 
-/** class to make stuff "invisible" but still readable by screen readers */
-.offscreen {
-    position:absolute;
-    left:-10000px;
-    top:auto;
-    width:1px;
-    height:1px;
-    overflow:hidden;
-    display:inline;
-}
 
 div#modalDialog {
     text-align: left;
@@ -162,16 +207,6 @@ div.dialogLoading {
     font-weight: bold;
     background: none;
 }
-.floatleft { float:left; }
-.floatright { float:right; }
-img.alignright {
-    float: right;
-    margin: 0 0 0 10px;
-}
-img.alignleft {
-    float: left;
-    margin: 0 10px 0 0;
-}
 .searchheader img.alignleft {
     margin: 20px 24px 12px 0;
 }
@@ -183,6 +218,7 @@ p.listDescription {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
+		display:none;
     border-bottom: 1px solid #eee;
     padding: 1em 0;
 }
@@ -402,7 +438,6 @@ ul.recordSet .resultItemLine2{
     /*background-color: #f5f5f5;*/
     border-top: #eee solid 1px;
     padding: 1em;
-    font-size: 90%;
 }
 .resulthead {
     padding:.4em .4em 0em .4em;
@@ -443,26 +478,28 @@ ul.filters a {
 div.sidegroup {
 }
 div.sidegroup h4 {
-    border-bottom:1px solid #ddd;
     margin:0 0 0.5em 0;
     padding:0 0 0.5em 0;
-    font-size:1.1667em;
-    line-height:1.2857em;
+}
+div.sidegroup h4.account, div.sidegroup h4.list {
+		padding:0 0 1px 20px;
 }
 dl.narrowList img {
     vertical-align: top;
 }
 dl.narrowList a:hover {
     /*text-decoration: underline;*/
+    background-color:#f9f9f9;
 }
 dl.narrowList a {
+		display:block;
     text-decoration: none;
+    padding: 0.1em 0 0.1em 0.4em;
 }
 .navmenu dd {
-    padding: 0.1em 0 0.1em 0.4em;
     list-style-type: none;
-    border-bottom: 1px solid #e3e3e3;
-    margin: 0;
+    /* border-bottom: 1px solid #e3e3e3; */
+    margin:0;
 }
 .navmenu dt {
     margin-top:.75em;
@@ -470,15 +507,25 @@ dl.narrowList a {
     padding:0.2em 0.4em;
     background-color: #eee;
 }
-
-
+.suggestedTopicsHidden {
+		margin-top:1em;
+}
+.facetWrapper {
+		float:left;
+		width:auto;
+		margin-right:0.4em;
+}
+.facetCount {
+		font-size:0.8em;
+		color:#999;
+}
 
 
 /* Icon Classes */
 
 /* common styles */
 
-.toolbar li a, ul.recordSet .addToFavLink a {
+.toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch, .accountFavorites h3 {
 		display:block;
 		text-align:left;
     background-repeat:no-repeat;
@@ -489,7 +536,9 @@ ul.recordSet .addToFavLink a {
     background-position:5px 3px;
     padding:.1em .5em .5em 25px;
 }
-
+.searchtools a.mailSearch {
+		display:inline-block;
+}
 
 .bookbag {
     background-image:url(../images/fugue/bookbag.png);
@@ -1041,7 +1090,7 @@ h5.recordTabHeader{
     height:27px;
     margin:0;
     padding:0 0 0 1em;
-    border-bottom:1px solid #dddddd;
+    /* border-bottom:1px solid #dddddd; */
 }
 
 /*********** Toolbar (Favorites View) ************/

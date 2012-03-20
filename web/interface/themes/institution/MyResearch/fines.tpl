@@ -1,4 +1,4 @@
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
   {if $user->cat_username}
     {if empty($rawFinesData)}
       {translate text='You do not have any fines'}
@@ -35,7 +35,7 @@
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
 </div>
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
   {include file="MyResearch/menu.tpl"}
 </div>
 <div class="clear"></div>
