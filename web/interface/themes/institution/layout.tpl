@@ -116,8 +116,7 @@
       </div>
       {/if}
 
-      {* make the header like this (remove this comment when done) *}
-      <div class="header clear">
+      <div class="header{if !$showTopSearchBox}-home{/if} clear">
         {include file="header.tpl"}
       </div>
         
