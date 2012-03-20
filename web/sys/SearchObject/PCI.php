@@ -301,10 +301,9 @@ class SearchObject_PCI extends SearchObject_Base
         if ($recommendations) {
             $this->initRecommendations();
         }
-        $query = $this->searchTerms[0]['lookfor'];
         $startRec = ($this->page - 1) * $this->limit;
 
-        $this->_indexResult = $this->executeSearch($this->buildURL($query, $startRec, $this->limit));
+        $this->_indexResult = $this->executeSearch($this->buildURL($this->searchTerms, $startRec, $this->limit));
         
         // Get time after the query
         $this->stopQueryTimer();
@@ -325,15 +324,22 @@ class SearchObject_PCI extends SearchObject_Base
         return $this->_indexResult;
     }
 
-    public function buildURL($query, $startRec, $limit, $sort = false) 
+    public function buildURL($searchTerms, $startRec, $limit, $sort = false) 
     {
         $filterQuery = '';
         foreach ($this->getFilterList() as $filters) {
             foreach ($filters as $filter) {
                 $field = $filter['field'];
                 $value = $filter['value'];
-                 $filterQuery .= '&query=facet_' . urlencode($field) . ',exact,' . urlencode($value);
+                $filterQuery .= '&query=facet_' . urlencode($field) . ',exact,' . urlencode($value);
             }
+        }
+        $query = '';
+        foreach ($searchTerms as $term) {
+            if ($query) {
+                $query .= '+AND+';
+            }
+            $query .= '&query=' . urlencode($term['index']) . ',exact,' . urlencode($term['lookfor']); 
         }
         
         $params = array("bulkSize" => $limit);
@@ -341,7 +347,7 @@ class SearchObject_PCI extends SearchObject_Base
         if ($startRec > 0) {
            $params = array_merge($params, array("indx" => $startRec));
         }
-        $url = $this->_baseUrl . '?' . http_build_query($this->_params) . '&query=any,exact,' . urlencode($query);
+        $url = $this->_baseUrl . '?' . http_build_query($this->_params) . $query;
 
         $url .= "&sortField=" . urlencode($this->sort);            
 
@@ -354,6 +360,9 @@ class SearchObject_PCI extends SearchObject_Base
 
     public function executeSearch($url) 
     {
+        global $configArray;
+        
+        // Need to fake user_agent so that the service returns valid data
         ini_set("user_agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
         $xml = simplexml_load_file($url);
         $xml->registerXPathNamespace('prim', 'http://www.exlibrisgroup.com/xsd/primo/primo_nm_bib');
@@ -363,15 +372,31 @@ class SearchObject_PCI extends SearchObject_Base
         foreach ($xml->xpath('//sear:DOC') as $item) {
             $id = (string) $item->attributes()->ID;
             $authors = array();
-            foreach ($item->xpath('.//prim:display/prim:creator') as $author) {
+                    foreach ($item->xpath('.//prim:display/prim:creator') as $author) {
                 foreach (explode(';', (string) $author) as $author) {
                     $authors[] = trim($author);
                 }
             }    
+            foreach ($item->xpath('.//prim:display/prim:contributor') as $author) {
+                foreach (explode(';', (string) $author) as $author) {
+                    $authors[] = trim($author);
+                }
+            }
+            
+            $publications = array();
+            foreach ($item->xpath('.//prim:display/prim:ispartof') as $partof) {
+                $publications[] = trim($partof);
+            }
+
+            $ids = array();
+            foreach ($item->xpath('.//prim:display/prim:identifier') as $identifier) {
+                $ids[] = trim($identifier);
+            }
+            $id = implode('; ', $ids);
             
             $title = $item->xpath('.//prim:display/prim:title');
             $title = is_array($title) ? (string) $title[0] : NULL;
-            // get url from Primo partial field
+            // get url from Primo subfield
             $url = $item->xpath('.//prim:links/prim:backlink');
             $partsArr = array();
             if (isset($url[0])) {
@@ -383,12 +408,29 @@ class SearchObject_PCI extends SearchObject_Base
             } else {
                 $url = null;
             }
+            
+            $openurl = '';
+            if (isset($configArray['OpenURL']['url']) && $configArray['OpenURL']['url']) {
+                // Parse the OpenURL and extract parameters
+                $link = $item->xpath('.//sear:LINKS/sear:openurl');
+                if ($link) {
+                    $params = explode('&', substr($link[0], strpos($link[0], '?') + 1));
+                    $openurl = $configArray['OpenURL']['url'] . '?' . 'rfr_id=' . urlencode($configArray['OpenURL']['rfr_id']);
+                    foreach ($params as $param) {
+                        if (substr($param, 0, 7) != 'rfr_id=') {
+                            $openurl .= '&' . $param;
+                        }
+                    }
+                }
+            }
 
-            $result = array("author" => $authors, 'title' => $title, 'url' => $url);
+            $result = array('author' => $authors, 'title' => $title, 'url' => $url, 
+                'PublicationTitle' => $publications, 'identifier' => $id,
+                'openUrl' => $openurl);
             $results[] = $result;
         }
-        $facets = array();
 
+        $facets = array();
         foreach ($xml->xpath('//sear:FACET') as $item) {
             $tag = (string) $item->attributes()->NAME;
             $values = array();

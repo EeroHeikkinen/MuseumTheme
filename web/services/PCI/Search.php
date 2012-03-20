@@ -50,6 +50,33 @@ class Search extends Base
         global $interface;
         global $configArray;
 
+        $config = getExtraConfigArray("PCI");
+        // TODO: something else than a hacky IP address check
+        if (isset($config['Access']['ip_ranges'])) {
+            $found = false;
+            $remote = sprintf('%u', ip2long($_SERVER['REMOTE_ADDR']));
+            $ranges = explode(',', $config['Access']['ip_ranges']);
+            foreach ($ranges as $range) {
+                $ips = explode('-', $range);
+                if (!isset($ips[0])) {
+                    continue;
+                }
+                $start = sprintf('%u', ip2long($ips[0]));
+                if (!isset($ips[1])) {
+                    $end = $start;
+                } else {
+                    $end = sprintf('%u', ip2long($ips[1]));
+                }
+                if ($remote >= $start && $remote <= $end) {
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                die ("Access denied from '" . $_SERVER['REMOTE_ADDR'] . "'");
+            }
+        }
+        
         // Initialise SearchObject.
         $this->searchObject->init();
 
@@ -92,10 +119,6 @@ class Search extends Base
             $interface->assign('recordSet', $result['response']['docs']);
             $interface->assign('sortList',   $this->searchObject->getSortList());
 
-            // If our result set is larger than the number of records that
-            // EDS will let us page through, we should cut off the number
-            // before passing it to our paging mechanism:
-            $config = getExtraConfigArray('PCI');
             $pageLimit = isset($config['General']['result_limit']) ?
                 $config['General']['result_limit'] : 2000;
             $totalPagerItems = $summary['resultTotal'] < $pageLimit ?
