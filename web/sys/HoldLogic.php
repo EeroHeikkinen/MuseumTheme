@@ -184,9 +184,16 @@ class HoldLogic
     protected function driverHoldings($result)
     {
         $holdings = array();
-
+       
+        // MH: Adding recordId param to checkFunction call
+        $id = null;
+        $record = current($result);
+        if ($record) {
+        	$id = $record['id'];
+        }
+        
         // Are holds allows?
-        $checkHolds = $this->catalog->checkFunction("Holds");
+        $checkHolds = $this->catalog->checkFunction("Holds", $id);
 
         if (count($result)) {
             foreach ($result as $copy) {
@@ -247,6 +254,13 @@ class HoldLogic
                 }
             }
 
+            //MH: Adding context to checkFunction call
+            global $user;
+            $context = array(
+            	"user" => $user,
+            	"recordId" => null,
+            );
+            
             // Are holds allows?
             $checkHolds = $this->catalog->checkFunction("Holds");
 

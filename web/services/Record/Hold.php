@@ -55,10 +55,10 @@ class Hold extends Record
     {
         global $configArray;
         global $interface;
-        global $user;
-
+        
         // Are Holds Allowed?
-        $this->checkHolds = $this->catalog->checkFunction("Holds");
+        // MH: Adding recordId param to checkFunction call
+        $this->checkHolds = $this->catalog->checkFunction("Holds", $this->recordDriver->getUniqueID());
         if ($this->checkHolds != false) {
 
             // Do we have valid information?

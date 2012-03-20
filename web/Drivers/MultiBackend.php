@@ -243,10 +243,29 @@ class MultiBackend implements DriverInterface
     	error_log("No driver for '$id' found");
     }
     
-    public function getConfig($function)
+    public function getConfig($function, $id = null)
     {
-        // TODO: this should probably use the institution indicated by the current user or record
-        switch ($function) {
+    	// MH: Added source identification. Use 'id' if available or $user
+    	$source = null;
+    	global $user;
+    	if (!$id) {
+    		$source = $this->_getSource($id);
+    	}
+    	
+    	if(!$source) {
+    		global $user;
+    		$source = $this->_getSource($user->cat_username);
+    	}
+    	
+    	$driver = $this->_getDriver($source);
+    	
+    	# If we have resolved the needed driver, just getConfig and return.
+    	if ($driver) {
+    		return $driver->getConfig($function);
+    	}
+    	
+		// If driver not available, return default values
+    	switch ($function) {
             case 'Holds':
                 return Array(
                     'function' => 'placeHold',
