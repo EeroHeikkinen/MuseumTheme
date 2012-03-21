@@ -1,20 +1,14 @@
-/*	Typography presets	*/
+/** Typography presets **/
 
 body {
     font-size: 13px;
-    line-height:1.5em;
+    line-height: 1.5em;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-style: normal;
 }
 
-.strong, strong {
-    font-weight: bold;
-}
-.emph {
-    font-style: italic;
-}
-
+/* Font sizes */
 .small, small {
 	font-size: 11px;
 	line-height: 1.4;
@@ -23,9 +17,17 @@ body {
 	font-size: 18px;
 	line-height: 30px;
 }
-.bigger, h3, .title { /* Result list title */
-	font-size:1.25em;
-	line-height:1.25em;
+/* .title could be fitted into some existing size.
+   How about re-thinking all sizes in em based on some default size, say 16px?
+   That way only body font-size would be in px, others in em... possible exeptions in %.
+ */
+.title /* Result list title */ {
+	font-size: 1.25em;
+	line-height: 1.25em;
+}
+.bigger, h3, .slogan {
+	font-size: 24px/*1.25em*/;
+	line-height: 32px/*1.25em*/;
 }
 .large, h2 {
 	font-size: 42px;
@@ -42,10 +44,28 @@ body {
 	letter-spacing: -2px;
 }
 
-/* Selection colours (easy to forget) */
+/* Bold & italic */
+/* For BOLD it is better to use class. Strong tag should be left for screen readers,
+   even though on screen there is no visible difference between class and tag.
+*/
+.strong, strong {
+    font-weight: bold;
+}
+.emph {
+    font-style: italic;
+}
+.highlight {
+    font-weight: bold;
+    background: none;
+}
+.normal {
+    font-weight: normal;
+}
 
+/* Selection colours (easy to forget) */
 ::selection 	 	{ background: #ffff9e; }
 ::-moz-selection 	{ background: #ffff9e; }
 img::selection 		{ background: transparent; }
 img::-moz-selection	{ background: transparent; }
 body { -webkit-tap-highlight-color: #ffff9e; }
+

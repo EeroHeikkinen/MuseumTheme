@@ -66,6 +66,11 @@ class SearchObject_EBSCO extends SearchObject_Base
         $this->_params['authType'] = $config['General']['authType'];
         $this->_params['ipprof'] = $config['General']['ipprof'];
         $this->_params['db'] = isset($config['General']['db']) ? $config['General']['db'] : null;
+
+        $this->sortOptions = $config['Sorting'];
+        if (isset($config['General']['default_sort'])) {
+            $this->defaultSort = $config['General']['default_sort'];
+        }
     }
 
     /**
@@ -293,10 +298,9 @@ class SearchObject_EBSCO extends SearchObject_Base
         if ($recommendations) {
             $this->initRecommendations();
         }
-        $query = $this->searchTerms[0]['lookfor'];
         $startRec = ($this->page - 1) * $this->limit;
         //print "$recordStart<BR>";
-        $this->_indexResult = $this->executeSearch($this->buildURL($query, $startRec, $this->limit));
+        $this->_indexResult = $this->executeSearch($this->buildURL($this->searchTerms, $startRec, $this->limit, $this->sort));
         
         // Get time after the query
         $this->stopQueryTimer();
@@ -317,7 +321,7 @@ class SearchObject_EBSCO extends SearchObject_Base
         return $this->_indexResult;
     }
 
-    public function buildURL($query, $startRec, $limit) 
+    public function buildURL($searchTerms, $startRec, $limit, $sort) 
     {
         $filterQuery = '';
         foreach ($this->getFilterList() as $filters) {
@@ -330,14 +334,25 @@ class SearchObject_EBSCO extends SearchObject_Base
                 $filterQuery .= '(' . urlencode($field) . '+(' . urlencode($value) . '))';
             }
         }
+        $query = '';
+        foreach ($searchTerms as $term) {
+            if ($query) {
+                $query .= '+AND+';
+            }
+            if ($term['index'] == 'AllFields') {
+                $query .= '(' . urlencode($term['lookfor']) . ')';
+            } else {
+                $query .= '(' . urlencode($term['index']) . '+(' . urlencode($term['lookfor']) . '))';
+            }
+        }
         
         $params = array("numrec" => $limit, "format" => "full", 
-        	"clusters" => "true", "clusters" => "true", "sort" => "relevance");
+        	"clusters" => "true", "clusters" => "true", "sort" => urlencode($sort));
         $params += $this->_params;
         if ($startRec > 0) {
            $params = array_merge($params, array("startrec" => $startRec));
         }
-        $url = $this->_baseUrl . '?' . http_build_query($params) . '&query=(' . urlencode($query) . ')';
+        $url = $this->_baseUrl . '?' . http_build_query($params) . "&query=$query";
         if ($filterQuery) {
             $url .= "+AND+$filterQuery";
         }

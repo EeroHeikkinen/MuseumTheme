@@ -10,7 +10,7 @@
       <input id="lookfor" type="text" name="lookfor" size="30" value="{$lookfor|escape:"html"}">
       <div class="hiddenLabel"><label for="type">{translate text="in"}:</label></div>
       <select id="type" name="type">
-        {foreach from=$basicSearchTypes item=searchDesc key=searchVal}
+        {foreach from=$PCISearchTypes item=searchDesc key=searchVal}
           <option value="{$searchVal}"{if $searchIndex == $searchVal} selected{/if}>{translate text=$searchDesc}</option>
         {/foreach}
       </select>

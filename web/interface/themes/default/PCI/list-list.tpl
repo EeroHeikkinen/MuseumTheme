@@ -31,11 +31,7 @@
           </div>
 
           <div class="resultItemLine3">
-            {if $record.Snippet.0 != ""}
-            <blockquote>
-              <span class="quotestart">&#8220;</span>{$record.Snippet.0|highlight}<span class="quoteend">&#8221;</span>
-            </blockquote>
-            {/if}
+            {$record.identifier}
           </div>
 
           <div class="resultItemLine4">
@@ -45,6 +41,8 @@
           </div>
 
           <span class="iconlabel {$record.ContentType.0|getSummonFormatClass|escape}">{translate text=$record.ContentType.0}</span>
+
+          <a href="{$record.openUrl|escape}" target="_blank">{translate text='Get full text'}</a>
 
         </div>
       </div>
