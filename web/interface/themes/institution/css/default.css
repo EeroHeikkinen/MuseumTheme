@@ -93,17 +93,6 @@ img.alignleft {
     display:inline;
 }
 
-
-
-
-#loginOptions, #logoutOptions {
-    padding: .5em 1.1em .5em .2em;
-}
-
-#loginOptions a, #logoutOptions a {
-    margin-bottom: .5em;
-}
-
 .hiddenLabel {
     display: none;
 }
@@ -117,28 +106,6 @@ img.alignleft {
     margin-left: 10px;
 }
 
-
-#searchForm input, #searchForm select { 
-    float:left;
-/*
-    margin-top:15px;
-*/
-}
-
-/*
-#searchForm select {
-    display:none;
-}
-
-.searchcontent select, .searchcontent form {
-    margin-bottom:0;
-}
-
-#searchForm_searchButton {
-    cursor:pointer;
-}
-*/
-
 .main, .footer {
     border-top: 1px solid #dddddd;
 }
@@ -147,6 +114,8 @@ img.alignleft {
     padding: .8em 0;
 }
 
+
+/*** Header ***/
 
 #logo {
     background: url("../images/morgan_logo_small.png") no-repeat scroll left center transparent;
@@ -178,9 +147,66 @@ img.alignleft {
     color: #fa61bf;
 }
 
+#loginOptions, #logoutOptions {
+    padding: .5em 1.1em .5em .2em;
+}
+
+#loginOptions a, #logoutOptions a {
+    margin-bottom: .5em;
+}
+
+
+/*** Search Box ***/ /* also note home.css for Home Page */
+
 .searchbox {
 		margin: 0 0 0 30px;
 }
+#searchForm input, #searchForm select, .styled_select { 
+    float:left;
+}
+#searchForm_input {
+    background-color: #ffffff;
+    color: #333333;
+    height: 24px;
+    width: 220px;
+    padding: 4px 4px 4px 8px;
+    border: 1px solid #999999;
+    border-right: 0;
+    border-radius: 5px 0 0 5px;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    behavior: url(css/css3pie/PIE.php);
+}
+div.styled_select { /* to get rid of the unstylable down-arrow */
+    border-right: 1px solid #969696;
+    width: 145px;
+    height: 34px;
+    overflow: hidden;
+    background: none no-repeat right transparent;
+}
+#searchForm_type {
+    background: url("../images/searchselect_bg.png") transparent no-repeat;
+    border: none;
+    color: #555555;
+    cursor: pointer;
+    height: 34px;
+    width: 169px;
+    padding: 8px 9px; 
+}
+#searchForm_searchButton {
+    background: url("../images/searchbutton_bg.png") transparent;
+    border: none;
+    color: #555555;
+    cursor: pointer;
+    height: 34px;
+    width: 89px;
+    margin-left: 5px;
+}
+
+
+
 
 label.invalid {
     background:url("../images/unchecked.gif") no-repeat scroll 0 0 transparent;

@@ -9,14 +9,16 @@
 {else}
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
-      <label for="searchForm_lookfor" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_lookfor" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if}"/>
+      <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
+      <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if}"/>
       <label for="searchForm_type" class="offscreen">{translate text="Search Type"}</label>
-      <select id="searchForm_type" name="type">
+      <div class="styled_select">
+        <select id="searchForm_type" name="type">
   {foreach from=$basicSearchTypes item=searchDesc key=searchVal}
-        <option value="{$searchVal}"{if $searchIndex == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
+          <option value="{$searchVal}"{if $searchIndex == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
   {/foreach}
-      </select>
+        </select>
+      </div>
       <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
     </div>
     <div class="advanced-link-wrapper clear">
