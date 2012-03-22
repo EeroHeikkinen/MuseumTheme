@@ -213,6 +213,11 @@ class UInterface extends Smarty
             !isset($configArray['Piwik']['url'])
             ? false : $configArray['Piwik']['url'] 
         );
+        $this->assign(
+            'piwikSiteId', 
+            !isset($configArray['Piwik']['site_id'])
+            ? false : $configArray['Piwik']['site_id'] 
+        );
     }
 
     /**
