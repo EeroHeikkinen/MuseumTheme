@@ -5,20 +5,24 @@
 
 
 .searchHomeContent {
-    padding:2em 0 5em;
-    margin:0 auto;
-/*
-    width:528px;
-*/
-    text-align:left;
+    padding: 2em 0 5em;
+    margin: 0 auto;
+    text-align: left;
 }
+
+/*** Logo ***/
+
 .searchHomeLogo {
-    text-align:center;
+    text-align: center;
 }
 .searchHomeLogo img {
-    display:block;
-    margin:0 auto 1em auto;
+    display: block;
+    margin: 0 auto 1em auto;
 }
+
+
+/** Search Box **/
+
 .searchHomeForm {
 /*
     background-color: #E6EFC2;
@@ -39,7 +43,7 @@ div.searchHomeForm div.searchform #searchForm {
     margin:12px auto 0;
 }
 
-/*.searchHomeForm*/ #searchForm_input {
+.searchHomeForm #searchForm_input {
     background-color: #ffffff;
     color: #333333;
     height: 24px;
@@ -47,26 +51,23 @@ div.searchHomeForm div.searchform #searchForm {
     padding: 4px 4px 4px 8px;
     border: 1px solid #999999;
     border-right: 0;
-    border-radius: 5px 0 0 5px;
-    -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-radius: 5px 0 0 5px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    behavior: url(css/css3pie/PIE.php);
+    border-radius: 6px 0 0 6px;
+    -moz-border-radius: 6px 0 0 6px;
+    -webkit-border-radius: 6px 0 0 6px;
 /*
-    border-left-width: default;
-    border-right-width: default;
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-bottom-left-radius: 6px;
 */
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
-div.styled_select { /* to get rid of unstylable down-arrow */
-    float: left;
+.searchHomeForm div.styled_select { /* to get rid of unstylable down-arrow */
     border-right: 1px solid #969696;
     width: 145px;
     height: 34px;
     overflow: hidden;
     background: none no-repeat right transparent;
 }
-/*.searchHomeForm*/ #searchForm_type {
+.searchHomeForm #searchForm_type {
     background: url("../images/searchselect_bg.png") transparent no-repeat;
     border: none;
     color: #555555;
@@ -74,13 +75,8 @@ div.styled_select { /* to get rid of unstylable down-arrow */
     height: 34px;
     width: 169px;
     padding: 8px 9px; 
-/*
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-*/
 }
-/*.searchHomeForm*/ #searchForm_searchButton {
+.searchHomeForm #searchForm_searchButton {
     background: url("../images/searchbutton_bg.png") transparent;
     border: none;
     color: #555555;
@@ -95,6 +91,10 @@ div.styled_select { /* to get rid of unstylable down-arrow */
     color:#264409;
 */
 }
+
+
+/*** Browse Search ***/
+
 .searchHomeBrowse {
     margin-left:auto;
     margin-right:auto;

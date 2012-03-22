@@ -110,7 +110,7 @@ img.alignleft {
     border-top: 1px solid #dddddd;
 }
 
-.breadcrumbs, .searchbox, .main, .footer {
+.breadcrumbs, .main, .footer {
     padding: .8em 0;
 }
 
@@ -156,10 +156,11 @@ img.alignleft {
 }
 
 
-/*** Search Box ***/ /* also note home.css for Home Page */
+/*** Search Box ***/    /* also note home.css for Home Page */
 
 .searchbox {
-		margin: 0 0 0 30px;
+    margin: 0 0 0 30px;
+    padding: .5em 0 .8em;
 }
 #searchForm input, #searchForm select, .styled_select { 
     float:left;
@@ -172,12 +173,14 @@ img.alignleft {
     padding: 4px 4px 4px 8px;
     border: 1px solid #999999;
     border-right: 0;
-    border-radius: 5px 0 0 5px;
-    -moz-border-radius: 5px 0 0 5px;
-    -webkit-border-radius: 5px 0 0 5px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    behavior: url(css/css3pie/PIE.php);
+    border-radius: 6px 0 0 6px;
+    -moz-border-radius: 6px 0 0 6px;
+    -webkit-border-radius: 6px 0 0 6px;
+/*
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-bottom-left-radius: 6px;
+*/
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 div.styled_select { /* to get rid of the unstylable down-arrow */
     border-right: 1px solid #969696;
