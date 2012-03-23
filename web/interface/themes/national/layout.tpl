@@ -17,6 +17,7 @@
     {if $addHeader}{$addHeader}{/if}
 
     <title>{$pageTitle|truncate:64:"..."}</title>
+    <link rel="shortcut icon" href="{$url}/interface/themes/national/images/favicon.ico" type="image/x-icon" />
 
     {if $module=='Record' && $hasRDF}
     <link rel="alternate" type="application/rdf+xml" title="RDF Representation" href="{$url}/Record/{$id|escape}/RDF"/>    
@@ -27,7 +28,7 @@
     {* Load Blueprint CSS framework *}
     {css media="screen, projection" filename="blueprint/screen.css"}
     {css media="print" filename="blueprint/print.css"}
-    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/national/css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
     {* Adjust some default Blueprint CSS styles *}
     {css media="screen, projection" filename="blueprint/blueprint-adjust.css"}
 
@@ -35,8 +36,8 @@
     {css media="screen, projection" filename="styles.css"}
     {css media="screen" filename="datatables.css"}
     {css media="print" filename="print.css"}
-    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
-    <!--[if lt IE 7]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/iepngfix/iepngfix.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/national/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 7]><link rel="stylesheet" href="{$url}/interface/themes/national/css/iepngfix/iepngfix.css" type="text/css" media="screen, projection"><![endif]-->
 
     {* Set global javascript variables *}
     <script type="text/javascript">
@@ -66,7 +67,7 @@
 
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
-    <!--[if lt IE 7]><script type="text/javascript" src="{$url}/interface/themes/institution/css/iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+    <!--[if lt IE 7]><script type="text/javascript" src="{$url}/interface/themes/national/css/iepngfix/iepngfix_tilebg.js"></script><![endif]-->
     {* Enable HTML5 in old IE - http://code.google.com/p/html5shim/
        (for future reference, commented out for now) *}
     {*
