@@ -1,0 +1,37 @@
+/****** Breadcrumbs ******/
+
+div.breadcrumbinner {
+    margin: 0 .4em;
+}
+div.breadcrumbinner a, div.breadcrumbinner em, div.breadcrumbinner span, div.breadcrumbinner form {
+    float: left;
+    overflow: hidden;
+    color: #ffffff;
+    height: 30px;
+    padding: 0 8px;
+    font-style: normal;
+    font-size: 90%;
+}
+
+div.breadcrumbs {
+    overflow: hidden;
+    padding: 0;
+    height: 30px;
+    line-height: 30px;
+    background-color: #636363;
+}
+div.breadcrumbs a, div.breadcrumbs li {
+    color: #ffffff;
+}
+div.breadcrumbs span {
+    background: url("../images/bg_breadcrumb.png") no-repeat left center;
+    overflow: hidden;
+    padding: 0;
+    width: 10px;
+    font-size: 0pt;
+    line-height: 0px;
+
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+}
+

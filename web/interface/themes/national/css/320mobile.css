@@ -1,0 +1,16 @@
+/*      Mobile Layout: 320px.
+        Gutters: 12px.
+        Outer margins: 18px.
+        Inherits styles from: Default Layout.
+---------------------------------------------
+cols    1     2      3      4
+px      62    136    210    284    */
+
+@media only screen and (max-width: 767px) {
+
+    body {
+        width: 284px;
+        padding: 0 18px 36px;
+    }
+
+}
