@@ -53,6 +53,11 @@ class SearchObject_EBSCO extends SearchObject_Base
             $facetName = trim($parts[0]);
             $this->facetConfig[$facetName] = $value;
         }
+
+        // Set up basic and advanced EBSCO search types; default to basic.
+        $this->searchType = $this->basicSearchType = 'EBSCO';
+        $this->advancedSearchType = 'EBSCOAdvanced';
+        
         // Set up search options
         $this->basicTypes = $config['Basic_Searches'];
         $this->recommendIni = 'EBSCO';
