@@ -1,0 +1,86 @@
+[Site]
+local           = /usr/local/vufind/web
+url             = /vufind
+email           = nelli-toimisto@helsinki.fi
+title           = "Kui"
+theme           = ndl,default
+mobile_theme    = jquerymobile
+language        = fi 
+locale          = fi_FI
+timezone        = "Europe/Helsinki"
+displayDateFormat = "d.m.Y"
+showBookBag = true
+
+[Index]
+local           = /usr/local/vufind/solr
+
+[Session]
+type                        = FileSession
+lifetime                    = 3600 ; Session lasts for 1 hour
+file_save_path              = /tmp/vufind_sessions
+
+[Catalog]
+driver          = MultiBackend
+holds_mode = "driver"
+allow_holds_override = true
+cancel_holds_enabled = true
+renewals_enabled = true
+
+[Authentication]
+method         = MultiAuth
+
+[MultiAuth]
+method_order   = ILS,Shibboleth
+
+[Statistics]
+enabled        = false
+
+[Database]
+database       = pgsql://vufind@localhost/vufind
+schema_location   = /usr/local/vufind/web/conf
+class_location    = /usr/local/vufind/web/services/MyResearch/lib
+
+[Content]
+coverimages    = Google,OpenLibrary
+previews       = Google,OpenLibrary,HathiTrust
+recordMap = google
+
+[OpenURL]
+url             = "http://sfx.nelliportaali.fi/sfxtst3"
+rfr_id          = vufind-fe-kktest.lib.helsinki.fi
+resolver        = sfx
+show_in_record = true
+embed = true
+replace_other_urls = false
+
+[Logging]
+file           = /var/log/vufind.log:alert,error,notice,debug
+
+[Extra_Config]
+searches = searches_local.ini 
+
+[Languages]
+fi          = "Suomi"
+en-gb       = "English"              ; British spellings
+
+[Browse]
+lcc             = false
+
+[Export]
+MARC = true
+RDF = true
+BibTeX = true
+
+[AddThis]
+key = xa-4d958e6e50f72946
+
+[Item_Status]
+multiple_call_nos = msg
+multiple_locations = group
+
+[Record]
+next_prev_navigation = true
+marc_links = "773"
+
+[Security]
+HMACkey = xyz
