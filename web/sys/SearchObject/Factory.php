@@ -98,6 +98,10 @@ class SearchObjectFactory
         case 'EBSCOAdvanced':
         	$type = 'EBSCO';
         	break;
+        case 'PCI':
+        case 'PCIAdvanced':
+        	$type = 'PCI';
+        	break;
         default:
             $type = 'Solr';
             break;
