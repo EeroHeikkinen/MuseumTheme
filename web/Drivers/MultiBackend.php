@@ -248,7 +248,7 @@ class MultiBackend implements DriverInterface
     	// MH: Added source identification. Use 'id' if available or $user
     	$source = null;
     	global $user;
-    	if (!$id) {
+    	if ($id) {
     		$source = $this->_getSource($id);
     	}
     	
