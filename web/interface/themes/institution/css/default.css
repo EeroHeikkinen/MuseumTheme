@@ -235,6 +235,9 @@ div.dialogLoading {
     background: url(../images/ajax_loading.gif) no-repeat left top;
     padding:0 .5em .5em 20px;
 }
+.noLoad {
+    background:none;
+}
 .highlight {
     font-weight: bold;
     background: none;
@@ -397,28 +400,33 @@ ul.recordSet {
     list-style-type: none;
 }
 ul.recordSet li {
-    padding: .4em 0;
+    padding: 1em 0;
+    border-bottom: 1px solid #f3f3f3;
 }
 
 ul.recordSet li.alt {
-    background-color: #f3f3f3;
+    /* background-color: #f3f3f3; */
 }
 ul.recordSet input.checkbox_ui {
+    display: none;
+    /*
+    width: 30px;
     float: left;
-    margin-top: 3em;
-    margin-left: -1em;
-    margin-right: .4em;
-    margin:3em 6px 6px -30px;
+    margin: 0 6px 6px -30px;
+    */
 }
 ul.recordSet .recordNumber {
+    display: none;
+    /*
     width:30px;
     float: left;
     font-weight: bold;
-    margin-right: 0.2em;
+    margin-right: 0.2em; 
+    */
 }
 ul.recordSet .addToFavLink {
-		width:auto;
-		float:right;
+		width: auto;
+		float: right;
 }
 ul.recordSet .coverDiv {
 		width:100px;
@@ -428,7 +436,7 @@ ul.recordSet .coverDiv {
 		overflow:hidden;
 }
 ul.recordSet .resultItemLine2{
-	margin:0.2em 0 0 0;
+    margin:0.2em 0 0 0;
 }
 .summcover {
     padding:0;
@@ -439,20 +447,20 @@ ul.recordSet .resultItemLine2{
     margin:0 10px 0 0;
 }
 .result .imagelinks a {
-        float:left;
-        display:block;
-        border:1px solid #cfcfcf;
-        padding:1px;
-        width:1em;
-        margin:0 4px 4px 0;
-        text-align:center;
+    float:left;
+    display:block;
+    border:1px solid #cfcfcf;
+    padding:1px;
+    width:1em;
+    margin:0 4px 4px 0;
+    text-align:center;
 }
 .result .imagelinks a:hover {
-        text-decoration:none;
-        background-color:#eee;
+    text-decoration:none;
+    background-color:#eee;
 }
 .result .imagelinks a:focus {
-        text-decoration:none;
+    text-decoration:none;
 }
 .authorbox,.authorbio {
     padding:0 0 .4em .4em;
@@ -485,9 +493,10 @@ ul.recordSet .resultItemLine2{
 .savedLists ul li { padding:0; }
 
 li.result blockquote {
-  margin:0;
+    margin:0;
 }
 .groupCallnumber {
+		display:none;
     margin-left: 18px;
 }
 
@@ -728,141 +737,6 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:18px
 }
-.cd {
-    background-image:url(../images/silk/cd.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.dvd {
-    background-image:url(../images/silk/dvd.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.electronic {
-    background-image:url(../images/tango/www.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.map {
-    background-image:url(../images/silk/map.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.globe {
-    background-image:url(../images/silk/world.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.slide {
-    background-image:url(../images/silk/photo.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.microfilm {
-    background-image:url(../images/silk/film.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.photo {
-    background-image:url(../images/silk/picture.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.video {
-    background-image:url(../images/tango/video.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.kit {
-    background-image:url(../images/silk/package.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.musicalscore {
-    background-image:url(../images/silk/music.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.sensorimage {
-}
-.audio {
-    background-image:url(../images/tango/audio-volume-high.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.physicalobject {
-}
-.manuscript {
-    background-image:url(../images/silk/report_edit.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.ebook {
-    background-image:url(../images/ebook.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.book {
-    background-image:url(../images/silk/book.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.journal {
-    background-image:url(../images/silk/report.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.newspaper {
-    background-image:url(../images/silk/newspaper.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.software {
-    background-image:url(../images/silk/disk_multiple.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.iconlabel {
-    line-height: 16px;
-    font-size: 8pt;
-    font-weight: bold;
-}
 .holdPlace {
     background-image:url(../images/fugue/holdPlace.png);
     background-repeat:no-repeat;
@@ -908,6 +782,48 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:18px;
 }
+
+
+
+
+/* Resource types (subject to change!) */
+
+.iconlabel { /* Common for all */
+    background-repeat:no-repeat;
+    background-position: left top;
+    padding:2px .5em .5em 20px;
+    margin-right:1em;
+    line-height: 16px;
+    font-size: 8pt;
+    font-weight: normal;
+}
+
+.formatbook      {background-image:url(../images/silk/book.png);}
+.formatcd        {background-image:url(../images/silk/cd.png);}
+.formatdvd       {background-image:url(../images/silk/dvd.png);}
+.formatslide     {background-image:url(../images/silk/photo.png);}
+.formatsounddisc {background-image:url(../images/silk/music.png);}
+.formatitem      {background-image:url(../images/silk/script.png);}
+.formatebook     {background-image:url(../images/silk/world.png);}
+.formatcdrom     {background-image:url(../images/silk/cd.png);}
+.formatvideo     {background-image:url(../images/tango/video.png);}
+.formatserial    {background-image:url(../images/silk/report.png);}
+.formatjournal   {background-image:url(../images/silk/newspaper.png);}
+.formatmusicalscore   {background-image:url(../images/silk/music.png);}
+.formatsoundrecording {background-image:url(../images/tango/audio-volume-high.png);}
+
+/* not used? */
+.electronic {background-image:url(../images/tango/www.png);}
+.map {background-image:url(../images/silk/map.png);}
+.globe {background-image:url(../images/silk/world.png);}
+.microfilm {background-image:url(../images/silk/film.png);}
+.photo {background-image:url(../images/silk/picture.png);}
+.kit {background-image:url(../images/silk/package.png);}
+.sensorimage {}
+.physicalobject {}
+.manuscript {background-image:url(../images/silk/report_edit.png);}
+.software {background-image:url(../images/silk/disk_multiple.png);}
+
 
 
 
