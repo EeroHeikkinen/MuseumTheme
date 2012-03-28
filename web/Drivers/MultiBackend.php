@@ -134,12 +134,9 @@ class MultiBackend implements DriverInterface
     public function patronLogin($username, $password)
     {
     	$source = $this->_getSource($username);
-    	if (!$source) {
-    	    $source = $this->_defaultDriver;
-    	}
     	$driver = $this->_getDriver($source, true);
     	if ($driver) {
-    		$patron = $driver->patronLogin($this->_getLocalId($username), $password);
+    	    $patron = $driver->patronLogin($this->_getLocalId($username), $password);
     		return $this->_addIdPrefixes($patron, $source);
     	}
     	error_log("No driver for '$username' found");
@@ -343,7 +340,7 @@ class MultiBackend implements DriverInterface
     	}
 		$driver = $this->_drivers[$this->_defaultDriver];
 		require_once "{$driver}.php";
-		return new $driver();
+		return new $driver("{$driver}_{$this->_defaultDriver}.ini");
     }
 
     /**
