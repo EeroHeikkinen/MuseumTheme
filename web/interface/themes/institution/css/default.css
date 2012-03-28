@@ -728,141 +728,6 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:18px
 }
-.cd {
-    background-image:url(../images/silk/cd.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.dvd {
-    background-image:url(../images/silk/dvd.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.electronic {
-    background-image:url(../images/tango/www.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.map {
-    background-image:url(../images/silk/map.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.globe {
-    background-image:url(../images/silk/world.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.slide {
-    background-image:url(../images/silk/photo.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.microfilm {
-    background-image:url(../images/silk/film.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.photo {
-    background-image:url(../images/silk/picture.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.video {
-    background-image:url(../images/tango/video.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.kit {
-    background-image:url(../images/silk/package.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.musicalscore {
-    background-image:url(../images/silk/music.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.sensorimage {
-}
-.audio {
-    background-image:url(../images/tango/audio-volume-high.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.physicalobject {
-}
-.manuscript {
-    background-image:url(../images/silk/report_edit.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.ebook {
-    background-image:url(../images/ebook.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.book {
-    background-image:url(../images/silk/book.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.journal {
-    background-image:url(../images/silk/report.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.newspaper {
-    background-image:url(../images/silk/newspaper.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.software {
-    background-image:url(../images/silk/disk_multiple.png);
-    background-repeat:no-repeat;
-    background-position: left top;
-    padding:0 .5em .5em 20px;
-    margin-right:1em;
-}
-.iconlabel {
-    line-height: 16px;
-    font-size: 8pt;
-    font-weight: bold;
-}
 .holdPlace {
     background-image:url(../images/fugue/holdPlace.png);
     background-repeat:no-repeat;
@@ -908,6 +773,48 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:18px;
 }
+
+
+
+
+/* Resource types (subject to change!) */
+
+.iconlabel { /* Common for all */
+    background-repeat:no-repeat;
+    background-position: left top;
+    padding:2px .5em .5em 20px;
+    margin-right:1em;
+    line-height: 16px;
+    font-size: 8pt;
+    font-weight: normal;
+}
+
+.formatbook      {background-image:url(../images/silk/book.png);}
+.formatcd        {background-image:url(../images/silk/cd.png);}
+.formatdvd       {background-image:url(../images/silk/dvd.png);}
+.formatslide     {background-image:url(../images/silk/photo.png);}
+.formatsounddisc {background-image:url(../images/silk/music.png);}
+.formatitem      {background-image:url(../images/silk/script.png);}
+.formatebook     {background-image:url(../images/silk/world.png);}
+.formatcdrom     {background-image:url(../images/silk/cd.png);}
+.formatvideo     {background-image:url(../images/tango/video.png);}
+.formatserial    {background-image:url(../images/silk/report.png);}
+.formatjournal   {background-image:url(../images/silk/newspaper.png);}
+.formatmusicalscore   {background-image:url(../images/silk/music.png);}
+.formatsoundrecording {background-image:url(../images/tango/audio-volume-high.png);}
+
+/* not used? */
+.electronic {background-image:url(../images/tango/www.png);}
+.map {background-image:url(../images/silk/map.png);}
+.globe {background-image:url(../images/silk/world.png);}
+.microfilm {background-image:url(../images/silk/film.png);}
+.photo {background-image:url(../images/silk/picture.png);}
+.kit {background-image:url(../images/silk/package.png);}
+.sensorimage {}
+.physicalobject {}
+.manuscript {background-image:url(../images/silk/report_edit.png);}
+.software {background-image:url(../images/silk/disk_multiple.png);}
+
 
 
 
