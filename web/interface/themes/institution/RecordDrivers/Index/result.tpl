@@ -32,7 +32,7 @@
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       <div id="callnumAndLocation{$summId|escape}">
       {if $summAjaxStatus}
-        <strong class="hideIfDetailed{$summId|escape}">{translate text='Call Number'}:</strong> <span class="ajax_availability hide" id="callnumber{$summId|escape}"> </span><br class="hideIfDetailed{$summId|escape}"/>
+        {* <strong class="hideIfDetailed{$summId|escape}">{translate text='Call Number'}:</strong> <span class="ajax_availability hide" id="callnumber{$summId|escape}"> </span><br class="hideIfDetailed{$summId|escape}"/> *}
         <strong>{translate text='Located'}:</strong> <span class="ajax_availability hide" id="location{$summId|escape}"> </span>
         <div class="hide" id="locationDetails{$summId|escape}"></div>
       {elseif !empty($summCallNo)}
@@ -56,7 +56,7 @@
       {/foreach}
 
       {if !$summOpenUrl && empty($summURLs)}
-      <div class="ajax_availability hide" id="status{$summId|escape}">{translate text='Loading'}...</div>
+      <div class="ajax_availability hide noLoad" id="status{$summId|escape}">&nbsp;</div>
       {/if}
     </div>
 

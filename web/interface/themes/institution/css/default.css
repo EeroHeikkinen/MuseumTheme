@@ -235,6 +235,9 @@ div.dialogLoading {
     background: url(../images/ajax_loading.gif) no-repeat left top;
     padding:0 .5em .5em 20px;
 }
+.noLoad {
+    background:none;
+}
 .highlight {
     font-weight: bold;
     background: none;
@@ -397,28 +400,33 @@ ul.recordSet {
     list-style-type: none;
 }
 ul.recordSet li {
-    padding: .4em 0;
+    padding: 1em 0;
+    border-bottom: 1px solid #f3f3f3;
 }
 
 ul.recordSet li.alt {
-    background-color: #f3f3f3;
+    /* background-color: #f3f3f3; */
 }
 ul.recordSet input.checkbox_ui {
+    display: none;
+    /*
+    width: 30px;
     float: left;
-    margin-top: 3em;
-    margin-left: -1em;
-    margin-right: .4em;
-    margin:3em 6px 6px -30px;
+    margin: 0 6px 6px -30px;
+    */
 }
 ul.recordSet .recordNumber {
+    display: none;
+    /*
     width:30px;
     float: left;
     font-weight: bold;
-    margin-right: 0.2em;
+    margin-right: 0.2em; 
+    */
 }
 ul.recordSet .addToFavLink {
-		width:auto;
-		float:right;
+		width: auto;
+		float: right;
 }
 ul.recordSet .coverDiv {
 		width:100px;
@@ -428,7 +436,7 @@ ul.recordSet .coverDiv {
 		overflow:hidden;
 }
 ul.recordSet .resultItemLine2{
-	margin:0.2em 0 0 0;
+    margin:0.2em 0 0 0;
 }
 .summcover {
     padding:0;
@@ -439,20 +447,20 @@ ul.recordSet .resultItemLine2{
     margin:0 10px 0 0;
 }
 .result .imagelinks a {
-        float:left;
-        display:block;
-        border:1px solid #cfcfcf;
-        padding:1px;
-        width:1em;
-        margin:0 4px 4px 0;
-        text-align:center;
+    float:left;
+    display:block;
+    border:1px solid #cfcfcf;
+    padding:1px;
+    width:1em;
+    margin:0 4px 4px 0;
+    text-align:center;
 }
 .result .imagelinks a:hover {
-        text-decoration:none;
-        background-color:#eee;
+    text-decoration:none;
+    background-color:#eee;
 }
 .result .imagelinks a:focus {
-        text-decoration:none;
+    text-decoration:none;
 }
 .authorbox,.authorbio {
     padding:0 0 .4em .4em;
@@ -485,9 +493,10 @@ ul.recordSet .resultItemLine2{
 .savedLists ul li { padding:0; }
 
 li.result blockquote {
-  margin:0;
+    margin:0;
 }
 .groupCallnumber {
+		display:none;
     margin-left: 18px;
 }
 
