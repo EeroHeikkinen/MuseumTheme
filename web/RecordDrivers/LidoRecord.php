@@ -169,7 +169,7 @@ class LidoRecord extends IndexRecord
     }
     
 	/**
-     * Return an associative array of iamge URLs associated with this record (key = URL,
+     * Return an associative array of image URLs associated with this record (key = URL,
      * value = description), if available; false otherwise. 
 	 *
 	 * @return mixed
