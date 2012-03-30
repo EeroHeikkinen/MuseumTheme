@@ -48,7 +48,7 @@
           <New class="org.mortbay.jetty.nio.SelectChannelConnector">
             <Set name="host"><SystemProperty name="jetty.host" /></Set>
             <Set name="port"><SystemProperty name="jetty.port" default="8080"/></Set>
-            <Set name="maxIdleTime">30000</Set>
+            <Set name="maxIdleTime">600000</Set>
             <Set name="Acceptors">2</Set>
             <Set name="statsOn">false</Set>
             <Set name="confidentialPort">8443</Set>
@@ -166,7 +166,7 @@
       <Array type="org.mortbay.jetty.security.UserRealm">
         <Item>
           <New class="org.mortbay.jetty.security.HashUserRealm">
-            <Set name="name">Test Realm</Set>
+            <Set name="name">Solr Update</Set>
             <Set name="config"><SystemProperty name="jetty.home" default="."/>/etc/realm.properties</Set>
             <Set name="refreshInterval">0</Set>
           </New>
