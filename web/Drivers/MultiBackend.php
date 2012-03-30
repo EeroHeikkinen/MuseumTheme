@@ -104,7 +104,7 @@ class MultiBackend implements DriverInterface
     
     public function getNewItems($page, $limit, $daysOld, $fundId = null)
     {
-    	$driver = $this->_getDriver('', true);
+    	$driver = $this->_getDriver($this->_defaultDriver);
     	if ($driver) {
     		return $driver->getNewItems($page, $limit, $daysOld, $fundId);
     	}
@@ -113,7 +113,7 @@ class MultiBackend implements DriverInterface
     
     public function findReserves($course, $inst, $dept)
     {
-    	$driver = $this->_getDriver('', true);
+    	$driver = $this->_getDriver($this->_defaultDriver);
     	if ($driver) {
     		return $driver->findReserves($course, $inst, $dept);
     	}
@@ -134,12 +134,12 @@ class MultiBackend implements DriverInterface
     public function patronLogin($username, $password)
     {
     	$source = $this->_getSource($username);
-    	if (!$source) {
+        if (!$source) {
     	    $source = $this->_defaultDriver;
     	}
-    	$driver = $this->_getDriver($source, true);
+    	$driver = $this->_getDriver($source);
     	if ($driver) {
-    		$patron = $driver->patronLogin($this->_getLocalId($username), $password);
+    	    $patron = $driver->patronLogin($this->_getLocalId($username), $password);
     		return $this->_addIdPrefixes($patron, $source);
     	}
     	error_log("No driver for '$username' found");
@@ -245,14 +245,13 @@ class MultiBackend implements DriverInterface
     
     public function getConfig($function, $id = null)
     {
-    	// MH: Added source identification. Use 'id' if available or $user
     	$source = null;
     	global $user;
     	if ($id) {
     		$source = $this->_getSource($id);
     	}
     	
-    	if(!$source) {
+    	if (!$source) {
     		global $user;
     		$source = $this->_getSource($user->cat_username);
     	}
@@ -260,7 +259,7 @@ class MultiBackend implements DriverInterface
     	$driver = $this->_getDriver($source);
     	
     	# If we have resolved the needed driver, just getConfig and return.
-    	if ($driver) {
+    	if ($driver && method_exists($driver, 'getConfig')) {
     		return $driver->getConfig($function);
     	}
     	
@@ -322,10 +321,9 @@ class MultiBackend implements DriverInterface
      * Find the correct driver for the given source
      * 
      * @param string   $source
-     * @param boolean  $canUseDefault
      * @return mixed   On success a driver object, otherwise null.
      */
-    protected function _getDriver($source, $canUseDefault = false)
+    protected function _getDriver($source)
     {
     	$source = strtolower($source);
 		if (isset($this->_drivers[$source])) {
@@ -338,12 +336,7 @@ class MultiBackend implements DriverInterface
     			return null;
     		}
     	}
-    	if (!$this->_defaultDriver || !$canUseDefault) {
-    		return null;
-    	}
-		$driver = $this->_drivers[$this->_defaultDriver];
-		require_once "{$driver}.php";
-		return new $driver();
+		return null;
     }
 
     /**
@@ -356,7 +349,7 @@ class MultiBackend implements DriverInterface
      */
     function _addIdPrefixes($data, $source, $modifyFields = array('id', 'cat_username'))
     {
-        if (!isset($data) || empty($data)) {
+        if (!isset($data) || empty($data) || PEAR::isError($data)) {
             return $data;
         }
         $array = is_array($data) ? $data : array($data);

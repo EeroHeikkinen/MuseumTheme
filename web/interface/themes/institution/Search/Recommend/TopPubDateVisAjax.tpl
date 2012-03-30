@@ -7,7 +7,7 @@
     {js filename="pubdate_vis.js"}
 
     {foreach from=$visFacets item=facetRange key=facetField}
-      <div class="{if $facetRange.label == "adv_search_year"}span-10{else}authorbox{/if}">
+      <div class="{if $facetRange.label == "adv_search_year"}span-10{if $sidebarOnLeft} last{/if}{else}authorbox{/if}">
         {* $facetRange.label *}
         <strong>{translate text=$facetRange.label}</strong>
         {* space the flot visualisation *}     
