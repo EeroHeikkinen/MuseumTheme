@@ -1030,7 +1030,10 @@ class MarcRecord extends IndexRecord
                     $address = $address->getData();
 
                     // Is there a description?  If not, just use the URL itself.
-                    $desc = $url->getSubfield('z');
+                    $desc = $url->getSubfield('y');
+                    if (!$desc) {
+                        $desc = $url->getSubfield('z');
+                    }
                     if ($desc) {
                         $desc = $desc->getData();
                     } else {
