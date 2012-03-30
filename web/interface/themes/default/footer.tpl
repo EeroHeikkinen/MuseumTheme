@@ -1,17 +1,35 @@
 {* Your footer *}
 <div><p><strong>{translate text='Search Options'}</strong></p>
+{if $module == "EBSCO"}
+  <ul>
+    <li><a href="{$path}/EBSCO/History">{translate text='Search History'}</a></li>
+    <li><a href="{$path}/EBSCO/Advanced">{translate text='Advanced Search'}</a></li>
+  </ul>
+{else}
   <ul>
     <li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
     <li><a href="{$path}/Search/Advanced">{translate text='Advanced Search'}</a></li>
   </ul>
+{/if}
+
 </div>
 <div><p><strong>{translate text='Find More'}</strong></p>
+{if $module == "EBSCO"}
   <ul>
     <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
     <li><a href="{$path}/AlphaBrowse/Home">{translate text='Browse Alphabetically'}</a></li>
     <li><a href="{$path}/Search/Reserves">{translate text='Course Reserves'}</a></li>
     <li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li>
   </ul>
+{else}
+  <ul>
+    <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
+    <li><a href="{$path}/AlphaBrowse/Home">{translate text='Browse Alphabetically'}</a></li>
+    <li><a href="{$path}/Search/Reserves">{translate text='Course Reserves'}</a></li>
+    <li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li>
+  </ul>
+{/if}
+
 </div>
 <div><p><strong>{translate text='Need Help?'}</strong></p>
   <ul>
