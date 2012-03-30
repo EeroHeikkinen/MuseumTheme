@@ -1,5 +1,5 @@
 <div class="searchform">
-  {if $searchType == 'SummonAdvanced'}
+  {if $searchType == 'EBSCOAdvanced'}
     <a href="{$path}/EBSCO/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
     <a href="{$path}/EBSCO/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
     <a href="{$path}/EBSCO/Home" class="small">{translate text="Start a new Basic Search"}</a>

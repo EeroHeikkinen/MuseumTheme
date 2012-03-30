@@ -60,6 +60,10 @@ class SearchObject_EBSCO extends SearchObject_Base
         
         // Set up search options
         $this->basicTypes = $config['Basic_Searches'];
+        if (isset($config['Advanced_Searches'])) {
+            $this->advancedTypes = $config['Advanced_Searches'];
+        }
+        
         $this->recommendIni = 'EBSCO';
         
         if (isset($config['General']['url'])) {
@@ -305,7 +309,17 @@ class SearchObject_EBSCO extends SearchObject_Base
         }
         $startRec = ($this->page - 1) * $this->limit;
         //print "$recordStart<BR>";
-        $this->_indexResult = $this->executeSearch($this->buildURL($this->searchTerms, $startRec, $this->limit, $this->sort));
+         
+        // Build search URL based on searchType
+        $url = '';
+        if ($this->searchType == 'EBSCOAdvanced') {
+        	$url = $this->buildAdvancedUrl($this->searchTerms, $startRec, $this->limit, $this->sort);
+        }
+        else {
+        	$url = $this->buildUrl($this->searchTerms, $startRec, $this->limit, $this->sort);
+        }
+        
+        $this->_indexResult = $this->executeSearch($url);
         
         // Get time after the query
         $this->stopQueryTimer();
@@ -364,6 +378,53 @@ class SearchObject_EBSCO extends SearchObject_Base
         return $url;
     }
 
+    public function buildAdvancedURL($searchTerms, $startRec, $limit, $sort) {
+        $filterQuery = '';
+        foreach ($this->getFilterList() as $filters) {
+            foreach ($filters as $filter) {
+                $field = $filter['field'];
+                $value = $filter['value'];
+                if ($filterQuery) {
+                    $filterQuery .= '+AND+';
+                }
+                $filterQuery .= '(' . urlencode($field) . '+(' . urlencode($value) . '))';
+            }
+        }
+        $query = '';
+        $i = 0;
+        foreach ($searchTerms as $term) {        	
+            if ($query) {
+            	$join = $term['join'];
+         		$query .= '+' . $term['join'] . '+';
+           	}
+                    
+            $group = $term['group'];
+            foreach($group as $member) {
+                if ($query) {
+                	$query .= '+AND+';
+            	}
+            	if ($member['field'] == 'AllFields') {
+            		$query .= '(' . urlencode($member['lookfor']) . ')';
+            		}
+            	else {
+            		$query .= '(' . urlencode($member['field']) . '+' . urlencode($member['lookfor']) . ')';
+            	}           			
+            }
+        }
+                
+        $params = array("numrec" => $limit, "format" => "full", 
+        	"clusters" => "true", "clusters" => "true", "sort" => urlencode($sort));
+        $params += $this->_params;
+        if ($startRec > 0) {
+           $params = array_merge($params, array("startrec" => $startRec));
+        }
+        $url = $this->_baseUrl . '?' . http_build_query($params) . "&query=$query";
+        if ($filterQuery) {
+            $url .= "+AND+$filterQuery";
+        }
+        return $url;
+    }
+    
     public function executeSearch($url) 
     {
         $response = file_get_contents($url);

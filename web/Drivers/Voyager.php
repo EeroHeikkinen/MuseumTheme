@@ -946,15 +946,15 @@ class Voyager implements DriverInterface
                "lower(PATRON_BARCODE.PATRON_BARCODE) = :barcode";
         try {
             $sqlStmt = $this->db->prepare($sql);
-            $sqlStmt->bindParam(':login', strtolower($login), PDO::PARAM_STR);
-            $sqlStmt->bindParam(':barcode', strtolower($barcode), PDO::PARAM_STR);
+            $sqlStmt->bindParam(':login', strtolower(utf8_decode($login)), PDO::PARAM_STR);
+            $sqlStmt->bindParam(':barcode', strtolower(utf8_decode($barcode)), PDO::PARAM_STR);
             $sqlStmt->execute();
             $row = $sqlStmt->fetch(PDO::FETCH_ASSOC);
             if (isset($row['PATRON_ID']) && ($row['PATRON_ID'] != '')) {
                 return array(
-                    'id' => $row['PATRON_ID'],
-                    'firstname' => $row['FIRST_NAME'],
-                    'lastname' => $row['LAST_NAME'],
+                    'id' => utf8_encode($row['PATRON_ID']),
+                    'firstname' => utf8_encode($row['FIRST_NAME']),
+                    'lastname' => utf8_encode($row['LAST_NAME']),
                     'cat_username' => $barcode,
                     'cat_password' => $login,
                     // There's supposed to be a getPatronEmailAddress stored

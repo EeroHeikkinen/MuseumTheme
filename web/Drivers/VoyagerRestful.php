@@ -435,7 +435,7 @@ class VoyagerRestful extends Voyager
 
         // Add Hierarchy
         foreach ($hierarchy as $key => $value) {
-            $hierarchyString[] = ($value !== false) ? $key. "/" . $value : $key;
+            $hierarchyString[] = ($value !== false) ? urlencode($key). "/" . urlencode($value) : urlencode($key);
         }
 
         // Add Params
@@ -471,8 +471,11 @@ class VoyagerRestful extends Voyager
         libxml_use_internal_errors(true);
         $simpleXML = simplexml_load_string($xmlResponse);
         libxml_use_internal_errors($oldLibXML);
-
+        
         if ($simpleXML === false) {
+            $logger = new Logger();
+            $error = libxml_get_last_error();
+            $logger->log('VoyagerRestful: Failed to parse response XML: ' . $error->message . ", response:\n" . $xmlResponse, PEAR_LOG_ERR);
             return false;
         }
         return $simpleXML;
