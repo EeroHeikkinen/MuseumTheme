@@ -9,6 +9,10 @@
   {/if}
 {/if}
 
+{if $holdingTitleHold}
+    <a class="holdPlace" href="{$holdingTitleHold|escape}">{translate text="title_hold_place"}</a>
+{/if}
+
 {if !empty($holdingURLs) || $holdingsOpenURL}
   <h3>{translate text="Internet"}</h3>
   {if !empty($holdingURLs)}
