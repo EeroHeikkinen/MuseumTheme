@@ -1,4 +1,4 @@
-{if $driverMode && !empty($holdings)}
+{if ($driverMode && !empty($holdings)) || $titleDriverMode}
   {if $showLoginMsg}
     <div class="userMsg">
       <a href="{$path}/MyResearch/Home?followup=true&followupModule=Record&followupAction={$id}">{translate text="Login"}</a> {translate text="hold_login"}

@@ -1,5 +1,5 @@
-{if $driverMode && !empty($holdings)}
-  {if $showLoginMsg}
+{if ($driverMode && !empty($holdings)) || $titleDriverMode}
+  {if $showLoginMsg || $showTitleLoginMsg}
     <div class="userMsg">
       <a href="{$path}/MyResearch/Home?followup=true&followupModule=Record&followupAction={$id}">{translate text="Login"}</a> {translate text="hold_login"}
     </div>
@@ -7,6 +7,10 @@
   {if $user && !$user->cat_username}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
+{/if}
+
+{if $holdingTitleHold}
+    <a class="holdPlace" href="{$holdingTitleHold|escape}">{translate text="title_hold_place"}</a>
 {/if}
 
 {if !empty($holdingURLs) || $holdingsOpenURL}
