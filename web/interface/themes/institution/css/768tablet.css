@@ -13,5 +13,15 @@ px      62    136    210    284    358    432    506    580    654    728   */
         padding: 0 20px 40px;
     }
 
+    .container {
+        width: 728px; /* make this match the body width above */
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: none/*1px solid #dddddd;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px*/;
+    }
+
+
 }
 

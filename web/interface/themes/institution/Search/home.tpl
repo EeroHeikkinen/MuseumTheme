@@ -3,9 +3,9 @@
     <div class="searchHomeLogo">
       <img src="{$path}/interface/themes/institution/images/morgan_logo.gif" alt="MORGAN - KIRJASTO, ARKISTO JA MUSEO" />
 {* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
-
+{*
       <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>
-
+*}
     </div>
     <div class="searchHomeForm">
       <div class="searchbox">

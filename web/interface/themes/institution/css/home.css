@@ -23,6 +23,10 @@
 
 /** Search Box **/
 
+.searchHome .searchbox {
+    margin-top: 0;
+}
+
 .searchHomeForm {
 /*
     background-color: #E6EFC2;

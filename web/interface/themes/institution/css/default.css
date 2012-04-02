@@ -159,7 +159,7 @@ img.alignleft {
 /*** Search Box ***/    /* also note home.css for Home Page */
 
 .searchbox {
-    margin: 0 0 0 29px; /* Right margin 30->29px to fit the English slogan */
+    margin: 27px 0 0 29px; /* Right margin 30->29px to fit the English slogan */
     padding: .5em 0 .8em;
 }
 #searchForm input, #searchForm select, .styled_select { 
