@@ -1467,29 +1467,29 @@ class Voyager implements DriverInterface
             $patron = array();
             while ($row = $sqlStmt->fetch(PDO::FETCH_ASSOC)) {
                 if (!empty($row['FIRST_NAME'])) {
-                    $patron['firstname'] = $row['FIRST_NAME'];
+                    $patron['firstname'] = utf8_encode($row['FIRST_NAME']);
                 }
                 if (!empty($row['LAST_NAME'])) {
-                    $patron['lastname'] = $row['LAST_NAME'];
+                    $patron['lastname'] = utf8_encode($row['LAST_NAME']);
                 }
                 if (!empty($row['PHONE_NUMBER'])) {
-                    $patron['phone'] = $row['PHONE_NUMBER'];
+                    $patron['phone'] = utf8_encode($row['PHONE_NUMBER']);
                 }
                 if (!empty($row['PATRON_GROUP_NAME'])) {
-                    $patron['group'] = $row['PATRON_GROUP_NAME'];
+                    $patron['group'] = utf8_encode($row['PATRON_GROUP_NAME']);
                 }
                 include_once 'Mail/RFC822.php';
-                if (Mail_RFC822::isValidInetAddress($row['ADDRESS_LINE1'])) {
-                    $patron['email'] = $row['ADDRESS_LINE1'];
+                if (Mail_RFC822::isValidInetAddress(utf8_encode($row['ADDRESS_LINE1']))) {
+                    $patron['email'] = utf8_encode($row['ADDRESS_LINE1']);
                 } else if (!isset($patron['address1'])) {
                     if (!empty($row['ADDRESS_LINE1'])) {
-                        $patron['address1'] = $row['ADDRESS_LINE1'];
+                        $patron['address1'] = utf8_encode($row['ADDRESS_LINE1']);
                     }
                     if (!empty($row['ADDRESS_LINE2'])) {
-                        $patron['address2'] = $row['ADDRESS_LINE2'];
+                        $patron['address2'] = utf8_encode($row['ADDRESS_LINE2']);
                     }
                     if (!empty($row['ZIP_POSTAL'])) {
-                        $patron['zip'] = $row['ZIP_POSTAL'];
+                        $patron['zip'] = utf8_encode($row['ZIP_POSTAL']);
                     }
                 }
             }
