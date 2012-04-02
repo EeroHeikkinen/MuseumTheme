@@ -74,7 +74,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         </div>
       {/if}
   {else}
-{* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}
+<img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
   {/if}
 </div>
   {* End Cover Image *}
