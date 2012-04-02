@@ -517,6 +517,8 @@ ul.filters a {
     text-decoration: none;
 }
 div.sidegroup {
+    border-left: 2px solid #ddd;
+    padding-left: 10px;
 }
 div.sidegroup h4 {
     margin:0 0 0.5em 0;
@@ -860,6 +862,9 @@ div.recordsubcontent {
     float: left;
     margin: 0 1em 2em 0;
 }
+.coverImages {
+    text-align:center;
+}
 .coverImageLinks a {
     display: inline-block;
     border: 1px solid #cfcfcf;
@@ -1000,6 +1005,7 @@ h5.recordTabHeader{
     float:right;
     padding:10px 0 10px 0;
     margin:10px 0 40px 0;
+    background-color:#eef4ff;
 }
 .toolbar ul {
     list-style-type:none;

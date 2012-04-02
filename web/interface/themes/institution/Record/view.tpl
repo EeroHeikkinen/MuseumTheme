@@ -55,7 +55,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 <div class="span-3">
 
   {* Display Cover Image *}
-  <div class="coverImages" style="text-align:center;">
+  <div class="coverImages">
   {if $coreThumbMedium}
       {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}" class="span-3">{/if}
         <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
@@ -77,7 +77,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 </div>
   {* End Cover Image *}
 
-  <div class="toolbar span-3" style="background-color:#eef4ff;">
+  <div class="toolbar span-3">
     <ul>
       <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
       
