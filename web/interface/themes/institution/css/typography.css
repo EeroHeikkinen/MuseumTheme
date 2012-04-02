@@ -69,3 +69,8 @@ img::selection 		{ background: transparent; }
 img::-moz-selection	{ background: transparent; }
 body { -webkit-tap-highlight-color: #ffff9e; }
 
+div.recordsubcontent h3 {
+    font-size:1em;
+    margin:0;
+}
+

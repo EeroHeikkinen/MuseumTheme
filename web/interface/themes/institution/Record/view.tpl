@@ -17,7 +17,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 <script src="{$syndetics_plus_js}" type="text/javascript"></script>
 {/if}
 {if !empty($addThis)}
-<script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script>
+<!-- <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script> -->
 {/if}
 
 {js filename="record.js"}
@@ -29,8 +29,55 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {js filename="openurl.js"}
 {/if}
 
-<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
-  <div class="toolbar">
+
+{* <div class="span-10{if $sidebarOnLeft} push-5 last{/if}"> *}
+
+<div class="record recordId" id="record{$id|escape}">
+	{if $errorMsg || $infoMsg}
+		<div class="messages">
+		{if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
+		{if $infoMsg}<div class="info">{$infoMsg|translate}</div>{/if}
+		</div>
+	{/if}
+	<div class="span-3 backToResults" style="float:left;">
+		<a href="history.back();">&laquo; {translate text="Back to Search Results"}</a>
+	</div>
+	{if $previousRecord || $nextRecord}
+	<div class="resultscroller">
+		{if $previousRecord}<a href="{$url}/Record/{$previousRecord}">&laquo; {translate text="Prev"}</a>{/if}
+		#{$currentRecordPosition} {translate text='of'} {$resultTotal}
+		{if $nextRecord}<a href="{$url}/Record/{$nextRecord}">{translate text="Next"} &raquo;</a>{/if}
+	</div>
+	{/if}
+</div>
+<div class="clear"></div>
+
+<div class="span-3">
+
+  {* Display Cover Image *}
+  <div class="coverImages" style="text-align:center;">
+  {if $coreThumbMedium}
+      {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}" class="span-3">{/if}
+        <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+      {if $coreThumbLarge}</a>{/if}
+      <div class="clear"></div>
+      {assign var=img_count value=$coreImages|@count}
+      {if $img_count > 1}
+        <div class="coverImageLinks">
+      {foreach from=$coreImages item=desc name=imgLoop}
+          <a href="{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onclick="document.getElementById('thumbnail').src='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=medium'; document.getElementById('thumbnail_link').href='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+            {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
+          </a>
+        {/foreach}
+        </div>
+      {/if}
+  {else}
+{* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}
+  {/if}
+</div>
+  {* End Cover Image *}
+
+  <div class="toolbar span-3" style="background-color:#eef4ff;">
     <ul>
       <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
       
@@ -74,24 +121,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {/if}
     <div class="clear"></div>
   </div>
+</div>
 
-  <div class="record recordId" id="record{$id|escape}">
-    {if $errorMsg || $infoMsg}
-      <div class="messages">
-      {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
-      {if $infoMsg}<div class="info">{$infoMsg|translate}</div>{/if}
-      </div>
-    {/if}
-    {if $previousRecord || $nextRecord}
-    <div class="resultscroller">
-      {if $previousRecord}<a href="{$url}/Record/{$previousRecord}">&laquo; {translate text="Prev"}</a>{/if}
-      #{$currentRecordPosition} {translate text='of'} {$resultTotal}
-      {if $nextRecord}<a href="{$url}/Record/{$nextRecord}">{translate text="Next"} &raquo;</a>{/if}
-    </div>
-    {/if}
+<div class="span-7">
 
-    {include file=$coreMetadata}
-  </div>
+ {include file=$coreMetadata}
   
   <div id="tabnav">
     <ul>
@@ -134,7 +168,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       </li>
     </ul>
     <div class="clear"></div>
-    </div>
+  </div>
 
 
   <div class="recordsubcontent">
