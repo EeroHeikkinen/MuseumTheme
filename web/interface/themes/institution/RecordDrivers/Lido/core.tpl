@@ -35,7 +35,7 @@
 
 
 {* Display Title *}
-<h1>{$coreShortTitle|escape}
+<h1 class="recordTitle">{$coreShortTitle|escape}
 {if $coreSubtitle}{$coreSubtitle|escape}{/if}
 {if $coreTitleSection}{$coreTitleSection|escape}{/if}
 {* {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}

@@ -1,11 +1,21 @@
 <div>
+    
   {* Display Title *}
-  <h1 style="font-weight:bold;margin-top:0;">{$coreShortTitle|escape}
+  <h1 class="recordTitle">{$coreShortTitle|escape}
   {if $coreSubtitle}{$coreSubtitle|escape}{/if}
   {if $coreTitleSection}{$coreTitleSection|escape}{/if}
   {* {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
   {* End Title *}
+
+  {if !empty($coreRecordLinks)}
+  <div style="margin:0 0 5px 0;padding:6px 0;">
+    {foreach from=$coreRecordLinks item=coreRecordLink}
+      {translate text=$coreRecordLink.title}:
+      <a href="{$coreRecordLink.link|escape}">{$coreRecordLink.value|escape}</a>
+    {/foreach}
+  </div>
+  {/if}
 
   {* Display Cover Image, commented out since already in view.tpl
   {if $coreThumbMedium}
@@ -162,7 +172,8 @@
       </td>
     </tr>
     {/if}
-
+    
+    {*
     {if !empty($coreRecordLinks)}
     {foreach from=$coreRecordLinks item=coreRecordLink}
     <tr valign="top">
@@ -171,7 +182,8 @@
     </tr>
     {/foreach}
     {/if}
-
+    *}
+    
     <tr valign="top">
       <th>{translate text='Tags'}: </th>
       <td>

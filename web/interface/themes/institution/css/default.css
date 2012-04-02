@@ -854,9 +854,15 @@ ul.recordSet .addToFavLink a {
 /*** Record Page */
 div.record {
     padding: 0 1.5em;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 1em;
+}
+.recordTitle {
+    font-weight:bold;
+    margin-top:0;
 }
 div.recordsubcontent {
-    padding: 1em 1.5em 1em 1.5em;
+    padding: 1em 1.5em 5em 1.5em;
 }
 #thumbnail_link{
     float: left;

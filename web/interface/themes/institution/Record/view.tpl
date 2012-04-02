@@ -39,18 +39,20 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 		{if $infoMsg}<div class="info">{$infoMsg|translate}</div>{/if}
 		</div>
 	{/if}
-	<div class="span-3 backToResults" style="float:left;">
-		<a href="history.back();">&laquo; {translate text="Back to Search Results"}</a>
+  {if $lastsearch}
+	<div class="span-3 backToResults" style="float:left;height:27px">
+		<a href="{$lastsearch|escape}#record{$id|escape:"url"}">&laquo; {translate text="Back to Search Results"}</a>
 	</div>
-	{if $previousRecord || $nextRecord}
+  {/if}
+  {if $previousRecord || $nextRecord}
 	<div class="resultscroller">
 		{if $previousRecord}<a href="{$url}/Record/{$previousRecord}">&laquo; {translate text="Prev"}</a>{/if}
 		#{$currentRecordPosition} {translate text='of'} {$resultTotal}
 		{if $nextRecord}<a href="{$url}/Record/{$nextRecord}">{translate text="Next"} &raquo;</a>{/if}
 	</div>
 	{/if}
-</div>
 <div class="clear"></div>
+</div>
 
 <div class="span-3">
 
