@@ -1,13 +1,13 @@
-<div class="span-6">
+<div>
   {* Display Title *}
-  <h1>{$coreShortTitle|escape}
+  <h1 style="font-weight:bold;margin-top:0;">{$coreShortTitle|escape}
   {if $coreSubtitle}{$coreSubtitle|escape}{/if}
   {if $coreTitleSection}{$coreTitleSection|escape}{/if}
   {* {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
   {* End Title *}
 
-  {* Display Cover Image *}
+  {* Display Cover Image, commented out since already in view.tpl
   {if $coreThumbMedium}
     {if $coreThumbLarge}<a href="{$coreThumbLarge|escape}">{/if}
       <img alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}"/>
@@ -15,7 +15,7 @@
   {else}
     <img src="{$path}/bookcover.php" class="recordcover" alt="{translate text='No Cover Image'}"/>
   {/if}
-  {* End Cover Image *}
+  End Cover Image *}
 
   {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape} <a href='{$url}/Record/{$id|escape:"url"}/Description#tabnav'>{translate text='Full description'}</a></p>{/if}
 

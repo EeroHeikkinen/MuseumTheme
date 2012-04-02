@@ -13,7 +13,7 @@
     <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
   {/if}
   </div>
-  <div class="span-5">
+  <div class="span-6">
   
     <div class="resultItemLine1">
       <a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>

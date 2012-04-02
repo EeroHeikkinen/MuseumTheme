@@ -42,12 +42,12 @@
 </h1>
 {* End Title *}
 
-{* Display Cover Image *}
+{* Display Cover Image, commented out since already in view.tpl
 
   {if $coreThumbMedium}
     <div>
       {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
-        <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+        <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover span-3" src="{$coreThumbMedium|escape}">
       {if $coreThumbLarge}</a>{/if}
       {assign var=img_count value=$coreImages|@count}
       {if $img_count > 1}
@@ -61,11 +61,11 @@
       {/if}
     </div>
   {else}
-{* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}
+<img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
   {/if}
 <div class="clear"></div>
 
-{* End Cover Image *}
+End Cover Image *}
 
 {if $coreSummary}<p>{$coreSummary|escape}</p>{/if}
 

@@ -851,43 +851,40 @@ ul.recordSet .addToFavLink a {
 
 /*** Record Page */
 div.record {
-    padding:0 1.5em;
+    padding: 0 1.5em;
 }
 div.recordsubcontent {
-    padding:1em 1.5em 1em 1.5em;
+    padding: 1em 1.5em 1em 1.5em;
 }
 #thumbnail_link{
-        float:left;
-        margin:0 1em 2em 0;
+    float: left;
+    margin: 0 1em 2em 0;
 }
-.record .imagelinks a {
-        float:left;
-        display:block;
-        border:1px solid #cfcfcf;
-        padding:3px;
-        width:2em;
-        margin:0 4px 4px 0;
-        text-align:center;
+.coverImageLinks a {
+    display: inline-block;
+    border: 1px solid #cfcfcf;
+    padding: 4px 0;
+    width: 2em;
+    margin: 0 4px 4px 0;
+    text-align: center;
 }
-.record .imagelinks a:hover {
-        text-decoration:none;
-        background-color:#eee;
+.coverImageLinks a:hover {
+    text-decoration: none;
+    background-color: #eee;
 }
-.record .imagelinks a:focus {
-        text-decoration:none;
+.coverImageLinks a:focus {
+    text-decoration: none;
 }
 .recordcover {
-    padding:3px;
-    background-color:#eee;
-    border:1px solid #cfcfcf;
-    margin:0 1em 2em 0;
-    /* max-width: 120px; */
+    padding: 3px;
+    margin: 0 auto;
+    max-width: 210px;
 }
 .holdsMessage {
     margin-top: 1em;
 }
 .recordUserMsg {
-        margin:2em 0;
+    margin: 2em 0;
 }
 
 /* hack to hide redundant titles introduced by syndetics plus */
@@ -1001,8 +998,8 @@ h5.recordTabHeader{
 /*********** Toolbar (Record View) ************/
 .toolbar {
     float:right;
-    padding-left:1em;
-    margin:0;
+    padding:10px 0 10px 0;
+    margin:10px 0 40px 0;
 }
 .toolbar ul {
     list-style-type:none;
