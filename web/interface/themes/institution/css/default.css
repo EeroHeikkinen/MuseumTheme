@@ -438,7 +438,7 @@ ul.recordSet .resultItemLine2{
 }
 .summcover {
     margin: 0;
-    width: 100px;
+    max-width: 100px;
 }
 .resultImages {
     float:left;
