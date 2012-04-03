@@ -13,8 +13,7 @@
       </div>
     </div>
 {* Work-In-Progress disclaimer, remove when appropriate *}
-    <span class="span-9 push-1 " style="position:absolute; top:.5em; left:0;">
-      {translate text="development_disclaimer"}
+    <span class="push-1 w-i-p">{translate text="development_disclaimer"}
     </span>
   </div>
 </div>
