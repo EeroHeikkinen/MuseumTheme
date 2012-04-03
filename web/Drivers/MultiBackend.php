@@ -227,20 +227,20 @@ class MultiBackend implements DriverInterface
     	$source = $this->_getSource($cancelDetails['patron']['cat_username']);
     	$driver = $this->_getDriver($source);
     	if ($driver) {
-    	    return $driver->cancelHolds(array($this->_stripIdPrefixes($cancelDetails, $source), 'patron' => $patron));
+    	    return $driver->cancelHolds($this->_stripIdPrefixes($cancelDetails, $source));
     	}
     	error_log("No driver for '$id' found");
     }
     
     public function getCancelHoldDetails($holdDetails)
     {
-    	$source = $this->_getSource($holdDetails['patron']['cat_username']);
+    	$source = $this->_getSource($holdDetails['id']);
     	$driver = $this->_getDriver($source);
     	if ($driver) {
     	    $holdDetails = $this->_stripIdPrefixes($holdDetails, $source);
     	    return $driver->getCancelHoldDetails($holdDetails);
     	}
-    	error_log("No driver for '$id' found");
+    	error_log("No driver for '" . $holdDetails['id'] . "' found");
     }
     
     public function getConfig($function, $id = null)
