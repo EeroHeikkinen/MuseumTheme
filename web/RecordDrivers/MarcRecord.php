@@ -336,59 +336,55 @@ class MarcRecord extends IndexRecord
         global $configArray;
         
         $baseURI     = $configArray['Site']['url'];
-
+        
+        // Collect the values of all the 979 fields and their subfields into an array of arrays
+        // to be handed to a template for display.
         $fields = $this->marcRecord->getFields('979');
         if (!$fields) {
             return null;
-        } else {    
-            if ($fields) {
-                $componentparts = '';
-                $nr = 0;
-                $dFound = false;
-                $bFound = false;
-                $compref="";
-                foreach ($fields as $field) {
-                    if ($componentparts) {
-                        if  ($bFound) {
-                            $componentparts .= '++--';
-                        } else {     
-                           $componentparts .= '--';
-                        }
-                   }
-                    $nr++;
-                    $subfields = $field->getSubfields();
-                    foreach ($subfields as $subfield) {
-                        if ($subfield->getCode() != 'a') {
-                            if ($subfield->getCode() != 'd') {
-                                if ($componentparts) {
-                                    $componentparts .= '++';
-                                }
-                                $dFound = false;
-                                if ($subfield->getCode() != 'c') {
-                                    $bFound = true;
-                                    $componentparts .= '##'.$baseURI.'%%'.$compref.'=='.$subfield->getData().'??';
-                                } else {
-                                    $bFound = false;
-                                    $componentparts .= $subfield->getData();
-                                }
-                            } else {
-                                if (!$dFound) {
-                                   $dFound = true;
-                                   $bFound = false;
-                                   $componentparts .= ' ...';
-                                } 
-                            }
-                        } else {
-                            $dFound = false;
-                            $componentparts .= $nr;
-                            $compref = $subfield->getData();
-                        }
-                    }                
+        } else {
+            $partOrderCounter = 0;                
+            foreach ($fields as $field) {
+                $partAuthor = '';
+                $partAdditionalAuthors = '';
+                $partAuthors = '';
+                $subfields = $field->getSubfields();
+                foreach ($subfields as $subfield) {
+                    $subfieldCode = $subfield->getCode();
+                    switch ($subfieldCode) {
+                        case 'a':
+                            $partOrderCounter++;
+                            $partCode = $subfield->getData();
+                            break;
+                        case 'b':
+                            $partTitle = $subfield->getData();
+                            break;
+                        case 'c':
+                            if ($partAuthor) {
+                                $partAuthor .= ', ';
+                            }    
+                            $partAuthor .= $subfield->getData();
+                            break;
+                        case 'd':
+                            if ($partAdditionalAuthors) {
+                                $partAdditionalAuthors .= ', ';
+                            } 
+                            $partAdditionalAuthors .= $subfield->getData();                               
+                            break;          
+                    }              
                 }
-                if ($bFound) {
-                    $componentparts .= '++';
+                if ($partAuthor) {
+                    $partAuthors = $partAuthor . ', ';
                 }    
+                $partAuthors .= $partAdditionalAuthors;  
+                $componentparts[] = array(
+                                        'number' => $partOrderCounter,
+                                        'title' => $partTitle,
+                                        'link' => $baseURI . '/Record/' . $partCode,
+                                        'author' => $partAuthors
+                );
             }
+            
         }   
         // Assign the appropriate variable and return the template name:
         $interface->assign('componentparts', $componentparts);
