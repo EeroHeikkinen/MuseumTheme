@@ -865,7 +865,7 @@ div.recordsubcontent {
 }
 #thumbnail_link{
     float: left;
-    margin: 0 1em 2em 0;
+    margin: 0 1em 1em 0;
 }
 .coverImages {
     text-align:center;
@@ -873,10 +873,11 @@ div.recordsubcontent {
 .coverImageLinks a {
     display: inline-block;
     border: 1px solid #cfcfcf;
-    padding: 4px 0;
-    width: 2em;
+    padding: 4px 0 3px 0;
+    width: 1.5em;
     margin: 0 4px 4px 0;
     text-align: center;
+    font-size: 1em;
 }
 .coverImageLinks a:hover {
     text-decoration: none;
@@ -1047,6 +1048,17 @@ h5.recordTabHeader{
     margin:0;
     padding:0 0 0 1em;
     /* border-bottom:1px solid #dddddd; */
+}
+.resultscroller .prevRecord {
+    margin-right: 0.5em; 
+}
+.resultscroller .nextRecord {
+    margin-left: 0.5em; 
+}
+.backToResults {
+    float: left;
+    width: 200px;
+    height: 27px;
 }
 
 /*********** Toolbar (Favorites View) ************/
