@@ -41,7 +41,7 @@
     
     
     
-    <div class="span-5">
+    <div class="span-6">
       <div class="resultItemLine1">
       	<a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
       </div>
@@ -107,7 +107,6 @@
         {/foreach}
       {/foreach}
     </div>
-  </div>
 
   <div class="span-3 last addToFavLink">
     <div id="saveLink{$summId|escape}">
@@ -144,7 +143,7 @@
      {/if}
   </div>
   <div class="clear"></div>
-
+ </div>
 
 {if $summCOinS}<span class="Z3988" title="{$summCOinS|escape}"></span>{/if}
 
