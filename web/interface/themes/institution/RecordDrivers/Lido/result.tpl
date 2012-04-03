@@ -107,7 +107,6 @@
         {/foreach}
       {/foreach}
     </div>
-  </div>
 
   <div class="span-3 last addToFavLink">
     <div id="saveLink{$summId|escape}">
@@ -144,7 +143,7 @@
      {/if}
   </div>
   <div class="clear"></div>
-
+ </div>
 
 {if $summCOinS}<span class="Z3988" title="{$summCOinS|escape}"></span>{/if}
 
