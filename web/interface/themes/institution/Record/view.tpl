@@ -40,15 +40,18 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 		</div>
 	{/if}
   {if $lastsearch}
-	<div class="span-3 backToResults" style="float:left;height:27px">
+	<div class="backToResults">
 		<a href="{$lastsearch|escape}#record{$id|escape:"url"}">&laquo; {translate text="Back to Search Results"}</a>
 	</div>
   {/if}
   {if $previousRecord || $nextRecord}
 	<div class="resultscroller">
-		{if $previousRecord}<a href="{$url}/Record/{$previousRecord}">&laquo; {translate text="Prev"}</a>{/if}
-		#{$currentRecordPosition} {translate text='of'} {$resultTotal}
-		{if $nextRecord}<a href="{$url}/Record/{$nextRecord}">{translate text="Next"} &raquo;</a>{/if}
+		{if $previousRecord}<a href="{$url}/Record/{$previousRecord}" class="prevRecord">&laquo; {translate text="Prev"}</a>
+		{else}<span class="prevRecord inactive">&laquo; {translate text="Prev"}</span>{/if}
+		{$currentRecordPosition} / {$resultTotal}
+		{* #{$currentRecordPosition} {translate text='of'} {$resultTotal} *}
+		{if $nextRecord}<a href="{$url}/Record/{$nextRecord}" class="nextRecord">{translate text="Next"} &raquo;</a>
+		{else}<span class="nextRecord inactive">{translate text="Next"} &raquo;</span>{/if}
 	</div>
 	{/if}
 <div class="clear"></div>

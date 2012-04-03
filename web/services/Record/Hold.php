@@ -55,6 +55,7 @@ class Hold extends Record
     {
         global $configArray;
         global $interface;
+        global $user;
         
         // Are Holds Allowed?
         // MH: Adding recordId param to checkFunction call

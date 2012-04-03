@@ -9,7 +9,15 @@
 		</tr>
 	</thead>    
 	<tbody>
-	    <tr><td>{$componentparts|escape|replace:'--':'</td></tr><tr><td>'|replace:'++':'</td><td>'|replace:'##':'<a href="'|replace:'%%':'/Record/'|replace:'==':'">'|replace:'??':'</a>'}</td></tr>
+	    {if !empty($componentparts)}
+        {foreach from=$componentparts item=componentpart}
+        <tr valign="top">
+            <td>{$componentpart.number|escape}</td>
+            <td><a href="{$componentpart.link|escape}">{$componentpart.title|escape}</a></td>
+            <td>{$componentpart.author|escape}</td>
+        </tr>
+        {/foreach}
+        {/if}
 	</tbody>
 </table>
 
