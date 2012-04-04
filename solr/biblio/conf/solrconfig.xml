@@ -563,7 +563,7 @@
   
    -->
    
-   <searchComponent name="facet"     class="org.apache.solr.handler.component.RangeSupportingFacetComponent" />
+   <searchComponent name="facet"     class="fi.nationallibrary.ndl.solr.handler.component.RangeSupportingFacetComponent" />
  
   <requestHandler name="/search" class="org.apache.solr.handler.component.SearchHandler">
     <lst name="defaults">

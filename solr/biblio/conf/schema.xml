@@ -102,9 +102,9 @@
     <fieldType name="date" class="solr.DateField" sortMissingLast="true" omitNorms="true"/>
     
     <!-- Field types for e.g. museum data -->
-    <fieldType name="negativeSupportingDate" class="solr.NegativeSupportingDateField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="negativeSupportingDate" class="fi.nationallibrary.ndl.solr.schema.NegativeSupportingDateField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
-    <fieldType name="dateRange" class="solr.RangeField" subFieldType="negativeSupportingDate" separator=","/>
+    <fieldType name="dateRange" class="fi.nationallibrary.ndl.solr.schema.RangeField" subFieldType="negativeSupportingDate" separator=","/>
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="tdouble" class="solr.TrieField" type="double" omitNorms="true" positionIncrementGap="0" indexed="true" stored="false" />
   </types>
