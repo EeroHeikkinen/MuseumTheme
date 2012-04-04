@@ -135,41 +135,41 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   <div id="tabnav">
     <ul>
       <li{if $tab == 'Holdings' || $tab == 'Hold'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/Holdings#tabnav">{translate text='Holdings'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/Holdings{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Holdings'}</a>
       </li>
       <li{if $tab == 'Description'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/Description#tabnav">{translate text='Description'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/Description{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Description'}</a>
       </li>
       {if $hasTOC}
       <li{if $tab == 'TOC'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/TOC#tabnav">{translate text='Table of Contents'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/TOC{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Table of Contents'}</a>
       </li>
       {/if}
       {if $hasContainedComponentParts}
       <li{if $tab == 'ComponentParts'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/ComponentParts#tabnav" class="first"><span></span>{translate text='Contents/Parts'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/ComponentParts{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='Contents/Parts'}</a>
       </li>
       {/if}
       <li{if $tab == 'UserComments'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/UserComments#tabnav">{translate text='Comments'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/UserComments{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Comments'}</a>
       </li>
       {if $hasReviews}
       <li{if $tab == 'Reviews'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/Reviews#tabnav">{translate text='Reviews'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/Reviews{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Reviews'}</a>
       </li>
       {/if}
       {if $hasExcerpt}
       <li{if $tab == 'Excerpt'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/Excerpt#tabnav">{translate text='Excerpt'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/Excerpt{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Excerpt'}</a>
       </li>
       {/if}
       {if $hasMap}
         <li{if $tab == 'Map'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/Map#tabnav" class="first"><span></span>{translate text='Map View'}</a>
+          <a href="{$url}/Record/{$id|escape:"url"}/Map{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='Map View'}</a>
         </li>
       {/if}
       <li{if $tab == 'Details'} class="active"{/if}>
-        <a href="{$url}/Record/{$id|escape:"url"}/Details#tabnav">{translate text='Staff View'}</a>
+        <a href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Staff View'}</a>
       </li>
     </ul>
     <div class="clear"></div>
