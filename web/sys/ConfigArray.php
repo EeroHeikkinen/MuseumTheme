@@ -84,7 +84,7 @@ function iniMerge($config_ini, $custom_ini)
 {
     foreach ($custom_ini as $k => $v) {
         if (is_array($v)) {
-            $config_ini[$k] = iniMerge($config_ini[$k], $custom_ini[$k]);
+            $config_ini[$k] = iniMerge(isset($config_ini[$k]) ? $config_ini[$k] : array(), $custom_ini[$k]);
         } else {
             $config_ini[$k] = $v;
         }
