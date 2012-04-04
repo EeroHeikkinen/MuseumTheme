@@ -199,23 +199,69 @@ class MultiBackend implements DriverInterface
     	}
     	error_log("No driver for '$user' found");
     }
-    
-    public function getPickUpLocations($user)
+
+    public function checkRequestIsValid($id, $data, $patron)
     {
-    	$source = $this->_getSource($user['cat_username']);
+    	$source = $this->_getSource($patron['cat_username']);
+    	$driver = $this->_getDriver($source);
+        if ($driver) {
+            if ($this->_getSource($id) != $source) {
+                return false;
+            }
+    		return $driver->checkRequestIsValid($this->_stripIdPrefixes($id, $source),
+    		    $this->_stripIdPrefixes($data, $source), $this->_stripIdPrefixes($patron, $source));
+        }
+        return false;
+    }
+    
+    public function getPickUpLocations($patron = false, $holdDetails = null)
+    {
+    	$source = $this->_getSource($patron['cat_username']);
     	$driver = $this->_getDriver($source);
     	if ($driver) {
-    		$locations = $driver->getPickUpLocations($this->_stripIdPrefixes($user, $source));
+    	    if ($holdDetails) {
+       	        if ($this->_getSource($holdDetails['id']) != $source) {
+       	            // TODO: any other error handling?
+                    return array(); 	            
+    	        }
+    	    }
+    	    $locations = $driver->getPickUpLocations($this->_stripIdPrefixes($patron, $source), 
+    		    $this->_stripIdPrefixes($holdDetails, $source));
     		return $this->_addIdPrefixes($locations, $source);
     	}
-    	error_log("No driver for '$user' found");
+    	error_log("No driver for '" . $patron['cat_username'] . "' found");
     }
+    
+    public function getDefaultPickUpLocation($patron = false, $holdDetails = null)
+    {
+    	$source = $this->_getSource($patron['cat_username']);
+    	$driver = $this->_getDriver($source);
+    	if ($driver) {
+    	    if ($holdDetails) {
+       	        if ($this->_getSource($holdDetails['id']) != $source) {
+       	            // TODO: any other error handling?
+                    return ''; 	            
+    	        }
+    	    }
+    	    $locations = $driver->getDefaultPickUpLocation($this->_stripIdPrefixes($patron, $source),
+    		    $this->_stripIdPrefixes($holdDetails, $source));
+    		return $this->_addIdPrefixes($locations, $source);
+    	}
+    	error_log("No driver for '" . $patron['cat_username'] . "' found");
+    	return '';
+    }    
     
     public function placeHold($holdDetails)
     {
     	$source = $this->_getSource($holdDetails['patron']['cat_username']);
     	$driver = $this->_getDriver($source);
     	if ($driver) {
+	        if ($this->_getSource($holdDetails['id']) != $source) {
+	            return array(
+                    "success" => false,
+                    "sysMessage" => 'hold_wrong_user_institution'
+	            );   	            
+	        }
     	    $holdDetails = $this->_stripIdPrefixes($holdDetails, $source);
     	    return $driver->placeHold($holdDetails);
     	}

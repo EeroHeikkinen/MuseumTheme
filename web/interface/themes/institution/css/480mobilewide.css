@@ -13,4 +13,22 @@ px      62    136    210    284    358    432   */
         padding: 0 24px 48px;
     }
 
+    .container {
+        width: 432px; /* make this match the body width above */
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: none/*1px solid #dddddd;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px*/;
+    }
+
+    /*** work-in-progress disclaimer ***/
+    .w-i-p {
+        width: 284px; /* span-4 width */
+        position: absolute;
+        top: .5em;
+        left: 0;
+    }
+
+
 }
