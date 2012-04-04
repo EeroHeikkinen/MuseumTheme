@@ -60,6 +60,10 @@ class SearchObject_PCI extends SearchObject_Base
         
             // Set up search options
         $this->basicTypes = $config['Basic_Searches'];
+        if (isset($config['Advanced_Searches'])) {
+            $this->advancedTypes = $config['Advanced_Searches'];
+        }
+        
         $this->recommendIni = 'PCI';
         
         if (isset($config['General']['url'])) {
@@ -340,13 +344,34 @@ class SearchObject_PCI extends SearchObject_Base
             }
         }
         $query = '';
-        foreach ($searchTerms as $term) {
-            if ($query) {
-                $query .= '+AND+';
-            }
-            $query .= '&query=' . urlencode($term['index']) . ',exact,' . urlencode($term['lookfor']); 
+                
+        if ($this->searchType == 'PCIAdvanced') {
+        	foreach ($searchTerms as $term) {        	
+            	if ($query) {
+            		$join = $term['join'];
+         			$query .= '+' . $term['join'] . '+';
+           		}
+                    
+            	$group = $term['group'];
+            	foreach($group as $member) {
+            		if ($member['field'] == 'AllFields') {
+            			$query .= '&query=' . urlencode('any') . ',exact,' . urlencode($member['lookfor']);
+            			}
+            		else {
+            			$query .= '&query=' . urlencode($member['field']) . ',exact,' . urlencode($member['lookfor']);
+            		}           			
+            	}
+        	}	
         }
-        
+        else {
+        	foreach ($searchTerms as $term) {
+            	if ($query) {
+                	$query .= '+AND+';
+            	}
+            	$query .= '&query=' . urlencode($term['index']) . ',exact,' . urlencode($term['lookfor']); 
+        	}
+        }
+                
         $params = array("bulkSize" => $limit);
         $params += $this->_params;
         if ($startRec > 0) {
