@@ -20,6 +20,14 @@ body {
 /* .title could be fitted into some existing size.
    How about re-thinking all sizes in em based on some default size, say 16px?
    That way only body font-size would be in px, others in em... possible exeptions in %.
+   
+  ---
+  One possible scale could be:
+  body: 100% = 16px
+  h3: 1.25em
+  h2: 1.5em
+  h1: 2.25em
+   
  */
 .title /* Result list title */ {
 	font-size: 1.25em;
