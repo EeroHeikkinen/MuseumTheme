@@ -5,6 +5,11 @@
     <li><a href="{$path}/EBSCO/History">{translate text='Search History'}</a></li>
     <li><a href="{$path}/EBSCO/Advanced">{translate text='Advanced Search'}</a></li>
   </ul>
+{elseif $module == "PCI"}
+  <ul>
+    <li><a href="{$path}/PCI/History">{translate text='Search History'}</a></li>
+    <li><a href="{$path}/PCI/Advanced">{translate text='Advanced Search'}</a></li>
+  </ul>
 {else}
   <ul>
     <li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
