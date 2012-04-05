@@ -32,6 +32,7 @@ function checkItemStatuses() {
                         ) {
                             // No data is available -- hide the entire status area:
                             $('#callnumAndLocation' + safeId).hide();
+                            $('#status' + safeId).hide();
                         } else if (result.locationList) {
                             // We have multiple locations -- build appropriate HTML and hide unwanted labels:
                             $('#callnumber' + safeId).hide();

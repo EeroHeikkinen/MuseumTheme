@@ -111,6 +111,9 @@ if (isset($configArray['Proxy']['host'])) {
 if (isset($_POST['mylang'])) {
     $language = $_POST['mylang'];
     setcookie('language', $language, null, '/');
+} elseif (isset($_GET['lng'])) {
+    $language = $_GET['lng'];
+    setcookie('language', $language, null, '/');
 } else {
     $language = (isset($_COOKIE['language'])) ? $_COOKIE['language'] :
                     $configArray['Site']['language'];
@@ -289,6 +292,15 @@ function handlePEARError($error)
         return;
     } else {
         $errorAlreadyOccurred = true;
+    }
+
+    // Set appropriate HTTP header based on error (404 for missing record, 500 for
+    // other problems):
+    $msg = $error->getMessage();
+    if ($msg == 'Record Does Not Exist' || stristr($msg, 'cannot access record')) {
+        header('HTTP/1.1 404 Not Found');
+    } else {
+        header('HTTP/1.1 500 Internal Server Error');
     }
 
     // Display an error screen to the user:

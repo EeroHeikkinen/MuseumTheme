@@ -3,7 +3,7 @@
  * EZB Link Resolver Driver
  *
  * EZB is a free service -- the API endpoint is available at
- * http://services.d-nb.de/fize-service/gvr/full.xml
+ * http://services.dnb.de/fize-service/gvr/full.xml
  *
  * PHP version 5
  *

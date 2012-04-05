@@ -75,11 +75,11 @@ fi
 
 
 ##################################################
-# Set SOLR_HOME
+# Use SOLR_HOME if set
 ##################################################
-if [ -z "$SOLR_HOME" ]
+if [ ! -z "$SOLR_HOME" ]
 then
-  SOLR_HOME="$VUFIND_HOME/solr"
+  EXTRA_SOLRMARC_SETTINGS="$EXTRA_SOLRMARC_SETTINGS -Dsolr.path=$SOLR_HOME -Dsolr.solr.home=$SOLR_HOME -Dsolrmarc.solr.war.path=$SOLR_HOME/jetty/webapps/solr.war"
 fi
 
 
@@ -114,10 +114,6 @@ fi
 # Set Command Options
 ##################################################
 JAR_FILE="$VUFIND_HOME/import/SolrMarc.jar"
-#SOLRWARLOCATIONORJARDIR="$VUFIND_HOME/solr/jetty/webapps/solr.war"
-#TEST_SOLR_JAR_DEF=-Done-jar.class.path=$SOLRWARLOCATIONORJARDIR
-#SOLR_JAR_DEF=`echo $TEST_SOLR_JAR_DEF | sed -e"s|-Done-jar.class.path=.*|-Done-jar.class.path=$SOLRWARLOCATIONORJARDIR|"`
-SOLR_JAR_DEF="-Dsolrmarc.solr.war.path=$VUFIND_HOME/solr/jetty/webapps/solr.war"
 
 #####################################################
 # Verify that JAR_FILE exists
@@ -139,11 +135,9 @@ MARC_FILE=`basename $1`
 # Execute Importer
 #####################################################
 
-pushd $SOLR_HOME
-RUN_CMD="$JAVA $INDEX_OPTIONS $SOLR_JAR_DEF -Dsolr.core.name=$SOLRCORE -Dsolrmarc.path=$SOLRMARC_HOME -Dsolr.path=$SOLR_HOME -Dsolr.solr.home=$SOLR_HOME $EXTRA_SOLRMARC_SETTINGS -jar $JAR_FILE $PROPERTIES_FILE $MARC_PATH/$MARC_FILE"
+RUN_CMD="$JAVA $INDEX_OPTIONS -Dsolr.core.name=$SOLRCORE -Dsolrmarc.path=$SOLRMARC_HOME $EXTRA_SOLRMARC_SETTINGS -jar $JAR_FILE $PROPERTIES_FILE $MARC_PATH/$MARC_FILE"
 echo "Now Importing $1 ..."
 echo $RUN_CMD
 exec $RUN_CMD
-popd
 
 exit 0

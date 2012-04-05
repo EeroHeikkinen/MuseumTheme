@@ -72,9 +72,9 @@ if not "!%VUFIND_HOME%!"=="!!" goto vufindhomefound
 echo You need to set the VUFIND_HOME environmental variable before running this script.
 goto end
 :vufindhomefound
-if not "!%SOLR_HOME%!"=="!!" goto solrhomefound
-set SOLR_HOME=%VUFIND_HOME%\solr
-:solrhomefound
+if "!%SOLR_HOME%!"=="!!" goto solrhomenotfound
+set EXTRA_SOLRMARC_SETTINGS=%EXTRA_SOLRMARC_SETTINGS% -Dsolr.path=%SOLR_HOME% -Dsolr.solr.home=%SOLR_HOME% -Dsolrmarc.solr.war.path=%SOLR_HOME%/jetty/webapps/solr.war
+:solrhomenotfound
 
 rem ##################################################
 rem # Set SOLRMARC_HOME
@@ -104,12 +104,11 @@ rem ##################################################
 rem # Set Command Options
 rem ##################################################
 set JAR_FILE=%VUFIND_HOME%\import\SolrMarc.jar
-set SOLR_JAR_DEF=-Dsolrmarc.solr.war.path=%VUFIND_HOME%\solr\jetty\webapps\solr.war
 
 rem #####################################################
 rem # Execute Importer
 rem #####################################################
-set RUN_CMD=%JAVA% %INDEX_OPTIONS% %SOLR_JAR_DEF% -Dsolr.core.name=%SOLRCORE% -Dsolrmarc.path=%SOLRMARC_HOME% -Dsolr.path=%SOLR_HOME% -Dsolr.solr.home=%SOLR_HOME% %EXTRA_SOLRMARC_SETTINGS% -jar %JAR_FILE% %PROPERTIES_FILE% %1
+set RUN_CMD=%JAVA% %INDEX_OPTIONS% -Dsolr.core.name=%SOLRCORE% -Dsolrmarc.path=%SOLRMARC_HOME% %EXTRA_SOLRMARC_SETTINGS% -jar %JAR_FILE% %PROPERTIES_FILE% %1
 echo Now Importing %1 ...
 echo %RUN_CMD%
 %RUN_CMD%

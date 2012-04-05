@@ -302,20 +302,20 @@ class MarcRecord extends IndexRecord
     {
         global $interface;
 
-            // Return null if we have no table of contents:
-            $fields = $this->marcRecord->getFields('505');
-            if (!$fields) {
-                return null;
+        // Return null if we have no table of contents:
+        $fields = $this->marcRecord->getFields('505');
+        if (!$fields) {
+            return null;
+        }
+
+        // If we got this far, we have a table -- collect it as a string:
+        $toc = '';
+        foreach ($fields as $field) {
+            $subfields = $field->getSubfields();
+            foreach ($subfields as $subfield) {
+                $toc .= $subfield->getData();
             }
-    
-            // If we got this far, we have a table -- collect it as a string:
-            $toc = '';
-            foreach ($fields as $field) {
-                $subfields = $field->getSubfields();
-                foreach ($subfields as $subfield) {
-                    $toc .= $subfield->getData();
-                }
-            }
+        }
 
         // Assign the appropriate variable and return the template name:
         $interface->assign('toc', $toc);
@@ -1031,6 +1031,28 @@ class MarcRecord extends IndexRecord
 
                     // Is there a description?  If not, just use the URL itself.
                     $desc = $url->getSubfield('z');
+                    if ($desc) {
+                        $desc = $desc->getData();
+                    } else {
+                        $desc = $address;
+                    }
+
+                    $retVal[$address] = $desc;
+                }
+            }
+        }
+
+        // Check for URLs in the Cumulative Index/Finding Aids note:
+        $urls = $this->marcRecord->getFields('555');
+        if ($urls) {
+            foreach ($urls as $url) {
+                // Is there an address in the current field?
+                $address = $url->getSubfield('u');
+                if ($address) {
+                    $address = $address->getData();
+
+                    // Is there a note?  If not, just use the URL itself.
+                    $desc = $url->getSubfield('a');
                     if ($desc) {
                         $desc = $desc->getData();
                     } else {
