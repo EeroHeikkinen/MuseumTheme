@@ -1,5 +1,5 @@
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.5&sensor=false&language={$userLang}"></script>
-<script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.3/src/markerclusterer_packed.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.8&sensor=false&language={$userLang}"></script>
+<script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.9/src/markerclusterer_packed.js"></script>
 <!--[if lte IE 6]><link rel="stylesheet" href="{$url}/interface/themes/blueprint/css/ie6.css" type="text/css" media="screen, projection"><![endif]-->
 {literal}
 <script type="text/javascript">
@@ -20,7 +20,7 @@ MarkerClusterer.CALCULATOR = function (markers, numStyles) {
   for (calcMarker in markers){
     dispText = dispText + parseInt(markers[calcMarker].getTitle());
   }
-  var dv = count;
+  var dv = dispText;
   while (dv !== 0) {
     dv = parseInt(dv / 10, 10);
     index++;

@@ -55,7 +55,7 @@
         <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
       {/foreach}
 
-      {if !$summOpenUrl && empty($summURLs)}
+      {if !$summOpenUrl && empty($summURLs) && $summAjaxStatus}
       <div class="ajax_availability hide noLoad" id="status{$summId|escape}">&nbsp;</div>
       {/if}
     </div>

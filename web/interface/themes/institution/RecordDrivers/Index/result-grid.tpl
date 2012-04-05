@@ -21,7 +21,7 @@
         {foreach from=$summURLs key=recordurl item=urldesc}
           <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a><br/>
         {/foreach}
-      {else}
+      {elseif $summAjaxStatus}
         <div class="status">
             <span class="ajax_availability hide" id="status{$summId|escape}">{translate text='Loading'}...</span>
         </div>
