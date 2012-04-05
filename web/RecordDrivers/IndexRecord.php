@@ -793,18 +793,9 @@ class IndexRecord implements RecordInterface
         $hasOpenURL = ($this->openURLActive('results') && $issn ||
                        ($this->getCleanISBN() &&
                         in_array('eBook', $this->getFormats())));
-        
-        # Check if we really have full text...
-        if ($hasOpenURL) {        	
-        	$openURL = $this->getOpenURL();
-        	if ($openURL && $this->checkResolverLinks($openURL)) {
-        		$interface->assign('summOpenUrl', $openURL);
-        	}
-        }
-        else {
-        	$interface->assign('summOpenUrl', false);
-        }
-        
+        $openURL = $this->getOpenURL();
+        $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
+
         // Always provide an OpenURL for COinS purposes:
         $interface->assign('summCOinS', $openURL);
 
@@ -813,7 +804,7 @@ class IndexRecord implements RecordInterface
         if (!isset($configArray['OpenURL']['replace_other_urls'])
             || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
         ) {
-           $interface->assign('summURLs', $this->getURLs());
+            $interface->assign('summURLs', $this->getURLs());
         } else {
             $interface->assign('summURLs', array());
         }
@@ -829,7 +820,7 @@ class IndexRecord implements RecordInterface
         // Send back the template to display:
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
     }
-    
+
     /**
      * Assign necessary Smarty variables and return a template name to
      * load in order to display the full record information on the Staff
@@ -1067,34 +1058,6 @@ class IndexRecord implements RecordInterface
     */
     public function getAllImages()
     {
-        return false;
-    }
-    
-    protected function checkResolverLinks($openUrl)
-    {
-        global $configArray;
-        global $interface;
-        
-        include_once 'sys/Resolver/ResolverConnection.php';
-
-        $keywords = array('module', 'action', 'method');
-
-        $resolverType = isset($configArray['OpenURL']['resolver'])
-            ? $configArray['OpenURL']['resolver'] : 'other';
-        $resolver = new ResolverConnection($resolverType);
-        if (!$resolver->driverLoaded()) {
-			return false;
-        }
-                
-        $result = $resolver->fetchLinks($openUrl);
-        
-        // Sort the returned links into categories based on service type:
-        $electronic = $print = $services = array();
-        foreach ($result as $link) {
-            if ($link['service_type'] == 'getFullTxt') {
-				return true;
-            }
-        }
         return false;
     }
     
