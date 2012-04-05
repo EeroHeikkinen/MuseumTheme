@@ -1,3 +1,6 @@
+{* Work-In-Progress disclaimer, remove when appropriate *}
+<div class="w-i-p">{translate text="development_disclaimer"}</div>
+
 <div class="searchHome">
   <div class="searchHomeContent">
     <div class="searchHomeLogo">
@@ -12,9 +15,6 @@
         {include file="Search/searchbox.tpl"}
       </div>
     </div>
-{* Work-In-Progress disclaimer, remove when appropriate *}
-    <span class="push-1 w-i-p">{translate text="development_disclaimer"}
-    </span>
   </div>
 </div>
 
