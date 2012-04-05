@@ -92,8 +92,9 @@
 
     <div class="container">
 
-      {if $showBreadcrumbs}
+      
       <div class="breadcrumbs">
+      {if $showBreadcrumbs}
         <div class="breadcrumbinner">
           <a href="{$url}">{translate text="Home"}</a> <span>&gt;</span>
           {include file="$module/breadcrumbs.tpl"}
@@ -113,15 +114,14 @@
               </ul>
           {/if}
         </div>
-      {if $showBreadcrumbs} {* Let's close that DIV, too *}
       </div>
-      {/if}
 
       <div class="header{if !$showTopSearchBox}-home{/if} clear">
         {include file="header.tpl"}
+        <div class="clear"></div>
       </div>
-        
-      <div class="main clear">
+      
+      <div class="main{if !$showTopSearchBox}-home{/if} clear">
         {if $useSolr || $useWorldcat || $useSummon}
         <div id="toptab">
           <ul>

@@ -825,11 +825,11 @@ ul.recordSet .addToFavLink a {
 
 /* not used? */
 .electronic {background-image:url(../images/tango/www.png);}
-.map {background-image:url(../images/silk/map.png);}
+.formatmap {background-image:url(../images/silk/map.png);}
 .globe {background-image:url(../images/silk/world.png);}
 .microfilm {background-image:url(../images/silk/film.png);}
 .photo {background-image:url(../images/silk/picture.png);}
-.kit {background-image:url(../images/silk/package.png);}
+.formatkit {background-image:url(../images/silk/package.png);}
 .sensorimage {}
 .physicalobject {}
 .manuscript {background-image:url(../images/silk/report_edit.png);}
