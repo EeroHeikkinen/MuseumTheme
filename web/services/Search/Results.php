@@ -213,6 +213,8 @@ class Results extends Action
 
         // Save the URL of this search to the session so we can return to it easily:
         $_SESSION['lastSearchURL'] = $searchObject->renderSearchUrl();
+        // Save the display query too, so we can use it e.g. in the breadcrumbs
+        $_SESSION['lastSearchDisplayQuery'] = $displayQuery;
 
         // initialize the search result scroller for this search
         $scroller = new ResultScroller();

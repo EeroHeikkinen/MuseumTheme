@@ -108,6 +108,7 @@ class History extends Action
                         
                         // We don't want to remember the last search after a purge:
                         unset($_SESSION['lastSearchURL']);
+                        unset($_SESSION['lastSearchDisplayQuery']);
                     } else {
                         // Otherwise add to the list
                         $links[] = $newItem;
