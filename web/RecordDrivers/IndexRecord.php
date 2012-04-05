@@ -232,6 +232,8 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreRecordLinks', $this->getAllRecordLinks());
         $interface->assign('coreThumbMedium', $this->getThumbnail('medium'));
         $interface->assign('coreThumbLarge', $this->getThumbnail('large'));
+        $interface->assign('coreContainerTitle', $this->getContainerTitle());
+        $interface->assign('coreContainerReference', $this->getContainerReference());
 
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
@@ -453,7 +455,6 @@ class IndexRecord implements RecordInterface
         // Assign various values for display by the template; we'll prefix
         // everything with "extended" to avoid clashes with values assigned
         // elsewhere.
-        $interface->assign('extendedDescription', $this->getDescription());
         $interface->assign('extendedSummary', $this->getSummary());
         $interface->assign('extendedAccess', $this->getAccessRestrictions());
         $interface->assign('extendedRelated', $this->getRelationshipNotes());
@@ -613,11 +614,14 @@ class IndexRecord implements RecordInterface
         // Add additional parameters based on the format of the record:
         $formats = $this->getFormats();
 
-        // If we have multiple formats, Book and Journal are most important...
+        // If we have multiple formats, Book, Journal and Article are most
+        // important...
         if (in_array('Book', $formats)) {
             $format = 'Book';
         } else if (in_array('eBook', $formats)) {
             $format = 'eBook';
+        } else if (in_array('Article', $formats)) {
+            $format = 'Article';
         } else if (in_array('Journal', $formats)) {
             $format = 'Journal';
         } else {
@@ -642,6 +646,27 @@ class IndexRecord implements RecordInterface
             }
             $params['rft.edition'] = $this->getEdition();
             $params['rft.isbn'] = $this->getCleanISBN();
+            break;
+        case 'Article':
+            $params['rft_val_fmt'] = 'info:ofi/fmt:kev:mtx:journal';
+            $params['rft.genre'] = 'article';
+            $params['rft.issn'] = $this->getCleanISSN();
+            // an article may have also an ISBN:
+            $params['rft.isbn'] = $this->getCleanISBN();
+            $params['rft.volume'] = $this->getContainerVolume();
+            $params['rft.issue'] = $this->getContainerIssue();
+            $params['rft.spage'] = $this->getContainerStartPage();
+            // unset default title -- we only want jtitle/atitle here:
+            unset($params['rft.title']);
+            $params['rft.jtitle'] = $this->getContainerTitle();
+            $params['rft.atitle'] = $this->getTitle();
+            $params['rft.au'] = $this->getPrimaryAuthor();
+
+            $params['rft.format'] = $format;
+            $langs = $this->getLanguages();
+            if (count($langs) > 0) {
+                $params['rft.language'] = $langs[0];
+            }
             break;
         case 'Journal':
             /* This is probably the most technically correct way to represent
@@ -736,7 +761,7 @@ class IndexRecord implements RecordInterface
         global $interface;
 
         $interface->assign('summId', $this->getUniqueID());
-        $interface->assign('summFormats', $this->getFormats(true));
+        $interface->assign('summFormats', $this->getFormats());
         $interface->assign('summHighlightedTitle', $this->getHighlightedTitle());
         $interface->assign('summTitle', $this->getTitle());
         $interface->assign('summHighlightedAuthor', $this->getHighlightedAuthor());
@@ -1720,18 +1745,6 @@ class IndexRecord implements RecordInterface
     }
 
     /**
-     * Get the description of the record.
-     *
-     * @return string
-     * @access protected
-     */
-    protected function getDescription()
-    {
-        return isset($this->fields['description']) ?
-            $this->fields['description'] : '';
-    }
-
-    /**
      * Get the subtitle of the record.
      *
      * @return string
@@ -1763,7 +1776,18 @@ class IndexRecord implements RecordInterface
      */
     protected function getSummary()
     {
-        // Not currently stored in the Solr index
+        // We need to return an array, so if we have a description, turn it into an
+        // array as needed (it should be a flat string according to the default
+        // schema, but we might as well support the array case just to be on the safe
+        // side:
+        if (isset($this->fields['description'])
+            && !empty($this->fields['description'])
+        ) {
+            return is_array($this->fields['description'])
+                ? $this->fields['description'] : array($this->fields['description']);
+        }
+
+        // If we got this far, no description was found:
         return array();
     }
 
@@ -1955,6 +1979,75 @@ class IndexRecord implements RecordInterface
         return json_encode($markers);
     }
     
+    /**
+    * Get the title of the item that contains this record (i.e. MARC 773s of a
+    * journal).
+    *
+    * @access protected
+    * @return string
+    */
+    protected function getContainerTitle()
+    {
+        return isset($this->fields['container_title'])
+        ? $this->fields['container_title'] : '';
+    }
+    
+    /**
+     * Get the volume of the item that contains this record (i.e. MARC 773v of a
+     * journal).
+     *
+     * @access protected
+     * @return string
+     */
+    protected function getContainerVolume()
+    {
+        return isset($this->fields['container_volume'])
+        ? $this->fields['container_volume'] : '';
+    }
+
+    /**
+    * Get the issue of the item that contains this record (i.e. MARC 773l of a
+    * journal).
+    *
+    * @access protected
+    * @return string
+    */
+    protected function getContainerIssue()
+    {
+        return isset($this->fields['container_issue'])
+        ? $this->fields['container_issue'] : '';
+    }
+    
+    /**
+     * Get the start page of the item that contains this record (i.e. MARC 773q of a
+     * journal).
+     *
+     * @access protected
+     * @return string
+     */
+    protected function getContainerStartPage()
+    {
+        return isset($this->fields['container_start_page'])
+        ? $this->fields['container_start_page'] : '';
+    }
+
+    /**
+    * Get a full, free-form reference to the context of the item that contains this
+    * record (i.e. volume, year, issue, pages).
+    *
+    * @access protected
+    * @return string
+    */
+    protected function getContainerReference()
+    {
+        return isset($this->fields['container_reference'])
+        ? $this->fields['container_reference'] : '';
+    }
+        
+    /**
+     * Get the number of component parts belonging to this record
+     * @return number
+     */
     protected function getComponentPartCount()
     {
 		// TODO: this is all quite ugly. Come up with a nicer way to do this?
@@ -1979,7 +2072,8 @@ class IndexRecord implements RecordInterface
      * @return array
      *
      */
-    protected function getHostRecordTitle() {
+    protected function getHostRecordTitle() 
+    {
         if (!isset($this->fields['host_id']) || !$this->fields['host_id']) {
             return '';
         }
@@ -1999,7 +2093,8 @@ class IndexRecord implements RecordInterface
      * @return array
      *
      */
-    protected function getHostRecordId() {
+    protected function getHostRecordId() 
+    {
 		return isset($this->fields['host_id']) ? $this->fields['host_id'] : null;
     }
 

@@ -27,7 +27,7 @@
  * @link     http://api.summon.serialssolutions.com/help/api/ API Documentation
  */
 
-require_once 'HTTP/Request.php';
+require_once 'sys/Proxy_Request.php';
 require_once 'sys/ConfigArray.php';
 require_once 'sys/SolrUtils.php';
 
@@ -134,7 +134,7 @@ class Summon
         $this->apiPath = '/2.0.0';
         $this->apiId = $apiId;
         $this->apiKey = $apiKey;
-        $this->client = new HTTP_Request(null, array('useBrackets' => false));
+        $this->client = new Proxy_Request(null, array('useBrackets' => false));
         $this->_config = getExtraConfigArray('Summon');
 
         // Store preferred boolean behavior:

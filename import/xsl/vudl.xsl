@@ -97,6 +97,13 @@
                     </xsl:for-each>
                 </xsl:if>
 
+                <!-- TOPIC -->
+                <xsl:if test="//dc:subject">
+                    <xsl:for-each select="//dc:subject">
+                        <field name="topic"><xsl:value-of select="normalize-space()"/></field>
+                    </xsl:for-each>
+                </xsl:if>
+
                 <!-- TITLE -->
                 <xsl:if test="//dc:title[normalize-space()]">
                     <field name="title">

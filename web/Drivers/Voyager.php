@@ -1533,7 +1533,7 @@ class Voyager implements DriverInterface
             preg_match('/\?PAGE=REQUESTBIB&SEQ=(.*)&PID=(.*)"/', $body, $temp);
 
             // Establish Place Hold Link
-            if ($temp[1] && $temp[2]) {
+            if (count($temp) > 2 && $temp[1] && $temp[2]) {
                 $link = $this->config['Catalog']['pwebrecon'] . '?PAGE=REQUESTBIB' .
                         '&SEQ=' . $temp[1] . '&PID=' . $temp[2];
                 return $link;

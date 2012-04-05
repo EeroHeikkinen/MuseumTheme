@@ -81,11 +81,21 @@ class ILSAuthentication implements Authentication
      */
     private function _processILSUser($info)
     {
+        global $configArray;
+
         include_once "services/MyResearch/lib/User.php";
+
+        // Figure out which field of the response to use as an identifier; fail
+        // if the expected field is missing or empty:
+        $usernameField = isset($configArray['Authentication']['ILS_username_field'])
+            ? $configArray['Authentication']['ILS_username_field'] : 'cat_username';
+        if (!isset($info[$usernameField]) || empty($info[$usernameField])) {
+            return new PEAR_Error('authentication_error_technical');
+        }
 
         // Check to see if we already have an account for this user:
         $user = new User();
-        $user->username = $info['cat_username'];
+        $user->username = $info[$usernameField];
         if ($user->find(true)) {
             $insert = false;
         } else {

@@ -1,15 +1,11 @@
 {js filename="ajax_common.js"}
 {js filename="record.js"}
-{js filename="jquery.js"}
-{js filename="jquery.dataTables.js"}
 {if isset($syndetics_plus_js)}
 <script src="{$syndetics_plus_js}" type="text/javascript"></script>
 {/if}
 {if !empty($addThis)}
 <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script>
 {/if}
-
-
 
 <div id="bd">
   <div id="yui-main" class="content">
@@ -43,8 +39,6 @@
           {if $user}redrawSaveStatus();{/if}
         </script>
 
-       
-       
         <div class="record">
 
           {if $errorMsg || $infoMsg}
@@ -77,11 +71,6 @@
               {if $hasTOC}
               <li{if $tab == 'TOC'} class="active"{/if}>
                 <a href="{$url}/Record/{$id|escape:"url"}/TOC#tabnav" class="first"><span></span>{translate text='Table of Contents'}</a>
-              </li>
-              {/if}
-              {if $hasContainedComponentParts}
-              <li{if $tab == 'ComponentParts'} class="active"{/if}>
-                <a href="{$url}/Record/{$id|escape:"url"}/ComponentParts#tabnav" class="first"><span></span>{translate text='Contents/Parts'}</a>
               </li>
               {/if}
               <li{if $tab == 'UserComments'} class="active"{/if}>

@@ -82,16 +82,16 @@ class Export extends Bulk
     {
         global $configArray;
 
-        if (strtolower($_REQUEST['format']) == 'refworks') {
+        if (strtolower($_SESSION['exportFormat']) == 'refworks') {
             // can't pass the ids through the session, so need to stringify
             $parts = array();
-            foreach ($ids as $id) {
+            foreach ($_SESSION['exportIDS'] as $id) {
                 $parts[] = urlencode('ids[]') . '=' . urlencode($id);
             }
             $id_str = implode('&', $parts);
             // Build the URL to pass data to RefWorks:
             $exportUrl = $configArray['Site']['url'] . '/Cart/Home' .
-                '?export=true&exportInit=true&exportToRefworks=true' . $id_str;
+                '?export=true&exportInit=true&exportToRefworks=true&' . $id_str;
             // Build up the RefWorks URL:
             return $configArray['RefWorks']['url'] . '/express/expressimport.asp' .
                 '?vendor=' . urlencode($configArray['RefWorks']['vendor']) .

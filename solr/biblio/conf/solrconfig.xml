@@ -317,7 +317,7 @@
     <listener event="newSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
         <lst>
-          <str name="q">science art business engineering history markkinointi historia tieteellinen lehti</str>
+          <str name="q">science art business engineering history</str>
           <str name="start">0</str>
           <str name="rows">10</str>
         </lst>

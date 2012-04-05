@@ -294,6 +294,15 @@ function handlePEARError($error)
         $errorAlreadyOccurred = true;
     }
 
+    // Set appropriate HTTP header based on error (404 for missing record, 500 for
+    // other problems):
+    $msg = $error->getMessage();
+    if ($msg == 'Record Does Not Exist' || stristr($msg, 'cannot access record')) {
+        header('HTTP/1.1 404 Not Found');
+    } else {
+        header('HTTP/1.1 500 Internal Server Error');
+    }
+
     // Display an error screen to the user:
     $interface = new UInterface();
 

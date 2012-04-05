@@ -190,12 +190,18 @@ Subject:
       - [and, 100]
       - [or, ~]
 
+# This field definition is a compromise that supports both journal-level and
+# article-level data.  The disadvantage is that hits in article titles will
+# be mixed in.  If you are building a purely article-oriented index, you should
+# customize this to remove all of the title_* fields and focus entirely on the
+# container_title field.
 JournalTitle:
   DismaxFields:
     - title_short^500
     - title_full_unstemmed^450
     - title_full^400
     - title^300
+    - container_title^250
     - title_alt^200
     - title_new^100
     - title_old
@@ -212,6 +218,9 @@ JournalTitle:
     - title:
       - [onephrase, 300]
       - [and, 250]
+    - container_title:
+      - [onephrase, 275]
+      - [and, 225]
     - title_alt:
       - [and, 200]
     - title_new:
@@ -224,7 +233,7 @@ JournalTitle:
     - series2:
       - [onephrase, 50]
       - [and , ~]
-  FilterQuery: "format:Journal"
+  FilterQuery: "format:Journal OR format:Article"
 
 Title:
   DismaxFields:

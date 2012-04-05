@@ -33,7 +33,7 @@ function build_browse
     mv "${browse}_browse.db" "$index_dir/${browse}_browse.db-updated"
     touch "$index_dir/${browse}_browse.db-ready"
 }
-build_browse "in_collection" "in_collection_browse"
+
 build_browse "title" "title_fullStr" 1 "-Dbibleech=StoredFieldLeech -Dsortfield=title_sort -Dvaluefield=title_fullStr"
 build_browse "topic" "topic_browse"
 build_browse "author" "author_browse"

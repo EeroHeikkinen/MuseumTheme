@@ -23,7 +23,7 @@
     <input type="hidden" name="listID" value="{$listID|escape}" />
     {/if}
     <input type="hidden" name="{$confirmAction|escape}" />
-    <input type="submit" name="confirmAction" value="{translate text='Confirm'}" /> <input type="submit" name="cancelAction" value="{translate text='Cancel'}" />
+    <input type="submit" name="confirmAction" value="{translate text='confirm_dialog_yes'}" /> <input type="submit" name="cancelAction" value="{translate text='confirm_dialog_no'}" />
     </form>
 
   </div>

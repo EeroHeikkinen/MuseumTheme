@@ -258,7 +258,11 @@ class Unicorn implements DriverInterface
         $marc = ($marc_marker_pos !== false)
             ? substr($response, $marc_marker_pos + strlen($marc_marker)) : '';
 
-        $items = array();
+        // Initialize item holdings the ones received in MARC holding
+        // records
+        $items = $this->_getMarcHoldings($marc);
+
+        // Then add the ones from bibliographic records
         $lines = explode("\n", rtrim($lines));
         foreach ($lines as $line) {
             $item = $this->parseStatusLine($line);
@@ -276,9 +280,6 @@ class Unicorn implements DriverInterface
                 . 'return $a["shelving_key"] < $b["shelving_key"] ? 1 : -1;'
             );
             usort($items, $cmp);
-
-            // put MARC holdings records into 'marc_holdings' field of the first item
-            $items[0]['marc_holdings'] = $this->_getMarcHoldings($marc);
         }
         return $items;
     }
@@ -970,6 +971,7 @@ class Unicorn implements DriverInterface
         $number_of_charges, $item_type, $recirculate_flag,
         $holdcount, $library_code, $library,
         $location_code, $location, $currLocCode, $current_location,
+        $holdable,
         $circulation_rule, $duedate, $date_recalled, $recall_period, 
         $format, $title_holds) = explode("|", $line);
 
@@ -1022,7 +1024,7 @@ class Unicorn implements DriverInterface
             'library' => ($library) ? $library : $library_code,
             'barcode' => trim($barcode),
             'item_id' => trim($barcode),
-            //'holdable' => $holdable,
+            'is_holdable' => $holdable,
             'requests_placed' => $holdcount + $title_holds,
             'current_location_code' => $currLocCode,
             'current_location' => $current_location,
@@ -1195,48 +1197,169 @@ class Unicorn implements DriverInterface
     }
 
     /**
+     * Given a location field, return the values relevant to VuFind.
+     *
+     * This method is meant to be overriden in inheriting classes to
+     * reflect local policies regarding interpretation of the a, b and
+     * c subfields of  852.
+     *
+     * @param File_Marc_Field $field Location field to be processed. 
+     *
+     * @return array Location information.
+     * @access protected
+     */
+    protected function processMarcHoldingLocation($field)
+    {
+        $library_code  = $field->getSubfield('b')->getData();
+        $location_code = $field->getSubfield('c')->getData();
+        $location = array(
+            'library_code'  => $library_code,
+            'library'       => $this->mapLibrary($library_code),
+            'location_code' => $location_code,
+            'location'      => $this->mapLocation($location_code),
+            'notes'   => array(),
+            'marc852' => $field,
+        );
+        foreach ($field->getSubfields('z') as $note) {
+            $location['notes'][] = $note->getData();
+        }
+        return $location;
+    }
+
+    /**
+     * Decode a MARC holding record.
+     *
+     * @param File_MARC_Record $record Holding record to decode..
+     *
+     * @return array Has two elements: the first is the list of
+     *               locations found in the record, the second are the
+     *               decoded holdings per se.
+     *
+     * @access protected
+     *
+     * @todo Check if is OK to print multiple times textual holdings
+     *       that had more than one $8.
+     */
+    protected function decodeMarcHoldingRecord($record)
+    {
+        $locations = array();
+        $holdings = array();
+        // First pass:
+        //  - process locations
+        //
+        //  - collect textual holdings indexed by linking number to be
+        //    able to easily check later what fields from enumeration
+        //    and chronology they override.
+        $textuals = array();
+        foreach ($record->getFields('852|866', true) as $field) {
+            switch ($field->getTag()) {
+            case '852':
+                $locations[] = $this->processMarcHoldingLocation($field);
+                break;
+            case '866':
+                $linking_fields = $field->getSubfields('8');
+                if ($linking_fields === false) {
+                    // Skip textual holdings fields with no linking
+                    continue 2;
+                }
+                foreach ($linking_fields as $linking_field) {
+                    $linking = explode('.', $linking_field->getData());
+                    // Only the linking part is used in textual
+                    // holdings...
+                    $linking = $linking[0];
+                    // and it should be an int.
+                    $textuals[(int)($linking)] = &$field;
+                }
+                break;
+            }
+        }
+
+        // Second pass: enumeration and chronology, biblio
+
+        // Digits to use to build a combined index with linking number
+        // and sequence number.
+        // PS: Does this make this implementation year-3K safe?
+        $link_digits = floor(strlen((string)PHP_INT_MAX) / 2);
+
+        foreach ((array_key_exists(0, $textuals)
+                  ? array()
+                  : $record->getFields('863'))
+                 as $field) {
+            $linking_field = $field->getSubfield('8');
+
+            if ($linking_field === false) {
+                // Skip record if there is no linking number
+                continue;
+            }
+
+            $linking = explode('.', $linking_field->getData());
+            if (1 < count($linking)) {
+                $sequence = explode('\\', $linking[1]);
+                // Lets ignore the link type, as we only care for \x
+                $sequence = $sequence[0];
+            } else {
+                $sequence = 0;
+            }
+            $linking = $linking[0];
+
+            if (array_key_exists((int) $linking, $textuals)) {
+                // Skip coded holdings overridden by textual
+                // holdings
+                continue;
+            }
+
+            $decoded_holding = '';
+            foreach ($field->getSubfields() as $subfield) {
+                if (strpos('68x', $subfield->getCode()) !== false) {
+                    continue;
+                }
+                $decoded_holding .= ' '. $subfield->getData();
+            }
+
+            $ndx = (int) ($linking
+                          . sprintf("%0{$link_digits}u", $sequence));
+            $holdings[$ndx] = trim($decoded_holding);
+        }
+
+        foreach ($textuals as $linking => $field) {
+            $textual_holding = $field->getSubfield('a')->getData();
+            foreach ($field->getSubfields('z') as $note) {
+                $textual_holding .= ' '. $note->getData();
+            }
+
+            $ndx = (int) ($linking . sprintf("%0{$link_digits}u", 0));
+            $holdings[$ndx] = trim($textual_holding);
+        }
+
+        return array($locations, $holdings);
+    }
+
+    /**
      * Get textual holdings summary.
      *
-     * @param string $marc The raw marc holdings records.
+     * @param string $marc Raw marc holdings records.
      *
-     * @return array       Array of holdings data indexed by library.
+     * @return array   Array of holdings data similar to the one returned by
+     *                 getHolding.
      * @access private
      */
     private function _getMarcHoldings($marc)
     {
-        $records = array();
-        $count = 0;
+        $holdings = array();
         $file = new File_MARC($marc, File_MARC::SOURCE_STRING);
         while ($marc = $file->next()) {
-            $fields = $marc->getFields('852|866', true);
-            foreach ($fields as $field) {
-                if ($field->getTag() == '852') {
-                    $location = $field->getSubfield('c')->getData();
-                    $records[] = array(
-                        'library' => $this->mapLibrary($location),
-                        'location_code' => $location,
-                        'location' => $this->mapLocation($location),
-                        'marc852' => $field,
-                        'marc866' => array(),
-                        'textual_holdings' => array()
-                    );
-                    $count++;
-                } else {
-                    if ($count > 0) {
-                        $holdings = '';
-                        $subfields = $field->getSubfields();
-                        foreach ($subfields as $subfield) {
-                            if ($subfield->getCode() != 'x') {
-                                $holdings .= $subfield->getData() . ' ';
-                            }
-                        }
-                        $records[$count - 1]['marc866'][] = $field;
-                        $records[$count - 1]['textual_holdings'][] = trim($holdings);
-                    }
-                }
+            list($locations, $record_holdings)
+                = $this->decodeMarcHoldingRecord($marc);
+            // Flatten locations with corresponding holdings as VuFind
+            // expects it.
+            foreach ($locations as $location) {
+                $holdings[] = array_merge_recursive(
+                    $location,
+                    array('summary' => $record_holdings)
+                );
             }
         }
-        return $records;
+        return $holdings;
     }
 }
 ?>

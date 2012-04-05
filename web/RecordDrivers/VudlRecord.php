@@ -84,6 +84,25 @@ class VudlRecord extends IndexRecord
             urlencode($this->getUniqueID());
         return array($url => $url);
     }
+
+    /**
+     * Get all subject headings associated with this record.  Each heading is
+     * returned as an array of chunks, increasing from least specific to most
+     * specific.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getAllSubjectHeadings()
+    {
+        $retVal = array();
+        if (isset($this->fields['topic'])) {
+            foreach ($this->fields['topic'] as $current) {
+                $retVal[] = explode(' -- ', $current);
+            }
+        }
+        return $retVal;
+    }
 }
 
 ?>
