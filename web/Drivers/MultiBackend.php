@@ -291,14 +291,13 @@ class MultiBackend implements DriverInterface
     
     public function getConfig($function, $id = null)
     {
-    	$source = null;
     	global $user;
+        
+    	$source = null;
     	if ($id) {
     		$source = $this->_getSource($id);
     	}
-    	
-    	if (!$source) {
-    		global $user;
+    	if (!$source && $user) {
     		$source = $this->_getSource($user->cat_username);
     	}
     	
