@@ -1,5 +1,5 @@
 {literal}
 <script type="text/javascript">
-var $tabs = $('#tabnav').tabs();
+var $tabs = $('#dyntabnav').tabs();
 </script>
 {/literal}
