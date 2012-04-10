@@ -1006,6 +1006,9 @@ float: left;
 #dyntabnav .ui-tabs, #dyntabnav .ui-tabs-nav {
     padding: 0;
 }
+#dyntabnav .ui-tabs li a, #dyntabnav .ui-tabs-nav li a {
+    padding: .5em;
+}
 #dyntabnav .ui-widget-header {
     background: #ffffff;
     border: none;
