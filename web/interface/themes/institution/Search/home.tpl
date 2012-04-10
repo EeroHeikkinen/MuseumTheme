@@ -1,6 +1,3 @@
-{* Work-In-Progress disclaimer, remove when appropriate *}
-<div class="w-i-p">{translate text="development_disclaimer"}</div>
-
 <div class="searchHome">
   <div class="searchHomeContent">
     <div class="searchHomeLogo">
