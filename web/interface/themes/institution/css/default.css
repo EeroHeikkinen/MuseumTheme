@@ -998,6 +998,40 @@ float: left;
     padding:18px 10px 12px 0px;
 }
 
+/** Dynamic Tabs **/
+
+#dyntabnav {
+    border: none;
+}
+#dyntabnav .ui-tabs, #dyntabnav .ui-tabs-nav {
+    padding: 0;
+}
+#dyntabnav .ui-widget-header {
+    background: #ffffff;
+    border: none;
+}
+#dyntabnav .ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+}
+#dyntabnav .ui-tabs-panel {
+    padding: 1em 0;
+}
+
+#dyntabnav ul.commentList {
+    margin: 1em 0;
+    padding: 0 .5em;
+}
+
+#dyntabnav form#commentRecord {
+    padding: 0 .7em;
+}
+#dyntabnav form#commentRecord #comment {
+    vertical-align: middle;
+    width: 99%;
+}
+
+
 /** Similar Items (record view) **/
 
 ul.similar {
