@@ -22,13 +22,5 @@ px      62    136    210    284    */
         border-radius: 5px 5px 5px 5px*/;
     }
 
-    /*** work-in-progress disclaimer ***/
-    .w-i-p {
-        width: 136px; /* span-2 width */
-        position: absolute;
-        top: .5em;
-        left: 0;
-    }
-
 
 }
