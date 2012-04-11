@@ -1003,15 +1003,19 @@ float: left;
 #dyntabnav {
     border: none;
 }
-#dyntabnav .ui-tabs, #dyntabnav .ui-tabs-nav {
+#dyntabnav, #dyntabnav .ui-tabs-nav {
     padding: 0;
+}
+#dyntabnav .ui-corner-all {
+    -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px;
 }
 #dyntabnav .ui-tabs li a, #dyntabnav .ui-tabs-nav li a {
     padding: .5em;
 }
 #dyntabnav .ui-widget-header {
     background: #ffffff;
-    border: none;
+    border-color: #aaaaaa;
+    border-style: none none solid none;
 }
 #dyntabnav .ui-widget {
     font-family: inherit;
@@ -1030,6 +1034,7 @@ float: left;
     padding: 0 .7em;
 }
 #dyntabnav form#commentRecord #comment {
+    border: 1px solid #aaaaaa;
     vertical-align: middle;
     width: 99%;
 }
