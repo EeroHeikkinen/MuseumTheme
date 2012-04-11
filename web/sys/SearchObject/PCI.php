@@ -364,11 +364,9 @@ class SearchObject_PCI extends SearchObject_Base
         	}	
         }
         else {
-        	foreach ($searchTerms as $term) {
-            	if ($query) {
-                	$query .= '+AND+';
-            	}
-            	$query .= '&query=' . urlencode($term['index']) . ',exact,' . urlencode($term['lookfor']); 
+            $terms = explode(' ', trim($searchTerms[0]['lookfor']));
+        	foreach ($terms as $term) {
+            	$query .= '&query=' . urlencode($searchTerms[0]['index']) . ',exact,' . urlencode($term); 
         	}
         }
                 
@@ -377,7 +375,7 @@ class SearchObject_PCI extends SearchObject_Base
         if ($startRec > 0) {
            $params = array_merge($params, array("indx" => $startRec));
         }
-        $url = $this->_baseUrl . '?' . http_build_query($this->_params) . $query;
+        $url = $this->_baseUrl . '?' . http_build_query($params) . $query;
 
         $url .= "&sortField=" . urlencode($this->sort);            
 
