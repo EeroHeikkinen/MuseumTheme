@@ -1726,3 +1726,13 @@ div#closeContextHelp:hover {
 div#closeContextHelp:active {
     background-position: 0 -32px;
 }
+
+
+/*** QRCode ***/
+
+#qrcode {
+   text-align: center;
+}
+#qrcode canvas {
+   margin-bottom: .5em;
+}

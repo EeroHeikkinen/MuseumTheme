@@ -126,6 +126,10 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {/if}
     <div class="clear"></div>
   </div>
+
+    <div id="qrcode"></div>
+    {js filename="qrcodeNDL.js"}
+
 </div>
 
 <div class="span-7">
