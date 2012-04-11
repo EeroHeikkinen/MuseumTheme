@@ -1006,6 +1006,9 @@ float: left;
 #dyntabnav, #dyntabnav .ui-tabs-nav {
     padding: 0;
 }
+#dyntabnav .ui-tabs-nav li {
+    margin-right: 3px;
+}
 #dyntabnav .ui-corner-all {
     -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px;
 }
