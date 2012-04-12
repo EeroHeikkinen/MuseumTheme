@@ -1,3 +1,5 @@
+<!-- START of: Record/view.tpl -->
+
 {if $bookBag}
 <script type="text/javascript">
 vufindString.bulk_noitems_advice = "{translate text="bulk_noitems_advice"}";
@@ -129,7 +131,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
     <div id="qrcode"></div>
     {js filename="qrcodeNDL.js"}
-
 </div>
 
 <div class="span-7">
@@ -235,3 +236,5 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Record/view.tpl -->

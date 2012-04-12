@@ -1,11 +1,16 @@
 var URL = location.href;
 
-$('#qrcode').qrcode(URL); // Place the actual QRCode
+$('#qrcode').qrcode({
+    render  : "canvas",    // use "table" for non-HTML5 compatibility
+    width   : 120,
+    height  : 120,
+    text    : URL
+});
 
 /* Show the URL of the QRCode.
  * Later on, this should be changed to something more descriptive with proper translations.
  */
-$('#qrcode').append('<span class="small">' + URL + '</span>');
+$('#qrcode').append('<br/><span class="small">' + URL + '</span>');
 
 // Below is the code for icon overlay on the QRCode. Not needed now, and the overlay.php needs work to strip the Google API stuff off and a proper location
 

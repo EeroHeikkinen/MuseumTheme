@@ -1,4 +1,4 @@
-{** Header **}
+<!-- START of: header.tpl -->
 
 {if $showTopSearchBox}
 <div class="span-3">
@@ -63,3 +63,4 @@
 -->
 </div>
 
+<!-- END of: header.tpl -->
