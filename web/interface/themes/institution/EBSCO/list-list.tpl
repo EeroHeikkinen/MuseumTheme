@@ -1,18 +1,24 @@
-<form name="addForm">
+{* check save statuses via AJAX *}
+{js filename="check_save_statuses.js"}
+{js filename="jquery.cookie.js"}
+
+<form method="post" name="addForm" action="{$url}/Cart/Home">
+  <ul class="recordSet">
   {foreach from=$recordSet item=record name="recordLoop"}
-  {if ($smarty.foreach.recordLoop.iteration % 2) == 0}
-  <div class="result alt record{$smarty.foreach.recordLoop.iteration}">
-  {else}
-  <div class="result record{$smarty.foreach.recordLoop.iteration}">
-  {/if}
-
-    <div class="yui-ge">
-      <div class="yui-u first">
-        <img src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}" class="alignleft" alt="{translate text="Cover Image"}"/>
-
-        <div class="resultitem">
+    <li class="result{if ($smarty.foreach.recordLoop.iteration % 2) == 0} alt{/if}">
+      <span class="recordNumber">{$recordStart+$smarty.foreach.recordLoop.iteration-1}</span>
+      <div class="recordId" id="record{$record.ID.0|escape}">
+        {* hide until complete
+        <label for="checkbox_{$record.ID.0|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
+        <input id="checkbox_{$record.ID.0|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="id[]" value="{$record.ID.0|escape}" class="checkbox addToCartCheckbox"/>
+         *}
+        <div class="span-2">
+          <img src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}" class="alignleft" alt="{translate text="Cover Image"}"/>
+        </div>
+        
+        <div class="span-6">
           <div class="resultItemLine1">
-            <a href="{$record.url}"
+            <a href="{$url}/EBSCO/Record?id={$record.ID.0|escape:"url"}"
             class="title">{if !$record.Title.0}{translate text='Title not available'}{else}{$record.Title.0|highlight}{/if}</a>
           </div>
 
@@ -20,7 +26,7 @@
             {if $record.Author}
             {translate text='by'}
             {foreach from=$record.Author item=author name="loop"}
-              <a href="{$url}/EBSCO/Search?type=Author&amp;lookfor={$author|unhighlight|escape:"url"}">{$author|highlight}</a>{if !$smarty.foreach.loop.last},{/if}
+              <a href="{$url}/Summon/Search?type=Author&amp;lookfor={$author|unhighlight|escape:"url"}">{$author|highlight}</a>{if !$smarty.foreach.loop.last},{/if}
             {/foreach}
             <br>
             {/if}
@@ -44,36 +50,13 @@
             {/if}
           </div>
 
+          {* TODO: implement getEBSCOFormatClass *}
           <span class="iconlabel {$record.ContentType.0|getSummonFormatClass|escape}">{translate text=$record.ContentType.0}</span>
-
         </div>
+        <div class="clear"></div>
       </div>
-
-      {* TODO: make "save record" feature work:
-      <div class="yui-u">
-        <div id="saveLink{$record.id.0}">
-          <a href="{$url}/Record/Save?id={$record.id.0}"
-             onClick="getLightbox('Record', 'Save', 'Summon', '{$record.id.0}', null); return false;" class="fav tool">{translate text='Add to favorites'}</a>
-          <ul id="lists{$record.id.0}"></ul>
-          <script language="JavaScript" type="text/javascript">
-            getSaveStatuses('{$record.id.0}');
-          </script>
-        </div>
-      </div>
-       *}
-    </div>
-
-    <span class="Z3988" title="{$record.openUrl|escape}"></span>
-
-  </div>
-
-{/foreach}
+      <span class="Z3988" title="{$record.openUrl|escape}"></span>
+    </li>
+  {/foreach}
+  </ul>
 </form>
-
-{* TODO: implement save statuses for Summon
-{if $user}
-<script type="text/javascript">
-  doGetSaveStatuses();
-</script>
-{/if}
- *}

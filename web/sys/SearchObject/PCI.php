@@ -396,11 +396,11 @@ class SearchObject_PCI extends SearchObject_Base
         $xml->registerXPathNamespace('prim', 'http://www.exlibrisgroup.com/xsd/primo/primo_nm_bib');
         $xml->registerXPathNamespace('sear', 'http://www.exlibrisgroup.com/xsd/jaguar/search');
         $ds = $xml->xpath('//sear:DOCSET');
-        $hits = isset($ds[0]) ? (int)$ds[0]->attributes()->TOTALHITS : 0; 
+        $hits = isset($ds[0]) ? (int)$ds[0]->attributes()->TOTALHITS : 0;
         foreach ($xml->xpath('//sear:DOC') as $item) {
             $id = (string) $item->attributes()->ID;
             $authors = array();
-                    foreach ($item->xpath('.//prim:display/prim:creator') as $author) {
+            foreach ($item->xpath('.//prim:display/prim:creator') as $author) {
                 foreach (explode(';', (string) $author) as $author) {
                     $authors[] = trim($author);
                 }
@@ -416,11 +416,10 @@ class SearchObject_PCI extends SearchObject_Base
                 $publications[] = trim($partof);
             }
 
-            $ids = array();
+            $identifiers = array();
             foreach ($item->xpath('.//prim:display/prim:identifier') as $identifier) {
-                $ids[] = trim($identifier);
+                $identifiers[] = trim($identifier);
             }
-            $id = implode('; ', $ids);
             
             $title = $item->xpath('.//prim:display/prim:title');
             $title = is_array($title) ? (string) $title[0] : NULL;
@@ -443,7 +442,7 @@ class SearchObject_PCI extends SearchObject_Base
                 $link = $item->xpath('.//sear:LINKS/sear:openurl');
                 if ($link) {
                     $params = explode('&', substr($link[0], strpos($link[0], '?') + 1));
-                    $openurl = $configArray['OpenURL']['url'] . '?' . 'rfr_id=' . urlencode($configArray['OpenURL']['rfr_id']);
+                    $openurl = 'rfr_id=' . urlencode($configArray['OpenURL']['rfr_id']);
                     foreach ($params as $param) {
                         if (substr($param, 0, 7) != 'rfr_id=') {
                             $openurl .= '&' . $param;
@@ -452,8 +451,8 @@ class SearchObject_PCI extends SearchObject_Base
                 }
             }
 
-            $result = array('author' => $authors, 'title' => $title, 'url' => $url, 
-                'PublicationTitle' => $publications, 'identifier' => $id,
+            $result = array('Author' => $authors, 'Title' => array($title), 'url' => $url, 
+                'PublicationTitle' => $publications, 'ID' => array($id), 'identifiers' => $identifiers,
                 'openUrl' => $openurl);
             $results[] = $result;
         }

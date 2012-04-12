@@ -279,18 +279,8 @@ class SearchObject_EBSCO extends SearchObject_Base
     */
     public function activateAllFacets($preferredSection = false)
     {
-        foreach ($this->allFacetSettings as $section => $values) {
-            foreach ($values as $key => $value) {
-                $this->addFacet($key, $value);
-            }
-        }
-
-        if ($preferredSection
-            && is_array($this->allFacetSettings[$preferredSection])
-        ) {
-            foreach ($this->allFacetSettings[$preferredSection] as $key => $value) {
-                $this->addFacet($key, $value);
-            }
+        foreach ($this->facetConfig as $key => $value) {
+            $this->addFacet($key, $value);
         }
     }
     
@@ -433,7 +423,7 @@ class SearchObject_EBSCO extends SearchObject_Base
         $hits = (string) $hits[0];
         $results = array();
         foreach ($xml->xpath('//rec') as $item) {
-            $id = $item->attributes()->id;
+            $id = (string)$item->header->attributes()->uiTerm;
             $authors = array();
             foreach ($item->xpath('.//aug/au') as $author) {
                $authors[] = (string) $author;
@@ -441,7 +431,7 @@ class SearchObject_EBSCO extends SearchObject_Base
             $title = $item->xpath('.//tig/atl');
             $url = $item->xpath('.//plink/text()');
             $pdf = $item->xpath('.//pdfLink/text()');
-            $result = array("author" => $authors, "title" => (string) $title[0], "id" => $id, "url" => $url[0]);
+            $result = array("Author" => $authors, "Title" => array((string) $title[0]), "ID" => array($id), "url" => $url[0]);
             if ($pdf) {
                 $result['pdf'] = (string) $pdf[0];
             }

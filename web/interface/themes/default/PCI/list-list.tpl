@@ -13,13 +13,13 @@
         <div class="resultitem">
           <div class="resultItemLine1">
             <a href="{$record.url}"
-            class="title">{if !$record.title}{translate text='Title not available'}{else}{$record.title|highlight}{/if}</a>
+            class="title">{if !$record.Title.0}{translate text='Title not available'}{else}{$record.Title.0|highlight}{/if}</a>
           </div>
 
           <div class="resultItemLine2">
-            {if $record.author}
+            {if $record.Author}
             {translate text='by'}
-            {foreach from=$record.author item=author name="loop"}
+            {foreach from=$record.Author item=author name="loop"}
               <a href="{$url}/PCI/Search?type=Author&amp;lookfor={$author|unhighlight|escape:"url"}">{$author|highlight}</a>{if !$smarty.foreach.loop.last},{/if}
             {/foreach}
             <br>
@@ -31,7 +31,7 @@
           </div>
 
           <div class="resultItemLine3">
-            {$record.identifier}
+            {$record.identifiers.0}
           </div>
 
           <div class="resultItemLine4">
