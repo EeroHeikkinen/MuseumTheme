@@ -100,6 +100,7 @@
       </analyzer>
     </fieldType>
     <fieldType name="date" class="solr.DateField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="binary" class="solr.BinaryField"/>
     
     <!-- Field types for e.g. museum data -->
     <fieldType name="negativeSupportingDate" class="fi.nationallibrary.ndl.solr.schema.NegativeSupportingDateField" sortMissingLast="true" omitNorms="true"/>
@@ -111,7 +112,7 @@
  <fields>
    <!-- Core Fields  -->
    <field name="id" type="string" indexed="true" stored="true"/>
-   <field name="fullrecord" type="string" indexed="false" stored="true"/>
+   <field name="fullrecord" type="binary" indexed="false" stored="true"/>
    <field name="marc_error" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="allfields" type="text" indexed="true" stored="false"/>
    <field name="allfields_unstemmed" type="textProper" indexed="true" stored="false"/>
@@ -214,8 +215,6 @@
    <field name="last_indexed" type="date" indexed="true" stored="true"/>
    <!-- Dedup grouping field -->
    <field name="dedup_key" type="string" indexed="true" stored="true"/>
-   <!-- Host record ID -->
-   <field name="host_id" type="string" indexed="true" stored="true"/>
    <!-- Dynamic fields for customization without schema modification -->
    <dynamicField name="*_date" type="date" indexed="true" stored="true"/>
    <dynamicField name="*_date_mv" type="date" indexed="true" stored="true" multiValued="true"/>

@@ -143,7 +143,12 @@ class Solr implements IndexEngine
     * Allow left truncation?
     */
     private $_leftTruncation = false;
-        
+
+    /**
+     * Whether the fullrecord field is compressed and needs to be inflated
+     */
+    private $_fullRecordCompressed = false;
+    
     /**
      * Constructor
      *
@@ -244,7 +249,13 @@ class Solr implements IndexEngine
 	    // Allow left truncation?
 	    if (isset($searchSettings['General']['allow_left_truncation'])) {
 	    	$this->_leftTruncation
-	    	= $searchSettings['General']['allow_left_truncation'];
+    	    	= $searchSettings['General']['allow_left_truncation'];
+	    }	    	 
+
+	    // Is the fullrecord field compressed?
+	    if (isset($configArray['Index']['fullrecord_compressed'])) {
+	    	$this->_fullRecordCompressed
+    	    	= $configArray['Index']['fullrecord_compressed'];
 	    }	    	 
     }
 
@@ -1557,6 +1568,15 @@ class Solr implements IndexEngine
         		}
         	}
         	$result = $degrouped;
+        }
+        
+        // Inflate fullrecord field if it is compressed
+        if ($this->_fullRecordCompressed) {
+            foreach ($result['response']['docs'] as $key => $value) {
+                if (isset($value['fullrecord'])) {
+                    $result['response']['docs'][$key]['fullrecord'] = gzinflate(base64_decode($value['fullrecord']));
+                }
+            }
         }
         
         // Inject highlighting details into results if necessary:

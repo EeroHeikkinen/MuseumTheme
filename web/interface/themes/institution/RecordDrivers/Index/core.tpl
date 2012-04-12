@@ -33,9 +33,9 @@
   <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
     {if !empty($coreContainerTitle)}
     <tr valign="top">
-      <th>{translate text='Journal Title'}:</th>
+      <th>{translate text='component_part_is_part_of'}:</th>
       <td>
-        <a href="{$url}/Search/Results?lookfor=%22{$coreContainerTitle|escape:"url"}%22&amp;type=JournalTitle">{$coreContainerTitle|escape}</a>
+        <a href="{$url}/Record/{$coreHierarchyParentId[0]|escape:"url"}">{$coreContainerTitle|escape}</a>
         {if !empty($coreContainerReference)}{$coreContainerReference|escape}{/if}
       </td>
     </tr>

@@ -235,6 +235,8 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreContainerTitle', $this->getContainerTitle());
         $interface->assign('coreContainerReference', $this->getContainerReference());
 
+        $interface->assign('coreHierarchyParentId', isset($this->fields['hierarchy_parent_id']) ? $this->fields['hierarchy_parent_id'] : '');
+        
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
@@ -2013,9 +2015,14 @@ class IndexRecord implements RecordInterface
      */
     protected function getComponentPartCount()
     {
-		// TODO: this is all quite ugly. Come up with a nicer way to do this?
+        // Shortcut: if this record is not the top record, let's not find out the count.
+        // This assumes that component parts cannot have component parts.
+        if (!isset($this->fields['is_hierarchy_id']) || !$this->fields['is_hierarchy_id']) {
+            return 0;
+        }
+        // TODO: this is all quite ugly. Come up with a nicer way to do this?
         $searchObject = SearchObjectFactory::initSearchObject();
-        $query = 'host_id:"' . addcslashes($this->getUniqueID(), '"') . '"';
+        $query = 'hierarchy_parent_id:"' . addcslashes($this->getUniqueID(), '"') . '"';
 		// TODO: HACK: pretend this is a browse to avoid spellcheck and facets
         $searchObject->initBrowseScreen();
 		$searchObject->disableLogging();
@@ -2037,16 +2044,7 @@ class IndexRecord implements RecordInterface
      */
     protected function getHostRecordTitle() 
     {
-        if (!isset($this->fields['host_id']) || !$this->fields['host_id']) {
-            return '';
-        }
-		$searchObject = SearchObjectFactory::initSearchObject();
-		$record = $searchObject->getIndexEngine()->getRecord($this->fields['host_id']);
-        if (PEAR::isError($record)) {
-        	PEAR::raiseError($record->getMessage());
-        }
-        $recordDriver = RecordDriverFactory::initRecordDriver($record);
-        return $recordDriver->getTitle();
+        return isset($this->fields['hierarchy_parent_title']) ? $this->fields['hierarchy_parent_title'] : '';
     }
     
     /**
@@ -2058,7 +2056,7 @@ class IndexRecord implements RecordInterface
      */
     protected function getHostRecordId() 
     {
-		return isset($this->fields['host_id']) ? $this->fields['host_id'] : null;
+        return isset($this->fields['hierarchy_parent_id']) ? $this->fields['hierarchy_parent_id'] : '';
     }
 
     /**

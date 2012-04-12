@@ -1,3 +1,7 @@
+[System]
+available       = true
+debug           = false
+
 [Site]
 local           = /usr/local/vufind/web
 url             = /vufind
@@ -12,7 +16,9 @@ displayDateFormat = "d.m.Y"
 showBookBag = true
 
 [Index]
+url = http://localhost:8080/solr
 local           = /usr/local/vufind/solr
+fullrecord_compressed = true
 
 [Session]
 type                        = FileSession
@@ -80,7 +86,7 @@ multiple_locations = group
 
 [Record]
 next_prev_navigation = true
-marc_links = "773"
+;marc_links = "773"
 
 [Security]
 HMACkey = xyz

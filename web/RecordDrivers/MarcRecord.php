@@ -1145,44 +1145,6 @@ class MarcRecord extends IndexRecord
         return $retVal;
     }
 
-    protected function getComponentPartCount()
-    {
-        $query = 'host_id:' . $this->getUniqueID();
-        $searchObject = SearchObjectFactory::initSearchObject();
-        // TODO: HACK: pretend this is a browse to avoid spellcheck and facets
-        $searchObject->initBrowseScreen();
-        $searchObject->disableLogging();
-        $searchObject->setQueryString($query);
-        $result = $searchObject->processSearch();
-        $searchObject->close();
-        if (PEAR::isError($result)) {
-            PEAR::raiseError($result->getMessage());
-        }
-        return $result['response']['numFound'];
-    }
-
-    /**
-     * Returns a title of host record if any
-     *
-     * @access protected
-     * @return array
-     *
-     */
-    protected function getHostRecordTitle() {
-        return $this->_getFirstFieldValue('773', array('t'));
-    }
-    
-    /**
-     * Returns an id of host record if any
-     *
-     * @access protected
-     * @return array
-     *
-     */
-    protected function getHostRecordId() {
-        return $this->_getFirstFieldValue('773', array('w'));
-    }
-
     /**
      * Returns the array element for the 'getAllRecordLinks' method
      *
