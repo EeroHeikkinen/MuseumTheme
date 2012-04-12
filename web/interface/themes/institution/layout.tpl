@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$userLang}" lang="{$userLang}">
 
 {* We should hide the top search bar and breadcrumbs in some contexts: *}
-{if ($module=="Search" || $module=="Summon" || $module=="WorldCat" || $module=="Authority") && $pageTemplate=="home.tpl"}
+{if ($module=="Search" || $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority") && $pageTemplate=="home.tpl"}
     {assign var="showTopSearchBox" value=0}
     {assign var="showBreadcrumbs" value=0}
 {else}
@@ -126,7 +126,7 @@
       </div>
       
       <div class="main{if !$showTopSearchBox}-home{/if} clear">
-        {if $useSolr || $useWorldcat || $useSummon}
+        {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI}
         <div id="toptab">
           <ul>
             {if $useSolr}
@@ -137,6 +137,12 @@
             {/if}
             {if $useSummon}
             <li{if $module == "Summon"} class="active"{/if}><a href="{$url}/Summon/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
+            {/if}
+            {if $useEBSCO}
+            <li{if $module == "EBSCO"} class="active"{/if}><a href="{$url}/EBSCO/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
+            {/if}
+            {if $usePCI}
+            <li{if $module == "PCI"} class="active"{/if}><a href="{$url}/PCI/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
             {/if}
           </ul>
         </div>
