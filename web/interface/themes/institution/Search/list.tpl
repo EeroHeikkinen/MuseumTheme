@@ -1,3 +1,5 @@
+<!-- START of: Search/list.tpl -->
+
 {* Main Listing *}
 <div class="span-13 authorbox" style="padding-left:0;">
   {* Recommendations *}
@@ -92,3 +94,4 @@
 
 <div class="clear"></div>
 
+<!-- END of: Search/list.tpl -->

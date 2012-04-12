@@ -1,4 +1,4 @@
-{** Footer **}
+<!-- START of: footer.tpl -->
 
 <div class="span-3"><p class="strong">{translate text='Search Options'}</p>
   <ul>
@@ -33,4 +33,6 @@
 
 {* Comply with Serials Solutions terms of service -- this is intentionally left untranslated. *}
 {if $module == "Summon"}Powered by Summon™ from Serials Solutions, a division of ProQuest.{/if}
+
+<!-- END of: footer.tpl -->
 

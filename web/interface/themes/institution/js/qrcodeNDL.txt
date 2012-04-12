@@ -1,6 +1,0 @@
-jquery.qrcode.min.js created with http://closure-compiler.appspot.com/home
-
-Original source https://github.com/jeromeetienne/jquery-qrcode/tree/master/src
-
-Changes:
--width & height: 150

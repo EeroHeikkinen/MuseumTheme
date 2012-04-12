@@ -1,3 +1,5 @@
+<!-- START of: Search/home.tpl -->
+
 <div class="searchHome">
   <div class="searchHomeContent">
     <div class="searchHomeLogo">
@@ -60,3 +62,4 @@
   {include file="Search/browse.tpl"}
 {/if}
 
+<!-- END of: Search/home.tpl -->

@@ -1,3 +1,5 @@
+<!-- START of: Search/breadcrumbs.tpl -->
+
 {if $searchId}
 <em>{translate text="Search"}: {$lookfor|escape:"html"}</em>
 {elseif $pageTemplate=="newitem.tpl" || $pageTemplate=="newitem-list.tpl"}
@@ -7,3 +9,5 @@
 {elseif $pageTemplate!=""}
 <em>{translate text=$pageTemplate|replace:'.tpl':''|capitalize|translate}</em>
 {/if}
+
+<!-- END of: Search/breadcrumbs.tpl -->

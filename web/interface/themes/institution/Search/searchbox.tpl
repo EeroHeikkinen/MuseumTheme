@@ -1,3 +1,5 @@
+<!-- START of: Search/searchbox.tpl -->
+
 <div class="searchform span-7 last">
 
 {if $searchType == 'advanced'}
@@ -73,3 +75,5 @@
   <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
 {/if}
 </div>
+
+<!-- END of: Search/searxhbox.tpl -->
