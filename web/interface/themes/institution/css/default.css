@@ -142,9 +142,9 @@ img.alignleft {
     height: 100px;
 }
 .slogan {
-		margin: 0 0 5px;
+    margin: 0 0 5px;
 /*
-		color: #4499cc;
+    color: #4499cc;
 */
 }
 .color_arc {
@@ -263,7 +263,7 @@ p.listDescription {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
-		display:none;
+    display:none;
     border-bottom: 1px solid #eee;
     padding: 1em 0;
 }
@@ -435,13 +435,13 @@ ul.recordSet .recordNumber {
     */
 }
 ul.recordSet .addToFavLink {
-		width: auto;
-		float: right;
+    width: auto;
+    float: right;
 }
 ul.recordSet .coverDiv {
-		width:100px;
-		/* border:1px solid #ddd; */
-		text-align:center;
+    width:100px;
+    /* border:1px solid #ddd; */
+    text-align:center;
 }
 ul.recordSet .resultItemLine2{
     margin:0.2em 0 0 0;
@@ -505,7 +505,7 @@ li.result blockquote {
     margin:0;
 }
 .groupCallnumber {
-		display:none;
+    display:none;
     margin-left: 18px;
 }
 
@@ -534,7 +534,7 @@ div.sidegroup h4 {
     padding:0 0 0.5em 0;
 }
 div.sidegroup h4.account, div.sidegroup h4.list {
-		padding:0 0 1px 20px;
+    padding:0 0 1px 20px;
 }
 dl.narrowList img {
     vertical-align: top;
@@ -544,7 +544,7 @@ dl.narrowList a:hover {
     background-color:#f9f9f9;
 }
 dl.narrowList a {
-		display:block;
+    display:block;
     text-decoration: none;
     padding: 0.1em 0 0.1em 0.4em;
 }
@@ -560,16 +560,16 @@ dl.narrowList a {
     background-color: #eee;
 }
 .suggestedTopicsHidden {
-		margin-top:1em;
+    margin-top:1em;
 }
 .facetWrapper {
-		float:left;
-		width:auto;
-		margin-right:0.4em;
+    float:left;
+    width:auto;
+    margin-right:0.4em;
 }
 .facetCount {
-		font-size:0.8em;
-		color:#999;
+    font-size:0.8em;
+    color:#999;
 }
 
 
@@ -578,8 +578,8 @@ dl.narrowList a {
 /* common styles */
 
 .toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch, .accountFavorites h3 {
-		display:block;
-		text-align:left;
+    display:block;
+    text-align:left;
     background-repeat:no-repeat;
     background-position:5px;
     padding:.5em .5em .5em 25px;
@@ -589,7 +589,7 @@ ul.recordSet .addToFavLink a {
     padding:.1em .5em .5em 25px;
 }
 .searchtools a.mailSearch {
-		display:inline-block;
+    display:inline-block;
 }
 
 .bookbag {
