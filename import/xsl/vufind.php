@@ -175,6 +175,20 @@ class VuFind
     }
 
     /**
+     * Pad a string with leading zeroes to a specified length.
+     *
+     * @param string $in     String to pad
+     * @param string $len    Target length
+     * @param string $prefix Prefix to prepend to entire padded string.
+     *
+     * @return string
+     */
+    public static function padZeroes($in, $len, $prefix = '')
+    {
+        return $prefix . str_pad($in, $len, '0', STR_PAD_LEFT);
+    }
+
+    /**
      * Strip articles from the front of the text (for creating sortable titles).
      *
      * @param string $in title to process.

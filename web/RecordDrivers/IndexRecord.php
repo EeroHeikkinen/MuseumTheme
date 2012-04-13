@@ -27,6 +27,8 @@
  */
 require_once 'RecordDrivers/Interface.php';
 
+require_once 'Drivers/Hierarchy/HierarchyFactory.php';
+
 require_once 'services/MyResearch/lib/User.php';
 require_once 'services/MyResearch/lib/Resource.php';
 require_once 'services/MyResearch/lib/Resource_tags.php';
@@ -214,7 +216,7 @@ class IndexRecord implements RecordInterface
         // tabs, since every tab can assume that the core data is already assigned):
         $this->assignTagList();
         $interface->assign('isbn', $this->getCleanISBN());  // needed for covers
-        $interface->assign('recordFormat', $this->getFormats(true));
+        $interface->assign('recordFormat', $this->getPrefixedFormats());
         $interface->assign('recordLanguage', $this->getLanguages());
 
         // These variables are only used by the core template, and they are prefixed
@@ -234,7 +236,8 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreThumbLarge', $this->getThumbnail('large'));
         $interface->assign('coreContainerTitle', $this->getContainerTitle());
         $interface->assign('coreContainerReference', $this->getContainerReference());
-
+        $interface->assign('coreInstitutions', $this->getInstitutions());
+        
         $interface->assign('coreHierarchyParentId', isset($this->fields['hierarchy_parent_id']) ? $this->fields['hierarchy_parent_id'] : '');
         
         // Only display OpenURL link if the option is turned on and we have
@@ -353,6 +356,187 @@ class IndexRecord implements RecordInterface
         return null;
     }
 
+    /**
+     * Get the collection data to display.
+     *
+     * @return void
+     * @access public
+     */
+    public function getCollectionMetadata()
+    {
+        global $interface;
+        $collection = array();
+    
+        $mainAuthor = $this->getPrimaryAuthor();
+        $corpAuthor = $this->getCorporateAuthor();
+        $secondaryAuthors = $this->getSecondaryAuthors();
+        $duplicates = array();
+        if (!empty($mainAuthor)) {
+            $duplicates[] = $mainAuthor;
+        }
+        if (!empty($corpAuthor)) {
+            $duplicates[] = $corpAuthor;
+        }
+        if (!empty($duplicates)) {
+            $secondaryAuthors = array_diff($secondaryAuthors, $duplicates);
+        }
+        $this->assignTagList();
+        $interface->assign('isbn', $this->getCleanISBN());  // needed for covers
+        $interface->assign('recordFormat', $this->getPrefixedFormats());
+        $interface->assign('collInstitutions', $this->getInstitutions());
+        $interface->assign('recordLanguage', $this->getLanguages());
+        $interface->assign('collMainAuthor', $mainAuthor);
+        $interface->assign('collCorporateAuthor', $corpAuthor);
+        $interface->assign('collContributors', $secondaryAuthors);
+        $interface->assign('collAccess', $this->getAccessRestrictions());
+        $interface->assign('collRelated', $this->getRelationshipNotes());
+        $interface->assign('collNotes', $this->getGeneralNotes());
+        $interface->assign('collDateSpan', $this->getDateSpan());
+        $interface->assign('collISBNs', $this->getISBNs());
+        $interface->assign('collISSNs', $this->getISSNs());
+        $interface->assign('collPhysical', $this->getPhysicalDescriptions());
+        $interface->assign('collFrequency', $this->getPublicationFrequency());
+        $interface->assign('collPlayTime', $this->getPlayingTimes());
+        $interface->assign('collSystem', $this->getSystemDetails());
+        $interface->assign('collAudience', $this->getTargetAudienceNotes());
+        $interface->assign('collAwards', $this->getAwards());
+        $interface->assign('collCredits', $this->getProductionCredits());
+        $interface->assign('collBibliography', $this->getBibliographyNotes());
+        $interface->assign('collFindingAids', $this->getFindingAids());
+        $interface->assign('collShortTitle', $this->getShortTitle());
+        $interface->assign('collSubtitle', $this->getSubtitle());
+        $interface->assign('collTitleStatement', $this->getTitleStatement());
+        $interface->assign('collTitleSection', $this->getTitleSection());
+        $interface->assign('collNextTitles', $this->getNewerTitles());
+        $interface->assign('collPrevTitles', $this->getPreviousTitles());
+        $interface->assign('collPublications', $this->getPublicationDetails());
+        $interface->assign('collEdition', $this->getEdition());
+        $interface->assign('collSeries', $this->getSeries());
+        $interface->assign('collSubjects', $this->getAllSubjectHeadings());
+        $interface->assign('collRecordLinks', $this->getAllRecordLinks());
+        $interface->assign('collThumbMedium', $this->getThumbnail('medium'));
+        $interface->assign('collThumbLarge', $this->getThumbnail('large'));
+        // Only display OpenURL link if the option is turned on and we have
+        // an ISSN.  We may eventually want to make this rule more flexible,
+        // but for now the ISSN restriction is designed to be consistent with
+        // the way we display items on the search results list.
+        $hasOpenURL = ($this->openURLActive('record') && $this->getCleanISSN());
+        if ($hasOpenURL) {
+            $interface->assign('collOpenURL', $this->getOpenURL());
+        }
+        // Only load URLs if we have no OpenURL or we are configured to allow
+        // URLs and OpenURLs to coexist:
+        if (!isset($configArray['OpenURL']['replace_other_urls'])
+                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+        ) {
+            //$interface->assign('collURLs', $this->getURLs());
+        }
+        // Assign only the first piece of summary data for the coll; we'll get the
+        // rest as part of the extended data.
+        $summary = $this->getSummary();
+        $interface->assign('collSummary', count($summary) > 0 ? $summary[0] : null);
+        if (count($summary) > 1) {
+            $interface->assign('collSummaryAll', array_slice($summary, 1));
+        }
+    
+        // Send back the template name:
+        return 'RecordDrivers/Index/collection-info.tpl';
+    }
+    
+    /**
+     * Get the collection data to display.
+     *
+     * @return void
+     * @access public
+     */
+    public function getCollectionRecord()
+    {
+        global $interface;
+        $collection = array();
+    
+        $interface->assign('collRecordShortTitle', $this->getShortTitle());
+        $interface->assign('collRecordSubtitle', $this->getSubtitle());
+        $interface->assign('collRecordTitleStatement', $this->getTitleStatement());
+        $interface->assign('collRecordTitleSection', $this->getTitleSection());
+        $interface->assign('collRecordID', $this->getUniqueID());
+        $interface->assign('collRecordInstitutions', $this->getInstitutions());
+    
+        $this->_assignCollectionRecordCollectionData();
+    
+        $mainAuthor = $this->getPrimaryAuthor();
+        $corpAuthor = $this->getCorporateAuthor();
+        $secondaryAuthors = $this->getSecondaryAuthors();
+        $duplicates = array();
+        if (!empty($mainAuthor)) {
+            $duplicates[] = $mainAuthor;
+        }
+        if (!empty($corpAuthor)) {
+            $duplicates[] = $corpAuthor;
+        }
+        if (!empty($duplicates)) {
+            $secondaryAuthors = array_diff($secondaryAuthors, $duplicates);
+        }
+        $this->assignTagList();
+        // needed for covers
+        $interface->assign('collRecordISBN', $this->getCleanISBN());
+        $interface->assign('recordFormat', $this->getPrefixedFormats());
+        $interface->assign('collRecordLanguage', $this->getLanguages());
+        $interface->assign('collRecordMainAuthor', $mainAuthor);
+        $interface->assign('collRecordCorporateAuthor', $corpAuthor);
+        $interface->assign('collRecordContributors', $secondaryAuthors);
+        $interface->assign('collRecordAccess', $this->getAccessRestrictions());
+        $interface->assign('collRecordRelated', $this->getRelationshipNotes());
+        $interface->assign('collRecordNotes', $this->getGeneralNotes());
+        $interface->assign('collRecordDateSpan', $this->getDateSpan());
+        $interface->assign('collRecordISBNs', $this->getISBNs());
+        $interface->assign('collRecordISSNs', $this->getISSNs());
+        $interface->assign('collRecordPhysical', $this->getPhysicalDescriptions());
+        $interface->assign('collRecordFrequency', $this->getPublicationFrequency());
+        $interface->assign('collRecordPlayTime', $this->getPlayingTimes());
+        $interface->assign('collRecordSystem', $this->getSystemDetails());
+        $interface->assign('collRecordAudience', $this->getTargetAudienceNotes());
+        $interface->assign('collRecordAwards', $this->getAwards());
+        $interface->assign('collRecordCredits', $this->getProductionCredits());
+        $interface->assign('collRecordBibliography', $this->getBibliographyNotes());
+        $interface->assign('collRecordFindingAids', $this->getFindingAids());
+        $interface->assign('collRecordShortTitle', $this->getShortTitle());
+        $interface->assign('collRecordSubtitle', $this->getSubtitle());
+        $interface->assign('collRecordTitleStatement', $this->getTitleStatement());
+        $interface->assign('collRecordTitleSection', $this->getTitleSection());
+        $interface->assign('collRecordNextTitles', $this->getNewerTitles());
+        $interface->assign('collRecordPrevTitles', $this->getPreviousTitles());
+        $interface->assign('collRecordPublications', $this->getPublicationDetails());
+        $interface->assign('collRecordEdition', $this->getEdition());
+        $interface->assign('collRecordSeries', $this->getSeries());
+        $interface->assign('collRecordSubjects', $this->getAllSubjectHeadings());
+        $interface->assign('collRecordRecordLinks', $this->getAllRecordLinks());
+        $interface->assign('collRecordThumbMedium', $this->getThumbnail('medium'));
+        $interface->assign('collRecordThumbLarge', $this->getThumbnail('large'));
+        // Only display OpenURL link if the option is turned on and we have
+        // an ISSN.  We may eventually want to make this rule more flexible,
+        // but for now the ISSN restriction is designed to be consistent with
+        // the way we display items on the search results list.
+        $hasOpenURL = ($this->openURLActive('record') && $this->getCleanISSN());
+        if ($hasOpenURL) {
+            $interface->assign('collRecordOpenURL', $this->getOpenURL());
+        }
+        // Only load URLs if we have no OpenURL or we are configured to allow
+        // URLs and OpenURLs to coexist:
+        if (!isset($configArray['OpenURL']['replace_other_urls'])
+                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+        ) {
+            //$interface->assign('collRecordURLs', $this->getURLs());
+        }
+        // Assign only the first piece of summary data for the collRecord;
+        // we'll get the rest as part of the extended data.
+        $summary = $this->getSummary();
+        $summary = count($summary) > 0 ? $summary[0] : null;
+        $interface->assign('collRecordSummary', $summary);
+    
+        // Send back the template name:
+        return 'RecordDrivers/Index/collection-record.tpl';
+    }
+    
     /**
      * Get the text to represent this record in the body of an email.
      *
@@ -541,7 +725,7 @@ class IndexRecord implements RecordInterface
         // Extract bibliographic metadata from the record:
         $id = $this->getUniqueID();
         $interface->assign('listId', $id);
-        $interface->assign('listFormats', $this->getFormats(true));
+        $interface->assign('listFormats', $this->getPrefixedFormats());
         $interface->assign('listTitle', $this->getTitle());
         $interface->assign('listAuthor', $this->getPrimaryAuthor());
         $interface->assign('listThumb', $this->getThumbnail());
@@ -763,7 +947,7 @@ class IndexRecord implements RecordInterface
         global $interface;
 
         $interface->assign('summId', $this->getUniqueID());
-        $interface->assign('summFormats', $this->getFormats());
+        $interface->assign('summFormats', $this->getPrefixedFormats());
         $interface->assign('summHighlightedTitle', $this->getHighlightedTitle());
         $interface->assign('summTitle', $this->getTitle());
         $interface->assign('summHighlightedAuthor', $this->getHighlightedAuthor());
@@ -780,6 +964,13 @@ class IndexRecord implements RecordInterface
         $interface->assign('hostRecordTitle', $this->getHostRecordTitle());
         $interface->assign('hostRecordId', $this->getHostRecordId());
 
+        //collection module only
+        if (isset($configArray['Collections']['collections'])
+                && $configArray['Collections']['collections'] == true
+        ) {
+            $this->_assignSearchResultCollectionData();
+        }
+        
         // Obtain and assign snippet information:
         $snippet = $this->getHighlightedSnippet();
         $interface->assign(
@@ -811,6 +1002,8 @@ class IndexRecord implements RecordInterface
             $interface->assign('summURLs', array());
         }
 
+        $interface->assign('summHierarchy', $this->hasHierarchyTree());
+                
         // By default, do not display AJAX status; we won't assume that all
         // records exist in the ILS.  Child classes can override this setting
         // to turn on AJAX as needed:
@@ -823,6 +1016,133 @@ class IndexRecord implements RecordInterface
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
     }
 
+    /**
+     * Sub function of getSearchResult that only gets called when the collection
+     * module is enabled
+     *
+     * @param object $hierarchyDriver A Hierarchy Driver Object
+     *
+     * @return void
+     * @access private
+     */
+    private function _assignSearchResultCollectionData($hierarchyDriver = false)
+    {
+        global $configArray;
+        global $interface;
+    
+        $hierarchyType = $this->getHierarchyType();
+        if (!$hierarchyType) {
+            //not a hierarchy type record
+            return null;
+        }
+        $hierarchyDriver = $hierarchyDriver? $hierarchyDriver :
+            HierarchyFactory::initHierarchy($hierarchyType);
+    
+        //check config setting for what constitutes a collection
+        $collectionIdentifier = $hierarchyDriver->getCollectionIdentifier();
+    
+        if ($collectionIdentifier == "All Containers") {
+            $isCollection = (isset($this->fields['is_hierarchy_id']));
+            $interface->assign('summCollection', $isCollection);
+            if (isset($this->fields['hierarchy_parent_title'])) {
+                $interface->assign(
+                    'summInCollection', $this->fields['hierarchy_parent_title']
+                );
+                $interface->assign(
+                    'summInCollectionID', $this->fields['hierarchy_parent_id']
+                );
+            }
+        } elseif ($collectionIdentifier == "Top Only") {
+            $isCollection = (isset($this->fields['is_hierarchy_title']) &&
+                    isset($this->fields['is_hierarchy_id']) &&
+                    in_array(
+                            $this->fields['is_hierarchy_id'],
+                            $this->fields['hierarchy_top_id']
+                    )
+            );
+            $interface->assign('summCollection', $isCollection);
+            if (isset($this->fields['hierarchy_top_title'])) {
+                $interface->assign(
+                        'summInCollection', $this->fields['hierarchy_top_title']
+                );
+                $interface->assign(
+                        'summInCollectionID', $this->fields['hierarchy_top_id']
+                );
+            }
+        }
+    }
+    
+    /**
+     * Sub function of getCollectionRecord to determine if something is a collection
+     *
+     * @param object $hierarchyDriver A Hierarchy Driver Object
+     *
+     * @return void
+     * @access private
+     *
+     */
+    private function _assignCollectionRecordCollectionData($hierarchyDriver = false)
+    {
+        global $configArray;
+        global $interface;
+    
+        $hierarchyType = $this->getHierarchyType();
+        if (!$hierarchyType) {
+            //not a hierarchy type record
+            return null;
+        }
+        $hierarchyDriver = $hierarchyDriver? $hierarchyDriver :
+        HierarchyFactory::initHierarchy($hierarchyType);
+    
+        //check config setting for what constitutes a collection
+        $collectionIdentifier = $hierarchyDriver->getCollectionIdentifier();
+    
+        if ($collectionIdentifier == "All Containers") {
+            $isCollection = (isset($this->fields['is_hierarchy_title']));
+            $interface->assign('collCollection', $isCollection);
+        } elseif ($collectionIdentifier == "Top Only") {
+            $isCollection = (isset($this->fields['is_hierarchy_title']) &&
+                    isset($this->fields['is_hierarchy_id']) &&
+                    in_array(
+                            $this->fields['is_hierarchy_id'],
+                            $this->fields['hierarchy_top_id']
+                    )
+            );
+            $interface->assign('collCollection', $isCollection);
+        }
+    }
+    
+    /**
+     * Return this records collection Identifier
+     *
+     * @param string $hierarchyDriver A Hierarchy Driver Object
+     *
+     * @return string $identifier the solr field which defines collections
+     * @access public
+     */
+    public function getCollectionRecordIdentifier($hierarchyDriver = false)
+    {
+    
+        global $configArray;
+        global $interface;
+    
+        $hierarchyType = $this->getHierarchyType();
+        if (!$hierarchyType) {
+            //not a hierarchy type record
+            return null;
+        }
+        $hierarchyDriver = $hierarchyDriver? $hierarchyDriver :
+        HierarchyFactory::initHierarchy($hierarchyType);
+    
+        $collectionIdentifier = $hierarchyDriver->getCollectionIdentifier();
+    
+        if ($collectionIdentifier == "All Containers") {
+            return 'hierarchy_parent_id';
+        } elseif ($collectionIdentifier == "Top Only") {
+            return 'hierarchy_top_id';
+        }
+    }
+    
     /**
      * Assign necessary Smarty variables and return a template name to
      * load in order to display the full record information on the Staff
@@ -872,6 +1192,234 @@ class IndexRecord implements RecordInterface
     {
             return null;
     }    
+    
+    /**
+     * Get the hierarchy_top_id associated with this item (empty string if none).
+     *
+     * @return string
+     * @access protected
+     */
+    public function getHierarchyTopID()
+    {
+        return isset($this->fields['hierarchy_top_id']) ?
+        $this->fields['hierarchy_top_id'] : array();
+    }
+    
+    /**
+     * Get the absolute parent title associated with this item
+     * (empty string if none).
+     *
+     * @return string
+     * @access protected
+     */
+    public function getHierarchyTopTitle()
+    {
+        return isset($this->fields['hierarchy_top_title']) ?
+        $this->fields['hierarchy_top_title'] : array();
+    }
+    
+    /**
+     * Get the is hierarchy id associated with this item
+     * (empty string if none).
+     *
+     * @return string
+     * @access protected
+     */
+    public function getIsHierarchyID()
+    {
+        return isset($this->fields['is_hierarchy_id']) ?
+        $this->fields['is_hierarchy_id'] :false;
+    }
+    
+    /**
+     * Get the value of wether or not this is a collection level record
+     */
+    public function getIsHierarchy($hierarchyDriver=null){
+        global $configArray;
+        global $interface;
+    
+        //default to not be a collection level record
+        $isCollection = false;
+    
+        $hierarchyType = $this->getHierarchyType();
+        if (!$hierarchyType) {
+            //not a hierarchy type record
+            return null;
+        }
+        $hierarchyDriver = $hierarchyDriver? $hierarchyDriver :
+        HierarchyFactory::initHierarchy($hierarchyType);
+    
+        //check config setting for what constitutes a collection
+        $collectionIdentifier = $hierarchyDriver->getCollectionIdentifier();
+    
+        //check
+        if ($collectionIdentifier == "All Containers") {
+            $isCollection = (isset($this->fields['is_hierarchy_id']));
+        } elseif ($collectionIdentifier == "Top Only") {
+            $isCollection = (isset($this->fields['is_hierarchy_title']) &&
+                    isset($this->fields['is_hierarchy_id']) &&
+                    in_array(
+                            $this->fields['is_hierarchy_id'],
+                            $this->fields['hierarchy_top_id']
+                    )
+            );
+        }
+        //print_r($this->fields['id']);
+        //print " : ";
+        //print_r($isCollection);
+        //print "<br/>";
+        return  $isCollection;
+    }
+    
+    
+    /**
+     * Get the is hierarchy title associated with this item
+     * (empty string if none).
+     *
+     * @return string
+     * @access protected
+     */
+    public function getIsHierarchyTitle()
+    {
+        return isset($this->fields['is_hierarchy_title']) ?
+        $this->fields['is_hierarchy_title'] :false;
+    }
+    
+    /**
+     * Does this record have an archival tree?
+     *
+     * @param object $hierarchyDriver A Hierarchy Driver Instance
+     * @param string $hierarchyID     The hierarchy to get the archival tree for
+     *
+     * @return mixed An array of hierachies with trees on success, false on failure
+     * @access public
+     */
+    public function hasHierarchyTree($hierarchyDriver = false, $hierarchyID = false)
+    {
+        global $configArray;
+    
+        $hierarchyType = $this->getHierarchyType();
+        $hierarchyDriver = $hierarchyDriver? $hierarchyDriver :
+            HierarchyFactory::initHierarchy($hierarchyType);
+    
+        if ($hierarchyDriver) {
+            $treeConfigDriver = $hierarchyDriver->showTree();
+            $treeConfigGlobal = isset($configArray['Content']['showHierarchyTree'])
+            ? $configArray['Content']['showHierarchyTree'] : false;
+            $displayTree = ($treeConfigDriver == true && $treeConfigGlobal == true);
+            if ($displayTree) {
+                $source = $hierarchyDriver->getTreeSource();
+                $generator = $hierarchyDriver->getTreeGenerator();
+                $generator = !empty($generator)
+                    ? 'HierarchyTreeGenerator_' . $generator
+                    : 'HierarchyTreeGenerator_JSTree';
+                include_once 'sys/hierarchy/' . $generator . '.php';
+                $hierarchyTree = new $generator($this);
+                return $hierarchyTree->hasHierarchyTree($source, $hierarchyID);
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Get a Hierarchy Tree
+     *
+     * @param object $hierarchyDriver A Hierarchy Driver Instance
+     * @param string $context         The context in which the tree is being created
+     * @param string $mode            The type of tree required
+     * @param string $hierarchyID     The hierarchy ID to get the archival tree for
+     * @param string $currentRecordID The curently selected record
+     *
+     * @return bool
+     * @access public
+     */
+    public function getHierarchyTree($hierarchyDriver = false,
+            $context = false, $mode = false, $hierarchyID = false,
+            $currentRecordID = false
+    ) {
+        global $configArray;
+    
+        $hierarchyType = $this->getHierarchyType();
+        $hierarchyDriver = $hierarchyDriver? $hierarchyDriver :
+        HierarchyFactory::initHierarchy($hierarchyType);
+    
+        if ($hierarchyDriver) {
+            $source = $hierarchyDriver->getTreeSource();
+            $treeConfigDriver = $hierarchyDriver->showTree();
+            $treeConfigGlobal = isset($configArray['Content']['showHierarchyTree'])
+            ? $configArray['Content']['showHierarchyTree'] : false;
+            $displayTree = ($treeConfigDriver == true && $treeConfigGlobal == true);
+            if ($displayTree) {
+                $generator = $hierarchyDriver->getTreeGenerator();
+                $generator = !empty($generator)
+                    ? 'HierarchyTreeGenerator_' . $generator
+                    : 'HierarchyTreeGenerator_JSTree';
+                include_once 'sys/hierarchy/' . $generator . '.php';
+                $hierarchyTree = new $generator($this);
+                return $hierarchyTree->getHierarchyTree(
+                        $source, $context, $mode, $hierarchyID, $currentRecordID
+                );
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * Get the Hierarchy Type
+     *
+     * @return string or false
+     * @access public
+     */
+    public function getHierarchyType()
+    {
+        global $configArray;
+    
+        if (isset($this->fields['hierarchy_top_id'])) {
+            $hierarchyType = isset($this->fields['hierarchytype'])
+            ? $this->fields['hierarchytype'] : false;
+            if (!$hierarchyType) {
+                $hierarchyType = isset($configArray['Hierarchy']['driver'])
+                ? $configArray['Hierarchy']['driver'] : false;
+            }
+            return $hierarchyType;
+        }
+        return false;
+    }
+    
+    /**
+     * Get Tree Source
+     *
+     * Returns the configuration setting for hierarchy tree caching time when
+     * using solr to build the tree
+     *
+     * @return int The value of the configuration setting
+     * @access public
+     */
+    public function getTreeCacheTime()
+    {
+        $hierarchyType = $this->getHierarchyType();
+    
+        $hierarchyDriver = isset($hierarchyDriver)? $hierarchyDriver :
+        HierarchyFactory::initHierarchy($hierarchyType);
+        return $hierarchyDriver->getTreeCacheTime();
+    }
+    
+    /**
+     * Check if sorting is enabled in the hierarchy Options
+     *
+     * Returns the configuration setting for hierarchy tree sorting
+     *
+     * @return bool The value of the configuration setting
+     * @access public
+     */
+    public function treeSorting()
+    {
+        $hierarchyType = $this->getHierarchyType();
+    
+        $hierarchyDriver = isset($hierarchyDriver)? $hierarchyDriver :
+        HierarchyFactory::initHierarchy($hierarchyType);
+        return $hierarchyDriver->treeSorting();
+    }
     
     /**
      * Return the unique identifier of this record within the Solr index;
@@ -997,6 +1545,20 @@ class IndexRecord implements RecordInterface
     {
         // No RDF for Solr-based entries yet.
         return false;
+    }
+
+    /**
+     * Check if an item has holdings in order to show or hide the holdings tab
+     *
+     * @param array $patron An array for patron information
+     *
+     * @return bool
+     * @access public
+     */
+    public function hasRealTimeHoldings($patron = false)
+    {
+        // Show holdings tab by default
+        return true;
     }
 
     /**
@@ -1306,23 +1868,33 @@ class IndexRecord implements RecordInterface
     /**
      * Get an array of all the formats associated with the record.
      *
-     * @param prefixed  boolean  Add prefix from config ([Record] format_prefix)
-     *                           for translation.
      * @return array
      * @access protected
      */
-    protected function getFormats($prefixed = false)
+    protected function getFormats()
+    {
+        return isset($this->fields['format']) ? $this->fields['format'] : array();
+    }
+
+    /**
+     * Get an array of all the formats associated with the record with a 
+     * translation prefix from config ([Record] format_prefix).
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getPrefixedFormats()
     {
         global $configArray;
-        $formats = isset($this->fields['format']) ? $this->fields['format'] : array();
-        if ($prefixed && isset($configArray['Record']['format_prefix'])) {
+        $formats = $this->getFormats();
+        if (isset($configArray['Record']['format_prefix'])) {
             $prefix = $configArray['Record']['format_prefix'];
             $callback = create_function('$str','return "'.$prefix.'".$str;');
             $formats = array_map($callback, $formats);
         }
         return $formats;
     }
-
+    
     /**
      * Get general notes on the record.
      *
@@ -1435,6 +2007,18 @@ class IndexRecord implements RecordInterface
         return $this->index;
     }
 
+    /**
+     * Get the institution of the current record.
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getInstitutions()
+    {
+        return isset($this->fields['institution']) ?
+        $this->fields['institution'] : array();
+    }
+    
     /**
      * Get an array of all ISBNs associated with the record (may be empty).
      *

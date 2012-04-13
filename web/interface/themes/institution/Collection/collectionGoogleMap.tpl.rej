@@ -1,0 +1,28 @@
+***************
+*** 104,110 ****
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+-           },     
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"),
+--- 104,110 ----
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
++           },
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"),
+***************
+*** 197,200 ****
+    <div class="mapClusterToggle" id="useCluster" style="display:none;" >
+      <input type="checkbox" id="usegmm" checked="true" onclick="refreshMap();" style="vertical-align:middle;"></input><label for="usegmm" style="padding-left:2px;">Cluster</label>
+    </div>
+- </div> 
+--- 197,200 ----
+    <div class="mapClusterToggle" id="useCluster" style="display:none;" >
+      <input type="checkbox" id="usegmm" checked="true" onclick="refreshMap();" style="vertical-align:middle;"></input><label for="usegmm" style="padding-left:2px;">Cluster</label>
+    </div>
++ </div>

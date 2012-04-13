@@ -1,31 +1,36 @@
-function loadVis(facetFields, searchParams, baseURL, zooming) {
+function loadVis(facetFields, searchParams, baseURL, zooming, collection, collectionAction) {
     // options for the graph, TODO: make configurable
-    
-    // get current year so we can set that as a limit when drawing the graph
-    var d = new Date();
-    var currentYear = d.getFullYear();
-    
     var options = {
         series: {
             bars: {
                 show: true,
                 align: "center",
                 fill: true,
-                fillColor: "rgb(124,180,124)"
+                fillColor: "rgb(0,0,0)"
             }
         },
-        colors: ["rgba(151,200,151,255)"],
+        colors: ["rgba(255,0,0,255)"],
         legend: { noColumns: 2 },
-        xaxis: { max: currentYear + 1, tickDecimals: 0 },
+        xaxis: { tickDecimals: 0 },
         yaxis: { min: 0, ticks: [] },
         selection: {mode: "x"},
         grid: { backgroundColor: null /*"#ffffff"*/ }
     };
 
+    var url = baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams;
+    if (typeof collection != 'undefined'){
+    	url+= '&collection=' + collection + '&collectionAction='+ collectionAction;
+    }
     // AJAX call
-    $.getJSON(baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams, function (data) {
+    $.getJSON(url, function (data) {
         if (data.status == 'OK') {
             $.each(data['data'], function(key, val) {
+            	//check if there is data to display, if there isn't hide the box
+            	if(val['data'].length == 0){
+            		$("#datevis" + key + "xWrapper").hide();
+            		return;
+            	}
+            	
                 // plot graph
                 var placeholder = $("#datevis" + key + "x");
 

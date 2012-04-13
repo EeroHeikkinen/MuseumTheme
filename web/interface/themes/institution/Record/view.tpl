@@ -139,9 +139,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
   <div id="{if $dynamicTabs}dyn{/if}tabnav">
     <ul>
+      {if $hasHoldings}
       <li{if $tab == 'Holdings' || $tab == 'Hold'} class="active"{/if}>
         <a href="{$url}/Record/{$id|escape:"url"}/Holdings{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Holdings'}</a>
       </li>
+      {/if}
       <li{if $tab == 'Description'} class="active"{/if}>
         <a href="{$url}/Record/{$id|escape:"url"}/Description{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Description'}</a>
       </li>
@@ -167,6 +169,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       <li{if $tab == 'Excerpt'} class="active"{/if}>
         <a href="{$url}/Record/{$id|escape:"url"}/Excerpt{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Excerpt'}</a>
       </li>
+      {/if}
+      {if $hasHierarchyTree}
+        <li{if $tab == 'Hierarchytree'} class="active"{/if}>
+          <a href="{$url}/Record/{$id|escape:"url"}/HierarchyTree{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='hierarchy_tree'}</a>
+        </li>
       {/if}
       {if $hasMap}
         <li{if $tab == 'Map'} class="active"{/if}>

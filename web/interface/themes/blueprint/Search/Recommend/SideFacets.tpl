@@ -1,5 +1,5 @@
 <div class="sidegroup">
-  {if $recordCount > 0}<h4>{translate text='Narrow Search'}</h4>{/if}
+  {if $recordCount > 0}<h4>{translate text=$sideFacetLabel}</h4>{/if}
   {if isset($checkboxFilters) && count($checkboxFilters) > 0}
       {foreach from=$checkboxFilters item=current}
         <div class="checkboxFilter{if $recordCount < 1 && !$current.selected && !$current.alwaysVisible} hide{/if}">
@@ -19,6 +19,20 @@
       {/foreach}
     {/foreach}
     </ul>
+  {/if}
+  {if $collectionKeywordFilters}
+    <dl class="narrowList navmenu">
+      <dt>{translate text="Keyword Filter"}</dt>
+      <form method="get" action="{$url}/Collection/{$id}/{$collectionAction}" name="keywordFilterForm" id="keywordFilterForm" class="keywordFilterForm">
+        <input id="keywordFilter_lookfor" type="text" name="lookfor" size="27" value="{$keywordLookfor|escape}"/>
+        {foreach from=$collectionKeywordFilterList item=filters key=field}
+          {foreach from=$filters item=filter}
+            <input type="text" name="filter[]" value="{$filter.field}:&quot;{$filter.display}&quot;" style="display:none;"/>
+          {/foreach}
+        {/foreach}
+        <input type="submit" name="submit" value="{translate text="Apply"}"/>
+      </form>
+    </dl>
   {/if}
   {if $sideFacetSet && $recordCount > 0}
     {foreach from=$sideFacetSet item=cluster key=title}

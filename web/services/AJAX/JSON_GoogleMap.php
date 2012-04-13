@@ -38,6 +38,7 @@ require_once 'JSON.php';
 class JSON_GoogleMap extends JSON
 {
     private $_searchObject;
+    private $_locationFacet;
     /**
      * Constructor.
      *
@@ -50,6 +51,11 @@ class JSON_GoogleMap extends JSON
 
         // Load the desired facet information...
         $config = getExtraConfigArray('facets');
+        if (isset($config['MapFacets']['location'])) {
+            $this->_locationFacet = is_array($config['MapFacets']['location'])
+                ? $config['MapFacets']['location']
+                : array($config['MapFacets']['location']);
+        }
     }
 
     /**
@@ -71,13 +77,12 @@ class JSON_GoogleMap extends JSON
             $i = 0;
             foreach ($facets['long_lat']['data'] as $location) {
                 $longLat = explode(',', $location[0]);
-                $markers[$i] = array(
-                    'title' => (string)$location[1], //needs to be a string
-                    'location_facet' =>
-                        $location[0], //needed to load in the items at the location
-                    'lon' => $longLat[0],
-                    'lat' => $longLat[1]
-                );
+                //needs to be a string
+                $markers[$i]['title'] = (string)$location[1];
+                //needed to load in the items at the location
+                $markers[$i]['location_facet'] = $location[0];
+                   $markers[$i]['lon'] = $longLat[0];
+                $markers[$i]['lat'] = $longLat[1];
                 $i++;
             }
             $this->output($markers, JSON::STATUS_OK);

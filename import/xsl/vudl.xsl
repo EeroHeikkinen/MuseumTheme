@@ -146,6 +146,29 @@
                         <xsl:value-of select="php:function('VuFind::harvestWithAperture', string(./@xlink:href))"/>
                     </xsl:for-each>
                 </field>
+
+                <!-- HIERARCHY CONTEXT -->
+                <xsl:if test="//hierarchy">
+                    <field name="hierarchy_top_id">
+                        <xsl:value-of select="//hierarchy/top-hash[normalize-space()]" />
+                    </field>
+
+                    <field name="hierarchy_top_title">
+                        <xsl:value-of select="//hierarchy/top-name[normalize-space()]" />
+                    </field>
+
+                    <field name="hierarchy_parent_id">
+                        <xsl:value-of select="//hierarchy/parent-hash[normalize-space()]"/>
+                    </field>
+
+                    <field name="hierarchy_parent_title">
+                        <xsl:value-of select="//hierarchy/parent-name[normalize-space()]"/>
+                    </field>
+
+                    <field name="hierarchy_sequence">
+                        <xsl:value-of select="php:function('VuFind::padZeroes', string(//position-in-collection[normalize-space()]), 15, 'i')"/>
+                    </field>
+                </xsl:if>
             </doc>
         </add>
     </xsl:template>

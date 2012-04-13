@@ -16,7 +16,7 @@
   <div class="span-6">
   
     <div class="resultItemLine1">
-      <a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
+      <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
     </div>
 
     <div class="resultItemLine2">
@@ -25,6 +25,16 @@
       <a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       {/if}
       {if $summDate}{translate text='Published'} {$summDate.0|escape}{/if}
+      {if $summInCollection}
+        {foreach from=$summInCollection item=InCollection key=cKey}
+          <div>
+            <b>{translate text="in_collection_label"}</b>
+            <a class="collectionLinkText" href="{$path}/Collection/{$summInCollectionID[$cKey]|urlencode|escape:"url"}?recordID={$summId|urlencode|escape:"url"}">
+               {$InCollection}
+            </a>
+          </div>
+        {/foreach}
+      {/if}
     </div>
 
     <div class="last">
@@ -97,6 +107,20 @@
     <div class="savedLists info hide" id="savedLists{$summId|escape}">
       <strong>{translate text="Saved in"}:</strong>
     </div>
+    {if $summHierarchy}
+      {foreach from=$summHierarchy key=hierarchyID item=hierarchyTitle}
+      <div class="hierarchyTreeLink">
+        <input type="hidden" value="{$hierarchyID|escape}" class="hiddenHierarchyId" />
+        <a id="hierarchyTree{$summId|escape}" class="hierarchyTreeLinkText" href="{$path}/Record/{$summId|escape:"url"}/HierarchyTree?hierarchy={$hierarchyID}#tabnav" title="{if $coreShortTitle}{$coreShortTitle|truncate:150:"&nbsp;..."|urlencode}{else}{translate text="hierarchy_tree"}{/if}">
+          {if count($summHierarchy) == 1}
+            {translate text="hierarchy_view_context"}
+          {else}
+            {translate text="hierarchy_view_context"}: {$hierarchyTitle}
+          {/if}
+        </a>
+      </div>
+      {/foreach}
+    {/if}
   </div>
 
   <div class="clear"></div>

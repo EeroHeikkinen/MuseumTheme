@@ -28,6 +28,7 @@
  */
 
 require_once 'JSON.php';
+require_once 'RecordDrivers/Factory.php';
 
 /**
  * Common AJAX functions for the Recommender Visualisation module using JSON as
@@ -42,7 +43,7 @@ require_once 'JSON.php';
 class JSON_Vis extends JSON
 {
     private $_searchObject;
-    private $_dateFacets;
+    private $_dateFacets = array();
 
     /**
      * Constructor.
@@ -51,10 +52,23 @@ class JSON_Vis extends JSON
      */
     public function __construct()
     {
+        global $action;
         parent::__construct();
-        $this->_searchObject = SearchObjectFactory::initSearchObject();
-        $this->_dateFacets = isset($_GET['facetFields'])
-            ? explode(':', $_GET['facetFields']) : array();
+        if (isset($_REQUEST['collection'])) {
+            $this->_searchObject
+                = SearchObjectFactory::initSearchObject('SolrCollection');
+            $action = isset($_REQUEST['collectionAction'])
+                ? $_REQUEST['collectionAction']: 'Home';
+        } else {
+            $this->_searchObject = SearchObjectFactory::initSearchObject();
+        }
+        // Load the desired facet information...
+        $config = getExtraConfigArray('facets');
+        if (isset($config['SpecialFacets']['dateVis'])) {
+            $this->_dateFacets = is_array($config['SpecialFacets']['dateVis'])
+                ? $config['SpecialFacets']['dateVis']
+                : array($config['SpecialFacets']['dateVis']);
+        }
     }
 
     /**
@@ -70,6 +84,28 @@ class JSON_Vis extends JSON
         global $interface;
 
         if (is_a($this->_searchObject, 'SearchObject_Solr')) {
+            if (isset($_REQUEST['collection'])) {
+                //ID of the collection
+                $collection = $_REQUEST['collection'];
+
+                // Retrieve the record for this collection from the index
+                $this->db = ConnectionManager::connectToIndex();
+                if (!($record = $this->db->getRecord($collection))) {
+                    PEAR::raiseError(new PEAR_Error('Record Does Not Exist'));
+                }
+                $this->recordDriver = RecordDriverFactory::initRecordDriver($record);
+
+                //get the collection identefier for this record
+                $this->collectionIdentifier
+                    = $this->recordDriver->getCollectionRecordIdentifier();
+                $this->_searchObject->setCollectionField(
+                    $this->collectionIdentifier
+                );
+
+                // Set the searchobjects collection id to the collection id
+                $this->_searchObject->collectionID($collection);
+
+            }
             $this->_searchObject->init();
             $filters = $this->_searchObject->getFilters();
             $fields = $this->_processDateFacets($filters);
@@ -82,6 +118,16 @@ class JSON_Vis extends JSON
                         isset($filters[$field][0])
                         ? $field .':' . $filters[$field][0] : null
                     );
+                if (isset($_REQUEST['collection'])) {
+                    $collection = $_REQUEST['collection'];
+                    $facets[$field]['removalURL']
+                        = str_replace(
+                            'Search/Results',
+                            'Collection/' . $collection .
+                            '/' .$_REQUEST['collectionAction'],
+                            $facets[$field]['removalURL']
+                        );
+                }
             }
             $this->output($facets, JSON::STATUS_OK);
         } else {
@@ -99,6 +145,7 @@ class JSON_Vis extends JSON
      */
     private function _processFacetValues($fields)
     {
+        $this->_searchObject->setFacetSortOrder('index');
         $facets = $this->_searchObject->getFullFieldFacets(array_keys($fields));
         $retVal = array();
         foreach ($facets as $field => $values) {

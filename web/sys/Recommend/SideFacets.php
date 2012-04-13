@@ -40,9 +40,9 @@ require_once 'sys/Recommend/Interface.php';
  */
 class SideFacets implements RecommendationInterface
 {
-    private $_searchObject;
+    protected $_searchObject;
     private $_dateFacets = array();
-    private $_mainFacets;
+    protected  $_mainFacets;
     private $_checkboxFacets;
 
     /**
@@ -85,6 +85,11 @@ class SideFacets implements RecommendationInterface
         $this->_checkboxFacets
             = ($checkboxSection && isset($config[$checkboxSection]))
             ? $config[$checkboxSection] : array();
+            
+        //collection keyword filter
+        $this->_collectionKeywordFilter
+            = isset($config['Collection_Keyword']['search']) ? $config['Collection_Keyword']['search'] : false;
+        
     }
 
     /**
@@ -132,6 +137,7 @@ class SideFacets implements RecommendationInterface
         $interface->assign(
             'sideFacetSet', $this->_searchObject->getFacetList($this->_mainFacets)
         );
+        $interface->assign('sideFacetLabel', 'Narrow Search');
     }
 
     /**
@@ -157,9 +163,9 @@ class SideFacets implements RecommendationInterface
      * @param array $filters Filter information from search object.
      *
      * @return array         Array of from/to value arrays keyed by field.
-     * @access private
+     * @access protected
      */
-    private function _processDateFacets($filters)
+    protected function _processDateFacets($filters)
     {
         $result = array();
         foreach ($this->_dateFacets as $current) {

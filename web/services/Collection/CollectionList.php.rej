@@ -1,0 +1,16 @@
+***************
+*** 26,32 ****
+   * @link     http://vufind.org/wiki/building_a_module Wiki
+   */
+  require_once 'CollectionRecord.php';
+- 
+  require_once 'sys/Pager.php';
+  
+  /**
+--- 26,31 ----
+   * @link     http://vufind.org/wiki/building_a_module Wiki
+   */
+  require_once 'CollectionRecord.php';
+  require_once 'sys/Pager.php';
+  
+  /**

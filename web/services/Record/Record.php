@@ -52,6 +52,7 @@ class Record extends Action
     protected $catalog;
     protected $errorMsg;
     protected $infoMsg;
+    protected $hasHoldings;
 
     /**
      * Constructor
@@ -78,16 +79,16 @@ class Record extends Action
 
         // Setup Search Engine Connection
         $this->db = ConnectionManager::connectToIndex();
-        
+
         // Connect to Database
         $this->catalog = ConnectionManager::connectToCatalog();
-        
+
         // Set up object for formatting dates and times:
         $this->dateFormat = new VuFindDate();
-        
+
         // Register Library Catalog Account
         if (isset($_POST['submit']) && !empty($_POST['submit'])) {
-            if (isset($_POST['cat_username']) 
+            if (isset($_POST['cat_username'])
                 && isset($_POST['cat_password'])
             ) {
                 $result = UserAccount::processCatalogLogin(
@@ -106,6 +107,9 @@ class Record extends Action
             PEAR::raiseError(new PEAR_Error('Record Does Not Exist'));
         }
         $this->recordDriver = RecordDriverFactory::initRecordDriver($record);
+
+        $this->hasHoldings = $this->recordDriver->hasRealTimeHoldings();
+        $interface->assign('hasHoldings', $this->hasHoldings);
 
         if ($this->recordDriver->hasRDF()) {
             $interface->assign(
@@ -142,7 +146,7 @@ class Record extends Action
         ) {
             $interface->assign(
                 'syndetics_plus_js',
-                "http://plus.syndetics.com/widget.php?id=" . 
+                "http://plus.syndetics.com/widget.php?id=" .
                 $configArray['Syndetics']['plus_id']
             );
         }
@@ -154,8 +158,13 @@ class Record extends Action
         if (isset($configArray['Content']['excerpts'])) {
             $interface->assign('hasExcerpt', $this->recordDriver->hasExcerpt());
         }
+
+        //Hierarchy Tree
+        $interface->assign(
+            'hasHierarchyTree', $this->recordDriver->hasHierarchyTree()
+        );
+
         $interface->assign('hasTOC', $this->recordDriver->hasTOC());
-        $interface->assign('hasContainedComponentParts', $this->recordDriver->hasContainedComponentParts());
         $interface->assign('hasMap', $this->recordDriver->hasMap());
 
         // Assign the next/previous record data:
@@ -171,11 +180,7 @@ class Record extends Action
             'lastsearch',
             isset($_SESSION['lastSearchURL']) ? $_SESSION['lastSearchURL'] : false
         );
-        $interface->assign(
-            'lastsearchdisplayquery',
-            isset($_SESSION['lastSearchDisplayQuery']) ? $_SESSION['lastSearchDisplayQuery'] : false
-        );
-        
+
         $this->cacheId = 'Record|' . $_REQUEST['id'] . '|' . get_class($this);
         if (!$interface->is_cached($this->cacheId)) {
             // Find Similar Records

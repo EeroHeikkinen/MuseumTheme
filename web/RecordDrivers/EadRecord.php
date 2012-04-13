@@ -4,7 +4,8 @@
  *
  * PHP version 5
  *
- * Copyright (C) Ere Maijala 2012.
+ * Copyright (C) The National Library of Finland 2012.
+ * Copyright (C) Villanova University 2010.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -22,10 +23,13 @@
  * @category VuFind
  * @package  RecordDrivers
  * @author   Ere Maijala <ere.maijala@helsinki.fi>
+ * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Luke O'Sullivan <l.osullivan@swansea.ac.uk>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/other_than_marc Wiki
  */
 require_once 'RecordDrivers/IndexRecord.php';
+require_once 'Drivers/Hierarchy/HierarchyFactory.php';
 
 /**
  * EAD Record Driver
@@ -35,6 +39,10 @@ require_once 'RecordDrivers/IndexRecord.php';
  * @category VuFind
  * @package  RecordDrivers
  * @author   Ere Maijala <ere.maijala@helsinki.fi>
+ * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Eoghan O'Carragain <Eoghan.OCarragan@gmail.com>
+ * @author   Luke O'Sullivan <l.osullivan@swansea.ac.uk>
+ * @author   Lutz Biedinger <lutz.Biedinger@gmail.com>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/other_than_marc Wiki
  */
@@ -114,6 +122,12 @@ class EadRecord extends IndexRecord
         return $urls;
     }
     
+    /**
+     * Get the date range of the record as a year or range of years 
+     *
+     * @return string
+     * @access protected
+     */
     protected function _getYearRange()
     {
         if (isset($this->fields['unit_daterange'])) {
@@ -132,6 +146,147 @@ class EadRecord extends IndexRecord
         }
         return '';
     }
+    
+    /**
+     * Get an array of information about record history, obtained in real-time
+     * from the Hierarchy Driver.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getRealTimeHistory()
+    {
+        global $configArray;
+        $hierarchyType = $this->getHierarchyType();
+        // Get Acquisitions Data
+        $id = $this->getUniqueID();
+        if ($hierarchy = HierarchyFactory::initHierarchy($hierarchyType)) {
+            $result = $hierarchy->getPurchaseHistory($id);
+            if (PEAR::isError($result)) {
+                PEAR::raiseError($result);
+            }
+            return $result;
+        }
+        return array();
+    }
+    
+    /**
+     * Get an array of information about record holdings, obtained in real-time
+     * from the Hierarchy Driver.
+     *
+     * @param array $patron An array of patron data
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getRealTimeHoldings($patron = false)
+    {
+        global $configArray;
+    
+        // Get ID and connect to catalog
+        $id = $this->getUniqueID();
+        $hierarchyType = $this->getHierarchyType();
+        if ($hierarchy = HierarchyFactory::initHierarchy($hierarchyType)) {
+            include_once 'sys/HoldLogic.php';
+            $holdLogic = new HoldLogic($hierarchy);
+            return $holdLogic->getHoldings($id, $patron);
+        }
+        return false;
+    }
+    
+    /**
+     * Get an array of status Information
+     *
+     * @return array
+     * @access protected
+     */
+    public function getRealTimeStatus()
+    {
+        global $configArray;
+        $hierarchyType = $this->getHierarchyType();
+        // Get ID and connect to catalog
+        $id = $this->getUniqueID();
+        if ($hierarchy = HierarchyFactory::initHierarchy($hierarchyType)) {
+            return $hierarchy->getStatus($id);
+        }
+        return false;
+    }
+    
+    /**
+     * Check if an item has holdings in order to show or hide the holdings tab
+     *
+     * @param array $patron An array for patron information
+     *
+     * @return bool
+     * @access public
+     */
+    public function hasRealTimeHoldings($patron = false)
+    {
+        global $configArray;
+        $hierarchyType = $this->getHierarchyType();
+        // Get ID and connect to catalog
+        $id = $this->getUniqueID();
+        if ($hierarchy = HierarchyFactory::initHierarchy($hierarchyType)) {
+            return $hierarchy->hasHolding($id, $patron);
+        }
+        return false;
+    }
+    
+    /**
+     * Get the collection data to display.
+     *
+     * @return void
+     * @access public
+     */
+    public function getCollectionMetadata()
+    {
+        global $interface;
+        parent::getCollectionMetadata();
+    
+        // Send back the template name:
+        return 'RecordDrivers/Hierarchy/collection-info.tpl';
+    }
+    
+    /**
+     * Get the collection data to display.
+     *
+     * @return void
+     * @access public
+     */
+    public function getCollectionRecord()
+    {
+        global $interface;
+    
+        parent::getCollectionRecord();
+        $interface->assign('collDateDescription', $this->getDateDescription());
+        $interface->assign('collExtent', $this->getExtent());
+    
+        // Send back the template name:
+        return 'RecordDrivers/Hierarchy/collection-record.tpl';
+    }
+    
+    /**
+     * Get the text of the part/section portion of the Date Description.
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getDateDescription()
+    {
+        return null;
+    }
+    
+    /**
+     * Get the text of the part/section portion of the Date Description.
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getExtent()
+    {
+        return null;
+    }
+    
 }
 
 ?>
