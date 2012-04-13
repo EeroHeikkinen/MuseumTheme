@@ -392,11 +392,11 @@ class Unicorn implements DriverInterface
 
         // convert expire date from display format
         // to the format Symphony/Unicorn expects
-        // NOTE: currently York's Symphony
         $expire = $holdDetails['requiredBy'];
         $formatDate = new VuFindDate();
         $expire = $formatDate->convertFromDisplayDate(
-            'd/m/Y', $holdDetails['requiredBy']
+            $this->ilsConfigArray['Catalog']['server_date_format'],
+            $expire
         );
 
         // query sirsi
@@ -407,7 +407,10 @@ class Unicorn implements DriverInterface
             'pin' => $patron['cat_password'],
             'pickup' => $holdDetails['pickUpLocation'],
             'expire' => $expire,
-            'comments' => $holdDetails['comment']
+            'comments' => $holdDetails['comment'],
+            'holdType' => $holdDetails['level'],
+            'callnumber' => $holdDetails['callnumber'],
+            'override' => $holdDetails['override']
         );
         $response = $this->querySirsi($params);
 
@@ -457,11 +460,16 @@ class Unicorn implements DriverInterface
         }
 
         list($user_key, $alt_id, $barcode, $name, $library, $profile,
-        $cat1, $cat2, $cat3, $cat4, $cat5) = explode('|', $response);
+        $cat1, $cat2, $cat3, $cat4, $cat5, $expiry, $holds, $status) 
+        = explode('|', $response);
 
         list($last, $first) = explode(',', $name);
         $first = rtrim($first, " ");
 
+        if ($expiry != '0') {
+        	$expiry = $this->_parseDateTime(trim($expiry));
+        }
+        $expired = ($expiry == '0') ? false : $expiry < time();
         return array(
             'id' => $username,
             'firstname' => $first,
@@ -473,7 +481,18 @@ class Unicorn implements DriverInterface
             'college' => null,
             'library' => $library,
             'barcode' => $barcode,
-            'alt_id' => $alt_id
+            'alt_id' => $alt_id,
+            'cat1' => $cat1,
+            'cat2' => $cat2,
+            'cat3' => $cat3,
+            'cat4' => $cat4,
+            'cat5' => $cat5,
+            'profile' => $profile,
+            'expiry_date' => $this->_formatDateTime($expiry),
+            'expired' => $expired,
+            'number_of_holds' => $holds,
+            'status' => $status,
+            'user_key' => $user_key
         );
     }
 
@@ -496,7 +515,7 @@ class Unicorn implements DriverInterface
         $response = $this->querySirsi($params);
 
         list($user_key, $alt_id, $barcode, $name, $library, $profile,
-        $cat1, $cat2, $cat3, $cat4, $cat5,
+        $cat1, $cat2, $cat3, $cat4, $cat5, $expiry, $holds, 
         $email, $address1, $zip, $phone, $address2) = explode('|', $response);
 
         return array(
@@ -1085,6 +1104,14 @@ class Unicorn implements DriverInterface
      */
     protected function querySirsi($params)
     {
+        // make sure null parameters are sent as empty strings instead or else the driver.pl
+        // may choke on null parameter values
+        foreach ($params as $key => $value) {
+            if ($value == null) {
+                $params[$key] = '';
+            }
+        }
+        
         $url = $this->url;
         if (empty($url)) {
             $url = $this->host;
@@ -1218,7 +1245,7 @@ class Unicorn implements DriverInterface
             'location_code' => $location_code,
             'location'      => $this->mapLocation($location_code),
             'notes'   => array(),
-            'marc852' => $field,
+            'marc852' => $field
         );
         foreach ($field->getSubfields('z') as $note) {
             $location['notes'][] = $note->getData();

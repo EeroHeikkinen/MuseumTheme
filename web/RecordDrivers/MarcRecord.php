@@ -64,7 +64,8 @@ class MarcRecord extends IndexRecord
         $marc = trim($record['fullrecord']);
 
         // check if we are dealing with MARCXML
-        if (substr($marc, 0, 1) == '<') {
+        $xmlHead = '<?xml version';
+        if (strcasecmp(substr($marc, 0, strlen($xmlHead)), $xmlHead) === 0) {
             $marc = new File_MARCXML($marc, File_MARCXML::SOURCE_STRING);
         } else {
             $marc = preg_replace('/#31;/', "\x1F", $marc);
@@ -323,79 +324,6 @@ class MarcRecord extends IndexRecord
     }
 
     /**
-     * Assign necessary Smarty variables and return a template name to 
-     * load in order to display component parts extracted from the 
-     * record.  Returns null if no component parts are available.
-     *
-     * @return string Name of Smarty template file to display.
-     * @access public
-     */
-    public function getContainedComponentParts()
-    {
-        global $interface;
-        global $configArray;
-        
-        $baseURI     = $configArray['Site']['url'];
-
-        $fields = $this->marcRecord->getFields('979');
-        if (!$fields) {
-            return null;
-        } else {    
-            if ($fields) {
-                $componentparts = '';
-                $nr = 0;
-                $dFound = false;
-                $bFound = false;
-                $compref="";
-                foreach ($fields as $field) {
-                    if ($componentparts) {
-                        if  ($bFound) {
-                            $componentparts .= '++--';
-                        } else {     
-                           $componentparts .= '--';
-                        }
-                   }
-                    $nr++;
-                    $subfields = $field->getSubfields();
-                    foreach ($subfields as $subfield) {
-                        if ($subfield->getCode() != 'a') {
-                            if ($subfield->getCode() != 'd') {
-                                if ($componentparts) {
-                                    $componentparts .= '++';
-                                }
-                                $dFound = false;
-                                if ($subfield->getCode() != 'c') {
-                                    $bFound = true;
-                                    $componentparts .= '##'.$baseURI.'%%'.$compref.'=='.$subfield->getData().'??';
-                                } else {
-                                    $bFound = false;
-                                    $componentparts .= $subfield->getData();
-                                }
-                            } else {
-                                if (!$dFound) {
-                                   $dFound = true;
-                                   $bFound = false;
-                                   $componentparts .= ' ...';
-                                } 
-                            }
-                        } else {
-                            $dFound = false;
-                            $componentparts .= $nr;
-                            $compref = $subfield->getData();
-                        }
-                    }                
-                }
-                if ($bFound) {
-                    $componentparts .= '++';
-                }    
-            }
-        }   
-        // Assign the appropriate variable and return the template name:
-        $interface->assign('componentparts', $componentparts);
-        return 'RecordDrivers/Marc/componentparts.tpl';
-    }    
-    
-    /**
      * Return an XML representation of the record using the specified format.
      * Return false if the format is unsupported.
      *
@@ -450,21 +378,6 @@ class MarcRecord extends IndexRecord
     }
 
     /**
-     * Does this record have Component Parts available?
-     *
-     * @return bool
-     * @access public
-     */
-    public function hasContainedComponentParts()
-    {
-        // Are there contained component parts in the MARC record (979)?
-        if ($this->marcRecord->getFields('979')) {
-            return true;
-        }
-        return false;
-    }    
-    
-    /**
      * Does this record support an RDF representation?
      *
      * @return bool
@@ -497,7 +410,9 @@ class MarcRecord extends IndexRecord
     protected function getAllSubjectHeadings()
     {
         // These are the fields that may contain subject headings:
-        $fields = array('600', '610', '630', '650', '651', '655');
+        $fields = array(
+            '600', '610', '611', '630', '648', '650', '651', '655', '656'
+        );
 
         // This is all the collected data:
         $retval = array();
@@ -1144,44 +1059,6 @@ class MarcRecord extends IndexRecord
             $retVal = null;
         }
         return $retVal;
-    }
-
-    protected function getComponentPartCount()
-    {
-        $query = 'host_id:' . $this->getUniqueID();
-        $searchObject = SearchObjectFactory::initSearchObject();
-        // TODO: HACK: pretend this is a browse to avoid spellcheck and facets
-        $searchObject->initBrowseScreen();
-        $searchObject->disableLogging();
-        $searchObject->setQueryString($query);
-        $result = $searchObject->processSearch();
-        $searchObject->close();
-        if (PEAR::isError($result)) {
-            PEAR::raiseError($result->getMessage());
-        }
-        return $result['response']['numFound'];
-    }
-
-    /**
-     * Returns a title of host record if any
-     *
-     * @access protected
-     * @return array
-     *
-     */
-    protected function getHostRecordTitle() {
-        return $this->_getFirstFieldValue('773', array('t'));
-    }
-    
-    /**
-     * Returns an id of host record if any
-     *
-     * @access protected
-     * @return array
-     *
-     */
-    protected function getHostRecordId() {
-        return $this->_getFirstFieldValue('773', array('w'));
     }
 
     /**
