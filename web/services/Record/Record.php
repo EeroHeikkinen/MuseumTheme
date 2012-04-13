@@ -73,6 +73,10 @@ class Record extends Action
         $tab = (isset($_GET['action'])) ? $_GET['action'] : $defaultTab;
         $interface->assign('tab', $tab);
 
+        if (isset($configArray['Site']['ajaxRecordTabs']) && $configArray['Site']['ajaxRecordTabs']) {
+            $interface->assign('dynamicTabs', true);
+        }
+        
         // Store ID of current record (this is needed to generate appropriate
         // links, and it is independent of which record driver gets used).
         $interface->assign('id', $_REQUEST['id']);

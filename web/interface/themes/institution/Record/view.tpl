@@ -187,10 +187,15 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <div class="clear"></div>
   </div>
 
-
+  {if $dynamicTabs}
+  <div class="recordsubcontent">
+        {include file="Record/view-dynamic-tabs.tpl"}
+  </div>
+  {else}
   <div class="recordsubcontent">
         {include file="Record/$subTemplate"}
   </div>
+  {/if}
 
   {* Add COINS *}
   <span class="Z3988" title="{$openURL|escape}"></span>
