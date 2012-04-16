@@ -1,7 +1,7 @@
 {js filename="check_item_statuses.js"}
 {js filename="check_save_statuses.js"}
 {if $showContext}
-{js filename="search_hierarchyTree.js}
+{js filename="search_hierarchyTree.js"}
 {/if}
 {js filename="openurl.js"}
 {if $showPreviews}
