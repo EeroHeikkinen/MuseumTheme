@@ -1731,7 +1731,18 @@ div#closeContextHelp:active {
 /*** QRCode ***/
 
 #qrcode {
+   height: 160px;
    text-align: center;
+   position: relative;
+}
+#qrcode .overlay {
+   background: url('../images/qr_overlay.png') transparent no-repeat;
+   height: 25px;
+   width: 45px;
+
+   position: absolute;
+   left: 83px;
+   top: 47px;
 }
 #qrcode canvas {
    margin-bottom: .5em;
