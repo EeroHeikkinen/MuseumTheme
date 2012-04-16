@@ -51,10 +51,15 @@ class Holdings extends Record
         global $interface;
         global $configArray;
 
+        if (!$this->hasHoldings) {
+            $url = $configArray['Site']['url'] . "/Record/" . $_REQUEST['id'] . "/Description";
+            header('Location: '. $url);
+        }
+
         // Do not cache holdings page
         $interface->caching = 0;
-        
-        // See if patron is logged in to pass details onto get holdings for 
+
+        // See if patron is logged in to pass details onto get holdings for
         // holds / recalls
         $patron = UserAccount::isLoggedIn() ? UserAccount::catalogLogin() : false;
 

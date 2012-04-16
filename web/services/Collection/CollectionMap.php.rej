@@ -1,0 +1,16 @@
+***************
+*** 25,30 ****
+   * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+   * @link     http://vufind.org/wiki/building_a_module Wiki
+   */
+  require_once 'CollectionRecord.php';
+  
+  /**
+--- 25,31 ----
+   * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+   * @link     http://vufind.org/wiki/building_a_module Wiki
+   */
++ 
+  require_once 'CollectionRecord.php';
+  
+  /**

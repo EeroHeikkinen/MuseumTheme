@@ -373,6 +373,18 @@ ul.cartContent {
     margin-left: 4em;
 }
 
+.browseAlphabetSelectorItem {
+    float: left;
+    margin-right:5px;
+    margin-left:5px;
+}
+
+.browseJumpTo {
+    float: right;
+    margin-right:5px;
+    margin-left:5px;
+}
+
 /** Autocomplete */
 .ui-autocomplete {
     max-width: 500px;
@@ -547,6 +559,9 @@ dl.narrowList a {
     display:block;
     text-decoration: none;
     padding: 0.1em 0 0.1em 0.4em;
+}
+.keywordFilterForm {
+    margin: 5px 0px 5px 0px;
 }
 .navmenu dd {
     list-style-type: none;
@@ -1481,6 +1496,117 @@ tr:nth-child(even) td.gridMouseOver {
     text-align: right;
 }
 
+/************************* COLLECTIONS PAGE ************************/
+.disambiguationDiv {
+    background-color: #FFF;
+    padding: 20px;
+}    
+.disambiguationDiv h1 {
+    font-size: 2em;
+}
+#disambiguationItemsDiv {
+    padding: 5px;
+    margin-bottom: 30px;
+}    
+.dismbiguationItem {
+    background-color: #EEEEEE;
+}   
+.dismbiguationItem.alt {
+    background-color: #FFF;
+}
+.collectionDetails {
+    background-color: #FFF;
+    padding:20px 1em 1em 1em;
+    border: 2px solid #EEEEEE;
+    margin-top: -2px;
+    margin-bottom: 20px;
+}
+.collectionDetails form {
+    border: 1px solid #EEEEEE;
+}
+.collectionDetails .collectionSortSelector {
+    border: 0px solid #FFF;
+    float: right;
+}    
+.collectionDetails li.result {
+    background-color: #EEEEEE;
+    margin-bottom: 0px;
+}
+.collectionDetails li.result.alt {
+    background-color: #FFF;
+    margin-bottom: 0px;
+}
+.collectionDetails .pagination a {
+
+}
+.collectionDetails .pagination span {
+    border: 1px solid #EEEEEE;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.collectionDetails .paginationTop {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+.collectionDetails .paginationTop span {
+    border: 1px solid #EEEEEE;
+    font-weight: bold;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 3px;
+}
+.collectionDetails .paginationTop a:hover {
+    border: 1px solid #EEEEEE;
+}
+.collectionDetails .paginationTop a {
+    border: 1px solid #FFF;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 3px;
+}
+.collectionViewSelection {
+    float:right;
+}
+.collectionBrowseResult {
+    padding: 0 0.5em 0.5em;
+    border-top: solid 1px #EEEEEE;
+}
+.collectionBrowseEntry.listBrowse.alt {
+    background-color:#EEEEEE;
+}
+.collectionBrowseEntry.gridBrowse {
+    float: left;
+    width: 22%; 
+    margin: 1%;
+    Height: 260px;
+    border: solid 1px #EEE;
+}
+.collectionBrowseHeading {
+    float: left;
+    width: 80%;
+    padding: 0.5em;
+}
+.collectionBrowseEntry.gridBrowse .collectionBrowseHeading {
+    width: 100%;
+    height:60px;
+}
+.collectionBrowseImg_Collection {
+    Height: 160px;
+    width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    clear: both;
+}
+.collcover {
+    width: 100%;
+    height: 100%;
+}
+.collectionBrowseCount {
+    padding: 0.5em;
+    float: right;
+}
+
 /* Rss Recommendations */
 div.suggestionHeader {
     min-height:30px;
@@ -1746,4 +1872,169 @@ div#closeContextHelp:active {
 }
 #qrcode canvas {
    margin-bottom: .5em;
+}
+
+/*** Hierarchy Tree ***/
+#hierarchyTreeHolder {
+    background-color: #FFF;
+    border: 1px solid #DCDCDC;
+    padding: 0.5em;   
+}
+
+.collectionDetailsTree #hierarchyTreeHolder {
+    border-top: 0;   
+}
+
+#hierarchyTree {
+    padding: 0.5em 0.5em 0.5em 0;
+    max-height:375px;
+    min-height:375px;
+    overflow: hidden;
+    overflow-y: auto;    
+}
+
+#treeSearch {
+    display:none;
+    float: right;
+    width: 100%;
+    border: 1px solid  #DCDCDC;
+}
+
+#treeSearch #treeSearchText {
+    display:block;
+    float:right;
+    margin: 1px 0px 0px 0px;
+}
+
+#treeSearch #search {
+    display:block;
+    float:right;
+    margin-bottom: 0px;
+}
+
+#treeSearch #treeSearchType {
+    display:block;
+    float:right;
+    margin:2px 4px 0px 4px;
+}
+
+#treeSearch #treeSearchNoResults {
+    display:none;
+    float:left;
+    color: #AF1B0A;
+    margin:3px 0px 0px 5px;
+}
+
+#treeSearch #treeSearchLoadingImg {
+    display:none;
+    float:right;
+    margin:3px 4px 4px 5px;
+}
+
+
+#treeSearchLimitReached{
+    display:none;
+    float:left;
+    color: #AF1B0A;
+    margin:3px 0px 0px 5px;
+}
+
+#modalDialog #hierarchyTree {
+    max-height: 100%;
+    min-height: 100%;
+    overflow: auto;
+    overflow-y: auto;   
+}
+
+#hierarchyTree ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;   
+}
+
+.tree {
+    background-image:url(../images/fugue/tree.png);
+    background-repeat:no-repeat;
+    background-position: left;
+    padding:.5em .5em .5em 20px;
+    margin-right:1em;
+}
+
+.currentTree, .hierarchyTreeLinkText {
+    background-image:url(../images/fugue/treeCurrent.png);
+    background-repeat:no-repeat;
+    background-position: left;
+    padding:.5em .5em .5em 20px;
+    margin-right:1em;
+}
+
+#hierarchyTree #treeList li {
+    background-image:url(../images/fugue/treeItem.png);
+    background-repeat: no-repeat;
+    padding: 0.25em 0 0 23px;
+    background-position: 0 0.25em;
+}
+
+#hierarchyTree #treeList li.currentRecord {
+    background-image:url(../images/fugue/treeItemCurrent.png);
+    background-repeat: no-repeat;
+    padding: 0.25em 0 0 23px;
+    background-position: 0 0.25em;
+}
+
+
+#hierarchyTree #treeList li.hierarchy {
+    background-image:url(../images/fugue/collection.png);
+    background-repeat: no-repeat;
+    padding: 0.25em 0 0 23px;
+    background-position: 0 0.25em;
+}
+
+#hierarchyTree #treeList li.currentHierarchy {
+    background-image:url(../images/fugue/collectionCurrent.png);
+    background-repeat: no-repeat;
+    padding: 0.25em 0 0 23px;
+    background-position: 0 0.25em;
+}
+
+#hierarchyTree #treeList li.currentHierarchy > a, #hierarchyTree #treeList li.currentRecord > a {
+    color: #000;
+    font-weight: bold;   
+}
+
+#toggleTree {
+    background-image:url(../images/fugue/treeCurrent.png);
+    background-repeat: no-repeat;
+    padding: 0.25em 0 0 23px;
+    background-position: 0 0.25em;
+}
+
+#hierarchyRecord {
+    padding: 0 0.5em 0.5em;
+}
+
+#hierarchyRecord th {
+   width: 12em;
+}
+
+#treeSelector {
+    background-color: #FAFAFA;
+    border: 1px solid #DCDCDC;
+    border-bottom: 0 none;
+    padding: 0.25em; 
+}
+
+.collectionDetailsTree #treeSelector {
+    background-color: #FAFAFA;
+    border: 1px solid #DCDCDC;
+    border-top: 0 none;
+    padding: 0.25em; 
+}
+
+#treeSelector a {
+    margin-right: 1em;
+}
+
+.jstree-highlight {
+    font-weight: bold;
 }

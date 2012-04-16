@@ -1,0 +1,174 @@
+***************
+*** 1,78 ****
+- <?php
+- /**
+-  * Archival Tree action for Collection module
+-  *
+-  * PHP version 5
+-  *
+-  * Copyright (C) Villanova University 2007.
+-  *
+-  * This program is free software; you can redistribute it and/or modify
+-  * it under the terms of the GNU General Public License version 2,
+-  * as published by the Free Software Foundation.
+-  *
+-  * This program is distributed in the hope that it will be useful,
+-  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+-  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-  * GNU General Public License for more details.
+-  *
+-  * You should have received a copy of the GNU General Public License
+-  * along with this program; if not, write to the Free Software
+-  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-  *
+-  * @category VuFind
+-  * @package  Controller_Record
+-  * @author   Lutz Biedinger <lutz.biedigner@gmail.com>
+-  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+-  * @link     http://vufind.org/wiki/building_a_module Wiki
+-  */
+- require_once 'CollectionRecord.php';
+- 
+- /**
+-  * Home action for Record module
+-  *
+-  * @category VuFind
+-  * @package  Controller_Record
+-  * @author   Lutz Biedinger <lutz.biedigner@gmail.com>
+-  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+-  * @link     http://vufind.org/wiki/building_a_module Wiki
+-  */
+- class archivalTree extends CollectionRecord
+- {
+- 	protected  $_record;
+- 	private $_structure;
+-     /**
+-      * Process incoming parameters and display the page.
+-      *
+-      * @return void
+-      * @access public
+-      */
+-     public function launch()
+-     {
+-     	global $interface;
+-         global $configArray;
+-        
+-        	$interface->setPageTitle(
+-             	translate('Archival Tree') . ': ' . $this->recordDriver->getBreadcrumb()
+-         	);
+-         $xmlTree = $this->recordDriver->getArchivalTree();
+-         $interface->assign('xmlArchivalTree', $xmlTree);
+-         $interface->assign('subTemplate', 'view-archivalTree.tpl');
+-         // Set Messages
+-         $interface->assign('infoMsg', $this->infoMsg);
+-         $interface->assign('errorMsg', $this->errorMsg);
+-         
+-         //turn off quirks mode for ie
+-         if (isset($_SERVER['HTTP_USER_AGENT']) && 
+-           	(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)){
+-         	$interface->assign('quirks', 'off');
+-     	}
+-         // Set Templates etc
+-         $interface->assign('subpage', 'Record/view-archivalTree.tpl');
+-         $interface->assign('tab', 'Archivaltree');//this is because if loaded from an link, the tab will not automatically be selected
+-         //$interface->setTemplate('collectionview.tpl');
+-         // Display Page
+-         $interface->display('layout.tpl');
+-     }
+- }
+- 
+- ?>
+--- 1,93 ----
++ <?php
++ /**
++  * Archival Tree action for Collection module
++  *
++  * PHP version 5
++  *
++  * Copyright (C) Villanova University 2007.
++  *
++  * This program is free software; you can redistribute it and/or modify
++  * it under the terms of the GNU General Public License version 2,
++  * as published by the Free Software Foundation.
++  *
++  * This program is distributed in the hope that it will be useful,
++  * but WITHOUT ANY WARRANTY; without even the implied warranty of
++  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++  * GNU General Public License for more details.
++  *
++  * You should have received a copy of the GNU General Public License
++  * along with this program; if not, write to the Free Software
++  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++  *
++  * @category VuFind
++  * @package  Controller_Record
++  * @author   Lutz Biedinger <lutz.biedigner@gmail.com>
++  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
++  * @link     http://vufind.org/wiki/building_a_module Wiki
++  */
++ require_once 'CollectionRecord.php';
++ 
++ /**
++  * Home action for Record module
++  *
++  * @category VuFind
++  * @package  Controller_Record
++  * @author   Lutz Biedinger <lutz.biedigner@gmail.com>
++  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
++  * @link     http://vufind.org/wiki/building_a_module Wiki
++  */
++ class ArchivalTree extends CollectionRecord
++ {
++     protected  $record;
++     private $_structure;
++     /**
++      * Process incoming parameters and display the page.
++      *
++      * @return void
++      * @access public
++      */
++     public function launch()
++     {
++         global $interface;
++         global $configArray;
++ 
++         $generator = isset($configArray['archivaltree']['treeGenerator'])
++             ? $configArray['archivaltree']['treeGenerator']
++             : 'JSTree';
++         $template = 'Collection/view-archivalTree_' . $generator . '.tpl';
++         $recordID = isset($_GET['recordID']) ? $_GET['recordID'] : false;
++ 
++         if ($recordID) {
++             $interface->assign('collectionRecord', $this->getRecord($recordID));
++             $interface->assign('recordID', $recordID);
++         }
++ 
++         $interface->setPageTitle(
++             translate('Archival Tree') . ': ' .
++             $this->recordDriver->getBreadcrumb()
++         );
++         $archivalTree = $this->recordDriver->getArchivalTree("Collection", "List");
++         $interface->assign('archivalTree', $archivalTree);
++         $interface->setTemplate('view-alt.tpl');
++         // Set Messages
++         $interface->assign('infoMsg', $this->infoMsg);
++         $interface->assign('errorMsg', $this->errorMsg);
++ 
++         //turn off quirks mode for ie
++         if (isset($_SERVER['HTTP_USER_AGENT'])
++             && (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)
++         ) {
++             $interface->assign('quirks', 'off');
++         }
++         // Set Templates etc
++         $interface->assign('subpage', $template);
++         // This is because if loaded from an link, the tab will
++         // not automatically be selected
++         $interface->assign('tab', 'ArchivalTree');
++         //$interface->setTemplate('collectionview.tpl');
++         // Display Page
++         $interface->display('layout.tpl');
++     }
++ }
++ 
++ ?>

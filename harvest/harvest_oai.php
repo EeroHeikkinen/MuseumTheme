@@ -87,6 +87,7 @@ class HarvestOAI
     private $_injectSetSpec = false; // Tag to use for injecting setSpecs
     private $_injectSetName = false; // Tag to use for injecting set names
     private $_injectDate = false;    // Tag to use for injecting datestamp
+    private $_injectHeaderElements;  // List of header elements to copy into body
     private $_setNames = array();    // Associative array of setSpec => setName
     private $_harvestedIdLog = false;// Filename for logging harvested IDs.
     private $_verbose = false;       // Should we display debug output?
@@ -152,6 +153,14 @@ class HarvestOAI
         }
         if (isset($settings['injectDate'])) {
             $this->_injectDate = $settings['injectDate'];
+        }
+        if (isset($settings['injectHeaderElements'])) {
+            $this->_injectHeaderElements
+                = is_array($settings['injectHeaderElements'])
+                    ? $settings['injectHeaderElements']
+                    : array($settings['injectHeaderElements']);
+        } else {
+            $this->_injectHeaderElements = array();
         }
         if (isset($settings['dateGranularity'])) {
             $this->_granularity = $settings['dateGranularity'];
@@ -420,6 +429,13 @@ class HarvestOAI
                     $insert .= "<{$this->_injectSetName}>" .
                         htmlspecialchars($name) .
                         "</{$this->_injectSetName}>";
+                }
+            }
+        }
+        if (!empty($this->_injectHeaderElements)) {
+            foreach ($this->_injectHeaderElements as $element) {
+                if (isset($record->header->$element)) {
+                    $insert .= $record->header->$element->asXML();
                 }
             }
         }

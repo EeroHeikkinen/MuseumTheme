@@ -1,4 +1,4 @@
-function loadVis(facetFields, searchParams, baseURL, zooming) {
+function loadVis(facetFields, searchParams, baseURL, zooming, collection, collectionAction) {
     // options for the graph, TODO: make configurable
     var options = {
         series: {
@@ -17,10 +17,20 @@ function loadVis(facetFields, searchParams, baseURL, zooming) {
         grid: { backgroundColor: null /*"#ffffff"*/ }
     };
 
+    var url = baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams;
+    if (typeof collection != 'undefined'){
+    	url+= '&collection=' + collection + '&collectionAction='+ collectionAction;
+    }
     // AJAX call
-    $.getJSON(baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams, function (data) {
+    $.getJSON(url, function (data) {
         if (data.status == 'OK') {
             $.each(data['data'], function(key, val) {
+            	//check if there is data to display, if there isn't hide the box
+            	if(val['data'].length == 0){
+            		$("#datevis" + key + "xWrapper").hide();
+            		return;
+            	}
+            	
                 // plot graph
                 var placeholder = $("#datevis" + key + "x");
 

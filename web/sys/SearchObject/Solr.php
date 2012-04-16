@@ -1529,11 +1529,14 @@ class SearchObject_Solr extends SearchObject_Base
      * @param array $facetfields  name of the Solr fields to return facets for
      * @param bool  $removeFilter Clear existing filters from selected fields (true)
      * or retain them (false)?
+     * @param int	$limit		  A limit for the number of facets returned, this may
+     * be useful for very large amounts of facets that can break the JSON parse 
+     * method because of PHP out of memory exceptions. 
      *
      * @return array an array with the facet values for each index field
      * @access public
      */
-    public function getFullFieldFacets($facetfields, $removeFilter = true)
+    public function getFullFieldFacets($facetfields, $removeFilter = true, $limit = -1)
     {
         // Save prior facet configuration:
         $oldConfig = $this->facetConfig;
@@ -1542,7 +1545,7 @@ class SearchObject_Solr extends SearchObject_Base
 
         // Manipulate facet settings temporarily:
         $this->facetConfig = array();
-        $this->facetLimit = -1;
+        $this->facetLimit = $limit;
         foreach ($facetfields as $facetName) {
             $this->addFacet($facetName);
 
@@ -1556,7 +1559,60 @@ class SearchObject_Solr extends SearchObject_Base
         $result = $this->processSearch();
 
         // Reformat into a hash:
-        $returnFacets = $result['facet_counts']['facet_fields'];
+        $returnFacets = isset($result['facet_counts']['facet_fields'])
+            ? $result['facet_counts']['facet_fields'] : array();
+        foreach ($returnFacets as $key => $value) {
+            unset($returnFacets[$key]);
+            $returnFacets[$key]['data'] = $value;
+        }
+
+        // Restore saved information:
+        $this->facetConfig = $oldConfig;
+        $this->filterList = $oldList;
+        $this->facetLimit = $oldLimit;
+
+        // Send back data:
+        return $returnFacets;
+    }
+
+    /**
+     * Get complete facets and counts for browsing
+     *
+     * @param array $facetfields  name of the Solr fields to return facets for
+     * @param bool  $removeFilter Clear existing filters from selected fields (true)
+     * or retain them (false)?
+     *
+     * @return array an array with the facet values for each index field
+     * @access public
+     */
+    public function getFacetsForBrowsing($facetfields, $removeFilter = false)
+    {
+        // Save prior facet configuration:
+        $oldConfig = $this->facetConfig;
+        $oldList = $this->filterList;
+        $oldLimit = $this->facetLimit;
+
+        // Manipulate facet settings temporarily:
+        $this->facetConfig = array();
+        //idealy set to -1 but can cause out of memory exception
+        $this->facetLimit = 150000;
+
+        $this->setFacetSortOrder('index');
+        foreach ($facetfields as $facetName) {
+            $this->addFacet($facetName);
+
+            // Clear existing filters for the selected field if necessary:
+            if ($removeFilter) {
+                $this->filterList[$facetName] = array();
+            }
+        }
+
+        // Do search
+        $result = $this->processSearch();
+
+        // Reformat into a hash:
+        $returnFacets = isset($result['facet_counts']['facet_fields'])
+            ? $result['facet_counts']['facet_fields'] : array();
         foreach ($returnFacets as $key => $value) {
             unset($returnFacets[$key]);
             $returnFacets[$key]['data'] = $value;

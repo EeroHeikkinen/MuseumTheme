@@ -1932,6 +1932,88 @@ class Solr implements IndexEngine
             return $result;
         }
     }
+
+    /**
+     * Get the collection('s) for a collection name
+     *
+     * @param string $name Name of the collection
+     *
+     * @return array
+     * @access public
+     */
+    public function getCollectionsFromName($name)
+    {
+        global $configArray;
+        $idregex = isset($configArray['Collections']['RegexMatch'])
+            ? $configArray['Collections']['RegexMatch'] : null;
+        //only check for names if there is a id pattern specified
+        if ($idregex != null) {
+            //first try to figure out if this is an ID or Name
+            if (preg_match($idregex, $name)) {
+                //ID
+                // Query String Parameters $name
+                if (isset($configArray['Collections']['RegexReplace'])) {
+                    $id = preg_replace(
+                        $configArray['Collections']['RegexReplace'], "", $name
+                    );
+                } else {
+                    $id= $name;
+                }
+                $options = array('q' => "is_hierarchy_id:\"" . $id . "\"");
+                $result = $this->_select('GET', $options);
+                if (PEAR::isError($result)) {
+                    PEAR::raiseError($result);
+                }
+            } else {
+                //Name
+                // Query String Parameters $name
+                $name = urldecode($name);
+                $options = array('q' => "is_hierarchy_title:\"$name\"");
+                $result = $this->_select('GET', $options);
+                if (PEAR::isError($result)) {
+                    PEAR::raiseError($result);
+                }
+            }
+        } elseif (isset($configArray['Collections']['RegexReplace'])) {
+            //ID
+            // Query String Parameters $name
+            $id = preg_replace(
+                $configArray['Collections']['RegexReplace'], "", $name
+            );
+            $options = array('q' => "is_hierarchy_id:\"" . $id . "\"");
+            $result = $this->_select('GET', $options);
+            if (PEAR::isError($result)) {
+                PEAR::raiseError($result);
+            }
+            if (empty($result['response']['docs'])) {
+                $options = array('q' => "is_hierarchy_title:\"$name\"");
+                $result = $this->_select('GET', $options);
+                if (PEAR::isError($result)) {
+                    PEAR::raiseError($result);
+                }
+            }
+        } else {
+            $id = $name;
+            //Try ID first, if no matches are found try check for a name
+            // Query String Parameters $name
+            $name = urldecode($name);
+            $options = array('q' => "is_hierarchy_id:\"$id\"");
+            $result = $this->_select('GET', $options);
+            if (PEAR::isError($result)) {
+                PEAR::raiseError($result);
+            }
+            if (empty($result['response']['docs'])) {
+                $options = array('q' => "is_hierarchy_title:\"$name\"");
+                $result = $this->_select('GET', $options);
+                if (PEAR::isError($result)) {
+                    PEAR::raiseError($result);
+                }
+            }
+        }
+
+        return isset($result['response']['docs']) ?
+            $result['response']['docs'] : null;
+    }
 }
 
 ?>

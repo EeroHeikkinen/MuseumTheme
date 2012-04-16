@@ -94,6 +94,13 @@ class Results extends Action
             }
         }
 
+        $interface->assign(
+        	"showContext",
+            isset($configArray['Content']['showHierarchyTree'])
+                ? $configArray['Content']['showHierarchyTree']
+                : false
+        );
+
         // TODO : Stats, move inside the search object
         // Setup Statistics Index Connection
         if ($configArray['Statistics']['enabled']) {
@@ -186,7 +193,7 @@ class Results extends Action
             $interface->assign('recordSet', $searchObject->getResultRecordHTML());
 
             // Setup Display
-            
+
             //Get view & load template
             $currentView  = $searchObject->getView();
             $interface->assign('subpage', 'Search/list-' . $currentView .'.tpl');
@@ -213,8 +220,6 @@ class Results extends Action
 
         // Save the URL of this search to the session so we can return to it easily:
         $_SESSION['lastSearchURL'] = $searchObject->renderSearchUrl();
-        // Save the display query too, so we can use it e.g. in the breadcrumbs
-        $_SESSION['lastSearchDisplayQuery'] = $displayQuery;
 
         // initialize the search result scroller for this search
         $scroller = new ResultScroller();

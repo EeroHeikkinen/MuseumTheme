@@ -6,7 +6,7 @@
 {if $breadcrumbText}
 <em>{$breadcrumbText|truncate:30:"..."|escape}</em> 
 {/if}
-{if $subTemplate && $subTemplate != "view-dynamic-tabs.tpl"}
+{if $subTemplate && !$dynamicTabs}
 <span>&gt;</span><em>{$subTemplate|replace:'view-':''|replace:'.tpl':''|replace:'../MyResearch/':''|capitalize|translate}</em> 
 {/if}
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * Home action with dynamic tabs for Record module
+ * Ajax page for Collection Map
  *
  * PHP version 5
  *
- * Copyright (C) The National Library of Finland 2012.
+ * Copyright (C) Villanova University 2007.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -26,18 +26,19 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
-require_once 'Record.php';
-
+require_once 'Action.php';
+require_once 'RecordDrivers/Factory.php';
 /**
  * Home action for Record module
  *
  * @category VuFind
  * @package  Controller_Record
- * @author   Ere Maijala <ere.maijala@helsinki.fi>
+ * @author   Andrew S. Nagy <vufind-tech@lists.sourceforge.net>
+ * @author   Demian Katz <demian.katz@villanova.edu>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
-class DynamicHome extends Record
+class CollectionGoogleMapInfo extends Action
 {
     /**
      * Process incoming parameters and display the page.
@@ -50,21 +51,32 @@ class DynamicHome extends Record
         global $interface;
         global $configArray;
 
-        // See if patron is logged in to pass details onto get holdings for 
-        // holds / recalls
-        $patron = UserAccount::isLoggedIn() ? UserAccount::catalogLogin() : false;
+        header('Content-type: text/html');
+        header('Cache-Control: no-cache, must-revalidate'); // HTTP/1.1
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 
-        $interface->setPageTitle($this->recordDriver->getBreadcrumb());
-        $interface->assign('subTemplate', 'view-dynamic-tabs.tpl');
-        $interface->setTemplate('view.tpl');
-        $interface->assign('dynamicTabs', true);
+        // Set Proxy URL
+        if (isset($configArray['EZproxy']['host'])) {
+            $interface->assign('proxy', $configArray['EZproxy']['host']);
+        }
+        $collection = $_REQUEST['collection'];
+        // Initialise from the current search globals
+        $searchObject = SearchObjectFactory::initSearchObject();
+        $searchObject->collection_id($collection);
+        $searchObject->init();
+        $results = $searchObject->processSearch();
+        $results = $results['response']['docs'];
+        //print_r($results);
+        $interface->assign('recordSet', $results);
 
-        // Set Messages
-        $interface->assign('infoMsg', $this->infoMsg);
-        $interface->assign('errorMsg', $this->errorMsg);
+        $summary = $searchObject->getResultSummary();
+        $interface->assign('recordCount', $summary['resultTotal']);
+        $interface->assign(
+            'completeListUrl', $searchObject->renderLinkWithLimit(20)
+        );
 
-        // Display Page
-        $interface->display('layout.tpl');
+        $interface->display('AJAX/ResultGoogleMapInfo.tpl');
+
     }
 }
 
