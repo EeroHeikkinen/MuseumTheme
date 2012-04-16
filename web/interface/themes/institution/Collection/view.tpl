@@ -4,7 +4,7 @@
 {if !empty($addThis)}
 <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script>
 {/if}
-<div class="span-18">
+<div class="span-10">
   <div class="record" id="collection{$id|escape}">
     <div class="toolbar">
       <span class="backSpan">
@@ -83,7 +83,7 @@
   <div class="clear"></div>
 </div>
 
-<div class="span-5 last">
+<div class="span-3 last">
   <div class="sidegroup">
   {* Recommendations *}
     {if $sideRecommendations}
