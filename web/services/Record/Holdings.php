@@ -66,9 +66,12 @@ class Holdings extends Record
         $interface->setPageTitle(
             translate('Holdings') . ': ' . $this->recordDriver->getBreadcrumb()
         );
-        $interface->assign(
-            'holdingsMetadata', $this->recordDriver->getHoldings($patron)
-        );
+        // Only fetch holdings if we actually need them (not needed for the basic page part of holdings when using ajax record tabs)
+        if (!isset($configArray['Site']['ajaxRecordTabs']) || !$configArray['Site']['ajaxRecordTabs'] || isset($_REQUEST['subPage'])) {
+            $interface->assign(
+                'holdingsMetadata', $this->recordDriver->getHoldings($patron)
+            );
+        }
         $interface->assign('subTemplate', 'view-holdings.tpl');
         $interface->setTemplate('view.tpl');
 
