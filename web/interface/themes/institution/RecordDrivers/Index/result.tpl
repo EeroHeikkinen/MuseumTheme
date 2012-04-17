@@ -35,6 +35,11 @@
           </div>
         {/foreach}
       {/if}
+      {if !empty($summHostRecordTitle)}
+      <div>
+        <b>{translate text='component_part_is_part_of'}:</b> <a href="{$url}/Record/{$summHostRecordId.0|escape:"url"}">{$summHostRecordTitle.0|escape}</a>
+      </div>
+      {/if}
     </div>
 
     <div class="last">

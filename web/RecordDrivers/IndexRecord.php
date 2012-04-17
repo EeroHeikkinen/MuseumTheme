@@ -284,6 +284,8 @@ class IndexRecord implements RecordInterface
 
         $componentParts = $this->getComponentPartCount();
         $interface->assign('coreComponentPartCount', $componentParts);
+
+        $interface->assign('hasContainedComponentParts', $this->hasContainedComponentParts());
         
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
@@ -961,8 +963,8 @@ class IndexRecord implements RecordInterface
         $interface->assign('summLCCN', $this->getLCCN());
         $interface->assign('summOCLC', $this->getOCLC());
         $interface->assign('summCallNo', $this->getCallNumber());
-        $interface->assign('hostRecordTitle', $this->getHostRecordTitle());
-        $interface->assign('hostRecordId', $this->getHostRecordId());
+        $interface->assign('summHostRecordTitle', $this->getHostRecordTitle());
+        $interface->assign('summHostRecordId', $this->getHostRecordId());
 
         //collection module only
         if (isset($configArray['Collections']['collections'])
@@ -1029,7 +1031,14 @@ class IndexRecord implements RecordInterface
     {
         global $configArray;
         global $interface;
-    
+
+        $interface->assign(
+                'summInCollection', ''
+        );
+        $interface->assign(
+                'summInCollectionID', ''
+        );
+        
         $hierarchyType = $this->getHierarchyType();
         if (!$hierarchyType) {
             //not a hierarchy type record
@@ -1595,7 +1604,6 @@ class IndexRecord implements RecordInterface
      */
     public function hasContainedComponentParts()
     {
- 
         return null;
     }    
     
