@@ -1202,50 +1202,7 @@ class MarcRecord extends IndexRecord
             'link'  => $link
         );
     }
-    
-    /**
-    * Get the OpenURL parameters to represent this record (useful for the
-    * title attribute of a COinS span tag).
-    *
-    * @return string OpenURL parameters.
-    * @access public
-    */
-    public function getOpenURL()
-    {
-        $params = array();
-        foreach (explode('&', parent::getOpenURL()) as $param) {
-            $keyvalue = explode('=', $param, 2);
-            $params[$keyvalue[0]] = $keyvalue[1];
-        }
-        
-        $issn = $this->_getFirstFieldValue('773', array('x'));
-        if ($issn) {
-            $params['rft.issn'] = urlencode($issn);
-        }
-        $subg = $this->_getFirstFieldValue('773', array('g'));
-        if ($subg) {
-            $matches = array();
-            if (preg_match('/(\d*)\s*\((\d{4})\)\s*:\s*(\d*)/', $subg, $matches)) {
-                $params['rft.volume'] = urlencode($matches[1]);
-                $params['rft.issue'] = urlencode($matches[3]);
-            }
-            elseif (preg_match('/(\d{4}) : (\d*)/', $subg, $matches)) {
-                $params['rft.issue'] = urlencode($matches[2]);
-            }
-            elseif (preg_match('/(\d{4}):(\d*)/', $subg, $matches)) {
-                $params['rft.issue'] = urlencode($matches[2]);
-            }
-            
-            if (preg_match('/,\s*\w\.?\s*([\d,\-]+)/', $subg, $matches)) {
-                $pages = explode('-', $matches[1]);
-                if (isset($pages[1])) {
-                    $params['rft.epage'] = urlencode($pages[1]);
-                }
-                $params['rft.spage'] = urlencode($pages[0]);
-            }
-        }
-        return http_build_query($params);
-    }
+
 }
 
 ?>

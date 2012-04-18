@@ -857,6 +857,7 @@ class IndexRecord implements RecordInterface
             }
             break;
         case 'Journal':
+        case 'Serial':
             /* This is probably the most technically correct way to represent
              * a journal run as an OpenURL; however, it doesn't work well with
              * Zotero, so it is currently commented out -- instead, we just add
