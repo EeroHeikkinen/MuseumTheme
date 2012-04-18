@@ -1,3 +1,5 @@
+<!-- START of: Collection/view.tpl -->
+
 {js filename="ajax_common.js"}
 {js filename="collection_record.js"}
 {js filename="check_save_statuses.js"}
@@ -6,7 +8,7 @@
 {/if}
 <div class="span-10">
   <div class="record" id="collection{$id|escape}">
-    <div class="toolbar">
+    <div class="collection-toolbar">
       <span class="backSpan">
         {if $lastsearch}
           <a href="{$lastsearch|escape}#record{$id|escape:"url"}" class="backtosearch">&laquo; {translate text="BACK TO SEARCH"}</a>
@@ -84,14 +86,14 @@
 </div>
 
 <div class="span-3 last">
-  <div class="sidegroup">
   {* Recommendations *}
-    {if $sideRecommendations}
-      {foreach from=$sideRecommendations item="recommendations"}
-        {include file=$recommendations}
-      {/foreach}
-    {/if}
+  {if $sideRecommendations}
+    {foreach from=$sideRecommendations item="recommendations"}
+      {include file=$recommendations}
+    {/foreach}
+  {/if}
   {* End Recommendations *}
-  </div>
 </div>
 <div class="clear"></div>
+
+<!-- END of: Collection/view.tpl -->

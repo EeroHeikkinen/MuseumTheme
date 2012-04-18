@@ -1607,6 +1607,11 @@ tr:nth-child(even) td.gridMouseOver {
     float: right;
 }
 
+/* toolbar was changed to collection-toolbar in Collection/view.tpl & Collection/view-alt.tpl */
+.collection-toolbar {
+    display: none;
+}
+
 /* Rss Recommendations */
 div.suggestionHeader {
     min-height:30px;
