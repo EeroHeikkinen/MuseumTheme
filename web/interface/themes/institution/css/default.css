@@ -1863,12 +1863,12 @@ div#closeContextHelp:active {
 }
 #qrcode .overlay {
    background: url('../images/qr_overlay.png') transparent no-repeat;
-   height: 25px;
-   width: 45px;
+   height: 29px;
+   width: 52px;
 
    position: absolute;
-   left: 83px;
-   top: 47px;
+   left: 79px;
+   top: 45px;
 }
 #qrcode canvas {
    margin-bottom: .5em;
