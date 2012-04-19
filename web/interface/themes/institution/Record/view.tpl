@@ -77,9 +77,15 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </a>
         {/foreach}
         </div>
+      {else}
+        {if $img_count >= 1}
+          <a id="thumbnail_link_{$id|escape:"url"}" href="{$path}/thumbnail.php?id={$id|escape:"url"}&size=large">
+          <img id="thumbnail_img_{$id|escape:"url"}" src="{$path}/thumbnail.php?id={$id|escape:"url"}&size=medium" class="title" alt="{translate text='Cover Image'}">
+        </a>
+        {/if}
       {/if}
-  {else}
-<img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
+    {else}
+    <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
   {/if}
 </div>
   {* End Cover Image *}
