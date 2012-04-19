@@ -211,6 +211,23 @@
         </div>
       </td>
     </tr>
+   
+   {* BTJ description start *}
+   <tr valign="top">
+     <th>{translate text=Description}: </th>
+     <td class="description">{translate text='Loading'}...</td>  
+   </tr>
+  
+   <script language="JavaScript" type="text/javascript">
+     var path = {$path|@json_encode};
+     var id = {$id|@json_encode};
+     {literal}
+       var url = path + '/description.php?id=' + id;
+       $(".description").load(url);
+     {/literal}
+   </script>
+   
+   {* BTJ description end *}
   </table>
   {* End Main Details *}
 </div>
