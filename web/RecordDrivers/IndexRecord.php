@@ -287,6 +287,11 @@ class IndexRecord implements RecordInterface
 
         $interface->assign('hasContainedComponentParts', $this->hasContainedComponentParts());
         
+        //Assign variables for BTJ images and descriptions
+        $interface->assign('coreImages', $this->getAllImages());
+        
+        //$interface->assign('coreDescription', $this->getDescriptionURL());
+        
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
     }
