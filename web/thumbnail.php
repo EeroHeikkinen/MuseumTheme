@@ -33,6 +33,8 @@ require_once 'sys/Proxy_Request.php';
 require_once 'sys/Logger.php';
 require_once 'sys/ConnectionManager.php';
 require_once 'RecordDrivers/Factory.php';
+require_once 'sys/Autoloader.php';
+spl_autoload_register('vuFindAutoloader');
 
 // Retrieve values from configuration file
 $configArray = readConfig();
