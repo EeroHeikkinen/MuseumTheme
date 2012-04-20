@@ -71,9 +71,9 @@
       {/if}
       </div>
       </div>
-      {if !empty($hostRecordTitle)}
+      {if !empty($summHostRecordTitle)}
       <div class="resultItemLine4">
-        <b>{translate text='component_part_is_part_of'}:</b> <a href="{$url}/Record/{$hostRecordId|escape:"url"}">{$hostRecordTitle|escape}</a>
+        <b>{translate text='component_part_is_part_of'}:</b> <a href="{$url}/Record/{$summHostRecordId|escape:"url"}">{$summHostRecordTitle|escape}</a>
       </div>
       {/if}
       <div class="resultItemLine4">

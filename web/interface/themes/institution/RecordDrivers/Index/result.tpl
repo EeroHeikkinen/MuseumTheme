@@ -5,13 +5,22 @@
   <input id="checkbox_{$summId|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="ids[]" value="{$summId|escape}" class="checkbox_ui"/>
   <input type="hidden" name="idsAll[]" value="{$summId|escape}" />
   {/if}
-  
+
   <div class="coverDiv span-2">
-  {if $summThumb}
-    <img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
+  {assign var=img_count value=$summImages|@count}  
+  {if $img_count >= 1}
+      <div id="imagelinks">
+        <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
+          <img id="thumbnail_img_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}">
+        </a>
+      </div>
     {else}
-    <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
-  {/if}
+      {if $summThumb}
+        <img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
+        {else}
+        <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
+      {/if}
+  {/if}  
   </div>
   <div class="span-6">
   
@@ -34,6 +43,12 @@
             </a>
           </div>
         {/foreach}
+      {else}
+          {if !empty($summHostRecordTitle)}
+          <div>
+            <b>{translate text='component_part_is_part_of'}:</b> <a href="{$url}/Record/{$summHostRecordId.0|escape:"url"}">{$summHostRecordTitle.0|escape}</a>
+          </div>
+          {/if}
       {/if}
     </div>
 

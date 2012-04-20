@@ -247,6 +247,8 @@ class MarcRecord extends IndexRecord
     public function getSearchResult($view = 'list')
     {
         global $interface;
+        
+        $interface->assign('summImages', $this->getAllImages());
 
         // MARC results work just like index results, except that we want to
         // enable the AJAX status display since we assume that MARC records
@@ -1202,50 +1204,93 @@ class MarcRecord extends IndexRecord
             'link'  => $link
         );
     }
+
+    /**
+     * Return an associative array of image URLs associated with this record (key = URL,
+     * value = empty), if available; false otherwise. 
+	 *
+	 * @return mixed
+	 * @access public
+	 */
+    
+    public function getAllImages()
+    {
+        $urls = array();
+        $url = '';
+        $type = '';
+        foreach ($this->marcRecord->getFields('856') as $url) {
+            $type = $url->getSubfield('q');
+            if ($type) {
+	            $type = $type->getData();
+	            if ("IMAGE" == $type) {
+	                $address = $url->getSubfield('u');
+                    if ($address) {
+                        $address = $address->getData();
+                        $urls[$address] = '';
+                    }       
+                }    
+            }
+        }
+        return $urls;
+    }    
     
     /**
-    * Get the OpenURL parameters to represent this record (useful for the
-    * title attribute of a COinS span tag).
-    *
-    * @return string OpenURL parameters.
-    * @access public
-    */
-    public function getOpenURL()
+     * Return the actual URL where the BTJ description can be retrieved, 
+     * if available; false otherwise. 
+	 *
+	 * @return mixed
+	 * @access public
+	 */
+    public function getDescriptionURL()
     {
-        $params = array();
-        foreach (explode('&', parent::getOpenURL()) as $param) {
-            $keyvalue = explode('=', $param, 2);
-            $params[$keyvalue[0]] = $keyvalue[1];
-        }
-        
-        $issn = $this->_getFirstFieldValue('773', array('x'));
-        if ($issn) {
-            $params['rft.issn'] = urlencode($issn);
-        }
-        $subg = $this->_getFirstFieldValue('773', array('g'));
-        if ($subg) {
-            $matches = array();
-            if (preg_match('/(\d*)\s*\((\d{4})\)\s*:\s*(\d*)/', $subg, $matches)) {
-                $params['rft.volume'] = urlencode($matches[1]);
-                $params['rft.issue'] = urlencode($matches[3]);
-            }
-            elseif (preg_match('/(\d{4}) : (\d*)/', $subg, $matches)) {
-                $params['rft.issue'] = urlencode($matches[2]);
-            }
-            elseif (preg_match('/(\d{4}):(\d*)/', $subg, $matches)) {
-                $params['rft.issue'] = urlencode($matches[2]);
-            }
-            
-            if (preg_match('/,\s*\w\.?\s*([\d,\-]+)/', $subg, $matches)) {
-                $pages = explode('-', $matches[1]);
-                if (isset($pages[1])) {
-                    $params['rft.epage'] = urlencode($pages[1]);
-                }
-                $params['rft.spage'] = urlencode($pages[0]);
+        $url = '';
+        $type = '';
+        foreach ($this->marcRecord->getFields('856') as $url) {
+            $type = $url->getSubfield('q');
+            if ($type) {
+	            $type = $type->getData();
+	            if ("TEXT" == $type) {
+	                $address = $url->getSubfield('u');
+                    if ($address) {
+                        $address = $address->getData();
+                        return $address;
+                    }       
+                }    
             }
         }
-        return http_build_query($params);
+        return false;
     }
+
+    
+  	/**
+	* Return the actual URL where a thumbnail can be retrieved, if available; false
+	* otherwise.
+	*
+	* @param array $size Size of thumbnail (small, medium or large -- small is
+	* default).
+	*
+	* @return mixed
+	* @access public
+	*/
+	public function getThumbnailURL($size = 'small')
+	{
+	    global $configArray;
+	    foreach ($this->marcRecord->getFields('856') as $url) {
+            $type = $url->getSubfield('q');
+            if ($type) {
+	            $type = $type->getData();
+	            if ("IMAGE" == $type) {
+	                $address = $url->getSubfield('u');
+                    if ($address) {
+                        $address = $address->getData();
+                        return $address;
+                    }       
+                }    
+            }
+        }      
+	    return false;
+	}
+    
 }
 
 ?>

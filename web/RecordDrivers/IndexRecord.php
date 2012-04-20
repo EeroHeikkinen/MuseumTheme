@@ -284,6 +284,13 @@ class IndexRecord implements RecordInterface
 
         $componentParts = $this->getComponentPartCount();
         $interface->assign('coreComponentPartCount', $componentParts);
+
+        $interface->assign('hasContainedComponentParts', $this->hasContainedComponentParts());
+        
+        //Assign variables for BTJ images and descriptions
+        $interface->assign('coreImages', $this->getAllImages());
+        
+        //$interface->assign('coreDescription', $this->getDescriptionURL());
         
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
@@ -855,6 +862,7 @@ class IndexRecord implements RecordInterface
             }
             break;
         case 'Journal':
+        case 'Serial':
             /* This is probably the most technically correct way to represent
              * a journal run as an OpenURL; however, it doesn't work well with
              * Zotero, so it is currently commented out -- instead, we just add
@@ -961,8 +969,8 @@ class IndexRecord implements RecordInterface
         $interface->assign('summLCCN', $this->getLCCN());
         $interface->assign('summOCLC', $this->getOCLC());
         $interface->assign('summCallNo', $this->getCallNumber());
-        $interface->assign('hostRecordTitle', $this->getHostRecordTitle());
-        $interface->assign('hostRecordId', $this->getHostRecordId());
+        $interface->assign('summHostRecordTitle', $this->getHostRecordTitle());
+        $interface->assign('summHostRecordId', $this->getHostRecordId());
 
         //collection module only
         if (isset($configArray['Collections']['collections'])
@@ -989,13 +997,6 @@ class IndexRecord implements RecordInterface
         $openURL = $this->getOpenURL();
         $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
 
-        // Assign values needed for RSI query
-        $rsiValues = $this->getValuesForRSI();
-        
-        if ($rsiValues) {
-        	$interface->assign('rsi', $rsiValues);
-        }
-        
         // Always provide an OpenURL for COinS purposes:
         $interface->assign('summCOinS', $openURL);
 
@@ -1023,49 +1024,6 @@ class IndexRecord implements RecordInterface
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
     }
 
-    public function getValuesForRSI()
-    {
-        global $configArray;
-        $retval = array();	        
-        
-        if (! $this->openURLActive('results')) { return null; }
-        
-        $retval['url'] = $_SERVER['HTTP_HOST'];
-        
-        if (! isset($configArray['OpenURL']['institution']) ) {
-        	# We require institute although it is optional from RSI perspective
-        	return null;
-        }
-        
-        $retval['institution'] = $configArray['OpenURL']['institution'];
-    	
-    	# Get id field (MANDATORY)
-    	$retval['issn'] = $this->getCleanISSN();
-		$retval['isbn'] = $this->getCleanISBN();
-		if (! $retval['issn'] && ! $retval['isbn']) {
-			return null;
-		}
-    	
-    	# Get year field (MANDATORY)
-    	$year = $this->getPublicationDates();
-    	if (empty($year)) {    		
-    		return null; 
-    	}
-    	# Get first
-    	if ($year[0]) {
-    		$retval['year'] = $year[0];
-    	}
-    	else { $retval['year'] = ''; }
-    	
-    	# get volume field (OPTIONAL)  	
-    	$retval['volume'] = $this->getContainerVolume();
-    	
-    	# get issue field (OPTIONAL)
-    	$retval['issue'] = $this->getContainerIssue();
-
-    	return $retval;
-    }
-    
     /**
      * Sub function of getSearchResult that only gets called when the collection
      * module is enabled
@@ -1079,7 +1037,14 @@ class IndexRecord implements RecordInterface
     {
         global $configArray;
         global $interface;
-    
+
+        $interface->assign(
+                'summInCollection', ''
+        );
+        $interface->assign(
+                'summInCollectionID', ''
+        );
+        
         $hierarchyType = $this->getHierarchyType();
         if (!$hierarchyType) {
             //not a hierarchy type record
@@ -1645,7 +1610,6 @@ class IndexRecord implements RecordInterface
      */
     public function hasContainedComponentParts()
     {
- 
         return null;
     }    
     
