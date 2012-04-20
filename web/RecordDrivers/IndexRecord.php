@@ -989,6 +989,13 @@ class IndexRecord implements RecordInterface
         $openURL = $this->getOpenURL();
         $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
 
+        // Assign values needed for RSI query
+        $rsiValues = $this->getValuesForRSI();
+        
+        if ($rsiValues) {
+        	$interface->assign('rsi', $rsiValues);
+        }
+        
         // Always provide an OpenURL for COinS purposes:
         $interface->assign('summCOinS', $openURL);
 
@@ -1016,6 +1023,49 @@ class IndexRecord implements RecordInterface
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
     }
 
+    public function getValuesForRSI()
+    {
+        global $configArray;
+        $retval = array();	        
+        
+        if (! $this->openURLActive('results')) { return null; }
+        
+        $retval['url'] = $_SERVER['HTTP_HOST'];
+        
+        if (! isset($configArray['OpenURL']['institution']) ) {
+        	# We require institute although it is optional from RSI perspective
+        	return null;
+        }
+        
+        $retval['institution'] = $configArray['OpenURL']['institution'];
+    	
+    	# Get id field (MANDATORY)
+    	$retval['issn'] = $this->getCleanISSN();
+		$retval['isbn'] = $this->getCleanISBN();
+		if (! $retval['issn'] && ! $retval['isbn']) {
+			return null;
+		}
+    	
+    	# Get year field (MANDATORY)
+    	$year = $this->getPublicationDates();
+    	if (empty($year)) {    		
+    		return null; 
+    	}
+    	# Get first
+    	if ($year[0]) {
+    		$retval['year'] = $year[0];
+    	}
+    	else { $retval['year'] = ''; }
+    	
+    	# get volume field (OPTIONAL)  	
+    	$retval['volume'] = $this->getContainerVolume();
+    	
+    	# get issue field (OPTIONAL)
+    	$retval['issue'] = $this->getContainerIssue();
+
+    	return $retval;
+    }
+    
     /**
      * Sub function of getSearchResult that only gets called when the collection
      * module is enabled

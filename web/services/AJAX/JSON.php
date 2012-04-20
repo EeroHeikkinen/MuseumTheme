@@ -806,6 +806,101 @@ class JSON extends Action
         return $interface->display('AJAX/lightbox.tpl');
     }
 
+    
+   public function getFullTextAvailability()
+   {
+   	   		$log = new Logger();
+   	
+   		//<SFX server>:<port>/<sfx_instance>/cgi/core/rsi/rsi.cgi
+        global $configArray;
+   		$sfxUrl = $configArray['OpenURL']['url'] . "/cgi/core/rsi/rsi.cgi";
+   		
+        
+   		$issn = trim(isset($_GET['issn']) ? $_GET['issn'] : '');
+   		$isbn = trim(isset($_GET['isbn']) ? $_GET['isbn'] : '');
+   		if (empty($issn) && empty($isbn)) {
+   			return $this->output('', JSON::STATUS_ERROR);	
+   		}
+   		
+   		$year = trim(isset($_GET['year']) ? $_GET['year'] : '');
+   		$issue = trim(isset($_GET['issue']) ? $_GET['issue'] : '');
+   		$volume = trim(isset($_GET['volume']) ? $_GET['volume'] : '');
+   		$institution = trim(isset($_GET['institution']) ? $_GET['institution'] : '');
+   		   		
+		$dom = new DOMDocument('1.0', 'UTF-8');
+				
+		# ID REQUEST ELEMENT
+		$idReq = $dom->createElement('IDENTIFIER_REQUEST', '');
+		$idReq->setAttribute("VERSION", "1.0");
+		$idReq->setAttribute("xsi:noNamespaceSchemaLocation", "ISSNRequest.xsd");
+		$idReq->setAttribute("xmlns:xs", "http://www.w3.org/2001/XMLSchema-instance");
+		$dom->appendChild($idReq);
+				
+		# ID REQUEST ITEM ELEMENT
+		$idReqItem = $dom->createElement('IDENTIFIER_REQUEST_ITEM', '');
+		$idReq->appendChild($idReqItem);
+		
+		
+		# ID ELEMENT
+		if (! empty($issn)) {
+			$identifier = $dom->createElement('IDENTIFIER', "issn:$issn");
+			$idReqItem->appendChild($identifier);
+			
+		}
+		
+		if (! empty($isbn)) {
+			$identifier = $dom->createElement('IDENTIFIER', "isbn:$isbn");	
+			$idReqItem->appendChild($identifier);
+		}
+						
+		# OPTIONAL ELEMENTS
+		if ($year) {
+			$year = $dom->createElement('YEAR', $year);
+			$idReqItem->appendChild($year);
+		}
+
+		if ($volume) {
+			$volume = $dom->createElement('VOLUME', $volume);
+			$idReqItem->appendChild($volume);
+		}
+		
+		if ($issue) {
+			$issue = $dom->createElement('ISSUE', "$issue");
+			$idReqItem->appendChild($issue);
+		}
+		
+   		if ($institution) {
+			$institution = $dom->createElement('INSTITUTE_NAME', "$institution");
+			$idReqItem->appendChild($institution);
+		}		
+
+		$xml = $dom->saveXML();
+		$log->log($xml);
+		
+		$log->log("Posting to $sfxUrl", PEAR_LOG_INFO);
+		$req = new Proxy_Request($sfxUrl, array('saveBody' => true));
+		$req->setMethod(HTTP_REQUEST_METHOD_POST);
+		$req->addPostData('request_xml', $xml);
+		$req->sendRequest();
+		$code = $req->getResponseCode();
+		$body = $req->getResponseBody();
+		
+		$log->log("RESPONSE CODE = $code \n BODY = $body", PEAR_LOG_INFO);	
+		
+		$dom->loadXML($body);
+		$services = $dom->getElementsByTagName('AVAILABLE_SERVICES');
+
+		foreach($services as $service) {
+			$log->log("***");
+			$log->log($service->nodeValue);
+			if ($service->nodeValue == 'getFullTxt') {
+				return $this->output('', JSON::STATUS_OK);
+			}
+		}
+				
+		return $this->output('', JSON::STATUS_ERROR);
+   }
+    
     /**
      * Fetch Links from resolver given an OpenURL and format as HTML
      * and output the HTML content in JSON object.
