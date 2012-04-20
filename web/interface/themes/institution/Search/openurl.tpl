@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
     // set the spinner going
-    $({/literal}".openUrlLink"{literal}).html('<center><img src="' + path + '/images/loading.gif" /></center>');
+    $({/literal}".openUrlLabel"{literal}).html('<center><img src="' + path + '/images/loading.gif" /></center>');
         
     var url = "http://{/literal}{$rsi.url}{literal}"+path+"/AJAX/JSON?method=getFullTextAvailability"+
         "&issn="+"{/literal} {$rsi.issn} {literal}"+
@@ -36,14 +36,15 @@ class="fulltext openUrlEmbed openurl_id:{$openUrlId}"
 class="fulltext openUrlWindow window_settings:{$openUrlWindow|escape}"
 {/if}
 >
-  {* put the openUrl here in a span (COinS almost) so we can retrieve it later *}
-  <span title="{$openUrl|escape}" class="openUrl"></span>
-  {if $openUrlGraphic}
+   {* put the openUrl here in a span (COinS almost) so we can retrieve it later *}
+   <span title="{$openUrl|escape}" class="openUrl"></span>
+   {if $openUrlGraphic}
     <img src="{$openUrlGraphic|escape}" class="openUrlLink" alt="{translate text='Get full text'}" style="{if $openUrlGraphicWidth}width:{$openUrlGraphicWidth|escape}px;{/if}{if $openUrlGraphicHeight}height:{$openUrlGraphicHeight|escape}px;{/if}" />
-  {else}
+   {else}
     <span class="openUrlLabel"></span>
-  {/if}
-</a>
-{if $openUrlEmbed}
+   {/if}
+ </a>
+ {if $openUrlEmbed}
+
   <div id="openUrlEmbed{$openUrlId}" class="resolver hide">{translate text='Loading...'}</div>
 {/if}
