@@ -1,6 +1,8 @@
+<!-- START of: Search/Recommend/TopFacets.tpl -->
+
 {if $topFacetSet}
   {foreach from=$topFacetSet item=cluster key=title}
-  <div class="{if $cluster.label == "Suggested Topics"}suggestedTopics span-3{if !$sidebarOnLeft} right last{/if} {else}authorbox{/if}" style="line-height: 1.4;">
+  <div {if $cluster.label == "Suggested Topics"}id="suggestedTopics" class="suggestedTopics span-3{if !$sidebarOnLeft} right last{/if}" {else}class="authorbox"{/if} style="line-height: 1.4;">
     {* $cluster.label *}
     <strong>{translate text=$cluster.label}</strong><br />{translate text="top_facet_suffix"}
     {foreach from=$cluster.list item=thisFacet name="narrowLoop"}
@@ -38,3 +40,5 @@
   </div>
   {/foreach}
 {/if}
+
+<!-- END of: Search/Recomment/TopFacets.tpl -->

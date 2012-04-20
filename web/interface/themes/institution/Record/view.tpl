@@ -59,7 +59,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 <div class="clear"></div>
 </div>
 
-<div class="span-3">
+<div id="resultSide" class="span-3">
 
   {* Display Cover Image *}
   <div class="coverImages">
@@ -84,7 +84,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 </div>
   {* End Cover Image *}
 
-  <div class="toolbar span-3">
+  <div id="resultToolbar" class="toolbar span-3">
     <ul>
       <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
       
@@ -135,7 +135,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </div>
 </div>
 
-<div class="span-7">
+<div id="resultMain" class="span-7">
 
  {include file=$coreMetadata}
   
@@ -203,7 +203,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   <span class="Z3988" title="{$openURL|escape}"></span>
 </div>
 
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div id="resultSidebar" class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   <div class="sidegroup">
     <h4>{translate text="Similar Items"}</h4>
     {if is_array($similarRecords)}

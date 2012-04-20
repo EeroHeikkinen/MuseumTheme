@@ -1,3 +1,5 @@
+<!-- START of: Search/Recommend/SideFacets.tpl -->
+
 <div class="sidegroup">
   {if $recordCount > 0}<h4>{translate text=$sideFacetLabel}</h4>{/if}
   {if isset($checkboxFilters) && count($checkboxFilters) > 0}
@@ -89,3 +91,5 @@
     {/foreach}
   {/if}
 </div>
+
+<!-- END of: Search/Recommend/SideFacets.tpl -->

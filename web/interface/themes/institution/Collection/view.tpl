@@ -6,7 +6,7 @@
 {if !empty($addThis)}
 <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script>
 {/if}
-<div class="span-10">
+<div id="resultsCollection" class="span-10">
   <div class="record" id="collection{$id|escape}">
     <div class="collection-toolbar">
       <span class="backSpan">
@@ -85,7 +85,7 @@
   <div class="clear"></div>
 </div>
 
-<div class="span-3 last">
+<div id="sidebarCollection" class="span-3 last">
   {* Recommendations *}
   {if $sideRecommendations}
     {foreach from=$sideRecommendations item="recommendations"}
