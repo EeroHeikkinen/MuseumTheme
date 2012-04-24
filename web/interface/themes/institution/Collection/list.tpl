@@ -1,3 +1,5 @@
+<!-- START of: Collection/list.tpl -->
+
 {js filename="search_hierarchyTree.js}
 {if $recordCount}
   {* Recommendations *}
@@ -37,3 +39,5 @@
   {translate text='collection_empty'}
 {/if}
 {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+
+<!-- END of: Collection/list.tpl -->

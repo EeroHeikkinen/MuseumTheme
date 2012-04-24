@@ -1,12 +1,14 @@
+<!-- START of: Collection/view-alt.tpl -->
+
 {js filename="ajax_common.js"}
 {js filename="collection_record.js"}
 {js filename="check_save_statuses.js"}
 {if !empty($addThis)}
 <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script>
 {/if}
-<div class="span-23">
+<div id="headingHierarchyCollection" class="span-13">
   <div class="record" id="collection{$id|escape}">
-    <div class="toolbar">
+    <div class="collection-toolbar">
       <span class="backSpan">
         {if $lastsearch}
           <a href="{$lastsearch|escape}#record{$id|escape:"url"}" class="backtosearch">&laquo; {translate text="BACK TO SEARCH"}</a>
@@ -58,7 +60,7 @@
     <span class="Z3988" title="{$openURL|escape}"></span>
   </div>
 </div>
-<div class="span-23">
+<div id="hierarchyCollection" class="span-13">
   <div id="tabnav" >
     <ul>
       <li{if $tab == 'Home' || $tab == '' || $tab == 'list'} class="active"{/if}>
@@ -85,3 +87,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Collection/view-alt.tpl -->

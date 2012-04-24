@@ -97,7 +97,7 @@ $(document).ready(function() {
         },
         "plugins" : [ "themes", "xml_data", "ui" ],
         "themes" : {
-            "url": path + '/interface/themes/blueprint/js/jsTree/themes/vufind/style.css'
+            "url": path + '/interface/themes/institution/js/jsTree/themes/apple/style.css'
         }
     }).bind("open_node.jstree close_node.jstree", function (e, data) {
         $(data.args[0]).find("li").show();
