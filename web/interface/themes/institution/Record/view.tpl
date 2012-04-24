@@ -65,7 +65,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   <div class="coverImages">
   {if $coreThumbMedium}
       {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}" class="span-3">{/if}
-        <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+      <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
       {if $coreThumbLarge}</a>{/if}
       <div class="clear"></div>
       {assign var=img_count value=$coreImages|@count}
@@ -77,17 +77,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </a>
         {/foreach}
         </div>
-      {else}
-        {if $img_count >= 1}
-          <a id="thumbnail_link_{$id|escape:"url"}" href="{$path}/thumbnail.php?id={$id|escape:"url"}&size=large">
-          <img id="thumbnail_img_{$id|escape:"url"}" src="{$path}/thumbnail.php?id={$id|escape:"url"}&size=medium" class="title" alt="{translate text='Cover Image'}">
-        </a>
-        {/if}
       {/if}
-    {else}
-    <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
+      {else}
+      <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
   {/if}
-</div>
+  </div>
   {* End Cover Image *}
 
   <div class="toolbar span-3">
