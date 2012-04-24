@@ -808,9 +808,7 @@ class JSON extends Action
 
     
    public function getFullTextAvailability()
-   {
-   	   		$log = new Logger();
-   	
+   {   	
    		//<SFX server>:<port>/<sfx_instance>/cgi/core/rsi/rsi.cgi
         global $configArray;
    		$sfxUrl = $configArray['OpenURL']['url'] . "/cgi/core/rsi/rsi.cgi";
@@ -875,9 +873,7 @@ class JSON extends Action
 		}		
 
 		$xml = $dom->saveXML();
-		$log->log($xml);
 		
-		$log->log("Posting to $sfxUrl", PEAR_LOG_INFO);
 		$req = new Proxy_Request($sfxUrl, array('saveBody' => true));
 		$req->setMethod(HTTP_REQUEST_METHOD_POST);
 		$req->addPostData('request_xml', $xml);
@@ -885,14 +881,11 @@ class JSON extends Action
 		$code = $req->getResponseCode();
 		$body = $req->getResponseBody();
 		
-		$log->log("RESPONSE CODE = $code \n BODY = $body", PEAR_LOG_INFO);	
 		
 		$dom->loadXML($body);
 		$services = $dom->getElementsByTagName('AVAILABLE_SERVICES');
 
 		foreach($services as $service) {
-			$log->log("***");
-			$log->log($service->nodeValue);
 			if ($service->nodeValue == 'getFullTxt') {
 				return $this->output('', JSON::STATUS_OK);
 			}
