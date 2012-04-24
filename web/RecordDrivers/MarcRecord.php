@@ -1261,7 +1261,34 @@ class MarcRecord extends IndexRecord
         return false;
     }
 
-    
+    /**
+	 * Return a URL to a thumbnail preview of the record, if available; false
+	 * otherwise.
+	 *
+	 * @param array $size Size of thumbnail (small, medium or large -- small is
+	 * default).
+	 *
+	 * @return mixed
+	 * @access protected
+	 */
+	protected function getThumbnail($size = 'small')
+	{
+	    global $configArray;
+	    foreach ($this->marcRecord->getFields('856') as $url) {
+            $type = $url->getSubfield('q');
+            if ($type) {
+	            $type = $type->getData();
+	            if ("IMAGE" == $type) {
+	                $address = $url->getSubfield('u');
+                    if ($address) {
+                        $address = $address->getData();
+                        return $address;
+                    }       
+                }    
+            }
+        }      
+	    return false;
+	}
   	/**
 	* Return the actual URL where a thumbnail can be retrieved, if available; false
 	* otherwise.
