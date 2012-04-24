@@ -10,7 +10,7 @@
 	<h3 class="slogan">{translate text="searchbox_headline_text"}</h3>
 *}
   {if $pageTemplate != 'advanced.tpl'}
-    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority"}
+    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
       {include file="`$module`/searchbox.tpl"}
 
     {else}
