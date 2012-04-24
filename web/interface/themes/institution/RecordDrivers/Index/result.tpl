@@ -67,7 +67,7 @@
 
       {if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
-          <br/>
+        <span class="openUrlSeparator"></span>
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
         {/if}
         {foreach from=$summURLs key=recordurl item=urldesc}

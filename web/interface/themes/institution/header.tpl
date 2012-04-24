@@ -1,16 +1,16 @@
 <!-- START of: header.tpl -->
 
 {if $showTopSearchBox}
-<div class="span-3">
+<div id="logoHeader" class="span-3">
   <a id="logo" href="{$url}"></a>
 </div>
-<div class="span-7">
+<div id="searchFormHeader" class="span-7">
   <div class="searchbox">
 {* Commented out for now
 	<h3 class="slogan">{translate text="searchbox_headline_text"}</h3>
 *}
   {if $pageTemplate != 'advanced.tpl'}
-    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority"}
+    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
       {include file="`$module`/searchbox.tpl"}
 
     {else}
@@ -26,7 +26,7 @@
   {js filename="cart.js"}
   {assign var=bookBagItems value=$bookBag->getItems()}
 {/if}
-<div class="span-3 last right small">
+<div id="loginHeader" class="span-3 last right small">
 <!-- 2 columns TEST
 <div class="right alignright" style="width:50%; padding-right:.5em;">
 -->

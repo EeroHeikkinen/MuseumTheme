@@ -398,7 +398,10 @@ class SearchObject_PCI extends SearchObject_Base
         $ds = $xml->xpath('//sear:DOCSET');
         $hits = isset($ds[0]) ? (int)$ds[0]->attributes()->TOTALHITS : 0;
         foreach ($xml->xpath('//sear:DOC') as $item) {
-            $id = (string) $item->attributes()->ID;
+            $ids = array();
+            foreach ($item->xpath('.//prim:search/prim:recordid') as $id) {
+                $ids[] = $id;
+            }    
             $authors = array();
             foreach ($item->xpath('.//prim:display/prim:creator') as $author) {
                 foreach (explode(';', (string) $author) as $author) {
@@ -452,7 +455,7 @@ class SearchObject_PCI extends SearchObject_Base
             }
 
             $result = array('Author' => $authors, 'Title' => array($title), 'url' => $url, 
-                'PublicationTitle' => $publications, 'ID' => array($id), 'identifiers' => $identifiers,
+                'PublicationTitle' => $publications, 'ID' => $ids, 'identifiers' => $identifiers,
                 'openUrl' => $openurl);
             $results[] = $result;
         }
