@@ -215,18 +215,19 @@
    {* BTJ description start *}
    <tr valign="top">
      <th>{translate text=Description}: </th>
-     <td class="description">{translate text='Loading'}...</td>  
+     <td class="description"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
    </tr>
-  
-   <script language="JavaScript" type="text/javascript">
+   
+   <script type="text/javascript">
      var path = {$path|@json_encode};
      var id = {$id|@json_encode};
      {literal}
+     $(document).ready(function() {
        var url = path + '/description.php?id=' + id;
        $(".description").load(url);
+     });
      {/literal}
-   </script>
-   
+   </script>  
    {* BTJ description end *}
   </table>
   {* End Main Details *}
