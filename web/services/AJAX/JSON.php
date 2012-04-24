@@ -823,7 +823,7 @@ class JSON extends Action
    		$year = trim(isset($_GET['year']) ? $_GET['year'] : '');
    		$issue = trim(isset($_GET['issue']) ? $_GET['issue'] : '');
    		$volume = trim(isset($_GET['volume']) ? $_GET['volume'] : '');
-   		$institution = trim(isset($_GET['institution']) ? $_GET['institution'] : '');
+   		$institute = trim(isset($_GET['institute']) ? $_GET['institute'] : '');
    		   		
 		$dom = new DOMDocument('1.0', 'UTF-8');
 				
@@ -867,9 +867,9 @@ class JSON extends Action
 			$idReqItem->appendChild($issue);
 		}
 		
-   		if ($institution) {
-			$institution = $dom->createElement('INSTITUTE_NAME', "$institution");
-			$idReqItem->appendChild($institution);
+   		if ($institute) {
+			$institute = $dom->createElement('INSTITUTE_NAME', "$institute");
+			$idReqItem->appendChild($institute);
 		}		
 
 		$xml = $dom->saveXML();

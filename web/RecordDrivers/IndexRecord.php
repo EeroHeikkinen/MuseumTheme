@@ -999,11 +999,14 @@ class IndexRecord implements RecordInterface
 
     
         // Assign values needed for RSI query
-        $rsiValues = $this->getValuesForRSI();
+		if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
+			$rsiValues = $this->getValuesForRSI();
         
-        if ($rsiValues) {
-        	$interface->assign('rsi', $rsiValues);
-        }
+        	if ($rsiValues) {
+        		$interface->assign('rsi', $rsiValues);
+        	}
+		}
+
         
         // Always provide an OpenURL for COinS purposes:
         $interface->assign('summCOinS', $openURL);
@@ -1039,16 +1042,14 @@ class IndexRecord implements RecordInterface
         $retval = array();	        
         
         if (! $this->openURLActive('results')) { return null; }
-        
-        $retval['url'] = $_SERVER['HTTP_HOST'];
-        
-        if (! isset($configArray['OpenURL']['institution']) ) {
-        	# We require institute although it is optional from RSI perspective
-        	return null;
+                
+        if (! isset($configArray['OpenURL']['institute']) ) {
+        	$retval['institute'] = '';
         }
-        
-        $retval['institution'] = $configArray['OpenURL']['institution'];
-    	
+        else {
+        	$retval['institute'] = $configArray['OpenURL']['institute'];
+        }
+        	
     	# Get id field (MANDATORY)
     	$retval['issn'] = $this->getCleanISSN();
 		$retval['isbn'] = $this->getCleanISBN();
