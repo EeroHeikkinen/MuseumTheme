@@ -142,7 +142,13 @@ class LidoRecord extends IndexRecord
             if ($this->getHighlightedTitle()) {
                 $interface->assign('summHighlightedTitle', $this->getHighlightedTitle() . ' ' . $this->getDescription());
             }
-            $interface->assign('summTitle', $this->getTitle() . ' ' . $this->getDescription());
+            $summary = $this->getSummary();
+            if ($summary) {
+                $summary = ' ' . $summary[0];
+            } else {
+                $summary = '';
+            }
+            $interface->assign('summTitle', $this->getTitle() . $summary);
         }
         
         $mainFormat = $this->getFormats();
