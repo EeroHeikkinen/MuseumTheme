@@ -35,18 +35,7 @@ spl_autoload_register('vuFindAutoloader');
 
 $configArray = readConfig();
 
-$url = fetchFromRecord($_GET['id']);
-
-if ($url) {
-    if ($description = getDescription($url)){
-	    echo $description;
-        return true; 
-    }
-    } 
-else {
-    return false;
-}
-
+fetchFromRecord($_GET['id']);
 
 /* END OF INLINE CODE */
 
@@ -55,7 +44,7 @@ else {
  *
  * @param string $id    Record ID
  *
- * @return mixed: Return URL if available, otherwise false.
+ * @return mixed: true if description available, otherwise false.
  */
 function fetchFromRecord($id)
 {
@@ -64,42 +53,39 @@ function fetchFromRecord($id)
     if (empty($id)) {
         return false;
     }
-    // Get URL
-    $db = ConnectionManager::connectToIndex();
-    if (!($record = $db->getRecord($id))) {
-        return false;
-    }
-    $recordDriver = RecordDriverFactory::initRecordDriver($record);
     
-    $url = $recordDriver->getDescriptionURL();
-    if ($url) {
-        return $url;
-    } else {
-        return false;
+    $localFile = 'interface/cache/description_' . urlencode($id) . '.txt';
+    if (is_readable($localFile)) {
+        // Load local cache if available
+        header('Content-type: text/plain');
+        echo readfile($localFile);
+        return true;
+    } else {    
+    
+        // Get URL
+        $db = ConnectionManager::connectToIndex();
+        if (!($record = $db->getRecord($id))) {
+            return false;
+        }
+        $recordDriver = RecordDriverFactory::initRecordDriver($record);
+        
+        $url = $recordDriver->getDescriptionURL();
+        // Get, manipulate, save and display content if available
+        if ($url) {
+            if ($content = @file_get_contents($url)) {
+                $content = preg_replace('/.*<.B>(.*)/', '\1', $content);
+                $content = strip_tags($content);
+                $content = utf8_encode($content); 
+                file_put_contents($localFile, $content);
+                echo $content;
+                return true;
+            } else {
+                return false;
+            }     
+        } else {
+            return false;
+        }
     }
 }
-
-/**
-* Return a string of the content of the BTJ description, if available; false otherwise.
-*
-* @return boolean
-*/
-     
-function getDescription($url)
-{
-	if ($url) {
-	    if ($content = @file_get_contents($url)) {
-	        $content = preg_replace('/.*<.B>(.*)/', '\1', $content);
-		    $content = strip_tags($content);
-		    $content = utf8_encode($content);	    
-			return $content;
-		    } else {
-			    return false;
-		    }		    
-	    } else {
-		    return false;
-	}
-}
-
 
 ?>
