@@ -77,12 +77,10 @@
     {* Load IE CSS1 background-repeat and background-position fix *}
     <!--[if lt IE 7]><script type="text/javascript" src="{$url}/interface/themes/institution/css/iepngfix/iepngfix_tilebg.js"></script><![endif]-->
     {* Enable HTML5 in old IE - http://code.google.com/p/html5shim/
-       (for future reference, commented out for now) *}
-    {*
+       can also use src="//html5shiv.googlecode.com/svn/trunk/html5.js" *}
     <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      {js filename="html5.js"}
     <![endif]-->
-    *}
 
     {* For mobile devices *}
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
