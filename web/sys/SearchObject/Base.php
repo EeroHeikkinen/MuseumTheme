@@ -481,6 +481,15 @@ abstract class SearchObject_Base
             $type = $this->defaultIndex;
         }
 
+        # If searching with ISBN, normalize to ISBN 13.
+        # NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
+        if ($type == 'AllFields' || $type == 'ISN') {
+        	$isbn = $this->_normalizeIfValidIsbn($_REQUEST['lookfor']);
+            if ($isbn) {
+            	$_REQUEST['lookfor'] = $isbn;
+            }
+        }  
+        
         $this->searchTerms[] = array(
             'index'   => $type,
             'lookfor' => $_REQUEST['lookfor']
@@ -522,6 +531,17 @@ abstract class SearchObject_Base
                         $type = $this->defaultIndex;
                     }
 
+					
+        			# If searching with ISBN, normalize to ISBN 13.
+        			# NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
+                    if ($type == 'AllFields' || $type == 'ISN') {
+                    	$isbn = $this->_normalizeIfValidIsbn($_REQUEST['lookfor'.$groupCount][$i]);
+                    	if ($isbn) {
+                    		$_REQUEST['lookfor'.$groupCount][$i] = $isbn;
+                    	}
+
+                    }   
+                                     
                     // Add term to this group
                     $group[] = array(
                         'field'   => $type,
@@ -2105,6 +2125,26 @@ abstract class SearchObject_Base
         }
     }
 
+     /**
+     * Checks if passed string is an ISBN and converts to ISBN 13
+     *
+     * @return valid ISBN 13 or false
+     * @access protected
+     */
+	protected function _normalizeIfValidIsbn($lookfor = false)
+	{
+		if (! $lookfor) { 
+			return false;
+		}
+		
+		if (ISBN::isValidISBN10($lookfor) || ISBN::isValidISBN13($lookfor)) {    				
+    		$isbn = new ISBN($lookfor);
+    		return $isbn->get13();
+    	}
+
+    	return false;
+	}
+    
     /**
      * Load all available facet settings.  This is mainly useful for showing
      * appropriate labels when an existing search has multiple filters associated
