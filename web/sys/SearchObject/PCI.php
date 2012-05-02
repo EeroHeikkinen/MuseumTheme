@@ -382,7 +382,6 @@ class SearchObject_PCI extends SearchObject_Base
         if ($filterQuery) {
             $url .= $filterQuery;
         }
-        
         return $url;
     }
 
@@ -476,5 +475,56 @@ class SearchObject_PCI extends SearchObject_Base
 
         return array('recordCount' => $hits, 'response' => array('numFound' => $hits, 'start' => 0, 'docs' => $results), 'facetFields' => $facets);
     }
+    
+    public function getRecord($id) {
 
+        $params = $this->_params;
+        $query = '&query=rid,exact,' . $id;
+        $url = $this->_baseUrl . '?' . http_build_query($params) . $query;
+        
+        ini_set("user_agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+        $xml = simplexml_load_file($url);
+        $result = $this->xmlpp($xml->asXML(),true);
+
+        return $result;    
+    }      
+
+    /** Prettifies an XML string into a human-readable and indented work of art 
+    *  @param string $xml The XML as a string 
+    *  @param boolean $html_output True if the output should be escaped (for use in HTML) 
+    */  
+    function xmlpp($xml, $html_output=false) {  
+        $xml_obj = new SimpleXMLElement($xml);  
+        $level = 4;  
+        $indent = 0; // current indentation level  
+        $pretty = array();  
+      
+        // get an array containing each XML element  
+        $xml = explode("\n", preg_replace('/>\s*</', ">\n<", $xml_obj->asXML()));  
+  
+        // shift off opening XML tag if present  
+        if (count($xml) && preg_match('/^<\?\s*xml/', $xml[0])) {  
+            $pretty[] = array_shift($xml);  
+        }  
+  
+        foreach ($xml as $el) {  
+            if (preg_match('/^<([\w])+[^>\/]*>$/U', $el)) {  
+                // opening tag, increase indent  
+                $pretty[] = str_repeat(' ', $indent) . $el;  
+                $indent += $level;  
+            } else {  
+                if (preg_match('/^<\/.+>$/', $el)) {              
+                    $indent -= $level;  // closing tag, decrease indent  
+                }  
+                if ($indent < 0) {  
+                    $indent += $level;  
+                }  
+                $pretty[] = str_repeat(' ', $indent) . $el;  
+            }  
+        }     
+        $xml = implode("\n", $pretty);     
+        return ($html_output) ? htmlentities($xml) : $xml;  
+    }      
 }
+
+
