@@ -1,0 +1,7 @@
+[local]
+name = "Local Libraries"
+ird_list = FIN11884,FIN21544,FIN24401,FIN35715,FIN26185,FIN20656,FIN18544,FIN21546
+
+[free]
+name = Free eJournals
+ird_list = FIN07075,FIN21857,FIN18562
