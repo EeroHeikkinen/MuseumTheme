@@ -140,6 +140,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
  {include file=$coreMetadata}
   
   <div id="{if $dynamicTabs}dyn{/if}tabnav">
+  {if !$dynamicTabs || $tab != 'Hold'}
     <ul>
       {if $hasHoldings}
       <li{if $tab == 'Holdings' || $tab == 'Hold'} class="active"{/if}>
@@ -186,10 +187,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <a href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Staff View'}</a>
       </li>
     </ul>
+  {/if}
     <div class="clear"></div>
   </div>
 
-  {if $dynamicTabs}
+  {if $dynamicTabs && $tab != 'Hold'}
   <div class="recordsubcontent">
         {include file="Record/view-dynamic-tabs.tpl"}
   </div>
