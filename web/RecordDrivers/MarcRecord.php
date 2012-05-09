@@ -339,8 +339,8 @@ class MarcRecord extends IndexRecord
         
         $baseURI     = $configArray['Site']['url'];
         
-        // Collect the values of all the 979 fields and their subfields into an array of arrays
-        // to be handed to a template for display.
+        // Collect the values of all the 979 fields and their subfields into 
+        // an array of arrays to be handed to a template for display.
         $fields = $this->marcRecord->getFields('979');
         if (!$fields) {
             return null;
@@ -354,25 +354,25 @@ class MarcRecord extends IndexRecord
                 foreach ($subfields as $subfield) {
                     $subfieldCode = $subfield->getCode();
                     switch ($subfieldCode) {
-                        case 'a':
-                            $partOrderCounter++;
-                            $partCode = $subfield->getData();
-                            break;
-                        case 'b':
-                            $partTitle = $subfield->getData();
-                            break;
-                        case 'c':
-                            if ($partAuthor) {
-                                $partAuthor .= ', ';
-                            }    
-                            $partAuthor .= $subfield->getData();
-                            break;
-                        case 'd':
-                            if ($partAdditionalAuthors) {
-                                $partAdditionalAuthors .= ', ';
-                            } 
-                            $partAdditionalAuthors .= $subfield->getData();                               
-                            break;          
+                    case 'a':
+                        $partOrderCounter++;
+                        $partCode = $subfield->getData();
+                        break;
+                    case 'b':
+                        $partTitle = $subfield->getData();
+                        break;
+                    case 'c':
+                        if ($partAuthor) {
+                            $partAuthor .= ', ';
+                        }    
+                        $partAuthor .= $subfield->getData();
+                        break;
+                    case 'd':
+                        if ($partAdditionalAuthors) {
+                            $partAdditionalAuthors .= ', ';
+                        } 
+                        $partAdditionalAuthors .= $subfield->getData();
+                        break;          
                     }              
                 }
                 if ($partAuthor) {
@@ -1206,13 +1206,12 @@ class MarcRecord extends IndexRecord
     }
 
     /**
-     * Return an associative array of image URLs associated with this record (key = URL,
-     * value = empty), if available; false otherwise. 
-	 *
-	 * @return mixed
-	 * @access public
-	 */
-    
+     * Return an associative array of image URLs associated with this record 
+     * (key = URL, value = empty), if available; false otherwise. 
+     *
+     * @return mixed
+     * @access public
+     */
     public function getAllImages()
     {
         $urls = array();
@@ -1221,9 +1220,9 @@ class MarcRecord extends IndexRecord
         foreach ($this->marcRecord->getFields('856') as $url) {
             $type = $url->getSubfield('q');
             if ($type) {
-	            $type = $type->getData();
-	            if ("IMAGE" == $type) {
-	                $address = $url->getSubfield('u');
+                $type = $type->getData();
+                if ("IMAGE" == $type) {
+                    $address = $url->getSubfield('u');
                     if ($address) {
                         $address = $address->getData();
                         $urls[$address] = '';
@@ -1237,10 +1236,10 @@ class MarcRecord extends IndexRecord
     /**
      * Return the actual URL where the BTJ description can be retrieved, 
      * if available; false otherwise. 
-	 *
-	 * @return mixed
-	 * @access public
-	 */
+     *
+     * @return mixed
+     * @access public
+     */
     public function getDescriptionURL()
     {
         $url = '';
@@ -1248,9 +1247,9 @@ class MarcRecord extends IndexRecord
         foreach ($this->marcRecord->getFields('856') as $url) {
             $type = $url->getSubfield('q');
             if ($type) {
-	            $type = $type->getData();
-	            if ("TEXT" == $type) {
-	                $address = $url->getSubfield('u');
+                $type = $type->getData();
+                if ("TEXT" == $type) {
+                    $address = $url->getSubfield('u');
                     if ($address) {
                         $address = $address->getData();
                         return $address;
@@ -1262,24 +1261,24 @@ class MarcRecord extends IndexRecord
     }
 
     /**
-	 * Return a URL to a thumbnail preview of the record, if available; false
-	 * otherwise.
-	 *
-	 * @param array $size Size of thumbnail (small, medium or large -- small is
-	 * default).
-	 *
-	 * @return mixed
-	 * @access protected
-	 */
-	protected function getThumbnail($size = 'small')
-	{
-	    global $configArray;
-	    foreach ($this->marcRecord->getFields('856') as $url) {
+     * Return a URL to a thumbnail preview of the record, if available; false
+     * otherwise.
+     *
+     * @param array $size Size of thumbnail (small, medium or large -- small is
+     * default).
+     *
+     * @return mixed
+     * @access protected
+     */
+    protected function getThumbnail($size = 'small')
+    {
+        global $configArray;
+        foreach ($this->marcRecord->getFields('856') as $url) {
             $type = $url->getSubfield('q');
             if ($type) {
-	            $type = $type->getData();
-	            if ("IMAGE" == $type) {
-	                $address = $url->getSubfield('u');
+                $type = $type->getData();
+                if ("IMAGE" == $type) {
+                    $address = $url->getSubfield('u');
                     if ($address) {
                         $address = $address->getData();
                         return $address;
@@ -1287,27 +1286,28 @@ class MarcRecord extends IndexRecord
                 }    
             }
         }      
-	    return false;
-	}
-  	/**
-	* Return the actual URL where a thumbnail can be retrieved, if available; false
-	* otherwise.
-	*
-	* @param array $size Size of thumbnail (small, medium or large -- small is
-	* default).
-	*
-	* @return mixed
-	* @access public
-	*/
-	public function getThumbnailURL($size = 'small')
-	{
-	    global $configArray;
-	    foreach ($this->marcRecord->getFields('856') as $url) {
+        return false;
+    }
+    
+    /**
+     * Return the actual URL where a thumbnail can be retrieved, if available; false
+     * otherwise.
+     *
+     * @param array $size Size of thumbnail (small, medium or large -- small is
+     * default).
+     *
+     * @return mixed
+     * @access public
+     */
+    public function getThumbnailURL($size = 'small')
+    {
+        global $configArray;
+        foreach ($this->marcRecord->getFields('856') as $url) {
             $type = $url->getSubfield('q');
             if ($type) {
-	            $type = $type->getData();
-	            if ("IMAGE" == $type) {
-	                $address = $url->getSubfield('u');
+                $type = $type->getData();
+                if ("IMAGE" == $type) {
+                    $address = $url->getSubfield('u');
                     if ($address) {
                         $address = $address->getData();
                         return $address;
@@ -1315,8 +1315,8 @@ class MarcRecord extends IndexRecord
                 }    
             }
         }      
-	    return false;
-	}
+        return false;
+    }
     
 }
 
