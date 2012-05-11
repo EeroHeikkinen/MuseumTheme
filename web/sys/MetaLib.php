@@ -394,7 +394,6 @@ class MetaLib
                     ++$i;
                     $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
                     if ($record->xpath("./m:controlfield[@tag='MOR']")) {
-                        echo "MORE! ";
                         $params = array(
                             'session_id' => $this->_sessionId,
                             'present_command' => array(
@@ -450,7 +449,7 @@ class MetaLib
 
     protected function _paramsToXml($node, $array)
     {
-        foreach($array as $key => $value) {
+        foreach ($array as $key => $value) {
             if (is_array($value)) {
                 $path = explode('/', $key, 2);
                 if (isset($path[1])) {
