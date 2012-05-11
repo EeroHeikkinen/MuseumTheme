@@ -21,9 +21,6 @@
       {* TODO: save
       <li id="saveLink"><a href="{$url}/MetaLib/Save?id={$id|escape:"url"}" class="saveRecord metalibRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
        *}
-      {if !empty($addThis)}
-      <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text='Bookmark'}</a></li>
-      {/if}
     </ul>
     <div class="clear"></div>
   </div>
@@ -38,9 +35,8 @@
       {foreach from=$record.url.0 item="value"}
         <a href="{$value|escape}">{translate text='Get full text'}</a><br/>
       {/foreach}
-    {elseif $openUrlBase}
-      {include file="Search/openurl.tpl" openUrl=$record.openUrl}
     {/if}
+    {include file="Search/openurl.tpl" openUrl=$record.openUrl}
     </div>
 
     <div class="alignright"><span class="{$record.ContentType.0|replace:" ":""|escape}">{$record.ContentType.0|escape}</span></div>
@@ -164,6 +160,13 @@
       <a href="{$path}/MetaLib/Search?type=SubjectTerms&amp;lookfor=%22{$field|escape:"url"}%22">{$field|escape}</a><br/>
     {/foreach}
         </td>
+      </tr>
+      {/if}
+
+      {if $record.Source}
+      <tr valign="top">
+        <th>{translate text='Source'}: </th>
+        <td>{$record.Source.0|escape}</td>
       </tr>
       {/if}
 

@@ -388,7 +388,33 @@ class MetaLib
                 if (PEAR::isError($result)) {
                     PEAR::raiseError($result);
                 }
-                $docs = $this->_process($result);
+                
+                $i = $startRec - 1;
+                foreach ($result->present_response->record as $record) {
+                    ++$i;
+                    $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
+                    if ($record->xpath("./m:controlfield[@tag='MOR']")) {
+                        echo "MORE! ";
+                        $params = array(
+                            'session_id' => $this->_sessionId,
+                            'present_command' => array(
+                                    'set_number' => $baseInfo->set_number,
+                                    'set_entry' => $i,
+                                    'view' => 'full',
+                                    'format' => 'marc'
+                            )
+                        );
+                    
+                        $singleResult = $this->_callXServer('present_request', $params);
+                        if (PEAR::isError($singleResult)) {
+                            PEAR::raiseError($singleResult);
+                        }
+                        $docs[] = $this->_process($singleResult->present_response->record[0]);
+                    } else {
+                        $docs[] = $this->_process($record);
+                    }
+                }                
+                
                 $docIndex = $offset * 10;
                 foreach ($docs as $doc) {
                     $foundRecords = true;
@@ -461,20 +487,14 @@ class MetaLib
         $this->_paramsToXml($op, $params);
         
         $request->addPostdata('xml', $xml->asXML());
-        echo "<!--\nX-Server call: \n";
-        echo $xml->asXML();
-        echo "\n-->\n";
         
         $result = $request->sendRequest();
         if (PEAR::isError($result)) {
             return $result;
         }
-        echo "<!--\nResponse " . $request->getResponseCode() . ":\n";
         if ($request->getResponseCode() >= 400) {
             return new PEAR_Error("HTTP Request failed: " . $request->getResponseCode());
         }
-        echo $request->getResponseBody();
-        echo "\n-->\n";
         $xml = simplexml_load_string($request->getResponseBody());
         $errors = $xml->xpath('//local_error');
         if (!empty($errors)) {
@@ -491,84 +511,78 @@ class MetaLib
      * @return array       The processed response from MetaLib
      * @access private
      */
-    protected function _process($xml)
+    protected function _process($record)
     {
         global $configArray;
         
-        $documents = array();
-        
-        foreach ($xml->present_response->record as $record) {
-            $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
+        $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
 
-            $format = ''; //substr($record->leader, 6, 1) == 'm' ? 'Book' : 'Journal';
-            $title = $this->_getSingleValue($record, '245ab');
-            if ($addTitle = $this->_getSingleValue($record, '245h')) {
-                $title .= " $addTitle";
-            }
-            $author = $this->_getSingleValue($record, '100a');
-            $sources = $this->_getMultipleValues($record, 'SIDt');
-            $year = $this->_getSingleValue($record, 'YR a');
-            $hostTitle = $this->_getSingleValue($record, '773t');
-            $languages = $this->_getMultipleValues($record, '041a');
-            
-            $urls = array();
-            $res = $record->xpath("./m:datafield[@tag='856']");
-            foreach ($res as $value) {
-                $value->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
-                $url = $value->xpath("./m:subfield[@code='u']");
-                if ($url) {
-                    $desc = $value->xpath("./m:subfield[@code='y']");
-                    if ($desc) {
-                        $urls[(string)$url[0]] = (string)$desc[0];
-                    } else {
-                        $urls[(string)$url[0]] = (string)$url[0];
-                    }
+        $format = ''; //substr($record->leader, 6, 1) == 'm' ? 'Book' : 'Journal';
+        $title = $this->_getSingleValue($record, '245ab');
+        if ($addTitle = $this->_getSingleValue($record, '245h')) {
+            $title .= " $addTitle";
+        }
+        $author = $this->_getSingleValue($record, '100a');
+        $sources = $this->_getMultipleValues($record, 'SIDt');
+        $year = $this->_getSingleValue($record, 'YR a');
+        $hostTitle = $this->_getSingleValue($record, '773t');
+        $languages = $this->_getMultipleValues($record, '041a');
+        
+        $urls = array();
+        $res = $record->xpath("./m:datafield[@tag='856']");
+        foreach ($res as $value) {
+            $value->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
+            $url = $value->xpath("./m:subfield[@code='u']");
+            if ($url) {
+                $desc = $value->xpath("./m:subfield[@code='y']");
+                if ($desc) {
+                    $urls[(string)$url[0]] = (string)$desc[0];
+                } else {
+                    $urls[(string)$url[0]] = (string)$url[0];
                 }
             }
-            
-            $openurl = '';
-            if (isset($configArray['OpenURL']['url']) && $configArray['OpenURL']['url']) {
-                $opu = $this->_getSingleValue($record, 'OPUa');
-                if ($opu) {
-                    $opuxml = simplexml_load_string($opu);
-                    $opuxml->registerXPathNamespace('ctx', 'info:ofi/fmt:xml:xsd:ctx');
-                    $opuxml->registerXPathNamespace('rft', 'info:ofi/fmt:xml:xsd');
-                    foreach ($opuxml->xpath('//rft:*') as $element) {
-                        if (in_array($element->getName(), array('journal', 'author'))) {
-                            continue;
-                        }
-                        $openurl .= '&' . $element->getName() . '=' . urlencode(trim((string)$element));
-                    }
-                    if ($openurl) {
-                        $openurl = 'rfr_id=' . urlencode($configArray['OpenURL']['rfr_id']) . $openurl;                        
-                    }
-                }
-            }
-            
-            $ISBNs = $this->_getMultipleValues($record, '020a');
-            $ISSNs = $this->_getMultipleValues($record, '022a');
-            
-            $subjects = $this->_getMultipleValues($record, '600abcdefghjklmnopqrstuvxyz:610abcdefghklmnoprstuvxyz:611acdefghjklnpqstuvxyz:630adefghklmnoprstvxyz:650abcdevxyz');
-            
-            $documents[] = array('Title' => array($title), 
-                'Author' => $author ? array($author) : null, 
-                'Source' => $sources,
-                'PublicationDate' => $year ? array($year) : null,
-                'PublicationTitle' => $hostTitle ? array($hostTitle) : null,
-                'openUrl' => $openurl ? $openurl : null,
-                'url' => $urls,
-                'fullrecord' => $record->asXML(),
-                'id' => '',
-                'recordtype' => 'marc',
-                'format' => array($format),
-                'ISBN' => $ISBNs,
-                'ISSN' => $ISSNs,
-                'Language' => $languages
-            );
         }
         
-
-        return $documents;
+        $openurl = '';
+        if (isset($configArray['OpenURL']['url']) && $configArray['OpenURL']['url']) {
+            $opu = $this->_getSingleValue($record, 'OPUa');
+            if ($opu) {
+                $opuxml = simplexml_load_string($opu);
+                $opuxml->registerXPathNamespace('ctx', 'info:ofi/fmt:xml:xsd:ctx');
+                $opuxml->registerXPathNamespace('rft', 'info:ofi/fmt:xml:xsd');
+                foreach ($opuxml->xpath('//rft:*') as $element) {
+                    if (in_array($element->getName(), array('journal', 'author'))) {
+                        continue;
+                    }
+                    $openurl .= '&' . $element->getName() . '=' . urlencode(trim((string)$element));
+                }
+                if ($openurl) {
+                    $openurl = 'rfr_id=' . urlencode($configArray['OpenURL']['rfr_id']) . $openurl;
+                }
+            }
+        }
+        
+        $isbn = $this->_getMultipleValues($record, '020a');
+        $issn = $this->_getMultipleValues($record, '022a');
+        $snippet = $this->_getMultipleValues($record, '520a');
+        $subjects = $this->_getMultipleValues($record, '600abcdefghjklmnopqrstuvxyz:610abcdefghklmnoprstuvxyz:611acdefghjklnpqstuvxyz:630adefghklmnoprstvxyz:650abcdevxyz');
+        
+        return array('Title' => array($title), 
+            'Author' => $author ? array($author) : null, 
+            'Source' => $sources,
+            'PublicationDate' => $year ? array($year) : null,
+            'PublicationTitle' => $hostTitle ? array($hostTitle) : null,
+            'openUrl' => $openurl ? $openurl : null,
+            'url' => $urls,
+            'fullrecord' => $record->asXML(),
+            'id' => '',
+            'recordtype' => 'marc',
+            'format' => array($format),
+            'ISBN' => $isbn,
+            'ISSN' => $issn,
+            'Language' => $languages,
+            'SubjectTerms' => $subjects
+        );
     }
     
     protected function _getSingleValue($xml, $fieldspec)
@@ -582,7 +596,6 @@ class MetaLib
 
     protected function _getMultipleValues($xml, $fieldspecs)
     {
-        $xml->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
         $values = array();
         foreach (explode(':', $fieldspecs) as $fieldspec) {
             $field = substr($fieldspec, 0, 3);
