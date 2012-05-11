@@ -85,8 +85,7 @@ class MultiBackend implements DriverInterface
     		if ($holdings) {
     		    return $this->_addIdPrefixes($holdings, $source);
     		}
-    	}
-    	else {
+    	} else {
     		error_log("No driver for '$id' found");
     	}
 		return Array();
@@ -208,8 +207,10 @@ class MultiBackend implements DriverInterface
             if ($this->_getSource($id) != $source) {
                 return false;
             }
-    		return $driver->checkRequestIsValid($this->_stripIdPrefixes($id, $source),
-    		    $this->_stripIdPrefixes($data, $source), $this->_stripIdPrefixes($patron, $source));
+    		return $driver->checkRequestIsValid(
+    		    $this->_stripIdPrefixes($id, $source),
+    		    $this->_stripIdPrefixes($data, $source), $this->_stripIdPrefixes($patron, $source)
+    		);
         }
         return false;
     }
@@ -225,8 +226,10 @@ class MultiBackend implements DriverInterface
                     return array(); 	            
     	        }
     	    }
-    	    $locations = $driver->getPickUpLocations($this->_stripIdPrefixes($patron, $source), 
-    		    $this->_stripIdPrefixes($holdDetails, $source));
+    	    $locations = $driver->getPickUpLocations(
+    	        $this->_stripIdPrefixes($patron, $source),
+    		    $this->_stripIdPrefixes($holdDetails, $source)
+    	    );
     		return $this->_addIdPrefixes($locations, $source);
     	}
     	error_log("No driver for '" . $patron['cat_username'] . "' found");
@@ -243,8 +246,10 @@ class MultiBackend implements DriverInterface
                     return ''; 	            
     	        }
     	    }
-    	    $locations = $driver->getDefaultPickUpLocation($this->_stripIdPrefixes($patron, $source),
-    		    $this->_stripIdPrefixes($holdDetails, $source));
+    	    $locations = $driver->getDefaultPickUpLocation(
+    	        $this->_stripIdPrefixes($patron, $source),
+    		    $this->_stripIdPrefixes($holdDetails, $source)
+    	    );
     		return $this->_addIdPrefixes($locations, $source);
     	}
     	error_log("No driver for '" . $patron['cat_username'] . "' found");
@@ -387,12 +392,15 @@ class MultiBackend implements DriverInterface
     /**
      * Change local ID's to global ID's in the given array
      * 
-     * @param mixed		 $data		   The data to be modified, normally array or array of arrays
+     * @param mixed		 $data		   The data to be modified, normally
+     *                                 array or array of arrays
      * @param string     $source       Source code
      * @param array      $modifyFields Fields to be modified in the array
-     * @return mixed     Modified array or empty/null if that input was empty/null
+     * @return mixed     Modified array or empty/null if that input was 
+     *                   empty/null
      */
-    function _addIdPrefixes($data, $source, $modifyFields = array('id', 'cat_username'))
+    function _addIdPrefixes($data, $source,
+        $modifyFields = array('id', 'cat_username'))
     {
         if (!isset($data) || empty($data) || PEAR::isError($data)) {
             return $data;
@@ -401,7 +409,9 @@ class MultiBackend implements DriverInterface
     
         foreach ($array as $key => $value) {
         	if (is_array($value)) {
-	            $array[$key] = $this->_addIdPrefixes($value, $source, $modifyFields);
+	            $array[$key] = $this->_addIdPrefixes(
+	                $value, $source, $modifyFields
+	            );
             } else {
 		        if (in_array($key, $modifyFields)) {
 		            $array[$key] = $source . '.' . $value; 
@@ -414,12 +424,15 @@ class MultiBackend implements DriverInterface
     /**
      * Change global ID's to local ID's in the given array
      * 
-     * @param mixed		 $data		   The data to be modified, normally array or array of arrays
+     * @param mixed		 $data		   The data to be modified, normally
+     *                                 array or array of arrays
      * @param string     $source       Source code
      * @param array      $modifyFields Fields to be modified in the array
-     * @return mixed     Modified array or empty/null if that input was empty/null
+     * @return mixed     Modified array or empty/null if that input was
+     *                   empty/null
      */
-	function _stripIdPrefixes($data, $source, $modifyFields = array('id', 'cat_username'))
+	function _stripIdPrefixes($data, $source,
+	    $modifyFields = array('id', 'cat_username'))
 	{
 	    if (!isset($data) || empty($data)) {
 	        return $data;
@@ -428,9 +441,12 @@ class MultiBackend implements DriverInterface
 	
 	    foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $array[$key] = $this->_stripIdPrefixes($value, $source, $modifyFields);
+                $array[$key] = $this->_stripIdPrefixes(
+                    $value, $source, $modifyFields
+                );
             } else {
-	            if (in_array($key, $modifyFields) && strncmp($source . '.', $value, strlen($source) + 1) == 0) {
+	            if (in_array($key, $modifyFields) 
+	                && strncmp($source . '.', $value, strlen($source) + 1) == 0) {
 	                $array[$key] = substr($value, strlen($source) + 1);
 	            }
 	        }
