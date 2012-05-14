@@ -31,29 +31,29 @@
             <br/>
             {/if}
 
-            {if $record.PublicationTitle}{translate text='Published in'} {$record.PublicationTitle.0|highlight}{/if}
+            {if $record.PublicationTitle}{translate text='Published in'} {$record.PublicationTitle.0|highlight}<br/>{/if}
             {assign var=pdxml value="PublicationDate_xml"}
             {if $record.$pdxml}({if $record.$pdxml.0.month}{$record.$pdxml.0.month|escape}/{/if}{if $record.$pdxml.0.day}{$record.$pdxml.0.day|escape}/{/if}{if $record.$pdxml.0.year}{$record.$pdxml.0.year|escape}){/if}{elseif $record.PublicationDate}{$record.PublicationDate.0|escape}{/if}
             
             {foreach from=$record.Source item=source name="sourceloop"}
-              <br>{$source} 
+              <br/>{$source} 
             {/foreach}
           </div>
 
           <div class="resultItemLine3">
-            {if $record.Snippet.0 != ""}
+            {if $record.Snippet}
             <blockquote>
-              <span class="quotestart">&#8220;</span>{$record.Snippet.0|highlight}<span class="quoteend">&#8221;</span>
+              <span class="quotestart">&#8220;</span>{$record.Snippet.0}<span class="quoteend">&#8221;</span>
             </blockquote>
             {/if}
           </div>
 
           <div class="resultItemLine4">
             {foreach from=$record.url key=recordurl item=urldesc}
-              <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
+              <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{$urldesc|escape}</a>
             {/foreach}
             {if $openUrlBase && $record.openUrl}
-                {include file="Search/openurl.tpl" openUrl=$record.openUrl}
+              <br/>{include file="Search/openurl.tpl" openUrl=$record.openUrl}
             {/if}
           </div>
 

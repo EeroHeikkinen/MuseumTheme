@@ -42,7 +42,7 @@ require_once 'sys/SearchObject/Base.php';
 class SearchObject_MetaLib extends SearchObject_Base
 {
     // OTHER VARIABLES
-    private $_MetaLib;      // MetaLib API
+    private $_metaLib;      // MetaLib API
     private $_indexResult;  // MetaLib API Response
     
     // In the MetaLib configuration, facets may have extra parameters appended;
@@ -102,8 +102,7 @@ class SearchObject_MetaLib extends SearchObject_Base
         $this->recommendIni = 'MetaLib';
 
         // Connect to MetaLib
-        $this->_MetaLib = new MetaLib($config['General']['url'], $config['General']['x_user'], 
-            $config['General']['x_password'], $config['General']['institution']);
+        $this->_metaLib = new MetaLib();
     }
 
     /**
@@ -243,7 +242,8 @@ class SearchObject_MetaLib extends SearchObject_Base
      */
     public function processSearch(
         $returnIndexErrors = false, $recommendations = false
-    ) {
+    ) 
+    {
         // Build a recommendations module appropriate to the current search:
         if ($recommendations) {
             $this->initRecommendations();
@@ -257,7 +257,8 @@ class SearchObject_MetaLib extends SearchObject_Base
         $finalSort = ($this->sort == 'relevance') ? null : $this->sort;
 
         // Perform the actual search
-        $this->_indexResult = $this->_MetaLib->query($this->_searchSets[$this->_set]['ird_list'],
+        $this->_indexResult = $this->_metaLib->query(
+            $this->_searchSets[$this->_set]['ird_list'],
             $this->searchTerms, $this->getFilterList(), $this->page, $this->limit,
             $finalSort, $this->_fullFacetSettings, $returnIndexErrors
         );
@@ -442,4 +443,3 @@ class SearchObject_MetaLib extends SearchObject_Base
     }
 }
 
-?>

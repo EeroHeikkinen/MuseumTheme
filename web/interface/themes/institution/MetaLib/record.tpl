@@ -26,18 +26,6 @@
   </div>
 
   <div class="record recordId" id="record{$id|escape}">
-    {* Display link to content -- if a URL is provided, only use it if no 
-       OpenURL setting exists or if the OpenURL won't lead to full text --
-       these URI values aren't always very useful, so they should be linked
-       as a last resort only. *}
-    <div class="button alignright">
-    {if $record.url && (!$openUrlBase || !$record.hasFullText)}
-      {foreach from=$record.url.0 item="value"}
-        <a href="{$value|escape}">{translate text='Get full text'}</a><br/>
-      {/foreach}
-    {/if}
-    {include file="Search/openurl.tpl" openUrl=$record.openUrl}
-    </div>
 
     <div class="alignright"><span class="{$record.ContentType.0|replace:" ":""|escape}">{$record.ContentType.0|escape}</span></div>
 
@@ -63,33 +51,44 @@
     {* Display Main Details *}
     <table cellpadding="2" cellspacing="0" border="0" class="citation">
     
-      {if $record.Author}
+    {if $record.Author}
       <tr valign="top">
-        <th>{translate text='Author'}(s): </th>
+        <th>{translate text='Author'}: </th>
         <td>
-    {foreach from=$record.Author item="author" name="loop"}
-    <a href="{$url}/MetaLib/Search?type=Author&amp;lookfor={$author|escape:"url"}">{$author|escape}</a>{if !$smarty.foreach.loop.last},{/if} 
-    {/foreach}
+      {foreach from=$record.Author item="author" name="loop"}
+          <a href="{$url}/MetaLib/Search?type=Author&amp;lookfor={$author|escape:"url"}">{$author|escape}</a>{if !$smarty.foreach.loop.last},{/if} 
+      {/foreach}
         </td>
       </tr>
-      {/if}
+    {/if}
 
-      {if $record.PublicationTitle}
+    {if $record.AdditionalAuthors}
+      <tr valign="top">
+        <th>{translate text='Other Authors'}: </th>
+        <td>
+      {foreach from=$record.AdditionalAuthors item="author" name="loop"}
+          <a href="{$url}/MetaLib/Search?type=Author&amp;lookfor={$author|escape:"url"}">{$author|escape}</a>{if !$smarty.foreach.loop.last},{/if} 
+      {/foreach}
+        </td>
+      </tr>
+    {/if}
+
+    {if $record.PublicationTitle}
       <tr valign="top">
         <th>{translate text='Publication'}: </th>
         <td>{$record.PublicationTitle.0|escape}</td>
       </tr>
-      {/if}
+    {/if}
 
-      {assign var=pdxml value="PublicationDate_xml"}
-      {if $record.$pdxml || $record.PublicationDate}
+    {assign var=pdxml value="PublicationDate_xml"}
+    {if $record.$pdxml || $record.PublicationDate}
       <tr valign="top">
         <th>{translate text='Published'}: </th>
         <td>
-        {if $record.$pdxml}
-    {if $record.$pdxml.0.month}{$record.$pdxml.0.month|escape}/{/if}{if $record.$pdxml.0.day}{$record.$pdxml.0.day|escape}/{/if}{if $record.$pdxml.0.year}{$record.$pdxml.0.year|escape}{/if}
+      {if $record.$pdxml}
+        {if $record.$pdxml.0.month}{$record.$pdxml.0.month|escape}/{/if}{if $record.$pdxml.0.day}{$record.$pdxml.0.day|escape}/{/if}{if $record.$pdxml.0.year}{$record.$pdxml.0.year|escape}{/if}
         {else}
-    {$record.PublicationDate.0|escape}
+          {$record.PublicationDate.0|escape}
         {/if}
         </td>
       </tr>
@@ -100,7 +99,7 @@
         <th>{translate text='ISSN'}: </th>
         <td>
         {foreach from=$record.ISSN item="value"}
-    {$value|escape}<br/>
+          {$value|escape}<br/>
         {/foreach}
         </td>
       </tr>
@@ -110,38 +109,10 @@
       <tr valign="top">
         <th>{translate text='Related Author'}: </th>
         <td>
-    {foreach from=$record.RelatedAuthor item="author"}
-    <a href="{$url}/MetaLib/Search?type=Author&amp;lookfor={$author|escape:"url"}">{$author|escape}</a>
-    {/foreach}
+        {foreach from=$record.RelatedAuthor item="author"}
+          <a href="{$url}/MetaLib/Search?type=Author&amp;lookfor={$author|escape:"url"}">{$author|escape}</a>
+        {/foreach}
         </td>
-      </tr>
-      {/if}
-
-      {if $record.Volume}
-      <tr valign="top">
-        <th>{translate text='Volume'}: </th>
-        <td>{$record.Volume.0|escape}</td>
-      </tr>
-      {/if}
-
-      {if $record.Issue}
-      <tr valign="top">
-        <th>{translate text='Issue'}: </th>
-        <td>{$record.Issue.0|escape}</td>
-      </tr>
-      {/if}
-
-      {if $record.StartPage}
-      <tr valign="top">
-        <th>{translate text='Start Page'}: </th>
-        <td>{$record.StartPage.0|escape}</td>
-      </tr>
-      {/if}
-
-      {if $record.EndPage}
-      <tr valign="top">
-        <th>{translate text='End Page'}: </th>
-        <td>{$record.EndPage.0|escape}</td>
       </tr>
       {/if}
 
@@ -156,12 +127,19 @@
       <tr valign="top">
         <th>{translate text='Subjects'}: </th>
         <td>
-    {foreach from=$record.SubjectTerms item=field name=loop}
+        {foreach from=$record.SubjectTerms item=field name=loop}
       <a href="{$path}/MetaLib/Search?type=SubjectTerms&amp;lookfor=%22{$field|escape:"url"}%22">{$field|escape}</a><br/>
-    {/foreach}
+        {/foreach}
         </td>
       </tr>
       {/if}
+
+      {foreach from=$record.Notes item=field name=loop}
+      <tr valign="top">
+        <th>{if $smarty.foreach.loop.first}{translate text='Notes'}:{/if}</th>
+        <td>{$field|escape}</td>
+      </tr>
+      {/foreach}
 
       {if $record.Source}
       <tr valign="top">
@@ -170,6 +148,18 @@
       </tr>
       {/if}
 
+      {foreach from=$record.url key=recordurl item=urldesc}
+      <tr valign="top">
+        <th></th>
+        <td><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{$urldesc|escape}</a></td>
+      </tr>
+      {/foreach}
+      {if $openUrlBase && $record.openUrl}
+      <tr valign="top">
+        <th></th>
+        <td>{include file="Search/openurl.tpl" openUrl=$record.openUrl}</td>
+      </tr>
+      {/if}
 
     </table>
     {* End Main Details *}

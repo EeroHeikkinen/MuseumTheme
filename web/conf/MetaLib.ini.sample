@@ -3,6 +3,7 @@ url = http://metalib.server/X
 x_user = username
 x_password = password
 institution = INST
+cache_timeout = 60
 
 [Access]
 ip_ranges = ::1,128.214.223.149,128.214.223.152-128.214.223.159
