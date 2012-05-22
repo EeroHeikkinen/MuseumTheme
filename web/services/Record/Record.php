@@ -234,6 +234,12 @@ class Record extends Action
         // Get Messages
         $this->infoMsg = isset($_GET['infoMsg']) ? $_GET['infoMsg'] : false;
         $this->errorMsg = isset($_GET['errorMsg']) ? $_GET['errorMsg'] : false;
+
+        // Set bX flag
+        $interface->assign(
+            'bXEnabled', isset($configArray['bX']['token'])
+            ? true : false
+        );
     }
 
     /**

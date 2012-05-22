@@ -249,6 +249,10 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </ul>
   </div>
   {/if}
+  
+  {if $bXEnabled}
+    {include file="Record/bx.tpl"}
+  {/if}
 </div>
 
 <div class="clear"></div>
