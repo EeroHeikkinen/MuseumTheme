@@ -38,8 +38,6 @@ require_once 'RecordDrivers/Factory.php';
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 
-//PEAR::setErrorHandling(PEAR_ERROR_RETURN);
-
 // TODO: This should probably be a recommendation subclass, but those are geared
 // towards search results, so we'll keep this separate for now
 
@@ -68,8 +66,6 @@ class JSON_bXRecommendations extends JSON
     public function getbXRecommendations()
     {
         global $configArray;
-
-        parent::__construct();
         
         if (!isset($configArray['bX']['token'])) {
             $this->output('bX support not enabled', JSON::STATUS_ERROR);
