@@ -3,7 +3,7 @@
 var openurl_resolver = "{/literal}{$openUrlBase}{literal}"; 
 
     var url = path + "/AJAX/JSON_bXRecommendations?method=getbXRecommendations"+
-        "&id="+"{/literal}{$id}{literal}";
+        "&id="+"{/literal}{$id|escape}{literal}&source={/literal}{$module|escape}{literal}";
     
     var jqxhr = $.getJSON(url, function(response) {
         if (response.status == 'OK') {

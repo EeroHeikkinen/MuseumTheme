@@ -65,8 +65,7 @@ class Record extends Base
 
         // Fetch Record
         $config = getExtraConfigArray('MetaLib');
-        $metalib = new MetaLib($config['General']['url'], $config['General']['x_user'], 
-            $config['General']['x_password'], $config['General']['institution']);
+        $metalib = new MetaLib();
         $record = $metalib->getRecord($_REQUEST['id']);
         if (PEAR::isError($record)) {
             PEAR::raiseError($record);
@@ -97,6 +96,7 @@ class Record extends Base
     public function launch()
     {
         global $interface;
+        global $configArray;
 
         // Send basic information to the template.
         $interface->assign('record', $this->record);
@@ -108,6 +108,12 @@ class Record extends Base
             isset($_SESSION['lastSearchURL']) ? $_SESSION['lastSearchURL'] : false
         );
 
+        // Set bX flag
+        $interface->assign(
+            'bXEnabled', isset($configArray['bX']['token'])
+            ? true : false
+        );
+        
         // Display Page
         $interface->setTemplate('record.tpl');
         $interface->display('layout.tpl');

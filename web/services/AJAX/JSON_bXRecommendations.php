@@ -43,20 +43,6 @@ require_once 'RecordDrivers/Factory.php';
 
 class JSON_bXRecommendations extends JSON
 {
-    protected $_searchObject;
-    
-    /**
-     * Constructor.
-     *
-     * @access public
-     */
-    public function __construct()
-    {
-        global $action;
-        parent::__construct();
-        $this->_searchObject = SearchObjectFactory::initSearchObject();
-    }
-    
     /**
      * Get data and output in JSON
      *
@@ -73,11 +59,25 @@ class JSON_bXRecommendations extends JSON
         }
         
         $id = $_REQUEST['id'];
-        if (!($record = $this->_searchObject->getIndexEngine()->getRecord($id))) {
-            $this->output('Record does not exist', JSON::STATUS_ERROR);
+        $source = $_REQUEST['source'];
+        if ($source == 'MetaLib') {
+            require_once 'sys/MetaLib.php';
+            $metalib = new MetaLib();
+            if (!($record = $metalib->getRecord($id))) {
+                $this->output('Record does not exist', JSON::STATUS_ERROR);
+                return;
+            }
+            $openUrl = $record['documents'][0]['openUrl'];
+        } else {
+            $searchObject = SearchObjectFactory::initSearchObject();
+            if (!($record = $searchObject->getIndexEngine()->getRecord($id))) {
+                $this->output('Record does not exist', JSON::STATUS_ERROR);
+                return;
+            }
+            $recordDriver = RecordDriverFactory::initRecordDriver($record);
+            $openUrl = $recordDriver->getOpenURL();
         }
-        $recordDriver = RecordDriverFactory::initRecordDriver($record);
-        $openUrl = $recordDriver->getOpenURL();
+                
         $params = http_build_query(
             array(
                 'token' => $configArray['bX']['token'],

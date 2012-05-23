@@ -1,6 +1,6 @@
 {js filename="record.js"}
 {js filename="openurl.js"}
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-10{if $sidebarOnLeft} push-3 last{/if}">
   <div class="toolbar">
     <ul>
       {* TODO: citations <li><a href="{$url}/MetaLib/Cite?id={$id|escape:"url"}" class="citeRecord metalibRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
@@ -171,7 +171,10 @@
   <span class="Z3988" title="{$record.openUrl|escape}"></span>
 </div>
 
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
+  {if $bXEnabled}
+    {include file="Record/bx.tpl"}
+  {/if}
 </div>
 
 <div class="clear"></div>
