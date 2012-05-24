@@ -2720,6 +2720,19 @@ class IndexRecord implements RecordInterface
     {
         return isset($this->fields['dedup_data']) ? $this->fields['dedup_data'] : array();
     }
+    
+    /**
+     * Return an external URL where a displayable description text
+     * can be retrieved from, if available; false otherwise.
+     *
+     * @return mixed
+     * @access public
+     */
+    public function getDescriptionURL()
+    {
+        return false;
+    }
+    
 }
 
 ?>

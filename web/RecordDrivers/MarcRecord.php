@@ -1234,8 +1234,8 @@ class MarcRecord extends IndexRecord
     }    
     
     /**
-     * Return the actual URL where the BTJ description can be retrieved, 
-     * if available; false otherwise. 
+     * Return an external URL where a displayable description text
+     * can be retrieved from, if available; false otherwise.
      *
      * @return mixed
      * @access public
