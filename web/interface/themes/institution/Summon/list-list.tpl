@@ -16,7 +16,7 @@
           <img src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}" class="alignleft" alt="{translate text="Cover Image"}"/>
         </div>
         
-        <div class="span-9">
+        <div class="span-7">
           <div class="resultItemLine1">
             <a href="{$url}/Summon/Record?id={$record.ID.0|escape:"url"}"
             class="title">{if !$record.Title.0}{translate text='Title not available'}{else}{$record.Title.0|highlight}{/if}</a>
