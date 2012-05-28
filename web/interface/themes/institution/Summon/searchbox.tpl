@@ -6,16 +6,20 @@
     <br/>{translate text="Your search terms"} : "<strong>{$lookfor|escape:"html"}</strong>"
   {else}
     <form method="get" action="{$path}/Summon/Search" name="searchForm" id="searchForm" class="search">
-      <label for="searchForm_lookfor" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_lookfor" type="text" name="lookfor" size="40" value="{$lookfor|escape:"html"}"/>
+      <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
+      <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape:"html"}"/>
       <label for="searchForm_type" class="offscreen">{translate text="Search Type"}</label>
+      <div class="styled_select">
       <select id="searchForm_type" name="type">
       {foreach from=$summonSearchTypes item=searchDesc key=searchVal}
         <option value="{$searchVal}"{if $searchIndex == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
       {/foreach}
       </select>
-      <input type="submit" name="submit" value="{translate text="Find"}"/>
+      </div>
+      <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
+      <div class="advanced-link-wrapper clear">
       <a href="{$path}/Summon/Advanced" class="small">{translate text="Advanced"}</a>
+      </div>
 
       {* Do we have any checkbox filters? *}
       {assign var="hasCheckboxFilters" value="0"}

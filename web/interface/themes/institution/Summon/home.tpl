@@ -5,8 +5,8 @@
 </div>
 
 <div class="searchHomeBrowse">
-  <h2 class="span-5">{translate text="home_browse"} {translate text='Format'}</h2>
-  <h2 class="span-5">{translate text="home_browse"} {translate text='Language'}</h2> 
+  <h2 class="span-5" style="font-size:1.4em;">{translate text="home_browse"} {translate text='Format'}</h2>
+  <h2 class="span-5" style="font-size:1.4em;">{translate text="home_browse"} {translate text='Language'}</h2> 
   <div class="clear"></div>
   <ul class="span-5">
     {foreach from=$formatList.counts item=format}
