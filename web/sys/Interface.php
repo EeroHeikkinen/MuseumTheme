@@ -101,7 +101,7 @@ class UInterface extends Smarty
         }
         $this->plugins_dir   = array('plugins', "$local/interface/plugins");
         $this->caching       = false;
-        $this->debug         = true;
+        $this->debugging     = $configArray['System']['debug'];
         $this->compile_check = true;
 
         unset($local);
