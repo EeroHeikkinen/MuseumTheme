@@ -1,4 +1,9 @@
 function loadVis(facetFields, searchParams, baseURL, zooming, collection, collectionAction) {
+
+    // get current year so we can set that as a limit when drawing the graph
+    var d = new Date();
+    var currentYear = d.getFullYear();
+    
     // options for the graph, TODO: make configurable
     var options = {
         series: {
@@ -6,12 +11,12 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
                 show: true,
                 align: "center",
                 fill: true,
-                fillColor: "rgb(0,0,0)"
+                fillColor: "rgb(124,180,124)"
             }
         },
-        colors: ["rgba(255,0,0,255)"],
+        colors: ["rgba(151,200,151,255)"],
         legend: { noColumns: 2 },
-        xaxis: { tickDecimals: 0 },
+        xaxis: { min: 1, max: currentYear + 1, tickDecimals: 0 },
         yaxis: { min: 0, ticks: [] },
         selection: {mode: "x"},
         grid: { backgroundColor: null /*"#ffffff"*/ }
