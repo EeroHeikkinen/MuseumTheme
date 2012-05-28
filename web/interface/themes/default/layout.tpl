@@ -2,7 +2,7 @@
 <html lang="{$userLang}">
 
 {* We should hide the top search bar and breadcrumbs in some contexts: *}
-{if ($module=="Search" || $module=="Summon" || $module=="WorldCat" || $module=="Authority" || $module=="EBSCO") && $pageTemplate=="home.tpl"}
+{if ($module=="Search" || $module=="Summon" || $module=="WorldCat" || $module=="Authority") && $pageTemplate=="home.tpl"}
     {assign var="showTopSearchBox" value=0}
     {assign var="showBreadcrumbs" value=0}
 {else}
@@ -15,7 +15,6 @@
     {if $addHeader}{$addHeader}{/if}
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe">
     {css media="screen" filename="styles.css"}
-    {css media="screen" filename="datatables.css"}
     {css media="print" filename="print.css"}
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <script language="JavaScript" type="text/javascript">
@@ -40,27 +39,35 @@
     <div id="lightbox" onClick="hideLightbox(); return false;"></div>
     <div id="popupbox" class="popupBox"><b class="btop"><b></b></b></div>
     {* End LightBox *}
-    
+
+    {* mobile device button*}
+    {if $mobileViewLink}
+        <div class="mobileViewLink"><a href="{$mobileViewLink|escape}">{translate text="mobile_link"}</a></div>
+    {/if}
+    {* End mobile device button*}
+
     <div class="searchheader">
       <div class="searchcontent">
         <div class="alignright" style="text-align:right;">
-          <div id="logoutOptions"{if !$user} style="display: none;"{/if}>
-            <a href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
-            <a href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
-          </div>
-          <div id="loginOptions"{if $user} style="display: none;"{/if}>
-            {if $authMethod == 'Shibboleth'}
-              <a href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
-            {else}
-              <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
-            {/if}
-          </div>
+          {if !$hideLogin}
+            <div id="logoutOptions"{if !$user} style="display: none;"{/if}>
+              <a href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
+              <a href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
+            </div>
+            <div id="loginOptions"{if $user} style="display: none;"{/if}>
+              {if $authMethod == 'Shibboleth'}
+                <a href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
+              {else}
+                <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
+              {/if}
+            </div>
+          {/if}
           {if is_array($allLangs) && count($allLangs) > 1}
             <form method="post" name="langForm" action="">
               <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label></div>
               <select id="mylang" name="mylang" onChange="document.langForm.submit();">
                 {foreach from=$allLangs key=langCode item=langName}
-                  <option value="{$langCode}"{if $userLang == $langCode} selected{/if}>{translate text=$langName}</option>
+                  <option value="{$langCode}"{if $userLang == $langCode} selected{/if}>{displayLanguageOption text=$langName}</option>
                 {/foreach}
               </select>
               <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
@@ -71,7 +78,7 @@
         {if $showTopSearchBox}
           <a href="{$url}"><img src="{$path}/interface/themes/default/images/vufind_logo.png" alt="VuFind" class="alignleft"></a>
           {if $pageTemplate != 'advanced.tpl'}
-            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority" || $module=="EBSCO" || $module=="PCI"}
+            {if $module=="Summon" || $module=="WorldCat" || $module=="Authority"}
               {include file="`$module`/searchbox.tpl"}
             {else}
               {include file="Search/searchbox.tpl"}
@@ -94,7 +101,7 @@
     
     <div id="doc2" class="yui-t{if $sidebarOnLeft}2{else}4{/if}"> {* Change id for page width, class for menu layout. *}
 
-      {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI}
+      {if $useSolr || $useWorldcat || $useSummon}
       <div id="toptab">
         <ul>
           {if $useSolr}
@@ -105,12 +112,6 @@
           {/if}
           {if $useSummon}
           <li{if $module == "Summon"} class="active"{/if}><a href="{$url}/Summon/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
-          {/if}
-          {if $useEBSCO}
-          <li{if $module == "EBSCO"} class="active"{/if}><a href="{$url}/EBSCO/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
-          {/if}
-          {if $usePCI}
-          <li{if $module == "PCI"} class="active"{/if}><a href="{$url}/PCI/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
           {/if}
         </ul>
       </div>
@@ -124,6 +125,6 @@
       </div> {* End ft *}
 
     </div> {* End doc *}
-    {include file="piwik.tpl"}
+    
   </body>
 </html>

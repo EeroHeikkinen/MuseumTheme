@@ -106,7 +106,7 @@ class JSON extends Action
         $salt = $this->_generateSalt();
 
         // HexDecode Password
-        $password = pack('H*', $_GET['password']);
+        $password = pack('H*', $_POST['ajax_password']);
 
         // Decrypt Password
         include_once 'Crypt/rc4.php';
@@ -114,7 +114,7 @@ class JSON extends Action
 
         // Put the username/password in POST fields where the authentication module
         // expects to find them:
-        $_POST['username'] = $_GET['username'];
+        $_POST['username'] = $_POST['ajax_username'];
         $_POST['password'] = $password;
 
         // Authenticate the user:
@@ -249,7 +249,8 @@ class JSON extends Action
         // Load messages for response:
         $messages = array(
             'available' => $interface->fetch('AJAX/status-available.tpl'),
-            'unavailable' => $interface->fetch('AJAX/status-unavailable.tpl')
+            'unavailable' => $interface->fetch('AJAX/status-unavailable.tpl'),
+            'unknown' => $interface->fetch('AJAX/status-unknown.tpl')
         );
 
         // Load callnumber and location settings:
@@ -1030,10 +1031,17 @@ class JSON extends Action
         // Summarize call number, location and availability info across all items:
         $callNumbers = $locations = array();
         $available = false;
+        $use_unknown_status = false;
         foreach ($record as $info) {
             // Find an available copy
             if ($info['availability']) {
                 $available = true;
+            }
+            // Check for a use_unknown_message flag
+            if (isset($info['use_unknown_message'])
+                && $info['use_unknown_message'] == true
+            ) {
+                $use_unknown_status = true;
             }
             // Store call number/location info:
             $callNumbers[] = $info['callnumber'];
@@ -1050,12 +1058,15 @@ class JSON extends Action
             $locations, $locationSetting, 'Multiple Locations'
         );
 
+        $availability_message = $use_unknown_status
+            ? $messages['unknown']
+            : $messages[$available ? 'available' : 'unavailable'];
+
         // Send back the collected details:
         return array(
             'id' => $record[0]['id'],
             'availability' => ($available ? 'true' : 'false'),
-            'availability_message' =>
-                $messages[$available ? 'available' : 'unavailable'],
+            'availability_message' => $availability_message,
             'location' => htmlentities($location, ENT_COMPAT, 'UTF-8'),
             'locationList' => false,
             'reserve' =>
@@ -1085,10 +1096,17 @@ class JSON extends Action
         // Summarize call number, location and availability info across all items:
         $locations =  array();
         $available = false;
+        $use_unknown_status = false;
         foreach ($record as $info) {
             // Find an available copy
             if ($info['availability']) {
                 $available = $locations[$info['location']]['available'] = true;
+            }
+            // Check for a use_unknown_message flag
+            if (isset($info['use_unknown_message'])
+                && $info['use_unknown_message'] == true
+            ) {
+                $use_unknown_status = true;
             }
             // Store call number/location info:
             $locations[$info['location']]['callnumbers'][] = $info['callnumber'];
@@ -1112,12 +1130,15 @@ class JSON extends Action
             $locationList[] = $locationInfo;
         }
 
+        $availability_message = $use_unknown_status
+            ? $messages['unknown']
+            : $messages[$available ? 'available' : 'unavailable'];
+
         // Send back the collected details:
         return array(
             'id' => $record[0]['id'],
             'availability' => ($available ? 'true' : 'false'),
-            'availability_message' =>
-                $messages[$available ? 'available' : 'unavailable'],
+            'availability_message' => $availability_message,
             'location' => false,
             'locationList' => $locationList,
             'reserve' =>

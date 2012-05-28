@@ -31,7 +31,7 @@
       {/if}
       </div>
       </div>
-      
+
       <div class="resultItemLine4">
       {if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
@@ -64,26 +64,26 @@
     </div>
     {if $showPreviews}
       {if (!empty($summLCCN) || !empty($summISBN) || !empty($summOCLC))}
-        {if $showGBSPreviews}      
-          <div class="previewDiv"> 
+        {if $googleOptions}
+          <div class="previewDiv">
             <a class="{if $summISBN}gbsISBN{$summISBN}{/if}{if $summLCCN}{if $summISBN} {/if}gbsLCCN{$summLCCN}{/if}{if $summOCLC}{if $summISBN || $summLCCN} {/if}{foreach from=$summOCLC item=OCLC name=oclcLoop}gbsOCLC{$OCLC}{if !$smarty.foreach.oclcLoop.last} {/if}{/foreach}{/if}" style="display:none" target="_blank">
               <img src="https://www.google.com/intl/en/googlebooks/images/gbs_preview_button1.png" border="0" style="width: 70px; margin: 0; padding-bottom:5px;"/>
-            </a>    
+            </a>
           </div>
         {/if}
-        {if $showOLPreviews}
+        {if $olOptions}
           <div class="previewDiv">
             <a class="{if $summISBN}olISBN{$summISBN}{/if}{if $summLCCN}{if $summISBN} {/if}olLCCN{$summLCCN}{/if}{if $summOCLC}{if $summISBN || $summLCCN} {/if}{foreach from=$summOCLC item=OCLC name=oclcLoop}olOCLC{$OCLC}{if !$smarty.foreach.oclcLoop.last} {/if}{/foreach}{/if}" style="display:none" target="_blank">
               <img src="{$path}/images/preview_ol.gif" border="0" style="width: 70px; margin: 0"/>
             </a>
-          </div> 
+          </div>
         {/if}
-        {if $showHTPreviews}
+        {if $hathiOptions}
           <div class="previewDiv">
             <a id="HT{$summId|escape}" style="display:none"  target="_blank">
               <img src="{$path}/images/preview_ht.gif" border="0" style="width: 70px; margin: 0" title="{translate text='View online: Full view Book Preview from the Hathi Trust'}"/>
             </a>
-          </div> 
+          </div>
         {/if}
       {/if}
      {/if}

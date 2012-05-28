@@ -83,8 +83,10 @@ function getExtraConfigArray($name)
 function iniMerge($config_ini, $custom_ini)
 {
     foreach ($custom_ini as $k => $v) {
-        if (is_array($v)) {
-            $config_ini[$k] = iniMerge(isset($config_ini[$k]) ? $config_ini[$k] : array(), $custom_ini[$k]);
+        // Make a recursive call if we need to merge array values into an existing
+        // key...  otherwise just drop the value in place.
+        if (is_array($v) && isset($config_ini[$k])) {
+            $config_ini[$k] = iniMerge($config_ini[$k], $custom_ini[$k]);
         } else {
             $config_ini[$k] = $v;
         }
@@ -120,6 +122,26 @@ function readConfig($basePath = 'conf')
         $mainArray['Site']['url'] = determineSiteUrl($mainArray);
     }
 
+    // Auto-detect local web installation path if it is not provided
+    if (!isset($mainArray['Site']['local']) || empty($mainArray['Site']['local'])) {
+        $mainArray['Site']['local']
+            = realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..');
+    }
+
+    // Auto-detect absolute path to database schema and class if necessary
+    if (isRelativeFilePath($mainArray['Database']['schema_location'])) {
+        $mainArray['Database']['schema_location'] = realpath(
+            $mainArray['Site']['local'] . DIRECTORY_SEPARATOR
+            . $mainArray['Database']['schema_location']
+        );
+    }
+    if (isRelativeFilePath($mainArray['Database']['class_location'])) {
+        $mainArray['Database']['class_location'] = realpath(
+            $mainArray['Site']['local'] . DIRECTORY_SEPARATOR
+            . $mainArray['Database']['class_location']
+        );
+    }
+
     return $mainArray;
 }
 
@@ -144,11 +166,6 @@ function determineSiteUrl($configArray)
         $path = $_SERVER['HTTP_X_FORWARDED_PATH'];
     } else {
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
-        if (isset($_SERVER['SERVER_PORT'])
-            && !in_array($_SERVER['SERVER_PORT'], array(80, 443))
-        ) {
-            $host .= ':'. $_SERVER['SERVER_PORT'];
-        }
         $path = $configArray['Site']['path'];
     }
     $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on')
@@ -157,4 +174,16 @@ function determineSiteUrl($configArray)
     return $url;
 }
 
+/**
+ * Support function -- Is argument a relative file path?
+ *
+ * @param string $filePath Path to check
+ *
+ * @return boolean TRUE if argument is a relative file path, otherwise FALSE
+ */
+function isRelativeFilePath ($filePath)
+{
+    $r = !(strpos($filePath, '/') === 0 || preg_match('@[a-z]:[/\\\]@i', $filePath));
+    return $r;
+}
 ?>

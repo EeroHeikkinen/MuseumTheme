@@ -30,6 +30,7 @@
 <!-- 2 columns TEST
 <div class="right alignright" style="width:50%; padding-right:.5em;">
 -->
+  {if !$hideLogin}
   <div id="logoutOptions"{if !$user} class="hide"{/if}>
     <a class="account" href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
     <a class="logout" href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
@@ -45,6 +46,8 @@
     <span class="strong account">{translate text="Guest"}</span>
 -->
   {/if}
+  </div>
+  {/if}
 <!--
   {* if $bookBagItems|@count > 0 can be used below to show only when items exist but visibility needs to be taken care of somehow to show the bookbag without hitting refresh *}
   {if $bookBag} 
@@ -54,7 +57,6 @@
     </span>
   {/if}
 -->
-  </div>
 <!-- 2 columns TEST
 </div>
 <div style="padding-top:.5em;">

@@ -730,7 +730,21 @@ class Solr implements IndexEngine
                 if ($current[0] == 'bq') {
                     $bq[] = $current[1];
                 } else if ($current[0] == 'bf') {
-                    $bq[] = '_val_:"' . addcslashes($current[1], '"') . '"';
+                    // BF parameter may contain multiple space-separated functions
+                    // with individual boosts.  We need to parse this into _val_
+                    // query components:
+                    $bfParts = explode(' ', $current[1]);
+                    foreach ($bfParts as $bf) {
+                        $bf = trim($bf);
+                        if (!empty($bf)) {
+                            $bfSubParts = explode('^', $bf, 2);
+                            $boost = '"' . addcslashes($bfSubParts[0], '"') . '"';
+                            if (isset($bfSubParts[1])) {
+                                $boost .= '^' . $bfSubParts[1];
+                            }
+                            $bq[] = '_val_:' . $boost;
+                        }
+                    }
                 }
             }
         }
@@ -1086,7 +1100,7 @@ class Solr implements IndexEngine
             $options['hl.simple.pre'] = '{{{{START_HILITE}}}}';
             $options['hl.simple.post'] = '{{{{END_HILITE}}}}';
         }
-        
+
         if ($this->_collapseField && $query != '*:*') {
         	$options['group'] = 'true';
         	$options['group.field'] = $this->_collapseField;

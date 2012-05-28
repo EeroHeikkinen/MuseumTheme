@@ -460,14 +460,14 @@ class Unicorn implements DriverInterface
         }
 
         list($user_key, $alt_id, $barcode, $name, $library, $profile,
-        $cat1, $cat2, $cat3, $cat4, $cat5, $expiry, $holds, $status) 
-        = explode('|', $response);
+        $cat1, $cat2, $cat3, $cat4, $cat5, $expiry, $holds, $status)
+            = explode('|', $response);
 
         list($last, $first) = explode(',', $name);
         $first = rtrim($first, " ");
 
         if ($expiry != '0') {
-        	$expiry = $this->_parseDateTime(trim($expiry));
+            $expiry = $this->_parseDateTime(trim($expiry));
         }
         $expired = ($expiry == '0') ? false : $expiry < time();
         return array(
@@ -1104,8 +1104,8 @@ class Unicorn implements DriverInterface
      */
     protected function querySirsi($params)
     {
-        // make sure null parameters are sent as empty strings instead or else the driver.pl
-        // may choke on null parameter values
+        // make sure null parameters are sent as empty strings instead or else the
+        // driver.pl may choke on null parameter values
         foreach ($params as $key => $value) {
             if ($value == null) {
                 $params[$key] = '';

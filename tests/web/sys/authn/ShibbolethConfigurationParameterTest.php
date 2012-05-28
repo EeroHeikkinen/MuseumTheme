@@ -60,16 +60,11 @@ class ShibbolethConfigurationParameterTest extends PHPUnit_Framework_TestCase
      */
     public function testWithoutAttributes()
     {
-        try {
-            $shibConfigParam = new shibbolethConfigurationParameter(
-                $this->_pathToTestConfigurationFiles .
-                "/authn/shib/no-user-attributes-config.ini"
-            );
-            $userAttributes = $shibConfigParam->getUserAttributes();
-        } catch (UnexpectedValueException $expected) {
-            return;
-        }
-        $this->fail('An expected UnexpectedValueException has not been raised');
+        $shibConfigParam = new shibbolethConfigurationParameter(
+            $this->_pathToTestConfigurationFiles .
+            "/authn/shib/no-user-attributes-config.ini"
+        );
+        $userAttributes = $shibConfigParam->getUserAttributes();
     }
 
     /**

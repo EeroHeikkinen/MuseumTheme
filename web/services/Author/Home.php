@@ -70,22 +70,8 @@ class Home extends Action
 
         // Determine whether to display book previews
         if (isset($configArray['Content']['previews'])) {
-            $providers = explode(',', $configArray['Content']['previews']);
-            $interface->assign('showPreviews', true);
-            foreach ($providers as $provider) {
-                switch ($provider) {
-                case 'Google':
-                    $interface->assign('showGBSPreviews', true);
-                    break;
-                case 'OpenLibrary':
-                    $interface->assign('showOLPreviews', true);
-                    break;
-                case 'HathiTrust':
-                    $interface->assign('showHTPreviews', true);
-                    break;
-                }
-            }
-        }        
+            $interface->assignPreviews();
+        }   
         // TODO : Stats
 
         $interface->caching = false;

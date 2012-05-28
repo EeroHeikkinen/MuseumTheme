@@ -53,6 +53,24 @@ class Home extends Action
         // Execute Default Tab
         $defaultTab = isset($configArray['Site']['defaultRecordTab']) ?
             $configArray['Site']['defaultRecordTab'] : 'Holdings';
+
+        // We need to do a whole bunch of extra work to determine the default
+        // tab if we have the hideHoldingsTabWhenEmpty setting turned on; only
+        // do this work if we absolutely have to!
+        if (isset($configArray['Site']['hideHoldingsTabWhenEmpty'])
+            && $configArray['Site']['hideHoldingsTabWhenEmpty']
+            && $defaultTab == "Holdings"
+        ) {
+            $db = ConnectionManager::connectToIndex();
+            if (!($record = $db->getRecord($_REQUEST['id']))) {
+                PEAR::raiseError(new PEAR_Error('Record Does Not Exist'));
+            }
+            $recordDriver = RecordDriverFactory::initRecordDriver($record);
+            $showHoldingsTab = $recordDriver->hasHoldings();
+
+            $defaultTab = $showHoldingsTab ? 'Holdings' : 'Description';
+        }
+
         include_once $defaultTab . '.php';
         $service = new $defaultTab();
         $service->recordHit();

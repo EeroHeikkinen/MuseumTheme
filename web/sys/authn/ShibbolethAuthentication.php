@@ -66,6 +66,8 @@ class ShibbolethAuthentication implements Authentication
      */
     public function authenticate()
     {
+        global $configArray;
+
         if (!$this->_isUsernamePartOfAssertions()) {
             return new PEAR_ERROR('authentication_error_admin');
         }
@@ -80,6 +82,22 @@ class ShibbolethAuthentication implements Authentication
         $user = new User();
         $user->username = $_SERVER[$this->_userAttributes['username']];
         $userIsInVufindDatabase = $this->_isUserInVufindDatabase($user);
+
+        // Has the user configured attributes to use for populating the user table?
+        $attribsToCheck = array(
+            "cat_username", "email", "lastname", "firstname", "college", "major",
+            "home_library"
+        );
+        foreach ($attribsToCheck as $attribute) {
+            if (isset($configArray['Shibboleth'][$attribute])
+                && isset($_SERVER[$configArray['Shibboleth'][$attribute]])
+            ) {
+                $user->{$attribute}
+                    = $_SERVER[$configArray['Shibboleth'][$attribute]];
+            }
+        }
+
+        // Save the new or updated user object:
         $this->_synchronizeVufindDatabase($userIsInVufindDatabase, $user);
 
         return $user;

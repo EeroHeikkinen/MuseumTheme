@@ -324,16 +324,6 @@ interface RecordInterface
     public function hasRDF();
 
     /**
-     * Check if an item has holdings in order to show or hide the holdings tab
-     *
-     * @param array $patron An array for patron information
-     *
-     * @return bool
-     * @access public
-     */
-    public function hasRealTimeHoldings($patron = false);
-
-    /**
      * Does this record have reviews available?
      *
      * @return bool

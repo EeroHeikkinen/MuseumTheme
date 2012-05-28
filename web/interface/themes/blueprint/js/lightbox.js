@@ -131,9 +131,10 @@ function registerAjaxLogin() {
 
                     // login via ajax
                     $.ajax({
+                        type: 'POST',
                         url: path + '/AJAX/JSON?method=login',
                         dataType: 'json',
-                        data: {username:username, password:password},
+                        data: {ajax_username:username, ajax_password:password},
                         success: function(response) {
                             if (response.status == 'OK') {
                                 // Hide "log in" options and show "log out" options:

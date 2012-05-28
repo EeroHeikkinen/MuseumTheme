@@ -364,7 +364,7 @@ ul.recordSet .addToFavLink {
     padding:0;
     margin:0;
 }
-.authorbox,.authorbio {
+.authorbox, .authorbio, .authoritybox {
     padding:0 0 .4em .4em;
     border-bottom: 1px #eee solid;
     margin-bottom:.5em;
@@ -812,6 +812,12 @@ dl.narrowList a {
     background-image:url(../images/fugue/holdBlocked.png);
     background-repeat:no-repeat;
     padding-left:18px;
+}
+.unknown {
+    background-image:url(../images/silk/bullet_orange.png);
+    background-repeat:no-repeat;
+    color:#ff890f;
+    padding-left:18px
 }
 
 /***** Pagination *****/
@@ -1886,4 +1892,20 @@ div#closeContextHelp:active {
 
 .jstree-highlight {
     font-weight: bold;
+}
+
+.sysInfo {
+    margin: 0 auto;
+    padding: 1em;
+    background-color: #FFEF8F;
+    border: 2px solid #F9DD34;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.mobileViewLink {
+    width:100%;
+    padding:10px;
+    background-color: #FDD5A3;
+    border: solid 2px #E77825;
+    font-size:24px;
 }

@@ -116,6 +116,11 @@ class Search extends Base
             $interface->assign('subpage', 'Summon/list-list.tpl');
         } else {
             $interface->assign('recordCount', 0);
+            // Set up special "no results" recommendations:
+            $interface->assign(
+                'noResultsRecommendations',
+                $this->searchObject->getRecommendationsTemplates('noresults')
+            );
             // Was the empty result set due to an error?
             $error = $this->searchObject->getIndexError();
             if ($error !== false) {

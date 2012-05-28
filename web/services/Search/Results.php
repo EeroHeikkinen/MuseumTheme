@@ -77,21 +77,7 @@ class Results extends Action
 
         // Determine whether to display book previews
         if (isset($configArray['Content']['previews'])) {
-            $providers = explode(',', $configArray['Content']['previews']);
-            $interface->assign('showPreviews', true);
-            foreach ($providers as $provider) {
-                switch ($provider) {
-                case 'Google':
-                    $interface->assign('showGBSPreviews', true);
-                    break;
-                case 'OpenLibrary':
-                    $interface->assign('showOLPreviews', true);
-                    break;
-                case 'HathiTrust':
-                    $interface->assign('showHTPreviews', true);
-                    break;
-                }
-            }
+            $interface->assignPreviews();
         }
 
         $interface->assign(
@@ -143,11 +129,16 @@ class Results extends Action
         $interface->assign(
             'sideRecommendations', $searchObject->getRecommendationsTemplates('side')
         );
-
+        // If no record found
         if ($searchObject->getResultTotal() < 1) {
-            // No record found
             $interface->setTemplate('list-none.tpl');
             $interface->assign('recordCount', 0);
+
+            // Set up special "no results" recommendations:
+            $interface->assign(
+                'noResultsRecommendations',
+                $searchObject->getRecommendationsTemplates('noresults')
+            );
 
             // Was the empty result set due to an error?
             $error = $searchObject->getIndexError();

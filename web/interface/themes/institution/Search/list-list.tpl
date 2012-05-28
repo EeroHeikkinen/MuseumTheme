@@ -9,7 +9,7 @@
 {/if}
 
 {if $bookBag}
-<script>
+<script type="text/javascript">
 vufindString.bulk_noitems_advice = "{translate text="bulk_noitems_advice"}";
 vufindString.confirmEmpty = "{translate text="bookbag_confirm_empty"}";
 vufindString.viewBookBag = "{translate text="View Book Bag"}";

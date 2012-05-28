@@ -53,8 +53,15 @@ class FileSession extends SessionInterface
         global $configArray;
 
         // Set defaults if nothing set in config file.
-        self::$_path= isset($configArray['Session']['file_save_path']) ?
-            $configArray['Session']['file_save_path'] : '/tmp/vufind_sessions';
+        if (isset($configArray['Session']['file_save_path'])) {
+            self::$_path = $configArray['Session']['file_save_path'];
+        } else {
+            // Some versions of PHP 5.2 do not have sys_get_temp_dir(), so we'll
+            // make a best guess if we have to.
+            $tempdir = function_exists('sys_get_temp_dir')
+                ? sys_get_temp_dir() : DIRECTORY_SEPARATOR . 'tmp';
+            self::$_path = $tempdir . DIRECTORY_SEPARATOR . 'vufind_sessions';
+        }
 
         // Die if the session directory does not exist and cannot be created.
         if (!file_exists(self::$_path) || !is_dir(self::$_path)) {

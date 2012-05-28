@@ -11,6 +11,7 @@
       <a id="viewCart" title="{translate text='View Book Bag'}" class="viewCart bookbag offscreen" href="{$url}/Cart/Home"><strong><span id="cartSize">{$bookBagItems|@count}</span></strong> {translate text='items'}<span id="cartStatus">{if $bookBag->isFull()}({translate text='bookbag_full'}){else}&nbsp;{/if}</span></a>
   </div>
   {/if}
+  {if !$hideLogin}
   <div id="logoutOptions"{if !$user} class="hide"{/if}>
     <a class="account" href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
     <a class="logout" href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
@@ -22,12 +23,13 @@
     <a class="login" href="{$path}/MyResearch/Home">{translate text="Login"}</a>
   {/if}
   </div>
+  {/if}
   {if is_array($allLangs) && count($allLangs) > 1}
   <form method="post" name="langForm" action="" id="langForm">
     <label for="langForm_mylang">{translate text="Language"}:</label>
     <select id="langForm_mylang" name="mylang" class="jumpMenu">
       {foreach from=$allLangs key=langCode item=langName}
-        <option value="{$langCode}"{if $userLang == $langCode} selected="selected"{/if}>{translate text=$langName}</option>
+        <option value="{$langCode}"{if $userLang == $langCode} selected="selected"{/if}>{displayLanguageOption text=$langName}</option>
       {/foreach}
     </select>
     <noscript><input type="submit" value="{translate text="Set"}" /></noscript>

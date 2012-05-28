@@ -196,3 +196,15 @@ function doGetHTIds()
     var retval = extHTParams;
     return retval;
 }
+
+function doGetHTIdsPartial(currentVal)
+{
+    var extHTParams = "";
+    //only process 20 requests at a time, taking start pos from currentVal
+    for (var i=currentVal; i< currentVal+20 && i < GetHTIdsList.length; i++) {
+        extHTParams += encodeURIComponent(GetHTIdsList[i]) + "|";
+    }
+    extHTParams += encodeURIComponent(GetHTIdsList[GetHTIdsList.length - 1]);
+    var retval = extHTParams;
+    return retval;
+}

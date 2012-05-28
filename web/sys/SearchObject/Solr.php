@@ -106,10 +106,6 @@ class SearchObject_Solr extends SearchObject_Base
         if (is_array($translatedFacets)) {
             $this->translatedFacets = $translatedFacets;
         }
-        $translationPrefix = $this->getFacetSetting('Advanced_Settings', 'facet_translation_prefix');
-        if (isset($translationPrefix)) {
-            $this->facetTranslationPrefix = $translationPrefix;
-        }
 
         // Load search preferences:
         $searchSettings = getExtraConfigArray('searches');
@@ -1337,9 +1333,6 @@ class SearchObject_Solr extends SearchObject_Base
         ) {
             return $list;
         }
-        
-        $translationPrefix = isset($this->facetTranslationPrefix) 
-            ? $this->facetTranslationPrefix : '';
 
         // Loop through every field returned by the result set
         $validFields = array_keys($filter);
@@ -1361,7 +1354,7 @@ class SearchObject_Solr extends SearchObject_Base
                 // Initialize the array of data about the current facet:
                 $currentSettings = array();
                 $currentSettings['value']
-                    = $translate ? translate($translationPrefix . $facet[0]) : $facet[0];
+                    = $translate ? translate($facet[0]) : $facet[0];
                 $currentSettings['untranslated'] = $facet[0];
                 $currentSettings['count'] = $facet[1];
                 $currentSettings['isApplied'] = false;

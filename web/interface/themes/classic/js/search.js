@@ -72,15 +72,15 @@ function doGetStatuses(strings)
                     for (x=0; x<items[i].locationList.length; x++) {
                         locationListHTML += '<div class="groupLocation">';
                         if (items[i].locationList[x].availability) {
-                            locationListHTML += '<span class="availableLoc">' 
+                            locationListHTML += '<span class="availableLoc">'
                                 + items[i].locationList[x].location + '</span> ';
                         } else {
-                            locationListHTML += '<span class="checkedoutLoc">'  
+                            locationListHTML += '<span class="checkedoutLoc">'
                                 + items[i].locationList[x].location + '</span> ';
                         }
                         locationListHTML += '</div>';
                         locationListHTML += '<div class="groupCallnumber">';
-                        locationListHTML += (items[i].locationList[x].callnumbers) 
+                        locationListHTML += (items[i].locationList[x].callnumbers)
                              ?  items[i].locationList[x].callnumbers : '';
                         locationListHTML += '</div>';
                     }
@@ -190,6 +190,18 @@ function doGetHTIds()
 {
     var extHTParams = "";
     for (var i=0; i<GetHTIdsList.length - 1; i++) {
+        extHTParams += encodeURIComponent(GetHTIdsList[i]) + "|";
+    }
+    extHTParams += encodeURIComponent(GetHTIdsList[GetHTIdsList.length - 1]);
+    var retval = extHTParams;
+    return retval;
+}
+
+function doGetHTIdsPartial(currentVal)
+{
+    var extHTParams = "";
+    //only process 20 requests at a time, taking start pos from currentVal
+    for (var i=currentVal; i< currentVal+20 && i < GetHTIdsList.length; i++) {
         extHTParams += encodeURIComponent(GetHTIdsList[i]) + "|";
     }
     extHTParams += encodeURIComponent(GetHTIdsList[GetHTIdsList.length - 1]);

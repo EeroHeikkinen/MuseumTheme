@@ -808,6 +808,12 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:18px;
 }
+.unknown {
+    background-image:url(../images/silk/bullet_orange.png);
+    background-repeat:no-repeat;
+    color:#ff890f;
+    padding-left:18px
+}
 
 
 
@@ -2042,4 +2048,20 @@ div#closeContextHelp:active {
 
 .jstree-highlight {
     font-weight: bold;
+}
+
+.sysInfo {
+    margin: 0 auto;
+    padding: 1em;
+    background-color: #FFEF8F;
+    border: 2px solid #F9DD34;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.mobileViewLink {
+    width:100%;
+    padding:10px;
+    background-color: #FDD5A3;
+    border: solid 2px #E77825;
+    font-size:24px;
 }

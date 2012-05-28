@@ -52,6 +52,10 @@ class PICA extends DAIA
     private $_password;
     private $_ldapConfigurationParameter;
 
+    protected $catalogHost;
+    protected $renewalsScript;
+    protected $dbsid;
+
     /**
      * Constructor
      *
@@ -67,6 +71,8 @@ class PICA extends DAIA
 
         $this->catalogHost = $configArray['Catalog']['Host'];
         $this->renewalsScript = $configArray['Catalog']['renewalsScript'];
+        $this->dbsid = isset($configArray['Catalog']['DB'])
+            ? $configArray['Catalog']['DB'] : 1;
     }
 
     // public functions implemented to satisfy Driver Interface
@@ -173,7 +179,7 @@ class PICA extends DAIA
         $recordList['expiration'] = $userinfo->libExpire;
         $recordList['status'] = $userinfo->borrowerStatus;
         // Get the LOANS-Page to extract a message for the user
-        $URL = "/loan/DB=1/USERINFO";
+        $URL = "/loan/DB={$this->dbsid}/USERINFO";
         $POST = array(
             "ACT" => "UI_DATA",
             "LNG" => "DU",
@@ -212,7 +218,7 @@ class PICA extends DAIA
      */
     public function getMyTransactions($patron)
     {
-        $URL = "/loan/DB=1/USERINFO";
+        $URL = "/loan/DB={$this->dbsid}/USERINFO";
         $POST = array(
             "ACT" => "UI_LOL",
             "LNG" => "DU",
@@ -389,7 +395,7 @@ class PICA extends DAIA
      */
     public function renew($recordId)
     {
-        $URL = "/loan/DB=1/LNG=DU/USERINFO";
+        $URL = "/loan/DB={$this->dbsid}/LNG=DU/USERINFO";
         $POST = array(
             "ACT" => "UI_RENEWLOAN",
             "BOR_U" => $_SESSION['picauser']->username,
@@ -422,7 +428,7 @@ class PICA extends DAIA
     {
         // The patron comes as an array...
         $p = $patron[0];
-        $URL = "/loan/DB=1/LNG=DU/USERINFO";
+        $URL = "/loan/DB={$this->dbsid}/LNG=DU/USERINFO";
         $POST = array(
             "ACT" => "UI_LOC",
             "BOR_U" => $_SESSION['picauser']->username,
@@ -488,7 +494,7 @@ class PICA extends DAIA
      */
     public function getMyHolds($patron)
     {
-        $URL = "/loan/DB=1/LNG=DU/USERINFO";
+        $URL = "/loan/DB={$this->dbsid}/LNG=DU/USERINFO";
         $POST = array(
             "ACT" => "UI_LOR",
             "BOR_U" => $_SESSION['picauser']->username,
@@ -677,7 +683,8 @@ class PICA extends DAIA
     private function _getPpnByBarcode($barcode)
     {
         $searchUrl = "http://" . $this->catalogHost .
-            "/DB=1/XML=1.0/CMD?ACT=SRCHA&IKT=1016&SRT=YOP&TRM=sgn+$barcode";
+            "/DB={$this->dbsid}/XML=1.0/CMD?ACT=SRCHA&IKT=1016&SRT=YOP&TRM=sgn+" .
+            $barcode;
         $doc = new DomDocument();
         $doc->load($searchUrl);
         // get Availability information from DAIA
@@ -701,7 +708,8 @@ class PICA extends DAIA
     public function getJournalHoldings($ppn)
     {
         $searchUrl = "http://" . $this->catalogHost .
-            "/DB=1/XML=1.0/SET=1/TTL=1/FAM?PPN=" . $ppn . "&SHRTST=10000";
+            "/DB={$this->dbsid}/XML=1.0/SET=1/TTL=1/FAM?PPN=" . $ppn .
+            "&SHRTST=10000";
         $doc = new DomDocument();
         $doc->load($searchUrl);
         $itemlist = $doc->getElementsByTagName('SHORTTITLE');

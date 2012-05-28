@@ -1039,6 +1039,12 @@ table.datagrid tr.oddrow {
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
+.unknown {
+    background-image:url(<?php echo $configArray['Site']['path'];?>/images/silk/bullet_orange.png);
+    background-repeat:no-repeat;
+    color:#ff890f;
+    padding-left:18px;
+}
 
 /*Image Alignment*/
 
@@ -1183,7 +1189,7 @@ legend {
 .facetsTop th span {
     font-weight: normal;
 }
-.authorbox {
+.authorbox, .authoritybox {
     border: solid 1px #999999;
     background-color: #FFFFEE;
 }
@@ -1514,4 +1520,20 @@ table.summHoldings .statusColumn {
 }
 a.summHoldings {
     font-size: smaller;
+}
+
+.sysInfo {
+    margin: 0 auto;
+    padding: 1em;
+    background-color: #FFEF8F;
+    border: 2px solid #F9DD34;
+    border-radius: 5px 5px 5px 5px;
+}
+
+.mobileViewLink {
+    width:100%;
+    padding:10px;
+    background-color: #FDD5A3;
+    border: solid 2px #E77825;
+    font-size:24px;
 }

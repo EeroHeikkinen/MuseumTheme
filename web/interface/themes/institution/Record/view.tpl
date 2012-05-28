@@ -138,7 +138,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 <div id="resultMain" class="span-7">
 
  {include file=$coreMetadata}
-  
+
   <div id="{if $dynamicTabs}dyn{/if}tabnav">
   {if !$dynamicTabs || $tab != 'Hold'}
     <ul>

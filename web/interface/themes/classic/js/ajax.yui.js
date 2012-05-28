@@ -92,9 +92,8 @@ function Login(elems, salt, module, action, id, lookfor, message)
 
     // Process Login via AJAX
     var url = path + "/AJAX/JSON";
-    var params = 'method=login' +
-                 '&username=' + username +
-                 '&password=' + hexEncode(password);
+    var params = 'method=login';
+    var postParams = 'ajax_username=' + username + '&ajax_password=' + hexEncode(password);
     var callback =
     {
         success: function(transaction) {
@@ -124,7 +123,7 @@ function Login(elems, salt, module, action, id, lookfor, message)
             }
         }
     };
-    var transaction = YAHOO.util.Connect.asyncRequest('GET', url+'?'+params, callback, null);
+    var transaction = YAHOO.util.Connect.asyncRequest('POST', url+'?'+params, callback, postParams);
 }
 
 function initAutocomplete(inputBox, suggestionBox, typeDropDown)

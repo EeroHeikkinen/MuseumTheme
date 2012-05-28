@@ -198,6 +198,9 @@ class Export extends Bulk
                 case 'marc':
                     $this->_exportHeaders('application/MARC', 'VuFindExport.mrc');
                     break;
+                case 'marcxml':
+                    $this->_exportHeaders('text/xml', 'VuFindExport.xml');
+                    break;
                 case 'refworks_data':
                     // No extra work necessary.
                     break;
@@ -339,6 +342,25 @@ class Export extends Bulk
     }
 
     /**
+     * Extract the <record> portion of a MARC-XML record:
+     *
+     * @param string $xml XML to process
+     *
+     * @return string
+     * @access protected
+     */
+    protected function extractXMLRecord($xml)
+    {
+        $obj = simplexml_load_string($xml);
+        if (!$obj) {
+            return '';
+        }
+        $obj->registerXPathNamespace('marc21', 'http://www.loc.gov/MARC21/slim');
+        $result = $obj->xpath('/marc21:collection/marc21:record');
+        return count($result) > 0 ? $result[0]->asXML() : '';
+    }
+
+    /**
      * Get record and export data
      * Display error message on terminal error or email details page on success
      *
@@ -356,6 +378,12 @@ class Export extends Bulk
         $exportDetails = array();
         $errorMsgDetails = array();
 
+        // MARC-XML needs a container at the start:
+        if ($format == 'MARCXML') {
+            $exportDetails[] = '<?xml version="1.0" encoding="UTF-8"?>' .
+                '<collection xmlns="http://www.loc.gov/MARC21/slim">';
+        }
+
         foreach ($ids as $id) {
             // Retrieve the record from the index
             if (!($record = $this->db->getRecord($id))) {
@@ -367,12 +395,25 @@ class Export extends Bulk
                 $recordDetails->getCoreMetadata();
                 $result = $recordDetails->getExport($format);
                 if (!empty($result)) {
-                    $exportDetails[] = $interface->fetch($result);
+                    $current = $interface->fetch($result);
+                    // For MARC-XML, extract <record> from <collection>:
+                    if ($format == 'MARCXML') {
+                        $current = $this->extractXMLRecord($current);
+                    }
+                    if (!empty($current)) {
+                        $exportDetails[] = $current;
+                    }
                 } else {
                     $errorMsgDetails[] = $id;
                 }
             }
         }
+
+        // MARC-XML needs a container close at the end:
+        if ($format == 'MARCXML') {
+            $exportDetails[] = '</collection>';
+        }
+
         $results = array(
             'exportDetails' => $exportDetails,
             'errorDetails' => $errorMsgDetails

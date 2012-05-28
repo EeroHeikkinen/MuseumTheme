@@ -88,7 +88,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
     {include file=$coreMetadata}
   </div>
-  
+
   <div id="tabnav">
     <ul>
       {if $hasHoldings}

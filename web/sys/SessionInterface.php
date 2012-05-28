@@ -62,6 +62,11 @@ class SessionInterface
             array(get_class($this),'destroy'), array(get_class($this),'gc')
         );
         session_start();
+
+        // According to the PHP manual, session_write_close should always be
+        // registered as a shutdown function when using an object as a session
+        // handler: http://us.php.net/manual/en/function.session-set-save-handler.php
+        register_shutdown_function('session_write_close');
     }
 
     /**

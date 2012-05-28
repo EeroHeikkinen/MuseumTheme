@@ -78,13 +78,19 @@ class CatalogConnection
         if (is_readable($path)) {
             include_once $path;
 
+            // If driver constructor throws exception, status will not be set
+            // to true!
             try {
                 $this->driver = new $driver;
-            } catch (PDOException $e) {
-                throw $e;
+                $this->status = true;
+            } catch (Exception $e) {
+                // What should we do with this error?
+                if ($configArray['System']['debug']) {
+                    echo '<pre>';
+                    echo 'DEBUG: ' . $e->getMessage();
+                    echo '</pre>';
+                }
             }
-
-            $this->status = true;
         }
     }
 
@@ -302,6 +308,23 @@ class CatalogConnection
     public function getStatuses($recordIds)
     {
         return $this->driver->getStatuses($recordIds);
+    }
+
+    /**
+     * Has Holdings
+     *
+     * Obtain information on whether or not the item has holdings
+     *
+     * @param string $id A bibliographic id
+     *
+     * @return bool true on success, false on failure
+     * @access public
+     */
+    public function hasHoldings($id)
+    {
+        // Graceful degradation -- return true if no method supported.
+        return method_exists($this->driver, 'hasHoldings') ?
+            $this->driver->hasHoldings($id) : true;
     }
 
     /**

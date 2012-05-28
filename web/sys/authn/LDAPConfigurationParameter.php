@@ -109,8 +109,11 @@ class LDAPConfigurationParameter
     private function _convertParameterValuesToLowercase()
     {
         foreach ($this->_ldapParameter as $index => $value) {
-            // Don't lowercase the bind credentials -- they may be case sensitive!
-            if ($index != 'bind_username' && $index != 'bind_password') {
+            // Don't lowercase the bind or basedn credentials -- they may be case
+            // sensitive!
+            if ($index != 'bind_username' && $index != 'bind_password'
+                && $index != 'basedn'
+            ) {
                 $this->_ldapParameter[$index] = strtolower($value);
             }
         }

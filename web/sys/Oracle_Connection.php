@@ -66,7 +66,7 @@ class Oracle_Connection
         } else {
             error_reporting($tmp);
             $this->_handleError('connect', oci_error());
-            return false;
+            throw new Exception('Oracle connection problem.');
         }
     }
 

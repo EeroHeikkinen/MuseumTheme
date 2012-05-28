@@ -8,9 +8,9 @@
 {assign var=marcField value=$marc->getFields('260')}
 {if $marcField}
 {foreach from=$marcField item=field name=loop}
-%C {$field|getvalue:'b'|replace:',':''}
+%C {$field|getvalue:'a'|replace:':':''|replace:'[':''|replace:']':''}
 %D {$field|getvalue:'c'|replace:'.':''|replace:'[':''|replace:']':''}
-%I {$field|getvalue:'a'|replace:':':''|replace:'[':''|replace:']':''}
+%I {$field|getvalue:'b'|replace:',':''}
 {/foreach}
 {/if}
 {assign var=marcField value=$marc->getFields('700')}
