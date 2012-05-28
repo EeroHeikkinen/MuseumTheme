@@ -16,7 +16,7 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
         },
         colors: ["rgba(151,200,151,255)"],
         legend: { noColumns: 2 },
-        xaxis: { min: 1, max: currentYear + 1, tickDecimals: 0 },
+        xaxis: { max: currentYear + 1, tickDecimals: 0 },
         yaxis: { min: 0, ticks: [] },
         selection: {mode: "x"},
         grid: { backgroundColor: null /*"#ffffff"*/ }
