@@ -486,6 +486,58 @@ class SearchObject_SolrAuth extends SearchObject_Base
     }
 
     /**
+     * This function is used to conduct the search of the Authority Index
+     * for the Authority Recommendation Module. If isTypeBased is set to true
+     * in searches.ini, the module will match the user's search type to LOC
+     * authority types stored in the record_type Solr field; by default, the
+     * module will return results regardless of the record's record_type.
+     *
+     * @param string $lookfor Search string.
+     *
+     * @return void
+     */
+    public function initAuthorityRecommendationSearch($lookfor)
+    {
+        // Call default initialization first:
+        $this->init();
+
+        // Reset some fields potentially set to inappropriate values by init():
+        $this->filterList = array();
+        $this->searchType = $this->advancedSearchType;
+
+        // this section prevents the search from retrieving records that would
+        // already have been retrieved by a search of the biblio core, i.e. it only
+        // returns results where $lookfor IS found in in the "Heading" search and IS
+        // NOT found in the "MainHeading" search defined in authsearchspecs.yaml
+        $group1 = array();
+        // Add term to this group
+        $group1[] = array(
+           'field'   => 'Heading',
+           'lookfor' => $lookfor,
+           'bool'    => 'AND'
+        );
+
+        $group2 = array();
+        // Add term to this group
+        $group2[] = array(
+            'field'   => 'MainHeading',
+            'lookfor' => $lookfor,
+            'bool'    => 'NOT'
+        );
+
+        // add both search queries to searchTerms
+        $this->searchTerms = array();
+        $this->searchTerms[] = array(
+            'group' => $group1,
+            'join'  => 'AND'
+        );
+        $this->searchTerms[] = array(
+            'group' => $group2,
+            'join'  => 'AND'
+        );
+    }
+
+    /**
      * Turn the list of spelling suggestions into an array of urls
      *   for on-screen use to implement the suggestions.
      *

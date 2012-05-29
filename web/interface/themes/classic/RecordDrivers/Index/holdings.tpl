@@ -1,11 +1,13 @@
-{if ($driverMode && !empty($holdings)) || $titleDriverMode}
-  {if $showLoginMsg || $showTitleLoginMsg}
-    <div class="userMsg">
-      <a href="{$path}/MyResearch/Home?followup=true&followupModule=Record&followupAction={$id}">{translate text="Login"}</a> {translate text="hold_login"}
-    </div>
-  {/if}
-  {if $user && !$user->cat_username}
-    {include file="MyResearch/catalog-login.tpl"}
+{if !$hideLogin && $offlineMode != "ils-offline"}
+  {if ($driverMode && !empty($holdings)) || $titleDriverMode}
+    {if $showLoginMsg || $showTitleLoginMsg}
+      <div class="userMsg">
+        <a href="{$path}/MyResearch/Home?followup=true&followupModule=Record&followupAction={$id}">{translate text="Login"}</a> {translate text="hold_login"}
+      </div>
+    {/if}
+    {if $user && !$user->cat_username}
+      {include file="MyResearch/catalog-login.tpl"}
+    {/if}
   {/if}
 {/if}
 
@@ -68,6 +70,8 @@
     <td>
       {if $row.reserve == "Y"}
       {translate text="On Reserve - Ask at Circulation Desk"}
+      {elseif $row.use_unknown_message}
+      <span class="unknown">{translate text="status_unknown_message"}</span>
       {else}
         {if $row.availability}
         {* Begin Available Items (Holds) *}

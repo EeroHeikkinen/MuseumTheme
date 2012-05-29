@@ -102,13 +102,15 @@ class XCNCIP implements DriverInterface
             '<InitiationHeader>' .
                 '<FromAgencyId>' .
                     '<UniqueAgencyId>' .
-                        '<Scheme>http://128.151.189.131:8080/NCIPToolkit/NCIPschemes/AgencyScheme.scm</Scheme>' .
+                        '<Scheme>http://128.151.189.131:8080/NCIPToolkit/' .
+                        'NCIPschemes/AgencyScheme.scm</Scheme>' .
                         '<Value>' . $id . '</Value>' .
                     '</UniqueAgencyId>' .
                 '</FromAgencyId>' .
                 '<ToAgencyId>' .
                     '<UniqueAgencyId>' .
-                        '<Scheme>http://128.151.189.131:8080/NCIPToolkit/NCIPschemes/AgencyScheme.scm</Scheme>' .
+                        '<Scheme>http://128.151.189.131:8080/NCIPToolkit/' .
+                        'NCIPschemes/AgencyScheme.scm</Scheme>' .
                         '<Value>' . $id . '</Value>' .
                     '</UniqueAgencyId>' .
                 '</ToAgencyId>' .
@@ -127,8 +129,10 @@ class XCNCIP implements DriverInterface
     {
         // Build the start of the XML:
         $xml = "<?xml version='1.0' encoding='UTF-8'?>" .
-            '<!DOCTYPE NCIPMessage PUBLIC "-//NISO//NCIP DTD Version 1//EN" "http://xml.coverpages.org/NCIP-v10a-DTD.txt">' .
-            '<NCIPMessage version="http://www.niso.org/ncip/v1_0/imp1/dtd/ncip_v1_0.dtd">' .
+            '<!DOCTYPE NCIPMessage PUBLIC "-//NISO//NCIP DTD Version 1//EN" ' .
+            '"http://xml.coverpages.org/NCIP-v10a-DTD.txt">' .
+            '<NCIPMessage version="http://www.niso.org/ncip/v1_0/imp1/dtd/' .
+            'ncip_v1_0.dtd">' .
                 '<XCGetAvailability>' . $this->_getInitiationHeader();
 
         // Add entries for IDs passed in:
@@ -137,13 +141,14 @@ class XCNCIP implements DriverInterface
         }
         foreach ($id as $current) {
             $current = htmlspecialchars($current);
-            $xml .=     '<VisibleItemId>' .
-                            '<VisibleItemIdentifierType>' .
-                                '<Scheme>http://128.151.189.131:8080/NCIPToolkit/NCIPschemes/BibIdCode.scm</Scheme>' .
-                                '<Value>bibliographic ID</Value>' .
-                            '</VisibleItemIdentifierType>' .
-                            "<VisibleItemIdentifier>{$current}</VisibleItemIdentifier>" .
-                        '</VisibleItemId>';
+            $xml .= '<VisibleItemId>' .
+                        '<VisibleItemIdentifierType>' .
+                            '<Scheme>http://128.151.189.131:8080/NCIPToolkit/' .
+                            'NCIPschemes/BibIdCode.scm</Scheme>' .
+                            '<Value>bibliographic ID</Value>' .
+                        '</VisibleItemIdentifierType>' .
+                        "<VisibleItemIdentifier>{$current}</VisibleItemIdentifier>" .
+                    '</VisibleItemId>';
         }
 
         // Build the end of the XML:
@@ -304,8 +309,10 @@ class XCNCIP implements DriverInterface
     {
         // Build the start of the XML:
         $xml = "<?xml version='1.0' encoding='UTF-8'?>" .
-            '<!DOCTYPE NCIPMessage PUBLIC "-//NISO//NCIP DTD Version 1//EN" "http://xml.coverpages.org/NCIP-v10a-DTD.txt">' .
-            '<NCIPMessage version="http://www.niso.org/ncip/v1_0/imp1/dtd/ncip_v1_0.dtd">' .
+            '<!DOCTYPE NCIPMessage PUBLIC "-//NISO//NCIP DTD Version 1//EN" ' .
+            '"http://xml.coverpages.org/NCIP-v10a-DTD.txt">' .
+            '<NCIPMessage version="http://www.niso.org/ncip/v1_0/imp1/dtd/' .
+            'ncip_v1_0.dtd">' .
                 '<AuthenticateUser>' . $this->_getInitiationHeader();
 
         // Prepare input values for inclusion in XML:
@@ -315,24 +322,28 @@ class XCNCIP implements DriverInterface
         // Build the core of the message:
         $xml .=
             '<AuthenticationInput>' .
-                '<AuthenticationInputData>' . $username . '</AuthenticationInputData>' .
+                "<AuthenticationInputData>{$username}</AuthenticationInputData>" .
                 '<AuthenticationDataFormatType>' .
-                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/FormatType.scm</Scheme>' .
+                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/' .
+                    'FormatType.scm</Scheme>' .
                     '<Value>Text</Value>' .
                 '</AuthenticationDataFormatType>' .
                 '<AuthenticationInputType>' .
-                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/AuthenticationType.scm</Scheme>' .
+                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/' .
+                    'AuthenticationType.scm</Scheme>' .
                     '<Value>Username</Value>' .
                 '</AuthenticationInputType>' .
             '</AuthenticationInput>' .
             '<AuthenticationInput>' .
-                '<AuthenticationInputData>' . $password . '</AuthenticationInputData>' .
+                "<AuthenticationInputData>{$password}</AuthenticationInputData>" .
                 '<AuthenticationDataFormatType>' .
-                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/FormatType.scm</Scheme>' .
+                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/' .
+                    'FormatType.scm</Scheme>' .
                     '<Value>Text</Value>' .
                 '</AuthenticationDataFormatType>' .
                 '<AuthenticationInputType>' .
-                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/AuthenticationType.scm</Scheme>' .
+                    '<Scheme>http://localhost:8080/NCIPToolkit/NCIPschemes/' .
+                    'AuthenticationType.scm</Scheme>' .
                     '<Value>Password</Value>' .
                 '</AuthenticationInputType>' .
             '</AuthenticationInput>';
@@ -397,12 +408,15 @@ class XCNCIP implements DriverInterface
      * @return string               NCIP request XML
      * @access private
      */
-    private function _getUserLookupRequest($id, $userElements, $otherElements = array())
-    {
+    private function _getUserLookupRequest($id, $userElements,
+        $otherElements = array()
+    ) {
         // Build the start of the XML:
         $xml = "<?xml version='1.0' encoding='UTF-8'?>" .
-            '<!DOCTYPE NCIPMessage PUBLIC "-//NISO//NCIP DTD Version 1//EN" "http://xml.coverpages.org/NCIP-v10a-DTD.txt">' .
-            '<NCIPMessage version="http://www.niso.org/ncip/v1_0/imp1/dtd/ncip_v1_0.dtd">' .
+            '<!DOCTYPE NCIPMessage PUBLIC "-//NISO//NCIP DTD Version 1//EN" ' .
+            '"http://xml.coverpages.org/NCIP-v10a-DTD.txt">' .
+            '<NCIPMessage version="http://www.niso.org/ncip/v1_0/imp1/dtd/' .
+            'ncip_v1_0.dtd">' .
                 '<LookupUser>' . $this->_getInitiationHeader();
 
         // Fill in the important bits:
@@ -410,7 +424,8 @@ class XCNCIP implements DriverInterface
         $xml .=
             '<UniqueUserId>' .
                 '<UniqueAgencyId>' .
-                    '<Scheme>http://128.151.244.137:8080/NCIPToolkit/NCIPschemes/AgencyScheme.scm</Scheme>' .
+                    '<Scheme>http://128.151.244.137:8080/NCIPToolkit/NCIPschemes/' .
+                    'AgencyScheme.scm</Scheme>' .
                     '<Value>' .
                         htmlspecialchars($this->_config['Catalog']['agency']) .
                     '</Value>' .
@@ -425,7 +440,9 @@ class XCNCIP implements DriverInterface
         foreach ($userElements as $current) {
             $xml .=
                 '<UserElementType>' .
-                    '<Scheme>http://www.niso.org/ncip/v1_0/schemes/userelementtype/userelementtype.scm</Scheme>' .
+                    '<Scheme>http://www.niso.org/ncip/v1_0/schemes/' .
+                    'userelementtype/' .
+                    'userelementtype.scm</Scheme>' .
                     '<Value>' . htmlspecialchars($current) . '</Value>' .
                 '</UserElementType>';
         }

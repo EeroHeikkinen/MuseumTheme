@@ -67,16 +67,6 @@ class Record extends Action
 
         //$interface->caching = 1;
 
-        // Define Default Tab
-        $defaultTab = isset($configArray['Site']['defaultRecordTab']) ?
-            $configArray['Site']['defaultRecordTab'] : 'Holdings';
-        $tab = (isset($_GET['action'])) ? $_GET['action'] : $defaultTab;
-        $interface->assign('tab', $tab);
-
-        if (isset($configArray['Site']['ajaxRecordTabs']) && $configArray['Site']['ajaxRecordTabs']) {
-            $interface->assign('dynamicTabs', true);
-        }
-        
         // Store ID of current record (this is needed to generate appropriate
         // links, and it is independent of which record driver gets used).
         $interface->assign('id', $_REQUEST['id']);
@@ -112,9 +102,29 @@ class Record extends Action
         }
         $this->recordDriver = RecordDriverFactory::initRecordDriver($record);
 
-        $this->hasHoldings = $this->recordDriver->hasRealTimeHoldings();
-        $interface->assign('hasHoldings', $this->hasHoldings);
+        // Define Default Tab
+        $defaultTab = isset($configArray['Site']['defaultRecordTab']) ?
+            $configArray['Site']['defaultRecordTab'] : 'Holdings';
 
+        if (isset($configArray['Site']['hideHoldingsTabWhenEmpty'])
+            && $configArray['Site']['hideHoldingsTabWhenEmpty']
+        ) {
+            $showHoldingsTab = $this->recordDriver->hasHoldings();
+            $interface->assign('hasHoldings', $showHoldingsTab);
+            $defaultTab =  (!$showHoldingsTab && $defaultTab == "Holdings") ?
+                "Description" : $defaultTab;
+        } else {
+            $interface->assign('hasHoldings', true);
+        }
+
+        $tab = (isset($_GET['action'])) ? $_GET['action'] : $defaultTab;
+        $interface->assign('tab', $tab);
+
+        // Check if ajax tabs are active
+        if (isset($configArray['Site']['ajaxRecordTabs']) && $configArray['Site']['ajaxRecordTabs']) {
+            $interface->assign('dynamicTabs', true);
+        }
+        
         if ($this->recordDriver->hasRDF()) {
             $interface->assign(
                 'addHeader', '<link rel="alternate" type="application/rdf+xml" ' .
@@ -126,21 +136,7 @@ class Record extends Action
 
         // Determine whether to display book previews
         if (isset($configArray['Content']['previews'])) {
-            $providers = explode(',', $configArray['Content']['previews']);
-            $interface->assign('showPreviews', true);
-            foreach ($providers as $provider) {
-                switch ($provider) {
-                case 'Google':
-                    $interface->assign('showGBSPreviews', true);
-                    break;
-                case 'OpenLibrary':
-                    $interface->assign('showOLPreviews', true);
-                    break;
-                case 'HathiTrust':
-                    $interface->assign('showHTPreviews', true);
-                    break;
-                }
-            }
+            $interface->assignPreviews();
         }
 
         // Determine whether to include script tag for syndetics plus

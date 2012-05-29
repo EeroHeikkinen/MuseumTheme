@@ -50,6 +50,28 @@ class Logout extends Action
     {
         global $configArray;
 
+        self::performLogout();
+
+        // Forward to the appropriate place (depending on auth settings):
+        if ($configArray['Authentication']['method'] == 'Shibboleth'
+            && isset($configArray['Shibboleth']['logout'])
+        ) {
+            $logout = $configArray['Shibboleth']['logout'] . "?return="
+                . urlencode($configArray['Site']['url']);
+            header('Location: ' . $logout);
+        } else {
+            header('Location: ' . $configArray['Site']['url']);
+        }
+    }
+
+    /**
+     * Destroy the session
+     *
+     * @return void
+     * @access public
+     */
+    public static function performLogout()
+    {
         if (!isset($_SESSION)) {
             session_start();
         }
@@ -61,8 +83,6 @@ class Logout extends Action
         }
 
         session_destroy();
-
-        header('Location: ' . $configArray['Site']['url']);
     }
 }
 

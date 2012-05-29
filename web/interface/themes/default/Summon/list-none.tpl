@@ -3,12 +3,6 @@
   <div id="yui-main" class="content">
     <div class="yui-b first">
       <b class="btop"><b></b></b>
-      {* Recommendations *}
-      {if $topRecommendations}
-        {foreach from=$topRecommendations item="recommendations"}
-          {include file=$recommendations}
-        {/foreach}
-      {/if}
       <div class="resulthead"><h3>{translate text='nohit_heading'}</h3></div>
       <div class="page">
         <p class="error">{translate text='nohit_prefix'} - <b>{$lookfor|escape:"html"}</b> - {translate text='nohit_suffix'}</p>
@@ -26,6 +20,18 @@
         {/foreach}
         </div>
         <br/>
+        {/if}
+        {* Recommendations *}
+        {if $topRecommendations}
+          {foreach from=$topRecommendations item="recommendations"}
+            {include file=$recommendations}
+          {/foreach}
+        {/if}
+
+        {if $noResultsRecommendations}
+          {foreach from=$noResultsRecommendations item="recommendations" key='key' name="noResults"}
+            {include file=$recommendations}
+          {/foreach}
         {/if}
       </div>
       <b class="bbot"><b></b></b>

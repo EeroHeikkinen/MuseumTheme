@@ -109,11 +109,16 @@ class LDAPAuthentication implements Authentication
             return new PEAR_ERROR('authentication_error_technical');
         }
 
-        // Set LDAP options -- use protocol version 3 and then initiate TLS so we
-        // can have a secure connection over the standard LDAP port.
+        // Set LDAP options -- use protocol version 3
         @ldap_set_option($ldapConnection, LDAP_OPT_PROTOCOL_VERSION, 3);
-        if (!@ldap_start_tls($ldapConnection)) {
-            return new PEAR_ERROR('authentication_error_technical');
+
+        // if the host parameter is not specified as ldaps://
+        // then we need to initiate TLS so we
+        // can have a secure connection over the standard LDAP port.
+        if (stripos($ldapConnectionParameter['host'], 'ldaps://') === false) {
+            if (!@ldap_start_tls($ldapConnection)) {
+                return new PEAR_ERROR('authentication_error_technical');
+            }
         }
 
         // If bind_username and bind_password were supplied in the config file, use
@@ -218,7 +223,7 @@ class LDAPAuthentication implements Authentication
                 }
             }
         }
-        $this->_synchronizeVufindDatabaseWithLDAPEntries(
+        $this->synchronizeVufindDatabaseWithLDAPEntries(
             $userIsInVufindDatabase, $user
         );
         return $user;
@@ -245,9 +250,9 @@ class LDAPAuthentication implements Authentication
      * @param User $user                   User object to store.
      *
      * @return void
-     * @access private
+     * @access protected
      */
-    private function _synchronizeVufindDatabaseWithLDAPEntries(
+    protected function synchronizeVufindDatabaseWithLDAPEntries(
         $userIsInVufindDatabase, $user
     ) {
         if ($userIsInVufindDatabase) {

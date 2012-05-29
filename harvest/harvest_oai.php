@@ -299,21 +299,38 @@ class HarvestOAI
             print_r($params);
         }
 
-        // Set up the request:
-        $request = new Proxy_Request();
-        $request->setMethod(HTTP_REQUEST_METHOD_GET);
-        $request->setURL($this->_baseURL);
+        // Set up retry loop:
+        while (true) {
+            // Set up the request:
+            $request = new Proxy_Request();
+            $request->setMethod(HTTP_REQUEST_METHOD_GET);
+            $request->setURL($this->_baseURL);
 
-        // Load request parameters:
-        $request->addQueryString('verb', $verb);
-        foreach ($params as $key => $value) {
-            $request->addQueryString($key, $value);
-        }
+            // Load request parameters:
+            $request->addQueryString('verb', $verb);
+            foreach ($params as $key => $value) {
+                $request->addQueryString($key, $value);
+            }
 
-        // Perform request and die on error:
-        $result = $request->sendRequest();
-        if (PEAR::isError($result)) {
-            die($result->getMessage() . "\n");
+            // Perform request and die on error:
+            $result = $request->sendRequest();
+            if (PEAR::isError($result)) {
+                die($result->getMessage() . "\n");
+            }
+
+            // Check for 503 response.
+            if ($request->getResponseCode() == 503) {
+                $delay = $request->getResponseHeader('Retry-After');
+                if ($delay > 0) {
+                    if ($this->_verbose) {
+                        echo "Received 503 response; waiting {$delay} seconds...\n";
+                    }
+                    sleep($delay);
+                }
+            } else {
+                // If we didn't get a 503, we can leave the retry loop:
+                break;
+            }
         }
 
         // If we got this far, there was no error -- send back response.
@@ -362,7 +379,7 @@ class HarvestOAI
      */
     private function _getFilename($id, $ext)
     {
-        return $this->_basePath . time() . '_' . 
+        return $this->_basePath . time() . '_' .
             preg_replace('/[^\w]/', '_', $id) . '.' . $ext;
     }
 

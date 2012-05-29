@@ -51,6 +51,7 @@ class VoyagerRestful extends Voyager
     protected $ws_pickUpLocations;
     protected $defaultPickUpLocation;
     protected $holdCheckLimit;
+    protected $checkRenewalsUpFront;
 
     /**
      * Constructor
@@ -79,6 +80,9 @@ class VoyagerRestful extends Voyager
         $this->holdCheckLimit
             = isset($this->config['Holds']['holdCheckLimit'])
             ? $this->config['Holds']['holdCheckLimit'] : "15";
+        $this->checkRenewalsUpFront
+            = isset($this->config['Renewals']['checkUpFront'])
+            ? $this->config['Renewals']['checkUpFront'] : true;
     }
 
     /**
@@ -334,7 +338,12 @@ class VoyagerRestful extends Voyager
     {
         $transactions = parent::processMyTransactionsData($sqlRow, $patron);
 
-        $renewData = $this->isRenewable($patron['id'], $transactions['item_id']);
+        // Do we need to check renewals up front?  If so, do the check; otherwise,
+        // set up fake "success" data to move us forward.
+        $renewData = $this->checkRenewalsUpFront
+            ? $this->isRenewable($patron['id'], $transactions['item_id'])
+            : array('message' => false, 'renewable' => true);
+
         $transactions['renewable'] = $renewData['renewable'];
         $transactions['message'] = $renewData['message'];
 
@@ -435,7 +444,8 @@ class VoyagerRestful extends Voyager
 
         // Add Hierarchy
         foreach ($hierarchy as $key => $value) {
-            $hierarchyString[] = ($value !== false) ? urlencode($key). "/" . urlencode($value) : urlencode($key);
+            $hierarchyString[] = ($value !== false)
+                ? urlencode($key) . "/" . urlencode($value) : urlencode($key);
         }
 
         // Add Params
@@ -591,33 +601,43 @@ class VoyagerRestful extends Voyager
                 // file
                 $failIDs[$renewID] = "";
 
-                // Build Hierarchy
-                $hierarchy = array(
-                    "patron" => $patronId,
-                    "circulationActions" => "loans"
-                );
+                // Did we need to check renewals up front?  If not, do the check now;
+                // otherwise, set up fake "success" data to avoid redundant work.
+                $renewable = !$this->checkRenewalsUpFront
+                    ? $this->isRenewable($patronId, $renewID)
+                    : array('renewable' => true);
 
-                // Add Required Params
-                $params = array(
-                    "patron_homedb" => $this->ws_patronHomeUbId,
-                    "view" => "full"
-                );
+                // Don't even try to renew a non-renewable item; we don't want to
+                // break any rules, and Voyager's API doesn't always enforce well.
+                if (isset($renewable['renewable']) && $renewable['renewable']) {
+                    // Build Hierarchy
+                    $hierarchy = array(
+                        "patron" => $patronId,
+                        "circulationActions" => "loans"
+                    );
 
-                // Create Rest API Renewal Key
-                $restRenewID = $this->ws_dbKey. "|" . $renewID;
+                    // Add Required Params
+                    $params = array(
+                        "patron_homedb" => $this->ws_patronHomeUbId,
+                        "view" => "full"
+                    );
 
-                // Add to Hierarchy
-                $hierarchy[$restRenewID] = false;
+                    // Create Rest API Renewal Key
+                    $restRenewID = $this->ws_dbKey. "|" . $renewID;
 
-                // Attempt Renewal
-                $renewalObj = $this->makeRequest($hierarchy, $params, "POST");
+                    // Add to Hierarchy
+                    $hierarchy[$restRenewID] = false;
 
-                $process = $this->processRenewals($renewalObj);
-                if (PEAR::isError($process)) {
-                    return $process;
+                    // Attempt Renewal
+                    $renewalObj = $this->makeRequest($hierarchy, $params, "POST");
+
+                    $process = $this->processRenewals($renewalObj);
+                    if (PEAR::isError($process)) {
+                        return $process;
+                    }
+                    // Process Renewal
+                    $renewProcessed[] = $process;
                 }
-                // Process Renewal
-                $renewProcessed[] = $process;
             }
 
             // Place Successfully processed renewals in the details array

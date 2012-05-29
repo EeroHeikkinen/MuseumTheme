@@ -3,6 +3,15 @@
   <div class="searchHomeContent">
     <img src="{$path}/interface/themes/default/images/vufind_logo_large.gif" alt="VuFind">
     
+    {if $offlineMode == "ils-offline"}
+      <div class="sysInfo">
+      <h2>{translate text="ils_offline_title"}</h2>
+      <p><strong>{translate text="ils_offline_status"}</strong></p>
+      <p>{translate text="ils_offline_home_message"}</p>
+      <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
+      </div>
+    {/if}
+
     <div class="searchHomeForm">
       {include file="Search/searchbox.tpl"}
     </div>

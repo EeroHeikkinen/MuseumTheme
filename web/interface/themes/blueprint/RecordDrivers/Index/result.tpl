@@ -73,22 +73,22 @@
     {if $showPreviews}
       {if (!empty($summLCCN) || !empty($summISBN) || !empty($summOCLC))}
       <div>
-        {if $showGBSPreviews}
-          <div class="previewDiv">
+        {if $googleOptions}
+          <div class="googlePreviewDiv__{$googleOptions}">
             <a title="{translate text='Preview from'} Google Books" class="hide previewGBS{if $summISBN} ISBN{$summISBN}{/if}{if $summLCCN} LCCN{$summLCCN}{/if}{if $summOCLC} OCLC{$summOCLC|@implode:' OCLC'}{/if}" target="_blank">
               <img src="https://www.google.com/intl/en/googlebooks/images/gbs_preview_button1.png" alt="{translate text='Preview'}"/>
             </a>
           </div>
         {/if}
-        {if $showOLPreviews}
-          <div class="previewDiv">
+        {if $olOptions}
+          <div class="olPreviewDiv__{$olOptions}">
             <a title="{translate text='Preview from'} Open Library" class="hide previewOL{if $summISBN} ISBN{$summISBN}{/if}{if $summLCCN} LCCN{$summLCCN}{/if}{if $summOCLC} OCLC{$summOCLC|@implode:' OCLC'}{/if}" target="_blank">
               <img src="{$path}/images/preview_ol.gif" alt="{translate text='Preview'}"/>
             </a>
           </div>
         {/if}
-        {if $showHTPreviews}
-          <div class="previewDiv">
+        {if $hathiOptions}
+          <div class="hathiPreviewDiv__{$hathiOptions}">
             <a title="{translate text='Preview from'} HathiTrust" class="hide previewHT{if $summISBN} ISBN{$summISBN}{/if}{if $summLCCN} LCCN{$summLCCN}{/if}{if $summOCLC} OCLC{$summOCLC|@implode:' OCLC'}{/if}" target="_blank">
               <img src="{$path}/images/preview_ht.gif" alt="{translate text='Preview'}"/>
             </a>

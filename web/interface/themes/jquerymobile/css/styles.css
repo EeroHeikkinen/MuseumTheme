@@ -198,6 +198,12 @@ div.footer-text {
     background-position: left;
     padding-left:18px
 }
+.unknown {
+    background-image:url(../images/silk/bullet_orange.png);
+    background-repeat:no-repeat;
+    color:#ff890f;
+    padding-left:18px
+}
 .add_to_book_bag {
     /* Hidden until fully implemented */
     display: none;
@@ -211,3 +217,12 @@ div.footer-text {
 .notice a {color:#514721;}
 .success a {color:#264409;}
 .info a {color:#205791;}
+
+
+.sysInfo {
+    margin: 0 auto;
+    padding: 1em;
+    background-color: #FFEF8F;
+    border: 2px solid #F9DD34;   
+    border-radius: 5px 5px 5px 5px;
+}

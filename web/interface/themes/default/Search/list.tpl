@@ -99,15 +99,30 @@
 
 </div>
 {if $showPreviews}
-<script type="text/javascript">
-{if $showGBSPreviews}
-document.write(unescape("%3Cscript src=https://encrypted.google.com/books?jscmd=viewapi&bibkeys=" + doGetExtIds() + "&callback=ProcessGBSBookInfo" + " type='text/javascript'%3E%3C/script%3E"));
-{/if}
-{if $showOLPreviews}
-document.write(unescape("%3Cscript src=http://openlibrary.org/api/books?bibkeys=" + doGetExtIds() + "&callback=ProcessOLBookInfo" + " type='text/javascript'%3E%3C/script%3E"));
-{/if}
-{if $showHTPreviews}
-document.write(unescape("%3Cscript src=http://catalog.hathitrust.org/api/volumes/brief/json/" + doGetHTIds() + "&callback=ProcessHTBookInfo" + " type='text/javascript'%3E%3C/script%3E"));
-{/if}
-</script>
+  <script type="text/javascript">
+  {if $hathiOptions}
+    setHathiOptions("{$hathiOptions|escape}");
+  {/if}
+  {if $googleOptions}
+    setGoogleOptions("{$googleOptions}");
+  {/if}
+  {if $olOptions}
+    setOlOptions("{$olOptions}");
+  {/if}
+  {if $googleOptions}
+    document.write(unescape("%3Cscript src=https://encrypted.google.com/books?jscmd=viewapi&bibkeys=" + doGetExtIds() + "&callback=ProcessGBSBookInfo" + " type='text/javascript'%3E%3C/script%3E"));
+  {/if}
+  {if $hathiOptions}
+    {if $recordSet|@count <= 20}
+      document.write(unescape("%3Cscript src=http://catalog.hathitrust.org/api/volumes/brief/json/" + doGetHTIds() + "&callback=ProcessHTBookInfo" + " type='text/javascript'%3E%3C/script%3E"));
+    {else}
+      {section name = partialHTRequest loop = $recordSet|@count step = 20}
+      document.write(unescape("%3Cscript src=http://catalog.hathitrust.org/api/volumes/brief/json/" + doGetHTIdsPartial({$smarty.section.partialHTRequest.index}) + "&callback=ProcessHTBookInfo" + " type='text/javascript'%3E%3C/script%3E"));
+      {/section}
+    {/if}
+  {/if}
+  {if $olOptions}
+    document.write(unescape("%3Cscript src=http://openlibrary.org/api/books?bibkeys=" + doGetExtIds() + "&callback=ProcessOLBookInfo" + " type='text/javascript'%3E%3C/script%3E"));
+  {/if}
+  </script>
 {/if}

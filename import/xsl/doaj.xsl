@@ -148,10 +148,10 @@
 
                 <!-- SUBJECT -->
                 <xsl:if test="//doaj:keywords">
-                    <xsl:for-each select="//doaj:keywords/keyword">
+                    <xsl:for-each select="//doaj:keywords/doaj:keyword">
                         <xsl:if test="string-length() > 0">
                             <field name="topic">
-                                <xsl:value-of select="//doaj:keywords/keyword[normalize-space()]"/>
+                                <xsl:value-of select="normalize-space()"/>
                             </field>
                         </xsl:if>
                     </xsl:for-each>
@@ -159,10 +159,15 @@
 
                 <!-- URL -->
                 <xsl:if test="//doaj:fullTextUrl">
-                    <field name="url">
-                        <xsl:value-of select="//doaj:fullTextUrl[normalize-space()]"/>
-                    </field>
-                </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="contains(//doaj:fullTextUrl, '://')">
+                            <field name="url"><xsl:value-of select="//doaj:fullTextUrl[normalize-space()]"/></field>
+                        </xsl:when>
+                        <xsl:otherwise>
+                            <field name="url">http://<xsl:value-of select="//doaj:fullTextUrl[normalize-space()]"/></field>
+                        </xsl:otherwise>
+                    </xsl:choose>
+                </xsl:if> 
             </doc>
         </add>
     </xsl:template>

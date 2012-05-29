@@ -71,28 +71,6 @@ if ($configArray['System']['debug']) {
 // Start Interface
 $interface = new UInterface();
 
-// Check system availability
-$mode = checkAvailabilityMode();
-if ($mode['online'] === false) {
-    // Why are we offline?
-    switch ($mode['level']) {
-    // Forced Downtime
-    case "unavailable":
-        // TODO : Variable reasons, and translated
-        //$interface->assign('message', $mode['message']);
-        $interface->display($mode['template']);
-        break;
-    // Should never execute. checkAvailabilityMode() would
-    // need to know we are offline, but not why.
-    default:
-        // TODO : Variable reasons, and translated
-        //$interface->assign('message', $mode['message']);
-        $interface->display($mode['template']);
-        break;
-    }
-    exit();
-}
-
 // Proxy server settings
 if (isset($configArray['Proxy']['host'])) {
     if (isset($configArray['Proxy']['port'])) {
@@ -128,6 +106,12 @@ $translator = new I18N_Translator(
 );
 $interface->setLanguage($language);
 
+// Check system availability
+if (!$configArray['System']['available']) {
+    $interface->display('unavailable.tpl');
+    exit();
+}
+
 // Setup Local Database Connection
 ConnectionManager::connectToDatabase();
 
@@ -152,7 +136,15 @@ $action = (isset($_GET['action'])) ? $_GET['action'] : 'Home';
 $action = preg_replace('/[^\w]/', '', $action);
 
 // Process Authentication
-if (!$user) {
+if ($user && $configArray['Authentication']['method'] == 'Shibboleth'
+    && empty($_SERVER[$configArray['Shibboleth']['username']])
+    && isset($configArray['Shibboleth']['logout'])
+) {
+    // Special case: Process single log-out for Shibboleth
+    include_once 'services/MyResearch/Logout.php';
+    Logout::performLogout();
+    $user = false;
+} else if (!$user) {
     // Special case for Shibboleth:
     $shibLoginNeeded = ($configArray['Authentication']['method'] == 'Shibboleth'
         && $module == 'MyResearch');
@@ -357,32 +349,4 @@ function handlePEARError($error)
     exit();
 }
 
-/**
- * Check for the various stages of functionality
- *
- * @return void
- */
-function checkAvailabilityMode()
-{
-    global $configArray;
-    $mode = array();
-
-    // If the config file 'available' flag is
-    //    set we are forcing downtime.
-    if (!$configArray['System']['available']) {
-        $mode['online']   = false;
-        $mode['level']    = 'unavailable';
-        // TODO : Variable reasons passed to template... and translated
-        //$mode['message']  = $configArray['System']['available_reason'];
-        $mode['template'] = 'unavailable.tpl';
-        return $mode;
-    }
-    // TODO : Check if solr index is online
-    // TODO : Check if ILMS database is online
-    // TODO : More?
-
-    // No problems? We are online then
-    $mode['online'] = true;
-    return $mode;
-}
 ?>

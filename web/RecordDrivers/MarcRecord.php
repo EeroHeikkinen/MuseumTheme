@@ -106,7 +106,17 @@ class MarcRecord extends IndexRecord
             $interface->assign('marc', $this->marcRecord);
             return 'RecordDrivers/Marc/export-endnote.tpl';
         case 'marc':
+            header('Content-type: application/MARC');
+            header(
+                "Content-Disposition: attachment; filename=\"VuFindExport.mrc\";"
+            );
             $interface->assign('rawMarc', $this->marcRecord->toRaw());
+            return 'RecordDrivers/Marc/export-marc.tpl';
+        case 'marcxml':
+            // Send this as marcXML & give it our bib as a name
+            header('Content-disposition: attachment; filename="VuFindExport.xml";');
+            header("Content-type: text/xml");
+            $interface->assign('rawMarc', $this->marcRecord->toXML());
             return 'RecordDrivers/Marc/export-marc.tpl';
         case 'rdf':
             header("Content-type: application/rdf+xml");
@@ -157,7 +167,7 @@ class MarcRecord extends IndexRecord
 
         // These are the formats we can possibly support if they are turned on in
         // config.ini:
-        $possible = array('RefWorks', 'EndNote', 'MARC', 'RDF', 'BibTeX');
+        $possible = array('RefWorks', 'EndNote', 'MARC', 'MARCXML', 'RDF', 'BibTeX');
 
         // Check which formats are currently active:
         $formats = array();
@@ -481,7 +491,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getAccessRestrictions()
     {
-        return $this->_getFieldArray('506');
+        return $this->getFieldArray('506');
     }
 
     /**
@@ -545,7 +555,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getAwards()
     {
-        return $this->_getFieldArray('586');
+        return $this->getFieldArray('586');
     }
 
     /**
@@ -560,23 +570,17 @@ class MarcRecord extends IndexRecord
         $biblioLevel = strtoupper($leader[7]);
 
         switch ($biblioLevel) {
-        // Monograph
-        case 'M':
+        case 'M':   // Monograph
             return "Monograph";
-        // Serial
-        case 'S':
+        case 'S':   // Serial
             return "Serial";
-        // Monograph Part
-        case 'A':
+        case 'A':   // Monograph Part
             return "MonographPart";
-        // Serial Part
-        case 'B':
+        case 'B':   // Serial Part
             return "SerialPart";
-        // Collection
-        case 'C':
+        case 'C':   // Collection
             return "Collection";
-        // Collection Part
-        case 'D':
+        case 'D':   // Collection Part
             return "CollectionPart";
         default:
             return "Unknown";
@@ -591,7 +595,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getBibliographyNotes()
     {
-        return $this->_getFieldArray('504');
+        return $this->getFieldArray('504');
     }
 
     /**
@@ -602,7 +606,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getCorporateAuthor()
     {
-        return $this->_getFirstFieldValue('110', array('a', 'b'));
+        return $this->getFirstFieldValue('110', array('a', 'b'));
     }
 
     /**
@@ -619,7 +623,7 @@ class MarcRecord extends IndexRecord
      * @return array
      * @access protected
      */
-    private function _getFieldArray($field, $subfields = null, $concat = true)
+    protected function getFieldArray($field, $subfields = null, $concat = true)
     {
         // Default to subfield a if nothing is specified.
         if (!is_array($subfields)) {
@@ -638,7 +642,7 @@ class MarcRecord extends IndexRecord
 
         // Extract all the requested subfields, if applicable.
         foreach ($fields as $currentField) {
-            $next = $this->_getSubfieldArray($currentField, $subfields, $concat);
+            $next = $this->getSubfieldArray($currentField, $subfields, $concat);
             $matches = array_merge($matches, $next);
         }
 
@@ -653,7 +657,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getFindingAids()
     {
-        return $this->_getFieldArray('555');
+        return $this->getFieldArray('555');
     }
 
     /**
@@ -664,11 +668,11 @@ class MarcRecord extends IndexRecord
      * @param array  $subfields The MARC subfield codes to read
      *
      * @return string
-     * @access private
+     * @access protected
      */
-    private function _getFirstFieldValue($field, $subfields = null)
+    protected function getFirstFieldValue($field, $subfields = null)
     {
-        $matches = $this->_getFieldArray($field, $subfields);
+        $matches = $this->getFieldArray($field, $subfields);
         return (is_array($matches) && count($matches) > 0) ?
             $matches[0] : null;
     }
@@ -681,7 +685,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getGeneralNotes()
     {
-        return $this->_getFieldArray('500');
+        return $this->getFieldArray('500');
     }
 
     /**
@@ -692,7 +696,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getPlacesOfPublication()
     {
-        return $this->_getFieldArray('260');
+        return $this->getFieldArray('260');
     }
 
     /**
@@ -703,7 +707,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getPlayingTimes()
     {
-        $times = $this->_getFieldArray('306', array('a'), false);
+        $times = $this->getFieldArray('306', array('a'), false);
 
         // Format the times to include colons ("HH:MM:SS" format).
         for ($x = 0; $x < count($times); $x++) {
@@ -723,7 +727,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getProductionCredits()
     {
-        return $this->_getFieldArray('508');
+        return $this->getFieldArray('508');
     }
 
     /**
@@ -734,7 +738,85 @@ class MarcRecord extends IndexRecord
      */
     protected function getPublicationFrequency()
     {
-        return $this->_getFieldArray('310', array('a', 'b'));
+        return $this->getFieldArray('310', array('a', 'b'));
+    }
+
+    /**
+     * Check if an item has holdings in order to show or hide the holdings tab
+     *
+     * @return bool
+     * @access public
+     */
+    public function hasHoldings()
+    {
+        // Get Acquisitions Data
+        $id = $this->getUniqueID();
+        $catalog = ConnectionManager::connectToCatalog();
+        if ($catalog && $catalog->status) {
+            $result = $catalog->hasHoldings($id);
+            if (PEAR::isError($result)) {
+                PEAR::raiseError($result);
+            }
+            return $result;
+        }
+        // Show holdings tab by default
+        return true;
+    }
+
+    /**
+     * Get Status/Holdings Information from the Marc Record (support method used by
+     * the NoILS driver).
+     *
+     * @param array $field The Marc Field to retrieve
+     * @param array $data  A keyed array of data to retrieve from subfields
+     *
+     * @return array
+     * @access public
+     */
+    public function getFormattedMarcDetails($field, $data)
+    {
+        // Initialize return array
+        $matches = array();
+        $i = 0;
+
+        // Try to look up the specified field, return empty array if it doesn't
+        // exist.
+        $fields = $this->marcRecord->getFields($field);
+        if (!is_array($fields)) {
+            return $matches;
+        }
+
+        // Extract all the requested subfields, if applicable.
+        foreach ($fields as $currentField) {
+            foreach ($data as $key => $info) {
+                $split = explode("|", $info);
+                if ($split[0] == "msg") {
+                    if ($split[1] == "true") {
+                        $result = true;
+                    } elseif ($split[1] == "false") {
+                        $result = false;
+                    } else {
+                        $result =$split[1];
+                    }
+                    $matches[$i][$key] = $result;
+                } else {
+                    // Default to subfield a if nothing is specified.
+                    if (count($split) < 2) {
+                        $subfields = array('a');
+                    } else {
+                        $subfields = str_split($split[1]);
+                    }
+                    $result = $this->getSubfieldArray(
+                        $currentField, $subfields, true
+                    );
+                    $matches[$i][$key] = count($result) > 0
+                        ? (string)$result[0] : '';
+                }
+            }
+            $matches[$i]['id'] = $this->getUniqueID();
+            $i++;
+        }
+        return $matches;
     }
 
     /**
@@ -821,7 +903,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getRelationshipNotes()
     {
-        return $this->_getFieldArray('580');
+        return $this->getFieldArray('580');
     }
 
     /**
@@ -841,14 +923,14 @@ class MarcRecord extends IndexRecord
             '440' => array('a', 'p'),
             '800' => array('a', 'b', 'c', 'd', 'f', 'p', 'q', 't'),
             '830' => array('a', 'p'));
-        $matches = $this->_getSeriesFromMARC($primaryFields);
+        $matches = $this->getSeriesFromMARC($primaryFields);
         if (!empty($matches)) {
             return $matches;
         }
 
         // Now check 490 and display it only if 440/800/830 were empty:
         $secondaryFields = array('490' => array('a'));
-        $matches = $this->_getSeriesFromMARC($secondaryFields);
+        $matches = $this->getSeriesFromMARC($secondaryFields);
         if (!empty($matches)) {
             return $matches;
         }
@@ -865,9 +947,9 @@ class MarcRecord extends IndexRecord
      * (used to find series name)
      *
      * @return array
-     * @access private
+     * @access protected
      */
-    private function _getSeriesFromMARC($fieldInfo)
+    protected function getSeriesFromMARC($fieldInfo)
     {
         $matches = array();
 
@@ -878,7 +960,7 @@ class MarcRecord extends IndexRecord
             if (is_array($series)) {
                 foreach ($series as $currentField) {
                     // Can we find a name using the specified subfield list?
-                    $name = $this->_getSubfieldArray($currentField, $subfields);
+                    $name = $this->getSubfieldArray($currentField, $subfields);
                     if (isset($name[0])) {
                         $currentArray = array('name' => $name[0]);
 
@@ -887,7 +969,7 @@ class MarcRecord extends IndexRecord
                         // with 440, 490, 800 or 830 -- hence the hard-coded array
                         // rather than another parameter in $fieldInfo).
                         $number
-                            = $this->_getSubfieldArray($currentField, array('v'));
+                            = $this->getSubfieldArray($currentField, array('v'));
                         if (isset($number[0])) {
                             $currentArray['number'] = $number[0];
                         }
@@ -914,9 +996,9 @@ class MarcRecord extends IndexRecord
      * @param bool   $concat       Should we concatenate subfields?
      *
      * @return array
-     * @access private
+     * @access protected
      */
-    private function _getSubfieldArray($currentField, $subfields, $concat = true)
+    protected function getSubfieldArray($currentField, $subfields, $concat = true)
     {
         // Start building a line of text for the current field
         $matches = array();
@@ -962,7 +1044,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getSummary()
     {
-        return $this->_getFieldArray('520');
+        return $this->getFieldArray('520');
     }
 
     /**
@@ -973,7 +1055,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getSystemDetails()
     {
-        return $this->_getFieldArray('538');
+        return $this->getFieldArray('538');
     }
 
     /**
@@ -984,7 +1066,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getTargetAudienceNotes()
     {
-        return $this->_getFieldArray('521');
+        return $this->getFieldArray('521');
     }
 
     /**
@@ -995,7 +1077,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getTitleSection()
     {
-        return $this->_getFirstFieldValue('245', array('n', 'p'));
+        return $this->getFirstFieldValue('245', array('n', 'p'));
     }
 
     /**
@@ -1007,7 +1089,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getTitleStatement()
     {
-        return $this->_getFirstFieldValue('245', array('c'));
+        return $this->getFirstFieldValue('245', array('c'));
     }
 
     /**
@@ -1136,7 +1218,7 @@ class MarcRecord extends IndexRecord
                         }
                         break;
                     }
-                    $tmp = $this->_getFieldData($field, $value);
+                    $tmp = $this->getFieldData($field, $value);
                     if (is_array($tmp)) {
                         $retVal[] = $tmp;
                     }
@@ -1155,11 +1237,11 @@ class MarcRecord extends IndexRecord
      * @param File_MARC_Data_Field $field Field to examine
      * @param string               $value Field name for use in label
      *
-     * @access private
+     * @access protected
      * @return array|bool                 Array on success, boolean false if no
      * valid link could be found in the data.
      */
-    private function _getFieldData($field, $value)
+    protected function getFieldData($field, $value)
     {
         global $configArray;
 

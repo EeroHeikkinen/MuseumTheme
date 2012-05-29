@@ -58,21 +58,19 @@ class Holds extends MyResearch
             if (PEAR::isError($patron)) {
                 PEAR::raiseError($patron);
             }
+            // Get Message from Hold.php
+            if (isset($_GET['success']) && $_GET['success'] != "") {
+                $this->holdResults = array(
+                    'success' => true, 'status' => "hold_place_success"
+                );
+                $interface->assign('holdResults', $this->holdResults);
+            }
             // Is cancelling Holds Available
             if ($this->cancelHolds != false) {
-
-                // Get Message from Hold.php
-                if (isset($_GET['success']) && $_GET['success'] != "") {
-                    $this->holdResults = array(
-                        'success' => true, 'status' => "hold_place_success"
-                    );
-                }
-
                 // Process Submitted Form
                 if (isset($_POST['cancelSelected']) || isset($_POST['cancelAll'])) {
                     $cancelRequest = $this->_cancelHolds($patron);
                 }
-                $interface->assign('holdResults', $this->holdResults);
                 $interface->assign('cancelResults', $this->cancelResults);
             }
 

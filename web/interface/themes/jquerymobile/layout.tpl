@@ -37,7 +37,7 @@
             <label for="langForm_mylang">{translate text="Language"}:</label>
             <select id="langForm_mylang" name="mylang">
               {foreach from=$allLangs key=langCode item=langName}
-                <option value="{$langCode}"{if $userLang == $langCode} selected="selected"{/if}>{translate text=$langName}</option>
+                <option value="{$langCode}"{if $userLang == $langCode} selected="selected"{/if}>{displayLanguageOption text=$langName}</option>
               {/foreach}
             </select>
             <input type="submit" value="{translate text='Set'}" />

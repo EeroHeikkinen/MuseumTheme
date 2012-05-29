@@ -33,8 +33,44 @@
 
                 <!-- COLLECTION -->
                 <field name="collection">
-                    <xsl:value-of select="//nlm:journal-title" />
+                    <xsl:value-of select="$collection" />
                 </field>
+
+                <!-- JOURNAL TITLE -->
+                <field name="container_title">
+                    <xsl:value-of select="//nlm:journal-title[normalize-space()]"/>
+                </field>
+
+                <!-- JOURNAL VOLUME -->
+                <xsl:if test="//nlm:volume[normalize-space()]">
+                    <field name="container_volume">
+                        <xsl:value-of select="//nlm:volume[normalize-space()]"/>
+                    </field>
+                </xsl:if>
+
+                <!-- JOURNAL issue -->
+                <xsl:if test="//nlm:issue[normalize-space()]">
+                    <field name="container_issue">
+                        <xsl:value-of select="//nlm:issue[normalize-space()]"/>
+                    </field>
+                </xsl:if>
+
+                <!-- Article startPage -->
+                <xsl:if test="//nlm:fpage[normalize-space()]">
+                    <field name="container_start_page">
+                        <xsl:value-of select="//nlm:fpage[normalize-space()]"/>
+                    </field>
+                </xsl:if>
+
+                <!-- Article endPage !! Only enable this part of the code if you have defined "container_end_page" in  ./solr/biblio/conf/schema.xml -> <field name="container_end_page" type="text" indexed="true" stored="true"/> !!
+
+                <xsl:if test="//nlm:lpage[normalize-space()]">
+                        <field name="container_end_page">
+                            <xsl:value-of select="//nlm:lpage[normalize-space()]"/>
+                        </field>
+                </xsl:if>
+
+                -->
 
                 <!-- LANGUAGE -->
                 <field name="language">
@@ -43,6 +79,7 @@
 
                 <!-- FORMAT -->
                 <field name="format">Article</field>
+                <field name="format">Online</field>
 
                 <!-- ISSN -->
                 <xsl:for-each select="//nlm:issn">
@@ -52,19 +89,39 @@
                 </xsl:for-each>
 
                 <!-- SUBJECT -->
-                <xsl:for-each select="//nlm:subject">
-                    <field name="topic">
-                        <xsl:value-of select="normalize-space()"/>
-                    </field>
-                    <field name="topic_facet">
-                        <xsl:value-of select="normalize-space()"/>
-                    </field>
-                </xsl:for-each>
+                <xsl:if test="//nlm:kwd-group">
+                    <xsl:for-each select="//nlm:kwd-group">
+                        <xsl:if test="position()=1">
+                            <xsl:for-each select="./nlm:kwd">
+                                <xsl:if test="normalize-space()">
+                                    <field name="topic">
+                                        <xsl:value-of select="normalize-space()"/>
+                                    </field>
+                                    <field name="topic_facet">
+                                        <xsl:value-of select="normalize-space()"/>
+                                    </field>
+                                </xsl:if>
+                            </xsl:for-each>
+                        </xsl:if>
+                    </xsl:for-each>
+                </xsl:if>
+                <xsl:if test="//nlm:subject">
+                    <xsl:for-each select="//nlm:subject">
+                        <field name="topic">
+                            <xsl:value-of select="normalize-space()"/>
+                        </field>
+                        <field name="topic_facet">
+                            <xsl:value-of select="normalize-space()"/>
+                        </field>
+                    </xsl:for-each>
+                </xsl:if>
 
                 <!-- DESCRIPTION -->
                 <xsl:if test="//nlm:abstract/nlm:p">
                     <field name="description">
                         <xsl:value-of select="//nlm:abstract/nlm:p" />
+                        <xsl:if test="//nlm:abstract-trans/nlm:p"> ABSTRACT Translated: <xsl:value-of select="//nlm:abstract-trans/nlm:p" />
+                        </xsl:if>
                     </field>
                 </xsl:if>
 
@@ -122,20 +179,21 @@
                 </xsl:if>
 
                 <!-- PUBLISHDATE -->
-                <xsl:if test="//nlm:pub-date/nlm:year">
+                <xsl:if test="//nlm:pub-date[@pub-type='collection']/nlm:year">
                     <field name="publishDate">
-                        <xsl:value-of select="//nlm:pub-date/nlm:year"/>
+                        <xsl:value-of select="//nlm:pub-date[@pub-type='collection']/nlm:year"/>
                     </field>
                     <field name="publishDateSort">
-                        <xsl:value-of select="//nlm:pub-date/nlm:year"/>
+                        <xsl:value-of select="//nlm:pub-date[@pub-type='collection']/nlm:year"/>
                     </field>
                 </xsl:if>
 
                 <!-- URL -->
                 <xsl:for-each select="//nlm:self-uri">
-                   <field name="url">
-                       <xsl:value-of select="@xlink:href" />
-                   </field>
+                    <xsl:sort select="position()" data-type="number" order="descending"/>
+                       <field name="url">
+                           <xsl:value-of select="@xlink:href" />
+                       </field>
                 </xsl:for-each>
 
                 <!-- FULL TEXT -->

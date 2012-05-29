@@ -88,6 +88,11 @@
 
   </head>
   <body>
+    {* mobile device button*}
+    {if $mobileViewLink}
+        <div class="mobileViewLink"><a href="{$mobileViewLink|escape}">{translate text="mobile_link"}</a></div>
+    {/if}
+    {* End mobile device button*}
 
     {* LightBox *}
     <div id="lightboxLoading" style="display: none;">{translate text="Loading"}...</div>

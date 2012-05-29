@@ -56,9 +56,16 @@
   </head>
 
   <body>
+
+    {* mobile device button*}
+    {if $mobileViewLink}
+        <div class="mobileViewLink"><a href="{$mobileViewLink|escape}">{translate text="mobile_link"}</a></div>
+    {/if}
+    {* End mobile device button*}
+
     <div class="container">
-	  <div class="header">
-		{include file="header.tpl"}
+      <div class="header">
+        {include file="header.tpl"}
 	  </div>
 
 	  {if $showTopSearchBox}

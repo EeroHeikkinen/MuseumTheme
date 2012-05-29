@@ -34,6 +34,12 @@
     <div id="popupbox" class="popupBox"></div>
     {* End LightBox *}
 
+    {* mobile device button*}
+    {if $mobileViewLink}
+        <div class="mobileViewLink"><a href="{$mobileViewLink|escape}">{translate text="mobile_link"}</a></div>
+    {/if}
+    {* End mobile device button*}
+
     {* Change id for page width, class for menu layout. *}
     <div id="doc2" class="yui-t{if $sidebarOnLeft}3{else}5{/if}">
 
@@ -48,23 +54,25 @@
       <div class="searchheader">
         <div class="searchcontent">
           <div class="alignright">
-            <div id="logoutOptions"{if !$user} style="display: none;"{/if}>
-              <a href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
-              <a href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
-            </div>
-            <div id="loginOptions"{if $user} style="display: none;"{/if}>
-              {if $authMethod == 'Shibboleth'}
-                <a href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
-              {else}
-                <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
-              {/if}
-            </div>
+            {if !$hideLogin}
+              <div id="logoutOptions"{if !$user} style="display: none;"{/if}>
+                <a href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
+                <a href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
+              </div>
+              <div id="loginOptions"{if $user} style="display: none;"{/if}>
+                {if $authMethod == 'Shibboleth'}
+                  <a href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
+                {else}
+                  <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
+                {/if}
+              </div>
+            {/if}
             {if is_array($allLangs) && count($allLangs) > 1}
               <form method="post" name="langForm" action="">
                 <div class="hiddenLabel"><label for="mylang">{translate text="Language"}:</label></div>
                 <select id="mylang" name="mylang" onChange="document.langForm.submit();">
                   {foreach from=$allLangs key=langCode item=langName}
-                    <option value="{$langCode}"{if $userLang == $langCode} selected{/if}>{translate text=$langName}</option>
+                    <option value="{$langCode}"{if $userLang == $langCode} selected{/if}>{displayLanguageOption text=$langName}</option>
                   {/foreach}
                 </select>
                 <noscript><input type="submit" value="{translate text="Set"}" /></noscript>

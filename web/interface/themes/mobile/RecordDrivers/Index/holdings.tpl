@@ -53,6 +53,8 @@
     <td>
       {if $row.reserve == "Y"}
       {translate text="On Reserve - Ask at Circulation Desk"}
+      {elseif $row.use_unknown_message}
+      <span class="unknown">{translate text="status_unknown_message"}</span>
       {else}
         {if $row.availability}
       <span class="available">{translate text="Available"}</span> | 

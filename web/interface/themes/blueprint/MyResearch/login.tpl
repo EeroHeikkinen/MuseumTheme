@@ -1,3 +1,15 @@
+{if $offlineMode == "ils-offline"}
+  <div class="sysInfo">
+    <h2>{translate text="ils_offline_title"}</h2>
+    <p><strong>{translate text="ils_offline_status"}</strong></p>
+    <p>{translate text="ils_offline_login_message"}</p>
+    <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
+  </div>
+{elseif $hideLogin}
+  <div class="error">{translate text='login_disabled'}</div>
+{/if}
+
+{if !$hideLogin}
 <h2>{translate text='Login'}</h2>
 {if $message}<div class="error">{$message|translate}</div>{/if}
 {if $authMethod != 'Shibboleth'}
@@ -28,4 +40,5 @@
     {/literal}
   </script>
   {if $authMethod == 'DB'}<a class="new_account" href="{$url}/MyResearch/Account">{translate text='Create New Account'}</a>{/if}
+{/if}
 {/if}

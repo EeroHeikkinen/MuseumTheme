@@ -287,10 +287,8 @@ class IndexRecord implements RecordInterface
 
         $interface->assign('hasContainedComponentParts', $this->hasContainedComponentParts());
         
-        //Assign variables for BTJ images and descriptions
+        // Assign variables for BTJ images and descriptions
         $interface->assign('coreImages', $this->getAllImages());
-        
-        //$interface->assign('coreDescription', $this->getDescriptionURL());
         
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
@@ -997,7 +995,6 @@ class IndexRecord implements RecordInterface
         $openURL = $this->getOpenURL();
         $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
 
-    
         // Assign values needed for RSI query
 		if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
 			$rsiValues = $this->getValuesForRSI();
@@ -1006,7 +1003,6 @@ class IndexRecord implements RecordInterface
         		$interface->assign('rsi', $rsiValues);
         	}
 		}
-
         
         // Always provide an OpenURL for COinS purposes:
         $interface->assign('summCOinS', $openURL);
@@ -1618,15 +1614,29 @@ class IndexRecord implements RecordInterface
     /**
      * Check if an item has holdings in order to show or hide the holdings tab
      *
-     * @param array $patron An array for patron information
-     *
      * @return bool
      * @access public
      */
-    public function hasRealTimeHoldings($patron = false)
+    public function hasHoldings()
     {
         // Show holdings tab by default
         return true;
+    }
+
+    /**
+     * Get Status/Holdings Information from the Marc Record (support method used by
+     * the NoILS driver).
+     *
+     * @param array $field The Marc Field to retrieve
+     * @param array $data  A keyed array of data to retrieve from subfields
+     *
+     * @return array
+     * @access public
+     */
+    public function getFormattedMarcDetails($field, $data)
+    {
+        // Not supported here:
+        return array();
     }
 
     /**
@@ -2594,20 +2604,20 @@ class IndexRecord implements RecordInterface
         );
         return json_encode($markers);
     }
-    
+
     /**
-    * Get the title of the item that contains this record (i.e. MARC 773s of a
-    * journal).
-    *
-    * @access protected
-    * @return string
-    */
+     * Get the title of the item that contains this record (i.e. MARC 773s of a
+     * journal).
+     *
+     * @access protected
+     * @return string
+     */
     protected function getContainerTitle()
     {
         return isset($this->fields['container_title'])
-        ? $this->fields['container_title'] : '';
+            ? $this->fields['container_title'] : '';
     }
-    
+
     /**
      * Get the volume of the item that contains this record (i.e. MARC 773v of a
      * journal).
@@ -2618,22 +2628,22 @@ class IndexRecord implements RecordInterface
     protected function getContainerVolume()
     {
         return isset($this->fields['container_volume'])
-        ? $this->fields['container_volume'] : '';
+            ? $this->fields['container_volume'] : '';
     }
 
     /**
-    * Get the issue of the item that contains this record (i.e. MARC 773l of a
-    * journal).
-    *
-    * @access protected
-    * @return string
-    */
+     * Get the issue of the item that contains this record (i.e. MARC 773l of a
+     * journal).
+     *
+     * @access protected
+     * @return string
+     */
     protected function getContainerIssue()
     {
         return isset($this->fields['container_issue'])
-        ? $this->fields['container_issue'] : '';
+            ? $this->fields['container_issue'] : '';
     }
-    
+
     /**
      * Get the start page of the item that contains this record (i.e. MARC 773q of a
      * journal).
@@ -2644,20 +2654,20 @@ class IndexRecord implements RecordInterface
     protected function getContainerStartPage()
     {
         return isset($this->fields['container_start_page'])
-        ? $this->fields['container_start_page'] : '';
+            ? $this->fields['container_start_page'] : '';
     }
 
     /**
-    * Get a full, free-form reference to the context of the item that contains this
-    * record (i.e. volume, year, issue, pages).
-    *
-    * @access protected
-    * @return string
-    */
+     * Get a full, free-form reference to the context of the item that contains this
+     * record (i.e. volume, year, issue, pages).
+     *
+     * @access protected
+     * @return string
+     */
     protected function getContainerReference()
     {
         return isset($this->fields['container_reference'])
-        ? $this->fields['container_reference'] : '';
+            ? $this->fields['container_reference'] : '';
     }
         
     /**

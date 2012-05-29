@@ -404,6 +404,12 @@ class Demo implements DriverInterface
                     "reqnum"   => sprintf("%06d", $i),
                     "item_id" => $i
                 );
+                $pos = rand()%5;
+                if ($pos > 1) {
+                    $holdList[$i]['position'] = $pos;
+                } else {
+                    $holdList[$i]['available'] = true;
+                }
             }
             $_SESSION['demoData']['holds'] = $holdList;
         }

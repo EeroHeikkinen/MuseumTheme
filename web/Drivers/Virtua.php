@@ -73,12 +73,6 @@ class Virtua implements DriverInterface
             $this->_config['Catalog']['user'],
             $this->_config['Catalog']['password'], $tns
         );
-        if (!$this->_db) {
-            // Error handling?
-            // TODO: USQOracle currently (and incorrectly) tries to return false
-            // on a failed connection this just doesn't work in a constructor.
-            // Proper try/catch of a thrown exception is needed.
-        }
     }
 
     /**

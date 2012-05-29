@@ -946,8 +946,12 @@ class Voyager implements DriverInterface
                "lower(PATRON_BARCODE.PATRON_BARCODE) = :barcode";
         try {
             $sqlStmt = $this->db->prepare($sql);
-            $sqlStmt->bindParam(':login', strtolower(utf8_decode($login)), PDO::PARAM_STR);
-            $sqlStmt->bindParam(':barcode', strtolower(utf8_decode($barcode)), PDO::PARAM_STR);
+            $sqlStmt->bindParam(
+                ':login', strtolower(utf8_decode($login)), PDO::PARAM_STR
+            );
+            $sqlStmt->bindParam(
+                ':barcode', strtolower(utf8_decode($barcode)), PDO::PARAM_STR
+            );
             $sqlStmt->execute();
             $row = $sqlStmt->fetch(PDO::FETCH_ASSOC);
             if (isset($row['PATRON_ID']) && ($row['PATRON_ID'] != '')) {
@@ -1479,11 +1483,12 @@ class Voyager implements DriverInterface
                     $patron['group'] = utf8_encode($row['PATRON_GROUP_NAME']);
                 }
                 include_once 'Mail/RFC822.php';
-                if (Mail_RFC822::isValidInetAddress(utf8_encode($row['ADDRESS_LINE1']))) {
-                    $patron['email'] = utf8_encode($row['ADDRESS_LINE1']);
+                $addr1 = utf8_encode($row['ADDRESS_LINE1']);
+                if (Mail_RFC822::isValidInetAddress($addr1)) {
+                    $patron['email'] = $addr1;
                 } else if (!isset($patron['address1'])) {
-                    if (!empty($row['ADDRESS_LINE1'])) {
-                        $patron['address1'] = utf8_encode($row['ADDRESS_LINE1']);
+                    if (!empty($addr1)) {
+                        $patron['address1'] = $addr1;
                     }
                     if (!empty($row['ADDRESS_LINE2'])) {
                         $patron['address2'] = utf8_encode($row['ADDRESS_LINE2']);

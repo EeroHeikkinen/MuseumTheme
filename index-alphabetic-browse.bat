@@ -41,6 +41,7 @@ set JAVA="%JAVA_HOME%\bin\java"
 :javaset
 
 cd %VUFIND_HOME%\import
+SET CLASSPATH="browse-indexing.jar;..\solr\lib\*"
 
 SET bib_index=..\solr\biblio\index
 SET auth_index=..\solr\authority\index
@@ -86,7 +87,7 @@ set args="%bib_index%" "%field%" "%auth_index%" "%browse%.tmp"
 :skipauth
 
 rem Extract lines from Solr
-java %jvmopts% -Dfile.encoding="UTF-8" -Dfield.preferred=heading -Dfield.insteadof=use_for -cp browse-indexing.jar PrintBrowseHeadings %args%
+java %jvmopts% -Dfile.encoding="UTF-8" -Dfield.preferred=heading -Dfield.insteadof=use_for -cp %CLASSPATH% PrintBrowseHeadings %args%
 
 rem Sort lines
 sort %browse%.tmp /o sorted-%browse%.tmp
@@ -95,7 +96,7 @@ rem Remove duplicate lines
 php %VUFIND_HOME%\util\dedupe.php "sorted-%browse%.tmp" "unique-%browse%.tmp"
 
 rem Build database file
-java -Dfile.encoding="UTF-8" -cp browse-indexing.jar CreateBrowseSQLite "unique-%browse%.tmp" "%browse%_browse.db"
+java -Dfile.encoding="UTF-8" -cp %CLASSPATH% CreateBrowseSQLite "unique-%browse%.tmp" "%browse%_browse.db"
 
 del /q *.tmp > nul
 

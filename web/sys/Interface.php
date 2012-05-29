@@ -123,16 +123,16 @@ class UInterface extends Smarty
             is_object($searchObject) ? $searchObject->getBasicTypes() : array()
         );
         $this->assign(
-            'autocomplete', 
+            'autocomplete',
             is_object($searchObject) ? $searchObject->getAutocompleteStatus() : false
         );
         $this->assign(
             'retainFiltersByDefault', $searchObject->getRetainFilterSetting()
         );
-        
+
         if (isset($configArray['Site']['showBookBag'])) {
             $this->assign(
-                'bookBag', ($configArray['Site']['showBookBag']) 
+                'bookBag', ($configArray['Site']['showBookBag'])
                 ? Cart_Model::getInstance() : false
             );
         }
@@ -182,30 +182,35 @@ class UInterface extends Smarty
         $this->assign('authMethod', $configArray['Authentication']['method']);
 
         if ($configArray['Authentication']['method'] == 'Shibboleth') {
-            if (!isset($configArray['Shibboleth']['login'])
-                || !isset($configArray['Shibboleth']['target'])
-            ) {
+            if (!isset($configArray['Shibboleth']['login'])) {
                 throw new Exception(
                     'Missing parameter in the config.ini. Check if ' .
-                    'the parameters login and target are set.'
+                    'the login parameter is set.'
                 );
             }
 
+            if (isset($configArray['Shibboleth']['target'])) {
+                $shibTarget = $configArray['Shibboleth']['target'];
+            } else {
+                $myRes = isset($configArray['Site']['defaultLoggedInModule'])
+                    ? $configArray['Site']['defaultLoggedInModule'] : 'MyResearch';
+                $shibTarget = $configArray['Site']['url'] . '/' . $myRes . '/Home';
+            }
             $sessionInitiator = $configArray['Shibboleth']['login'] .
-                '?target=' . $configArray['Shibboleth']['target'];
+                '?target=' . urlencode($shibTarget);
 
             if (isset($configArray['Shibboleth']['provider_id'])) {
                 $sessionInitiator = $sessionInitiator . '&providerId=' .
-                    $configArray['Shibboleth']['provider_id'];
+                    urlencode($configArray['Shibboleth']['provider_id']);
             }
 
             $this->assign('sessionInitiator', $sessionInitiator);
         }
-        
+
         $this->assign(
-            'sidebarOnLeft', 
+            'sidebarOnLeft',
             !isset($configArray['Site']['sidebarOnLeft'])
-            ? false : $configArray['Site']['sidebarOnLeft'] 
+            ? false : $configArray['Site']['sidebarOnLeft']
         );
         
         $this->assign(
@@ -218,6 +223,12 @@ class UInterface extends Smarty
             !isset($configArray['Piwik']['site_id'])
             ? false : $configArray['Piwik']['site_id'] 
         );
+
+        $catalog = ConnectionManager::connectToCatalog();
+        $this->assign("offlineMode", $catalog->getOfflineMode());
+        $hideLogin = isset($configArray['Authentication']['hideLogin'])
+            ? $configArray['Authentication']['hideLogin'] : false;
+        $this->assign("hideLogin", $hideLogin ? true : $catalog->loginIsHidden());
     }
 
     /**
@@ -284,7 +295,7 @@ class UInterface extends Smarty
         $this->assign('userLang', $lang);
         $this->assign('allLangs', $configArray['Languages']);
     }
-    
+
     /**
      * Initialize global interface variables (part of standard VuFind startup
      * process).  This method is designed for initializations that can't happen
@@ -296,7 +307,7 @@ class UInterface extends Smarty
      */
     public function initGlobals()
     {
-        global $module, $action, $user;
+        global $module, $action, $user, $configArray;
 
         // Pass along module and action to the templates.
         $this->assign('module', $module);
@@ -320,6 +331,66 @@ class UInterface extends Smarty
             $this->assign('lastSort', $_REQUEST['sort']);
         } else if (isset($_SESSION['lastUserSort'])) {
             $this->assign('lastSort', $_SESSION['lastUserSort']);
+        }
+
+        // This is detected already, but we want a "back to mobile"
+        // button in the standard view on mobile devices so we check it again
+        if (isset($configArray["Site"]["mobile_theme"]) && mobile_device_detect()) {
+            $pageURL = $_SERVER['REQUEST_URI'];
+            if (isset($_GET["ui"])) {
+                $pageURL = str_replace(
+                    "ui=" . urlencode($_GET["ui"]), "ui=mobile", $pageURL
+                );
+            } else if (strstr($pageURL, "?") != false) {
+                $pageURL = str_replace("?", "?ui=mobile&", $pageURL);
+            } else if (strstr($pageURL, "#") != false) {
+                $pageURL = str_replace("#", "?ui=mobile#", $pageURL);
+            } else {
+                $pageURL .= "?ui=mobile";
+            }
+            $this->assign("mobileViewLink", $pageURL);
+        }
+    }
+
+    /**
+     * Assign book preview options to the interface.
+     *
+     * @return void
+     */
+    public function assignPreviews()
+    {
+        global $configArray;
+        global $interface;
+
+        $providers = explode(',', $configArray['Content']['previews']);
+        $interface->assign('showPreviews', true);
+        foreach ($providers as $provider) {
+            $provider = trim($provider);
+            switch ($provider) {
+            case 'Google':
+                // fetch Google options from config, if none use default vals.
+                $googleOptions = isset($configArray['Content']['GoogleOptions'])
+                    ? str_replace(' ', '', $configArray['Content']['GoogleOptions'])
+                    : "full,partial";
+                $interface->assign('googleOptions', $googleOptions);
+                break;
+            case 'OpenLibrary':
+                // fetch OL options from config, if none use default vals.
+                $olOptions = isset($configArray['Content']['OpenLibraryOptions'])
+                    ? str_replace(
+                        ' ', '', $configArray['Content']['OpenLibraryOptions']
+                    )
+                    : "full,partial";
+                $interface->assign('olOptions', $olOptions);
+                break;
+            case 'HathiTrust':
+                // fetch Hathi access rights from config (or default to pd,world)
+                $hathiOptions = isset($configArray['Content']['HathiRights'])
+                    ? str_replace(' ', '', $configArray['Content']['HathiRights'])
+                    : "pd,world";
+                $interface->assign('hathiOptions', $hathiOptions);
+                break;
+            }
         }
     }
 }
