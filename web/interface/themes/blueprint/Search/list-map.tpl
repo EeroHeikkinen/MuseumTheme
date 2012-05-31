@@ -1,0 +1,1 @@
+{include file='Search/Recommend/ResultGoogleMapAjax.tpl'}
