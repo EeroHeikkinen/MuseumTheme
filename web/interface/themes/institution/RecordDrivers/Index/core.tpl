@@ -219,9 +219,9 @@
     </tr>
    
    {* BTJ description start *}
-   <tr valign="top">
+   <tr valign="top" id="btjdescription" style="display: none;">
      <th>{translate text=Description}: </th>
-     <td class="description"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
+     <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
    </tr>
    
    <script type="text/javascript">
@@ -230,7 +230,11 @@
      {literal}
      $(document).ready(function() {
        var url = path + '/description.php?id=' + id;
-       $(".description").load(url);
+       $("#btjdescription_text").load(url, function(response, status, xhr) {
+       if (response.length != 0) {
+         $("#btjdescription").show();
+       }
+       });
      });
      {/literal}
    </script>  
