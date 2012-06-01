@@ -1,0 +1,9 @@
+/*** Header ***/
+
+#logo {
+    background: url("../images/museum_logo_small.png") no-repeat scroll left center transparent;
+    float: left;
+    height: 39px;
+    width: 180px;
+    margin: 30px 0 30px 30px;
+}
