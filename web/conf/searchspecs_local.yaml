@@ -347,6 +347,7 @@ AllFields:
       - [or, ~]
     fulltext:
       - [or, ~]
+  FilterQuery: "institution:Kantapuu OR institution:\"Tuusulan taidemuseo\" OR institution: \"Museovirasto\""
 
 # These are advanced searches that never use Dismax:
 id:
