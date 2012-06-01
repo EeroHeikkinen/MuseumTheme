@@ -60,6 +60,11 @@
 
     {* Load QRCode *}
     {js filename="jquery.qrcode.js"}
+    
+    {* Load Thumbnail Magnifier if enabled *}
+    {if $enableThumbnailMagnifier}
+    {include file="magnifier.tpl"}
+    {/if}
 
     {* Component parts *}
     {js filename="jquery.dataTables.js"}   
