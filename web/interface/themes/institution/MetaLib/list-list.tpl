@@ -1,6 +1,8 @@
 {* check save statuses via AJAX *}
 {js filename="check_save_statuses.js"}
 {js filename="jquery.cookie.js"}
+{include file="Search/rsi.tpl"}
+{include file="Search/openurl_autocheck.tpl"}
 
 <form method="post" name="addForm" action="{$url}/Cart/Home">
   <ul class="recordSet">
@@ -53,6 +55,7 @@
               <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{$urldesc|escape}</a>
             {/foreach}
             {if $openUrlBase && $record.openUrl}
+              {if $record.url}<br/>{/if}
               <br/>{include file="Search/openurl.tpl" openUrl=$record.openUrl}
             {/if}
           </div>

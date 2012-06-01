@@ -159,6 +159,8 @@
         <th></th>
         <td>{include file="Search/openurl.tpl" openUrl=$record.openUrl}</td>
       </tr>
+        {include file="Search/rsi.tpl"}
+        {include file="Search/openurl_autocheck.tpl"}
       {/if}
 
     </table>

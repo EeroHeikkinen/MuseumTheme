@@ -45,9 +45,15 @@
           </div>
         {/foreach}
       {else}
-          {if !empty($summHostRecordTitle)}
+          {if !empty($summContainerTitle)}
           <div>
-            <b>{translate text='component_part_is_part_of'}:</b> <a href="{$url}/Record/{$summHostRecordId.0|escape:"url"}">{$summHostRecordTitle.0|escape}</a>
+            <b>{translate text='component_part_is_part_of'}:</b>
+            {if $summHierarchyParentId}
+              <a href="{$url}/Record/{$summHierarchyParentId|escape:"url"}">{$summContainerTitle|escape}</a>
+            {else}
+              {$summContainerTitle|escape}
+            {/if}
+            {if !empty($summContainerReference)}{$summContainerReference|escape}{/if}
           </div>
           {/if}
       {/if}

@@ -124,6 +124,12 @@ img.alignleft {
     padding: .8em 0;
 }
 
+.openurlIframe {
+	width: 100%;
+	height: 250px;
+	border: 1px solid gray;
+}
+
 
 /*** Header ***/
 
@@ -241,7 +247,7 @@ div.dialogLoading {
     height:100%;
 }
 
-.ajax_availability, .ajax_hold_availability {
+.ajax_availability, .ajax_hold_availability, .ajax_fulltext_availability, .iframe_loading {
     background: url(../images/ajax_loading.gif) no-repeat left top;
     padding:0 .5em .5em 20px;
 }
@@ -812,9 +818,31 @@ ul.recordSet .addToFavLink a {
     background-image:url(../images/silk/bullet_orange.png);
     background-repeat:no-repeat;
     color:#ff890f;
+    padding-left:18px;
+}
+.more {
+    background-image:url(../images/silk/bullet_arrow_down.png);
+    background-repeat:no-repeat;
+    background-position: right bottom;
+    padding-right: 18px;
+}
+.separator {
+    background-image:url(../images/silk/bullet_white.png);
+    background-repeat:no-repeat;
+    background-position: left top;
+    padding-left:18px;
+}
+.peerReviewed {
+    background-image:url(../images/silk/user_green.png);
+    background-repeat:no-repeat;
     padding-left:18px
 }
-
+.fulltextAvailable {
+    background-image:url(../images/silk/world.png);
+    background-repeat:no-repeat;
+    color:#009900;
+    padding-left:18px
+}
 
 
 

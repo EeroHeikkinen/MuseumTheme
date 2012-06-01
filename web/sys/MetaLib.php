@@ -540,7 +540,7 @@ class MetaLib
             }
         }
         
-        $openurl = '';
+        $openurl = array();
         if (isset($configArray['OpenURL']['url']) && $configArray['OpenURL']['url']) {
             $opu = $this->_getSingleValue($record, 'OPUa');
             if ($opu) {
@@ -553,11 +553,32 @@ class MetaLib
                     }
                     $value = trim((string)$element);
                     if ($value) {
-                        $openurl .= '&' . $element->getName() . '=' . urlencode($value);
+                        $openurl[$element->getName()] = $value;
+                        
+                        // OpenURL might have many nicely parsed elements we can use
+                        switch ($element->getName()) {
+                            case 'date': 
+                                if (empty($year)) {
+                                    $year = $value;
+                                }
+                                break;
+                            case 'volume': 
+                                $volume = $value; 
+                                break;
+                            case 'issue': 
+                                $issue = $value; 
+                                break;
+                            case 'spage':
+                                $startPage = $value;
+                                break;
+                            case 'epage':
+                                $endPage = $value;
+                                break;
+                        }
                     }
                 }
-                if ($openurl) {
-                    $openurl = 'rfr_id=' . urlencode($configArray['OpenURL']['rfr_id']) . $openurl;
+                if (!empty($openurl)) {
+                    $openurl['rfr_id'] = $configArray['OpenURL']['rfr_id'];
                 }
             }
         }
@@ -571,16 +592,26 @@ class MetaLib
         
         $matches = array();
         if (preg_match('/(\d*)\s*\((\d{4})\)\s*:\s*(\d*)/', $field773g, $matches)) {
-            $volume = $matches[1];
-            $issue = $matches[3];
+            if (!isset($volume)) {
+                $volume = $matches[1];
+            }
+            if (!isset($issue)) {
+                $issue = $matches[3];
+            }
         } elseif (preg_match('/(\d{4})\s*:\s*(\d*)/', $field773g, $matches)) {
-            $volume = $matches[1];
-            $issue = $matches[2];
+            if (!isset($volume)) {
+                $volume = $matches[1];
+            }
+            if (!isset($issue)) {
+                $issue = $matches[2];
+            }
         }
         if (preg_match('/,\s*\w\.?\s*([\d,\-]+)/', $field773g, $matches)) {
             $pages = explode('-', $matches[1]);
-            $startPage = $pages[0];
-            if (isset($pages[1])) {
+            if (!isset($startPage)) {
+                $startPage = $pages[0];
+            }
+            if (isset($pages[1]) && !isset($endPage)) {
                 $endPage = $pages[1];
             }
         }
@@ -595,7 +626,7 @@ class MetaLib
             'Source' => $sources,
             'PublicationDate' => $year ? array($year) : null,
             'PublicationTitle' => $hostTitle ? array($hostTitle) : null,
-            'openUrl' => $openurl ? $openurl : null,
+            'openUrl' => !empty($openurl) ? http_build_query($openurl) : null,
             'url' => $urls,
             'fullrecord' => $record->asXML(),
             'id' => '',

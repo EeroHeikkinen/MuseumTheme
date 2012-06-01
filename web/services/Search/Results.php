@@ -129,6 +129,17 @@ class Results extends Action
         $interface->assign(
             'sideRecommendations', $searchObject->getRecommendationsTemplates('side')
         );
+        
+        // Whether RSI is enabled
+        if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
+            $interface->assign('rsi', true);
+        }
+
+        // Whether embedded openurl autocheck is enabled
+        if (isset($configArray['OpenURL']['autocheck']) && $configArray['OpenURL']['autocheck']) {
+            $interface->assign('openUrlAutoCheck', true);
+        }
+        
         // If no record found
         if ($searchObject->getResultTotal() < 1) {
             $interface->setTemplate('list-none.tpl');
