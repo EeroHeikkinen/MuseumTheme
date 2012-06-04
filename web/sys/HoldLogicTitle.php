@@ -100,7 +100,7 @@ class HoldLogicTitle
      * @access protected
      */
     protected function driverHold($id, $patron)
-    {	
+    {
         // Get Hold Details
         $checkHolds = $this->catalog->checkFunction("Holds", $id);
         $data = array(
@@ -130,14 +130,13 @@ class HoldLogicTitle
     {
         $any_available = false;
         $addlink = false;
-        
+
         $data = array(
             'id' => $id,
             'level' => "title"
         );
-        
-        // Are holds allows?
-        // MH: Adding record id to checkFunction call
+
+        // Are holds allowed?
         $checkHolds = $this->catalog->checkFunction("Holds", $id);
 
         if ($checkHolds != false) {

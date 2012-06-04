@@ -101,7 +101,7 @@ class CatalogConnection
      * if the system supports a particular function.
      *
      * @param string $function The name of the function to check.
-     * @param string $id (OPTIONAL) An record id used to identify the used backend with
+     * @param string $id (optional) A record id used to identify the used backend with
      * MultiBackend driver  
      *
      * @return mixed On success, an associative array with specific function keys
@@ -112,7 +112,7 @@ class CatalogConnection
     {    	
         // Extract the configuration from the driver if available:
         $functionConfig = method_exists($this->driver, 'getConfig')
-            	? $this->driver->getConfig($function, $id) : false;
+            ? $this->driver->getConfig($function, $id) : false;
     	
         // See if we have a corresponding check method to analyze the response:
         $checkMethod = "_checkMethod".$function;
