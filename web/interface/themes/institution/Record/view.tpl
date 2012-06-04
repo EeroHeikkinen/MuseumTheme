@@ -205,7 +205,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   <span class="Z3988" title="{$openURL|escape}"></span>
 </div>
 
-<div id="resultSidebar" class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
+<div id="resultSidebar" class="span-3 last">
   <div class="sidegroup">
     <h4>{translate text="Similar Items"}</h4>
     {if is_array($similarRecords)}
