@@ -36,31 +36,21 @@
 </div>
 
 <div class="homeCustomContent">
-	<div class="homeCustomCol1">
-		<h2>Suomen kirjastojen, arkistojen ja museoiden aarteet yhdellä haulla</h2>
-		<p>Keräsimme aineistotiedot useista Suomen kirjastoista, arkistoista ja museoista yhteen paikkaan. Yhdellä haulla saat tuloksia kaikista mukana olevista kokoelmista.</p>
-		<p><a href="about.html">Lue lisää</a> tai kokeile hakua!</p>
-	</div>
+    <div class="homeCustomCol1">
+        <h2>Mikä on Museonäkymä?</h2>
+        <p>Museonäkymä on Kansallisen digitaalisen kirjaston sektorikohtainen käyttöliittymä, jossa voi selata ja tutkia Kantapuu-konsortion, Museoviraston sekä muiden suomalaisten museoiden digitoituja kokoelmia. Museonäkymässä on suomalaisiin museoihin tallennetun kulttuuriperinnön koko kirjo, esineitä, valokuvia, arkistoaineistoa ja julkaisuja, niiden viitetietoja ja kuvia. Museonäkymässä voi tilata kopion arkisto- tai esinekuvasta, kirjoittaa kommentteja ja antaa lisätietoa aineistosta sitä säilyttävään museoon.</p>
+        <p><a href="about.html">Lue lisää</a> tai kokeile hakua!</p>
+    </div>
+    <div class="homeCustomCol1">
+       <h2>Mikä on KDK?</h2>
+       <p>Kansallisen digitaalisen kirjaston asiakasliittymä avaa pääsyn kirjastojen, arkistojen ja museoiden sähköisiin aineistoihin ja palveluihin. Se on tarkoitettu kaikille tietoa tarvitseville ja elämyksiä etsiville. Verkkopalvelun avulla pääsee helposti käsiksi valitsemaansa aihetta koskevaan aineistoon. Asiakasliittymän kansallisessa näkymässä kirjastojen, arkistojen ja museoiden aineistot muodostavat yhteisen kokonaisuuden. Käytettävissä on myös erilaisia sektoreiden tai organisaatioiden omia, temaattisia ja alueellisia hakuliittymiä.</p>
+       <p><a href="http://vufind-fe-kktest.lib.helsinki.fi/institution/">Siirry kansalliseen näkymään</a></p>
+    </div>
+
 	
-	<div class="homeCustomCol2">
-		<h4>Haulla löydät:</h4>
-		<ul>
-			<li><span class="iconlabel formatbook">Kirjoja</span></li>
-			<li><span class="iconlabel formatmusicalscore">Nuotteja</span></li>
-			<li><span class="iconlabel formatserial">Lehtiä ja artikkeleita</span></li>
-			<li><span class="iconlabel formatitem">Asiakirjoja</span></li>
-			<li><span class="iconlabel formatjournal">Pienpainatteita</span></li>
-			<li><span class="iconlabel formatmap">Karttoja</span></li>
-			<li><span class="iconlabel formatslide">Kuvia</span></li>
-			<li><span class="iconlabel formatkit">Esineitä</span></li>
-			<li><span class="iconlabel formatsoundrecording">Äänitteitä</span></li>
-			<li><span class="iconlabel formatebook">Tietokantoja</span></li>
-			<li><span class="iconlabel formatvideo">Videoita</span></li>
-	</div>
 	
-	<div class="homeCustomCol3">
 	
-	</div>
+	
 </div>
 
 {* Search by browsing switched off for now.
