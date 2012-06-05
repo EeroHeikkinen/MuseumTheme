@@ -49,7 +49,7 @@
           <div>
             <b>{translate text='component_part_is_part_of'}:</b>
             {if $summHierarchyParentId}
-              <a href="{$url}/Record/{$summHierarchyParentId|escape:"url"}">{$summContainerTitle|escape}</a>
+              <a href="{$url}/Record/{$summHierarchyParentId.0|escape:"url"}">{$summContainerTitle|escape}</a>
             {else}
               {$summContainerTitle|escape}
             {/if}
