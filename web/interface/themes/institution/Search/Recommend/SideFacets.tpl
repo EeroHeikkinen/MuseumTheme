@@ -78,24 +78,13 @@
 <script type="text/javascript">
 $(document).ready(function() {
 {/literal}
-  enableDynatree('#facet_{$title}', '{$fullPath}');
+  enableDynatree('#facet_{$title}', '{$title}', '{$fullPath}');
 {literal}  
 });
 </script>
 {/literal}
-
       <div id="facet_{$title}" class="dynatree-facet">
-      <ul class="narrowList navmenu">
-        {foreach from=$cluster.list item=thisFacet name="narrowLoop"}
-          <li data='url: "{$thisFacet.url|escape}", icon: false, unselectable: true, isLazy: true, facet: "{$title}", level: 0, filter: "{$thisFacet.untranslated|escape}"'>
-          {if $thisFacet.isApplied}
-            {$thisFacet.value|escape} <img src="{$path}/images/silk/tick.png" alt="Selected"/>
-          {else}
-            <a href="{$thisFacet.url|escape}">{$thisFacet.value|escape} <span class="facetCount">({$thisFacet.count})</span></a>
-          {/if}
-          </li>
-        {/foreach}
-      </ul>
+        <span class="facet_loading"></span>
       </div>
     {else}
       <dl class="narrowList navmenu">
