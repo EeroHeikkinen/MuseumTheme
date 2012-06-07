@@ -2,6 +2,7 @@
 <schema name="VuFind Bibliographic Index" version="1.2">
   <types>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+    <fieldType name="compressedString" class="fi.nationallibrary.ndl.solr.schema.CompressedStrField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="textFacet" class="solr.TextField" sortMissingLast="true" omitNorms="true">
       <analyzer>
         <tokenizer class="solr.KeywordTokenizerFactory"/>
@@ -112,7 +113,7 @@
  <fields>
    <!-- Core Fields  -->
    <field name="id" type="string" indexed="true" stored="true"/>
-   <field name="fullrecord" type="binary" indexed="false" stored="true"/>
+   <field name="fullrecord" type="compressedString" indexed="false" stored="true" compressionlevel="1"/>
    <field name="marc_error" type="string" indexed="false" stored="true" multiValued="true"/>
    <field name="allfields" type="text" indexed="true" stored="false"/>
    <field name="allfields_unstemmed" type="textProper" indexed="true" stored="false"/>

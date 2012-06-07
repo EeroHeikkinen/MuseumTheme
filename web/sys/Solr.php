@@ -145,11 +145,6 @@ class Solr implements IndexEngine
     private $_leftTruncation = false;
 
     /**
-     * Whether the fullrecord field is compressed and needs to be inflated
-     */
-    private $_fullRecordCompressed = false;
-    
-    /**
      * Constructor
      *
      * @param string $host  The URL for the local Solr Server
@@ -250,12 +245,6 @@ class Solr implements IndexEngine
 	    if (isset($searchSettings['General']['allow_left_truncation'])) {
 	    	$this->_leftTruncation
     	    	= $searchSettings['General']['allow_left_truncation'];
-	    }	    	 
-
-	    // Is the fullrecord field compressed?
-	    if (isset($configArray['Index']['fullrecord_compressed'])) {
-	    	$this->_fullRecordCompressed
-    	    	= $configArray['Index']['fullrecord_compressed'];
 	    }	    	 
     }
 
@@ -1548,14 +1537,12 @@ class Solr implements IndexEngine
         			$instPriority = array_flip(explode(',', $this->_collapsingInstitutionPriority));
         			
         			foreach ($value[$this->_collapseField]['groups'] as $groupKey => $group) {
-        				//error_log("Degrouping set of {$group['doclist']['numFound']} records, id {$group['doclist']['docs'][0]['id']}");
         				$dedupDoc = $group['doclist']['docs'][0];
         				$docPriority = 99999;
         				if ($group['doclist']['numFound'] > 1) {
         					// Find the document that matches the organisation priority best
         					foreach ($group['doclist']['docs'] as $doc) {
 	        					$inst = $doc['institution'][0];
-	        					//error_log("  check $inst with priority " . $instPriority[$inst] . ", doc prio: $docPriority");
 	        					if (isset($instPriority[$inst])) {
 	        						if ($instPriority[$inst] < $docPriority) {
 	        							$dedupDoc = $doc;
@@ -1593,15 +1580,6 @@ class Solr implements IndexEngine
         		}
         	}
         	$result = $degrouped;
-        }
-        
-        // Inflate fullrecord field if it is compressed
-        if ($this->_fullRecordCompressed) {
-            foreach ($result['response']['docs'] as $key => $value) {
-                if (isset($value['fullrecord'])) {
-                    $result['response']['docs'][$key]['fullrecord'] = gzinflate(base64_decode($value['fullrecord']));
-                }
-            }
         }
         
         // Inject highlighting details into results if necessary:
