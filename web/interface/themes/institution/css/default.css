@@ -427,7 +427,7 @@ ul.recordSet {
     padding: 0;
     list-style-type: none;
 }
-ul.recordSet li {
+ul.recordSet li.result {
     padding: 1em 0;
     border-bottom: 1px solid #f3f3f3;
 }
@@ -756,6 +756,12 @@ ul.recordSet .addToFavLink a {
     background-image:url(../images/fugue/tick-small.png);
     background-repeat:no-repeat;
     padding-left:18px
+}
+.openurl_more {
+    background-image:url(../images/sfx.gif);
+    background-repeat:no-repeat;
+    padding-left:16px;
+    margin-left:2px;
 }
 .checkedout {
     display:none; /* Uncomment the line to the Not Available info */
