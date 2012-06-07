@@ -909,12 +909,18 @@ ul.recordSet .addToFavLink a {
     font-weight:bold;
 }
 
-/*** Record Page */
+/*** Record Page ***/
+
 div.record {
     padding: 0 1.5em;
     border-bottom: 1px solid #ddd;
     margin-bottom: 1em;
 }
+
+#resultMain, #resultSide {
+    padding-top: 1.2em;
+}
+
 .recordTitle {
     font-weight:bold;
     margin-top:0;
