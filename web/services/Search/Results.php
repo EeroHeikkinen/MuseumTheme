@@ -67,6 +67,14 @@ class Results extends Action
         $searchObject = SearchObjectFactory::initSearchObject();
         $searchObject->init();
 
+        // Handle hierarchical facets (request level 0 only for initial display)
+        $facetConfig = getExtraConfigArray('facets');
+        if (isset($facetConfig['SpecialFacets']['hierarchical'])) {
+            foreach ($facetConfig['SpecialFacets']['hierarchical'] as $facet) {
+                $searchObject->addFacetPrefix(array($facet => '0/'));
+            }
+        }
+                
         // Build RSS Feed for Results (if requested)
         if ($searchObject->getView() == 'rss') {
             // Throw the XML to screen

@@ -70,6 +70,22 @@
           <input type="submit" value="{translate text='Set'}" id="{$title|escape}goButton"/>
         </fieldset>
       </form>
+    {elseif in_array($title, $hierarchicalFacets)}
+      <dl class="narrowList navmenu">
+        <dt>{translate text=$cluster.label}</dt>
+      </dl>
+{literal}
+<script type="text/javascript">
+$(document).ready(function() {
+{/literal}
+  enableDynatree('#facet_{$title}', '{$title}', '{$fullPath}');
+{literal}  
+});
+</script>
+{/literal}
+      <div id="facet_{$title}" class="dynatree-facet">
+        <span class="facet_loading"></span>
+      </div>
     {else}
       <dl class="narrowList navmenu">
         <dt>{translate text=$cluster.label}</dt>

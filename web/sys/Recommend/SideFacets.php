@@ -44,6 +44,7 @@ class SideFacets implements RecommendationInterface
     private $_dateFacets = array();
     protected  $_mainFacets;
     private $_checkboxFacets;
+    protected $_hierarchicalFacets = array();
 
     /**
      * Constructor
@@ -81,6 +82,11 @@ class SideFacets implements RecommendationInterface
                 : array($config['SpecialFacets']['dateRange']);
         }
 
+        // Get a list of fields that should be displayed as a hierarchy.
+        if (isset($config['SpecialFacets']['hierarchical'])) {
+            $this->_hierarchicalFacets = $config['SpecialFacets']['hierarchical'];
+        }        
+        
         // Checkbox facets:
         $this->_checkboxFacets
             = ($checkboxSection && isset($config[$checkboxSection]))
@@ -134,6 +140,7 @@ class SideFacets implements RecommendationInterface
             'dateFacets',
             $this->_processDateFacets($this->_searchObject->getFilters())
         );
+        $interface->assign('hierarchicalFacets', $this->_hierarchicalFacets);
         $interface->assign(
             'sideFacetSet', $this->_searchObject->getFacetList($this->_mainFacets)
         );

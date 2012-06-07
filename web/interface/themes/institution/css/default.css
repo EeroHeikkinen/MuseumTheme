@@ -247,7 +247,7 @@ div.dialogLoading {
     height:100%;
 }
 
-.ajax_availability, .ajax_hold_availability, .ajax_fulltext_availability, .iframe_loading {
+.ajax_availability, .ajax_hold_availability, .ajax_fulltext_availability, .iframe_loading, .facet_loading {
     background: url(../images/ajax_loading.gif) no-repeat left top;
     padding:0 .5em .5em 20px;
 }
@@ -915,12 +915,18 @@ ul.recordSet .addToFavLink a {
     font-weight:bold;
 }
 
-/*** Record Page */
+/*** Record Page ***/
+
 div.record {
     padding: 0 1.5em;
     border-bottom: 1px solid #ddd;
     margin-bottom: 1em;
 }
+
+#resultMain, #resultSide {
+    padding-top: 1.2em;
+}
+
 .recordTitle {
     font-weight:bold;
     margin-top:0;
@@ -2098,4 +2104,51 @@ div#closeContextHelp:active {
     background-color: #FDD5A3;
     border: solid 2px #E77825;
     font-size:24px;
+}
+
+/* Dynatree */
+ul.dynatree-container {
+	  border: none;
+	  font-size: 100%;
+	  margin: 0;
+    max-height: 500px;
+    overflow-y: auto; 
+}
+ul.dynatree-container a {
+	  margin: 0;
+}
+span.dynatree-node {
+    font-size: 100%;
+}
+span.dynatree-node a:hover {
+    background-color:#f9f9f9;
+    color: #0099ff;
+    border: none;
+}
+span.dynatree-node a {
+    text-decoration: none;
+    padding: 0.1em 0 0.1em 0.2em;
+    color: #0066cc;
+    border: none;
+}
+span.dynatree-empty,
+span.dynatree-vline,
+span.dynatree-connector,
+span.dynatree-expander,
+span.dynatree-icon,
+span.dynatree-checkbox,
+span.dynatree-radio,
+span.dynatree-drag-helper-img,
+#dynatree-drop-marker
+{
+  background-image: url("../images/dynatree_icons.gif");
+}
+.dynatree-loading span.dynatree-expander,
+.dynatree-statusnode-wait span.dynatree-icon
+{
+  background-position: 0 0;
+  background-image: url("../images/ajax_loading.gif");
+}
+span.dynatree-connector {
+	background-image: none;
 }

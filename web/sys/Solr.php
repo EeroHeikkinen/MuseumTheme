@@ -1064,8 +1064,19 @@ class Solr implements IndexEngine
             $options['facet.field']
                 = (isset($facet['field'])) ? $facet['field'] : null;
             unset($facet['field']);
-            $options['facet.prefix']
-                = (isset($facet['prefix'])) ? $facet['prefix'] : null;
+            if (isset($facet['prefix'])) {
+                if (is_array($facet['prefix'])) {
+                    foreach ($facet['prefix'] as $name => $prefix) {
+                        $options["f.$name.facet.prefix"] = $prefix;
+                        // TODO: This is a kludge, maybe something better is
+                        // needed to indicate when we want more than the default
+                        // limit for hierarchical facets.
+                        $options["f.$name.facet.limit"] = 1000;
+                    }                    
+                } else {
+                    $options['facet.prefix'] = $facet['prefix']; 
+                }
+            }
             unset($facet['prefix']);
             $options['facet.sort']
                 = (isset($facet['sort'])) ? $facet['sort'] : null;
