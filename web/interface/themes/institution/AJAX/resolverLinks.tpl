@@ -32,7 +32,7 @@
     </div>
   {/if}
   <div class="openurls">
-    <a class="openurl_more" href="{$openUrlBase|escape}?{$openUrl|escape}">{translate text="More options"}</a>
+    <a class="openurl_more" href="{$openUrlBase|escape}?{$openUrl|escape}">{translate text="More options"} <img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6"/></a>
     {if !empty($services)}
       <ul>
         {foreach from=$services item=link}
