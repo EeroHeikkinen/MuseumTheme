@@ -12,9 +12,10 @@
 
 <div id="resultList" class="span-10{if $sidebarOnLeft} push-3 last{/if}">
   {* Listing Options *}
-  <div class="resulthead">
+  <div class="resulthead" style="padding-top:0;">
+    {if $recordCount}
+    <h3 style="margin:0;">{if $searchType == 'basic'}{$lookfor|escape:"html"}{/if}</h3>
     <div class="floatleft">
-      {if $recordCount}
         {translate text="Showing"}
         <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
         {translate text='of'} <strong>{$recordCount}</strong>
