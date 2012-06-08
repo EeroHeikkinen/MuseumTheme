@@ -11,7 +11,7 @@
       </div>
     {/if}
     <div class="searchHomeLogo">
-      <img src="{$path}/interface/themes/institution/images/morgan_logo.png" alt="MORGAN - KIRJASTO, ARKISTO JA MUSEO" />
+      <img src="{$path}/interface/themes/institution/images/finna_logo.png" alt="Finna" />
 {* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
 {*
       <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>
