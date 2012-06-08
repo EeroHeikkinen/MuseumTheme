@@ -926,9 +926,8 @@ ul.recordSet .addToFavLink a {
 /*** Record Page ***/
 
 div.record {
-    padding: 0 1.5em;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1em;
+    padding: 0;
+    margin: 5px 0 1em 0;
 }
 
 #resultMain, #resultSide {
@@ -1169,9 +1168,7 @@ h5.recordTabHeader{
 
 .resultscroller {
     height:27px;
-    margin:0;
-    padding:0 0 0 1em;
-    /* border-bottom:1px solid #dddddd; */
+    border-bottom:1px solid #dddddd;
 }
 .resultscroller .prevRecord {
     margin-right: 0.5em; 
@@ -1183,6 +1180,7 @@ h5.recordTabHeader{
     float: left;
     width: 200px;
     height: 27px;
+    margin-left:2em;
 }
 
 /*********** Toolbar (Favorites View) ************/

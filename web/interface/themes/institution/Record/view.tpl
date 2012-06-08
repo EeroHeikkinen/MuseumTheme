@@ -206,7 +206,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {* Add COINS *}
     <span class="Z3988" title="{$openURL|escape}"></span>
   </div>
-</div>
+  
 
 <div id="resultSidebar" class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   <div class="sidegroup">
@@ -257,7 +257,9 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {include file="Record/bx.tpl"}
   {/if}
 </div>
+  <div class="clear"></div>
+</div>
 
-<div class="clear"></div>
+
 
 <!-- END of: Record/view.tpl -->
