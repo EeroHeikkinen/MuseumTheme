@@ -456,8 +456,14 @@ ul.recordSet .addToFavLink {
     width: auto;
     float: right;
 }
+ul.recordSet .resultColumn2 {
+    margin:0;
+}
+ul.recordSet .resultCheckbox {
+    position:absolute;
+}
 ul.recordSet .coverDiv {
-    width:100px;
+    max-height:136px;
     /* border:1px solid #ddd; */
     text-align:center;
 }
@@ -466,7 +472,7 @@ ul.recordSet .resultItemLine2{
 }
 .summcover {
     margin: 0;
-    max-width: 100px;
+    max-width: 136px;
 }
 .resultImages {
     float:left;
