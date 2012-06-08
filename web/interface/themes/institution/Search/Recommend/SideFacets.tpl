@@ -84,7 +84,7 @@ $(document).ready(function() {
 </script>
 {/literal}
       <div id="facet_{$title}" class="dynatree-facet">
-        <span class="facet_loading"></span>
+        <span class="facet_loading hide"></span>
       </div>
     {else}
       <dl class="narrowList navmenu">

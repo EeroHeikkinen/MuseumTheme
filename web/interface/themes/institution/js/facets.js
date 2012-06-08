@@ -14,6 +14,7 @@ function enableDynatree(tree, facet, url)
     }
   });
   var node = $(tree).dynatree("getRoot");
+  $('#facet_' + facet).find('.facet_loading').show();
   getFacetList(node, query, facet, 0, '');
 }
 

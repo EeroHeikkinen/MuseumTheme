@@ -2116,7 +2116,7 @@ div#closeContextHelp:active {
 ul.dynatree-container {
 	  border: none;
 	  font-size: 100%;
-	  margin: 0;
+	  margin: 0 0 0 -8px;
     max-height: 500px;
     overflow-y: auto; 
 }
@@ -2125,6 +2125,7 @@ ul.dynatree-container a {
 }
 span.dynatree-node {
     font-size: 100%;
+    margin: 0 0 0 -6px;
 }
 span.dynatree-node a:hover {
     background-color:#f9f9f9;
@@ -2152,9 +2153,14 @@ span.dynatree-drag-helper-img,
 .dynatree-loading span.dynatree-expander,
 .dynatree-statusnode-wait span.dynatree-icon
 {
-  background-position: 0 0;
-  background-image: url("../images/ajax_loading.gif");
+  background-position: 3px 3px;
+  background-image: url("../images/ajax_loading_small.gif");
+}
+span.dynatree-expander {
+    width: 14px;
+    margin-top: 2px;
 }
 span.dynatree-connector {
 	background-image: none;
+	width: 14px;
 }
