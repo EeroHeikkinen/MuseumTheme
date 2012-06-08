@@ -288,6 +288,7 @@ AllFields:
     - author^300
     - author_fuller^150
     - contents^10
+    - description^10
     - topic_unstemmed^4550
     - topic^500
     - geographic^300
@@ -329,6 +330,8 @@ AllFields:
     author_additional:
       - [and, 50]
     contents:
+      - [and, 10]
+    description:
       - [and, 10]
     topic_unstemmed:
       - [onephrase, 550]
