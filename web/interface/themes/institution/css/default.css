@@ -461,11 +461,13 @@ ul.recordSet .resultColumn2 {
 }
 ul.recordSet .resultCheckbox {
     position:absolute;
+    display:none;
 }
 ul.recordSet .coverDiv {
     max-height:136px;
     /* border:1px solid #ddd; */
     text-align:center;
+    overflow:hidden;
 }
 ul.recordSet .resultItemLine2{
     margin:0.2em 0 0 0;
