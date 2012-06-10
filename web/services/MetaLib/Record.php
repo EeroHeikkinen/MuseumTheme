@@ -83,6 +83,16 @@ class Record extends Base
             ? $configArray['EZproxy']['host'] : false
         );
 
+        // Whether RSI is enabled
+        if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
+            $interface->assign('rsi', true);
+        }
+        
+        // Whether embedded openurl autocheck is enabled
+        if (isset($configArray['OpenURL']['autocheck']) && $configArray['OpenURL']['autocheck']) {
+            $interface->assign('openUrlAutoCheck', true);
+        }
+        
         // Send record ID to template
         $interface->assign('id', $_REQUEST['id']);
     }

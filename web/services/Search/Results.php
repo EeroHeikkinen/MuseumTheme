@@ -67,6 +67,14 @@ class Results extends Action
         $searchObject = SearchObjectFactory::initSearchObject();
         $searchObject->init();
 
+        // Handle hierarchical facets (request level 0 only for initial display)
+        $facetConfig = getExtraConfigArray('facets');
+        if (isset($facetConfig['SpecialFacets']['hierarchical'])) {
+            foreach ($facetConfig['SpecialFacets']['hierarchical'] as $facet) {
+                $searchObject->addFacetPrefix(array($facet => '0/'));
+            }
+        }
+                
         // Build RSS Feed for Results (if requested)
         if ($searchObject->getView() == 'rss') {
             // Throw the XML to screen
@@ -133,6 +141,17 @@ class Results extends Action
         $interface->assign(
             'sideRecommendations', $searchObject->getRecommendationsTemplates('side')
         );
+        
+        // Whether RSI is enabled
+        if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
+            $interface->assign('rsi', true);
+        }
+
+        // Whether embedded openurl autocheck is enabled
+        if (isset($configArray['OpenURL']['autocheck']) && $configArray['OpenURL']['autocheck']) {
+            $interface->assign('openUrlAutoCheck', true);
+        }
+        
         // If no record found
         if ($searchObject->getResultTotal() < 1) {
             $interface->setTemplate('list-none.tpl');

@@ -38,8 +38,9 @@
     {css media="screen, projection" filename="blueprint/blueprint-adjust.css"}
 
     {* Load VuFind specific stylesheets *}
-    {css media="screen, projection" filename="styles.css"}
+    {css media="screen" filename="ui.dynatree.css"}
     {css media="screen" filename="datatables.css"}
+    {css media="screen, projection" filename="styles.css"}
     {css media="print" filename="print.css"}
     <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
     <!--[if lt IE 7]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/iepngfix/iepngfix.css" type="text/css" media="screen, projection"><![endif]-->
@@ -69,6 +70,10 @@
         
     {* Load dialog/lightbox functions *}
     {js filename="lightbox.js"}
+
+    {* Load dynatree and dynamic facets *}
+    {js filename="jquery.dynatree.min.js"}
+    {js filename="facets.js"}
 
     {* Load common javascript functions *}
     {js filename="common.js"}

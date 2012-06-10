@@ -1,13 +1,17 @@
 <div class="result recordId" id="record{$summId|escape}">
-  
+
+<div class="span-2 resultColumn1">
+
+<div class="resultCheckbox">
   {if $bookBag}
   <label for="checkbox_{$summId|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
   <input id="checkbox_{$summId|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="ids[]" value="{$summId|escape}" class="checkbox_ui"/>
   <input type="hidden" name="idsAll[]" value="{$summId|escape}" />
   {/if}
+</div>
 
-  <div class="coverDiv span-2">
-  {assign var=img_count value=$summImages|@count}  
+  <div class="coverDiv">
+  {assign var=img_count value=$summImages|@count}
   {if $img_count >= 1}
       <div id="imagelinks">
         <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
@@ -18,11 +22,19 @@
       {if $summThumb}
         <img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
         {else}
-        <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
+        <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}" title="{translate text='No Cover Image'}"/>
       {/if}
-  {/if}  
+  {/if}
   </div>
-  <div class="span-6">
+
+  {foreach from=$summFormats item=format}
+    <div style="margin:10px auto 0 auto;text-align:center;"><span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span></div>
+  {/foreach}
+
+</div>
+
+    
+  <div class="span-8 resultColumn2">
   
     <div class="resultItemLine1">
       <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
@@ -45,15 +57,21 @@
           </div>
         {/foreach}
       {else}
-          {if !empty($summHostRecordTitle)}
+          {if !empty($summContainerTitle)}
           <div>
-            <b>{translate text='component_part_is_part_of'}:</b> <a href="{$url}/Record/{$summHostRecordId.0|escape:"url"}">{$summHostRecordTitle.0|escape}</a>
+            <b>{translate text='component_part_is_part_of'}:</b>
+            {if $summHierarchyParentId}
+              <a href="{$url}/Record/{$summHierarchyParentId.0|escape:"url"}">{$summContainerTitle|escape}</a>
+            {else}
+              {$summContainerTitle|escape}
+            {/if}
+            {if !empty($summContainerReference)}{$summContainerReference|escape}{/if}
           </div>
           {/if}
       {/if}
     </div>
 
-    <div class="last">
+    <div class="last span-5">
       {if !empty($summSnippetCaption)}<strong>{translate text=$summSnippetCaption}:</strong>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       <div id="callnumAndLocation{$summId|escape}">
@@ -76,10 +94,7 @@
         {/foreach}
       {/if}
 
-      <br class="hideIfDetailed{$summId|escape}"/>
-      {foreach from=$summFormats item=format}
-        <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
-      {/foreach}
+      {* <br class="hideIfDetailed{$summId|escape}"/> *}
 
       {if !$summOpenUrl && empty($summURLs) && $summAjaxStatus}
       <div class="ajax_availability hide noLoad" id="status{$summId|escape}">&nbsp;</div>
@@ -114,7 +129,7 @@
       </div>
       {/if}
     {/if}
-  </div>
+  <div class="clear"></div>
 
   <div class="span-3 last addToFavLink">
     <a id="saveRecord{$summId|escape}" href="{$url}/Record/{$summId|escape:"url"}/Save" class="fav tool saveRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
@@ -138,7 +153,7 @@
       {/foreach}
     {/if}
   </div>
-
+</div>
   <div class="clear"></div>
 </div>
 

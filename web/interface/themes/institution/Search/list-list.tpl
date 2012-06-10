@@ -7,6 +7,8 @@
 {if $showPreviews}
 {js filename="preview.js"}
 {/if}
+{include file="Search/rsi.tpl"}
+{include file="Search/openurl_autocheck.tpl"}
 
 {if $bookBag}
 <script type="text/javascript">

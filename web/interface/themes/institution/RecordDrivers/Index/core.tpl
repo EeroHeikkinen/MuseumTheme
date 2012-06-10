@@ -35,8 +35,12 @@
     <tr valign="top">
       <th>{translate text='component_part_is_part_of'}:</th>
       <td>
+      {if $coreHierarchyParentId}
         <a href="{$url}/Record/{$coreHierarchyParentId[0]|escape:"url"}">{$coreContainerTitle|escape}</a>
-        {if !empty($coreContainerReference)}{$coreContainerReference|escape}{/if}
+      {else}
+        {$coreContainerTitle|escape}
+      {/if}
+      {if !empty($coreContainerReference)}{$coreContainerReference|escape}{/if}
       </td>
     </tr>
     {/if}
@@ -178,6 +182,8 @@
         {/foreach}
         {if $coreOpenURL}
           {include file="Search/openurl.tpl" openUrl=$coreOpenURL}<br/>
+          {include file="Search/rsi.tpl"}
+          {include file="Search/openurl_autocheck.tpl"}
         {/if}
       </td>
     </tr>

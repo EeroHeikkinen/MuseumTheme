@@ -27,6 +27,18 @@ function loadResolverLinks($target, openUrl) {
             if (response.status == 'OK') {
                 $target.removeClass('ajax_availability')
                     .empty().append(response.data);
+                link = $target.find('.openurl_more');
+                link.one('click', function() {
+                	$(this).addClass('iframe_loading');
+                	div = $('<div/>');
+                	iframe = $('<iframe/>');
+                	iframe.attr('class', 'openurlIframe');
+                	iframe.load(function() { $('.iframe_loading').removeClass('iframe_loading');});
+                	iframe.attr('src', $(this).attr('href'));
+                	div.append(iframe);
+                	div.insertAfter($(this));
+                	return false;
+                });
             } else {
                 $target.removeClass('ajax_availability').addClass('error')
                     .empty().append(response.data);

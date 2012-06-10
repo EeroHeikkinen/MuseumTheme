@@ -124,11 +124,17 @@ img.alignleft {
     padding: .8em 0;
 }
 
+.openurlIframe {
+	width: 100%;
+	height: 250px;
+	border: 1px solid gray;
+}
+
 
 /*** Header ***/
 
 #logo {
-    background: url("../images/morgan_logo_small.png") no-repeat scroll left center transparent;
+    background: url("../images/finna_logo_small.png") no-repeat scroll left center transparent;
     float: left;
     height: 39px;
     width: 180px;
@@ -241,7 +247,7 @@ div.dialogLoading {
     height:100%;
 }
 
-.ajax_availability, .ajax_hold_availability {
+.ajax_availability, .ajax_hold_availability, .ajax_fulltext_availability, .iframe_loading, .facet_loading {
     background: url(../images/ajax_loading.gif) no-repeat left top;
     padding:0 .5em .5em 20px;
 }
@@ -421,7 +427,7 @@ ul.recordSet {
     padding: 0;
     list-style-type: none;
 }
-ul.recordSet li {
+ul.recordSet li.result {
     padding: 1em 0;
     border-bottom: 1px solid #f3f3f3;
 }
@@ -450,17 +456,25 @@ ul.recordSet .addToFavLink {
     width: auto;
     float: right;
 }
+ul.recordSet .resultColumn2 {
+    margin:0;
+}
+ul.recordSet .resultCheckbox {
+    position:absolute;
+    display:none;
+}
 ul.recordSet .coverDiv {
-    width:100px;
+    max-height:136px;
     /* border:1px solid #ddd; */
     text-align:center;
+    overflow:hidden;
 }
 ul.recordSet .resultItemLine2{
     margin:0.2em 0 0 0;
 }
 .summcover {
     margin: 0;
-    max-width: 100px;
+    max-width: 136px;
 }
 .resultImages {
     float:left;
@@ -751,6 +765,12 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:18px
 }
+.openurl_more {
+    background-image:url(../images/sfx.gif);
+    background-repeat:no-repeat;
+    padding-left:16px;
+    margin-left:2px;
+}
 .checkedout {
     display:none; /* Uncomment the line to the Not Available info */
     background-image:url(../images/silk/bullet_red.png);
@@ -812,9 +832,31 @@ ul.recordSet .addToFavLink a {
     background-image:url(../images/silk/bullet_orange.png);
     background-repeat:no-repeat;
     color:#ff890f;
+    padding-left:18px;
+}
+.more {
+    background-image:url(../images/silk/bullet_arrow_down.png);
+    background-repeat:no-repeat;
+    background-position: right bottom;
+    padding-right: 18px;
+}
+.separator {
+    background-image:url(../images/silk/bullet_white.png);
+    background-repeat:no-repeat;
+    background-position: left top;
+    padding-left:18px;
+}
+.peerReviewed {
+    background-image:url(../images/silk/user_green.png);
+    background-repeat:no-repeat;
     padding-left:18px
 }
-
+.fulltextAvailable {
+    background-image:url(../images/silk/world.png);
+    background-repeat:no-repeat;
+    color:#009900;
+    padding-left:18px
+}
 
 
 
@@ -881,12 +923,17 @@ ul.recordSet .addToFavLink a {
     font-weight:bold;
 }
 
-/*** Record Page */
+/*** Record Page ***/
+
 div.record {
-    padding: 0 1.5em;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1em;
+    padding: 0;
+    margin: 5px 0 1em 0;
 }
+
+#resultMain, #resultSide {
+    padding-top: 1.2em;
+}
+
 .recordTitle {
     font-weight:bold;
     margin-top:0;
@@ -1121,9 +1168,7 @@ h5.recordTabHeader{
 
 .resultscroller {
     height:27px;
-    margin:0;
-    padding:0 0 0 1em;
-    /* border-bottom:1px solid #dddddd; */
+    border-bottom:1px solid #dddddd;
 }
 .resultscroller .prevRecord {
     margin-right: 0.5em; 
@@ -1135,6 +1180,7 @@ h5.recordTabHeader{
     float: left;
     width: 200px;
     height: 27px;
+    margin-left:2em;
 }
 
 /*********** Toolbar (Favorites View) ************/
@@ -2064,4 +2110,57 @@ div#closeContextHelp:active {
     background-color: #FDD5A3;
     border: solid 2px #E77825;
     font-size:24px;
+}
+
+/* Dynatree */
+ul.dynatree-container {
+	  border: none;
+	  font-size: 100%;
+	  margin: 0 0 0 -8px;
+    max-height: 500px;
+    overflow-y: auto; 
+}
+ul.dynatree-container a {
+	  margin: 0;
+}
+span.dynatree-node {
+    font-size: 100%;
+    margin: 0 0 0 -6px;
+}
+span.dynatree-node a:hover {
+    background-color:#f9f9f9;
+    color: #0099ff;
+    border: none;
+}
+span.dynatree-node a {
+    text-decoration: none;
+    padding: 0.1em 0 0.1em 0.2em;
+    color: #0066cc;
+    border: none;
+}
+span.dynatree-empty,
+span.dynatree-vline,
+span.dynatree-connector,
+span.dynatree-expander,
+span.dynatree-icon,
+span.dynatree-checkbox,
+span.dynatree-radio,
+span.dynatree-drag-helper-img,
+#dynatree-drop-marker
+{
+  background-image: url("../images/dynatree_icons.gif");
+}
+.dynatree-loading span.dynatree-expander,
+.dynatree-statusnode-wait span.dynatree-icon
+{
+  background-position: 3px 3px;
+  background-image: url("../images/ajax_loading_small.gif");
+}
+span.dynatree-expander {
+    width: 14px;
+    margin-top: 2px;
+}
+span.dynatree-connector {
+	background-image: none;
+	width: 14px;
 }

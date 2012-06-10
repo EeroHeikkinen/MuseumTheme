@@ -1,12 +1,12 @@
 <div>
   {if !empty($electronic)}
     <div class="openurls">
-      <strong>{translate text="Electronic"}</strong>
+      <span class="fulltextAvailable">{translate text="Full text available"}:</span>
       <ul>
         {foreach from=$electronic item=link}
           <li>
             {if $link.href}
-              <a href="{$link.href|escape}" title="{$link.service_type|escape}">{$link.title|escape}</a> {$link.coverage|escape}
+              <a class="availableLoc" href="{$link.href|escape}" title="{$link.service_type|escape}">{$link.title|escape}</a> {$link.coverage|escape}
             {else}
               {$link.title|escape} {$link.coverage|escape}
             {/if}
@@ -17,7 +17,7 @@
   {/if}
   {if !empty($print)}
     <div class="openurls">
-      <strong>{translate text="Holdings"}</strong>
+      {translate text="Holdings"}
       <ul>
         {foreach from=$print item=link}
           <li>
@@ -32,7 +32,7 @@
     </div>
   {/if}
   <div class="openurls">
-    <strong><a href="{$openUrlBase|escape}?{$openUrl|escape}">{translate text="More options"}</a></strong>
+    <a class="openurl_more" href="{$openUrlBase|escape}?{$openUrl|escape}">{translate text="More options"} <img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6"/></a>
     {if !empty($services)}
       <ul>
         {foreach from=$services item=link}

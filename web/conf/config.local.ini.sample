@@ -5,9 +5,9 @@ debug           = false
 [Site]
 local           = /usr/local/vufind/web
 url             = /vufind
-email           = nelli-toimisto@helsinki.fi
+email           = alli-toimisto@helsinki.fi
 title           = "Kui"
-theme           = ndl,default
+theme           = institution
 mobile_theme    = jquerymobile
 language        = fi 
 locale          = fi_FI
@@ -59,12 +59,15 @@ resolver        = sfx
 show_in_record = true
 embed = true
 replace_other_urls = false
+use_rsi = true
+autocheck = true
 
 [Logging]
 file           = /var/log/vufind.log:alert,error,notice,debug
 
 [Extra_Config]
 searches = searches_local.ini 
+facets = facets_local.ini
 
 [Languages]
 fi          = "Suomi"

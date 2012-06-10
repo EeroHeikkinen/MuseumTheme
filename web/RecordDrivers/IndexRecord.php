@@ -237,8 +237,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreContainerTitle', $this->getContainerTitle());
         $interface->assign('coreContainerReference', $this->getContainerReference());
         $interface->assign('coreInstitutions', $this->getInstitutions());
-        
-        $interface->assign('coreHierarchyParentId', isset($this->fields['hierarchy_parent_id']) ? $this->fields['hierarchy_parent_id'] : '');
+        $interface->assign('coreHierarchyParentId', $this->getHierarchyParentId());
         
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
@@ -813,6 +812,8 @@ class IndexRecord implements RecordInterface
             $format = 'eBook';
         } else if (in_array('Article', $formats)) {
             $format = 'Article';
+        } else if (in_array('eArticle', $formats)) {
+            $format = 'eArticle';
         } else if (in_array('Journal', $formats)) {
             $format = 'Journal';
         } else {
@@ -839,6 +840,7 @@ class IndexRecord implements RecordInterface
             $params['rft.isbn'] = $this->getCleanISBN();
             break;
         case 'Article':
+        case 'eArticle':
             $params['rft_val_fmt'] = 'info:ofi/fmt:kev:mtx:journal';
             $params['rft.genre'] = 'article';
             $params['rft.issn'] = $this->getCleanISSN();
@@ -967,8 +969,9 @@ class IndexRecord implements RecordInterface
         $interface->assign('summLCCN', $this->getLCCN());
         $interface->assign('summOCLC', $this->getOCLC());
         $interface->assign('summCallNo', $this->getCallNumber());
-        $interface->assign('summHostRecordTitle', $this->getHostRecordTitle());
-        $interface->assign('summHostRecordId', $this->getHostRecordId());
+        $interface->assign('summContainerTitle', $this->getContainerTitle());
+        $interface->assign('summContainerReference', $this->getContainerReference());
+        $interface->assign('summHierarchyParentId', $this->getHierarchyParentId());
 
         //collection module only
         if (isset($configArray['Collections']['collections'])
@@ -995,15 +998,6 @@ class IndexRecord implements RecordInterface
         $openURL = $this->getOpenURL();
         $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
 
-        // Assign values needed for RSI query
-		if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
-			$rsiValues = $this->getValuesForRSI();
-        
-        	if ($rsiValues) {
-        		$interface->assign('rsi', $rsiValues);
-        	}
-		}
-        
         // Always provide an OpenURL for COinS purposes:
         $interface->assign('summCOinS', $openURL);
 
@@ -1031,45 +1025,47 @@ class IndexRecord implements RecordInterface
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
     }
 
-    
-    public function getValuesForRSI()
+    /**
+     * Return metadata required for RSI full text availability check
+     * @return NULL|array
+     */
+    public function getRSIValues()
     {
         global $configArray;
         $retval = array();	        
         
-        if (! $this->openURLActive('results')) { return null; }
+        if (!$this->openURLActive('results')) { 
+            return null; 
+        }
                 
-        if (! isset($configArray['OpenURL']['institute']) ) {
-        	$retval['institute'] = '';
-        }
-        else {
-        	$retval['institute'] = $configArray['OpenURL']['institute'];
-        }
-        	
-    	# Get id field (MANDATORY)
+    	// ISBN/ISSN (mandatory)
     	$retval['issn'] = $this->getCleanISSN();
 		$retval['isbn'] = $this->getCleanISBN();
 		if (! $retval['issn'] && ! $retval['isbn']) {
 			return null;
 		}
-    	
-    	# Get year field (MANDATORY)
+
+    	// Year (optional)
     	$year = $this->getPublicationDates();
-    	if (empty($year)) {    		
-    		return null; 
-    	}
-    	# Get first
-    	if ($year[0]) {
+    	if (!empty($year) && $year[0]) {
     		$retval['year'] = $year[0];
+    	} else {
+    	    $retval['year'] = '';
     	}
-    	else { $retval['year'] = ''; }
     	
-    	# get volume field (OPTIONAL)  	
+    	// Volume (optional)  	
     	$retval['volume'] = $this->getContainerVolume();
     	
-    	# get issue field (OPTIONAL)
+    	// Issue (optional)
     	$retval['issue'] = $this->getContainerIssue();
 
+    	// Institute (optional)
+		if (!isset($configArray['OpenURL']['institute'])) {
+		    $retval['institute'] = '';
+		} else {
+		    $retval['institute'] = trim($configArray['OpenURL']['institute']);
+		}
+		 
     	return $retval;
     }
     
@@ -2697,27 +2693,16 @@ class IndexRecord implements RecordInterface
     }
     
     /**
-     * Returns a title of host record if any
+     * Returns an id of hierarchy parent record if any
      *
      * @access protected
      * @return array
      *
      */
-    protected function getHostRecordTitle() 
+    protected function getHierarchyParentId() 
     {
-        return isset($this->fields['hierarchy_parent_title']) ? $this->fields['hierarchy_parent_title'] : '';
-    }
-    
-    /**
-     * Returns an id of host record if any
-     *
-     * @access protected
-     * @return array
-     *
-     */
-    protected function getHostRecordId() 
-    {
-        return isset($this->fields['hierarchy_parent_id']) ? $this->fields['hierarchy_parent_id'] : '';
+        return isset($this->fields['hierarchy_parent_id']) 
+            ? $this->fields['hierarchy_parent_id'] : '';
     }
 
     /**

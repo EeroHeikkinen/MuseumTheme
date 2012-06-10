@@ -71,6 +71,15 @@ class Search extends Base
         // Search MetaLib
         $result = $this->searchObject->processSearch(true, true);
 
+        // Whether RSI is enabled
+        if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
+            $interface->assign('rsi', true);
+        }
+        // Whether embedded openurl autocheck is enabled
+        if (isset($configArray['OpenURL']['autocheck']) && $configArray['OpenURL']['autocheck']) {
+            $interface->assign('openUrlAutoCheck', true);
+        }
+        
         // We'll need recommendations no matter how many results we found:
         $interface->assign('qtime', round($this->searchObject->getQuerySpeed(), 2));
         $interface->assign(

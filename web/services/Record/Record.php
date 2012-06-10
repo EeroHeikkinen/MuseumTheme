@@ -213,6 +213,16 @@ class Record extends Action
         // Send down OpenURL for COinS use:
         $interface->assign('openURL', $this->recordDriver->getOpenURL());
 
+        // Whether RSI is enabled
+        if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
+            $interface->assign('rsi', true);
+        }
+        
+        // Whether embedded openurl autocheck is enabled
+        if (isset($configArray['OpenURL']['autocheck']) && $configArray['OpenURL']['autocheck']) {
+            $interface->assign('openUrlAutoCheck', true);
+        }
+        
         // Send down legal export formats (if any):
         $interface->assign('exportFormats', $this->recordDriver->getExportFormats());
 

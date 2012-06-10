@@ -5,6 +5,8 @@
 {if $showPreviews}
 {js filename="preview.js"}
 {/if}
+{include file="Search/rsi.tpl"}
+{include file="Search/openurl_autocheck.tpl"}
 
 <form method="post" name="addForm" action="{$url}/Cart/Home">
 <table style="border-bottom:1px solid #eee;">

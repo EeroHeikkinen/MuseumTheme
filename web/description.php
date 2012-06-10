@@ -51,6 +51,7 @@ function fetchFromRecord($id)
     global $configArray;
 
     if (empty($id)) {
+        echo ('false');
         return false;
     }
     

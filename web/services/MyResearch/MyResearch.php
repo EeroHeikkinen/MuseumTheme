@@ -77,7 +77,7 @@ class MyResearch extends Action
 
         // Connect to Database
         $this->catalog = ConnectionManager::connectToCatalog();
-        
+
         // Is Placing Holds allowed?
         $this->checkHolds = $this->catalog->checkFunction("Holds", null);
 
