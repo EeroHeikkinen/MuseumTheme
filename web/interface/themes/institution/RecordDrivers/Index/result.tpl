@@ -71,7 +71,7 @@
       {/if}
     </div>
 
-    <div class="last span-5">
+    <div class="last span-8">
       {if !empty($summSnippetCaption)}<strong>{translate text=$summSnippetCaption}:</strong>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       <div id="callnumAndLocation{$summId|escape}">

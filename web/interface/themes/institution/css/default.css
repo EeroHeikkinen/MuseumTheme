@@ -464,7 +464,7 @@ ul.recordSet .resultCheckbox {
     display:none;
 }
 ul.recordSet .coverDiv {
-    max-height:136px;
+    /* min-height:136px; */
     /* border:1px solid #ddd; */
     text-align:center;
     overflow:hidden;
