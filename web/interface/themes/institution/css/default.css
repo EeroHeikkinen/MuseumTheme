@@ -538,16 +538,26 @@ li.result blockquote {
 /** Side facets */
 
 ul.filters {
-    background-color: orange;
-    color: white;
     list-style-type:none;
     margin:0;
-    padding:0.2em 0.4em;
+    padding:0;
+}
+ul.filters li {
+    margin: 0 0 3px 0;
+    padding: 2px 2px 2px 22px;
+    color: #ffffff;
+    background-color: #ffa500;
+}
+ul.filters li:hover {
+    background-color: #ff8c00;
 }
 ul.filters img {
-    vertical-align: top;
+    vertical-align: -4px;
+    margin-left: -20px;
+    margin-right: 3px;
 }
 ul.filters a {
+    display: block;
     color: white;
     text-decoration: none;
 }
