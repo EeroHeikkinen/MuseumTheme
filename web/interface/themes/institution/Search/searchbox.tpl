@@ -24,7 +24,8 @@
       <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
     </div>
     <div class="advanced-link-wrapper clear">
-      <a href="{$path}/Search/Advanced" class="small span-2 last">{translate text="Advanced"}</a>
+      <a href="{$path}/Search/Advanced" class="small span-2">{translate text="Advanced Search"}</a>
+      <a href="{$path}/MetaLib/Home" class="small span-2 last">{translate text="MetaLib-search"}</a>
     </div>
   {* Do we have any checkbox filters? *}
   {assign var="hasCheckboxFilters" value="0"}
