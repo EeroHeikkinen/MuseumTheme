@@ -14,7 +14,11 @@
   {* Listing Options *}
   <div class="resulthead" style="padding-top:0;">
     {if $recordCount}
-    <h3 style="margin:0;">{if $searchType == 'basic'}{$lookfor|escape:"html"}{/if}</h3>
+      {if $lookfor == ''}
+        <h3 style="margin:0;">{translate text='history_empty_search'}</h3>
+      {else}
+        <h3 style="margin:0;">{if $searchType == 'basic'}{$lookfor|escape:"html"}{/if}</h3>
+      {/if}
     <div class="floatleft">
         {translate text="Showing"}
         <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
