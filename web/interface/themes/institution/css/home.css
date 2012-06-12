@@ -73,7 +73,7 @@ div.searchHomeForm div.searchform #searchForm {
     overflow: hidden;
     background: none no-repeat right transparent;
 }
-.searchHomeForm #searchForm_type {
+.searchHomeForm .searchForm_select {
     background: url("../images/searchselect_bg.png") transparent no-repeat;
     border: none;
     color: #555555;

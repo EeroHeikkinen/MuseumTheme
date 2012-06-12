@@ -135,6 +135,32 @@ $module = preg_replace('/[^\w]/', '', $module);
 $action = (isset($_GET['action'])) ? $_GET['action'] : 'Home';
 $action = preg_replace('/[^\w]/', '', $action);
 
+// Process prefilter redirection
+if (isset($_REQUEST['prefilter'])) {
+    $prefilters = getExtraConfigArray('prefilters');
+    if (isset($prefilters[$_REQUEST['prefilter']])) {
+        $prefilter = $prefilters[$_REQUEST['prefilter']];
+        if (($prefilter && $_REQUEST['prefilter'] != '-') || $prefilter['module'] != $module || $prefilter['action'] != $action) {
+            $params = explode('&', parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
+            foreach ($params as &$value) {
+                $value = preg_replace('/^prefilter=/', 'prefiltered=', $value);
+            }
+            if (isset($prefilter['filter'])) {
+                foreach ($prefilter['filter'] as $filter) {
+                    $params[] = 'filter[]=' . urlencode($filter);
+                }
+            }
+            $url = '';
+            if ($prefilter['module'] != $module) {
+                $url = '../' . $prefilter['module'] . '/';
+            }
+            $url .= $prefilter['action'] . '?' . implode('&', array_unique($params));
+            header("Location: $url");
+            return;
+        }
+    }
+}
+
 // Process Authentication
 if ($user && $configArray['Authentication']['method'] == 'Shibboleth'
     && empty($_SERVER[$configArray['Shibboleth']['username']])

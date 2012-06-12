@@ -205,7 +205,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     overflow: hidden;
     background: none no-repeat right transparent;
 }
-#searchForm_type {
+.searchForm_select {
     background: url("../images/searchselect_bg.png") transparent no-repeat;
     border: none;
     color: #555555;

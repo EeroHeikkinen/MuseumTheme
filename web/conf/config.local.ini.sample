@@ -67,6 +67,7 @@ file           = /var/log/vufind.log:alert,error,notice,debug
 [Extra_Config]
 searches = searches_local.ini 
 facets = facets_local.ini
+prefilters = prefilters_local.ini
 
 [Languages]
 fi          = "Suomi"

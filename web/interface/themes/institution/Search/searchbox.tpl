@@ -1,6 +1,6 @@
 <!-- START of: Search/searchbox.tpl -->
 
-<div id="searchFormHome" class="searchform span-7 last">
+<div id="searchFormHome" class="searchform span-10 last">
 
 {if $searchType == 'advanced'}
   <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
@@ -13,14 +13,15 @@
     <div>
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
       <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if}"/>
-      <label for="searchForm_type" class="offscreen">{translate text="Search Type"}</label>
+  {if $prefilterList}
       <div class="styled_select">
-        <select id="searchForm_type" name="type">
-  {foreach from=$basicSearchTypes item=searchDesc key=searchVal}
-          <option value="{$searchVal}"{if $searchIndex == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
-  {/foreach}
+        <select id="searchForm_filter" class="searchForm_select" name="prefilter">
+    {foreach from=$prefilterList item=searchDesc key=searchVal}
+          <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter}selected="selected"{/if}>{translate text=$searchDesc}</option>
+    {/foreach}
         </select>
       </div>
+  {/if}
       <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
     </div>
     <div class="advanced-link-wrapper clear">

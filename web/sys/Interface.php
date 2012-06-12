@@ -224,6 +224,19 @@ class UInterface extends Smarty
             ? false : $configArray['Piwik']['site_id'] 
         );
 
+        // Create prefilter list
+        $prefilters = getExtraConfigArray('prefilters');
+        if (isset($prefilters['Prefilters'])) {
+            $filters = array();
+            foreach ($prefilters['Prefilters'] as $key => $filter) {
+                $filters[$key] = translate($filter);
+            }
+            $this->assign('prefilterList', $filters);
+        }
+        if (isset($_REQUEST['prefiltered'])) {
+            $this->assign('activePrefilter', $_REQUEST['prefiltered']);
+        }
+        
         $catalog = ConnectionManager::connectToCatalog();
         $this->assign("offlineMode", $catalog->getOfflineMode());
         $hideLogin = isset($configArray['Authentication']['hideLogin'])
