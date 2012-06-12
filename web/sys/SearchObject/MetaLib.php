@@ -74,6 +74,9 @@ class SearchObject_MetaLib extends SearchObject_Base
         $this->advancedSearchType = 'MetaLibAdvanced';
 
         $config = getExtraConfigArray('MetaLib');
+        if (empty($config)) {
+            return;
+        }
         
         // No facet config
 

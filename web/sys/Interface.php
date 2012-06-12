@@ -237,6 +237,11 @@ class UInterface extends Smarty
             $this->assign('activePrefilter', $_REQUEST['prefiltered']);
         }
         
+        $metalib = getExtraConfigArray('MetaLib');
+        if (!empty($metalib)) {
+            $this->assign('metalibEnabled', true);
+        }
+        
         $catalog = ConnectionManager::connectToCatalog();
         $this->assign("offlineMode", $catalog->getOfflineMode());
         $hideLogin = isset($configArray['Authentication']['hideLogin'])

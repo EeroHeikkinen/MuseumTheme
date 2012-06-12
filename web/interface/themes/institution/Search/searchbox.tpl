@@ -26,7 +26,9 @@
     </div>
     <div class="advanced-link-wrapper clear">
       <a href="{$path}/Search/Advanced" class="small span-2">{translate text="Advanced Search"}</a>
-      <a href="{$path}/MetaLib/Home" class="small span-2 last">{translate text="MetaLib-search"}</a>
+  {if $metalibEnabled}
+      <a href="{$path}/MetaLib/Home" class="small span-2 last">{translate text="MetaLib Search"}</a>
+  {/if}
     </div>
   {* Do we have any checkbox filters? *}
   {assign var="hasCheckboxFilters" value="0"}
