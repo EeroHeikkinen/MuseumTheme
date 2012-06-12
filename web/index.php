@@ -136,11 +136,13 @@ $action = (isset($_GET['action'])) ? $_GET['action'] : 'Home';
 $action = preg_replace('/[^\w]/', '', $action);
 
 // Process prefilter redirection
-if (isset($_REQUEST['prefilter'])) {
+if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO', 'PCI')) 
+    && isset($_REQUEST['prefilter'])) {
     $prefilters = getExtraConfigArray('prefilters');
     if (isset($prefilters[$_REQUEST['prefilter']])) {
         $prefilter = $prefilters[$_REQUEST['prefilter']];
-        if (($prefilter && $_REQUEST['prefilter'] != '-') || $prefilter['module'] != $module || $prefilter['action'] != $action) {
+        if (($prefilter && $_REQUEST['prefilter'] != '-') 
+            || $prefilter['module'] != $module || $prefilter['action'] != $action) {
             $params = explode('&', parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
             foreach ($params as &$value) {
                 $value = preg_replace('/^prefilter=/', 'prefiltered=', $value);
