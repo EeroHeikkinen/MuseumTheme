@@ -1,4 +1,4 @@
-<div class="searchform">
+<div class="searchform span-10 last">
   {if $searchType == 'MetaLibAdvanced'}
     <a href="{$path}/MetaLib/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
     <a href="{$path}/MetaLib/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
@@ -6,16 +6,22 @@
     <br/>{translate text="Your search terms"} : "<strong>{$lookfor|escape:"html"}</strong>"
   {else}
     <form method="get" action="{$path}/MetaLib/Search" name="searchForm" id="searchForm" class="search">
-      <label for="searchForm_lookfor" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_lookfor" type="text" name="lookfor" size="40" value="{$lookfor|escape:"html"}"/>
-      <label for="searchForm_set" class="offscreen">{translate text="Search In"}</label>
-      <select id="searchForm_set" name="set">
-      {foreach from=$metalibSearchSets item=searchDesc key=searchVal}
-        <option value="{$searchVal}"{if $searchSet == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
-      {/foreach}
-      </select>
-      <input type="submit" name="submit" value="{translate text="Find"}"/>
-      <a href="{$path}/MetaLib/Advanced" class="small">{translate text="Advanced"}</a>
+      <div>
+        <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
+        <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape:"html"}"/>
+        <div class="styled_select">
+          <label for="searchForm_set" class="offscreen">{translate text="Search In"}</label>
+          <select id="searchForm_set" name="set" class="searchForm_select">
+          {foreach from=$metalibSearchSets item=searchDesc key=searchVal}
+            <option value="{$searchVal}"{if $searchSet == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
+          {/foreach}
+          </select>
+        </div>
+        <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
+      </div>
+      <div class="advanced-link-wrapper clear">
+        <a href="{$path}/MetaLib/Advanced" class="small">{translate text="Advanced"}</a>
+       </div>
 
       {* Do we have any checkbox filters? *}
       {assign var="hasCheckboxFilters" value="0"}

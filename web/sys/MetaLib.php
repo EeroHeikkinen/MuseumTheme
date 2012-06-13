@@ -328,20 +328,24 @@ class MetaLib
             if (PEAR::isError($result)) {
                 PEAR::raiseError($result);
             }
-        
+            // @codingStandardsIgnoreStart        
             if ($result->login_response->auth != 'Y') {
+                // @codingStandardsIgnoreEnd
                 $logger = new Logger();
                 $logger->log("X-Server login failed: \n" . $xml, PEAR_LOG_ERR);
                 PEAR::raiseError(new PEAR_Error('X-Server login failed'));
             }
+            // @codingStandardsIgnoreStart        
             $sessionId = (string)$result->login_response->session_id;
+            // @codingStandardsIgnoreEnd
             $_SESSION['MetaLibSessionID'] = $sessionId;
             unset($_SESSION['MetaLibFindResponse']);
         }
         
         // Do the find request
         $findRequestId = md5($irdList . '_' . $queryStr);
-        if (isset($_SESSION['MetaLibFindResponse']) && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId) {
+        if (isset($_SESSION['MetaLibFindResponse']) 
+            && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId) {
             $databases = $_SESSION['MetaLibFindResponse']['databases'];
             $totalRecords = $_SESSION['MetaLibFindResponse']['totalRecords'];
         } else {
@@ -355,6 +359,7 @@ class MetaLib
             // Gather basic information
             $databases = array();
             $totalRecords = 0;
+            // @codingStandardsIgnoreStart
             foreach ($findResults->find_response->base_info as $baseInfo) {
                 if ($baseInfo->find_status != 'DONE') {
                     error_log('MetaLib search in ' . $baseInfo->base_001 . ' (' . $baseInfo->full_name . ') failed: '
@@ -373,6 +378,7 @@ class MetaLib
                     'records' => array()
                 );
             }
+            // @codingStandardsIgnoreEnd
             $_SESSION['MetaLibFindResponse']['requestId'] = $findRequestId;
             $_SESSION['MetaLibFindResponse']['databases'] = $databases;
             $_SESSION['MetaLibFindResponse']['totalRecords'] = $totalRecords;
@@ -465,7 +471,9 @@ class MetaLib
             // command is needed to fetch full record. 
             $currentDocs = array();
             $recIndex = -1;
+            // @codingStandardsIgnoreStart
             foreach ($result->present_response->record as $record) {
+                // @codingStandardsIgnoreEnd
                 ++$recIndex;
                 $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
                 if ($record->xpath("./m:controlfield[@tag='MOR']")) {
@@ -483,7 +491,9 @@ class MetaLib
                     if (PEAR::isError($singleResult)) {
                         PEAR::raiseError($singleResult);
                     }
+                    // @codingStandardsIgnoreStart
                     $currentDocs[] = $this->_process($singleResult->present_response->record[0]);
+                    // @codingStandardsIgnoreEnd
                 } else {
                     $currentDocs[] = $this->_process($record);
                 }
@@ -678,7 +688,15 @@ class MetaLib
         $isbn = $this->_getMultipleValues($record, '020a');
         $issn = $this->_getMultipleValues($record, '022a');
         $snippet = $this->_getMultipleValues($record, '520a');
-        $subjects = $this->_getMultipleValues($record, '600abcdefghjklmnopqrstuvxyz:610abcdefghklmnoprstuvxyz:611acdefghjklnpqstuvxyz:630adefghklmnoprstvxyz:650abcdevxyz', ' : ');
+        $subjects = $this->_getMultipleValues(
+            $record, 
+            '600abcdefghjklmnopqrstuvxyz'
+            . ':610abcdefghklmnoprstuvxyz'
+            . ':611acdefghjklnpqstuvxyz'
+            . ':630adefghklmnoprstvxyz'
+            . ':650abcdevxyz', 
+            ' : '
+        );
         $notes = $this->_getMultipleValues($record, '500a');
         $field773g = $this->_getSingleValue($record, '773g');
         
