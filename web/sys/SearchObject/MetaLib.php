@@ -104,6 +104,16 @@ class SearchObject_MetaLib extends SearchObject_Base
         // Set up recommendations options -- settings are found in MetaLib.ini:
         $this->recommendIni = 'MetaLib';
 
+        // Load limit preferences (or defaults if none in .ini file):
+        if (isset($config['General']['limit_options'])) {
+            $this->limitOptions
+            = explode(",", $config['General']['limit_options']);
+        } elseif (isset($config['General']['default_limit'])) {
+            $this->limitOptions = array($this->defaultLimit);
+        } else {
+            $this->limitOptions = array(20);
+        }
+        
         // Connect to MetaLib
         $this->_metaLib = new MetaLib();
     }
@@ -135,7 +145,8 @@ class SearchObject_MetaLib extends SearchObject_Base
         $this->initPage();
         $this->initSort();
         $this->initFilters();
-
+        $this->initLimit();
+        
         // Try to find a basic search first; check for advanced if no basic found.
         if (!$this->initBasicSearch()) {
             $this->initAdvancedSearch();
