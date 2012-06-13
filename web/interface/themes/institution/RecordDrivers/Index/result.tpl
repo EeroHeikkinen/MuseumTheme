@@ -45,7 +45,7 @@
       {translate text='by'}:
       <a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       {/if}
-      <br>
+      <br/>
       {if $summDate}{translate text='Published'}: {$summDate.0|escape}{/if}
       {if $summInCollection}
         {foreach from=$summInCollection item=InCollection key=cKey}
@@ -86,7 +86,7 @@
 
       {if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
-        <span class="openUrlSeparator"><br></span>
+        <span class="openUrlSeparator"><br/></span>
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
         {/if}
         {foreach from=$summURLs key=recordurl item=urldesc}

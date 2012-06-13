@@ -124,8 +124,7 @@
                 {if $userLang == $langCode}
                 <li class="strong">{translate text=$langName}</li>
                 {else}
-                <li><a 
-             href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"}">{translate text=$langName}</a></li>
+                <li><a href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"|encodeAmpersands}">{translate text=$langName}</a></li>
                 {/if}
               {/foreach}
               </ul>
