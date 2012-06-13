@@ -1,0 +1,17 @@
+[Prefilters]
+-=Local Index
+local_books=Books in Local Index
+summon=Summon
+
+[-]
+module=Search
+action=Results
+
+[local_books]
+module=Search
+action=Results
+filter[]='format:"Book"'
+
+[summon]
+module=Summon
+action=Search
