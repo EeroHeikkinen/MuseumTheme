@@ -36,7 +36,7 @@
       <th>{translate text='component_part_is_part_of'}:</th>
       <td>
       {if $coreHierarchyParentId}
-        <a href="{$url}/Record/{$coreHierarchyParentId[0]|escape:"url"}">{$coreContainerTitle|escape}</a>
+        <a href="{$url}/Record/{$coreHierarchyParentId[0]|escape:"url"}/ComponentParts">{$coreContainerTitle|escape}</a>
       {else}
         {$coreContainerTitle|escape}
       {/if}
