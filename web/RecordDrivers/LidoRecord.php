@@ -150,6 +150,7 @@ class LidoRecord extends IndexRecord
             }
             $interface->assign('summTitle', $this->getTitle() . $summary);
         }
+        $interface->assign('summSubtitle', $this->getSubtitle());
         
         $mainFormat = $this->getFormats();
         if (is_array($mainFormat)) {
