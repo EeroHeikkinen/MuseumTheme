@@ -230,6 +230,18 @@ class LidoRecord extends IndexRecord
 	    }
 	    return false;
 	}
+
+	/**
+	 * Get the description of the current record.
+	 *
+	 * @return string
+	 * @access protected
+	 */
+	protected function getDescription()
+	{
+	    return isset($this->fields['description']) ?
+	    $this->fields['description'] : '';
+	}
 	
 }
 
