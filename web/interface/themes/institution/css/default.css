@@ -224,7 +224,10 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     width: 89px;
     margin-left: 5px;
 }
-
+.advancedLink, .metalibLink {
+    width: 136px;
+    display: inline-block;
+}
 
 
 

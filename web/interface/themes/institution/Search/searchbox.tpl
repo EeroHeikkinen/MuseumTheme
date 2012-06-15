@@ -1,6 +1,6 @@
 <!-- START of: Search/searchbox.tpl -->
 
-<div id="searchFormHome" class="searchform span-10 last">
+<div id="searchFormHome" class="searchform last">
 
 {if $searchType == 'advanced'}
   <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
@@ -25,9 +25,9 @@
       <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
     </div>
     <div class="advanced-link-wrapper clear">
-      <a href="{$path}/Search/Advanced" class="small span-2">{translate text="Advanced Search"}</a>
+      <a href="{$path}/Search/Advanced" class="small advancedLink">{translate text="Advanced Search"}</a>
   {if $metalibEnabled}
-      <a href="{$path}/MetaLib/Home" class="small span-2 last">{translate text="MetaLib Search"}</a>
+      <a href="{$path}/MetaLib/Home" class="small last metalibLink">{translate text="MetaLib Search"}</a>
   {/if}
     </div>
   {* Do we have any checkbox filters? *}
