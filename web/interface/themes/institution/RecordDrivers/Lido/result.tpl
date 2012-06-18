@@ -1,10 +1,14 @@
 <div class="result recordId" id="record{$summId|escape}">
-  
-		{if $bookBag}
+
+  <div class="span-2 resultColumn1">
+
+    <div class="resultCheckbox">
+	{if $bookBag}
   	<label for="checkbox_{$summId|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
   	<input id="checkbox_{$summId|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="ids[]" value="{$summId|escape}" class="checkbox_ui"/>
   	<input type="hidden" name="idsAll[]" value="{$summId|escape}" />
   	{/if}
+    </div>
   
   
   
@@ -107,6 +111,7 @@
         {/foreach}
       {/foreach}
     </div>
+<div class="clear"></div>
 
   <div class="span-3 last addToFavLink">
     <div id="saveLink{$summId|escape}">
