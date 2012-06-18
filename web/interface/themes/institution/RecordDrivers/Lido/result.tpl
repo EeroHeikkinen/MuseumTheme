@@ -10,11 +10,8 @@
   	{/if}
     </div>
   
-  
-  
-  
-  
-    <div class="coverDiv span-2">
+
+    <div class="coverDiv">
     	<div>
     	{if $summThumb}
         <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
@@ -42,10 +39,17 @@
     {/if}
     </div>
     
+  {foreach from=$summFormats item=format}
+    <div class="resultItemFormat"><span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span></div>
+  {/foreach}
+
+
+</div>
     
     
     
-    <div class="span-6">
+    
+ <div class="resultColumn2">
       <div class="resultItemLine1">
       	<a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if} {$summSubtitle}</a>
       </div>
@@ -63,7 +67,7 @@
       
       </div>
 
-      <div class="resultItemLine3">
+      <div class="last span-8">
       {if !empty($summSnippetCaption)}<b>{translate text=$summSnippetCaption}:</b>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br>{/if}
       <div id="callnumAndLocation{$summId|escape}">
@@ -101,10 +105,6 @@
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
-      {foreach from=$summFormats item=format}
-        <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
-      {/foreach}
-      <br>
       {foreach from=$summDedupData key=institution item=dedupData}
         {foreach from=$dedupData item=dedupItem}
         <a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text=$institution}</a>

@@ -23,6 +23,7 @@
       </div>
   {/if}
       <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
+      <div class="clear"></div>
     </div>
     <div class="advanced-link-wrapper clear">
       <a href="{$path}/Search/Advanced" class="small advancedLink">{translate text="Advanced Search"}</a>

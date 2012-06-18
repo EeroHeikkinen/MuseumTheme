@@ -1,16 +1,17 @@
 <!-- START of: Search/list.tpl -->
 
 {* Main Listing *}
-<div id="topFacets" class="span-13 authorbox" style="padding-left:0;">
+<div id="topFacets" class="authorbox">
   {* Recommendations *}
   {if $topRecommendations}
     {foreach from=$topRecommendations item="recommendations"}
       {include file=$recommendations}
     {/foreach}
   {/if}
+ <div class="clear"></div>
 </div>
 
-<div id="resultList" class="span-10{if $sidebarOnLeft} push-3 last{/if}">
+<div id="resultList" class="{if $sidebarOnLeft} push-3 last{/if}">
   {* Listing Options *}
   <div class="resulthead" style="padding-top:0;">
     {if $recordCount}
@@ -88,7 +89,7 @@
 {* End Main Listing *}
 
 {* Narrow Search Options *}
-<div id="sidebarFacets" class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
+<div id="sidebarFacets" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   {if $sideRecommendations}
     {foreach from=$sideRecommendations item="recommendations"}
       {include file=$recommendations}

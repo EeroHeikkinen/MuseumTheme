@@ -46,6 +46,7 @@ div.searchHomeForm div.searchform {
     margin:12px auto 0;
 }
 div.searchHomeForm div.searchform #searchForm {
+    width:506px;
     margin:12px auto 0;
 }
 
@@ -168,7 +169,6 @@ div.searchHomeForm div.searchform #searchForm {
     float: left;
     width: 210px;
     margin: 1em 12px 2em 0;
-    background-color:#99ff99;
 }
 
 /*** Browse Search ***/
