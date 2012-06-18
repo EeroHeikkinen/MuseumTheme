@@ -1,5 +1,3 @@
-<!-- START of: layout.tpl -->
-
 {if $smarty.request.subPage && $subTemplate}
   {include file="$module/$subTemplate"}
 {else}
