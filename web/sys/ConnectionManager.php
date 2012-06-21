@@ -100,6 +100,7 @@ class ConnectionManager
             $obj = new DB_DataObject();
             $conn = $obj->getDatabaseConnection();
             $conn->query("SET @@SESSION.sql_mode='ANSI_QUOTES,PIPES_AS_CONCAT'");
+            $conn->query("SET NAMES UTF8");
         } else if (substr($configArray['Database']['database'], 0, 4) == 'oci8') {
             // If we are using Oracle, set some portability values:
             $temp_db = new DB_DataObject();

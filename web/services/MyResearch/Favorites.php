@@ -55,7 +55,10 @@ class Favorites extends MyResearch
 
         // Delete Resource
         if (isset($_GET['delete'])) {
-            $resource = Resource::staticGet('record_id', $_GET['delete']);
+            $resource = new Resource();
+            $resource->record_id = $_GET['delete'];
+            unset($resource->source);
+            $resource->find(true);
             $user->removeResource($resource);
         }
 

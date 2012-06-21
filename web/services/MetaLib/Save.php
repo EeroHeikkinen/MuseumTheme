@@ -1,10 +1,11 @@
 <?php
 /**
- * Save action (user list management) for Record module
+ * Save action (user list management) for MetaLib module
  *
  * PHP version 5
  *
  * Copyright (C) Villanova University 2007.
+ * Copyright (C) The National Library of Finland 2012.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -23,6 +24,7 @@
  * @package  Controller_Record
  * @author   Andrew S. Nagy <vufind-tech@lists.sourceforge.net>
  * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
@@ -33,12 +35,13 @@ require_once 'services/MyResearch/lib/User.php';
 require_once 'services/MyResearch/lib/User_list.php';
 
 /**
- * Save action (user list management) for Record module
+ * Save action (user list management) for MetaLib module
  *
  * @category VuFind
  * @package  Controller_Record
  * @author   Andrew S. Nagy <vufind-tech@lists.sourceforge.net>
  * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
@@ -77,12 +80,12 @@ class Save extends Action
                 $interface->assign('title', $_GET['message']);
                 $interface->assign('message', 'You must be logged in first');
                 $interface->assign('followup', true);
-                $interface->assign('followupModule', 'Record');
+                $interface->assign('followupModule', 'MetaLib');
                 $interface->assign('followupAction', 'Save');
                 return $interface->fetch('AJAX/login.tpl');
             } else {
                 $interface->assign('followup', true);
-                $interface->assign('followupModule', 'Record');
+                $interface->assign('followupModule', 'MetaLib');
                 $interface->assign('followupAction', 'Save');
                 $interface->setPageTitle('You must be logged in first');
                 $interface->assign('subTemplate', '../MyResearch/login.tpl');
@@ -95,19 +98,19 @@ class Save extends Action
         if (isset($_GET['submit'])) {
             $this->saveRecord($this->_user);
             header(
-                'Location: ' . $configArray['Site']['url'] . '/Record/' .
+                'Location: ' . $configArray['Site']['url'] . '/MetaLib/Record?id=' .
                 urlencode($_GET['id'])
             );
             exit();
         }
 
         // Setup Search Engine Connection
-        $db = ConnectionManager::connectToIndex();
+        $db = ConnectionManager::connectToIndex('MetaLib');
 
         // Get Record Information
-        $details = $db->getRecord($_GET['id']);
-        $interface->assign('record', $details);
-
+        $record = $db->getRecord($_GET['id']);
+        $interface->assign('record', $record);
+        
         // Find out if the item is already part of any lists; save list info/IDs
         $saved = $this->_user->getSavedData($_GET['id']);
         $containingLists = array();
@@ -135,7 +138,7 @@ class Save extends Action
         $interface->assign('lastListUsed', User_list::getLastUsed());
         if (isset($_GET['lightbox'])) {
             $interface->assign('title', $_GET['message']);
-            return $interface->fetch('Record/save.tpl');
+            return $interface->fetch('MetaLib/save.tpl');
         } else {
             $interface->setPageTitle('Add to favorites');
             $interface->assign('subTemplate', 'save.tpl');
@@ -173,13 +176,14 @@ class Save extends Action
         $list->rememberLastUsed();
 
         // Setup Search Engine Connection
-        $db = ConnectionManager::connectToIndex();
+        $db = ConnectionManager::connectToIndex('MetaLib');
         
         // Get Record Information
         $record = $db->getRecord($_GET['id']);
         
         $resource = new Resource();
         $resource->record_id = $_GET['id'];
+        $resource->source = 'MetaLib';
         $resource->data = serialize($record);
         if (!$resource->find(true)) {
             $resource->insert();

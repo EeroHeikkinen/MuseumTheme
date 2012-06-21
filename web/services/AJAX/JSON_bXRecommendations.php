@@ -59,15 +59,14 @@ class JSON_bXRecommendations extends JSON
         }
         
         $id = $_REQUEST['id'];
-        $source = $_REQUEST['source'];
-        if ($source == 'MetaLib') {
+        if (strncmp($id, 'metalib.', 8) == 0) {
             require_once 'sys/MetaLib.php';
             $metalib = new MetaLib();
             if (!($record = $metalib->getRecord($id))) {
                 $this->output('Record does not exist', JSON::STATUS_ERROR);
                 return;
             }
-            $openUrl = $record['documents'][0]['openUrl'];
+            $openUrl = $record['openUrl'];
         } else {
             $searchObject = SearchObjectFactory::initSearchObject();
             if (!($record = $searchObject->getIndexEngine()->getRecord($id))) {

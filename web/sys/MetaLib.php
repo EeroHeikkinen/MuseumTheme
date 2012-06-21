@@ -32,6 +32,7 @@
 require_once 'sys/Proxy_Request.php';
 require_once 'sys/ConfigArray.php';
 require_once 'sys/SolrUtils.php';
+require_once 'services/MyResearch/lib/Resource.php';
 
 /**
  * MetaLib X-Server API Interface
@@ -153,13 +154,20 @@ class MetaLib
         list($queryId, $index) = explode('_', $id);
         $result = $this->_getCachedResults($queryId);
         if ($result === false) {
+            // Check from database, this could be in a favorite list
+            $resource = new Resource();
+            $resource->record_id = $id;
+            $resource->source = 'MetaLib';
+            if ($resource->find(true)) {
+                return unserialize($resource->data);
+            }
             return new PEAR_Error('Record not found');
         }
         if ($index < 1 || $index > count($result['documents'])) {
             return new PEAR_Error('Invalid record id');
         }
         $result['documents'] = array_slice($result['documents'], $index - 1, 1);
-        return $result;
+        return $result['documents'][0];
     }
 
     /**
@@ -281,7 +289,8 @@ class MetaLib
             PEAR::raiseError(new PEAR_Error('Search terms are required'));
         }
         
-        $queryId = md5($irdList . '_' . $queryStr . '_' . $start . '_' . $limit);
+        // We use a metalib. prefix everywhere so that it's easy to see the record source
+        $queryId = 'metalib.' . md5($irdList . '_' . $queryStr . '_' . $start . '_' . $limit);
         $findResults = $this->_getCachedResults($queryId);
         if ($findResults !== false) {
             return $findResults;
@@ -595,6 +604,9 @@ class MetaLib
         $xml = simplexml_load_string($request->getResponseBody());
         $errors = $xml->xpath('//local_error | //global_error');
         if (!empty($errors)) {
+            if ($errors[0]->error_code = 6026) {
+                return new PEAR_Error('Search timed out');
+            }
             return new PEAR_Error($errors[0]->asXML());
         }
         return $xml;
@@ -730,7 +742,8 @@ class MetaLib
             $hostTitle .= " $field773g";
         }
 
-        return array('Title' => array($title), 
+        return array(
+            'Title' => array($title), 
             'Author' => $author ? array($author) : null,
             'AdditionalAuthors' => $addAuthors, 
             'Source' => $sources,

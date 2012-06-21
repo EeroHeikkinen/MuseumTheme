@@ -455,5 +455,27 @@ class SearchObject_MetaLib extends SearchObject_Base
         // Return modified list:
         return $facets;
     }
+    
+    /**
+     * Use the record driver to build an HTML display from the search
+     * result suitable for use on a user's "favorites" page.
+     *
+     * @param array  $record    Record data.
+     * @param object $user      User object owning tag/note metadata.
+     * @param int    $list      ID of list containing desired tags/notes (or
+     * null to show tags/notes from all user's lists).
+     * @param bool   $allowEdit Should we display edit controls?
+     *
+     * @return string           HTML chunk for individual records.
+     * @access public
+     */
+    public function getResultHTML($record, $user, $listId = null, $allowEdit = true)
+    {
+        global $interface;
+    
+        $interface->assign(array('record' => $record));
+        return $interface->fetch('MetaLib/listentry.tpl');
+    }
+    
 }
 

@@ -1,19 +1,7 @@
-{* check save statuses via AJAX *}
-{js filename="check_save_statuses.js"}
-{js filename="jquery.cookie.js"}
-{include file="Search/rsi.tpl"}
-{include file="Search/openurl_autocheck.tpl"}
-
-<form method="post" name="addForm" action="{$url}/Cart/Home">
-  <ul class="recordSet">
-  {foreach from=$recordSet item=record name="recordLoop"}
-    <li class="result{if ($smarty.foreach.recordLoop.iteration % 2) == 0} alt{/if}">
-      <span class="recordNumber">{$recordStart+$smarty.foreach.recordLoop.iteration-1}</span>
-      <div class="recordId" id="record{$record.ID.0|escape}">
-        {* hide until complete
+      <div class="listentry recordId" id="record{$record.ID.0|escape}">
         <label for="checkbox_{$record.ID.0|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
-        <input id="checkbox_{$record.ID.0|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="id[]" value="{$record.ID.0|escape}" class="checkbox addToCartCheckbox"/>
-         *}
+        <input id="checkbox_{$record.ID.0|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="ids[]" value="{$record.ID.0|escape}" class="checkbox_ui"/>
+        <input type="hidden" name="idsAll[]" value="{$record.ID.0|escape}" />
         <div class="span-2">
           <img src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}" class="alignleft" alt="{translate text="Cover Image"}"/>
         </div>
@@ -50,31 +38,22 @@
             {/if}
           </div>
 
-          <div class="resultItemLine4">
-            {foreach from=$record.url key=recordurl item=urldesc}
-              <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{$urldesc|escape}</a>
-            {/foreach}
-            {if $openUrlBase && $record.openUrl}
-              {if $record.url}<br/>{/if}
-              <br/>{include file="Search/openurl.tpl" openUrl=$record.openUrl}
-            {/if}
-          </div>
-
           <span class="iconlabel {$record.ContentType.0|getSummonFormatClass|escape}">{translate text=$record.ContentType.0}</span>
         </div>
-      
-        <div class="span-3 last addToFavLink">
-          <a id="saveRecord{$record.ID.0|escape}" href="{$url}/MetaLib/Save?id={$record.ID.0|escape:"url"}" class="fav tool saveRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
-      
-          {* Display the lists that this record is saved to *}
-          <div class="savedLists info hide" id="savedLists{$record.ID.0|escape}">
-            <strong>{translate text="Saved in"}:</strong>
-          </div>
-        </div>      
+        
+      {if $listEditAllowed}
+        <div class="floatright">
+          <a href="{$url}/MyResearch/Edit?id={$record.ID.0|escape:"url"}{if !is_null($listSelected)}&amp;list_id={$listSelected|escape:"url"}{/if}" class="edit tool">{translate text='Edit'}</a>
+          {* Use a different delete URL if we're removing from a specific list or the overall favorites: *}
+          <a
+          {if is_null($listSelected)}
+            href="{$url}/MyResearch/Favorites?delete={$record.ID.0|escape:"url"}"
+          {else}
+            href="{$url}/MyResearch/MyList/{$listSelected|escape:"url"}?delete={$record.ID.0|escape:"url"}"
+          {/if}
+          class="delete tool" onclick="return confirm('{translate text='confirm_delete'}');">{translate text='Delete'}</a>
+        </div>
+      {/if}
         <div class="clear"></div>
+        <span class="Z3988" title="{$record.openUrl|escape}"></span>
       </div>
-      <span class="Z3988" title="{$record.openUrl|escape}"></span>
-    </li>
-  {/foreach}
-  </ul>
-</form>

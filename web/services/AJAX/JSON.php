@@ -339,6 +339,7 @@ class JSON extends Action
             // Check if resource is saved to favorites
             $resource = new Resource();
             $resource->record_id = $id;
+            unset($resource->source);
 
             if ($resource->find(true)) {
                 $data = $user->getSavedData($id);
@@ -366,7 +367,12 @@ class JSON extends Action
      */
     public function saveRecord()
     {
-        include_once 'services/Record/Save.php';
+        $id = $_GET['id'];
+        if (strncmp($id, 'metalib.', 8) == 0) {
+            include_once 'services/MetaLib/Save.php';
+        } else {
+            include_once 'services/Record/Save.php';
+        }     
 
         // check if user is logged in
         $user = UserAccount::isLoggedIn();
