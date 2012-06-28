@@ -203,6 +203,17 @@
     {/foreach}
     {/if}
     *}
+
+    {if $toc}
+    <tr valign="top">
+      <th>{translate text='Table of Contents'}: </th>
+      <td>
+      {foreach from=$toc item=line}
+        {$line|escape}<br />
+      {/foreach}
+      </td>
+    </tr>
+    {/if}
     
     <tr valign="top">
       <th>{translate text='Tags'}: </th>
