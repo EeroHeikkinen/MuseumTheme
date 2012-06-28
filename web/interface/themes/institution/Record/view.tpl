@@ -97,7 +97,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li>
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
-          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"}</a>
+          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} <img src="/vufind/interface/themes/institution/images/down.png" width="11" height="6"></a>
           <ul class="menu offscreen" id="exportMenu">
           {foreach from=$exportFormats item=exportFormat}
             <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
@@ -105,10 +105,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </ul>
         </li>
         {/if}
-        <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li>
+        {* Citation commented out for now
+        <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
+        {* Bookmark commented out for now
         {if !empty($addThis)}
         <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text='Bookmark'}</a></li>
-        {/if}
+        {/if} *}
         {if $bookBag}
         <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text='Add to Book Bag'}</a></li>
         {/if}

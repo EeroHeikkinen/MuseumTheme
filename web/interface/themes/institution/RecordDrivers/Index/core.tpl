@@ -97,10 +97,10 @@
       <td>
        {if is_array($recordFormat)}
         {foreach from=$recordFormat item=displayFormat name=loop}
-          <span class="iconlabel {$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat}</span>
+          <span class="iconlabel format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat}</span>
         {/foreach}
       {else}
-        <span class="iconlabel {$recordFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$recordFormat}</span>
+        <span class="iconlabel format{$recordFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$recordFormat}</span>
       {/if}
       </td>
     </tr>
