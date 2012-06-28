@@ -61,12 +61,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 <div class="record recordId" style="padding: 0" id="record{$id|escape}">
 
-  <div id="resultSide" class="span-3">
+  <div id="resultSide">
   
     {* Display Cover Image *}
     <div class="coverImages">
     {if $coreThumbMedium}
-        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}" class="span-3">{/if}
+        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
         <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
         {if $coreThumbLarge}</a>{/if}
         <div class="clear"></div>
@@ -86,7 +86,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </div>
     {* End Cover Image *}
   
-    <div id="resultToolbar" class="toolbar span-3">
+    <div id="resultToolbar" class="toolbar">
       <ul>
         <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
         
@@ -139,7 +139,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       </div>
   </div>
   
-  <div id="resultMain" class="span-7">
+  <div id="resultMain">
   
    {include file=$coreMetadata}
   
@@ -211,7 +211,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
   
 
-<div id="resultSidebar" class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
+<div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   <div class="sidegroup">
     <h4>{translate text="Similar Items"}</h4>
     {if is_array($similarRecords)}

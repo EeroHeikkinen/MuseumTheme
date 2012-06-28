@@ -129,4 +129,49 @@ px      62    136    210    284    358    432   */
 
 
 
+    .backToResults {
+        margin-left: 10px;
+        width: 180px;
+    }
+    #resultSide {
+        width: 432px;
+        margin-right: 0;
+    }
+    .coverImages {
+        width: 210px;
+        float: left;
+    }
+    .recordcover {
+        max-width: 210px;
+    }
+    .record .toolbar {
+        width: 210px;
+        float: right;
+    }
+    #qrcode {
+        display: none;
+    }
+    
+    #resultMain {
+        width: 432px;
+        margin-right: 0;
+    }
+
+
+    #resultSidebar {
+        width: 432px;
+    }
+    #resultSidebar .sidegroup {
+        border-top: 2px solid #dddddd;
+        border-left: none;
+        padding: 0;
+    }
+    #resultSidebar ul li {
+        width: 136px;
+        margin-right:0;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+
 }
