@@ -151,9 +151,10 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           <a href="{$url}/Record/{$id|escape:"url"}/Holdings{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Holdings'}</a>
         </li>
         {/if}
+        {* Description moved to RecordDrivers/Index/extended.tpl 
         <li{if $tab == 'Description'} class="active"{/if}>
           <a href="{$url}/Record/{$id|escape:"url"}/Description{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Description'}</a>
-        </li>
+        </li> *}
         {if $hasTOC}
         <li{if $tab == 'TOC'} class="active"{/if}>
           <a href="{$url}/Record/{$id|escape:"url"}/TOC{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Table of Contents'}</a>

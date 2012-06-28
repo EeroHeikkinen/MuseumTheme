@@ -173,6 +173,10 @@
     </tr>
     {/if}
 
+    {if $extendedMetadata}
+      {include file=$extendedMetadata}
+    {/if}
+
     {if !empty($coreURLs) || $coreOpenURL}
     <tr valign="top">
       <th>{translate text='Online Access'}: </th>
