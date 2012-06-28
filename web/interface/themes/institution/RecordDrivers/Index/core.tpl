@@ -222,7 +222,7 @@
       </td>
     </tr>
    
-   {* BTJ description start *}
+   {* BTJ description moved to RecordDrivers/Index/extended.tpl 
    <tr valign="top" id="btjdescription" style="display: none;">
      <th>{translate text=Description}: </th>
      <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
@@ -242,7 +242,7 @@
      });
      {/literal}
    </script>  
-   {* BTJ description end *}
+   BTJ description end *}
   </table>
   {* End Main Details *}
 </div>
