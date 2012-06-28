@@ -141,6 +141,10 @@ px      62    136    210    284    */
         margin-left: 10px;
         width: 180px;
     }
+    .resultscroller {
+        clear: both;
+        margin-left: 10px;
+    }
     #resultSide {
         width: 284px;
         margin-right: 0;
@@ -167,10 +171,13 @@ px      62    136    210    284    */
     #tagList {
         width: 210px;
     }
-    #resultMain table tbody {
-        display: inherit;
+    #recordMetadata {
+        width: 284px;
+        float: none;
     }
-
+    #dyntabnav {
+        width: 284px;
+    }
 
     #resultSidebar {
         width: 284px;

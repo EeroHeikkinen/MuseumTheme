@@ -992,7 +992,7 @@ div.record {
     padding-top: 1.2em;
 }
 #resultMain {
-    width: 506px;
+    width: 728px;
     margin-right: 12px;
     float: left;
 }
@@ -1000,6 +1000,10 @@ div.record {
     width: 210px;
     float: left;
     margin-right: 12px;
+}
+#recordMetadata {
+    width: 506px;
+    float: left;
 }
 .recordTitle {
     font-weight:bold;
@@ -1137,6 +1141,9 @@ float: left;
 
 #dyntabnav {
     border: none;
+    width: 728px;
+    clear: left;
+    float: left;
 }
 #dyntabnav, #dyntabnav .ui-tabs-nav {
     padding: 0;
@@ -1990,7 +1997,6 @@ div#closeContextHelp:active {
 
 #qrcode {
    height: 160px;
-   text-align: center;
    position: relative;
 }
 #qrcode .overlay {
@@ -1999,11 +2005,12 @@ div#closeContextHelp:active {
    width: 52px;
 
    position: absolute;
-   left: 79px;
-   top: 42px;
+   left: 49px;
+   top: 66px;
 }
 #qrcode canvas {
-   margin-bottom: .5em;
+    margin: 1em 0 0 0;
+    border: 10px solid #ffffff;
 }
 /* Hiding the long URL for now */
 #qrcode span.small {

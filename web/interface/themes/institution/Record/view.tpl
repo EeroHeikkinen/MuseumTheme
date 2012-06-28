@@ -61,6 +61,8 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 <div class="record recordId" style="padding: 0" id="record{$id|escape}">
 
+  <div id="resultMain">
+  
   <div id="resultSide">
   
     {* Display Cover Image *}
@@ -102,6 +104,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           {foreach from=$exportFormats item=exportFormat}
             <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
           {/foreach}
+            <li>
+              <div class="qr_wrapper">
+              <div id="qrcode"><span class="overlay"></span></div>
+              {js filename="qrcodeNDL.js"}
+              </div>
+            </li>
           </ul>
         </li>
         {/if}
@@ -133,13 +141,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       <div class="clear"></div>
     </div>
       <div class="clear"></div>
-      <div class="qr_wrapper">
+      {* <div class="qr_wrapper">
       <div id="qrcode"><span class="overlay"></span></div>
       {js filename="qrcodeNDL.js"}
-      </div>
+      </div> *}
   </div>
-  
-  <div id="resultMain">
   
    {include file=$coreMetadata}
   

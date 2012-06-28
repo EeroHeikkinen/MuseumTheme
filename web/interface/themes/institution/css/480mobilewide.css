@@ -133,6 +133,10 @@ px      62    136    210    284    358    432   */
         margin-left: 10px;
         width: 180px;
     }
+    .resultscroller {
+        clear: none;
+        margin-left: 0;
+    }
     #resultSide {
         width: 432px;
         margin-right: 0;
@@ -156,7 +160,13 @@ px      62    136    210    284    358    432   */
         width: 432px;
         margin-right: 0;
     }
-
+    #recordMetadata {
+        width: 432px;
+        float: left;
+    }
+    #dyntabnav {
+        width: 432px;
+    }
 
     #resultSidebar {
         width: 432px;

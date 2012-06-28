@@ -1,4 +1,4 @@
-<div>
+<div id="recordMetadata">
     
   {* Display Title *}
   <h1 class="recordTitle">{$coreShortTitle|escape}
