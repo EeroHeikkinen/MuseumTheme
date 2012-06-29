@@ -317,7 +317,7 @@ class MetaLib
 
         // Do the find request
         $findRequestId = md5($irdList . '_' . $queryStr);
-        if (0 && isset($_SESSION['MetaLibFindResponse']) 
+        if (isset($_SESSION['MetaLibFindResponse']) 
             && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId) {
             $databases = $_SESSION['MetaLibFindResponse']['databases'];
             $totalRecords = $_SESSION['MetaLibFindResponse']['totalRecords'];
