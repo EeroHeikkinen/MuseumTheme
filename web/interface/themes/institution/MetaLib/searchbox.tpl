@@ -1,8 +1,8 @@
 <div class="searchform span-10 last">
   {if $searchType == 'MetaLibAdvanced'}
-    <a href="{$path}/MetaLib/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
-    <a href="{$path}/MetaLib/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
-    <a href="{$path}/MetaLib/Home" class="small">{translate text="Start a new Basic Search"}</a>
+    <a href="{$path}/MetaLib/Advanced?edit={$searchId}&set={$searchSet|escape}" class="small">{translate text="Edit this Advanced Search"}</a> |
+    <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small">{translate text="Start a new Advanced Search"}</a> |
+    <a href="{$path}/MetaLib/Home?set={$searchSet|escape}" class="small">{translate text="Start a new Basic Search"}</a>
     <br/>{translate text="Your search terms"} : "<strong>{$lookfor|escape:"html"}</strong>"
   {else}
     <form method="get" action="{$path}/MetaLib/Search" name="searchForm" id="searchForm" class="search">
@@ -20,7 +20,8 @@
         <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
       </div>
       <div class="advanced-link-wrapper clear">
-        <a href="{$path}/MetaLib/Advanced" class="small">{translate text="Advanced"}</a>
+        <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small advancedLink">{translate text="Advanced"}</a>
+        <a href="{$path}/MetaLib/Home?set={$searchSet|escape}" class="small last metalibLink">{translate text="MetaLib Search"}</a>
        </div>
 
       {* Do we have any checkbox filters? *}

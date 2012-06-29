@@ -292,7 +292,7 @@ class MetaLib
         // We use a metalib. prefix everywhere so that it's easy to see the record source
         $queryId = 'metalib.' . md5($irdList . '_' . $queryStr . '_' . $start . '_' . $limit);
         $findResults = $this->_getCachedResults($queryId);
-        if ($findResults !== false) {
+        if ($findResults !== false && empty($findResults['failedDatabases'])) {
             return $findResults;
         }
                 
@@ -312,6 +312,233 @@ class MetaLib
             echo "</pre>\n";
         }
         
+        $sessionId = $this->_getSession();
+        $failed = array();
+
+        // Do the find request
+        $findRequestId = md5($irdList . '_' . $queryStr);
+        if (0 && isset($_SESSION['MetaLibFindResponse']) 
+            && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId) {
+            $databases = $_SESSION['MetaLibFindResponse']['databases'];
+            $totalRecords = $_SESSION['MetaLibFindResponse']['totalRecords'];
+        } else {
+            $options['session_id'] = $sessionId;
+            $options['wait_flag'] = 'Y';
+            $findResults = $this->_callXServer('find_request', $options);
+            if (PEAR::isError($findResults)) {
+                PEAR::raiseError($findResults);
+            }
+                
+            // Gather basic information
+            $databases = array();
+            $totalRecords = 0;
+            // @codingStandardsIgnoreStart
+            foreach ($findResults->find_response->base_info as $baseInfo) {
+                if ($baseInfo->find_status != 'DONE') {
+                    error_log('MetaLib search in ' . $baseInfo->base_001 . ' (' . $baseInfo->full_name . ') failed: '
+                        . $baseInfo->find_error_text);
+                    $failed[] = (string)$baseInfo->full_name;
+                    continue;
+                }
+                $count = ltrim((string)$baseInfo->no_of_documents, ' 0');
+                if ($count === '') {
+                    continue;
+                }
+                $totalRecords += $count;
+                $databases[] = array(
+                    'ird' => (string)$baseInfo->base_001,
+                    'count' => $count,
+                    'set' => (string)$baseInfo->set_number,
+                    'records' => array()
+                );
+            }
+            // @codingStandardsIgnoreEnd
+            $_SESSION['MetaLibFindResponse']['requestId'] = $findRequestId;
+            $_SESSION['MetaLibFindResponse']['databases'] = $databases;
+            $_SESSION['MetaLibFindResponse']['totalRecords'] = $totalRecords;
+        }
+
+        $documents = array();
+        $databaseCount = count($databases);
+        if ($databaseCount > 0) {
+            // Sort the array by number of results
+            usort(
+                $databases, 
+                function($a, $b) {
+                    return $a['count'] - $b['count'];    
+                }
+            );
+            
+            // Find cut points where a database is exhausted of results
+            $sum = 0;
+            for ($k = 0; $k < $databaseCount; $k++) {
+                $sum += ($databases[$k]['count'] - ($k > 0 ? $databases[$k - 1]['count'] : 0)) * ($databaseCount - $k);
+                $databases[$k]['cut'] = $sum;
+            }
+            
+            // Find first item for the given page
+            $firstRecord = ($start - 1) * $limit;
+            $i = 0;
+            $iCount = false;
+            for ($k = 0; $k < $databaseCount; $k++) {
+                if ($iCount === false || $databases[$k]['count'] < $iCount) {
+                    if ($databases[$k]['cut'] >= $firstRecord) {
+                        $i = $k;
+                        $iCount = $databases[$k]['count'];
+                    }
+                }
+            }
+            $l = $databases[$i]['cut'] - $firstRecord - 1;
+            if ($l < 0) {
+                PEAR::raiseError(new PEAR_Error('Invalid page index'));
+            }
+            $m = $l % ($databaseCount - $i);
+            $startDB = $databaseCount - $m - 1;
+            $startRecord = floor($databases[$i]['count'] - ($l + 1) / ($databaseCount - $i) + 1) - 1;
+            
+            // Loop until we have enough record indices or run out of records from any of the databases
+            $currentDB = $startDB;
+            $currentRecord = $startRecord;
+            $haveRecords = true;
+            for ($count = 0; $count < $limit;) {
+                if ($databases[$currentDB]['count'] > $currentRecord) {
+                    $databases[$currentDB]['records'][] = $currentRecord + 1;
+                    ++$count;
+                    $haveRecords = true;
+                }
+                if (++$currentDB >= $databaseCount) {
+                    if (!$haveRecords) {
+                        break;
+                    }
+                    $haveRecords = false;
+                    $currentDB = 0;
+                    ++$currentRecord;
+                }
+            }
+            
+            // Fetch records
+            $baseIndex = 0;
+            for ($i = 0; $i < $databaseCount; $i++) {
+                $database = $databases[($startDB + $i) % $databaseCount];
+                ++$baseIndex;
+                
+                if (empty($database['records'])) {
+                    continue;
+                }
+                
+                $params = array(
+                    'session_id' => $sessionId,
+                    'present_command' => array(
+                        'set_number' => $database['set'],
+                        'set_entry' => $database['records'][0] . '-' . end($database['records']),
+                        'view' => 'full',
+                        'format' => 'marc'
+                    )
+                );
+                
+                $result = $this->_callXServer('present_request', $params);
+                if (PEAR::isError($result)) {
+                    PEAR::raiseError($result);
+                }
+    
+                // Go through the records one by one. If there is a MOR tag 
+                // in the record, it means that a single record present 
+                // command is needed to fetch full record. 
+                $currentDocs = array();
+                $recIndex = -1;
+                // @codingStandardsIgnoreStart
+                foreach ($result->present_response->record as $record) {
+                    // @codingStandardsIgnoreEnd
+                    ++$recIndex;
+                    $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
+                    if ($record->xpath("./m:controlfield[@tag='MOR']")) {
+                        $params = array(
+                            'session_id' => $sessionId,
+                            'present_command' => array(
+                                'set_number' => $database['set'],
+                                'set_entry' => $database['records'][$recIndex],
+                                'view' => 'full',
+                                'format' => 'marc'
+                            )
+                        );
+                    
+                        $singleResult = $this->_callXServer('present_request', $params);
+                        if (PEAR::isError($singleResult)) {
+                            PEAR::raiseError($singleResult);
+                        }
+                        // @codingStandardsIgnoreStart
+                        $currentDocs[] = $this->_process($singleResult->present_response->record[0]);
+                        // @codingStandardsIgnoreEnd
+                    } else {
+                        $currentDocs[] = $this->_process($record);
+                    }
+                }                
+                
+                $docIndex = 0;
+                foreach ($currentDocs as $doc) {
+                    $foundRecords = true;
+                    $documents[sprintf('%09d_%09d', $docIndex++, $baseIndex)] = $doc;
+                }
+            }
+            
+            ksort($documents);
+            $documents = array_values($documents);
+    
+            $i = 1;
+            foreach ($documents as $key => $doc) {
+                $documents[$key]['ID'] = array($queryId . '_' . $i);
+                $i++;
+            }
+        }
+        
+        $results = array(
+            'recordCount' => $totalRecords,
+            'documents' => $documents,
+            'failedDatabases' => $failed
+        );
+        $this->_putCachedResults($queryId, $results);
+        return $results;
+    }
+
+    /**
+     * Get information regarding the IRD
+     *
+     * @param string $ird  IRD ID
+     *
+     * @return array       Array with e.g. 'name' and 'access'
+     * @access public
+     */
+    public function getIRDInfo($ird)
+    {
+        $sessionId = $this->_getSession();
+        
+        // Do the source locate request
+        $params = array(
+            'session_id' => $sessionId,
+            'locate_command' => "IDN=$ird",
+            'source_full_info_flag' => 'Y'
+        );
+        $result = $this->_callXServer('source_locate_request', $params);
+        if (PEAR::isError($result)) {
+            PEAR::raiseError($result);
+        }
+
+        $info = array();
+        $info['name'] = (string)$result->source_locate_response->source_full_info->source_info->source_short_name;
+        $record = $result->source_locate_response->source_full_info->record;
+        $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
+        $info['access'] = $this->_getSingleValue($record, 'AF3a');
+        return $info;
+    }
+    
+    /**
+     * Return current session id (if valid) or create a new session
+     * 
+     * @return string session id
+     * @access protected
+     */
+    protected function _getSession()
+    {
         $sessionId = '';
         if (isset($_SESSION['MetaLibSessionID'])) {
             // Check for valid session
@@ -337,201 +564,22 @@ class MetaLib
             if (PEAR::isError($result)) {
                 PEAR::raiseError($result);
             }
-            // @codingStandardsIgnoreStart        
+            // @codingStandardsIgnoreStart
             if ($result->login_response->auth != 'Y') {
                 // @codingStandardsIgnoreEnd
                 $logger = new Logger();
                 $logger->log("X-Server login failed: \n" . $xml, PEAR_LOG_ERR);
                 PEAR::raiseError(new PEAR_Error('X-Server login failed'));
             }
-            // @codingStandardsIgnoreStart        
+            // @codingStandardsIgnoreStart
             $sessionId = (string)$result->login_response->session_id;
             // @codingStandardsIgnoreEnd
             $_SESSION['MetaLibSessionID'] = $sessionId;
             unset($_SESSION['MetaLibFindResponse']);
         }
-        
-        // Do the find request
-        $findRequestId = md5($irdList . '_' . $queryStr);
-        if (isset($_SESSION['MetaLibFindResponse']) 
-            && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId) {
-            $databases = $_SESSION['MetaLibFindResponse']['databases'];
-            $totalRecords = $_SESSION['MetaLibFindResponse']['totalRecords'];
-        } else {
-            $options['session_id'] = $sessionId;
-            $options['wait_flag'] = 'Y';
-            $findResults = $this->_callXServer('find_request', $options);
-            if (PEAR::isError($findResults)) {
-                PEAR::raiseError($findResults);
-            }
-                
-            // Gather basic information
-            $databases = array();
-            $totalRecords = 0;
-            // @codingStandardsIgnoreStart
-            foreach ($findResults->find_response->base_info as $baseInfo) {
-                if ($baseInfo->find_status != 'DONE') {
-                    error_log('MetaLib search in ' . $baseInfo->base_001 . ' (' . $baseInfo->full_name . ') failed: '
-                        . $baseInfo->find_error_text);
-                    continue;
-                }
-                $count = ltrim((string)$baseInfo->no_of_documents, ' 0');
-                if ($count === '') {
-                    continue;
-                }
-                $totalRecords += $count;
-                $databases[] = array(
-                    'ird' => (string)$baseInfo->base_001,
-                    'count' => $count,
-                    'set' => (string)$baseInfo->set_number,
-                    'records' => array()
-                );
-            }
-            // @codingStandardsIgnoreEnd
-            $_SESSION['MetaLibFindResponse']['requestId'] = $findRequestId;
-            $_SESSION['MetaLibFindResponse']['databases'] = $databases;
-            $_SESSION['MetaLibFindResponse']['totalRecords'] = $totalRecords;
-        }
-        $databaseCount = count($databases);
-        
-        // Sort the array by number of results
-        usort(
-            $databases, 
-            function($a, $b) {
-                return $a['count'] - $b['count'];    
-            }
-        );
-        
-        // Find cut points where a database is exhausted of results
-        $sum = 0;
-        for ($k = 0; $k < $databaseCount; $k++) {
-            $sum += ($databases[$k]['count'] - ($k > 0 ? $databases[$k - 1]['count'] : 0)) * ($databaseCount - $k);
-            $databases[$k]['cut'] = $sum;
-        }
-        
-        // Find first item for the given page
-        $firstRecord = ($start - 1) * $limit;
-        $i = 0;
-        $iCount = false;
-        for ($k = 0; $k < $databaseCount; $k++) {
-            if ($iCount === false || $databases[$k]['count'] < $iCount) {
-                if ($databases[$k]['cut'] >= $firstRecord) {
-                    $i = $k;
-                    $iCount = $databases[$k]['count'];
-                }
-            }
-        }
-        $l = $databases[$i]['cut'] - $firstRecord - 1;
-        if ($l < 0) {
-            PEAR::raiseError(new PEAR_Error('Invalid page index'));
-        }
-        $m = $l % ($databaseCount - $i);
-        $startDB = $databaseCount - $m - 1;
-        $startRecord = floor($databases[$i]['count'] - ($l + 1) / ($databaseCount - $i) + 1) - 1;
-        
-        // Loop until we have enough record indices or run out of records from any of the databases
-        $currentDB = $startDB;
-        $currentRecord = $startRecord;
-        $haveRecords = true;
-        for ($count = 0; $count < $limit;) {
-            if ($databases[$currentDB]['count'] > $currentRecord) {
-                $databases[$currentDB]['records'][] = $currentRecord + 1;
-                ++$count;
-                $haveRecords = true;
-            }
-            if (++$currentDB >= $databaseCount) {
-                if (!$haveRecords) {
-                    break;
-                }
-                $haveRecords = false;
-                $currentDB = 0;
-                ++$currentRecord;
-            }
-        }
-        
-        // Fetch records
-        $documents = array();
-        $baseIndex = 0;
-        for ($i = 0; $i < $databaseCount; $i++) {
-            $database = $databases[($startDB + $i) % $databaseCount];
-            ++$baseIndex;
-            
-            if (empty($database['records'])) {
-                continue;
-            }
-            
-            $params = array(
-                'session_id' => $sessionId,
-                'present_command' => array(
-                    'set_number' => $database['set'],
-                    'set_entry' => $database['records'][0] . '-' . end($database['records']),
-                    'view' => 'full',
-                    'format' => 'marc'
-                )
-            );
-            
-            $result = $this->_callXServer('present_request', $params);
-            if (PEAR::isError($result)) {
-                PEAR::raiseError($result);
-            }
-
-            // Go through the records one by one. If there is a MOR tag 
-            // in the record, it means that a single record present 
-            // command is needed to fetch full record. 
-            $currentDocs = array();
-            $recIndex = -1;
-            // @codingStandardsIgnoreStart
-            foreach ($result->present_response->record as $record) {
-                // @codingStandardsIgnoreEnd
-                ++$recIndex;
-                $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
-                if ($record->xpath("./m:controlfield[@tag='MOR']")) {
-                    $params = array(
-                        'session_id' => $sessionId,
-                        'present_command' => array(
-                                'set_number' => $database['set'],
-                                'set_entry' => $database['records'][$recIndex],
-                                'view' => 'full',
-                                'format' => 'marc'
-                        )
-                    );
-                
-                    $singleResult = $this->_callXServer('present_request', $params);
-                    if (PEAR::isError($singleResult)) {
-                        PEAR::raiseError($singleResult);
-                    }
-                    // @codingStandardsIgnoreStart
-                    $currentDocs[] = $this->_process($singleResult->present_response->record[0]);
-                    // @codingStandardsIgnoreEnd
-                } else {
-                    $currentDocs[] = $this->_process($record);
-                }
-            }                
-            
-            $docIndex = 0;
-            foreach ($currentDocs as $doc) {
-                $foundRecords = true;
-                $documents[sprintf('%09d_%09d', $docIndex++, $baseIndex)] = $doc;
-            }
-        }
-        
-        ksort($documents);
-        $documents = array_values($documents);
-
-        $i = 1;
-        foreach ($documents as $key => $doc) {
-            $documents[$key]['ID'] = array($queryId . '_' . $i);
-            $i++;
-        }
-        
-        $results = array(
-                'recordCount' => $totalRecords,
-                'documents' => $documents
-        );
-        $this->_putCachedResults($queryId, $results);
-        return $results;
+        return $sessionId;        
     }
-
+    
     /**
      * Convert array of X-Server call parameters to XML
      * 
@@ -834,7 +882,7 @@ class MetaLib
         global $configArray;
         
         $cacheFile = $configArray['Site']['local']
-            . "/interface/cache/MetaLib_$queryId.dat";
+            . "/interface/cache/$queryId.dat";
         if (file_exists($cacheFile)) {
             // Default caching time is 60 minutes (note that cache is required
             // for full record display)
@@ -861,7 +909,7 @@ class MetaLib
         global $configArray;
         
         $cacheFile = $configArray['Site']['local'] 
-            . "/interface/cache/MetaLib_$queryId.dat";
+            . "/interface/cache/$queryId.dat";
         file_put_contents($cacheFile, serialize($records));
     }
 }

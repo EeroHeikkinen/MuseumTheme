@@ -10,7 +10,7 @@
   {/if}
 </div>
 
-  <div class="coverDiv">
+<div class="coverDiv">
   {assign var=img_count value=$summImages|@count}
   {if $img_count >= 1}
       <div id="imagelinks">
@@ -30,9 +30,7 @@
   {foreach from=$summFormats item=format}
     <div class="resultItemFormat"><span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span></div>
   {/foreach}
-
 </div>
-
     
   <div class="resultColumn2">
   
@@ -95,6 +93,10 @@
         {foreach from=$summURLs key=recordurl item=urldesc}
           <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
         {/foreach}
+      {/if}
+
+      {if $summId|substr:0:8 == 'metalib_'}
+        <br/><a href="{$path}/MetaLib/Home?set=_ird%3A{$summId|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a>
       {/if}
 
       {* <br class="hideIfDetailed{$summId|escape}"/> *}

@@ -189,6 +189,9 @@
           {include file="Search/rsi.tpl"}
           {include file="Search/openurl_autocheck.tpl"}
         {/if}
+        {if $id|substr:0:8 == 'metalib_'}
+          <a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a>
+        {/if}
       </td>
     </tr>
     {/if}
