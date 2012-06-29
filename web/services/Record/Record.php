@@ -166,6 +166,11 @@ class Record extends Action
 
         $interface->assign('hasTOC', $this->recordDriver->hasTOC());
         $interface->assign('hasMap', $this->recordDriver->hasMap());
+        $this->recordDriver->getTOC();
+
+		$interface->assign(
+			'extendedMetadata', $this->recordDriver->getExtendedMetadata()
+		);
 
         // Assign the next/previous record data:
         $scroller = new ResultScroller();

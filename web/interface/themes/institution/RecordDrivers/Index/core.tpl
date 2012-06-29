@@ -1,4 +1,4 @@
-<div>
+<div id="recordMetadata">
     
   {* Display Title *}
   <h1 class="recordTitle">{$coreShortTitle|escape}
@@ -97,10 +97,10 @@
       <td>
        {if is_array($recordFormat)}
         {foreach from=$recordFormat item=displayFormat name=loop}
-          <span class="iconlabel {$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat}</span>
+          <span class="iconlabel format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat}</span>
         {/foreach}
       {else}
-        <span class="iconlabel {$recordFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$recordFormat}</span>
+        <span class="iconlabel format{$recordFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$recordFormat}</span>
       {/if}
       </td>
     </tr>
@@ -173,6 +173,10 @@
     </tr>
     {/if}
 
+    {if $extendedMetadata}
+      {include file=$extendedMetadata}
+    {/if}
+
     {if !empty($coreURLs) || $coreOpenURL}
     <tr valign="top">
       <th>{translate text='Online Access'}: </th>
@@ -202,6 +206,17 @@
     {/foreach}
     {/if}
     *}
+
+    {if $toc}
+    <tr valign="top">
+      <th>{translate text='Table of Contents'}: </th>
+      <td>
+      {foreach from=$toc item=line}
+        {$line|escape}<br />
+      {/foreach}
+      </td>
+    </tr>
+    {/if}
     
     <tr valign="top">
       <th>{translate text='Tags'}: </th>
@@ -221,7 +236,7 @@
       </td>
     </tr>
    
-   {* BTJ description start *}
+   {* BTJ description moved to RecordDrivers/Index/extended.tpl 
    <tr valign="top" id="btjdescription" style="display: none;">
      <th>{translate text=Description}: </th>
      <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
@@ -241,7 +256,7 @@
      });
      {/literal}
    </script>  
-   {* BTJ description end *}
+   BTJ description end *}
   </table>
   {* End Main Details *}
 </div>

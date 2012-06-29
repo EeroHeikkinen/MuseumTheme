@@ -991,7 +991,20 @@ div.record {
 #resultMain, #resultSide {
     padding-top: 1.2em;
 }
-
+#resultMain {
+    width: 728px;
+    margin-right: 12px;
+    float: left;
+}
+#resultSide {
+    width: 210px;
+    float: left;
+    margin-right: 12px;
+}
+#recordMetadata {
+    width: 506px;
+    float: left;
+}
 .recordTitle {
     font-weight:bold;
     margin-top:0;
@@ -1128,6 +1141,9 @@ float: left;
 
 #dyntabnav {
     border: none;
+    width: 728px;
+    clear: left;
+    float: left;
 }
 #dyntabnav, #dyntabnav .ui-tabs-nav {
     padding: 0;
@@ -1171,6 +1187,10 @@ float: left;
 
 /** Similar Items (record view) **/
 
+#resultSidebar {
+    width: 210px;
+    float: right;
+}
 ul.similar {
     list-style: none;
     padding: 0 13px 0 0;
@@ -1188,6 +1208,10 @@ h5.recordTabHeader{
 }
 
 /*********** Toolbar (Record View) ************/
+
+.record .toolbar {
+    width: 210px;
+}
 .toolbar {
     float:right;
     padding:10px 0 10px 0;
@@ -1973,7 +1997,6 @@ div#closeContextHelp:active {
 
 #qrcode {
    height: 160px;
-   text-align: center;
    position: relative;
 }
 #qrcode .overlay {
@@ -1982,11 +2005,16 @@ div#closeContextHelp:active {
    width: 52px;
 
    position: absolute;
-   left: 79px;
-   top: 42px;
+   left: 49px;
+   top: 66px;
 }
 #qrcode canvas {
-   margin-bottom: .5em;
+    margin: 1em 0 0 0;
+    border: 10px solid #ffffff;
+}
+/* Hiding the long URL for now */
+#qrcode span.small {
+    display: none;
 }
 
 /*** Hierarchy Tree ***/

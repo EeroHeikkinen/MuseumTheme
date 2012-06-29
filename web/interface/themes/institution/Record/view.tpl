@@ -61,12 +61,14 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 <div class="record recordId" style="padding: 0" id="record{$id|escape}">
 
-  <div id="resultSide" class="span-3">
+  <div id="resultMain">
+  
+  <div id="resultSide">
   
     {* Display Cover Image *}
     <div class="coverImages">
     {if $coreThumbMedium}
-        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}" class="span-3">{/if}
+        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
         <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
         {if $coreThumbLarge}</a>{/if}
         <div class="clear"></div>
@@ -86,7 +88,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </div>
     {* End Cover Image *}
   
-    <div id="resultToolbar" class="toolbar span-3">
+    <div id="resultToolbar" class="toolbar">
       <ul>
         <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
         
@@ -97,18 +99,26 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li>
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
-          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"}</a>
+          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} <img src="/vufind/interface/themes/institution/images/down.png" width="11" height="6"></a>
           <ul class="menu offscreen" id="exportMenu">
           {foreach from=$exportFormats item=exportFormat}
             <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
           {/foreach}
+            <li>
+              <div class="qr_wrapper">
+              <div id="qrcode"><span class="overlay"></span></div>
+              {js filename="qrcodeNDL.js"}
+              </div>
+            </li>
           </ul>
         </li>
         {/if}
-        <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li>
+        {* Citation commented out for now
+        <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
+        {* Bookmark commented out for now
         {if !empty($addThis)}
         <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text='Bookmark'}</a></li>
-        {/if}
+        {/if} *}
         {if $bookBag}
         <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text='Add to Book Bag'}</a></li>
         {/if}
@@ -131,13 +141,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       <div class="clear"></div>
     </div>
       <div class="clear"></div>
-      <div class="qr_wrapper">
+      {* <div class="qr_wrapper">
       <div id="qrcode"><span class="overlay"></span></div>
       {js filename="qrcodeNDL.js"}
-      </div>
+      </div> *}
   </div>
-  
-  <div id="resultMain" class="span-7">
   
    {include file=$coreMetadata}
   
@@ -149,14 +157,17 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           <a href="{$url}/Record/{$id|escape:"url"}/Holdings{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Holdings'}</a>
         </li>
         {/if}
+        {* Description moved to RecordDrivers/Index/core.tpl 
         <li{if $tab == 'Description'} class="active"{/if}>
           <a href="{$url}/Record/{$id|escape:"url"}/Description{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Description'}</a>
-        </li>
+        </li> *}
+        {* TOC moved to core.tpl
         {if $hasTOC}
         <li{if $tab == 'TOC'} class="active"{/if}>
           <a href="{$url}/Record/{$id|escape:"url"}/TOC{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Table of Contents'}</a>
         </li>
         {/if}
+        *}
         {if $hasContainedComponentParts}
         <li{if $tab == 'ComponentParts'} class="active"{/if}>
           <a href="{$url}/Record/{$id|escape:"url"}/ComponentParts{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='Contents/Parts'}</a>
@@ -208,7 +219,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
   
 
-<div id="resultSidebar" class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
+<div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   <div class="sidegroup">
     <h4>{translate text="Similar Items"}</h4>
     {if is_array($similarRecords)}

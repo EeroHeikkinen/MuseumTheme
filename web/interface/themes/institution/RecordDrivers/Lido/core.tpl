@@ -1,3 +1,5 @@
+<div id="recordMetadata">
+
 {* Display Title *}
 {literal}
   <script language="JavaScript" type="text/javascript">
@@ -278,3 +280,5 @@ End Cover Image *}
   </tr>
 </table>
 {* End Main Details *}
+
+</div>

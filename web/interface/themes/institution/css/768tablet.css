@@ -75,6 +75,19 @@ px      62    136    210    284    358    432    506    580    654    728   */
     ul.recordSet .resultColumn2 {
         width: 358px;
     }
+    #resultSidebar {
+        width: 728px;
+    }
+    #resultSidebar .sidegroup {
+        border-top: 2px solid #dddddd;
+        border-left: none;
+    }
+    #resultSidebar ul li {
+        width: 210px;
+        margin-right: 12px;
+        display: inline-block;
+        vertical-align: top;
+    }
 
 
 
