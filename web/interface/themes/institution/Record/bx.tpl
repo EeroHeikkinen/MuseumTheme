@@ -32,7 +32,7 @@ var openurl_resolver = "{/literal}{$openUrlBase}{literal}";
         }
     })
     .error(function() {
-        alert("Request for bX recommendations failed.");
+        $('#bXRecommendations').removeClass("hide").text("Request for bX recommendations failed.");
     });              
 
 </script>

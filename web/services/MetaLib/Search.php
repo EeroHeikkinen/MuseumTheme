@@ -93,7 +93,8 @@ class Search extends Base
             'sideRecommendations',
             $this->searchObject->getRecommendationsTemplates('side')
         );
-
+        $interface->assign('failedDatabases', $result['failedDatabases']);
+        
         if ($result['recordCount'] > 0) {
             // If the "jumpto" parameter is set, jump to the specified result index:
             $this->_processJumpto($result);

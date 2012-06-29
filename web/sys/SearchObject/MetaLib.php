@@ -153,7 +153,7 @@ class SearchObject_MetaLib extends SearchObject_Base
         }
         
         $this->_set = isset($_REQUEST['set']) ? $_REQUEST['set'] : '';  
-        if (!isset($this->_searchSets[$this->_set])) {
+        if (!isset($this->_searchSets[$this->_set]) && strncmp($this->_set, '_ird:', 5) != 0) {
             reset($this->_searchSets);
             $this->_set = key($this->_searchSets);
         }
@@ -271,9 +271,11 @@ class SearchObject_MetaLib extends SearchObject_Base
         $finalSort = ($this->sort == 'relevance') ? null : $this->sort;
 
         // Perform the actual search
+        $irds = strncmp($this->_set, '_ird:', 5) == 0
+            ? substr($this->_set, 5) 
+            : $this->_searchSets[$this->_set]['ird_list'];
         $this->_indexResult = $this->_metaLib->query(
-            $this->_searchSets[$this->_set]['ird_list'],
-            $this->searchTerms, $this->getFilterList(), $this->page, $this->limit,
+            $irds, $this->searchTerms, $this->getFilterList(), $this->page, $this->limit,
             $finalSort, $this->_fullFacetSettings, $returnIndexErrors
         );
         if (PEAR::isError($this->_indexResult)) {
@@ -477,5 +479,17 @@ class SearchObject_MetaLib extends SearchObject_Base
         return $interface->fetch('MetaLib/listentry.tpl');
     }
     
+    /**
+     * Get information regarding the IRD
+     * 
+     * @param string $ird  IRD ID
+     * 
+     * @return array       Array with e.g. 'name' and 'access'
+     * @access public
+     */
+    public function getIRDInfo($ird)
+    {
+        return $this->_metaLib->getIRDInfo($ird);
+    }
 }
 
