@@ -1,15 +1,18 @@
 <div class="listentry recordId" id="record{$listId|escape}">
-    <label for="checkbox_{$listId|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
+  <div class="resultCheckbox">
+    <label for="checkbox_{$listId|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select"}: {$listTitle|escape}</label>
     <input id="checkbox_{$listId|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="ids[]" value="{$listId|escape}" class="checkbox_ui"/>
     <input type="hidden" name="idsAll[]" value="{$listId|escape}" />
-    <div class="span-2">
+  </div>
+  
+    <div class="coverDiv">
     {if $listThumb}
       <img src="{$listThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
     {else}
       <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
     {/if}
     </div>
-    <div class="span-10">
+    <div class="resultColumn2">
       <a href="{$url}/Record/{$listId|escape:"url"}" class="title">{$listTitle|escape}</a><br/>
       {if $listAuthor}
         {translate text='by'}: <a href="{$url}/Author/Home?author={$listAuthor|escape:"url"}">{$listAuthor|escape}</a><br/>
@@ -30,7 +33,7 @@
       {/if}
 
       {foreach from=$listFormats item=format}
-        <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
+        <span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
       {/foreach}
     </div>
 

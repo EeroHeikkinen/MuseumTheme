@@ -14,7 +14,8 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 </script>
 {/if}
 
-<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
+<div id="resultList" class="myResearch {if $sidebarOnLeft} push-5 last{/if}">
+  <div class="resultHead">
   {if $list}
     <div class="toolbar floatright">
       <form method="post" name="addForm" action="{$url}/Cart/Home">
@@ -30,7 +31,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <h3 class="list">{$list->title|escape:"html"}</h3>
     {if $list->description}<p class="listDescription">{$list->description|escape}</p>{/if}
   {else}
-    <div class="accountFavorites"><h3 class="fav">{translate text="Your Favorites"}</h3></div>
+    <h3 class="fav">{translate text="Your Favorites"}</h3>
   {/if}
 
   {if $errorMsg || $infoMsg}
@@ -39,8 +40,8 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {if $infoMsg}<p class="info">{$infoMsg|translate}{if $showExport} <a class="save" target="_new" href="{$showExport|escape}">{translate text="export_save"}</a>{/if}</p>{/if}
   </div>
   {/if}
+  <div class="clear"></div>
   {if $resourceList}
-    <div class="resulthead">
       <div class="floatleft">
       {if $recordCount}
         {translate text="Showing"}
@@ -118,11 +119,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </form>
     {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
   {else}
-    <p>{translate text='You do not have any saved resources'}</p>
+    <div style="clear:both;padding-top: 2em;">{translate text='You do not have any saved resources'}</div>
   {/if}
 </div>
-  
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">  
+
+<div class="myResearchMenu {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">  
   {include file="MyResearch/menu.tpl"}
   
   {if $listList}
@@ -165,4 +166,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {/if}
 </div>
 
+
 <div class="clear"></div>
+</div>

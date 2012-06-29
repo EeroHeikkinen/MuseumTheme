@@ -1,4 +1,5 @@
-<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
+<div id="resultList" class="myResearch {if $sidebarOnLeft} push-5 last{/if}">
+ <div class="resultHead">
   {if $user->cat_username}
     <h3>{translate text='Your Checked Out Items'}</h3>
     {if $blocks}
@@ -10,6 +11,7 @@
     {if $transList}
 
       {if $renewForm}
+      <div class="floatright">
       <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
         <div class="toolbar">
           <ul>
@@ -17,32 +19,40 @@
             <li><input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" /></li>
           </ul>
         </div>
-        <br />
+    </div>
       {/if}
 
       {if $errorMsg}
         <p class="error">{translate text=$errorMsg}</p>
       {/if}
-
+      <div class="clear"></div>
+  </div>
     <ul class="recordSet">
     {foreach from=$transList item=resource name="recordLoop"}
       <li class="result{if ($smarty.foreach.recordLoop.iteration % 2) == 0} alt{/if}">
       {if $renewForm}
+        <div class="resultCheckbox">
         {if $resource.ils_details.renewable && isset($resource.ils_details.renew_details)}
-            <label for="checkbox_{$resource.id|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
+            <label for="checkbox_{$resource.id|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select"} 
+            {if !empty($resource.id)} 
+              {$resource.title|escape}
+            {else}
+              {translate text='Title not available'}
+            {/if}</label>
             <input type="checkbox" name="renewSelectedIDS[]" value="{$resource.ils_details.renew_details}" class="checkbox" style="margin-left: 0" id="checkbox_{$resource.id|regex_replace:'/[^a-z0-9]/':''|escape}" />
             <input type="hidden" name="renewAllIDS[]" value="{$resource.ils_details.renew_details}" />
         {/if}
+        </div>
       {/if}
         <div id="record{$resource.id|escape}">
-          <div class="span-2">
+          <div class="coverDiv">
             {if $resource.isbn}
               <img src="{$path}/bookcover.php?isn={$resource.isbn|@formatISBN}&amp;size=small" class="summcover" alt="{translate text='Cover Image'}"/>
             {else}
               <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
             {/if}
           </div>
-          <div class="span-10">
+          <div class="resultColumn2">
             {* If $resource.id is set, we have the full Solr record loaded and should display a link... *}
             {if !empty($resource.id)}
               <a href="{$url}/Record/{$resource.id|escape:"url"}" class="title">{$resource.title|escape}</a>
@@ -69,11 +79,11 @@
             {/if}
             {if is_array($resource.format)}
               {foreach from=$resource.format item=format}
-                <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
+                <span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
               {/foreach}
               <br/>
             {elseif isset($resource.format)}
-              <span class="iconlabel {$resource.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$resource.format}</span>
+              <span class="iconlabel format{$resource.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$resource.format}</span>
               <br/>
             {/if}
             {if $resource.ils_details.volume}
@@ -85,7 +95,8 @@
               <strong>{translate text='Year of Publication'}:</strong> {$resource.ils_details.publication_year|escape}
               <br />
             {/if}
-
+        </div>
+        <div class="dueDate">
             {assign var="showStatus" value="show"}
             {if $renewResult[$resource.ils_details.item_id]}
               {if $renewResult[$resource.ils_details.item_id].success}
@@ -113,9 +124,9 @@
             {if $resource.ils_details.renewable && $resource.ils_details.renew_link}
               <a href="{$resource.ils_details.renew_link|escape}">{translate text='renew_item'}</a>
             {/if}
-          </div>
+          </div> <!-- class="dueDate" -->
           <div class="clear"></div>
-        </div>
+        </div> <!-- record{$resource.id|escape} -->
       </li>
     {/foreach}
     </ul>
@@ -123,15 +134,17 @@
         </form>
       {/if}
     {else}
-      {translate text='You do not have any items checked out'}.
+      <div style="clear:both;padding-top: 2em;">{translate text='You do not have any items checked out'}.</div>
     {/if}
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
 </div>
+</div>
 
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div id="sidebarFacets" class="{if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
   {include file="MyResearch/menu.tpl"}
 </div>
 
 <div class="clear"></div>
+</div>

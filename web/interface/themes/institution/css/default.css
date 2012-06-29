@@ -447,7 +447,8 @@ fieldset.publishDateLimit .ui-slider {
 }
 #sidebarFacets {
     width: 210px;
-    float:left;
+    float: left;
+    margin-left: 12px;
 }
 
 
@@ -1476,6 +1477,55 @@ p.citationText {
 .searchGroups .searchGroupDetails {
     float: right;
 }
+
+
+/* Profile / MyResearch */
+
+.myResearch .resultHead {
+    width: 716px;
+    border-bottom: 1px solid #dddddd;
+    padding: 0 12px 0.2em 0;
+}
+.myResearch .resultHead h3 {
+    display: block;
+    text-align: left;
+    margin: 0;
+    float: left;
+}
+.myResearch .resultHead h3.fav {
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    padding: 0 0 0 25px;
+}
+.myResearch .resultHead .toolbar {
+    margin: 0 12px 12px 0;
+}
+.myResearch .resultHead .toolbar ul li {
+    padding: 4px;
+}
+.myResearch ul.recordSet .resultCheckbox {
+    position: inherit;
+    display: inherit;
+    width: 62px;
+    margin: 1em 12px 0 0;
+    float: left;
+    text-align: center;
+}
+.myResearch .coverDiv {
+    width: 60px;
+    margin-right: 12px;
+    float: left;
+}
+.myResearch .dueDate {
+    margin: 0 20px 0 148px;
+    clear: both;
+}
+.myResearchMenu {
+    width: 210px;
+    float: left;
+    margin-left: 12px;
+}
+
 
 
 /* Browse Lists */

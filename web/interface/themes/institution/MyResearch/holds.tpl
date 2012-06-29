@@ -1,8 +1,10 @@
-<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
+<div id="resultList" class="myResearch {if $sidebarOnLeft} push-5 last{/if}">
+  <div class="resultHead">
   {if $user->cat_username}
     <h3>{translate text='Your Holds and Recalls'}</h3>
 
     {if $cancelForm}
+      <div class="floatright">
       <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
         <div class="toolbar">
           <ul>
@@ -10,7 +12,7 @@
             <li><input type="submit" class="button holdCancelAll" name="cancelAll" value="{translate text='hold_cancel_all'}" onClick="return confirm('{translate text="confirm_hold_cancel_all_text}')" /></li>
           </ul>
         </div>
-      <div class="clearer"></div>
+      </div>
     {/if}
 
     {if $holdResults.success}
@@ -24,24 +26,27 @@
     {if $cancelResults.count > 0}
       <div class="holdsMessage"><p class="info">{$cancelResults.count|escape} {translate text="hold_cancel_success_items"}</p></div>
     {/if}
-
+    <div class="clear"></div>
+    </div>
     {if is_array($recordList)}
     <ul class="recordSet">
     {foreach from=$recordList item=resource name="recordLoop"}
       <li class="result{if ($smarty.foreach.recordLoop.iteration % 2) == 0} alt{/if}">
         {if $cancelForm && $resource.ils_details.cancel_details}
+          <div class="resultCheckbox">
           <input type="hidden" name="cancelAllIDS[]" value="{$resource.ils_details.cancel_details|escape}" />
           <input type="checkbox" name="cancelSelectedIDS[]" value="{$resource.ils_details.cancel_details|escape}" class="checkbox" style="margin-left:0;" />
+          </div>
         {/if}
         <div id="record{$resource.id|escape}">
-          <div class="span-2">
+          <div class="coverDiv">
             {if $resource.isbn.0}
               <img src="{$path}/bookcover.php?isn={$resource.isbn.0|@formatISBN}&amp;size=small" class="summcover" alt="{translate text='Cover Image'}"/>
             {else}
               <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
             {/if}
           </div>
-          <div class="span-10">
+          <div class="resultColumn2">
             {* If $resource.id is set, we have the full Solr record loaded and should display a link... *}
             {if !empty($resource.id)}
               <a href="{$url}/Record/{$resource.id|escape:"url"}" class="title">{$resource.title|escape}</a>
@@ -69,11 +74,11 @@
 
             {if is_array($resource.format)}
               {foreach from=$resource.format item=format}
-                <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
+                <span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
               {/foreach}
               <br/>
             {elseif isset($resource.format)}
-              <span class="iconlabel {$resource.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$resource.format}</span>
+              <span class="iconlabel format{$resource.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$resource.format}</span>
               <br/>
             {/if}
 
@@ -84,7 +89,8 @@
             {if $resource.ils_details.publication_year}
               <strong>{translate text='Year of Publication'}:</strong> {$resource.ils_details.publication_year|escape}<br />
             {/if}
-
+            </div>
+            <div class="dueDate">
             {* Depending on the ILS driver, the "location" value may be a string or an ID; figure out the best
                value to display... *}
             {assign var="pickupDisplay" value=""}
@@ -139,15 +145,16 @@
     </form>
     {/if}
     {else}
-      {translate text='You do not have any holds or recalls placed'}.
+      <div style="clear:both;padding-top: 2em;">{translate text='You do not have any holds or recalls placed'}.</div>
     {/if}
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
 </div>
 
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div id="sidebarFacets" class="{if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
   {include file="MyResearch/menu.tpl"}
 </div>
 
 <div class="clear"></div>
+</div>
