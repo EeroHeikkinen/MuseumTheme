@@ -22,7 +22,7 @@
         </select>
       </div>
   {/if}
-      <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
+      <input id="searchForm_searchButton" type="submit" name="SearchForm_submit" value="{translate text="Find"}"/>
       <div class="clear"></div>
     </div>
     <div class="advanced-link-wrapper clear">
@@ -77,7 +77,17 @@
   {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
 
   </form>
+  {literal}
   <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
+  <script type="text/javascript">$("#searchForm_input").autocomplete( {
+    select: function(event, ui) {
+        $("#searchForm_input").val(ui.item.value);
+        $('#searchForm').submit();
+        return false;
+    }
+  });
+  </script>  
+  {/literal}
 {/if}
 </div>
 
