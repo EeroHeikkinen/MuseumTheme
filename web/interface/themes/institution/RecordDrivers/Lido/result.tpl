@@ -105,11 +105,6 @@
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
-      {foreach from=$summDedupData key=source item=dedupData}
-        {foreach from=$dedupData item=dedupItem}
-        <a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text=$source}</a>
-        {/foreach}
-      {/foreach}
     </div>
 <div class="clear"></div>
 
