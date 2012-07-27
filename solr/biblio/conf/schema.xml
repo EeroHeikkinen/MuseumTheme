@@ -192,11 +192,11 @@
    <field name="era" type="text" indexed="true" stored="true" multiValued="true"/>
    <field name="era_facet" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <field name="illustrated" type="string" indexed="true" stored="true" multiValued="false"/>
-   <field name="long_lat" type="textFacet" indexed="true" stored="true" multiValued="false"/>
+   <field name="long_lat" type="textFacet" indexed="true" stored="true" multiValued="true"/>
    <!-- Hierarchy Fields -->
-   <field name="hierarchytype" type="string" index="true" stored="true" multiValued="false"/>
-   <field name="hierarchy_top_id" type="string" index="true" stored="true" multiValued="true"/>
-   <field name="hierarchy_top_title" type="string" index="true" stored="true" multiValued="true"/>
+   <field name="hierarchytype" type="string" indexed="true" stored="true" multiValued="false"/>
+   <field name="hierarchy_top_id" type="string" indexed="true" stored="true" multiValued="true"/>
+   <field name="hierarchy_top_title" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="hierarchy_parent_id" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="hierarchy_parent_title" type="string" indexed="true" stored="true" multiValued="true"/>
    <field name="hierarchy_sequence" type="string" indexed="true" stored="true" multiValued="true"/>
@@ -233,7 +233,7 @@
    <!-- Local dynamic fields for customization without schema modification -->
    <dynamicField name="*_coords"  type="location"  indexed="true" stored="true" multiValued="false"/>
    <dynamicField name="*_daterange"  type="dateRange"  indexed="true"  stored="true" multiValued="false"/>
-   <dynamicField name="*_boolean" type="boolean" index="true" stored="true" required="false" />
+   <dynamicField name="*_boolean" type="boolean" indexed="true" stored="true" required="false" />
 
    <!-- Fields for museum data (LIDO) -->
    <field name="measurements" type="text" indexed="true" stored="true" multiValued="true"/>
@@ -244,7 +244,6 @@
    
    <!-- Coordinates -->
    <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
-   
  </fields>
  <uniqueKey>id</uniqueKey>
  <defaultSearchField>allfields</defaultSearchField>

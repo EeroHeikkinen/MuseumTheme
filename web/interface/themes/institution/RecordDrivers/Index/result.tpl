@@ -72,6 +72,17 @@
     <div class="resultItemLine3 last">
       {if !empty($summSnippetCaption)}<strong>{translate text=$summSnippetCaption}:</strong>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
+      {if $summDedupData}
+        <span class="tiny">
+        {foreach from=$summDedupData key=source item=dedupData name=loop}
+          {if $smarty.foreach.loop.index == 1} ({translate text="Other:"} {/if}
+          {foreach from=$dedupData item=dedupItem}
+          <a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text="source_$source"}</a>
+          {/foreach}
+          {if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}
+        {/foreach}
+        </span>
+      {/if}
       <div id="callnumAndLocation{$summId|escape}">
       {if $summAjaxStatus}
         {if !$summOpenUrl && empty($summURLs) && $summAjaxStatus}
@@ -91,7 +102,7 @@
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
         {/if}
         {foreach from=$summURLs key=recordurl item=urldesc}
-          <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
+          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a><br/>
         {/foreach}
       {/if}
 
