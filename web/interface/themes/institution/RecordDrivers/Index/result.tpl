@@ -76,10 +76,7 @@
         <span class="tiny">
         {foreach from=$summDedupData key=source item=dedupData name=loop}
           {if $smarty.foreach.loop.index == 1} ({translate text="Other:"} {/if}
-          {foreach from=$dedupData item=dedupItem}
-          <a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text="source_$source"}</a>
-          {/foreach}
-          {if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}
+          {foreach from=$dedupData item=dedupItem}<a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text="source_$source"}</a>{/foreach}{if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}
         {/foreach}
         </span>
       {/if}
