@@ -78,6 +78,7 @@
           {if $smarty.foreach.loop.index == 1} ({translate text="Other:"} {/if}
           {foreach from=$dedupData item=dedupItem}<a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text="source_$source"}</a>{/foreach}{if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}
         {/foreach}
+        <br/>
         </span>
       {/if}
       <div id="callnumAndLocation{$summId|escape}">
@@ -95,7 +96,7 @@
 
       {if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
-        <span class="openUrlSeparator"><br/></span>
+        <span class="openUrlSeparator"></span>
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
         {/if}
         {foreach from=$summURLs key=recordurl item=urldesc}
@@ -104,7 +105,7 @@
       {/if}
 
       {if $summId|substr:0:8 == 'metalib_'}
-        <br/><a href="{$path}/MetaLib/Home?set=_ird%3A{$summId|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a>
+        <br/><a href="{$path}/MetaLib/Home?set=_ird%3A{$summId|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a><br/>
       {/if}
 
       {* <br class="hideIfDetailed{$summId|escape}"/> *}
