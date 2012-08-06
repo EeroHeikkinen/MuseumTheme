@@ -74,10 +74,7 @@
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       {if $summDedupData}
         <span class="tiny">
-        {foreach from=$summDedupData key=source item=dedupData name=loop}
-          {if $smarty.foreach.loop.index == 1} ({translate text="Other:"} {/if}
-          {foreach from=$dedupData item=dedupItem}<a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text="source_$source"}</a>{/foreach}{if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}
-        {/foreach}
+        {foreach from=$summDedupData key=source item=dedupData name=loop}{if $smarty.foreach.loop.index == 1} ({translate text="Other:"} {/if}{if $smarty.foreach.loop.index > 1}, {/if}<a href="{$url}/Record/{$dedupData.id|escape:"url"}" class="title">{translate text="source_$source"}</a>{if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}{/foreach}
         <br/>
         </span>
       {/if}
