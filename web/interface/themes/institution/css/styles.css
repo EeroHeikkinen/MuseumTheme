@@ -8,8 +8,10 @@
 /* Import CSS */
 @import "typography.css";
 @import "default.css";
+@import "default_custom.css";
 @import "breadcrumbs.css";
 @import "home.css";
+@import "home_custom.css";
 @import "footer.css";
 @import "768tablet.css";
 @import "320mobile.css";
