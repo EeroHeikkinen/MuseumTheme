@@ -1,16 +1,14 @@
 
 /* Logo image on search results */
 #logo {
-    background: url("../../../../images/generic_logo.gif");                                           
+    background: url("../images/finna_logo_small.png") no-repeat scroll center center transparent;
     height: 39px;
     width: 200px;
     margin: 0 0 0 10px;
     display: block;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 /* Logo background */
 .header, .header-home {
-    background-color: #123643;
+    background-color: #f3f3f3;
 }

@@ -2,7 +2,7 @@
 /* Background of the logo image */
 .searchHome {
     /* margin-bottom: 15em; */
-    background-color: #123456;
+    background-color: #f3f3f3;
     border-bottom: 1px solid #ddd;
 }
 
@@ -12,8 +12,6 @@
     background: url("../../../../images/finna_logo.png");
     background-repeat: no-repeat;
     background-position: center;
-    height: 100px;
-    width: 200px;
     margin: 0 auto 1em auto;
     display: block;
 }
