@@ -35,4 +35,3 @@
 {if $module == "Summon"}Powered by Summon™ from Serials Solutions, a division of ProQuest.{/if}
 
 <!-- END of: footer.tpl -->
-

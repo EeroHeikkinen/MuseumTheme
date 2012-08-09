@@ -190,6 +190,7 @@
 *}
 
 {include file="piwik.tpl"}
+{include file="AJAX/keepAlive.tpl"}
   </body>
 </html>
 {/if}
