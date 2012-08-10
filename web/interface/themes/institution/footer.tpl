@@ -25,7 +25,11 @@
 </div>
 
 <div id="footerCol4" class="last">
+{if $userLang=='en-gb'}
+  <a href="http://www.kdk.fi/en" class="footerLogo">{image src="kdk_logo_small.png" alt=""}The National Digital Library</a>
+{else}
 	<a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_small.png" alt=""}Kansallinen digitaalinen kirjasto</a>
+{/if}
 	<br />
 	<a href="http://www.vufind.org" class="footerLogo">{image src="vufind_logo_small.png" alt=""}www.vufind.org</a>
 </div>
