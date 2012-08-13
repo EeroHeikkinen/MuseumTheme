@@ -14,8 +14,8 @@
     {/literal}{/if}{literal}
     piwikTracker.trackPageView();
     } catch( err ) {}
-    </script><noscript><p><img src="{/literal}{$piwikUrl}{literal}piwik.php?idsite={/literal}{$piwikSiteId}{literal}" style="border:0" alt="" /></p></noscript>
-    <!-- End Piwik Tracking Code -->
   </script>
+  <noscript><p><img src="{/literal}{$piwikUrl}{literal}piwik.php?idsite={/literal}{$piwikSiteId}{literal}" style="border:0" alt="" /></p></noscript>
+    <!-- End Piwik Tracking Code -->
   {/literal}
 {/if}
