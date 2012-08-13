@@ -43,9 +43,9 @@ require_once 'Interface.php';
  */
 class MultiBackend implements DriverInterface
 {
-	protected $_defaultDriver = '';
-	protected $_drivers = array();
-	
+    protected $defaultDriver = '';
+    protected $drivers = array();
+    
     /**
      * Constructor
      *
@@ -53,284 +53,540 @@ class MultiBackend implements DriverInterface
      */
     public function __construct()
     {
-    	// Load Configuration for this Module
+        // Load Configuration for this Module
         $configArray = parse_ini_file(
             dirname(__FILE__) . '/../conf/MultiBackend.ini', true
         );
 
-        $this->_defaultDriver = $configArray['General']['defaultDriver'];
-        $this->_drivers = $configArray['Drivers'];
+        $this->defaultDriver = $configArray['General']['defaultDriver'];
+        $this->drivers = $configArray['Drivers'];
     }
 
+    /**
+     * Get Status
+     *
+     * This is responsible for retrieving the status information of a certain
+     * record.
+     *
+     * @param string $id The record id to retrieve the holdings for
+     *
+     * @return mixed     On success, an associative array with the following keys:
+     * id, availability (boolean), status, location, reserve, callnumber; on
+     * failure, a PEAR_Error.
+     * @access public
+     */
     public function getStatus($id)
     {
-    	return $this->getHolding($id);
+        return $this->getHolding($id);
     }
     
+    /**
+     * Get Statuses
+     *
+     * This is responsible for retrieving the status information for a
+     * collection of records.
+     *
+     * @param array $ids The array of record ids to retrieve the status for
+     *
+     * @return mixed     An array of getStatus() return values on success,
+     * a PEAR_Error object otherwise.
+     * @access public
+     */
     public function getStatuses($ids)
     {
-    	$items = array();
-    	foreach ($ids as $id) {
-    		$items[] = $this->getHolding($id);
-    	}
-    	return $items;
+        $items = array();
+        foreach ($ids as $id) {
+            $items[] = $this->getHolding($id);
+        }
+        return $items;
     }
     
+    /**
+     * Get Holding
+     *
+     * This is responsible for retrieving the holding information of a certain
+     * record.
+     *
+     * @param string $id     The record id to retrieve the holdings for
+     * @param array  $patron Patron data
+     *
+     * @return mixed     On success, an associative array with the following keys:
+     * id, availability (boolean), status, location, reserve, callnumber, duedate,
+     * number, barcode; on failure, a PEAR_Error.
+     * @access public
+     */
     public function getHolding($id, $patron = false)
     {   
-    	$source = $this->_getSource($id);	
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    		$holdings = $driver->getHolding($this->_getLocalId($id), $patron);
-    		if ($holdings) {
-    		    return $this->_addIdPrefixes($holdings, $source);
-    		}
-    	} else {
-    		error_log("No driver for '$id' found");
-    	}
-		return Array();
+        $source = $this->getSource($id);    
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $holdings = $driver->getHolding($this->getLocalId($id), $patron);
+            if ($holdings) {
+                return $this->addIdPrefixes($holdings, $source);
+            }
+        } else {
+            error_log("No driver for '$id' found");
+        }
+        return Array();
     }
     
+    /**
+     * Get Purchase History
+     *
+     * This is responsible for retrieving the acquisitions history data for the
+     * specific record (usually recently received issues of a serial).
+     *
+     * @param string $id The record id to retrieve the info for
+     *
+     * @return mixed     An array with the acquisitions data on success, PEAR_Error
+     * on failure
+     * @access public
+     */
     public function getPurchaseHistory($id)
     {
-    	$source = $this->_getSource($id);	
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    		return $driver->getPurchaseHistory($this->_getLocalId($id));
-    	}
-    	error_log("No driver for '$id' found");
+        $source = $this->getSource($id);    
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            return $driver->getPurchaseHistory($this->getLocalId($id));
+        }
+        error_log("No driver for '$id' found");
     }
     
+    /**
+     * Get New Items
+     *
+     * Retrieve the IDs of items recently added to the catalog.
+     *
+     * @param int $page    Page number of results to retrieve (counting starts at 1)
+     * @param int $limit   The size of each page of results to retrieve
+     * @param int $daysOld The maximum age of records to retrieve in days (max. 30)
+     * @param int $fundId  optional fund ID to use for limiting results (use a value
+     * returned by getFunds, or exclude for no limit); note that "fund" may be a
+     * misnomer - if funds are not an appropriate way to limit your new item
+     * results, you can return a different set of values from getFunds. The
+     * important thing is that this parameter supports an ID returned by getFunds,
+     * whatever that may mean.
+     *
+     * @return array       Associative array with 'count' and 'results' keys
+     * @access public
+     */
     public function getNewItems($page, $limit, $daysOld, $fundId = null)
     {
-    	$driver = $this->_getDriver($this->_defaultDriver);
-    	if ($driver) {
-    		return $driver->getNewItems($page, $limit, $daysOld, $fundId);
-    	}
-    	error_log("No driver for '$id' found");
+        $driver = $this->getDriver($this->defaultDriver);
+        if ($driver) {
+            return $driver->getNewItems($page, $limit, $daysOld, $fundId);
+        }
+        error_log("No driver for '$id' found");
     }
     
+    /**
+     * Find Reserves
+     *
+     * Obtain information on course reserves.
+     *
+     * @param string $course ID from getCourses (empty string to match all)
+     * @param string $inst   ID from getInstructors (empty string to match all)
+     * @param string $dept   ID from getDepartments (empty string to match all)
+     *
+     * @return mixed An array of associative arrays representing reserve items
+     * (or a PEAR_Error object if there is a problem)
+     * @access public
+     */
     public function findReserves($course, $inst, $dept)
     {
-    	$driver = $this->_getDriver($this->_defaultDriver);
-    	if ($driver) {
-    		return $driver->findReserves($course, $inst, $dept);
-    	}
-    	error_log("No driver for '$id' found");
+        $driver = $this->getDriver($this->defaultDriver);
+        if ($driver) {
+            return $driver->findReserves($course, $inst, $dept);
+        }
+        error_log("No driver for '$id' found");
     }
     
+    /**
+     * Get Patron Profile
+     *
+     * This is responsible for retrieving the profile for a specific patron.
+     *
+     * @param array $user The patron array
+     *
+     * @return mixed      Array of the patron's profile data on success,
+     * PEAR_Error otherwise.
+     * @access public
+     */
     public function getMyProfile($user)
     {
-    	$source = $this->_getSource($user['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    		$profile = $driver->getMyProfile($this->_stripIdPrefixes($user, $source));
-    		return $this->_addIdPrefixes($profile, $source);
-    	}
-    	error_log("No driver for '$user' found");
+        $source = $this->getSource($user['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $profile = $driver->getMyProfile($this->stripIdPrefixes($user, $source));
+            return $this->addIdPrefixes($profile, $source);
+        }
+        error_log("No driver for '$user' found");
     }
     
+    /**
+     * Patron Login
+     *
+     * This is responsible for authenticating a patron against the catalog.
+     *
+     * @param string $username The patron user id or barcode
+     * @param string $password The patron password
+     *
+     * @return mixed           Associative array of patron info on successful login,
+     * null on unsuccessful login, PEAR_Error on error.
+     * @access public
+     */
     public function patronLogin($username, $password)
     {
-    	$source = $this->_getSource($username);
+        $source = $this->getSource($username);
         if (!$source) {
-    	    $source = $this->_defaultDriver;
-    	}
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    	    $patron = $driver->patronLogin($this->_getLocalId($username), $password);
-    		return $this->_addIdPrefixes($patron, $source);
-    	}
-    	error_log("No driver for '$username' found");
+            $source = $this->defaultDriver;
+        }
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $patron = $driver->patronLogin($this->getLocalId($username), $password);
+            return $this->addIdPrefixes($patron, $source);
+        }
+        error_log("No driver for '$username' found");
     }
     
+    /**
+     * Get Patron Transactions
+     *
+     * This is responsible for retrieving all transactions (i.e. checked out items)
+     * by a specific patron.
+     *
+     * @param array $user The patron array from patronLogin
+     *
+     * @return mixed      Array of the patron's transactions on success,
+     * PEAR_Error otherwise.
+     * @access public
+     */
     public function getMyTransactions($user)
     {
-    	$source = $this->_getSource($user['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    		$transactions = $driver->getMyTransactions($this->_stripIdPrefixes($user, $source));
-    		return $this->_addIdPrefixes($transactions, $source);
+        $source = $this->getSource($user['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $transactions = $driver->getMyTransactions($this->stripIdPrefixes($user, $source));
+            return $this->addIdPrefixes($transactions, $source);
         }
-    	error_log("No driver for '$user' found");
+        error_log("No driver for '$user' found");
     }
     
+    /**
+     * Get Renew Details
+     *
+     * In order to renew an item, the ILS requires information on the item and
+     * patron. This function returns the information as a string which is then used
+     * as submitted form data in checkedOut.php. This value is then extracted by
+     * the RenewMyItems function.
+     *
+     * @param array $checkoutDetails An array of item data
+     *
+     * @return string Data for use in a form field
+     * @access public
+     */
     public function getRenewDetails($checkoutDetails)
     {
-	    $source = $this->_getSource($checkoutDetails['id']);
-	    $driver = $this->_getDriver($source);
-    	if ($driver) {
-    		$details = $driver->getRenewDetails($this->_stripIdPrefixes($checkoutDetails, $source));
-    		return $this->_addIdPrefixes($details, $source);
-    	} 
-	    error_log("No driver for '$id' found");
+        $source = $this->getSource($checkoutDetails['id']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $details = $driver->getRenewDetails($this->stripIdPrefixes($checkoutDetails, $source));
+            return $this->addIdPrefixes($details, $source);
+        } 
+        error_log("No driver for '$id' found");
     }
     
+    /**
+     * Renew My Items
+     *
+     * Function for attempting to renew a patron's items. The data in
+     * $renewDetails['details'] is determined by getRenewDetails().
+     *
+     * @param array $renewDetails An array of data required for renewing items
+     * including the Patron ID and an array of renewal IDS
+     *
+     * @return array              An array of renewal information keyed by item ID
+     * @access public
+     */
     public function renewMyItems($renewDetails)
     {
-	    $source = $this->_getSource($renewDetails['patron']['id']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    		$details = $driver->renewMyItems($this->_stripIdPrefixes($renewDetails, $source));
-    		return $this->_addIdPrefixes($details, $source);
-    	}
-    	error_log("No driver for '$id' found");
+        $source = $this->getSource($renewDetails['patron']['id']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $details = $driver->renewMyItems($this->stripIdPrefixes($renewDetails, $source));
+            return $this->addIdPrefixes($details, $source);
+        }
+        error_log("No driver for '$id' found");
     }
     
+    /**
+     * Get Patron Fines
+     *
+     * This is responsible for retrieving all fines by a specific patron.
+     *
+     * @param array $user The patron array from patronLogin
+     *
+     * @return mixed      Array of the patron's fines on success, PEAR_Error
+     * otherwise.
+     * @access public
+     */
     public function getMyFines($user)
     {
-    	$source = $this->_getSource($user['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    		$fines = $driver->getMyFines($this->_stripIdPrefixes($user, $source));
-    		return $this->_addIdPrefixes($fines, $source);
-    	}
-    	error_log("No driver for '$user' found");
+        $source = $this->getSource($user['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $fines = $driver->getMyFines($this->stripIdPrefixes($user, $source));
+            return $this->addIdPrefixes($fines, $source);
+        }
+        error_log("No driver for '$user' found");
     }
     
+    /**
+     * Get Patron Holds
+     *
+     * This is responsible for retrieving all holds by a specific patron.
+     *
+     * @param array $user The patron array from patronLogin
+     *
+     * @return mixed      Array of the patron's holds on success, PEAR_Error
+     * otherwise.
+     * @access public
+     */
     public function getMyHolds($user)
     {
-    	$source = $this->_getSource($user['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    		$holds = $driver->getMyHolds($this->_stripIdPrefixes($user, $source));
-    		return $this->_addIdPrefixes($holds, $source);
-    	}
-    	error_log("No driver for '$user' found");
+        $source = $this->getSource($user['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $holds = $driver->getMyHolds($this->stripIdPrefixes($user, $source));
+            return $this->addIdPrefixes($holds, $source);
+        }
+        error_log("No driver for '$user' found");
     }
 
+    /**
+     * checkRequestIsValid
+     *
+     * This is responsible for determining if an item is requestable
+     *
+     * @param string $id     The Bib ID
+     * @param array  $data   An Array of item data
+     * @param patron $patron An array of patron data
+     *
+     * @return string True if request is valid, false if not
+     * @access public
+     */
     public function checkRequestIsValid($id, $data, $patron)
     {
-    	$source = $this->_getSource($patron['cat_username']);
-    	$driver = $this->_getDriver($source);
+        $source = $this->getSource($patron['cat_username']);
+        $driver = $this->getDriver($source);
         if ($driver) {
-            if ($this->_getSource($id) != $source) {
+            if ($this->getSource($id) != $source) {
                 return false;
             }
-    		return $driver->checkRequestIsValid(
-    		    $this->_stripIdPrefixes($id, $source),
-    		    $this->_stripIdPrefixes($data, $source), $this->_stripIdPrefixes($patron, $source)
-    		);
+            return $driver->checkRequestIsValid(
+                $this->stripIdPrefixes($id, $source),
+                $this->stripIdPrefixes($data, $source), $this->stripIdPrefixes($patron, $source)
+            );
         }
         return false;
     }
     
+    /**
+     * Get Pick Up Locations
+     *
+     * This is responsible get a list of valid library locations for holds / recall
+     * retrieval
+     *
+     * @param array $patron      Patron information returned by the patronLogin
+     * method.
+     * @param array $holdDetails Optional array, only passed in when getting a list
+     * in the context of placing a hold; contains most of the same values passed to
+     * placeHold, minus the patron data.  May be used to limit the pickup options
+     * or may be ignored.  The driver must not add new options to the return array
+     * based on this data or other areas of VuFind may behave incorrectly.
+     *
+     * @return array        An array of associative arrays with locationID and
+     * locationDisplay keys
+     * @access public
+     */
     public function getPickUpLocations($patron = false, $holdDetails = null)
     {
-    	$source = $this->_getSource($patron['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    	    if ($holdDetails) {
-       	        if ($this->_getSource($holdDetails['id']) != $source) {
-       	            // TODO: any other error handling?
-                    return array(); 	            
-    	        }
-    	    }
-    	    $locations = $driver->getPickUpLocations(
-    	        $this->_stripIdPrefixes($patron, $source),
-    		    $this->_stripIdPrefixes($holdDetails, $source)
-    	    );
-    		return $this->_addIdPrefixes($locations, $source);
-    	}
-    	error_log("No driver for '" . $patron['cat_username'] . "' found");
+        $source = $this->getSource($patron['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            if ($holdDetails) {
+                if ($this->getSource($holdDetails['id']) != $source) {
+                    // TODO: any other error handling?
+                    return array();                 
+                }
+            }
+            $locations = $driver->getPickUpLocations(
+                $this->stripIdPrefixes($patron, $source),
+                $this->stripIdPrefixes($holdDetails, $source)
+            );
+            return $this->addIdPrefixes($locations, $source);
+        }
+        error_log("No driver for '" . $patron['cat_username'] . "' found");
     }
     
+    /**
+     * Get Default Pick Up Location
+     *
+     * Returns the default pick up location set in HorizonXMLAPI.ini
+     *
+     * @param array $patron      Patron information returned by the patronLogin
+     * method.
+     * @param array $holdDetails Optional array, only passed in when getting a list
+     * in the context of placing a hold; contains most of the same values passed to
+     * placeHold, minus the patron data.  May be used to limit the pickup options
+     * or may be ignored.
+     *
+     * @return string A location ID
+     * @access public
+     */
     public function getDefaultPickUpLocation($patron = false, $holdDetails = null)
     {
-    	$source = $this->_getSource($patron['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    	    if ($holdDetails) {
-       	        if ($this->_getSource($holdDetails['id']) != $source) {
-       	            // TODO: any other error handling?
-                    return ''; 	            
-    	        }
-    	    }
-    	    $locations = $driver->getDefaultPickUpLocation(
-    	        $this->_stripIdPrefixes($patron, $source),
-    		    $this->_stripIdPrefixes($holdDetails, $source)
-    	    );
-    		return $this->_addIdPrefixes($locations, $source);
-    	}
-    	error_log("No driver for '" . $patron['cat_username'] . "' found");
-    	return '';
+        $source = $this->getSource($patron['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            if ($holdDetails) {
+                if ($this->getSource($holdDetails['id']) != $source) {
+                    // TODO: any other error handling?
+                    return '';                 
+                }
+            }
+            $locations = $driver->getDefaultPickUpLocation(
+                $this->stripIdPrefixes($patron, $source),
+                $this->stripIdPrefixes($holdDetails, $source)
+            );
+            return $this->addIdPrefixes($locations, $source);
+        }
+        error_log("No driver for '" . $patron['cat_username'] . "' found");
+        return '';
     }    
     
+    /**
+     * Place Hold
+     *
+     * Attempts to place a hold or recall on a particular item and returns
+     * an array with result details or a PEAR error on failure of support classes
+     *
+     * @param array $holdDetails An array of item and patron data
+     *
+     * @return mixed An array of data on the request including
+     * whether or not it was successful and a system message (if available) or a
+     * PEAR error on failure of support classes
+     * @access public
+     */
     public function placeHold($holdDetails)
     {
-    	$source = $this->_getSource($holdDetails['patron']['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-	        if ($this->_getSource($holdDetails['id']) != $source) {
-	            return array(
+        $source = $this->getSource($holdDetails['patron']['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            if ($this->getSource($holdDetails['id']) != $source) {
+                return array(
                     "success" => false,
                     "sysMessage" => 'hold_wrong_user_institution'
-	            );   	            
-	        }
-    	    $holdDetails = $this->_stripIdPrefixes($holdDetails, $source);
-    	    return $driver->placeHold($holdDetails);
-    	}
-    	error_log("No driver for '$id' found");
+                );                   
+            }
+            $holdDetails = $this->stripIdPrefixes($holdDetails, $source);
+            return $driver->placeHold($holdDetails);
+        }
+        error_log("No driver for '$id' found");
     }
     
+    /**
+     * Cancel Holds
+     *
+     * Attempts to Cancel a hold or recall on a particular item. The
+     * data in $cancelDetails['details'] is determined by getCancelHoldDetails().
+     *
+     * @param array $cancelDetails An array of item and patron data
+     *
+     * @return array               An array of data on each request including
+     * whether or not it was successful and a system message (if available)
+     * @access public
+     */
     public function cancelHolds($cancelDetails)
     {
-    	$source = $this->_getSource($cancelDetails['patron']['cat_username']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    	    return $driver->cancelHolds($this->_stripIdPrefixes($cancelDetails, $source));
-    	}
-    	error_log("No driver for '$id' found");
+        $source = $this->getSource($cancelDetails['patron']['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            return $driver->cancelHolds($this->stripIdPrefixes($cancelDetails, $source));
+        }
+        error_log("No driver for '$id' found");
     }
     
+    /**
+     * Get Cancel Hold Details
+     *
+     * In order to cancel a hold, the ILS requires some information on the hold.
+     * This function returns the required information, which is then submitted 
+     * as form data in Hold.php. This value is then extracted by the CancelHolds
+     * function.
+     *
+     * @param array $holdDetails An array of item data
+     *
+     * @return string Data for use in a form field
+     * @access public
+     */
     public function getCancelHoldDetails($holdDetails)
     {
-    	$source = $this->_getSource($holdDetails['id']);
-    	$driver = $this->_getDriver($source);
-    	if ($driver) {
-    	    $holdDetails = $this->_stripIdPrefixes($holdDetails, $source);
-    	    return $driver->getCancelHoldDetails($holdDetails);
-    	}
-    	error_log("No driver for '" . $holdDetails['id'] . "' found");
+        $source = $this->getSource($holdDetails['id']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $holdDetails = $this->stripIdPrefixes($holdDetails, $source);
+            return $driver->getCancelHoldDetails($holdDetails);
+        }
+        error_log("No driver for '" . $holdDetails['id'] . "' found");
     }
     
+    /**
+     * Function which specifies renew, hold and cancel settings.
+     *
+     * @param string $function The name of the feature to be checked
+     * @param string $id       Optional record id
+     *
+     * @return array An array with key-value pairs.
+     * @access public
+     */
     public function getConfig($function, $id = null)
     {
-    	global $user;
+        global $user;
         
-    	$source = null;
-    	if ($id) {
-    		$source = $this->_getSource($id);
-    	}
-    	if (!$source && $user) {
-    		$source = $this->_getSource($user->cat_username);
-    	}
-    	
-    	$driver = $this->_getDriver($source);
-    	
-    	# If we have resolved the needed driver, just getConfig and return.
-    	if ($driver && method_exists($driver, 'getConfig')) {
-    		return $driver->getConfig($function);
-    	}
-    	
-		// If driver not available, return default values
-    	switch ($function) {
-            case 'Holds':
-                return Array(
-                    'function' => 'placeHold',
-                    'HMACKeys' => 'id',
-                    'extraHoldFields' => 'requiredByDate:pickUpLocation',
-                    'defaultRequiredDate' => '1:0:0'
-                );
-            case 'cancelHolds':
-                return Array(
-                    'function' => 'cancelHolds',
-                    'HMACKeys' => 'id'
-                );
-            case 'Renewals':
-                return Array();
-            default:
-                error_log("MultiHandler: unhandled getConfig function: '$function'");
+        $source = null;
+        if ($id) {
+            $source = $this->getSource($id);
+        }
+        if (!$source && $user && isset($user->_cat_username)) {
+            $source = $this->getSource($user->cat_username);
+        }
+        
+        $driver = $this->getDriver($source);
+        
+        // If we have resolved the needed driver, just getConfig and return.
+        if ($driver && method_exists($driver, 'getConfig')) {
+            return $driver->getConfig($function);
+        }
+        
+        // If driver not available, return default values
+        switch ($function) {
+        case 'Holds':
+            return Array(
+                'function' => 'placeHold',
+                'HMACKeys' => 'id',
+                'extraHoldFields' => 'requiredByDate:pickUpLocation',
+                'defaultRequiredDate' => '1:0:0'
+            );
+        case 'cancelHolds':
+            return Array(
+                'function' => 'cancelHolds',
+                'HMACKeys' => 'id'
+            );
+        case 'Renewals':
+            return Array();
+        default:
+            error_log("MultiHandler: unhandled getConfig function: '$function'");
         }
         return Array();
     }
@@ -338,69 +594,72 @@ class MultiBackend implements DriverInterface
     /**
      * Extract local ID from the given prefixed ID
      * 
-     * @param string   $id
-     * @return string  Local ID 
+     * @param string $id Prefixed ID
+     * 
+     * @return string Local ID 
      */
-    protected function _getLocalId($id)
+    protected function getLocalId($id)
     {
-	$pos = strpos($id, '.');
-    	if ($pos > 0) {
-    		return substr($id, $pos + 1);
-    	}
-    	error_log("MultiBackend: Can't find local id in '$id'");
-    	return $id;
+        $pos = strpos($id, '.');
+        if ($pos > 0) {
+            return substr($id, $pos + 1);
+        }
+        error_log("MultiBackend: Can't find local id in '$id'");
+        return $id;
     }
 
     /**
      * Extract source from the given ID
      * 
-     * @param string   $id
-     * @return string  Source
+     * @param string $id Prefixed ID
+     * 
+     * @return string Source
      */
-    protected function _getSource($id)
+    protected function getSource($id)
     {
-		$pos = strpos($id, '.');
-    	if ($pos > 0) {
-    		return substr($id, 0, $pos);
-    	}
-    	error_log("MultiBackend: Can't find source id in '$id'");
-    	return '';
+        $pos = strpos($id, '.');
+        if ($pos > 0) {
+            return substr($id, 0, $pos);
+        }
+        error_log("MultiBackend: Can't find source id in '$id'");
+        return '';
     }
 
     /**
      * Find the correct driver for the given source
      * 
-     * @param string   $source
-     * @return mixed   On success a driver object, otherwise null.
+     * @param string $source Source
+     * 
+     * @return mixed On success a driver object, otherwise null
      */
-    protected function _getDriver($source)
+    protected function getDriver($source)
     {
-    	$source = strtolower($source);
-		if (isset($this->_drivers[$source])) {
-			$driver = $this->_drivers[$source];
-    		try {
-	    		require_once "{$driver}.php";
-	    		return new $driver("{$driver}_{$source}.ini");
-    		} catch (Exception $e) {
-    			error_log("MultiBackend: error initializing driver '$driver': " . $e->__toString());
-    			return null;
-    		}
-    	}
-		return null;
+        $source = strtolower($source);
+        if (isset($this->drivers[$source])) {
+            $driver = $this->drivers[$source];
+            try {
+                include_once "{$driver}.php";
+                return new $driver("{$driver}_{$source}.ini");
+            } catch (Exception $e) {
+                error_log("MultiBackend: error initializing driver '$driver': " . $e->__toString());
+                return null;
+            }
+        }
+        return null;
     }
 
     /**
      * Change local ID's to global ID's in the given array
      * 
-     * @param mixed		 $data		   The data to be modified, normally
-     *                                 array or array of arrays
-     * @param string     $source       Source code
-     * @param array      $modifyFields Fields to be modified in the array
-     * @return mixed     Modified array or empty/null if that input was 
-     *                   empty/null
+     * @param mixed  $data         The data to be modified, normally
+     *                             array or array of arrays
+     * @param string $source       Source code
+     * @param array  $modifyFields Fields to be modified in the array
+     * 
+     * @return mixed  Modified array or empty/null if that input was 
+     *                empty/null
      */
-    function _addIdPrefixes($data, $source,
-        $modifyFields = array('id', 'cat_username'))
+    protected function addIdPrefixes($data, $source, $modifyFields = array('id', 'cat_username'))
     {
         if (!isset($data) || empty($data) || PEAR::isError($data)) {
             return $data;
@@ -408,50 +667,51 @@ class MultiBackend implements DriverInterface
         $array = is_array($data) ? $data : array($data);
     
         foreach ($array as $key => $value) {
-        	if (is_array($value)) {
-	            $array[$key] = $this->_addIdPrefixes(
-	                $value, $source, $modifyFields
-	            );
+            if (is_array($value)) {
+                $array[$key] = $this->addIdPrefixes(
+                    $value, $source, $modifyFields
+                );
             } else {
-		        if (in_array($key, $modifyFields)) {
-		            $array[$key] = $source . '.' . $value; 
-		        }
-		    }
-		}
+                if (in_array($key, $modifyFields)) {
+                    $array[$key] = $source . '.' . $value; 
+                }
+            }
+        }
         return is_array($data) ? $array : $array[0];
-	}
+    }
 
     /**
      * Change global ID's to local ID's in the given array
      * 
-     * @param mixed		 $data		   The data to be modified, normally
-     *                                 array or array of arrays
-     * @param string     $source       Source code
-     * @param array      $modifyFields Fields to be modified in the array
-     * @return mixed     Modified array or empty/null if that input was
-     *                   empty/null
+     * @param mixed  $data         The data to be modified, normally
+     *                             array or array of arrays
+     * @param string $source       Source code
+     * @param array  $modifyFields Fields to be modified in the array
+     * 
+     * @return mixed Modified array or empty/null if that input was
+     *               empty/null
      */
-	function _stripIdPrefixes($data, $source,
-	    $modifyFields = array('id', 'cat_username'))
-	{
-	    if (!isset($data) || empty($data)) {
-	        return $data;
-	    }
-	    $array = is_array($data) ? $data : array($data);
-	
-	    foreach ($array as $key => $value) {
+    protected function stripIdPrefixes($data, $source, $modifyFields = array('id', 'cat_username'))
+    {
+        if (!isset($data) || empty($data)) {
+            return $data;
+        }
+        $array = is_array($data) ? $data : array($data);
+    
+        foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $array[$key] = $this->_stripIdPrefixes(
+                $array[$key] = $this->stripIdPrefixes(
                     $value, $source, $modifyFields
                 );
             } else {
-	            if (in_array($key, $modifyFields) 
-	                && strncmp($source . '.', $value, strlen($source) + 1) == 0) {
-	                $array[$key] = substr($value, strlen($source) + 1);
-	            }
-	        }
-	    }
-	    return is_array($data) ? $array : $array[0];
-	}
+                if (in_array($key, $modifyFields) 
+                    && strncmp($source . '.', $value, strlen($source) + 1) == 0
+                ) {
+                    $array[$key] = substr($value, strlen($source) + 1);
+                }
+            }
+        }
+        return is_array($data) ? $array : $array[0];
+    }
 }
     
