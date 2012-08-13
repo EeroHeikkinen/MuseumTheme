@@ -119,7 +119,9 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </form>
     {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
   {else}
-    <div style="clear:both;padding-top: 2em;">{translate text='You do not have any saved resources'}</div>
+      <div class="floatleft">{translate text='You do not have any saved resources'}</div>
+      <div class="clear"></div>
+    </div>
   {/if}
 </div>
 
