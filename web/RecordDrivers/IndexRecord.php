@@ -216,7 +216,7 @@ class IndexRecord implements RecordInterface
         // tabs, since every tab can assume that the core data is already assigned):
         $this->assignTagList();
         $interface->assign('isbn', $this->getCleanISBN());  // needed for covers
-        $interface->assign('recordFormat', $this->getPrefixedFormats());
+        $interface->assign('recordFormat', $this->getFormats());
         $interface->assign('recordLanguage', $this->getLanguages());
 
         // These variables are only used by the core template, and they are prefixed
@@ -386,7 +386,7 @@ class IndexRecord implements RecordInterface
         }
         $this->assignTagList();
         $interface->assign('isbn', $this->getCleanISBN());  // needed for covers
-        $interface->assign('recordFormat', $this->getPrefixedFormats());
+        $interface->assign('recordFormat', $this->getFormats());
         $interface->assign('collInstitutions', $this->getInstitutions());
         $interface->assign('recordLanguage', $this->getLanguages());
         $interface->assign('collMainAuthor', $mainAuthor);
@@ -483,7 +483,7 @@ class IndexRecord implements RecordInterface
         $this->assignTagList();
         // needed for covers
         $interface->assign('collRecordISBN', $this->getCleanISBN());
-        $interface->assign('recordFormat', $this->getPrefixedFormats());
+        $interface->assign('recordFormat', $this->getFormats());
         $interface->assign('collRecordLanguage', $this->getLanguages());
         $interface->assign('collRecordMainAuthor', $mainAuthor);
         $interface->assign('collRecordCorporateAuthor', $corpAuthor);
@@ -729,7 +729,7 @@ class IndexRecord implements RecordInterface
         // Extract bibliographic metadata from the record:
         $id = $this->getUniqueID();
         $interface->assign('listId', $id);
-        $interface->assign('listFormats', $this->getPrefixedFormats());
+        $interface->assign('listFormats', $this->getFormats());
         $interface->assign('listTitle', $this->getTitle());
         $interface->assign('listAuthor', $this->getPrimaryAuthor());
         $interface->assign('listThumb', $this->getThumbnail());
@@ -955,7 +955,7 @@ class IndexRecord implements RecordInterface
         global $interface;
 
         $interface->assign('summId', $this->getUniqueID());
-        $interface->assign('summFormats', $this->getPrefixedFormats());
+        $interface->assign('summFormats', $this->getFormats());
         $interface->assign('summHighlightedTitle', $this->getHighlightedTitle());
         $interface->assign('summTitle', $this->getTitle());
         $interface->assign('summHighlightedAuthor', $this->getHighlightedAuthor());
@@ -1953,25 +1953,6 @@ class IndexRecord implements RecordInterface
         return $formats;
     }
 
-    /**
-     * Get an array of all the formats associated with the record with a 
-     * translation prefix from config ([Record] format_prefix).
-     *
-     * @return array
-     * @access protected
-     */
-    protected function getPrefixedFormats()
-    {
-        global $configArray;
-        $formats = $this->getFormats();
-        if (isset($configArray['Record']['format_prefix'])) {
-            $prefix = $configArray['Record']['format_prefix'];
-            $callback = create_function('$str','return "'.$prefix.'".$str;');
-            $formats = array_map($callback, $formats);
-        }
-        return $formats;
-    }
-    
     /**
      * Get general notes on the record.
      *
