@@ -427,6 +427,33 @@ class Solr implements IndexEngine
             'q' => 'id:"' . addcslashes($id, '"') . '"',
             'qt' => 'morelikethis'
         );
+        
+        if ($this->_mergedRecords) {
+            // Filter out merged children by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-merged_child_boolean:TRUE';
+            $filter[] = '-local_ids_str_mv:"' . addcslashes($id, '"') . '"'; 
+        }
+
+        if ($this->_hideComponentParts) {
+            // Filter out component parts by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-hidden_component_boolean:TRUE';
+        }
+        
+        if (isset($filter)) {
+            $options['fq'] = $filter;
+        }
+        
+        // Build Filter Query
+        if (is_array($filter) && count($filter)) {
+            $options['fq'] = $filter;
+        }
+        
         $result = $this->_select('GET', $options);
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
@@ -1636,7 +1663,7 @@ class Solr implements IndexEngine
                 if (!isset($doc['dedup_data'])) {
                     $source = explode('.', $doc['id'], 2);
                     $source = $source[0];
-                    $doc['dedup_data'] = array($source => array(array('id' => $doc['id'])));
+                    $doc['dedup_data'] = array($source => array('id' => $doc['id']));
                 }
             }
         }
