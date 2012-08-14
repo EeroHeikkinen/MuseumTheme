@@ -10,7 +10,6 @@
   	{/if}
     </div>
   
-
     <div class="coverDiv">
     	<div>
     	{if $summThumb}
@@ -21,10 +20,6 @@
         <img src="{$path}/bookcover.php" class="alignleft" alt="{translate text='No Cover Image'}"/>
     	{/if}
     	</div>
-    	
-    	
-    	
-    	
     	
     {* Multiple images *}
     {assign var=img_count value=$summImages|@count}
@@ -39,16 +34,16 @@
     {/if}
     </div>
     
-  {foreach from=$summFormats item=format}
-    <div class="resultItemFormat"><span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span></div>
-  {/foreach}
-
-
+  {if is_array($summFormats)}
+    {assign var=mainFormat value=$summFormats.0} 
+    {assign var=displayFormat value=$summFormats|@end} 
+  {else}
+    {assign var=mainFormat value=$summFormats} 
+    {assign var=displayFormat value=$summFormats} 
+  {/if}
+  <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span></div>
 </div>
-    
-    
-    
-    
+
  <div class="resultColumn2">
       <div class="resultItemLine1">
       	<a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if} {$summSubtitle}</a>

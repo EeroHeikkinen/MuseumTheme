@@ -932,18 +932,22 @@ ul.recordSet .addToFavLink a {
 }
 
 .formatbook      {background-image:url(../images/silk/book.png);}
+.formatbookebook {background-image:url(../images/silk/world.png);}
 .formatcd        {background-image:url(../images/silk/cd.png);}
-.formatdvd       {background-image:url(../images/silk/dvd.png);}
-.formatslide     {background-image:url(../images/silk/photo.png);}
-.formatsounddisc {background-image:url(../images/silk/music.png);}
-.formatitem      {background-image:url(../images/silk/script.png);}
-.formatebook     {background-image:url(../images/silk/world.png);}
 .formatcdrom     {background-image:url(../images/silk/cd.png);}
-.formatvideo     {background-image:url(../images/tango/video.png);}
-.formatserial    {background-image:url(../images/silk/report.png);}
+.formatdocument  {background-image:url(../images/silk/report.png);}
+.formatdvd       {background-image:url(../images/silk/dvd.png);}
+.formatimage     {background-image:url(../images/silk/photo.png);}
 .formatjournal   {background-image:url(../images/silk/newspaper.png);}
 .formatmusicalscore   {background-image:url(../images/silk/music.png);}
+.formatother     {background-image:url(../images/silk/bullet_green.png);}
+.formatotherkit  {background-image:url(../images/silk/box.png);}
+.formatserial    {background-image:url(../images/silk/report.png);}
+.formatsound     {background-image:url(../images/silk/sound.png);}
 .formatsoundrecording {background-image:url(../images/tango/audio-volume-high.png);}
+.formatvideo     {background-image:url(../images/tango/video.png);}
+.formatvideodvd  {background-image:url(../images/silk/dvd.png);}
+.formatworkofart {background-image:url(../images/silk/picture.png);}
 
 /* not used? */
 .electronic {background-image:url(../images/tango/www.png);}

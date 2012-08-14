@@ -27,9 +27,14 @@
   {/if}
   </div>
 
-  {foreach from=$summFormats item=format}
-    <div class="resultItemFormat"><span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span></div>
-  {/foreach}
+  {if is_array($summFormats)}
+    {assign var=mainFormat value=$summFormats.0} 
+    {assign var=displayFormat value=$summFormats|@end} 
+  {else}
+    {assign var=mainFormat value=$summFormats} 
+    {assign var=displayFormat value=$summFormats} 
+  {/if}
+  <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span></div>
 </div>
     
   <div class="resultColumn2">

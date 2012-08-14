@@ -10,7 +10,7 @@
     var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", {/literal}{$piwikSiteId}{literal});
     piwikTracker.enableLinkTracking();
     {/literal}{if $lookfor}{literal}
-    piwikTracker.setCustomVariable (1, 'SearchTerms', '{/literal}{$lookfor|escape:"html"}{literal}', 'page');
+    piwikTracker.setCustomVariable(1, 'SearchTerms', '{/literal}{$lookfor|escape:"html"}{literal}', 'page');
     {/literal}{/if}{literal}
     piwikTracker.trackPageView();
     } catch( err ) {}

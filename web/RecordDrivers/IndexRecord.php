@@ -1946,7 +1946,11 @@ class IndexRecord implements RecordInterface
      */
     protected function getFormats()
     {
-        return isset($this->fields['format']) ? $this->fields['format'] : array();
+        $formats = array();
+        foreach (isset($this->fields['format']) ? $this->fields['format'] : array() as $format) {
+            $formats[] = preg_replace('/^\d\//', '', $format);
+        }
+        return $formats;
     }
 
     /**
