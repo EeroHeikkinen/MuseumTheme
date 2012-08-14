@@ -56,12 +56,12 @@ $(document).ready(function(){
     
     // attach mouseover event to grid view records
     $('.gridCellHover').mouseover(function() {
-        $(this).addClass('gridMouseOver')
+        $(this).addClass('gridMouseOver');
     });
     
     // attach mouseout event to grid view records
     $('.gridCellHover').mouseout(function() {
-        $(this).removeClass('gridMouseOver')
+        $(this).removeClass('gridMouseOver');
     });  
     
     // assign click event to "viewCart" links
@@ -113,6 +113,7 @@ function filterAll(element, formId) {
 function extractParams(str) {
     var params = {};
     var classes = str.split(/\s+/);
+    var i;
     for(i = 0; i < classes.length; i++) {
         if (classes[i].indexOf(':') > 0) {
             var pair = classes[i].split(':');
@@ -135,30 +136,52 @@ function uniqueValues(array) {
 }
 
 function initAutocomplete() {
-    $('input.autocomplete').each(function() {
-        var params = extractParams($(this).attr('class'));
-        var maxItems = params.maxItems > 0 ? params.maxItems : 10;
-        var $autocomplete = $(this).autocomplete({
-            source: function(request, response) {
-                var type = params.type;
-                if (!type && params.typeSelector) {
-                    type = $('#' + params.typeSelector).val();
-                } 
-                $.ajax({
-                    url: path + '/AJAX/JSON_Autocomplete',
-                    data: {method:'getSuggestions',type:type,q:request.term},
-                    dataType:'json',
-                    success: function(json) {
-                        if (json.status == 'OK' && json.data.length > 0) {
-                            response(json.data.slice(0, maxItems));
-                        } else {
-                            $autocomplete.autocomplete('close');
-                        }
-                    }
-                });
+	var searchInput = $('#searchForm_input');
+	var searchForm = $('#searchForm');
+    var lastXhr = null;
+	var params = extractParams(searchInput.attr('class'));
+	var maxItems = params.maxItems > 0 ? params.maxItems : 10;
+	var minLength = params.minLength > 0 ? params.minLength : 3;
+	ac = searchInput.autocomplete({
+		minLength: minLength,
+		select: function(event, ui) { 
+			searchInput.val(ui.item.label);
+			searchForm.submit(); 
+		},
+	    source: function(request, response) {
+	        var type = params.type;
+	        if (!type && params.typeSelector) {
+	            type = $('#' + params.typeSelector).val();
+	        } 
+            // Abort previous access if one is defined
+            if (lastXhr !== null && lastXhr.hasOwnProperty("abort")) {
+                lastXhr.abort();
             }
-        });
-    });
+            lastXhr = $.ajax({
+	            url: path + '/AJAX/JSON_Autocomplete',
+	            data: {method:'getSuggestions',type:type,q:request.term},
+	            dataType:'json',
+	            success: function(json) {
+	                if (json.status == 'OK' && json.data.length > 0) {
+	                    response(json.data.slice(0, maxItems));
+	                } else {
+	                    ac.autocomplete('close');
+	                }
+	            }
+	            });
+	        }
+	    });
+
+	ac.data( "autocomplete" )._renderItem = function(ul, item) {
+        var label = item.label.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" 
+        				+ $.ui.autocomplete.escapeRegex(this.term) 
+        				+ ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
+        return $("<li></li>")
+                .data("item.autocomplete", item)
+                .append("<a>" + label + "</a>")
+                .appendTo(ul);
+    };
+
 }
 
 function htmlEncode(value){
@@ -231,14 +254,14 @@ var contextHelp = {
         isUp:false,
         load:function(){
             $(contextHelp.contextHelpSys.closeButton).click(contextHelp.contextHelpSys.hideMessage);
-            $(window).resize(contextHelp.contextHelpSys.position)},
+            $(window).resize(contextHelp.contextHelpSys.position);},
         setPosition:function(element, offsetX, offsetY, direction, align, maxWidth, showCloseButton){
-            if(element==null){element=document}
-            if(offsetX==null){offsetX=0}
-            if(offsetY==null){offsetY=0}
-            if(direction==null){direction="auto"}
-            if(align==null){align="auto"}
-            if(showCloseButton==null){showCloseButton=true}
+            if(element==null){element=document;}
+            if(offsetX==null){offsetX=0;}
+            if(offsetY==null){offsetY=0;}
+            if(direction==null){direction="auto";}
+            if(align==null){align="auto";}
+            if(showCloseButton==null){showCloseButton=true;}
             contextHelp.contextHelpSys.curElement=$(element);
             contextHelp.contextHelpSys.curOffsetX=offsetX;
             contextHelp.contextHelpSys.curOffsetY=offsetY;
@@ -247,47 +270,47 @@ var contextHelp = {
             contextHelp.contextHelpSys.curMaxWidth=maxWidth;
             contextHelp.contextHelpSys.showCloseButton=showCloseButton;},
         position:function(){
-            if(!contextHelp.contextHelpSys.isUp||!contextHelp.contextHelpSys.curElement.length){return}
+            if(!contextHelp.contextHelpSys.isUp||!contextHelp.contextHelpSys.curElement.length){return;}
             var offset=contextHelp.contextHelpSys.curElement.offset();
             var left=parseInt(offset.left)+parseInt(contextHelp.contextHelpSys.curOffsetX);
             var top=parseInt(offset.top)+parseInt(contextHelp.contextHelpSys.curOffsetY);
             var direction=contextHelp.contextHelpSys.curDirection;
             var align=contextHelp.contextHelpSys.curAlign;
             if(contextHelp.contextHelpSys.curMaxWidth){
-                $(contextHelp.contextHelpSys.CHTable).css("width",contextHelp.contextHelpSys.curMaxWidth)}
+                $(contextHelp.contextHelpSys.CHTable).css("width",contextHelp.contextHelpSys.curMaxWidth);}
             else{
-                $(contextHelp.contextHelpSys.CHTable).css("width","auto")}
+                $(contextHelp.contextHelpSys.CHTable).css("width","auto");}
             if(direction=="auto"){
                 if(parseInt(top)-parseInt($(contextHelp.contextHelpSys.CHTable).height()<$(document).scrollTop())){
-                    direction="down"}
-                else{direction="up"}
+                    direction="down";}
+                else{direction="up";}
             }
             if(direction=="up"){
                 top = parseInt(top) - parseInt($(contextHelp.contextHelpSys.CHTable).height());
                 $(contextHelp.contextHelpSys.arrowUp).css("display","none");
-                $(contextHelp.contextHelpSys.arrowDown).css("display","block")}
+                $(contextHelp.contextHelpSys.arrowDown).css("display","block");}
             else{
                 if(direction=="down"){
                     top = parseInt(top) + parseInt(contextHelp.contextHelpSys.curElement.height());
                     $(contextHelp.contextHelpSys.arrowUp).css("display","block");
-                    $(contextHelp.contextHelpSys.arrowDown).css("display","none")}
+                    $(contextHelp.contextHelpSys.arrowDown).css("display","none");}
                 }
             if(align=="auto"){
                 if(left+parseInt($(contextHelp.contextHelpSys.CHTable).width()>$(document).width())){
-                    align="left"}
-                else{align="right"}
+                    align="left";}
+                else{align="right";}
             }
             if(align=="right"){
                 left-=24;
                 $(contextHelp.contextHelpSys.arrowUp).css("background-position","0 0");
-                $(contextHelp.contextHelpSys.arrowDown).css("background-position","0 -6px")
+                $(contextHelp.contextHelpSys.arrowDown).css("background-position","0 -6px");
             }
             else{
                 if(align=="left"){
                     left-=parseInt($(contextHelp.contextHelpSys.CHTable).width());
                     left+=24;
                     $(contextHelp.contextHelpSys.arrowUp).css("background-position","100% 0");
-                    $(contextHelp.contextHelpSys.arrowDown).css("background-position","100% -6px")}
+                    $(contextHelp.contextHelpSys.arrowDown).css("background-position","100% -6px");}
             }
             if(contextHelp.contextHelpSys.showCloseButton) {
                 $(contextHelp.contextHelpSys.closeButton).show();
@@ -303,12 +326,12 @@ var contextHelp = {
             $(contextHelp.contextHelpSys.CHContent).append(msg);
             contextHelp.contextHelpSys.position();
             $(contextHelp.contextHelpSys.CHTable).hide();
-            $(contextHelp.contextHelpSys.CHTable).fadeIn()
+            $(contextHelp.contextHelpSys.CHTable).fadeIn();
             },
         hideMessage:function(){
             if(contextHelp.contextHelpSys.isUp){
                 $(contextHelp.contextHelpSys.CHTable).fadeOut();
-                contextHelp.contextHelpSys.isUp=false}
+                contextHelp.contextHelpSys.isUp=false;}
         }
     }
-}
+};

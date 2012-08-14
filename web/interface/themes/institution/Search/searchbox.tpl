@@ -80,18 +80,6 @@
   {literal}
   <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
   {/literal}
-  {if $autocomplete}
-  {literal}
-  <script type="text/javascript">$("#searchForm_input").autocomplete( {
-    select: function(event, ui) {
-        $("#searchForm_input").val(ui.item.value);
-        $('#searchForm').submit();
-        return false;
-    }
-  });
-  </script>  
-  {/literal}
-  {/if}
 {/if}
 </div>
 

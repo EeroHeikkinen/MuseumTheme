@@ -1,5 +1,5 @@
 {literal}
-<script type="text/javascript" id="test">
+<script type="text/javascript">
 $(document).ready(function() {
     // poll every 60 seconds
     var refreshTime = 60000;
