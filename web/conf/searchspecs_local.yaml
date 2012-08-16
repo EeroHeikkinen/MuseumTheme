@@ -289,7 +289,7 @@ AllFields:
     - author_fuller^150
     - contents^10
     - description^10
-    - topic_unstemmed^4550
+    - topic_unstemmed^4200
     - topic^500
     - geographic^300
     - genre^300
