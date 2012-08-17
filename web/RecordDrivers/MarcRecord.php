@@ -259,7 +259,9 @@ class MarcRecord extends IndexRecord
         global $interface;
         
         $interface->assign('summImages', $this->getAllImages());
-
+        // get other links from MARC field 787
+        $interface->assign('coreOtherLinks', $this->getOtherLinks());
+        
         // MARC results work just like index results, except that we want to
         // enable the AJAX status display since we assume that MARC records
         // come from the ILS:
@@ -1398,6 +1400,46 @@ class MarcRecord extends IndexRecord
             }
         }      
         return false;
+    }
+
+    /**
+     * Overload the IndexRecord method to include other references from MARC field 787. 
+     * @return string Name of Smarty template file to display.
+     * @access public
+     */
+    public function getCoreMetadata()
+    {
+        global $configArray;
+        global $interface;
+    
+        $interface->assign('coreOtherLinks', $this->getOtherLinks());     
+        
+        // Call the parent method:
+        return parent::getCoreMetadata();
+    }
+        
+    /**
+     * Get the "other links" from MARC field 787.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getOtherLinks()
+    {
+        $retval = array();
+        $heading = '';
+        $title = '';
+        $author = '';
+        foreach ($this->marcRecord->getFields('787') as $link) {
+            $heading = $link->getSubfield('i')->getData();
+            // normalize heading
+            $heading = str_replace(':', '', $heading);
+            $title = $link->getSubfield('t')->getData();
+            $author = $link->getSubfield('a')->getData();
+            
+            $retval[] = compact('heading', 'title', 'author');
+        }
+        return $retval;
     }
     
 }

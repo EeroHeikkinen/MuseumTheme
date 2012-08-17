@@ -67,6 +67,17 @@
     </tr>
     {/if}
 
+    {if !empty($coreOtherLinks)}
+    {foreach from=$coreOtherLinks item=coreOtherLink}
+    <tr valign="top">
+      <th>{translate text=$coreOtherLink.heading}:</th>
+      <td>
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">{$coreOtherLink.author|escape}: {$coreOtherLink.title|escape}</a>
+      </td>
+    </tr>
+    {/foreach}    
+    {/if}
+
     {if !empty($coreMainAuthor)}
     <tr valign="top">
       <th>{translate text='Main Author'}: </th>

@@ -10,6 +10,10 @@
 }
 
 /* Logo background */
-.header, .header-home {
+.header {
+    background-color: #f3f3f3;
+}
+
+.header-home {
     background-color: #f3f3f3;
 }
