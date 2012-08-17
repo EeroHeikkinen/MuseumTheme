@@ -38,10 +38,19 @@
 </div>
     
   <div class="resultColumn2">
-  
+
     <div class="resultItemLine1">
       <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
     </div>
+   
+    {if !empty($coreOtherLinks)}
+    <div class="resultOtherLinks">
+        {foreach from=$coreOtherLinks item=coreOtherLink}
+        {translate text=$coreOtherLink.heading}: 
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">{$coreOtherLink.title|escape} / {$coreOtherLink.author|escape}</a>
+        {/foreach}
+    </div>    
+    {/if}
 
     <div class="resultItemLine2">
       {if !empty($summAuthor)}
