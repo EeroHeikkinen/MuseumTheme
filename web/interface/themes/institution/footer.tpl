@@ -11,7 +11,7 @@
   <ul>
     <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
     <li><a href="{$path}/AlphaBrowse/Home">{translate text='Browse Alphabetically'}</a></li>
-    <li><a href="{$path}/Search/TagCloud">{translate text='Browse by Tags'}</a></li>
+    <li><a href="{$path}/Search/TagCloud">{translate text='Browse by Tag'}</a></li>
     <li><a href="{$path}/Search/Reserves">{translate text='Course Reserves'}</a></li>
     <li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li>
   </ul>
