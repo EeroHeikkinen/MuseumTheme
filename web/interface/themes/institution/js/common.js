@@ -137,6 +137,8 @@ function uniqueValues(array) {
 
 function initAutocomplete() {
 	var searchInput = $('#searchForm_input');
+	if (searchInput.length === 0)
+		return;
 	var searchForm = $('#searchForm');
     var lastXhr = null;
 	var params = extractParams(searchInput.attr('class'));
