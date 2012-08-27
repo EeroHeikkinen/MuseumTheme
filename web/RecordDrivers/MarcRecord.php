@@ -1427,16 +1427,27 @@ class MarcRecord extends IndexRecord
     protected function getOtherLinks()
     {
         $retval = array();
-        $heading = '';
-        $title = '';
-        $author = '';
         foreach ($this->marcRecord->getFields('787') as $link) {
-            $heading = $link->getSubfield('i')->getData();
-            // normalize heading
+            $heading = $link->getSubfield('i');
+            if ($heading) {
+                $heading = $heading->getData();
+            } else {
+                $heading = '';
+            }
+            // Normalize heading
             $heading = str_replace(':', '', $heading);
-            $title = $link->getSubfield('t')->getData();
-            $author = $link->getSubfield('a')->getData();
-            
+            $title = $link->getSubfield('t');
+            if ($title) {
+                $title = $title->getData();
+            } else {
+                $title = '';
+            }
+            $author = $link->getSubfield('a');
+            if ($author) {
+                $author = $author->getData();
+            } else {
+                $author = '';
+            }
             $retval[] = compact('heading', 'title', 'author');
         }
         return $retval;
