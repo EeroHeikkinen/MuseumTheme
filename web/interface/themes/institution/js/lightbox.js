@@ -98,6 +98,7 @@ function lightboxDocumentReady() {
     registerAjaxSaveRecord();
     registerAjaxListEdit();
     registerAjaxEmailRecord();
+    registerAjaxFeedbackRecord();
     registerAjaxSMSRecord();
     registerAjaxTagRecord();
     registerAjaxEmailSearch();
@@ -349,6 +350,31 @@ function registerAjaxEmailRecord() {
         showLoadingGraphic($(this));
         $(this).hide();
         var url = path + '/AJAX/JSON?' + $.param({method:'emailRecord',id:this.id.value});
+        $(this).ajaxSubmit({
+            url: url,
+            dataType: 'json',
+            success: function(response, statusText, xhr, $form) {
+                hideLoadingGraphic($form);
+                if (response.status == 'OK') {
+                    displayFormInfo($form, response.data);
+                    // close the dialog
+                    setTimeout(function() { hideLightbox(); }, 2000);
+                } else {
+                    $form.show();
+                    displayFormError($form, response.data);
+                }
+            }
+        });
+        return false;
+    });
+}
+
+function registerAjaxFeedbackRecord() {
+    $('#modalDialog > form[name="feedbackRecord"]').unbind('submit').submit(function(){
+        if (!$(this).valid()) { return false; }
+        showLoadingGraphic($(this));
+        $(this).hide();
+        var url = path + '/AJAX/JSON?' + $.param({method:'feedbackRecord',id:this.id.value});
         $(this).ajaxSubmit({
             url: url,
             dataType: 'json',

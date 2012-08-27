@@ -416,6 +416,32 @@ class JSON extends Action
 
         return $this->output(translate('email_success'), JSON::STATUS_OK);
     }
+    
+    /**
+     * Give feedback on a record.
+     *
+     * @return void
+     * @access public
+     */
+    public function feedbackRecord()
+    {
+        // Load the appropriate module based on the "type" parameter:
+        $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 'Record';
+        include_once 'services/' . $type . '/Feedback.php';
+    
+        $feedbackService = new Feedback();
+        $result = $feedbackService->sendEmail(
+            $_REQUEST['to'], $_REQUEST['from'], $_REQUEST['message']
+        );
+    
+        if (PEAR::isError($result)) {
+            return $this->output(
+                translate($result->getMessage()), JSON::STATUS_ERROR
+            );
+        }
+    
+        return $this->output(translate('email_success'), JSON::STATUS_OK);
+    }    
 
     /**
      * SMS a record.

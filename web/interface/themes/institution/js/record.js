@@ -39,6 +39,11 @@ $(document).ready(function(){
         var $dialog = getLightbox(module, 'Email', id, null, this.title);
         return false;
     });
+    $('a.feedbackRecord').click(function() {
+        var id = this.id.substr('feedbackRecord'.length);
+        var $dialog = getLightbox('Record', 'Feedback', id, null, this.title);
+        return false;
+    });
     $('a.tagRecord').click(function() {
         var id = this.id.substr('tagRecord'.length);
         var $dialog = getLightbox('Record', 'AddTag', id, null, this.title, 'Record', 'AddTag', id);

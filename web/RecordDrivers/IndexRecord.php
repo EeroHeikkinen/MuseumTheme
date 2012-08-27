@@ -566,6 +566,17 @@ class IndexRecord implements RecordInterface
         $ed = new ExternalExcerpts($this->getCleanISBN());
         return $ed->fetch();
     }
+    
+    /**
+     * Get the text to represent this record in the body of a feedback email.
+     *
+     * @return string Text for inclusion in email.
+     * @access public
+     */
+    public function getFeedback()
+    {
+        return "  " . $this->getTitle() . "\n";
+    }
 
     /**
      * Get any author notes associated with this record.  For details of
@@ -1445,6 +1456,21 @@ class IndexRecord implements RecordInterface
         }
         return false;
     }
+    
+    /**
+     * Returns organisation / data source information for the
+     * Feedback form.
+     *
+     * @return array organisation / collection names
+     * @access public
+     */
+    public function getInstitutionDetails()
+    {
+        $idparts = explode('.', $this->fields['id']);
+        $institution = $this->getInstitutions();
+    
+        return array('institution' => $institution[0], 'datasource' => $idparts[0]);
+    }    
     
     /**
      * Get Tree Source

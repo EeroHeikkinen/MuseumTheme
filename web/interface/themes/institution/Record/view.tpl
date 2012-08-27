@@ -97,6 +97,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         *}
         
         <li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li>
+        <li><a href="{$url}/Record/{$id|escape:"url"}/Feedback" class="feedbackRecord mail" id="feedbackRecord{$id|escape}" title="{translate text="Send Feedback"}">{translate text="Send Feedback"}</a></li>
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
           <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} <img src="/vufind/interface/themes/institution/images/down.png" width="11" height="6"></a>
