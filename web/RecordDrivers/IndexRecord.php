@@ -2575,7 +2575,7 @@ class IndexRecord implements RecordInterface
      */
     protected function getGoogleMapMarker()
     {
-        $longLat = explode(',', $this->fields['long_lat']);
+        $longLat = explode(',', is_array($this->fields['long_lat']) ? $this->fields['long_lat'][0] : $this->fields['long_lat']);
         $markers = array(
             array(
                 'title' => (string)$this->fields['title'],
