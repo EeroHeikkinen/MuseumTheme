@@ -7,6 +7,7 @@
     var markersData = {/literal}{$map_marker}{literal};
     var latlng = new google.maps.LatLng(0, 0);
     var myOptions = {
+      zoom: 1,
       center: latlng,
       mapTypeControl: true,
       mapTypeControlOptions: {
