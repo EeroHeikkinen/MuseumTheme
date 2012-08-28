@@ -1,52 +1,46 @@
 $(document).ready(function(){
     // create the slider for the publish date facet
-    $('.dateSlider').each(function(i) {
-        var myId = $(this).attr('id');
-        var prefix = myId.substr(0, myId.length - 6);
-        makePublishDateSlider(prefix);
-    });
+	$("#publishDateSlider").slider({ from: 0, to: 2020, 
+									 heterogeneity: ['50/1800', '75/1910'], 
+        							 scale: [0, '|', 900, '|', '1800', '|', 1910, '|', 2020], 
+        							 limits: false, step: 1, 
+        							 dimension: '', 
+        							 format: {locale: 'fi'},
+        							 callback: function(){
+        							 updateFields();
+        						   }
+        });
+        $('#publishDatefrom, #publishDateto').change(function(){
+            updateSlider();
+        });
+
+        $("form").submit(function() {
+        	$('#publishDateSlider').attr("disabled", "disabled");
+  	        return true; // ensure form still submits
+   	    });
+
+        
 });
 
-function makePublishDateSlider(prefix) {
-    // create the slider widget
-    $('#' + prefix + 'Slider').slider({
-        range: true,
-        min: 0, max: 9999, values: [0, 9999],
-        slide: function(event, ui) {
-            $('#' + prefix + 'from').val(ui.values[0]);
-            $('#' + prefix + 'to').val(ui.values[1]);
-        }
-    });
-    // initialize the slider with the original values
-    // in the text boxes
-    updatePublishDateSlider(prefix);
-
-    // when user enters values into the boxes
-    // the slider needs to be updated too
-    $('#' + prefix + 'from, #' + prefix + 'to').change(function(){
-        updatePublishDateSlider(prefix);
-    });
+function updateFields() {
+	var values = $("#publishDateSlider").slider("value");	
+	var limits = values.split(";");
+    $('#publishDatefrom').val(limits[0]);
+    $('#publishDateto').val(limits[1]);
 }
 
-function updatePublishDateSlider(prefix) {
-    var from = parseInt($('#' + prefix + 'from').val());
-    var to = parseInt($('#' + prefix + 'to').val());
-    // assuming our oldest item is published in the 15th century
-    var min = 1500;
+function updateSlider() {
+    var from = parseInt($('#publishDatefrom').val());
+    var to = parseInt($('#publishDateto').val());
+    var min = 0;
     if (!from || from < min) {
         from = min;
     }
-    // move the min 20 years away from the "from" value
-    if (from > min + 20) {
-        min = from - 20;
+
+    if (to && from > to) {
+        to = from;
     }
-    // and keep the max at 1 years from now
-    var max = (new Date()).getFullYear() + 1;
-    if (!to || to > max) {
-        to = max;
-    }
+    
     // update the slider with the new min/max/values
-    $('#' + prefix + 'Slider').slider('option', {
-        min: min, max: max, values: [from, to]
-    });
+    $("#publishDateSlider").slider("value", from, to);	
 }

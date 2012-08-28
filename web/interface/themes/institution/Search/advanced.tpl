@@ -1,5 +1,5 @@
 <form method="get" action="{$url}/Search/Results" id="advSearchForm" name="searchForm" class="search">
-  <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+  <div class="span-10">
     <h3>{translate text='Advanced Search'}</h3>
     <div class="advSearchContent">
       {if $editErr}
@@ -19,7 +19,7 @@
       </div>
   
       {* An empty div. This is the target for the javascript that builds this screen *}
-      <div id="searchHolder">
+      <div id="searchHolder" class="span-10 last">
         {* fallback to a fixed set of search groups/fields if JavaScript is turned off *}
         <noscript>
         {if $searchDetails}
@@ -74,14 +74,36 @@
       <a id="addGroupLink" href="#" class="add offscreen" onclick="addGroup(); return false;">{translate text="add_search_group"}</a>
   
       <br/><br/>
+    {if $dateRangeLimit}
+        {* Load the jslider UI widget *}
+        {js filename="pubdate_slider.js"}
+        {js filename="jshashtable-2.1_src.js"}
+        {js filename="jquery.numberformatter-1.2.3.js"}
+        {js filename="tmpl.js"}
+        {js filename="jquery.dependClass-0.1.js"}
+        {js filename="draggable-0.1.js"}
+        {js filename="jslider/jquery.slider.js"}
+        {css media="screen, projection" filename="jslider/jslider.css"}     
+    <div class="span-10">
+        <input type="hidden" name="daterange[]" value="publishDate"/>
+          <legend id="pubDateLegend">{translate text='adv_search_year'}</legend>
+          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDatefrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" /> - 
+          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDateto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
+        <br>
+        <div class="span-10" id="sliderContainer">
+            <input id="publishDateSlider" class="dateSlider span-10" type="slider" name="sliderContainer" value="0000;2012" />
+        </div>
+    </div>
+    {/if}
   
-      <input type="submit" name="submit" value="{translate text="Find"}"/>
-      {if $facetList}
-        <h3>{translate text='Limit To'}</h3>
+    {if $facetList}
+        {js filename="chosen/chosen.jquery.js"}
+        {js filename="chosen_multiselects.js"}
+        {css media="screen, projection" filename="chosen/chosen.css"}
         {foreach from=$facetList item="list" key="label"}
-        <div class="{if $label=='Call Number'}span-7{else}span-4{/if}">
+        <div id ="facetsContainer" class="span-4">
           <label class="displayBlock" for="limit_{$label|replace:' ':''|escape}">{translate text=$label}:</label>
-          <select id="limit_{$label|replace:' ':''|escape}" name="filter[]" multiple="multiple" size="10">
+          <select class="chzn-select span-4" data-placeholder="&nbsp;" id="limit_{$label|replace:' ':''|escape}" name="filter[]" multiple="multiple" size="10">
             {foreach from=$list item="value" key="display"}
               <option value="{$value.filter|escape}"{if $value.selected} selected="selected"{/if}>{$display|escape}</option>
             {/foreach}
@@ -90,6 +112,7 @@
         {/foreach}
         <div class="clear"></div>
       {/if}
+      
       {if $illustratedLimit}
         <fieldset class="span-4">
           <legend>{translate text="Illustrated"}:</legend>
@@ -99,6 +122,7 @@
           {/foreach}
         </fieldset>
       {/if}
+      
       {if $limitList|@count gt 1}
         <fieldset class="span-4">
           <legend>{translate text='Results per page'}</legend>
@@ -115,25 +139,12 @@
         </fieldset>
       {/if}
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
-      {if $dateRangeLimit}
-        {* Load the publication date slider UI widget *}
-        {js filename="pubdate_slider.js"}
-        <input type="hidden" name="daterange[]" value="publishDate"/>
-        <fieldset class="publishDateLimit span-5" id="publishDate">
-          <legend>{translate text='adv_search_year'}</legend>
-          <label for="publishDatefrom">{translate text='date_from'}:</label>
-          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDatefrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" />
-          <label for="publishDateto">{translate text='date_to'}:</label>
-          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDateto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
-          <div id="publishDateSlider" class="dateSlider"></div>
-        </fieldset>
-      {/if}
       <div class="clear"></div>
-      <input type="submit" name="submit" value="{translate text="Find"}"/>
+      <input type="submit" class="push-9 button" name="submit" value="{translate text="Find"}"/>
     </div>
   </div>
   
-  <div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+  <div class="span-3 last">
     {if $searchFilters}
       <div class="filterList">
         <h3>{translate text="adv_search_filters"}<br/><span>({translate text="adv_search_select_all"} <input type="checkbox" checked="checked" onclick="filterAll(this, 'advSearchForm');" />)</span></h3>
