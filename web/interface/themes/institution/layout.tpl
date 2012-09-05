@@ -75,6 +75,10 @@
 
     {* Load common javascript functions *}
     {js filename="common.js"}
+    
+    {* Load javascript microtemplating *}
+    {js filename="tmpl.js"}
+    
 
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
