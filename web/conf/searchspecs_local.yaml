@@ -278,8 +278,8 @@ Series:
 AllFields:
   DismaxFields:
     - title_short^750
-    - title_full_unstemmed^4600
-    - title_full^400
+    - title_full_unstemmed^8600
+    - title_full^800
     - title^500
     - title_alt^200
     - title_new^100
@@ -290,7 +290,7 @@ AllFields:
     - contents^10
     - description^10
     - topic_unstemmed^4200
-    - topic^500
+    - topic^400
     - geographic^300
     - genre^300
     - allfields_unstemmed^4010

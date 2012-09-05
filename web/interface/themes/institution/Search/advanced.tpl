@@ -79,7 +79,6 @@
         {js filename="pubdate_slider.js"}
         {js filename="jshashtable-2.1_src.js"}
         {js filename="jquery.numberformatter-1.2.3.js"}
-        {js filename="tmpl.js"}
         {js filename="jquery.dependClass-0.1.js"}
         {js filename="draggable-0.1.js"}
         {js filename="jslider/jquery.slider.js"}
@@ -169,7 +168,44 @@
 
   <div class="clear"></div>
 </form>
-
+{literal}
+<script type="text/html" id="new_search_tmpl">
+<div class="advRow">
+    <div class="label">
+        <label class="<%=(groupSearches[group] > 0 ? "hide" : "")%>" for="search_lookfor<%=group%>_<%=groupSearches[group]%>"><%=searchLabel%>:</label>&nbsp;
+    </div>
+    <div class="terms">
+        <input type="text" id="search_lookfor<%=group%>_<%=groupSearches[group]%>" name="lookfor<%=group%>[]" size="50" value="<%=jsEntityEncode(term)%>" />
+    </div>
+    <div class="field">
+        <label for="search_type<%=group%>_<%=groupSearches[group]%>"><%=searchFieldLabel%></label>
+        <select id="search_type<%=group%>_<%=groupSearches[group]%>" name="type<%=group%>[]">
+        <% for ( key in searchFields ) { %>
+            <option value="<%=key%>" selected="<%=key == field ? "selected" : ""%>"><%=searchFields[key]%></option>
+        <% } %>
+        </select>
+    </div>
+<span class="clearer"></span>
+</div>
+</script>
+<script type="text/html" id="new_group_tmpl">
+    <div id="group<%=nextGroupNumber%>" class="group group<%=nextGroupNumber % 2%>">
+        <div class="groupSearchDetails">
+            <div class="join">
+                <label for="search_bool<%=nextGroupNumber%>"><%=searchMatch%>:</label>
+                <select id="search_bool<%=nextGroupNumber%>" name="bool<%=nextGroupNumber%>[]">
+                    <% for ( key in searchJoins ) { %>
+                        <option value="<%=key%>" selected="<%=key == join ? "selected" : ""%>"><%=searchJoins[key]%></option>
+                    <% } %>
+                </select>
+            </div>
+            <a href="#" class="delete" id="delete_link_<%=nextGroupNumber%>" onclick="deleteGroupJS(this); return false;"><%=deleteSearchGroupString%></a>
+        </div>
+        <div id="group<%=nextGroupNumber%>SearchHolder" class="groupSearchHolder"></div>
+        <div class="addSearch"><a href="#" class="add" id="add_search_link_<%=nextGroupNumber%>" onclick="addSearchJS(this); return false;"><%=addSearchString%></a></div>
+    </div>
+</script>
+{/literal}
 {* Step 1: Define our search arrays so they are usuable in the javascript *}
 <script type="text/javascript">
 //<![CDATA[
