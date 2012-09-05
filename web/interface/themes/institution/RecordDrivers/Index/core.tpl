@@ -189,6 +189,15 @@
       {include file=$extendedMetadata}
     {/if}
 
+    {if $coreComponentPartCount > 0 && !$hasContainedComponentParts}
+    <tr valign="top">
+      <th>{translate text='component_part_count_label'} </th>
+      <td>
+        {translate text='component_part_count_prefix'} <a href="{$url}/Search/Results?lookfor={$id|escape:"url"}&amp;type=hierarchy_parent_id">{$coreComponentPartCount|escape} {translate text='component_part_count_suffix'}</a>
+      </td>
+    </tr>
+    {/if}
+
     {assign var="idPrefix" value=$id|substr:0:8}
     {if !empty($coreURLs) || $coreOpenURL || $idPrefix == 'metalib_'}
     <tr valign="top">
@@ -219,7 +228,7 @@
     {/foreach}
     {/if}
     *}
-
+    
     {if $toc}
     <tr valign="top">
       <th>{translate text='Table of Contents'}: </th>
