@@ -649,15 +649,16 @@ class AxiellWebServices implements DriverInterface
      */
     public function getPickUpLocations($user)
     {
-        error_log("getPickUpLocations $user");      
+        error_log("getPickUpLocations $user");
         $options = array(
             'soap_version'=>SOAP_1_1,
             'exceptions'=>true,
             'trace'=>1,
         );
         $client = new SoapClient($this->reservations_wsdl, $options);
+        $patronId = $this->_getPatronId($user['cat_username'], $user['cat_password']);
         try {
-            $result = $client->getReservationBranches(array('reservationBranchesRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $user['cat_username'], 'language' => 'en', 'country' => 'FI', 'reservationEntities' => '', 'reservationType' => 'normal')));
+            $result = $client->getReservationBranches(array('reservationBranchesRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $patronId, 'language' => 'en', 'country' => 'FI', 'reservationEntities' => '', 'reservationType' => 'normal')));
             if ($result->reservationBranchesResponse->status->type != 'ok') {
                 error_log("AxiellWebServices: Reservation branches request failed for '" . $user['cat_username'] . "'");
                 error_log("Request: " . $client->__getLastRequest());
@@ -699,6 +700,24 @@ class AxiellWebServices implements DriverInterface
         }
     }
     
+    /**
+     * Get Default Pick Up Location
+     *
+     * Returns the default pick up location set in VoyagerRestful.ini
+     *
+     * @param array $patron      Patron information returned by the patronLogin
+     * method.
+     * @param array $holdDetails Optional array, only passed in when getting a list
+     * in the context of placing a hold; contains most of the same values passed to
+     * placeHold, minus the patron data.  May be used to limit the pickup options
+     * or may be ignored.
+     *
+     * @return string       The default pickup location for the patron.
+     */
+    public function getDefaultPickUpLocation($patron = false, $holdDetails = null)
+    {
+        return $this->defaultPickUpLocation;
+    }
     
     /**
      * Place Hold
