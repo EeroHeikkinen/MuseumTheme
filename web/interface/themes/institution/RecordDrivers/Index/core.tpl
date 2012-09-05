@@ -72,7 +72,15 @@
     <tr valign="top">
       <th>{translate text=$coreOtherLink.heading}:</th>
       <td>
-        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">{$coreOtherLink.author|escape}: {$coreOtherLink.title|escape}</a>
+        {if $coreOtherLinks.isn != ''}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {else}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {/if}
       </td>
     </tr>
     {/foreach}    
