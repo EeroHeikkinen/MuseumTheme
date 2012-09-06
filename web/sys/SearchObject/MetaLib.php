@@ -42,16 +42,16 @@ require_once 'sys/SearchObject/Base.php';
 class SearchObject_MetaLib extends SearchObject_Base
 {
     // OTHER VARIABLES
-    private $_metaLib;      // MetaLib API
-    private $_indexResult;  // MetaLib API Response
+    protected $metaLib;      // MetaLib API
+    protected $indexResult;  // MetaLib API Response
     
     // In the MetaLib configuration, facets may have extra parameters appended;
     // in most cases, we want to strip these off, but this array lets us store
     // all the extra parameters so they can be passed to the MetaLib class.
-    private $_fullFacetSettings = array();
+    protected $fullFacetSettings = array();
 
-    protected $_searchSets = array();
-    protected $_set = '';
+    protected $searchSets = array();
+    protected $set = '';
     
     /**
      * Constructor. Initialise some details about the server
@@ -97,9 +97,9 @@ class SearchObject_MetaLib extends SearchObject_Base
             $this->advancedTypes = $config['Advanced_Searches'];
         }
 
-        $this->_searchSets = getExtraConfigArray('MetaLibSets');
-        reset($this->_searchSets);
-        $this->_set = key($this->_searchSets);
+        $this->searchSets = getExtraConfigArray('MetaLibSets');
+        reset($this->searchSets);
+        $this->set = key($this->searchSets);
         
         // Set up recommendations options -- settings are found in MetaLib.ini:
         $this->recommendIni = 'MetaLib';
@@ -107,7 +107,7 @@ class SearchObject_MetaLib extends SearchObject_Base
         // Load limit preferences (or defaults if none in .ini file):
         if (isset($config['General']['limit_options'])) {
             $this->limitOptions
-            = explode(",", $config['General']['limit_options']);
+                = explode(",", $config['General']['limit_options']);
         } elseif (isset($config['General']['default_limit'])) {
             $this->limitOptions = array($this->defaultLimit);
         } else {
@@ -115,7 +115,7 @@ class SearchObject_MetaLib extends SearchObject_Base
         }
         
         // Connect to MetaLib
-        $this->_metaLib = new MetaLib();
+        $this->metaLib = new MetaLib();
     }
 
     /**
@@ -152,29 +152,46 @@ class SearchObject_MetaLib extends SearchObject_Base
             $this->initAdvancedSearch();
         }
         
-        $this->_set = isset($_REQUEST['set']) ? $_REQUEST['set'] : '';  
-        if (!isset($this->_searchSets[$this->_set]) && strncmp($this->_set, '_ird:', 5) != 0) {
-            reset($this->_searchSets);
-            $this->_set = key($this->_searchSets);
+        $this->set = isset($_REQUEST['set']) ? $_REQUEST['set'] : '';  
+        if (!isset($this->searchSets[$this->set]) && strncmp($this->set, '_ird:', 5) != 0) {
+            reset($this->searchSets);
+            $this->set = key($this->searchSets);
         }
         
         return true;
     }
 
+    /**
+     * Get current search set ID
+     * 
+     * @return string Set ID
+     */
     public function getSearchSet()
     {
-        return $this->_set;
+        return $this->set;
     }
 
+    /**
+     * Set current search set ID
+     * 
+     * @param string $set Set ID
+     * 
+     * @return void
+     */
     public function setSearchSet($set)
     {
-        $this->_set = $set;
+        $this->set = $set;
     }
     
+    /**
+     * Get available search sets
+     * 
+     * @return string[] Set IDs
+     */
     public function getSearchSets()
     {
         $result = array();
-        foreach ($this->_searchSets as $key => $set) {
+        foreach ($this->searchSets as $key => $set) {
             $result[$key] = $set['name'];
         }
         return $result;
@@ -193,7 +210,7 @@ class SearchObject_MetaLib extends SearchObject_Base
     {
         // Save the full field name (which may include extra parameters);
         // we'll need these to do the proper search using the MetaLib class:
-        $this->_fullFacetSettings[] = $newField;
+        $this->fullFacetSettings[] = $newField;
 
         // Strip parameters from field name if necessary (since they get
         // in the way of most Search Object functionality):
@@ -225,12 +242,12 @@ class SearchObject_MetaLib extends SearchObject_Base
      * @return void
      * @access private
      */
-    private function _processSpelling()
+    protected function processSpelling()
     {
-        if (isset($this->_indexResult['didYouMeanSuggestions'])
-            && is_array($this->_indexResult['didYouMeanSuggestions'])
+        if (isset($this->indexResult['didYouMeanSuggestions'])
+            && is_array($this->indexResult['didYouMeanSuggestions'])
         ) {
-            foreach ($this->_indexResult['didYouMeanSuggestions'] as $current) {
+            foreach ($this->indexResult['didYouMeanSuggestions'] as $current) {
                 if (!isset($this->suggestions[$current['originalQuery']])) {
                     $this->suggestions[$current['originalQuery']] = array(
                         'suggestions' => array()
@@ -256,8 +273,7 @@ class SearchObject_MetaLib extends SearchObject_Base
      */
     public function processSearch(
         $returnIndexErrors = false, $recommendations = false
-    ) 
-    {
+    ) {
         // Build a recommendations module appropriate to the current search:
         if ($recommendations) {
             $this->initRecommendations();
@@ -271,27 +287,27 @@ class SearchObject_MetaLib extends SearchObject_Base
         $finalSort = ($this->sort == 'relevance') ? null : $this->sort;
 
         // Perform the actual search
-        $irds = strncmp($this->_set, '_ird:', 5) == 0
-            ? substr($this->_set, 5) 
-            : $this->_searchSets[$this->_set]['ird_list'];
-        $this->_indexResult = $this->_metaLib->query(
+        $irds = strncmp($this->set, '_ird:', 5) == 0
+            ? substr($this->set, 5) 
+            : $this->searchSets[$this->set]['ird_list'];
+        $this->indexResult = $this->metaLib->query(
             $irds, $this->searchTerms, $this->getFilterList(), $this->page, $this->limit,
-            $finalSort, $this->_fullFacetSettings, $returnIndexErrors
+            $finalSort, $this->fullFacetSettings, $returnIndexErrors
         );
-        if (PEAR::isError($this->_indexResult)) {
-            PEAR::raiseError($this->_indexResult);
+        if (PEAR::isError($this->indexResult)) {
+            PEAR::raiseError($this->indexResult);
         }
 
         // Save spelling details if they exist.
         if ($this->spellcheck) {
-            $this->_processSpelling();
+            $this->processSpelling();
         }
 
         // Get time after the query
         $this->stopQueryTimer();
 
         // Store relevant details from the search results:
-        $this->resultsTotal = $this->_indexResult['recordCount'];
+        $this->resultsTotal = $this->indexResult['recordCount'];
 
         // If extra processing is needed for recommendations, do it now:
         if ($recommendations && is_array($this->recommend)) {
@@ -303,7 +319,7 @@ class SearchObject_MetaLib extends SearchObject_Base
         }
 
         // Send back all the details:
-        return $this->_indexResult;
+        return $this->indexResult;
     }
 
     /**
@@ -315,8 +331,8 @@ class SearchObject_MetaLib extends SearchObject_Base
      */
     public function getIndexError()
     {
-        return isset($this->_indexResult['errors']) ?
-            $this->_indexResult['errors'] : false;
+        return isset($this->indexResult['errors']) ?
+            $this->indexResult['errors'] : false;
     }
 
     /**
@@ -327,8 +343,8 @@ class SearchObject_MetaLib extends SearchObject_Base
      */
     public function getDatabaseRecommendations()
     {
-        return isset($this->_indexResult['recommendationLists']['database']) ?
-            $this->_indexResult['recommendationLists']['database'] : false;
+        return isset($this->indexResult['recommendationLists']['database']) ?
+            $this->indexResult['recommendationLists']['database'] : false;
     }
 
     /**
@@ -340,7 +356,7 @@ class SearchObject_MetaLib extends SearchObject_Base
     public function renderSearchUrl()
     {
         $result = parent::renderSearchUrl();
-        $result .= '&set=' . urlencode($this->_set);
+        $result .= '&set=' . urlencode($this->set);
         return $result;
     }
     
@@ -352,7 +368,7 @@ class SearchObject_MetaLib extends SearchObject_Base
      * @return string         The search URL.
      * @access private
      */
-    private function _renderBasicMetaLibSearch($lookfor)
+    protected function renderBasicMetaLibSearch($lookfor)
     {
         // Save original settings:
         $oldType = $this->searchType;
@@ -391,7 +407,7 @@ class SearchObject_MetaLib extends SearchObject_Base
                 $term = stripcslashes($term);
                 $word = stripcslashes($word);
                 $returnArray[$term]['suggestions'][$word] = array(
-                    'replace_url' => $this->_renderBasicMetaLibSearch($word)
+                    'replace_url' => $this->renderBasicMetaLibSearch($word)
                 );
             }
         }
@@ -464,11 +480,11 @@ class SearchObject_MetaLib extends SearchObject_Base
      *
      * @param array  $record    Record data.
      * @param object $user      User object owning tag/note metadata.
-     * @param int    $list      ID of list containing desired tags/notes (or
+     * @param int    $listId    ID of list containing desired tags/notes (or
      * null to show tags/notes from all user's lists).
      * @param bool   $allowEdit Should we display edit controls?
      *
-     * @return string           HTML chunk for individual records.
+     * @return string HTML chunk for individual records.
      * @access public
      */
     public function getResultHTML($record, $user, $listId = null, $allowEdit = true)
@@ -482,14 +498,14 @@ class SearchObject_MetaLib extends SearchObject_Base
     /**
      * Get information regarding the IRD
      * 
-     * @param string $ird  IRD ID
+     * @param string $ird IRD ID
      * 
-     * @return array       Array with e.g. 'name' and 'access'
+     * @return array Array with e.g. 'name' and 'access'
      * @access public
      */
     public function getIRDInfo($ird)
     {
-        return $this->_metaLib->getIRDInfo($ird);
+        return $this->metaLib->getIRDInfo($ird);
     }
 }
 

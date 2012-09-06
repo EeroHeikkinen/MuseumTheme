@@ -481,10 +481,10 @@ abstract class SearchObject_Base
             $type = $this->defaultIndex;
         }
 
-        # If searching with ISBN, normalize to ISBN 13.
-        # NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
+        // If searching with ISBN, normalize to ISBN 13.
+        // NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
         if ($type == 'AllFields' || $type == 'ISN') {
-        	$isbn = $this->_normalizeIfValidIsbn($_REQUEST['lookfor']);
+        	$isbn = $this->normalizeIfValidISBN($_REQUEST['lookfor']);
             if ($isbn) {
             	$_REQUEST['lookfor'] = $isbn;
             }
@@ -532,10 +532,10 @@ abstract class SearchObject_Base
                     }
 
 					
-        			# If searching with ISBN, normalize to ISBN 13.
-        			# NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
+                    // If searching with ISBN, normalize to ISBN 13.
+                    // NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
                     if ($type == 'AllFields' || $type == 'ISN') {
-                    	$isbn = $this->_normalizeIfValidIsbn($_REQUEST['lookfor'.$groupCount][$i]);
+                    	$isbn = $this->normalizeIfValidISBN($_REQUEST['lookfor'.$groupCount][$i]);
                     	if ($isbn) {
                     		$_REQUEST['lookfor'.$groupCount][$i] = $isbn;
                     	}
@@ -1913,7 +1913,7 @@ abstract class SearchObject_Base
      */
     protected function replaceSearchIndex($old, $new)
     {
-        for ($i = 0; $i < count($this->searchTerms); $i++){
+        for ($i = 0; $i < count($this->searchTerms); $i++) {
             if ($this->searchTerms[$i]['index'] == $old) {
                 $this->searchTerms[$i]['index'] = $new;
             }
@@ -2026,7 +2026,7 @@ abstract class SearchObject_Base
         return $url;
     }
     
-    /*
+    /**
      * Return a url for the current search with a search index replaced
      * 
      * @param string $oldTerm The old index to replace
@@ -2123,8 +2123,8 @@ abstract class SearchObject_Base
         if ($searchType 
             && isset($searchSettings['NoResultsRecommendations'][$searchType])
         ) {
-            $recommend['noresults'] = 
-                $searchSettings['NoResultsRecommendations'][$searchType];
+            $recommend['noresults']
+                = $searchSettings['NoResultsRecommendations'][$searchType];
         } else {
             $recommend['noresults']
                 = isset($searchSettings['General']['default_noresults_recommend']) ?
@@ -2184,25 +2184,27 @@ abstract class SearchObject_Base
         }
     }
 
-     /**
+    /**
      * Checks if passed string is an ISBN and converts to ISBN 13
+     *
+     * @param string $lookfor The query string
      *
      * @return valid ISBN 13 or false
      * @access protected
      */
-	protected function _normalizeIfValidIsbn($lookfor = false)
-	{
-		if (! $lookfor) { 
-			return false;
-		}
-		
-		if (ISBN::isValidISBN10($lookfor) || ISBN::isValidISBN13($lookfor)) {    				
-    		$isbn = new ISBN($lookfor);
-    		return $isbn->get13();
-    	}
-
-    	return false;
-	}
+    protected function normalizeIfValidISBN($lookfor = false)
+    {
+        if (!$lookfor) { 
+            return false;
+        }
+        
+        if (ISBN::isValidISBN10($lookfor) || ISBN::isValidISBN13($lookfor)) {
+            $isbn = new ISBN($lookfor);
+            return $isbn->get13();
+        }
+        
+        return false;
+    }
     
     /**
      * Load all available facet settings.  This is mainly useful for showing
