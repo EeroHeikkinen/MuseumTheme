@@ -282,7 +282,7 @@ class Solr implements IndexEngine
         $fullPath = dirname(__FILE__) . '/../' . $this->searchSpecsFile;
 
         // Check for a local override file:
-        $local = str_replace('.yaml', '_local.yaml', $fullPath);
+        $local = str_replace('.yaml', '.local.yaml', $fullPath);
         $local = file_exists($local) ? $local : false;
 
         // Generate cache key:
