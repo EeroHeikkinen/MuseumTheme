@@ -1609,7 +1609,6 @@ class Solr implements IndexEngine
                         $source = $source[0];
                         if (isset($sourcePriority[$source]) && $sourcePriority[$source] < $priority) {
                             $dedupId = $localId;
-                            error_log("  select $source with priority " . $sourcePriority[$source]);
                             $priority = $sourcePriority[$source];
                         }
                         $dedupData[$source] = array('id' => $localId);
