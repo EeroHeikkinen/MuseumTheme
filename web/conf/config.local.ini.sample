@@ -1,31 +1,15 @@
-[System]
-available       = true
-debug           = false
-
 [Site]
 local           = /usr/local/vufind/web
 url             = http://localhost:8888/vufind
-
-[Index]
-url = http://vufind-fe-kktest.lib.helsinki.fi/solr
-;url = http://localhost:8081/solr
-local           = /usr/local/vufind/solr
-
-[Database]
-database          = mysql://vufind:vufind@localhost/vufind
-schema_location   = /usr/local/vufind/web/conf
-class_location    = /usr/local/vufind/web/services/MyResearch/lib
+email           = finna-posti@helsinki.fi 
+title           = Finna
 
 [OpenURL]
 url             = "http://sfx.nelliportaali.fi/sfxtst3"
 rfr_id          = vufind-fe-kktest.lib.helsinki.fi
 resolver        = sfx
 
-[Logging]
-file           = /var/log/vufind.log:alert,error,notice,debug
-
 [Extra_Config]
-EBSCO = EBSCO.ini           ; EBSCO Base Index
 prefilters = prefilters.ini
 
 [Languages]
@@ -48,4 +32,4 @@ en-gb       = "English"
 ;token = xyz
 
 [IP_Addresses]
-local = "128.214.71,128.214.91"
+;local = "128.214.71,128.214.91"
