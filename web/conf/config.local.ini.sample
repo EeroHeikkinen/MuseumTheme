@@ -46,3 +46,6 @@ en-gb       = "English"
 
 [bX]
 ;token = xyz
+
+[IP_Addresses]
+local = "128.214.71,128.214.91"

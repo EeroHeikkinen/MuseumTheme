@@ -29,6 +29,7 @@
  */
 require_once 'Action.php';
 require_once 'sys/SearchObject/MetaLib.php';
+require_once 'sys/User.php';
 
 /**
  * Base class for most MetaLib module actions.
@@ -68,9 +69,8 @@ class Base extends Action
             if ($irdInfo === false) {
                 PEAR::raiseError(new PEAR_Error('Invalid parameter'));
             }
-            // TODO: IP/login authorization
-            if (strcasecmp($irdInfo['access'], 'guest') != 0) {
-                PEAR::raiseError(new PEAR_Error('Search in this database is not allowed with current credentials. Log in or use a proxy to search this database.'));
+            if (strcasecmp($irdInfo['access'], 'guest') != 0 && !UserAccount::isAuthorized()) {
+                PEAR::raiseError(translate('metalib_not_authorized_single'));
             }
             
             // Add selected ird as a virtual search set in the beginning and select it
@@ -80,12 +80,8 @@ class Base extends Action
             $interface->assign('searchSet', "_ird:$ird");
         }
 
-        $interface->assign(
-            'metalibSearchTypes', $this->searchObject->getBasicTypes()
-        );
-        $interface->assign(
-            'metalibSearchSets', $sets
-        );
+        $interface->assign('metalibSearchTypes', $this->searchObject->getBasicTypes());
+        $interface->assign('metalibSearchSets', $sets);
         
         // Increase max execution time to allow slow MetaLib searches to complete
         set_time_limit(60); 

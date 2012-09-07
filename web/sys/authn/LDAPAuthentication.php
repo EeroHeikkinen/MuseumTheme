@@ -176,6 +176,7 @@ class LDAPAuthentication implements Authentication
     private function _processLDAPUser($data, $ldapConnectionParameter)
     {
         $user = new User();
+        $user->authMethod = 'LDAP';
         $user->username = $this->_username;
         $userIsInVufindDatabase = $this->_isUserInVufindDatabase($user);
         for ($i=0; $i<$data["count"];$i++) {

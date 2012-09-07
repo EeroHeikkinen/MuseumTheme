@@ -288,7 +288,29 @@ class MetaLib
             PEAR::raiseError(new PEAR_Error('Search terms are required'));
         }
         
-        // We use a metalib. prefix everywhere so that it's easy to see the record source
+        $failed = array();
+        $irdArray = array();
+        $authorized = UserAccount::isAuthorized();
+        foreach (explode(',', $irdList) as $ird) {
+            $irdInfo = $this->getIRDInfo($ird);
+            if (strcasecmp($irdInfo['access'], 'guest') != 0 && !$authorized) {
+                $failed[] = $irdInfo['name'] . ' -- ' . translate('metalib_not_authorized_in_set');
+            } else {
+                $irdArray[] = $ird;
+            }
+        }
+        
+        if (empty($irdArray)) {
+            return array(
+                'recordCount' => 0,
+                'failedDatabases' => $failed
+            );
+        }
+        
+        // Put together final list of IRDs to search
+        $irdList = implode(',', $irdArray);
+        
+        // Use a metalib. prefix everywhere so that it's easy to see the record source
         $queryId = 'metalib.' . md5($irdList . '_' . $queryStr . '_' . $start . '_' . $limit);
         $findResults = $this->getCachedResults($queryId);
         if ($findResults !== false && empty($findResults['failedDatabases'])) {
@@ -296,7 +318,7 @@ class MetaLib
         }
                 
         $options = array();
-        $options['find_base/find_base_001'] = explode(',', $irdList);
+        $options['find_base/find_base_001'] = $irdArray;
         $options['find_request_command'] = $queryStr;
         
         // TODO: add configurable authentication mechanisms to identify authorized
@@ -312,7 +334,6 @@ class MetaLib
         }
         
         $sessionId = $this->getSession();
-        $failed = array();
 
         // Do the find request
         $findRequestId = md5($irdList . '_' . $queryStr);
@@ -321,6 +342,7 @@ class MetaLib
         ) {
             $databases = $_SESSION['MetaLibFindResponse']['databases'];
             $totalRecords = $_SESSION['MetaLibFindResponse']['totalRecords'];
+            $failed = $_SESSION['MetaLibFindResponse']['failed'];
         } else {
             $options['session_id'] = $sessionId;
             $options['wait_flag'] = 'Y';
@@ -332,11 +354,12 @@ class MetaLib
             // Gather basic information
             $databases = array();
             $totalRecords = 0;
-            // @codingStandardsIgnoreStart
             foreach ($findResults->find_response->base_info as $baseInfo) {
                 if ($baseInfo->find_status != 'DONE') {
-                    error_log('MetaLib search in ' . $baseInfo->base_001 . ' (' . $baseInfo->full_name . ') failed: '
-                        . $baseInfo->find_error_text);
+                    error_log(
+                        'MetaLib search in ' . $baseInfo->base_001 . ' (' . $baseInfo->full_name . ') failed: '
+                        . $baseInfo->find_error_text
+                    );
                     $failed[] = (string)$baseInfo->full_name;
                     continue;
                 }
@@ -352,10 +375,10 @@ class MetaLib
                     'records' => array()
                 );
             }
-            // @codingStandardsIgnoreEnd
             $_SESSION['MetaLibFindResponse']['requestId'] = $findRequestId;
             $_SESSION['MetaLibFindResponse']['databases'] = $databases;
             $_SESSION['MetaLibFindResponse']['totalRecords'] = $totalRecords;
+            $_SESSION['MetaLibFindResponse']['failed'] = $failed;
         }
 
         $documents = array();
@@ -446,9 +469,7 @@ class MetaLib
                 // command is needed to fetch full record. 
                 $currentDocs = array();
                 $recIndex = -1;
-                // @codingStandardsIgnoreStart
                 foreach ($result->present_response->record as $record) {
-                    // @codingStandardsIgnoreEnd
                     ++$recIndex;
                     $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
                     if ($record->xpath("./m:controlfield[@tag='MOR']")) {
@@ -466,9 +487,7 @@ class MetaLib
                         if (PEAR::isError($singleResult)) {
                             PEAR::raiseError($singleResult);
                         }
-                        // @codingStandardsIgnoreStart
                         $currentDocs[] = $this->process($singleResult->present_response->record[0]);
-                        // @codingStandardsIgnoreEnd
                     } else {
                         $currentDocs[] = $this->process($record);
                     }
@@ -564,16 +583,12 @@ class MetaLib
             if (PEAR::isError($result)) {
                 PEAR::raiseError($result);
             }
-            // @codingStandardsIgnoreStart
             if ($result->login_response->auth != 'Y') {
-                // @codingStandardsIgnoreEnd
                 $logger = new Logger();
                 $logger->log("X-Server login failed: \n" . $xml, PEAR_LOG_ERR);
                 PEAR::raiseError(new PEAR_Error('X-Server login failed'));
             }
-            // @codingStandardsIgnoreStart
             $sessionId = (string)$result->login_response->session_id;
-            // @codingStandardsIgnoreEnd
             $_SESSION['MetaLibSessionID'] = $sessionId;
             unset($_SESSION['MetaLibFindResponse']);
         }
@@ -652,7 +667,7 @@ class MetaLib
         $xml = simplexml_load_string($request->getResponseBody());
         $errors = $xml->xpath('//local_error | //global_error');
         if (!empty($errors)) {
-            if ($errors[0]->error_code = 6026) {
+            if ($errors[0]->error_code == 6026) {
                 return new PEAR_Error('Search timed out');
             }
             return new PEAR_Error($errors[0]->asXML());
@@ -874,7 +889,7 @@ class MetaLib
      * 
      * @param string $queryId Query identifier (hash)
      * 
-     * @return mixed array of records | false
+     * @return mixed Search results array | false
      * @access protected
      */
     protected function getCachedResults($queryId)
@@ -899,17 +914,16 @@ class MetaLib
      * Add search results into the cache
      * 
      * @param string $queryId Query identifier (hash)
-     * @param array  $records Array of records
+     * @param array  $results Search results
      * 
      * @return void
      * @access protected
      */
-    protected function putCachedResults($queryId, $records)
+    protected function putCachedResults($queryId, $results)
     {
         global $configArray;
-        
         $cacheFile = $configArray['Site']['local'] 
             . "/interface/cache/$queryId.dat";
-        file_put_contents($cacheFile, serialize($records));
+        file_put_contents($cacheFile, serialize($results));
     }
 }

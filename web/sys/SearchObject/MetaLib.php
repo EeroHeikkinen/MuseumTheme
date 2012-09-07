@@ -190,8 +190,12 @@ class SearchObject_MetaLib extends SearchObject_Base
      */
     public function getSearchSets()
     {
+        $access = UserAccount::isAuthorized() ? 'authorized' : 'guest';
         $result = array();
         foreach ($this->searchSets as $key => $set) {
+            if (isset($set['access']) && $set['access'] != $access) {
+                continue;
+            }
             $result[$key] = $set['name'];
         }
         return $result;
@@ -286,10 +290,13 @@ class SearchObject_MetaLib extends SearchObject_Base
         // this null in order to achieve the desired effect with MetaLib:
         $finalSort = ($this->sort == 'relevance') ? null : $this->sort;
 
+        if (strncmp($this->set, '_ird:', 5) == 0) {
+            $irds = substr($this->set, 5);
+        } else { 
+            $irds = $this->searchSets[$this->set]['ird_list'];
+        }
+        
         // Perform the actual search
-        $irds = strncmp($this->set, '_ird:', 5) == 0
-            ? substr($this->set, 5) 
-            : $this->searchSets[$this->set]['ird_list'];
         $this->indexResult = $this->metaLib->query(
             $irds, $this->searchTerms, $this->getFilterList(), $this->page, $this->limit,
             $finalSort, $this->fullFacetSettings, $returnIndexErrors
