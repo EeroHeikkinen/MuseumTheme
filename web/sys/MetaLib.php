@@ -51,58 +51,58 @@ class MetaLib
      * A boolean value determining whether to print debug information
      * @var bool
      */
-    protected $_debug = false;
+    protected $debug = false;
 
     /**
      * The URL of the MetaLib X-Server
      * @var string
      */
-    protected $_xServer;
+    protected $xServer;
 
     /**
      * The login user id on the MetaLib X-Server
      *
      * @var string
      */
-    protected $_xUser;
+    protected $xUser;
     
     /**
      * The login user id on the MetaLib X-Server
      *
      * @var string
      */
-    protected $_xPassword;
+    protected $xPassword;
 
     /**
      * MetaLib institution code
      * @var string
      */
-    protected $_institution;
+    protected $institution;
 
     /**
      *
      * Configuration settings from web/conf/MetaLib.ini
      * @var array
      */
-    private $_config;
+    protected $config;
 
     /**
      * Should boolean operators in the search string be treated as
      * case-insensitive (false), or must they be ALL UPPERCASE (true)?
      */
-    private $_caseSensitiveBooleans = true;
+    protected $caseSensitiveBooleans = true;
 
     /**
      * Will we highlight text in responses?
      * @var bool
      */
-    private $_highlight = false;
+    protected $highlight = false;
 
     /**
      * Will we include snippets in responses?
      * @var bool
      */
-    private $_snippets = false;
+    protected $snippets = false;
 
     /**
      * Constructor
@@ -116,23 +116,23 @@ class MetaLib
         global $configArray;
 
         if ($configArray['System']['debug']) {
-            $this->_debug = true;
+            $this->debug = true;
         }
 
-        $this->_config = getExtraConfigArray('MetaLib');
+        $this->config = getExtraConfigArray('MetaLib');
 
         // Store preferred boolean behavior:
-        if (isset($this->_config['General']['case_sensitive_bools'])) {
-            $this->_caseSensitiveBooleans
-                = $this->_config['General']['case_sensitive_bools'];
+        if (isset($this->config['General']['case_sensitive_bools'])) {
+            $this->caseSensitiveBooleans
+                = $this->config['General']['case_sensitive_bools'];
         }
 
         // Store highlighting/snippet behavior:
-        if (isset($this->_config['General']['highlighting'])) {
-            $this->_highlight = $this->_config['General']['highlighting'];
+        if (isset($this->config['General']['highlighting'])) {
+            $this->highlight = $this->config['General']['highlighting'];
         }
-        if (isset($this->_config['General']['snippets'])) {
-            $this->_snippets = $this->_config['General']['snippets'];
+        if (isset($this->config['General']['snippets'])) {
+            $this->snippets = $this->config['General']['snippets'];
         }
     }
 
@@ -147,12 +147,12 @@ class MetaLib
      */
     public function getRecord($id)
     {
-        if ($this->_debug) {
+        if ($this->debug) {
             echo "<pre>Get Record: $id</pre>\n";
         }
 
         list($queryId, $index) = explode('_', $id);
-        $result = $this->_getCachedResults($queryId);
+        $result = $this->getCachedResults($queryId);
         if ($result === false) {
             // Check from database, this could be in a favorite list
             $resource = new Resource();
@@ -176,9 +176,9 @@ class MetaLib
      * @param string $input The string to escape.
      *
      * @return string       The escaped string.
-     * @access private
+     * @access protected
      */
-    private function _escapeParam($input)
+    protected function escapeParam($input)
     {
         // TODO: needed?
         return $input;
@@ -190,9 +190,9 @@ class MetaLib
      * @param array $search An array of search parameters
      *
      * @return string       The query
-     * @access private
+     * @access protected
      */
-    private function _buildQuery($search)
+    protected function buildQuery($search)
     {
         $groups   = array();
         $excludes = array();
@@ -206,7 +206,7 @@ class MetaLib
                     // Process each search group
                     foreach ($params['group'] as $group) {
                         // Build this group individually as a basic search
-                        $thisGroup[] = $this->_buildQuery(array($group));
+                        $thisGroup[] = $this->buildQuery(array($group));
                     }
                     // Is this an exclusion (NOT) group or a normal group?
                     if ($params['group'][0]['bool'] == 'NOT') {
@@ -234,7 +234,7 @@ class MetaLib
 
                     // Force boolean operators to uppercase if we are in a
                     // case-insensitive mode:
-                    if (!$this->_caseSensitiveBooleans) {
+                    if (!$this->caseSensitiveBooleans) {
                         $lookfor = VuFindSolrUtils::capitalizeBooleans($lookfor);
                     }
 
@@ -282,22 +282,43 @@ class MetaLib
      */
     public function query($irdList, $query, $filterList = null, $start = 1, 
         $limit = 20, $sortBy = null, $facets = null, $returnErr = false
-    ) 
-    {
-        $queryStr = $this->_buildQuery($query);
+    ) {
+        $queryStr = $this->buildQuery($query);
         if (!$queryStr) {
             PEAR::raiseError(new PEAR_Error('Search terms are required'));
         }
         
-        // We use a metalib. prefix everywhere so that it's easy to see the record source
+        $failed = array();
+        $irdArray = array();
+        $authorized = UserAccount::isAuthorized();
+        foreach (explode(',', $irdList) as $ird) {
+            $irdInfo = $this->getIRDInfo($ird);
+            if (strcasecmp($irdInfo['access'], 'guest') != 0 && !$authorized) {
+                $failed[] = $irdInfo['name'] . ' -- ' . translate('metalib_not_authorized_in_set');
+            } else {
+                $irdArray[] = $ird;
+            }
+        }
+        
+        if (empty($irdArray)) {
+            return array(
+                'recordCount' => 0,
+                'failedDatabases' => $failed
+            );
+        }
+        
+        // Put together final list of IRDs to search
+        $irdList = implode(',', $irdArray);
+        
+        // Use a metalib. prefix everywhere so that it's easy to see the record source
         $queryId = 'metalib.' . md5($irdList . '_' . $queryStr . '_' . $start . '_' . $limit);
-        $findResults = $this->_getCachedResults($queryId);
+        $findResults = $this->getCachedResults($queryId);
         if ($findResults !== false && empty($findResults['failedDatabases'])) {
             return $findResults;
         }
                 
         $options = array();
-        $options['find_base/find_base_001'] = explode(',', $irdList);
+        $options['find_base/find_base_001'] = $irdArray;
         $options['find_request_command'] = $queryStr;
         
         // TODO: add configurable authentication mechanisms to identify authorized
@@ -306,25 +327,26 @@ class MetaLib
         
         // TODO: local highlighting?
         
-        if ($this->_debug) {
+        if ($this->debug) {
             echo '<pre>Query: ';
             print_r($options);
             echo "</pre>\n";
         }
         
-        $sessionId = $this->_getSession();
-        $failed = array();
+        $sessionId = $this->getSession();
 
         // Do the find request
         $findRequestId = md5($irdList . '_' . $queryStr);
         if (isset($_SESSION['MetaLibFindResponse']) 
-            && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId) {
+            && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId
+        ) {
             $databases = $_SESSION['MetaLibFindResponse']['databases'];
             $totalRecords = $_SESSION['MetaLibFindResponse']['totalRecords'];
+            $failed = $_SESSION['MetaLibFindResponse']['failed'];
         } else {
             $options['session_id'] = $sessionId;
             $options['wait_flag'] = 'Y';
-            $findResults = $this->_callXServer('find_request', $options);
+            $findResults = $this->callXServer('find_request', $options);
             if (PEAR::isError($findResults)) {
                 PEAR::raiseError($findResults);
             }
@@ -332,11 +354,12 @@ class MetaLib
             // Gather basic information
             $databases = array();
             $totalRecords = 0;
-            // @codingStandardsIgnoreStart
             foreach ($findResults->find_response->base_info as $baseInfo) {
                 if ($baseInfo->find_status != 'DONE') {
-                    error_log('MetaLib search in ' . $baseInfo->base_001 . ' (' . $baseInfo->full_name . ') failed: '
-                        . $baseInfo->find_error_text);
+                    error_log(
+                        'MetaLib search in ' . $baseInfo->base_001 . ' (' . $baseInfo->full_name . ') failed: '
+                        . $baseInfo->find_error_text
+                    );
                     $failed[] = (string)$baseInfo->full_name;
                     continue;
                 }
@@ -352,10 +375,10 @@ class MetaLib
                     'records' => array()
                 );
             }
-            // @codingStandardsIgnoreEnd
             $_SESSION['MetaLibFindResponse']['requestId'] = $findRequestId;
             $_SESSION['MetaLibFindResponse']['databases'] = $databases;
             $_SESSION['MetaLibFindResponse']['totalRecords'] = $totalRecords;
+            $_SESSION['MetaLibFindResponse']['failed'] = $failed;
         }
 
         $documents = array();
@@ -436,7 +459,7 @@ class MetaLib
                     )
                 );
                 
-                $result = $this->_callXServer('present_request', $params);
+                $result = $this->callXServer('present_request', $params);
                 if (PEAR::isError($result)) {
                     PEAR::raiseError($result);
                 }
@@ -446,9 +469,7 @@ class MetaLib
                 // command is needed to fetch full record. 
                 $currentDocs = array();
                 $recIndex = -1;
-                // @codingStandardsIgnoreStart
                 foreach ($result->present_response->record as $record) {
-                    // @codingStandardsIgnoreEnd
                     ++$recIndex;
                     $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
                     if ($record->xpath("./m:controlfield[@tag='MOR']")) {
@@ -462,15 +483,13 @@ class MetaLib
                             )
                         );
                     
-                        $singleResult = $this->_callXServer('present_request', $params);
+                        $singleResult = $this->callXServer('present_request', $params);
                         if (PEAR::isError($singleResult)) {
                             PEAR::raiseError($singleResult);
                         }
-                        // @codingStandardsIgnoreStart
-                        $currentDocs[] = $this->_process($singleResult->present_response->record[0]);
-                        // @codingStandardsIgnoreEnd
+                        $currentDocs[] = $this->process($singleResult->present_response->record[0]);
                     } else {
-                        $currentDocs[] = $this->_process($record);
+                        $currentDocs[] = $this->process($record);
                     }
                 }                
                 
@@ -496,21 +515,21 @@ class MetaLib
             'documents' => $documents,
             'failedDatabases' => $failed
         );
-        $this->_putCachedResults($queryId, $results);
+        $this->putCachedResults($queryId, $results);
         return $results;
     }
 
     /**
      * Get information regarding the IRD
      *
-     * @param string $ird  IRD ID
+     * @param string $ird IRD ID
      *
-     * @return array       Array with e.g. 'name' and 'access'
+     * @return array Array with e.g. 'name' and 'access'
      * @access public
      */
     public function getIRDInfo($ird)
     {
-        $sessionId = $this->_getSession();
+        $sessionId = $this->getSession();
         
         // Do the source locate request
         $params = array(
@@ -518,7 +537,7 @@ class MetaLib
             'locate_command' => "IDN=$ird",
             'source_full_info_flag' => 'Y'
         );
-        $result = $this->_callXServer('source_locate_request', $params);
+        $result = $this->callXServer('source_locate_request', $params);
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
         }
@@ -527,7 +546,7 @@ class MetaLib
         $info['name'] = (string)$result->source_locate_response->source_full_info->source_info->source_short_name;
         $record = $result->source_locate_response->source_full_info->record;
         $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
-        $info['access'] = $this->_getSingleValue($record, 'AF3a');
+        $info['access'] = $this->getSingleValue($record, 'AF3a');
         return $info;
     }
     
@@ -537,7 +556,7 @@ class MetaLib
      * @return string session id
      * @access protected
      */
-    protected function _getSession()
+    protected function getSession()
     {
         $sessionId = '';
         if (isset($_SESSION['MetaLibSessionID'])) {
@@ -548,7 +567,7 @@ class MetaLib
                 'logical_set' => 'ml_sys_info',
                 'parameter_name' => 'ML_VERSION'
             );
-            $result = $this->_callXServer('retrieve_metalib_info_request', $params);
+            $result = $this->callXServer('retrieve_metalib_info_request', $params);
             if (!PEAR::isError($result)) {
                 $sessionId = $_SESSION['MetaLibSessionID'];
             }
@@ -557,23 +576,19 @@ class MetaLib
         if (!$sessionId) {
             // Login to establish a session
             $params = array(
-                'user_name' => $this->_config['General']['x_user'],
-                'user_password' => $this->_config['General']['x_password']
+                'user_name' => $this->config['General']['x_user'],
+                'user_password' => $this->config['General']['x_password']
             );
-            $result = $this->_callXServer('login_request', $params);
+            $result = $this->callXServer('login_request', $params);
             if (PEAR::isError($result)) {
                 PEAR::raiseError($result);
             }
-            // @codingStandardsIgnoreStart
             if ($result->login_response->auth != 'Y') {
-                // @codingStandardsIgnoreEnd
                 $logger = new Logger();
                 $logger->log("X-Server login failed: \n" . $xml, PEAR_LOG_ERR);
                 PEAR::raiseError(new PEAR_Error('X-Server login failed'));
             }
-            // @codingStandardsIgnoreStart
             $sessionId = (string)$result->login_response->session_id;
-            // @codingStandardsIgnoreEnd
             $_SESSION['MetaLibSessionID'] = $sessionId;
             unset($_SESSION['MetaLibFindResponse']);
         }
@@ -583,13 +598,13 @@ class MetaLib
     /**
      * Convert array of X-Server call parameters to XML
      * 
-     * @param simpleXMLElement  $node  The target node
-     * @param array             $array Array to convert
+     * @param simpleXMLElement $node  The target node
+     * @param array            $array Array to convert
      * 
      * @return void
      * @access protected
      */
-    protected function _paramsToXml($node, $array)
+    protected function paramsToXml($node, $array)
     {
         foreach ($array as $key => $value) {
             if (is_array($value)) {
@@ -614,22 +629,22 @@ class MetaLib
     /**
      * Call MetaLib X-Server
      *
-     * @param  string $operation X-Server operation
-     * @param  array  $params    URL Parameters
+     * @param string $operation X-Server operation
+     * @param array  $params    URL Parameters
      * 
      * @return mixed simpleXMLElement | PEAR_Error
      * @access protected
      */
-    protected function _callXServer($operation, $params)
+    protected function callXServer($operation, $params)
     {
-        $request = new Proxy_Request($this->_config['General']['url'], array('method' => 'POST'));
+        $request = new Proxy_Request($this->config['General']['url'], array('method' => 'POST'));
         $xml = simplexml_load_string('<x_server_request/>');
         $op = $xml->addChild($operation);
-        $this->_paramsToXml($op, $params);
+        $this->paramsToXml($op, $params);
         
         $request->addPostdata('xml', $xml->asXML());
         
-        if ($this->_debug) {
+        if ($this->debug) {
             echo "<!-- $operation\n";
             if ($operation != 'login_request') {
                 echo $xml->asXML();
@@ -641,7 +656,7 @@ class MetaLib
         if (PEAR::isError($result)) {
             return $result;
         }
-        if ($this->_debug) {
+        if ($this->debug) {
             echo "<!-- \n";
             echo $request->getResponseBody();
             echo "-->\n\n\n";
@@ -652,7 +667,7 @@ class MetaLib
         $xml = simplexml_load_string($request->getResponseBody());
         $errors = $xml->xpath('//local_error | //global_error');
         if (!empty($errors)) {
-            if ($errors[0]->error_code = 6026) {
+            if ($errors[0]->error_code == 6026) {
                 return new PEAR_Error('Search timed out');
             }
             return new PEAR_Error($errors[0]->asXML());
@@ -664,12 +679,12 @@ class MetaLib
      * Perform normalization and analysis of MetaLib return value
      * (a single record)
      *
-     * @param simplexml $xml The xml record from MetaLib
+     * @param simplexml $record The xml record from MetaLib
      *
-     * @return array       The processed record array
+     * @return array The processed record array
      * @access protected
      */
-    protected function _process($record)
+    protected function process($record)
     {
         global $configArray;
         
@@ -677,15 +692,15 @@ class MetaLib
 
         // TODO: can we get anything reliable from MetaLib results for format?
         $format = ''; 
-        $title = $this->_getSingleValue($record, '245ab', ' : ');
-        if ($addTitle = $this->_getSingleValue($record, '245h')) {
+        $title = $this->getSingleValue($record, '245ab', ' : ');
+        if ($addTitle = $this->getSingleValue($record, '245h')) {
             $title .= " $addTitle";
         }
-        $author = $this->_getSingleValue($record, '100a');
-        $addAuthors = $this->_getSingleValue($record, '700a');
-        $sources = $this->_getMultipleValues($record, 'SIDt');
-        $year = str_replace('^^^^', '', $this->_getSingleValue($record, 'YR a'));
-        $languages = $this->_getMultipleValues($record, '041a');
+        $author = $this->getSingleValue($record, '100a');
+        $addAuthors = $this->getSingleValue($record, '700a');
+        $sources = $this->getMultipleValues($record, 'SIDt');
+        $year = str_replace('^^^^', '', $this->getSingleValue($record, 'YR a'));
+        $languages = $this->getMultipleValues($record, '041a');
         
         $urls = array();
         $res = $record->xpath("./m:datafield[@tag='856']");
@@ -704,7 +719,7 @@ class MetaLib
         
         $openurl = array();
         if (isset($configArray['OpenURL']['url']) && $configArray['OpenURL']['url']) {
-            $opu = $this->_getSingleValue($record, 'OPUa');
+            $opu = $this->getSingleValue($record, 'OPUa');
             if ($opu) {
                 $opuxml = simplexml_load_string($opu);
                 $opuxml->registerXPathNamespace('ctx', 'info:ofi/fmt:xml:xsd:ctx');
@@ -719,23 +734,23 @@ class MetaLib
                         
                         // OpenURL might have many nicely parsed elements we can use
                         switch ($element->getName()) {
-                            case 'date': 
-                                if (empty($year)) {
-                                    $year = $value;
-                                }
-                                break;
-                            case 'volume': 
-                                $volume = $value; 
-                                break;
-                            case 'issue': 
-                                $issue = $value; 
-                                break;
-                            case 'spage':
-                                $startPage = $value;
-                                break;
-                            case 'epage':
-                                $endPage = $value;
-                                break;
+                        case 'date': 
+                            if (empty($year)) {
+                                $year = $value;
+                            }
+                            break;
+                        case 'volume': 
+                            $volume = $value; 
+                            break;
+                        case 'issue': 
+                            $issue = $value; 
+                            break;
+                        case 'spage':
+                            $startPage = $value;
+                            break;
+                        case 'epage':
+                            $endPage = $value;
+                            break;
                         }
                     }
                 }
@@ -745,10 +760,10 @@ class MetaLib
             }
         }
         
-        $isbn = $this->_getMultipleValues($record, '020a');
-        $issn = $this->_getMultipleValues($record, '022a');
-        $snippet = $this->_getMultipleValues($record, '520a');
-        $subjects = $this->_getMultipleValues(
+        $isbn = $this->getMultipleValues($record, '020a');
+        $issn = $this->getMultipleValues($record, '022a');
+        $snippet = $this->getMultipleValues($record, '520a');
+        $subjects = $this->getMultipleValues(
             $record, 
             '600abcdefghjklmnopqrstuvxyz'
             . ':610abcdefghklmnoprstuvxyz'
@@ -757,8 +772,8 @@ class MetaLib
             . ':650abcdevxyz', 
             ' : '
         );
-        $notes = $this->_getMultipleValues($record, '500a');
-        $field773g = $this->_getSingleValue($record, '773g');
+        $notes = $this->getMultipleValues($record, '500a');
+        $field773g = $this->getSingleValue($record, '773g');
         
         $matches = array();
         if (preg_match('/(\d*)\s*\((\d{4})\)\s*:\s*(\d*)/', $field773g, $matches)) {
@@ -785,7 +800,7 @@ class MetaLib
                 $endPage = $pages[1];
             }
         }
-        $hostTitle = $this->_getSingleValue($record, '773t');
+        $hostTitle = $this->getSingleValue($record, '773t');
         if ($hostTitle && $field773g) {
             $hostTitle .= " $field773g";
         }
@@ -807,7 +822,7 @@ class MetaLib
             'ISSN' => $issn,
             'Language' => $languages,
             'SubjectTerms' => $subjects,
-            'Snippet' => $this->_snippets ? $snippet : null,
+            'Snippet' => $this->snippets ? $snippet : null,
             'Notes' => $notes,
             'Volume' => isset($volume) ? $volume : '',
             'Issue' => isset($issue) ? $issue : '',
@@ -819,16 +834,16 @@ class MetaLib
     /**
      * Return the contents of a single MARC data field
      * 
-     * @param simpleXMLElement $xml   MARC Record
-     * @param string $fieldspec       Field and subfields (e.g. '245ab')
-     * @param string $glue            Delimiter used between subfields
+     * @param simpleXMLElement $xml       MARC Record
+     * @param string           $fieldspec Field and subfields (e.g. '245ab')
+     * @param string           $glue      Delimiter used between subfields
      * 
      * @return string
      * @access protected
      */
-    protected function _getSingleValue($xml, $fieldspec, $glue = '')
+    protected function getSingleValue($xml, $fieldspec, $glue = '')
     {
-        $values = $this->_getMultipleValues($xml, $fieldspec, $glue);
+        $values = $this->getMultipleValues($xml, $fieldspec, $glue);
         if ($values) {
             return $values[0];
         }
@@ -838,14 +853,14 @@ class MetaLib
     /**
      * Return the contents of MARC data fields as an array
      * 
-     * @param simpleXMLElement $xml   MARC Record
-     * @param string $fieldspec       Fields and subfields (e.g. '100a:700a')
-     * @param string $glue            Delimiter used between subfields
+     * @param simpleXMLElement $xml        MARC Record
+     * @param string           $fieldspecs Fields and subfields (e.g. '100a:700a')
+     * @param string           $glue       Delimiter used between subfields
      * 
      * @return array
      * @access protected
      */
-    protected function _getMultipleValues($xml, $fieldspecs, $glue = '')
+    protected function getMultipleValues($xml, $fieldspecs, $glue = '')
     {
         $values = array();
         foreach (explode(':', $fieldspecs) as $fieldspec) {
@@ -872,12 +887,12 @@ class MetaLib
     /**
      * Return search results from cache
      * 
-     * @param string $queryId  Query identifier (hash)
+     * @param string $queryId Query identifier (hash)
      * 
-     * @return mixed array of records | false
+     * @return mixed Search results array | false
      * @access protected
      */
-    protected function _getCachedResults($queryId)
+    protected function getCachedResults($queryId)
     {
         global $configArray;
         
@@ -886,8 +901,8 @@ class MetaLib
         if (file_exists($cacheFile)) {
             // Default caching time is 60 minutes (note that cache is required
             // for full record display)
-            $cacheTime = isset($this->_config['General']['cache_timeout'])
-                ? $this->_config['General']['cache_timeout'] : 60;
+            $cacheTime = isset($this->config['General']['cache_timeout'])
+                ? $this->config['General']['cache_timeout'] : 60;
             if (time() - filemtime($cacheFile) < $cacheTime * 60) { 
                 return unserialize(file_get_contents($cacheFile));
             }
@@ -898,18 +913,17 @@ class MetaLib
     /**
      * Add search results into the cache
      * 
-     * @param string $queryId  Query identifier (hash)
-     * @param array $records   Array of records
+     * @param string $queryId Query identifier (hash)
+     * @param array  $results Search results
      * 
      * @return void
      * @access protected
      */
-    protected function _putCachedResults($queryId, $records)
+    protected function putCachedResults($queryId, $results)
     {
         global $configArray;
-        
         $cacheFile = $configArray['Site']['local'] 
             . "/interface/cache/$queryId.dat";
-        file_put_contents($cacheFile, serialize($records));
+        file_put_contents($cacheFile, serialize($results));
     }
 }

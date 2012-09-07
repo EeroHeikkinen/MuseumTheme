@@ -59,6 +59,50 @@ class UserAccount
     }
 
     /**
+     * Checks whether the user is authorized to access 
+     * restricted resources.
+     *
+     * @return bool Is the user authorized
+     * @access public
+     */
+    public static function isAuthorized()
+    {
+        global $configArray;
+        
+        if (isset($_SESSION['authMethod']) && isset($configArray['Authorization']['authentication_methods'])) {
+            if (in_array($_SESSION['authMethod'], $configArray['Authorization']['authentication_methods'])) {
+                return true;
+            }
+        }
+        
+        if (isset($configArray['Authorization']['ip']) && $configArray['Authorization']['ip'] && isset($configArray['IP_Addresses'])) {
+            foreach ($configArray['IP_Addresses'] as $rangeDef) {
+                $remote = UserAccount::normalizeIp($_SERVER['REMOTE_ADDR']);
+                $ranges = explode(',', $rangeDef);
+                foreach ($ranges as $range) {
+                    $ips = explode('-', $range);
+                    if (!isset($ips[0])) {
+                        continue;
+                    }
+                    $ips[0] = UserAccount::normalizeIp($ips[0]);
+                    if (!isset($ips[1])) {
+                        $ips[1] = $ips[0];
+                    } else {
+                        $ips[1] = UserAccount::normalizeIp($ips[1], true);
+                    }
+                    if ($remote >= $ips[0] && $remote <= $ips[1]) {
+                        error_log('Remote addr ' . $_SERVER['REMOTE_ADDR'] . " in $range (" . bin2hex($ips[0]) . ' <= ' . bin2hex($remote) . ' <= ' . bin2hex($ips[1]) . ')');
+                        return true;
+                    }
+                    error_log('Remote addr ' . $_SERVER['REMOTE_ADDR'] . " not in $range (" . bin2hex($ips[0]) . ' <= ' . bin2hex($remote) . ' <= ' . bin2hex($ips[1]) . ')');
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
      * Updates the user information in the session.
      *
      * @param object $user User object to store in the session
@@ -69,6 +113,7 @@ class UserAccount
     public static function updateSession($user)
     {
         $_SESSION['userinfo'] = serialize($user);
+        $_SESSION['authMethod'] = $user->authMethod;
     }
 
     /**
@@ -159,6 +204,35 @@ class UserAccount
         }
         return false;
     }
+    
+    /**
+     * Normalize IP address to numeric IPv6 address
+     * 
+     * @param string  $ip  IP Address
+     * @param boolean $end Whether to make this and "end of range" address
+     * 
+     * @return number
+     */
+    protected static function normalizeIp($ip, $end = false)
+    {
+        if (strpos($ip, ':') === false) {
+            while (substr_count($ip, '.') < 3) {
+                $ip .= $end ? '.255' : '.0';
+            }
+            $ip = "::$ip";
+        } else {
+            $ip = str_replace('::', ':' . str_repeat('0:', 8 - substr_count($ip, ':')), $ip);
+            if ($ip[0] == ':') {
+                $ip = "0$ip";
+            }
+            while (substr_count($ip, ':') < 7) {
+                $ip .= $end ? ':ffff' : ':0';
+            }
+            error_log("Widened: $ip");
+        }
+        return inet_pton($ip);
+    }
+
 }
 
 ?>

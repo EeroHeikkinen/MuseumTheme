@@ -63,9 +63,19 @@ function getExtraConfigArray($name)
     if (!isset($extraConfigs[$name])) {
         // Try to load the .ini file; if loading fails, the file probably doesn't
         // exist, so we can treat it as an empty array.
-        $extraConfigs[$name] = @parse_ini_file(getExtraConfigArrayFile($name), true);
+        $filename = getExtraConfigArrayFile($name);
+        $extraConfigs[$name] = @parse_ini_file($filename, true);
         if ($extraConfigs[$name] === false) {
             $extraConfigs[$name] = array();
+        }
+        
+        // Load local overrides
+        $filename = preg_replace('/(.*)\./', '\\1.local.', $filename);
+        $localOverride = @parse_ini_file($filename, true);
+        if ($localOverride) {
+            foreach ($localOverride as $k => $v) {
+                $extraConfigs[$name][$k] = $v;
+            }
         }
     }
 

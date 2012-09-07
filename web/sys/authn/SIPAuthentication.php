@@ -137,6 +137,7 @@ class SIPAuthentication implements Authentication
         include_once "services/MyResearch/lib/User.php";
 
         $user = new User();
+        $user->authMethod = 'SIP';
         $user->username = $info['variable']['AA'][0];
         if ($user->find(true)) {
             $insert = false;
