@@ -47,7 +47,7 @@
         {foreach from=$coreOtherLinks item=coreOtherLink}
     <div class="resultOtherLinks">
         {translate text=$coreOtherLink.heading}: 
-        {if $coreOtherLinks.isn != ''}
+        {if $coreOtherLinks.isn}
         <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
             {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
         </a>
@@ -56,8 +56,8 @@
             {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
         </a>
         {/if}
-        {/foreach}
     </div>    
+        {/foreach}
     {/if}
 
     <div class="resultItemLine2">

@@ -72,7 +72,7 @@
     <tr valign="top">
       <th>{translate text=$coreOtherLink.heading}:</th>
       <td>
-        {if $coreOtherLinks.isn != ''}
+        {if $coreOtherLinks.isn}
         <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
             {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
         </a>
