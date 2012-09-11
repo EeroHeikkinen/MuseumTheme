@@ -1,6 +1,6 @@
 <!-- START of: Search/searchbox.tpl -->
 
-<div id="searchFormHome" class="searchform last">
+<div id="searchForm" class="searchform last">
 
 {if $searchType == 'advanced'}
   <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
@@ -14,13 +14,28 @@
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
       <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if}"/>
   {if $prefilterList}
+{* DELETE THIS
+  <div class="styled_select">
+      <select id="source" class="">
+        <option selected="selected" value="BR">Brasil</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+        <option value="IN">India</option>
+        <option value="JP">Japan</option>
+        <option value="RS">Serbia</option>
+        <option value="UK">United Kingdom</option>
+        <option value="US">United States</option>
+      </select>
+  </div>
+*}
       <div class="styled_select">
-        <select id="searchForm_filter" class="searchForm_select" name="prefilter">
-    {foreach from=$prefilterList item=searchDesc key=searchVal}
-          <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter}selected="selected"{/if}>{translate text=$searchDesc}</option>
+        <select id="searchForm_filter" class="" name="prefilter">
+    {foreach from=$prefilterList item=searchDesc key=searchVal}    
+          <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter || ($activePrefilter == null && $searchVal == "-") }selected="selected"{/if}>{translate text=$searchDesc}</option>
     {/foreach}
         </select>
       </div>
+
   {/if}
       <input id="searchForm_searchButton" type="submit" name="SearchForm_submit" value="{translate text="Find"}"/>
       <div class="clear"></div>
@@ -81,6 +96,7 @@
   <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
   {/literal}
 {/if}
+
 </div>
 
 <!-- END of: Search/searxhbox.tpl -->

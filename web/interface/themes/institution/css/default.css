@@ -91,6 +91,7 @@ img.alignleft {
 }
 .floatright {
     float: right;
+    margin-top: -.6em;
 }
 /* class to make stuff "invisible" but still readable by screen readers */
 .offscreen {
@@ -120,9 +121,17 @@ img.alignleft {
     border-top: 1px solid #dddddd;
 }
 
+.main {
+    padding: 0;
+}
+.breadcrumbs, .footer {
+    padding: .8em 0;
+}
+/*
 .breadcrumbs, .main, .footer {
     padding: .8em 0;
 }
+*/
 
 .openurlIframe {
 	width: 100%;
@@ -150,7 +159,7 @@ img.alignleft {
 #logoHeader {
     float: left;
     width: 210px;
-    margin: 30px 0 0 0;
+    margin: 30px 0 20px;
 }
 #searchFormHeader {
     float: left;
@@ -188,37 +197,55 @@ img.alignleft {
 /*** Search Box ***/    /* also note home.css for Home Page */
 
 .searchbox {
-    margin: 27px 0 0 0;
-    padding: .5em 0 .8em;
+    margin: 2.8em 0 1em;
 }
 #searchForm input, #searchForm select, .styled_select { 
     float:left;
 }
 #searchForm_input {
+    background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
+    border: none;
+    color: #333333;
+    height: 16px;
+    width: 220px;
+    padding: 10px 4px 8px 8px;
+/*
     background-color: #ffffff;
     color: #333333;
-    height: 24px;
+    height: 14px;
     width: 220px;
-    padding: 4px 4px 4px 8px;
+    padding: 10px 4px 8px 8px;
     border: 1px solid #999999;
     border-right: 0;
+*/
     border-radius: 6px 0 0 6px;
     -moz-border-radius: 6px 0 0 6px;
     -webkit-border-radius: 6px 0 0 6px;
-/*  are these two styles really needed?
-    -webkit-border-top-left-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
-*/
+
     behavior: url(css/css3pie/PIE.php); /* for IE */
+
 }
+
+#searchForm_input:focus {
+
+    box-shadow: 0px 0px 6px #9a9a9a;
+/*
+    -moz-box-shadow: 3px 3px 12px #555555;
+    -webkit-box-shadow: 3px 3px 12px #555555;   
+*/
+}
+
 div.styled_select { /* to get rid of the unstylable down-arrow */
+/*
     border-right: 1px solid #969696;
     width: 145px;
     height: 34px;
     overflow: hidden;
     background: none no-repeat right transparent;
+*/
 }
 .searchForm_select {
+/*
     background: url("../images/searchselect_bg.png") transparent no-repeat;
     border: none;
     color: #555555;
@@ -227,8 +254,126 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     width: 169px;
     padding: 8px 9px;
     -webkit-border-radius: 0; /* to fix round left corners on mac webkit-browsers */
+*/
 }
+
+/** Dropdown **/
+.dropdown dd, .dropdown dt, .dropdown ul {
+    font-weight: normal;
+/*    
+    font-size: .846em;
+*/
+    margin: 0px;
+    padding: 0px;
+}
+.dropdown dd {
+    position: relative;
+}
+.dropdown a, .dropdown a:visited {
+    color: #212121;
+    outline: none;
+    text-decoration: none;
+}
+.dropdown a:hover {
+    color: #212121;
+}
+.dropdown dt a:hover {
+    border: 1px solid #bcbcbc;
+    color:#101010;
+}
+.dropdown dt a {
+    background: url("../images/dropdown_bg.png") repeat-x scroll 0 0 #dadada;
+    border: 1px solid #999999;
+    display: block;
+    height: 14px;
+    padding: 5px;
+    width: 160px;
+}
+.dropdown dt a p {
+    color: #333333;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 1.2em;
+    max-width: 88%;
+    overflow: hidden;
+}
+.dropdown dt a img {
+    color: #333333;
+    float: right;    
+}
+.dropdown dd ul {
+    background: #ffffff none repeat scroll 0 0;
+    border: 1px solid #bcbcbc;
+    color: #C5C0B0;
+    display: none;
+    padding: 2px 0px;
+    position: absolute; top: 0px; left: 0px;
+    width: auto;
+    min-width: 170px;
+    list-style: none;
+    z-index: 1;
+    box-shadow: 3px 3px 12px #555555;
+    -moz-box-shadow: 3px 3px 12px #555555;
+    -webkit-box-shadow: 3px 3px 12px #555555;
+}
+.dropdown dd ul:hover {
+    border: 1px solid #999999;
+} 
+.dropdown span.value {
+    display: none;
+}
+.dropdown dd ul li a {
+    line-height: 1em;
+    padding: 5px;
+    display: block;
+}
+.dropdown dd ul li a:hover {
+    background: url("../images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #dadada;    
+    border: 1px solid #ababab;
+    color: #101010;
+    margin: 0 1px;
+    padding: 4px 3px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+}
+.dropdown dd ul li a img {
+    color: #333333;
+    display: none;
+    float: right;    
+}
+
+
+/** Search Box Dropdown **/
+.searchbox .dropdown {
+    width: auto;
+}
+.searchbox .dropdown dt a {
+    height: 16px;
+    line-height: 1.2em;
+    padding: 8px 3px 8px 7px;
+}
+.searchbox .dropdown dd ul li a {
+    padding: 6px 5px 4px 7px;
+}
+.searchbox .dropdown dd ul li a:hover {
+    padding: 5px 0 3px 5px;
+}
+
+
+
 #searchForm_searchButton {
+    background: url("../images/searchbox.png") no-repeat scroll -240px -3px transparent;
+    border: none;
+    color: #555555;
+    cursor: pointer;
+    height: 34px;
+    width: 89px;
+    margin-left: 5px;
+    padding: .5em;
+
+/*
     background: url("../images/searchbutton_bg.png") transparent;
     border: none;
     color: #555555;
@@ -236,10 +381,17 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     height: 34px;
     width: 89px;
     margin-left: 5px;
+*/
 }
+#searchForm_searchButton:hover {
+    background: url("../images/searchbox.png") no-repeat scroll -240px -38px transparent;
+    color: #333333;
+}
+
 .advancedLink, .metalibLink {
     width: 136px;
     display: inline-block;
+    padding-top: .2em;
 }
 
 
@@ -439,11 +591,21 @@ fieldset.publishDateLimit .ui-slider {
 
 #topFacets {
     width: 950px;
+    margin: .6em 0;
+    padding: 0 0 .6em 0;
+/*
     margin: 0;
     padding: 0 0 0.5em 0;
+*/
 }
 #topPubDateVis {
     width: 728px;
+}
+#topPubDateVis strong {
+    padding-left: .2em;
+}
+#suggestedTopics {
+    line-height: 1.4em;
 }
 #sidebarFacets {
     width: 210px;
@@ -452,15 +614,15 @@ fieldset.publishDateLimit .ui-slider {
 }
 
 
-
-
-
-/******** Result List ***/
+/*** Result List ***/
 
 #resultList {
     width: 728px;
     float: left;
-    margin: 0.5em 0 0 0;
+    margin: 0;
+/*
+    margin: .6em 0 0 0;
+*/
 }
 ul.recordSet {
     margin: 0;
