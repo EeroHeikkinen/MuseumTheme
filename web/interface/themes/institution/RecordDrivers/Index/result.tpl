@@ -44,12 +44,20 @@
     </div>
    
     {if !empty($coreOtherLinks)}
-    <div class="resultOtherLinks">
         {foreach from=$coreOtherLinks item=coreOtherLink}
+    <div class="resultOtherLinks">
         {translate text=$coreOtherLink.heading}: 
-        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">{$coreOtherLink.title|escape} / {$coreOtherLink.author|escape}</a>
-        {/foreach}
+        {if $coreOtherLinks.isn}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {else}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {/if}
     </div>    
+        {/foreach}
     {/if}
 
     <div class="resultItemLine2">

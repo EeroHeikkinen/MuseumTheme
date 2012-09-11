@@ -25,6 +25,10 @@ CREATE TABLE `resource` (
   `title` varchar(200) NOT NULL DEFAULT '',
   `source` varchar(50) NOT NULL DEFAULT 'VuFind',
   `data` blob,
+  `title_sort` varchar(60) NOT NULL DEFAULT '',
+  `author_sort` varchar(60) NOT NULL DEFAULT '',
+  `date_sort` varchar(60) NOT NULL DEFAULT '',
+  `format_sort` varchar(60) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `record_id` (`record_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=58 CHARSET=utf8 COLLATE=utf8_swedish_ci;

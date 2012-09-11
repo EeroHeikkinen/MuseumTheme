@@ -95,6 +95,7 @@ class ILSAuthentication implements Authentication
 
         // Check to see if we already have an account for this user:
         $user = new User();
+        $user->authMethod = 'ILS';
         $user->username = $info[$usernameField];
         if ($user->find(true)) {
             $insert = false;

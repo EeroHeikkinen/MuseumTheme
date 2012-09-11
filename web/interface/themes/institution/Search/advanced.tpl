@@ -181,7 +181,7 @@
         <label for="search_type<%=group%>_<%=groupSearches[group]%>"><%=searchFieldLabel%></label>
         <select id="search_type<%=group%>_<%=groupSearches[group]%>" name="type<%=group%>[]">
         <% for ( key in searchFields ) { %>
-            <option value="<%=key%>" selected="<%=key == field ? "selected" : ""%>"><%=searchFields[key]%></option>
+            <option value="<%=key%>"<%=key == field ? ' selected="selected"' : ""%>"><%=searchFields[key]%></option>
         <% } %>
         </select>
     </div>
@@ -195,7 +195,7 @@
                 <label for="search_bool<%=nextGroupNumber%>"><%=searchMatch%>:</label>
                 <select id="search_bool<%=nextGroupNumber%>" name="bool<%=nextGroupNumber%>[]">
                     <% for ( key in searchJoins ) { %>
-                        <option value="<%=key%>" selected="<%=key == join ? "selected" : ""%>"><%=searchJoins[key]%></option>
+                        <option value="<%=key%>"<%=key == join ? ' selected="selected"' : ""%>"><%=searchJoins[key]%></option>
                     <% } %>
                 </select>
             </div>

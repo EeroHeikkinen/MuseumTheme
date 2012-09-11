@@ -7,9 +7,9 @@
   {/if}
   {if $failedDatabases}
     <p class="error">
-      {translate text='Search failed in:'}
+      {translate text='Search failed in:'}<br/>
       {foreach from=$failedDatabases item=failed name=failedLoop}
-        {$failed|escape}{if !$smarty.foreach.failedLoop.last}, {/if}
+        {$failed|escape}{if !$smarty.foreach.failedLoop.last}<br/>{/if}
       {/foreach}
     </p>
   {/if}

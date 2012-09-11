@@ -1,96 +1,35 @@
-[System]
-available       = true
-debug           = false
-
 [Site]
 local           = /usr/local/vufind/web
-url             = /vufind
-email           = alli-toimisto@helsinki.fi
-title           = "Kui"
-theme           = institution
-mobile_theme    = jquerymobile
-language        = fi 
-locale          = fi_FI
-timezone        = "Europe/Helsinki"
-displayDateFormat = "d.m.Y"
-showBookBag = true
-
-[Index]
-url = http://localhost:8080/solr
-local           = /usr/local/vufind/solr
-fullrecord_compressed = true
-
-[Session]
-type                        = FileSession
-lifetime                    = 3600 ; Session lasts for 1 hour
-file_save_path              = /tmp/vufind_sessions
-
-[Catalog]
-driver          = MultiBackend
-holds_mode = "driver"
-allow_holds_override = true
-cancel_holds_enabled = true
-renewals_enabled = true
-
-[Authentication]
-method         = MultiAuth
-
-[MultiAuth]
-method_order   = ILS,Shibboleth
-
-[Statistics]
-enabled        = false
-
-[Database]
-database       = pgsql://vufind@localhost/vufind
-schema_location   = /usr/local/vufind/web/conf
-class_location    = /usr/local/vufind/web/services/MyResearch/lib
-
-[Content]
-coverimages    = Google,OpenLibrary
-previews       = Google,OpenLibrary,HathiTrust
-recordMap = google
+url             = http://localhost:8888/vufind
+email           = finna-posti@helsinki.fi 
+title           = Finna
 
 [OpenURL]
 url             = "http://sfx.nelliportaali.fi/sfxtst3"
 rfr_id          = vufind-fe-kktest.lib.helsinki.fi
 resolver        = sfx
-show_in_record = true
-embed = true
-replace_other_urls = false
-use_rsi = true
-autocheck = true
-
-[Logging]
-file           = /var/log/vufind.log:alert,error,notice,debug
 
 [Extra_Config]
-searches = searches_local.ini 
-facets = facets_local.ini
-prefilters = prefilters_local.ini
+prefilters = prefilters.ini
 
 [Languages]
 fi          = "Suomi"
-en-gb       = "English"              ; British spellings
-
-[Browse]
-lcc             = false
-
-[Export]
-MARC = true
-RDF = true
-BibTeX = true
+sv          = "Svenska"
+en-gb       = "English"           
 
 [AddThis]
-key = xa-4d958e6e50f72946
-
-[Item_Status]
-multiple_call_nos = msg
-multiple_locations = group
-
-[Record]
-next_prev_navigation = true
-;marc_links = "773"
+;key = xyz
 
 [Security]
-HMACkey = xyz
+;HMACkey = xyz
+
+; Use Piwik for visitor tracking
+[Piwik]
+;url = "http://vufind-fe-kktest.lib.helsinki.fi/piwik/"
+;site_id = 1
+
+[bX]
+;token = xyz
+
+[IP_Addresses]
+;local = "128.214.71,128.214.91"

@@ -54,12 +54,14 @@
   <dt><a name="Range Searches"></a>Range Searches</dt>
   <dd>
     <p>
-      To perform a range search you can use the <strong>{ }</strong> characters.
-      For example to search for a term that starts with either A, B, or C:
+      To perform a range search you can use either the <strong>{ }</strong> or the <strong>[ ]</strong> characters. 
+      The <strong>{ }</strong> characters are exclusive and the <strong>[ ]</strong> characters are inclusive of the
+      upper and lower bounds.
+      For example to search for a term that starts with either B, or C:
     </p>
-    <pre class="code">{A TO C}</pre>
+    <pre class="code">{A TO D}</pre>
     <p>
-      The same can be done with numeric fields such as the Year:
+      The searches can be done with numeric fields such as the Year:
     </p>
     <pre class="code">[2002 TO 2003]</pre>
   </dd>

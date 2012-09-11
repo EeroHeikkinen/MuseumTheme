@@ -1448,7 +1448,17 @@ class MarcRecord extends IndexRecord
             } else {
                 $author = '';
             }
-            $retval[] = compact('heading', 'title', 'author');
+            $isbn = $link->getSubfield('z');
+            $issn = $link->getSubfield('x');
+            if ($isbn) {
+                $isn = $isbn->getData();
+            } else if ($issn) {
+                $isn = $issn->getData();
+            } else {
+                $isn = '';
+            }
+            
+            $retval[] = compact('heading', 'title', 'author', 'isn');
         }
         return $retval;
     }

@@ -72,7 +72,15 @@
     <tr valign="top">
       <th>{translate text=$coreOtherLink.heading}:</th>
       <td>
-        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">{$coreOtherLink.author|escape}: {$coreOtherLink.title|escape}</a>
+        {if $coreOtherLinks.isn}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {else}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {/if}
       </td>
     </tr>
     {/foreach}    
@@ -189,6 +197,15 @@
       {include file=$extendedMetadata}
     {/if}
 
+    {if $coreComponentPartCount > 0 && !$hasContainedComponentParts}
+    <tr valign="top">
+      <th>{translate text='component_part_count_label'} </th>
+      <td>
+        {translate text='component_part_count_prefix'} <a href="{$url}/Search/Results?lookfor={$id|escape:"url"}&amp;type=hierarchy_parent_id">{$coreComponentPartCount|escape} {translate text='component_part_count_suffix'}</a>
+      </td>
+    </tr>
+    {/if}
+
     {assign var="idPrefix" value=$id|substr:0:8}
     {if !empty($coreURLs) || $coreOpenURL || $idPrefix == 'metalib_'}
     <tr valign="top">
@@ -219,7 +236,7 @@
     {/foreach}
     {/if}
     *}
-
+    
     {if $toc}
     <tr valign="top">
       <th>{translate text='Table of Contents'}: </th>
