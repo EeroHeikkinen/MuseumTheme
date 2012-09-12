@@ -41,7 +41,7 @@ h5, .normal {
 	font-size: 1em;
 	line-height: 1.5;
 }
-h4, .big {
+h4, .big, #searchForm_input, #searchForm_searchButton {
     font-size: 1.128em;
     line-height: 1.5;
 }

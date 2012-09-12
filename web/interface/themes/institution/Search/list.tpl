@@ -13,14 +13,14 @@
 
 <div id="resultList" class="{if $sidebarOnLeft} push-3 last{/if}">
   {* Listing Options *}
-  <div class="resulthead" style="padding-top:0;">
+  <div class="resulthead">
     {if $recordCount}
       {if $lookfor == ''}
         <h3 style="margin:0;">{translate text='history_empty_search'}</h3>
       {else}
         <h3 style="margin:0;">{if $searchType == 'basic'}{$lookfor|escape:"html"}{/if}</h3>
       {/if}
-    <div class="floatleft">
+    <div class="floatleft small">
         {translate text="Showing"}
         <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
         {translate text='of'} <strong>{$recordCount}</strong>
@@ -37,7 +37,7 @@
       {/if}
     </div>
 
-    <div class="floatright">
+    <div class="floatright small">
       <div class="viewButtons">
       {if $viewList|@count gt 1}
         {foreach from=$viewList item=viewData key=viewLabel}

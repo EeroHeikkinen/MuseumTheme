@@ -79,6 +79,9 @@
     {* Load javascript microtemplating *}
     {js filename="tmpl.js"}
     
+    {* Load dropdown menu modification *}
+    {js filename="dropdown.js"}
+
 
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}

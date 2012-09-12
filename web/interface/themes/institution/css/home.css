@@ -7,7 +7,7 @@
     border-bottom: 1px solid #ddd;
 }
 .searchHomeContent {
-    padding: 2em 0 2em 0;
+    padding: 2em 0 3em 0;
     margin: 0 auto;
     text-align: left;
 }
@@ -26,7 +26,7 @@
 /** Search Box **/
 
 .searchHome .searchbox {
-    margin-top: 0;
+    margin: 0;
 }
 
 .searchHomeForm {
@@ -38,43 +38,41 @@
 */
     margin: 0 auto;
     text-align: left;
+/*
     font-size: 12pt;
+*/
     color: #264409;
 }
 div.searchHomeForm div.searchform {
     float:none;
-    margin:12px auto 0;
+    margin:0 auto;
 }
 div.searchHomeForm div.searchform #searchForm {
     width:506px;
-    margin:12px auto 0;
+    margin:0 auto;
 }
 
 .searchHomeForm #searchForm_input {
-    background-color: #ffffff;
-    color: #333333;
-    height: 24px;
-    width: 220px;
-    padding: 4px 4px 4px 8px;
-    border: 1px solid #999999;
-    border-right: 0;
-    border-radius: 6px 0 0 6px;
-    -moz-border-radius: 6px 0 0 6px;
-    -webkit-border-radius: 6px 0 0 6px;
 /*
-    -webkit-border-top-left-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
+    background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
+    border: none;
+    color: #333333;
+    height: 16px;
+    width: 220px;
+    padding: 10px 4px 8px 8px;
 */
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .searchHomeForm div.styled_select { /* to get rid of unstylable down-arrow */
+/*
     border-right: 1px solid #969696;
     width: 145px;
     height: 34px;
     overflow: hidden;
     background: none no-repeat right transparent;
+*/
 }
 .searchHomeForm .searchForm_select {
+/*
     background: url("../images/searchselect_bg.png") transparent no-repeat;
     border: none;
     color: #555555;
@@ -82,18 +80,35 @@ div.searchHomeForm div.searchform #searchForm {
     height: 34px;
     width: 169px;
     padding: 8px 9px;
-    -webkit-border-radius: 0; /* to fix round left corners on mac webkit-browsers */
+*/
+/*    -webkit-border-radius: 0;*/ /* to fix round left corners on mac webkit-browsers */
 }
+
+/** Dropdown **/
+.searchHomeForm .dropdown dd, .searchHomeForm .dropdown dt, .searchHomeForm .dropdown ul {
+/*
+    font-size: .9em;
+*/
+}
+
 .searchHomeForm #searchForm_searchButton {
-    background: url("../images/searchbutton_bg.png") transparent;
+/*
+    background: url("../images/searchbox.png") no-repeat scroll -240px -3px transparent;
     border: none;
     color: #555555;
     cursor: pointer;
     height: 34px;
     width: 89px;
     margin-left: 5px;
+*/
 }
 
+.searchHomeForm #searchForm_searchButton:hover {
+/*
+    background: url("../images/searchbox.png") no-repeat scroll -240px -38px transparent;
+    color: #333333;
+*/
+}
 .searchHomeForm a, .searchHomeForm a:hover {
 /*
     color:#264409;
