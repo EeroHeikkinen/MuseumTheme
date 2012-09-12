@@ -4,6 +4,7 @@ url             = http://localhost:8888/vufind
 email           = finna-posti@helsinki.fi 
 title           = Finna
 
+
 [OpenURL]
 url             = "http://sfx.nelliportaali.fi/sfxtst3"
 rfr_id          = vufind-fe-kktest.lib.helsinki.fi
@@ -33,3 +34,6 @@ en-gb       = "English"
 
 [IP_Addresses]
 ;local = "128.214.71,128.214.91"
+
+[System]
+available = true
