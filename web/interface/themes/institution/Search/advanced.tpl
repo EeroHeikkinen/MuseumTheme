@@ -102,7 +102,7 @@
         {foreach from=$facetList item="list" key="label"}
         <div id ="facetsContainer" class="span-4">
           <label class="displayBlock" for="limit_{$label|replace:' ':''|escape}">{translate text=$label}:</label>
-          <select class="chzn-select span-4" data-placeholder="&nbsp;" id="limit_{$label|replace:' ':''|escape}" name="filter[]" multiple="multiple" size="10">
+          <select class="chzn-select span-4" data-placeholder="{translate text="No Preference"}" id="limit_{$label|replace:' ':''|escape}" name="filter[]" multiple="multiple" size="10">
             {foreach from=$list item="value" key="display"}
               <option value="{$value.filter|escape}"{if $value.selected} selected="selected"{/if}>{$display|escape}</option>
             {/foreach}
