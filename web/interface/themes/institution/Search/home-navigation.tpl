@@ -1,3 +1,6 @@
+<!-- START of: Search/home-navigation.tpl -->
+
+{* TODO: make these into translatable texts when the navigation is finalized *}
 {if $userLang=='en-gb'}
 <div class="homeNavigation">
   <ul>
@@ -19,3 +22,5 @@
   </ul>
 </div>
 {/if}
+
+<!-- END of: Search/home-navigation.tpl -->

@@ -146,11 +146,21 @@ div.searchHomeForm div.searchform #searchForm {
 
 /*** Custom content ***/
 
-.homeCustomContent .homeCustomCol1 {
-    float: left;
-    width: 346px;
-    margin: 1em 12px 4em 12px;
+.homeCustomContent {
+    background-color: #f3f3f3;
+    padding: 0 24px 4em;
 }
+
+.homeCustomCol1, .homeCustomCol2, .homeCustomCol3 {
+    float: left;
+    margin-left: 24px;
+}
+
+.homeCustomCol1 {
+    margin-left: 0;
+    width: 340px;
+}
+/*
 .homeCustomContent .homeCustomCol1 h2 {
     font-size: 2em;
     font-weight: bold;
@@ -162,10 +172,10 @@ div.searchHomeForm div.searchform #searchForm {
     font-size: 1.2em;
     margin-bottom: 0.5em;
 }
-.homeCustomContent .homeCustomCol2 {
-    float: left;
+*/
+.homeCustomCol2 {
+    margin-top: .8em;
     width: 284px;
-    margin: 1em 12px 2em 0;
 }
 .homeCustomContent .homeCustomCol2 ul {
     padding: 0;
@@ -181,9 +191,7 @@ div.searchHomeForm div.searchform #searchForm {
     font-size: 0.9em;
 }
 .homeCustomContent .homeCustomCol3 {
-    float: left;
     width: 210px;
-    margin: 1em 12px 2em 0;
 }
 
 /*** Browse Search ***/

@@ -1,19 +1,21 @@
-
 /* Background of the logo image */
 .searchHome {
     /* margin-bottom: 15em; */
     background-color: #f3f3f3;
     border-bottom: 1px solid #ddd;
 }
-
+.searchHomeContent {
+    margin: 0 auto;
+    padding: 0 0 3em 0;
+    text-align: left;
+}
 /* Logo image */
 .searchHomeLogo {
-    text-align: center;
-    background: url("../images/finna_logo.png");
+    background: url("../images/finna-logo.png");
     background-repeat: no-repeat;
     background-position: center;
-    margin: 0 auto 3em auto;
     display: block;
-    height: 60px;
+    height: 150px;
+    margin: 0 auto 3em auto;
+    text-align: center;
 }
-

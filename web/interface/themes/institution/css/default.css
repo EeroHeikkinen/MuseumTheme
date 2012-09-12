@@ -8,14 +8,14 @@ px      62   136   210   284   358   432   506   580   654   728    802    876  
  
 body {
     margin: 0 auto;
-    width: 950px;
+    width: 960px;
     padding: 0 24px 48px;
     background-color: #ffffff;
     color: #3c3c3c;
     -webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
 }
 .container {
-    width: 950px; /* make this match the body width above */
+    width: 960px; /* make this match the body width above */
     background: none repeat scroll 0 0 #FFFFFF;
     border: none/*1px solid #dddddd;
     -moz-border-radius: 5px 5px 5px 5px;
@@ -117,34 +117,20 @@ img.alignleft {
     margin-left: 10px;
 }
 
-.main, .footer {
-    border-top: 1px solid #dddddd;
-}
-
 .main {
     padding: 0;
+}
+.main, .footer {
+    border-top: 1px solid #dddddd;
 }
 .breadcrumbs, .footer {
     padding: .8em 0;
 }
-/*
-.breadcrumbs, .main, .footer {
-    padding: .8em 0;
-}
-*/
 
 .openurlIframe {
 	width: 100%;
 	height: 250px;
 	border: 1px solid gray;
-}
-#footerCol1, #footerCol2, #footerCol3 {
-	float:left;
-	width: 210px;
-}
-#footerCol4 {
-	float:left;
-	width: 284px;
 }
 
 /*** Header ***/
@@ -599,6 +585,7 @@ fieldset.publishDateLimit .ui-slider {
 */
 }
 #topPubDateVis {
+    border: none;
     width: 728px;
 }
 #topPubDateVis strong {
@@ -710,10 +697,8 @@ ul.recordSet .resultItemLine2{
     text-align: center;
 }
 .authorbox,.authorbio {
-    border-bottom: 1px #eee solid;
-    background-image:url(../images/bg_authorbox.jpg);
-    background-repeat: repeat-x;
-    background-position: bottom;
+    border-bottom: 1px solid #eeeeee;
+    background: url("../images/bg_authorbox.jpg") repeat-x center bottom;
 }
 .authorbio .providerLink {
     margin-top: 1em;

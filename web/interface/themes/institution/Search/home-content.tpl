@@ -1,9 +1,11 @@
+<!-- START of: Search/home-content.tpl -->
+
 {if $userLang=='en-gb'}
 <div class="homeCustomContent">
   <div class="homeCustomCol1">
-    <h2>The Treasures of Finnish libraries, archives and museums with a single search</h2>
-    <p>We gathered the collections of several Finnish libraries, archives and museums into one place. With a single search you can get results from all of the included collections.</p>
-    <p><a href="about.html">Read more</a> or try the search!</p>
+    <h1>The Treasures of Finnish libraries, archives and museums with a single search</h1>
+    <p class="big">We gathered the collections of several Finnish libraries, archives and museums into one place. With a single search you can get results from all of the included collections.</p>
+    <p class="big"><a href="about.html">Read more</a> or try the search!</p>
   </div>
   
   <div class="homeCustomCol2">
@@ -25,13 +27,14 @@
   <div class="homeCustomCol3">
   
   </div>
+<div class="clear"></div>
 </div>
 {else}
 <div class="homeCustomContent">
   <div class="homeCustomCol1">
-    <h2>Suomen kirjastojen, arkistojen ja museoiden aarteet yhdellä haulla</h2>
-    <p>Keräsimme aineistotiedot useista Suomen kirjastoista, arkistoista ja museoista yhteen paikkaan. Yhdellä haulla saat tuloksia kaikista mukana olevista kokoelmista.</p>
-    <p><a href="about.html">Lue lisää</a> tai kokeile hakua!</p>
+    <h1>Suomen kirjastojen, arkistojen ja museoiden aarteet yhdellä haulla</h1>
+    <p class="big">Keräsimme aineistotiedot useista Suomen kirjastoista, arkistoista ja museoista yhteen paikkaan. Yhdellä haulla saat tuloksia kaikista mukana olevista kokoelmista.</p>
+    <p class="big"><a href="about.html">Lue lisää</a> tai kokeile hakua!</p>
   </div>
   
   <div class="homeCustomCol2">
@@ -53,5 +56,8 @@
   <div class="homeCustomCol3">
   
   </div>
+<div class="clear"></div>
 </div>
 {/if}
+
+<!-- END of: Search/home-content.tpl -->
