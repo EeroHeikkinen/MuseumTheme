@@ -1,12 +1,10 @@
 /****** Footer ******/
 
 .footer {
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: .8em 12px 0;
 }
 .main-home .footer {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: .8em 24px 0;
 }
 #footerCol1, #footerCol2, #footerCol3 {
 	float:left;
