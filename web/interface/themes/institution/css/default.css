@@ -20,7 +20,9 @@ body {
     border: none/*1px solid #dddddd;
     -moz-border-radius: 5px 5px 5px 5px;
     -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px*/;
+    border-radius: 5px 5px 5px 5px;
+
+    behavior: url(css/css3pie/PIE.php)*/; /* for IE */
 }
 
 /*** work-in-progress disclaimer ***/
@@ -130,7 +132,7 @@ img.alignleft {
 .openurlIframe {
 	width: 100%;
 	height: 250px;
-	border: 1px solid gray;
+	border: 1px solid #cccccc;
 }
 
 /*** Header ***/
@@ -323,6 +325,8 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
+
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .dropdown dd ul li a img {
     color: #333333;
@@ -617,8 +621,21 @@ ul.recordSet {
     list-style-type: none;
 }
 ul.recordSet li.result {
-    padding: 1em 0;
+    padding: 13px 1px;
+/*
     border-bottom: 1px solid #f3f3f3;
+*/
+}
+
+ul.recordSet li.result:hover {
+    padding: 12px 1px 12px 0;
+    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 ul.recordSet li.alt {
@@ -713,8 +730,10 @@ ul.recordSet .resultItemLine2{
     padding: 1em;
 }
 .resulthead {
-    padding:.4em .4em 0em .8em;
+    padding:.4em 0 0 .8em;
+/*
     border-bottom: 1px #eee solid;
+*/
     position: relative;
 }
 #authorList .resulthead {
@@ -1125,9 +1144,19 @@ ul.recordSet .addToFavLink a {
 
 .pagination {
     font-size:90%;
-    padding:1em 0 1em 0;
+    padding:13px 0;
     margin:1.5em 0;
     text-align:center;
+}
+.pagination:hover {
+    padding: 12px 0;
+    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .pagination a {
     padding: .2em .3em;
@@ -1753,11 +1782,15 @@ div.fieldValue {
 
 /** system unavailable and other fatal error pages */
 div.unavailable, div.fatalError {
-    width: 65%;
+    font-size:125%;
     margin:5em auto 5em auto;
     padding: 2em 5em;
-    -moz-border-radius: 5px 5px 5px 5px;
-    font-size:125%;
+    width: 65%;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px
+
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 div.debug code {
     font-size: x-small;
@@ -2398,7 +2431,11 @@ div#closeContextHelp:active {
     padding: 1em;
     background-color: #FFEF8F;
     border: 2px solid #F9DD34;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 .mobileViewLink {
@@ -2475,16 +2512,10 @@ div#facetsContainer {
 /* Button styles for advanced search. May be added later to all buttons. */
 
 .button {
-    -moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
-    box-shadow:inset 0px 1px 0px 0px #dcecfb;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #80b5ea) );
     background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
     background-color:#bddbfa;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
-    border-radius:6px;
     border:1px solid #84bbf3;
     display:inline-block;
     color:#ffffff;
@@ -2494,7 +2525,16 @@ div#facetsContainer {
     padding:6px 24px;
     text-decoration:none;
     text-shadow:1px 1px 0px #528ecc;
-}.button:hover {
+    border-radius:6px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+    -moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+
+    behavior: url(css/css3pie/PIE.php); /* for IE */
+}
+.button:hover {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #80b5ea), color-stop(1, #bddbfa) );
     background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
