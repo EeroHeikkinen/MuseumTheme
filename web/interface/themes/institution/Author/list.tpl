@@ -1,7 +1,9 @@
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<!-- START of: Author/list.tpl -->
+
+<div id="authorList" class="{if $sidebarOnLeft} push-3 last{/if}">
   {* Listing Options *}
   <div class="resulthead">
-    <div class="floatleft">
+    <div class="floatleft small">
       {if $recordCount}
         {translate text="Showing"}
         <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
@@ -12,7 +14,7 @@
         {translate text='for search'} <strong>'{$lookfor|escape}'</strong>
       {/if}
     </div>
-    <div class="floatright">
+    <div class="floatright small">
       <form action="{$path}/Search/SortResults" method="post">
         <label for="sort_options_1">{translate text='Sort'}</label>
         <select id="sort_options_1" name="sort" class="jumpMenu">
@@ -43,7 +45,9 @@
   {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
 </div>
 
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div id="sidebarRecommend" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Author/list.tpl -->

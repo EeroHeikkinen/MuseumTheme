@@ -108,9 +108,9 @@ body {
 }
 
 /* Selection colours (easy to forget). The values might need a go-through... */
-::selection 	 	{ background: #ffff9e; }
-::-moz-selection 	{ background: #ffff9e; }
+::selection 	 	{ background: #bbddff; }
+::-moz-selection 	{ background: #bbddff; }
 img::selection 		{ background: transparent; }
 img::-moz-selection	{ background: transparent; }
-body { -webkit-tap-highlight-color: #ffff9e; }
+body { -webkit-tap-highlight-color: #bbddff; }
 
