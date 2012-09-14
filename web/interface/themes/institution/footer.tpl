@@ -44,4 +44,16 @@
 </div>
 <div class="clear"></div>
 
+{literal}
+<script>   
+  $(document).ready(function(){
+    $('.toggleHeader').parent().next().hide();
+	$('.toggleHeader').click(function(){
+	  $(this).parent().next().toggle('fast');
+	  return false;
+	});
+  });
+</script>
+{/literal}
+
 <!-- END of: footer.tpl -->
