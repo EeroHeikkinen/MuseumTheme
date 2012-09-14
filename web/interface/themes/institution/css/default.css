@@ -2250,13 +2250,13 @@ div#closeContextHelp:active {
    position: relative;
 }
 #qrcode .overlay {
-   background: url('../images/qr_overlay.png') transparent no-repeat;
-   height: 29px;
+   background: url('../images/qr_overlay-finna.png') transparent no-repeat;
+   height: 64px;
    width: 52px;
 
    position: absolute;
-   left: 49px;
-   top: 66px;
+   left: 45px;
+   top: 50px;
 }
 #qrcode canvas {
     margin: 1em 0 0 0;
