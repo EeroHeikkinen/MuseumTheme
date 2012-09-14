@@ -65,7 +65,6 @@
       {translate text='by'}:
       <a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       {/if}
-      <br/>
       {if $summDate}{translate text='Published'}: {$summDate.0|escape}{/if}
       {if $summInCollection}
         {foreach from=$summInCollection item=InCollection key=cKey}
@@ -118,9 +117,16 @@
         <span class="openUrlSeparator"></span>
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
         {/if}
+        {if $summURLs}
+        <div>
+          <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></a></p>
+          <div class="resultContentList">
         {foreach from=$summURLs key=recordurl item=urldesc}
-          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a><br/>
+          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
         {/foreach}
+          </div>
+        </div>
+        {/if}
       {/if}
 
       {if $summId|substr:0:8 == 'metalib_'}

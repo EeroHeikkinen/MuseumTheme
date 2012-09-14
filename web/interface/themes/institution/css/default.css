@@ -729,6 +729,20 @@ li.result blockquote {
     display:none;
     margin-left: 18px;
 }
+.resultContentToggle {
+    margin: 1em 0 0 0;
+}
+.resultContentToggle img {
+    margin: 0 0 1px 5px;
+}
+.resultContentList {
+    margin: 2px 0 1em 0;
+}
+.resultContentList a {
+    padding: 2px 0 0 5px;
+    display: inline-block;
+}
+ 
 
 /** Side facets */
 
@@ -976,6 +990,9 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:16px;
     margin-left:2px;
+}
+.openurl_more img {
+    margin: 0 0 1px 5px;
 }
 .checkedout {
     display:none; /* Uncomment the line to the Not Available info */
