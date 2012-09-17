@@ -132,7 +132,7 @@ img.alignleft {
 .openurlIframe {
 	width: 100%;
 	height: 250px;
-	border: 1px solid #cccccc;
+	border: 1px solid #dddddd;
 }
 
 /*** Header ***/
@@ -185,7 +185,7 @@ img.alignleft {
 /*** Search Box ***/    /* also note home.css for Home Page */
 
 .searchbox {
-    margin: 2.8em 0 1em;
+    margin: 2.8em 0 .5em;
 }
 #searchForm input, #searchForm select, .styled_select { 
     float:left;
@@ -381,9 +381,16 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 .advancedLink, .metalibLink {
     width: 136px;
     display: inline-block;
+    margin-left: .4em;
     padding-top: .2em;
 }
 
+.keepFilters {
+    padding-top: .5em;
+}
+.keepFilters input {
+    margin-top: .15em;
+}
 
 
 label.invalid {
@@ -631,13 +638,9 @@ ul.recordSet li.result {
 }
 
 ul.recordSet li.result:hover {
-/*
-    padding: 12px 1px 12px 0;
-*/
-    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
-/*    
-    border: 1px solid #d9d9d9;
-*/
+    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
+    border: 1px solid #f4f4f4;
+    padding: 12px 1px 12px 0;    
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
@@ -1176,9 +1179,9 @@ ul.recordSet .addToFavLink a {
     text-align:center;
 }
 .pagination:hover {
-    padding: 12px 0;
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #f4f4f4;
+    padding: 12px 0;
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
@@ -1222,6 +1225,18 @@ div.record {
 #recordMetadata {
     width: 506px;
     float: left;
+}
+#recordMetadata tr:hover {
+    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
+/*
+    border: 1px solid #f4f4f4;
+    padding: 12px 1px 12px 0;
+*/
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+
+    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .recordTitle {
     font-weight:bold;
@@ -1296,8 +1311,11 @@ div.recordsubcontent {
     vertical-align:top;
 }
 
-.citation tbody tr td {
+.citation tbody tr td, .citation tbody tr.even td {
+    background: none repeat scroll 0 0 transparent
+/*
     background:none repeat scroll 0 0 white;
+*/
 }
 
 div.recordsubcontent table.citation {
@@ -1377,7 +1395,7 @@ float: left;
 }
 #dyntabnav .ui-widget-header {
     background: #ffffff;
-    border-color: #aaaaaa;
+    border-color: #cccccc;
     border-style: none none solid none;
 }
 #dyntabnav .ui-widget {
@@ -1397,10 +1415,13 @@ float: left;
     padding: 0 .7em;
 }
 #dyntabnav form#commentRecord #comment {
-    border: 1px solid #aaaaaa;
+    border: 1px solid #cccccc;
     vertical-align: middle;
     width: 99%;
 }
+#dyntabnav .ui-state-default, #dyntabnav .ui-widget-content .ui-state-default, #dyntabnav .ui-widget-header .ui-state-default { border: 1px solid #dadada; }
+#dyntabnav .ui-state-hover, #dyntabnav .ui-widget-content .ui-state-hover, #dyntabnav .ui-widget-header .ui-state-hover, #dyntabnav .ui-state-focus, .ui-widget-content .ui-state-focus, #dyntabnav .ui-widget-header .ui-state-focus { border: 1px solid #cccccc; background-color: #dadada }
+#dyntabnav .ui-state-active, #dyntabnav .ui-widget-content .ui-state-active, #dyntabnav .ui-widget-header .ui-state-active { border: 1px solid #cccccc; }
 
 
 /** Similar Items (record view) **/
@@ -1466,9 +1487,17 @@ h5.recordTabHeader{
 */
 /*********** Next / prev *************************/
 
+.backToResults, .resultscroller {
+    height: 2em;
+    padding-top: .6em;
+}
+.backToResults {
+    float: left;
+    margin-left: 1.6em;
+    width: 200px;
+}
 .resultscroller {
-    height:27px;
-    border-bottom:1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
 }
 .resultscroller .prevRecord {
     margin-right: 0.5em; 
@@ -1476,12 +1505,7 @@ h5.recordTabHeader{
 .resultscroller .nextRecord {
     margin-left: 0.5em; 
 }
-.backToResults {
-    float: left;
-    width: 200px;
-    height: 27px;
-    margin-left:2em;
-}
+
 
 /*********** Toolbar (Favorites View) ************/
 .toolbar ul li input.button {
@@ -1969,6 +1993,9 @@ tr:nth-child(even) td.gridMouseOver {
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 3px;
+}
+.collectionDetails #topPubDateVis {
+    display: none;
 }
 .collectionViewSelection {
     float:right;
