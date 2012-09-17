@@ -27,7 +27,7 @@ function build_browse
     fi
 
     sort -T /var/tmp -u -t$'\1' -k1 "${browse}.tmp" -o "sorted-${browse}.tmp"
-    java -Dfile.encoding="UTF-8" -cp $CLASSPATH CreateBrowseSQLite "sorted-${browse}.tmp" "${browse}_browse.db"
+    java -Dfile.encoding="UTF-8" -Xmx1024m -cp $CLASSPATH CreateBrowseSQLite "sorted-${browse}.tmp" "${browse}_browse.db"
 
     rm -f *.tmp
 
