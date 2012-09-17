@@ -631,9 +631,13 @@ ul.recordSet li.result {
 }
 
 ul.recordSet li.result:hover {
+/*
     padding: 12px 1px 12px 0;
+*/
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
+/*    
     border: 1px solid #d9d9d9;
+*/
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
@@ -2263,18 +2267,21 @@ div#closeContextHelp:active {
 /*** QRCode ***/
 
 #qrcode {
-   height: 160px;
-   position: relative;
+    height: 160px;
+    position: relative;
 }
-#qrcode .overlay {
-   background: url('../images/qr_overlay-finna.png') transparent no-repeat;
-   height: 64px;
-   width: 52px;
 
-   position: absolute;
-   left: 45px;
-   top: 50px;
+#qrcode .overlay { /* overlay for QRCode branding, not used for now */
+/*
+    background: url('../images/qr_overlay-finna.png') transparent no-repeat;
+    height: 64px;
+    width: 52px;
+    position: absolute;
+    left: 45px;
+    top: 50px;
+*/
 }
+
 #qrcode canvas {
     margin: 1em 0 0 0;
     border: 10px solid #ffffff;
