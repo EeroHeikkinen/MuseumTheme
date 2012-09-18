@@ -19,6 +19,15 @@
           {/foreach}
         </p>
       {/if}
+      {if $disallowedDatabases}
+        <p class="notice">
+          {translate text='metalib_not_authorized_results'}
+          <br/>
+          {foreach from=$disallowedDatabases item=failed name=failedLoop}
+            {$failed|escape}{if !$smarty.foreach.failedLoop.last}<br/>{/if}
+          {/foreach}
+        </p>
+      {/if}
       {if $recordCount}
         {translate text="Showing"}
         <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>

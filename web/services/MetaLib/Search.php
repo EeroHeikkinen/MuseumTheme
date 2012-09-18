@@ -93,6 +93,7 @@ class Search extends Base
             'sideRecommendations',
             $this->searchObject->getRecommendationsTemplates('side')
         );
+        $interface->assign('disallowedDatabases', $result['disallowedDatabases']);
         $interface->assign('failedDatabases', $result['failedDatabases']);
         
         if ($result['recordCount'] > 0) {
