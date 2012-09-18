@@ -64,6 +64,7 @@
     <pre class="code">{A TO D}</pre>
     <p>Esimerkki: etsittäessä arvoja 2002&mdash;2003 voidaan haku tehdä seuraavasti:</p>
     <pre class="code">[2002 TO 2003]</pre>
+    <p>Huomio! Sana TO arvojen välillä kirjoitetaan ISOIN KIRJAIMIN.</p>
   </dd>
   {/literal}
   
