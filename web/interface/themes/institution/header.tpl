@@ -47,7 +47,7 @@
 {if $showTopSearchBox}
 
 <div id="logoHeader">
-  <a id="logo" href="{$url}"></a>
+  <a id="logo" href="{$url}" alt="Logo" title="{translate text="Home"}"></a>
 </div>
 <div id="searchFormHeader">
   <div class="searchbox">

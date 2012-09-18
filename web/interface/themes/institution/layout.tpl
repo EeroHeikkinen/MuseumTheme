@@ -3,6 +3,8 @@
 {else}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{* Do not use HTML comments before DOCTYPE to avoid quirks-mode in IE *} 
+<!-- START of: layout.tpl -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$userLang}" lang="{$userLang}">
 
@@ -118,7 +120,7 @@
       <div class="breadcrumbs">
       {if $showBreadcrumbs}
         <div class="breadcrumbinner">
-          <a href="{$url}">{translate text="Home"}</a> <span>&gt;</span>
+          <a href="{$url}">{translate text="Home"}</a> <span></span>
           {include file="$module/breadcrumbs.tpl"}
         </div>
       {/if}
