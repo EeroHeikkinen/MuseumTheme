@@ -130,7 +130,11 @@
       {/if}
 
       {if $summId|substr:0:8 == 'metalib_'}
-        <br/><a href="{$path}/MetaLib/Home?set=_ird%3A{$summId|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a><br/>
+        <br/>
+        <span class="metalib_link">
+          <span id="metalib_link_{$summId|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$summId|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a><br/></span>
+          <span id="metalib_link_na_{$summId|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
+        </span>
       {/if}
 
       {* <br class="hideIfDetailed{$summId|escape}"/> *}

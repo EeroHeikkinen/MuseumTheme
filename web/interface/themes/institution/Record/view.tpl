@@ -30,7 +30,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 {if $coreOpenURL || $holdingsOpenURL}
   {js filename="openurl.js"}
 {/if}
-
+{js filename="metalib_links.js"}
 
 {* <div class="span-10{if $sidebarOnLeft} push-5 last{/if}"> *}
 
