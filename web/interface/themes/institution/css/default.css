@@ -832,6 +832,7 @@ ul.filters a {
 div.sidegroup {
     border-left: 2px solid #ddd;
     margin-top: .5em;
+    padding-bottom: 1em;
     padding-left: 20px;
 /*
     padding-left: 10px;

@@ -220,7 +220,10 @@
           {include file="Search/openurl_autocheck.tpl"}
         {/if}
         {if $idPrefix == 'metalib_'}
-          <a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a>
+          <span class="metalib_link">
+            <span id="metalib_link_{$id|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a></span>
+            <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
+          </span>
         {/if}
       </td>
     </tr>
