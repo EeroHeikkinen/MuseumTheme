@@ -289,12 +289,13 @@ class MetaLib
         }
         
         $failed = array();
+        $disallowed = array();
         $irdArray = array();
         $authorized = UserAccount::isAuthorized();
         foreach (explode(',', $irdList) as $ird) {
             $irdInfo = $this->getIRDInfo($ird);
             if (strcasecmp($irdInfo['access'], 'guest') != 0 && !$authorized) {
-                $failed[] = $irdInfo['name'] . ' -- ' . translate('metalib_not_authorized_in_set');
+                $disallowed[] = $irdInfo['name'];
             } else {
                 $irdArray[] = $ird;
             }
@@ -303,7 +304,8 @@ class MetaLib
         if (empty($irdArray)) {
             return array(
                 'recordCount' => 0,
-                'failedDatabases' => $failed
+                'failedDatabases' => $failed,
+                'disallowedDatabases' => $disallowed,
             );
         }
         
@@ -313,7 +315,7 @@ class MetaLib
         // Use a metalib. prefix everywhere so that it's easy to see the record source
         $queryId = 'metalib.' . md5($irdList . '_' . $queryStr . '_' . $start . '_' . $limit);
         $findResults = $this->getCachedResults($queryId);
-        if ($findResults !== false && empty($findResults['failedDatabases'])) {
+        if ($findResults !== false && empty($findResults['failedDatabases']) && empty($findResults['disallowedDatabases'])) {
             return $findResults;
         }
                 
@@ -339,6 +341,7 @@ class MetaLib
         $findRequestId = md5($irdList . '_' . $queryStr);
         if (isset($_SESSION['MetaLibFindResponse']) 
             && $_SESSION['MetaLibFindResponse']['requestId'] == $findRequestId
+            && $disallowed == $_SESSION['MetaLibFindResponse']['disallowed']
         ) {
             $databases = $_SESSION['MetaLibFindResponse']['databases'];
             $totalRecords = $_SESSION['MetaLibFindResponse']['totalRecords'];
@@ -379,6 +382,7 @@ class MetaLib
             $_SESSION['MetaLibFindResponse']['databases'] = $databases;
             $_SESSION['MetaLibFindResponse']['totalRecords'] = $totalRecords;
             $_SESSION['MetaLibFindResponse']['failed'] = $failed;
+            $_SESSION['MetaLibFindResponse']['disallowed'] = $disallowed;
         }
 
         $documents = array();
@@ -513,7 +517,8 @@ class MetaLib
         $results = array(
             'recordCount' => $totalRecords,
             'documents' => $documents,
-            'failedDatabases' => $failed
+            'failedDatabases' => $failed,
+            'disallowedDatabases' => $disallowed
         );
         $this->putCachedResults($queryId, $results);
         return $results;
@@ -529,6 +534,11 @@ class MetaLib
      */
     public function getIRDInfo($ird)
     {
+        $queryId = "metalib_ird.$ird";
+        $cached = $this->getCachedResults($queryId);
+        if ($cached) {
+            return $cached;
+        }
         $sessionId = $this->getSession();
         
         // Do the source locate request
@@ -547,6 +557,7 @@ class MetaLib
         $record = $result->source_locate_response->source_full_info->record;
         $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
         $info['access'] = $this->getSingleValue($record, 'AF3a');
+        $this->putCachedResults($queryId, $info);
         return $info;
     }
     
