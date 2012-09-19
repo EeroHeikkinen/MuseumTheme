@@ -84,9 +84,8 @@ class History extends Action
                 // Make sure all facets are active so we get appropriate
                 // descriptions in the filter box.
                 $searchObject->activateAllFacets();
-
                 $newItem = array(
-                    'time' =>  $dateFormat->convertToDisplayDate("U", $searchObject->getStartTime()),
+                    'time' =>  $dateFormat->convertToDisplayDate("U", floor($searchObject->getStartTime())),
                     'url'  => $searchObject->renderSearchUrl(),
                     'searchId' => $searchObject->getSearchId(),
                     'description' => $searchObject->displayQuery(),

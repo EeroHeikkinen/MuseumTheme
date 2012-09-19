@@ -77,13 +77,10 @@
             {if $resource.notes}
               {translate text='Notes'}: {$resource.notes|escape}<br/>
             {/if}
-            {if is_array($resource.format)}
-              {foreach from=$resource.format item=format}
-                <span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
-              {/foreach}
-              <br/>
-            {elseif isset($resource.format)}
-              <span class="iconlabel format{$resource.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$resource.format}</span>
+            {if isset($resource.format)}
+              {assign var=mainFormat value=$resource.format.0} 
+              {assign var=displayFormat value=$resource.format|@end} 
+              <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
               <br/>
             {/if}
             {if $resource.ils_details.volume}
