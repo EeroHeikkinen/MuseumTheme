@@ -1,3 +1,5 @@
+<!-- START of: Help/en/search.tpl -->
+
 <h1>Helpful Searching Tips</h1>
 
 <ul class="HelpMenu">
@@ -122,3 +124,5 @@
     </dl>
   </dd>
 </dl>
+
+<!-- END of: Help/en/search.tpl -->

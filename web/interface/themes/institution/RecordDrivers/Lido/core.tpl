@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Lido/core.tpl -->
+
 <div id="recordMetadata">
 
 {* Display Title *}
@@ -283,3 +285,5 @@ End Cover Image *}
 {* End Main Details *}
 
 </div>
+
+<!-- END of: RecordDrivers/Lido/core.tpl -->

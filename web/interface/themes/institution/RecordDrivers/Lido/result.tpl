@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Lido/result.tpl -->
+
 <div class="result recordId" id="record{$summId|escape}">
 
   <div class="span-2 resultColumn1">
@@ -158,3 +160,4 @@
 </script>
 {/if}
 
+<!-- END of: RecordDrivers/Lido/result.tpl -->

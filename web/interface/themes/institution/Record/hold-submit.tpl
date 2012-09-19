@@ -1,3 +1,5 @@
+<!-- START of: Record/hold-submit.tpl -->
+
 {if $user->cat_username}
 
   <h2>{translate text='request_place_text'}</h2>
@@ -59,3 +61,5 @@
 {else}
   {include file="MyResearch/catalog-login.tpl"}
 {/if}
+
+<!-- END of: Record/hold-submit.tpl -->

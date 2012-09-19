@@ -1,3 +1,5 @@
+<!-- START of: Help/sv/search.tpl -->
+
 <h1>Guide för sökoperatorer</h1>
 
 <ul class="HelpMenu">
@@ -119,3 +121,5 @@
     </dl>
   </dd>
 </dl>
+
+<!-- END of: Help/sv/search.tpl -->

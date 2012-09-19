@@ -1,3 +1,5 @@
+<!-- START of: Collection/disambiguation.tpl -->
+
 <div id="bd">
   <div id="yui-main" class="content">
     <div class="disambiguationDiv" >
@@ -21,3 +23,5 @@
     </div>
   </div>
 </div>
+
+<!-- END of: Collection/disambiguation.tpl -->

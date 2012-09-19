@@ -1,3 +1,5 @@
+<!-- START of: Help/fi/tag.tpl -->
+
 <h1>Tagaaminen</h1>
 
 <p>
@@ -9,3 +11,5 @@ Tagit valitaan yleensä vapaamuotoisesti joko informaation luojan tai sitä tark
 </p>
 
 Lähde: <a href="http://en.wikipedia.org/wiki/Tag_%28metadata%29">Wikipedia (engl.)</a>
+
+<!-- END of: Help/fi/tag.tpl -->

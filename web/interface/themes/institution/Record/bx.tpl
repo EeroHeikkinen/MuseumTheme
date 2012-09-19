@@ -1,3 +1,5 @@
+<!-- START of: Record/bx.tpl -->
+
 {literal}
 <script type="text/javascript">
 var openurl_resolver = "{/literal}{$openUrlBase}{literal}"; 
@@ -43,3 +45,5 @@ var openurl_resolver = "{/literal}{$openUrlBase}{literal}";
   <ul class="similar">
   </ul>
 </div>
+
+<!-- END of: Record/bx.tpl -->

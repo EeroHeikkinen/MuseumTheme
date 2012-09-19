@@ -1,3 +1,5 @@
+<!-- START of: Summon/searchbox.tpl -->
+
 <div class="searchform">
   {if $searchType == 'SummonAdvanced'}
     <a href="{$path}/Summon/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
@@ -54,3 +56,5 @@
     <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
   {/if}
 </div>
+
+<!-- END of: Summon/searchbox.tpl -->

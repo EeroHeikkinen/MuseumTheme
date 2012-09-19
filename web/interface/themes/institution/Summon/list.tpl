@@ -1,3 +1,5 @@
+<!-- START of: Summon/list.tpl -->
+
 {js filename="openurl.js"}
 {* Main Listing *}
 <div class="span-10{if $sidebarOnLeft} push-3 last{/if}">
@@ -71,3 +73,4 @@
 
 <div class="clear"></div>
 
+<!-- END of: Summon/list.tpl -->

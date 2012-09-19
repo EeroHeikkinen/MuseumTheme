@@ -1,3 +1,5 @@
+<!-- START of: Summon/record.tpl -->
+
 {js filename="record.js"}
 {js filename="openurl.js"}
 <div class="span-10{if $sidebarOnLeft} push-3 last{/if}">
@@ -204,3 +206,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Summon/record.tpl -->
