@@ -62,10 +62,14 @@
         <input type="hidden" name="daterange[]" value="{$title|escape}"/>
         <fieldset class="publishDateLimit" id="{$title|escape}">
           <legend>{translate text=$cluster.label}</legend>
-          <label for="{$title|escape}from">{translate text='date_from'}:</label>
+          <div class="publishDateFrom">
+          <label for="{$title|escape}from">{translate text='date_from'}</label>
           <input type="text" size="4" maxlength="4" class="yearbox" name="{$title|escape}from" id="{$title|escape}from" value="{if $dateFacets.$title.0}{$dateFacets.$title.0|escape}{/if}" />
-          <label for="{$title|escape}to">{translate text='date_to'}:</label>
+          </div>
+          <div class="publishDateTo">
+          <label for="{$title|escape}to">{translate text='date_to'}</label>
           <input type="text" size="4" maxlength="4" class="yearbox" name="{$title|escape}to" id="{$title|escape}to" value="{if $dateFacets.$title.1}{$dateFacets.$title.1|escape}{/if}" />
+          </div>
           <div id="{$title|escape}Slider" class="dateSlider"></div>
           <input type="submit" value="{translate text='Set'}" id="{$title|escape}goButton"/>
         </fieldset>

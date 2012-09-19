@@ -69,7 +69,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <div class="coverImages">
     {if $coreThumbMedium}
         {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
-        <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+        <img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}">
         {if $coreThumbLarge}</a>{/if}
         <div class="clear"></div>
         {assign var=img_count value=$coreImages|@count}
@@ -118,10 +118,10 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
         {* Bookmark commented out for now
         {if !empty($addThis)}
-        <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text='Bookmark'}</a></li>
+        <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text="Bookmark"}</a></li>
         {/if} *}
         {if $bookBag}
-        <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text='Add to Book Bag'}</a></li>
+        <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text="Add to Book Bag"}</a></li>
         {/if}
       </ul>
       {if $bookBag}
@@ -131,9 +131,9 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <noscript>
           {if in_array($id|escape, $bookBagItems)}
           <input id="cartId" type="hidden" name="ids[]" value="{$id|escape}" />
-          <input type="submit" class="button cart bookbagDelete" name="delete" value="{translate text='Remove from Book Bag'}"/>
+          <input type="submit" class="button cart bookbagDelete" name="delete" value="{translate text="Remove from Book Bag"}"/>
           {else}
-          <input type="submit" class="button bookbagAdd" name="add" value="{translate text='Add to Book Bag'}"/>
+          <input type="submit" class="button bookbagAdd" name="add" value="{translate text="Add to Book Bag"}"/>
           {/if}
         </noscript>
       </form>

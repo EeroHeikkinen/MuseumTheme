@@ -64,7 +64,7 @@
                 <dc:format>
                   <xsl:for-each select="./format">
                     <xsl:if test="position()&gt;1"><xsl:value-of select="string(' / ')"/></xsl:if>
-                    <xsl:value-of select="."/>
+                    <xsl:value-of select="php:function('translate', concat('facet_', string(.)))"/>
                   </xsl:for-each>
                 </dc:format>
               </xsl:if>

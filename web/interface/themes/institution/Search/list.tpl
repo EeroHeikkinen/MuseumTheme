@@ -16,22 +16,23 @@
   <div class="resulthead">
     {if $recordCount}
       {if $lookfor == ''}
-        <h3 style="margin:0;">{translate text='history_empty_search'}</h3>
+        <h3 style="margin:0;">{translate text="history_empty_search"}</h3>
       {else}
         <h3 style="margin:0;">{if $searchType == 'basic'}{$lookfor|escape:"html"}{/if}</h3>
       {/if}
     <div class="floatleft small">
         {translate text="Showing"}
         <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-        {translate text='of'} <strong>{$recordCount}</strong>
-        {if $searchType == 'basic'}{translate text='for search'}: <strong>'{$lookfor|escape:"html"}'</strong>,{/if}
+        {translate text="of"} <strong>{$recordCount}</strong>
+        {if $searchType == 'basic'}{translate text="for search"}: <strong>'{$lookfor|escape:"html"}'</strong>,{/if}
       {/if}
       {translate text='query time'}: {$qtime}s
       {if $spellingSuggestions}
       <div class="correction">
-        <strong>{translate text='spell_suggest'}</strong>:
+        <p><strong>{translate text="spell_suggest"}</strong>:</p>
         {foreach from=$spellingSuggestions item=details key=term name=termLoop}
-          <br/>{$term|escape} &raquo; {foreach from=$details.suggestions item=data key=word name=suggestLoop}<a href="{$data.replace_url|escape}">{$word|escape}</a>{if $data.expand_url} <a href="{$data.expand_url|escape}"><img src="{$path}/images/silk/expand.png" alt="{translate text='spell_expand_alt'}"/></a> {/if}{if !$smarty.foreach.suggestLoop.last}, {/if}{/foreach}
+          <div class="correctionTerms">{$term|escape} &raquo; {foreach from=$details.suggestions item=data key=word name=suggestLoop}<a href="{$data.replace_url|escape}">{$word|escape}</a>{if $data.expand_url} <a href="{$data.expand_url|escape}"><img src="{$path}/images/silk/expand.png" alt="{translate text="spell_expand_alt"}" title="{translate text="spell_expand_alt"}"/></a> {/if}{if !$smarty.foreach.suggestLoop.last}, {/if}{/foreach}
+          </div>
         {/foreach}
       </div>
       {/if}
@@ -41,7 +42,7 @@
       <div class="viewButtons">
       {if $viewList|@count gt 1}
         {foreach from=$viewList item=viewData key=viewLabel}
-          {if !$viewData.selected}<a href="{$viewData.viewUrl|escape}" title="{translate text='Switch view to'} {translate text=$viewData.desc}" >{/if}<img src="{$path}/images/view_{$viewData.viewType}.png" {if $viewData.selected}title="{translate text=$viewData.desc} {translate text='view already selected'}"{/if}/>{if !$viewData.selected}</a>{/if}
+          {if !$viewData.selected}<a href="{$viewData.viewUrl|escape}" title="{translate text='Switch view to'} {translate text=$viewData.desc}" >{/if}<img src="{$path}/images/view_{$viewData.viewType}.png" {if $viewData.selected}title="{translate text=$viewData.desc} {translate text="view already selected"}"{/if}/>{if !$viewData.selected}</a>{/if}
         {/foreach}
       {/if}
       </div>
@@ -81,9 +82,9 @@
   {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
   <div class="searchtools">
     <strong>{translate text='Search Tools'}:</strong>
-    <a href="{$rssLink|escape}" class="feed">{translate text='Get RSS Feed'}</a>
-    <a href="{$url}/Search/Email" class="mailSearch mail" id="mailSearch{$searchId|escape}" title="{translate text='Email this Search'}">{translate text='Email this Search'}</a>
-    {if $savedSearch}<a href="{$url}/MyResearch/SaveSearch?delete={$searchId}" class="delete">{translate text='save_search_remove'}</a>{else}<a href="{$url}/MyResearch/SaveSearch?save={$searchId}" class="add">{translate text='save_search'}</a>{/if}
+    <a href="{$rssLink|escape}" class="feed">{translate text="Get RSS Feed"}</a>
+    <a href="{$url}/Search/Email" class="mailSearch mail" id="mailSearch{$searchId|escape}" title="{translate text='Email this Search'}">{translate text="Email this Search"}</a>
+    {if $savedSearch}<a href="{$url}/MyResearch/SaveSearch?delete={$searchId}" class="delete">{translate text='save_search_remove'}</a>{else}<a href="{$url}/MyResearch/SaveSearch?save={$searchId}" class="add">{translate text="save_search"}</a>{/if}
   </div>
 </div>
 {* End Main Listing *}

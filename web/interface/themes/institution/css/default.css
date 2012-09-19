@@ -564,13 +564,19 @@ ul.cartContent {
 }
 
 /** Publication Year facet */
+
+form#publishDateFilter {
+    background: url("../images/highlight_bg.png") repeat-x 0 0 #f3f3f3;
+    margin: 1.2em 0;
+}
 fieldset.pubyearLimit {
     padding: 0;
     border: 0;
 }
 fieldset.publishDateLimit {
-    margin-top: 1.4em;
-    padding: 0 0 0 .3em;
+    border: none;
+    margin: 0;
+    padding: 0 0 .3em .3em;
 }
 fieldset.publishDateLimit legend {
     margin-bottom: .3em;
@@ -581,10 +587,15 @@ fieldset.publishDateLimit .yearbox {
 }
 fieldset.publishDateLimit .ui-slider {
     clear: both;
-    margin: .7em .7em .9em .5em;
+    margin: .7em 1.15em .9em .6em;
 }
-
-
+.publishDateFrom, .publishDateTo {
+    float: left;
+    margin: 1em .1em 1em;
+}
+.publishDateTo {
+    margin-left: .2em;
+}
 
 #topFacets {
     width: 960px;
@@ -758,6 +769,18 @@ ul.recordSet .resultItemLine2{
 .savedLists ul { margin-top: 0; }
 .savedLists ul li { padding:0; }
 
+.correction {
+    margin-bottom: .6em;
+    padding-top: .5em;
+}
+.correction p, .correctionTerms {
+    line-height: 1.3em;
+    margin: 0;
+}
+.correction a img {
+    vertical-align: text-top;
+}
+
 li.result blockquote {
     margin:0;
 }
@@ -809,6 +832,7 @@ ul.filters a {
 div.sidegroup {
     border-left: 2px solid #ddd;
     margin-top: .5em;
+    padding-bottom: 1em;
     padding-left: 20px;
 /*
     padding-left: 10px;
