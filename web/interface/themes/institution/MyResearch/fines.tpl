@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/fines.tpl -->
+
 <div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
   {if $user->cat_username}
     {if empty($rawFinesData)}
@@ -39,3 +41,5 @@
   {include file="MyResearch/menu.tpl"}
 </div>
 <div class="clear"></div>
+
+<!-- END of: MyResearch/fines.tpl -->

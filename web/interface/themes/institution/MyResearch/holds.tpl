@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/holds.tpl -->
+
 <div id="resultList" class="myResearch {if $sidebarOnLeft} push-5 last{/if}">
   <div class="resultHead">
   {if $user->cat_username}
@@ -158,3 +160,5 @@
 
 <div class="clear"></div>
 </div>
+
+<!-- END of: MyResearch/holds.tpl -->

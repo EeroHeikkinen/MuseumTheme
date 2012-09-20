@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/list.tpl -->
+
 {js filename="bulk_actions.js"}
 {if $bookBag}
 <script type="text/javascript">
@@ -42,14 +44,14 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {/if}
   <div class="clear"></div>
   {if $resourceList}
-      <div class="floatleft">
+      <div class="floatleft small">
       {if $recordCount}
         {translate text="Showing"}
         <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
         {translate text='of'} <strong>{$recordCount}</strong>
       {/if}
       </div>
-      <div class="floatright">
+      <div class="floatright small">
         <form action="{$path}/Search/SortResults" method="post">
           <label for="sort_options_1">{translate text='Sort'}</label>
           <select id="sort_options_1" name="sort" class="jumpMenu">
@@ -119,7 +121,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </form>
     {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
   {else}
-      <div class="floatleft">{translate text='You do not have any saved resources'}</div>
+      <div class="floatleft small">{translate text='You do not have any saved resources'}</div>
       <div class="clear"></div>
     </div>
   {/if}
@@ -171,3 +173,5 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 <div class="clear"></div>
 </div>
+
+<!-- END of: MyResearch/list.tpl -->

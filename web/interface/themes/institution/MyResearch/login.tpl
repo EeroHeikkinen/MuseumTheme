@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/login.tpl -->
+
 {if $offlineMode == "ils-offline"}
   <div class="sysInfo">
     <h2>{translate text="ils_offline_title"}</h2>
@@ -42,3 +44,5 @@
   {if $authMethod == 'DB'}<a class="new_account" href="{$url}/MyResearch/Account">{translate text='Create New Account'}</a>{/if}
 {/if}
 {/if}
+
+<!-- END of: MyResearch/login.tpl -->

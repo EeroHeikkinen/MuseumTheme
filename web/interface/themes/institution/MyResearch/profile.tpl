@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/profile.tpl -->
+
 {if count($pickup) > 1}
   {assign var='showHomeLibForm' value=true}
 {else}
@@ -51,3 +53,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: MyResearch/profile.tpl -->

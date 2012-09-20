@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/delete.tpl -->
+
 <form action="{$url}/MyResearch/Delete" method="post" name="bulkDelete">
   {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
   {if $infoMsg}<div class="info">{$infoMsg|translate}</div>{/if}
@@ -28,3 +30,5 @@
       {/if}
   </div>
 </form>
+
+<!-- END of: MyResearch/delete.tpl -->
