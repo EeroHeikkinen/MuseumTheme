@@ -120,7 +120,7 @@ img.alignleft {
 }
 
 .main {
-    padding: 0;
+    padding-top: .6em;
 }
 .main, .footer {
     border-top: 1px solid #dddddd;
@@ -598,9 +598,9 @@ fieldset.publishDateLimit .ui-slider {
 }
 
 #topFacets {
+    margin-bottom: .6em;
+    padding-bottom: .6em;
     width: 960px;
-    margin: .6em 0;
-    padding: 0 0 .6em 0;
 /*
     margin: 0;
     padding: 0 0 0.5em 0;
@@ -616,7 +616,7 @@ fieldset.publishDateLimit .ui-slider {
 #suggestedTopics {
     line-height: 1.4em;
 }
-#sidebarFacets, #sidebarRecommend {
+#sidebarFacets, #sidebarRecommend, .myResearchMenu {
     float: left;
     margin-left: 12px;
     width: 220px;
@@ -651,7 +651,7 @@ ul.recordSet li.result {
 ul.recordSet li.result:hover {
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
     border: 1px solid #f4f4f4;
-    padding: 12px 1px 12px 0;    
+    padding: 12px 0;    
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
@@ -750,12 +750,14 @@ ul.recordSet .resultItemLine2{
     border-top: #eee solid 1px;
     padding: 1em;
 }
-.resulthead {
-    padding:.4em 0 0 .8em;
+.resulthead, .myResearch .resultHead {
+    padding: 0 0 0 .8em;
 /*
     border-bottom: 1px #eee solid;
 */
+/*
     position: relative;
+*/
 }
 #authorList .resulthead {
     margin-top: 1.2em;
@@ -846,7 +848,7 @@ div.sidegroup h4 {
     padding:0 0 0.5em 0;
 }
 div.sidegroup h4.account, div.sidegroup h4.list {
-    padding:0 0 1px 20px;
+    padding:0 0 0 1.3em;
 }
 dl.narrowList img {
     vertical-align: top;
@@ -1748,8 +1750,13 @@ p.citationText {
 
 .myResearch .resultHead {
     width: 716px;
+/*
     border-bottom: 1px solid #dddddd;
     padding: 0 12px 0.2em 0;
+*/
+/*
+    padding:.4em 0 0 .8em;
+*/
 }
 .myResearch .resultHead h3 {
     display: block;
@@ -1759,8 +1766,8 @@ p.citationText {
 }
 .myResearch .resultHead h3.fav {
     background-repeat: no-repeat;
-    background-position: 5px center;
-    padding: 0 0 0 25px;
+    background-position: 0 center;
+    padding-left: 20px;
 }
 .myResearch .resultHead .toolbar {
     margin: 0 12px 12px 0;
@@ -1786,12 +1793,20 @@ p.citationText {
     clear: both;
 }
 .myResearchMenu {
+/*
     width: 210px;
     float: left;
     margin-left: 12px;
+*/
+    border-left: 2px solid #dddddd;
+    margin-top: .6em;
+    margin-bottom: 1em;
+    width: 218px;
 }
-
-
+.myResearchMenu .sidegroup {
+    border-left: none;
+    margin-top: 0;
+}
 
 /* Browse Lists */
 .browseNav {
