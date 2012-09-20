@@ -120,7 +120,7 @@ img.alignleft {
 }
 
 .main {
-    padding-top: .6em;
+    padding: .6em 0;
 }
 .main, .footer {
     border-top: 1px solid #dddddd;
@@ -651,7 +651,7 @@ ul.recordSet li.result {
 ul.recordSet li.result:hover {
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
     border: 1px solid #f4f4f4;
-    padding: 12px 0;    
+    padding: 12px 0;   
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
