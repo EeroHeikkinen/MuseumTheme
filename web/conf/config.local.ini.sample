@@ -1,5 +1,6 @@
 [Site]
 local           = /usr/local/vufind/web
+path            = /vufind
 url             = http://localhost:8888/vufind
 email           = finna-posti@helsinki.fi 
 title           = Finna

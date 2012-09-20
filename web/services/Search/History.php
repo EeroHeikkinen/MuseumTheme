@@ -27,6 +27,7 @@
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 require_once 'Action.php';
+require_once 'sys/VuFindDate.php';
 
 /**
  * History action for Search module
@@ -51,6 +52,8 @@ class History extends Action
         global $interface;
         global $user;
 
+        $dateFormat = new VuFindDate();
+        
         // In some contexts, we want to require a login before showing search
         // history:
         if (isset($_REQUEST['require_login']) && !UserAccount::isLoggedIn()) {
@@ -81,9 +84,8 @@ class History extends Action
                 // Make sure all facets are active so we get appropriate
                 // descriptions in the filter box.
                 $searchObject->activateAllFacets();
-
                 $newItem = array(
-                    'time' => date("g:ia, jS M y", $searchObject->getStartTime()),
+                    'time' =>  $dateFormat->convertToDisplayDate("U", floor($searchObject->getStartTime())),
                     'url'  => $searchObject->renderSearchUrl(),
                     'searchId' => $searchObject->getSearchId(),
                     'description' => $searchObject->displayQuery(),

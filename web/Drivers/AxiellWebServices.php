@@ -27,6 +27,8 @@
  * @link     http://vufind.org/wiki/building_an_ils_driver Wiki
  */
 require_once 'Interface.php';
+require_once 'sys/VuFindDate.php';
+
 
 /**
  * Axiell Web Services Driver.
@@ -48,6 +50,7 @@ class AxiellWebServices implements DriverInterface
     protected $loans_wsdl = '';
     protected $payments_wsdl = '';
     protected $reservations_wsdl = '';
+    protected $dateFormat;
 
     /**
      * Constructor
@@ -65,6 +68,9 @@ class AxiellWebServices implements DriverInterface
         $this->loans_wsdl = 'conf/' . $this->config['Catalog']['loans_wsdl'];
         $this->payments_wsdl = 'conf/' . $this->config['Catalog']['payments_wsdl'];
         $this->reservations_wsdl = 'conf/' . $this->config['Catalog']['reservations_wsdl'];
+        
+        // Set up object for formatting dates and times:
+        $this->dateFormat = new VuFindDate();
     }
 
     /**
@@ -420,7 +426,8 @@ class AxiellWebServices implements DriverInterface
                 $trans = Array();
                 $trans['id'] = $this->arenaMember . '.' . $loan->catalogueRecord->id;
                 $trans['title'] = $loan->catalogueRecord->title;
-                $trans['duedate'] = $loan->loanDueDate;
+                // Convert Axiell format to display date format
+                $trans['duedate'] = $this->_formatDate($loan->loanDueDate);
                 $trans['renewable'] = $loan->loanStatus->isRenewable == true; //'yes';
                 $trans['barcode'] = $loan->id;
                 $transList[] = $trans;
@@ -496,7 +503,7 @@ class AxiellWebServices implements DriverInterface
                         'status' => 'Loan renewed', // TODO
                         'sys_message' => '',
                         'item_id' => $details,
-                        'new_date' => $result->renewLoansResponse->loans->loan->loanDueDate,
+                        'new_date' => $this->_formatDate($result->renewLoansResponse->loans->loan->loanDueDate),
                         'new_time' => ''
                     );
                 }
@@ -556,7 +563,8 @@ class AxiellWebServices implements DriverInterface
                 $fine['checkout'] = '';
                 $fine['fine'] = $debt->debtType . ' - ' . $debt->debtNote;
                 $fine['balance'] = $debt->debtAmount * 100;
-                $fine['createdate'] = $debt->debtDate;
+                // Convert Axiell format to display date format
+                $fine['createdate'] = $this->_formatDate($loan->debtDate);
                 $fine['duedate'] = ''; 
                 $fine['id'] = ''; 
                 $finesList[] = $fine;
@@ -606,7 +614,7 @@ class AxiellWebServices implements DriverInterface
             if (!isset($result->reservationsResponse->reservations->reservation))
                 return $holdsList;
             $reservations = is_object($result->reservationsResponse->reservations->reservation) ? array($result->reservationsResponse->reservations->reservation) : $result->reservationsResponse->reservations->reservation;
-            
+
             foreach ($reservations as $reservation) {
                 $hold = Array();
                 $hold['type'] = $reservation->reservationStatus; // TODO
@@ -618,8 +626,9 @@ class AxiellWebServices implements DriverInterface
                     $hold['location'] .= $reservation->pickUpBranch;
                 }
                 $hold['reqnum'] = $reservation->id;
-                $hold['expire'] = $reservation->reservationStatus == 'fetchable' ? $reservation->pickUpExpireDate : $reservation->validToDate;
-                $hold['create'] = $reservation->validFromDate;
+                $expireDate = $reservation->reservationStatus == 'fetchable' ? $reservation->pickUpExpireDate : $reservation->validToDate;
+                $hold['expire'] = $this->_formatDate($expireDate);
+                $hold['create'] = $this->_formatDate($reservation->validFromDate);
                 $hold['position'] = isset($reservation->queueNo) ? $reservation->queueNo : '-';
                 $hold['available'] = $reservation->reservationStatus == 'fetchable';
                 $hold['item_id'] = '';
@@ -741,8 +750,7 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->reservations_wsdl, $options);
         try {
             $patronId = $this->_getPatronId($holdDetails['patron']['cat_username'], $holdDetails['patron']['cat_password']);
-            
-            $expirationDate = DateTime::createFromFormat($configArray['Site']['displayDateFormat'], $holdDetails['requiredBy'])->getTimeStamp();
+            $expirationDate = $this->dateFormat->convertToDisplayDate('U', $holdDetails['requiredBy'])->getTimeStamp();
             $id = $holdDetails['id'];
             if (strncmp($id, $this->arenaMember . '.', strlen($this->arenaMember) + 1) == 0)
                 $id = substr($id, strlen($this->arenaMember) + 1);
@@ -894,6 +902,15 @@ class AxiellWebServices implements DriverInterface
             error_log('AxiellWebServices: ' . $e->getMessage());
             return null;
         }
+    }
+    
+    protected function _formatDate($dateString) {
+        // remove timezone from Axiell obscure dateformat
+        $date =  substr($dateString, 0, strpos("$dateString*", "*"));
+        if (PEAR::isError($date)) {
+            return $dateString;
+        }
+        return $this->dateFormat->convertToDisplayDate("Y-m-d", $date);
     }
 }
 ?>
