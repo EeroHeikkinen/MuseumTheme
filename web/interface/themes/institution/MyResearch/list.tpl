@@ -186,4 +186,5 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 <div class="clear"></div>
 
+
 <!-- END of: MyResearch/list.tpl -->

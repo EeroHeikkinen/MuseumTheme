@@ -120,7 +120,7 @@ img.alignleft {
 }
 
 .main {
-    padding: .6em 0;
+    padding-top: .6em;
 }
 .main, .footer {
     border-top: 1px solid #dddddd;
@@ -632,6 +632,7 @@ fieldset.publishDateLimit .ui-slider {
     width: 728px;
     float: left;
     margin: 0;
+    padding-bottom: .4em;
 /*
     margin: .6em 0 0 0;
 */
@@ -747,8 +748,9 @@ ul.recordSet .resultItemLine2{
 }
 .searchtools {
     /*background-color: #f5f5f5;*/
-    border-top: #eee solid 1px;
-    padding: 1em;
+    border-top: 1px solid #eeeeee;
+    margin: 0 .3em;
+    padding: .4em .7em 0;
 }
 .resulthead, .myResearch .resultHead {
     padding: 0 0 0 .8em;
