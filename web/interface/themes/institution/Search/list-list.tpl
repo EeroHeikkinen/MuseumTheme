@@ -1,3 +1,5 @@
+<!-- START of: Search/list-list.tpl -->
+
 {js filename="check_item_statuses.js"}
 {js filename="check_save_statuses.js"}
 {if $showContext}
@@ -61,3 +63,5 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
 </form>
 {/if}
+
+<!-- END of: Search/list-list.tpl -->

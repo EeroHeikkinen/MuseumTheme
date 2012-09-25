@@ -1,3 +1,5 @@
+<!-- START of: Search/history.tpl -->
+
 <div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
     {if !$noHistory}
       {if $saved}
@@ -68,3 +70,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Search/history.tpl -->

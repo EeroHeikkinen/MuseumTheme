@@ -1,3 +1,5 @@
+<!-- START of: Search/advanced.tpl -->
+
 <form method="get" action="{$url}/Search/Results" id="advSearchForm" name="searchForm" class="search">
   <div class="span-10">
     <h3>{translate text='Advanced Search'}</h3>
@@ -249,3 +251,5 @@
   $("#addGroupLink").removeClass("offscreen");
 //]]>
 </script>
+
+<!-- END of: Search/advanced.tpl -->

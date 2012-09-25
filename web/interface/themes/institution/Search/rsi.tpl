@@ -1,3 +1,5 @@
+<!-- START of: Search/rsi.tpl -->
+
 {if $rsi}
 {js filename="rsi.js"}
 {literal}
@@ -18,3 +20,5 @@ $(document).ready(function() {
 </script>
 {/literal}
 {/if}
+
+<!-- END of: Search/rsi.tpl -->

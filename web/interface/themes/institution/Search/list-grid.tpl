@@ -1,3 +1,5 @@
+<!-- START of: Search/list-grid.tpl -->
+
 {js filename="check_item_statuses.js"}
 {js filename="check_save_statuses.js"}
 {js filename="jquery.cookie.js"}
@@ -22,3 +24,5 @@
   </tr>
 </table>
 </form>
+
+<!-- END of: Search/list-grid.tpl -->
