@@ -1999,7 +1999,9 @@ tr:nth-child(even) td.gridMouseOver {
     float: right;
 }    
 .collectionDetails li.result {
+/*
     background-color: #EEEEEE;
+*/
     margin-bottom: 0px;
 }
 .collectionDetails li.result.alt {

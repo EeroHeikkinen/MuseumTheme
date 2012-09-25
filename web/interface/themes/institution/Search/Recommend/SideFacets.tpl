@@ -26,7 +26,7 @@
     <dl class="narrowList navmenu">
       <dt>{translate text="Keyword Filter"}</dt>
       <form method="get" action="{$url}/Collection/{$id}/{$collectionAction}" name="keywordFilterForm" id="keywordFilterForm" class="keywordFilterForm">
-        <input id="keywordFilter_lookfor" type="text" name="lookfor" size="27" value="{$keywordLookfor|escape}"/>
+        <input id="keywordFilter_lookfor" type="text" name="lookfor" value="{$keywordLookfor|escape}"/>
         {foreach from=$collectionKeywordFilterList item=filters key=field}
           {foreach from=$filters item=filter}
             <input type="text" name="filter[]" value="{$filter.field}:&quot;{$filter.display}&quot;" style="display:none;"/>
