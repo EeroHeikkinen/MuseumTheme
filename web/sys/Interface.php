@@ -330,7 +330,8 @@ class UInterface extends Smarty
         // Pass along module and action to the templates.
         $this->assign('module', $module);
         $this->assign('action', $action);
-        $this->assign('user', $user);
+        // Don't pass a PEAR error to interface
+        $this->assign('user', PEAR::isError($user) ? null : $user);
 
         // Load the last limit from the request or session for initializing default
         // in search box:
