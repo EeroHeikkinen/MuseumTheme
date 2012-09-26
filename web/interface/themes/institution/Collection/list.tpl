@@ -8,6 +8,7 @@
       {include file=$recommendations}
     {/foreach}
   {/if}
+  <div class="paginationTop">{$pageLinks.all}</div>
   {translate text="Showing"}
   <b>{$recordStart}</b> - <b>{$recordEnd}</b>
   {translate text='of'} <b>{$recordCount}</b>
@@ -30,7 +31,6 @@
       {/foreach}
     </div>    
   {/if}
-  <div class="paginationTop">{$pageLinks.all}</div>
   <div class="clearer"></div>
 {/if}
 {if $recordSet}
