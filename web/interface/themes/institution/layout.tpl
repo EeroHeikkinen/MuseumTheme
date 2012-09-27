@@ -53,7 +53,7 @@
     </script>
 
     {* Load jQuery framework and plugins *}
-    {js filename="jquery-1.7.1.min.js"}
+    {js filename="jquery-1.8.0.min.js"}
     {js filename="jquery.form.js"}
     {js filename="jquery.metadata.js"}
     {js filename="jquery.validate.min.js"}
@@ -65,8 +65,8 @@
     {js filename="jquery.dataTables.js"}   
     
     {* Load jQuery UI *}
-    {js filename="jquery-ui-1.8.7.custom/js/jquery-ui-1.8.7.custom.min.js"}
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.7.custom/css/smoothness/jquery-ui-1.8.7.custom.css" />
+    {js filename="jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js"}
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css" />
         
     {* Load dialog/lightbox functions *}
     {js filename="lightbox.js"}
