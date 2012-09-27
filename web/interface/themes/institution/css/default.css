@@ -193,10 +193,10 @@ img.alignleft {
 #searchForm_input {
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
-    color: #333333;
+    color: initial;
     height: 16px;
     width: 220px;
-    padding: 10px 4px 8px 8px;
+    padding: 10px 24px 8px 8px;
 /*
     background-color: #ffffff;
     color: #333333;
@@ -223,6 +223,16 @@ img.alignleft {
 */
 }
 
+a.clear_input {
+    background: url("../images/clear-searchbar-16x16.png") no-repeat scroll 6px 2px transparent;
+    color: white;
+    padding: 2px 0 0 12px;
+    position: absolute;
+    width: 10px;
+}
+a.clear_input:hover {
+    text-style: none;
+} 
 div.styled_select { /* to get rid of the unstylable down-arrow */
 /*
     border-right: 1px solid #969696;
