@@ -1,3 +1,5 @@
+<!-- START of: Record/view-googlemap.tpl -->
+
 {js filename="jquery-1.8.0.min.js"}
 
 {literal}
@@ -45,3 +47,5 @@
 <div id="wrap" style="width: 674px; height: 479px">
   <div id="map_canvas" style="width: 100%; height: 100%"></div>
 </div>
+
+<!-- END of: Record/view-googlemap.tpl -->

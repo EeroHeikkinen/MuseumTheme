@@ -1,3 +1,5 @@
+<!-- START of: Search/reserves-list.tpl -->
+
 {* Main Listing *}
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
   {if $errorMsg || $infoMsg}
@@ -84,3 +86,5 @@
 {* End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Search/reserves-list.tpl -->

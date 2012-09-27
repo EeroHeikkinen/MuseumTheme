@@ -1,3 +1,5 @@
+<!-- START of: Search/reserves.tpl -->
+
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
   <h3>{translate text='Search For Items on Reserve'}</h3>
   {if $useReservesIndex}
@@ -119,3 +121,5 @@
 {* End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Search/reserves.tpl -->

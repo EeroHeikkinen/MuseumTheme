@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/menu.tpl -->
+
   <div class="sidegroup">
     <h4 class="account">{translate text='Your Account'}</h4>
     <ul class="bulleted">
@@ -10,3 +12,5 @@
       <li{if $user && $pageTemplate=="history.tpl"} class="active"{/if}><a href="{$url}/Search/History?require_login">{translate text='history_saved_searches'}</a></li>
     </ul>
   </div>
+  
+<!-- END of: MyResearch/menu.tpl -->

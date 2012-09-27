@@ -1,3 +1,5 @@
+<!-- START of: Summon/list-list.tpl -->
+
 {* check save statuses via AJAX *}
 {js filename="check_save_statuses.js"}
 {js filename="jquery.cookie.js"}
@@ -63,3 +65,5 @@
   {/foreach}
   </ul>
 </form>
+
+<!-- END of: Summon/list-list.tpl -->

@@ -1,3 +1,5 @@
+<!-- START of: Help/sv/advsearch.tpl -->
+
 <h1>Guide för utökad sökning</h1>
 
 <ul class="HelpMenu">
@@ -51,3 +53,5 @@
     <p><i>Kombinera sökgrupper med <strong>Alla grupper (AND)</strong>.</i></p>
   </dd>
 </dl>
+
+<!-- END of: Help/sv/advsearch.tpl -->

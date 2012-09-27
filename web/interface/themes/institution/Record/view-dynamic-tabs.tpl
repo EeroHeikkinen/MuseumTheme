@@ -1,3 +1,5 @@
+<!-- START of: Record/view-dynamic-tabs.tpl -->
+
 {literal}
 <script type="text/javascript">
 $(document).ready(function() {
@@ -16,3 +18,5 @@ $(document).ready(function() {
 });
 </script>
 {/literal}
+
+<!-- END of: Record/view-dynamic-tabs.tpl -->

@@ -1,3 +1,5 @@
+<!-- START of: Record/addtag.tpl -->
+
 <form action="{$url}/Record/{$id|escape}/AddTag" method="post" name="tagRecord">
   <input type="hidden" name="submit" value="1" />
   <input type="hidden" name="id" value="{$id|escape}" />
@@ -6,3 +8,5 @@
   <p>{translate text="add_tag_note"}</p>
   <input type="submit" value="{translate text='Save'}"/>
 </form>
+
+<!-- END of: Record/addtag.tpl -->

@@ -1,3 +1,5 @@
+<!-- START of: Collection/browseGrid.tpl -->
+
 {foreach from=$result item=item name=recordLoop}
   <div class="collectionBrowseEntry gridBrowse {if ($smarty.foreach.recordLoop.iteration % 2) == 0}alt {/if}">
     {if $item[1] > 0}
@@ -19,4 +21,5 @@
     <div class="clearer"></div>
   {/if}
 {/foreach}
-  
+
+<!-- END of: Collection/browseGRID.tpl -->

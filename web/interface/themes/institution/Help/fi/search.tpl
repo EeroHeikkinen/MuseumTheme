@@ -1,3 +1,5 @@
+<!-- START of: Help/fi/search.tpl -->
+
 <h1>Hakuvinkit</h1>
 
 <ul class="HelpMenu">
@@ -121,3 +123,5 @@
     </dl>
   </dd>
 </dl>
+
+<!-- END of: Help/fi/search.tpl -->

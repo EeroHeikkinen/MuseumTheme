@@ -1,3 +1,5 @@
+<!-- START of: Summon/list-none.tpl -->
+
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
   <div class="resulthead"><h3>{translate text='nohit_heading'}</h3></div>
   <p class="error">{translate text='nohit_prefix'} - <strong>{$lookfor|escape:"html"}</strong> - {translate text='nohit_suffix'}</p>
@@ -40,3 +42,5 @@
 {* End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Summon/list-none.tpl -->

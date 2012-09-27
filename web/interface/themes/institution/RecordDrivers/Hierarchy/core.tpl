@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Hierarchy/core.tpl -->
+
 <div class="span-13">
   {* Display Title *}
   <h1>{$coreShortTitle|escape}
@@ -329,3 +331,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: RecordDrivers/Hierarchy/core.tpl -->

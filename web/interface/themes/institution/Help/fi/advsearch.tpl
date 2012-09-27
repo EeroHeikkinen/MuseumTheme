@@ -1,3 +1,5 @@
+<!-- START of: Help/fi/advsearch.tpl -->
+
 <h1>Tarkennetun haun opaste</h1>
 
 <ul class="HelpMenu">
@@ -54,3 +56,5 @@
     </ul>
   </dd>
 </dl>
+
+<!-- END of: Help/fi/advsearch.tpl -->
