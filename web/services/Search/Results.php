@@ -162,6 +162,10 @@ class Results extends Action
             // Was the empty result set due to an error?
             $error = $searchObject->getIndexError();
             if ($error !== false) {
+                // Solr 4 returns error as an array
+                if (is_array($error)) {
+                    $error = $error['msg'];
+                }
                 // If it's a parse error or the user specified an invalid field, we
                 // should display an appropriate message:
                 if (stristr($error, 'org.apache.lucene.queryParser.ParseException')

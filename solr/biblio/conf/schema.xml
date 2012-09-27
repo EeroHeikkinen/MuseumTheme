@@ -108,6 +108,7 @@
     <fieldType name="dateRange" class="fi.nationallibrary.ndl.solr.schema.RangeField" subFieldType="negativeSupportingDate" separator=","/>
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="tdouble" class="solr.TrieField" type="double" omitNorms="true" positionIncrementGap="0" indexed="true" stored="false" />
+    <fieldType name="geo" class="solr.SpatialRecursivePrefixTreeFieldType" spatialContextFactory="com.spatial4j.core.context.jts.JtsSpatialContextFactory" units="degrees" distErrPct="0.025" maxDistErr="0.000009" />
   </types>
  <fields>
    <!-- Core Fields  -->
@@ -242,7 +243,8 @@
    <field name="rights" type="string" indexed="true" stored="true" multiValued="true"/>
    
    <!-- Coordinates -->
-   <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
+   <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="true"/>
+   <dynamicField name="*_geo"  type="geo"  indexed="true" stored="true"  multiValued="true" />
  </fields>
  <uniqueKey>id</uniqueKey>
  <defaultSearchField>allfields</defaultSearchField>

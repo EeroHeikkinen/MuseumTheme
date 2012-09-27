@@ -234,6 +234,11 @@ class SearchObject_Solr extends SearchObject_Base
                 $this->addFilter('illustrated:"Not Illustrated"');
             }
         }
+        
+        // Coordinates
+        if (isset($_REQUEST['coordinates']) && $_REQUEST['coordinates']) {
+            $this->addFilter('{!score=none}location_geo:"Intersects(' . str_replace('"', '\"', $_REQUEST['coordinates']) . ')"');
+        }
     }
 
     /**

@@ -24,7 +24,7 @@
     </script>
 
 	{* Load jQuery framework *}
-    {js filename="jquery-1.4.4.min.js"}
+    {js filename="jquery-1.8.0.min.js"}
     
     {* Load common javascript functions *}
     {js filename="common.js"}

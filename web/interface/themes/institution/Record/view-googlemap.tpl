@@ -1,4 +1,4 @@
-{js filename="jquery-1.7.1.min.js"}
+{js filename="jquery-1.8.0.min.js"}
 
 {literal}
 <script type="text/javascript">

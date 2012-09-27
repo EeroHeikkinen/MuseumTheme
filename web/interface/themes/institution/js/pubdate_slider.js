@@ -1,6 +1,6 @@
 $(document).ready(function(){
     // create the slider for the publish date facet
-	$("#publishDateSlider").slider({ from: 0, to: 2020, 
+	$("#publishDateSlider").jslider({ from: 0, to: 2020, 
 									 heterogeneity: ['50/1800', '75/1910'], 
         							 scale: [0, '|', 900, '|', '1800', '|', 1910, '|', 2020], 
         							 limits: false, step: 1, 
