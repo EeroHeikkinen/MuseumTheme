@@ -139,12 +139,43 @@
           </select>
         </fieldset>
       {/if}
+        <div class="span-8 mapContainer">
+          {js filename="jquery.geo.min.js"}
+          {js filename="selection_map.js"}
+          <label class="displayBlock" for="coordinates">{translate text='Coordinates:'}</label>
+          <input id="coordinates" name="coordinates"></input>
+          <div id="selectionMapContainer">
+            <div id="zoomSlider">
+              <div id="zoomControlPlus" class="ui-state-default ui-corner-all ui-icon ui-icon-plus"></div>
+              <div id="zoomRange">
+                <div id="zoomPath"></div>
+              </div>
+              <div id="zoomControlMinus" class="ui-state-default ui-corner-all ui-icon ui-icon-minus"></div>
+            </div>
+            <div id="selectionMap">
+              <div id="selectionMapTools">
+                <input id="mapPan" type="radio" name="tool" value="pan" checked="checked"><label for="mapPan">{translate text='Move Map'}</label>
+                <input id="mapPolygon" type="radio" name="tool" value="drawPolygon"><label for="mapPolygon">{translate text='Select Polygon'}</label>
+                <input id="mapRectangle" type="radio" name="tool" value="dragBox"><label for="mapRectangle">{translate text='Select Rectangle'}</label>
+              </div>
+            </div>
+          </div>
+          <span id="selectionMapHelp">
+            <span id="selectionMapHelpPan">{translate text="adv_search_map_pan_help"}</span>
+            <span id="selectionMapHelpPolygon" class="hide">{translate text="adv_search_map_polygon_help"}</span>
+            <span id="selectionMapHelpRectangle" class="hide">{translate text="adv_search_map_rectangle_help"}</span>
+          </span>
+          {literal}
+          <script type="text/javascript">
+          </script>
+          {/literal}
+        </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
       <div class="clear"></div>
       <input type="submit" class="push-9 button" name="submit" value="{translate text="Find"}"/>
     </div>
   </div>
-  
+
   <div class="span-3 last">
     {if $searchFilters}
       <div class="filterList">

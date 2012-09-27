@@ -13,7 +13,7 @@
 
 {if !$hideLogin}
 <h2>{translate text='Login'}</h2>
-{if $message}<div class="error">{$message|translate}</div>{/if}
+{if $message}<div class="error" id="errormessage">{$message|translate}</div>{/if}
 {if $authMethod != 'Shibboleth'}
   <form method="post" action="{$url}/MyResearch/Home" name="loginForm" id="loginForm">
     <label class="span-2" for="login_username">{translate text='Username'}:</label>
@@ -37,7 +37,10 @@
   <script>
     {literal}
     $(document).ready(function() {
-      $('#loginForm').validate();
+      $("#loginForm").validate();      
+      $("input").one("keydown", function () { 
+        $("#errormessage").css({"visibility":"hidden"});
+      });
     });
     {/literal}
   </script>
