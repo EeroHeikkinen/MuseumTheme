@@ -37,9 +37,9 @@
   <script>
     {literal}
     $(document).ready(function() {
-      $('#loginForm').validate();
-      $('input').click(function () { 
-        $('#errormessage').css({"visibility":"hidden"});
+      $("#loginForm").validate();      
+      $("input").one("keydown", function () { 
+        $("#errormessage").css({"visibility":"hidden"});
       });
     });
     {/literal}
