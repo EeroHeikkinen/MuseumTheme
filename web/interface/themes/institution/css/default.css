@@ -12,7 +12,6 @@ body {
     padding: 0 24px 48px;
     background-color: #ffffff;
     color: #3c3c3c;
-    -webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
 }
 .container {
     width: 960px; /* make this match the body width above */
@@ -53,9 +52,6 @@ a:focus, a:hover {
 }
 
 /*** Languages ***/
-div.lang {
-    line-height: 30px;
-}
 div.lang ul {
     margin: 0 .4em;
 }
@@ -63,11 +59,9 @@ div.lang li, div.lang a {
     float: left;
     overflow: hidden;
     height: 30px;
-    font-style: normal;
 }
 div.lang li {
     padding: 0 6px;
-    font-size: 90%;
 }
 
 /*** Position ***/
@@ -110,10 +104,6 @@ img.alignleft {
     display: none;
 }
 
-.ui-widget {
-    font-family: inherit;
-    font-size: inherit;
-}
 
 .sidebarOnLeft .sidegroup {
     margin-left: 10px;
@@ -257,10 +247,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 
 /** Dropdown **/
 .dropdown dd, .dropdown dt, .dropdown ul {
-    font-weight: normal;
-/*    
-    font-size: .846em;
-*/
     margin: 0px;
     padding: 0px;
 }
@@ -322,7 +308,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     display: none;
 }
 .dropdown dd ul li a {
-    line-height: 1em;
     padding: 5px;
     display: block;
 }
@@ -351,7 +336,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 }
 .searchbox .dropdown dt a {
     height: 16px;
-    line-height: 1.2em;
     padding: 8px 3px 8px 7px;
 }
 .searchbox .dropdown dd ul li a {
@@ -406,7 +390,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 label.invalid {
     background:url("../images/unchecked.gif") no-repeat scroll 0 0 transparent;
     color:#EA5200;
-    font-weight:bold;
     padding-bottom:2px;
     padding-left:16px;
     margin-left: 5px;
@@ -430,7 +413,6 @@ div.dialogLoading {
     background:none;
 }
 .highlight {
-    font-weight: bold;
     background: none;
 }
 .searchheader img.alignleft {
@@ -512,7 +494,6 @@ ul.cartContent {
 .alphaBrowseHeading {
     float: left;
     width: 650px;
-    line-height: 1.31em;
 }
 
 .alphaBrowseCount {
@@ -522,13 +503,11 @@ ul.cartContent {
 .alphaBrowseHeader {
     text-align: right;
     clear: both;
-    font-weight: bold;
     zoom: 1;
 }
 
 .alphaBrowsePageLinks {
     margin: 1em;
-    font-weight: bold;
     background-color: #fff;
 }
 
@@ -545,8 +524,6 @@ ul.cartContent {
 }
 
 .alphaBrowseRelatedHeading .title {
-    font-weight: bold;
-    font-size: 90%;
     margin-left: 2em;
 }
 
@@ -592,7 +569,6 @@ fieldset.publishDateLimit legend {
     margin-bottom: .3em;
 }
 fieldset.publishDateLimit .yearbox {
-    font-size: 13px;
     width: 35px;
 }
 fieldset.publishDateLimit .ui-slider {
@@ -622,9 +598,6 @@ fieldset.publishDateLimit .ui-slider {
 }
 #topPubDateVis strong {
     padding-left: .2em;
-}
-#suggestedTopics {
-    line-height: 1.4em;
 }
 #sidebarFacets, #sidebarRecommend, .myResearchMenu {
     float: left;
@@ -732,7 +705,6 @@ ul.recordSet .resultItemLine2{
     width:1em;
     margin:0 4px 4px 0;
     text-align:center;
-    font-size:0.8em;
 }
 .result .imagelinks a:hover {
     text-decoration:none;
@@ -788,7 +760,6 @@ ul.recordSet .resultItemLine2{
     padding-top: .5em;
 }
 .correction p, .correctionTerms {
-    line-height: 1.3em;
     margin: 0;
 }
 .correction a img {
@@ -884,7 +855,6 @@ dl.narrowList a {
 }
 .navmenu dt {
     margin-top:.75em;
-    font-weight:bold;
     padding:0.2em 0.4em;
     background-color: #eee;
 }
@@ -897,7 +867,6 @@ dl.narrowList a {
     margin-right:0.4em;
 }
 .facetCount {
-    font-size:0.8em;
     color:#999;
 }
 
@@ -1170,9 +1139,6 @@ ul.recordSet .addToFavLink a {
     background-position: left top;
     padding:2px .5em .5em 20px;
     margin-right:1em;
-    line-height: 16px;
-    font-size: 8pt;
-    font-weight: normal;
 }
 
 .formatbook      {background-image:url(../images/silk/book.png);}
@@ -1211,7 +1177,6 @@ ul.recordSet .addToFavLink a {
 /***** Pagination *****/
 
 .pagination {
-    font-size:90%;
     padding:13px 0;
     margin:1.5em 0;
     text-align:center;
@@ -1237,7 +1202,6 @@ ul.recordSet .addToFavLink a {
 .pagination span {
     padding: .2em .3em;
     margin-right:.5em;
-    font-weight:bold;
 }
 
 /*** Record Page ***/
@@ -1277,7 +1241,6 @@ div.record {
     behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .recordTitle {
-    font-weight:bold;
     margin-top:0;
 }
 div.recordsubcontent {
@@ -1297,7 +1260,6 @@ div.recordsubcontent {
     width: 1.5em;
     margin: 0 4px 4px 0;
     text-align: center;
-    font-size: 1em;
 }
 .coverImageLinks a:hover {
     text-decoration: none;
@@ -1328,9 +1290,6 @@ div.recordsubcontent {
 }
 
 /***** Citation Table *****/
-.citation {
-    font-size:90%;
-}
 .citation th {
     text-align:left;
     color:#666;
@@ -1361,14 +1320,12 @@ div.recordsubcontent table.citation {
 }
 
 table.authors th {
-    font-size:120%;
     padding:0 0.8em;
 }
 
 /************* Tabs (Record Page) *****************/
 
 #tabnav {
-    font-size:90%;
     margin-top:1em;
     padding:0 0 0 1em;
     background-color:#fafafa;
@@ -1391,7 +1348,6 @@ float: left;
     display:block;
     padding:18px 10px 10px 5px;
     text-decoration:none;
-    font-weight:normal;
     color:#000;
 }
 /* Commented Backslash Hack
@@ -1436,10 +1392,6 @@ float: left;
     border-color: #cccccc;
     border-style: none none solid none;
 }
-#dyntabnav .ui-widget {
-    font-family: inherit;
-    font-size: inherit;
-}
 #dyntabnav .ui-tabs-panel {
     padding: 1em 0;
 }
@@ -1479,9 +1431,8 @@ ul.similar li {
     padding-bottom:10px;
 }
 
-h5.recordTabHeader{
-    font-weight:normal;
-    margin:5px 0 20px 0;
+h5.recordTabHeader {
+    margin: 5px 0 20px 0;
 }
 
 /*********** Toolbar (Record View) ************/
@@ -1637,7 +1588,6 @@ ul.commentList li {
 }
 ul.commentList li div.posted {
     color:#666;
-    font-size: 80%;
     margin-top:1em;
     width:100%;
 }
@@ -1653,7 +1603,6 @@ form#commentRecord #comment {
 
 label.displayBlock {
     display:block;
-    font-weight:bold;
 }
 input.button {
 }
@@ -1667,24 +1616,6 @@ p.citationText {
     padding-left:25px;
     text-indent:-25px;
     width:95%;
-}
-
-/* Tag cloud */
-
-.cloud1 {
-    font-size: .8em;
-}
-.cloud2 {
-    font-size: 1em;
-}
-.cloud3 {
-    font-size: 1.2em;
-}
-.cloud4 {
-    font-size: 1.4em;
-}
-.cloud5 {
-    font-size: 1.6em;
 }
 
 /* New advanced search screen stuff */
@@ -1753,7 +1684,6 @@ p.citationText {
 }
 .searchGroups {
     margin-bottom: 10px;
-    font-size: 125%;
 }
 .searchGroups .searchGroupDetails {
     float: right;
@@ -1824,7 +1754,6 @@ p.citationText {
 
 /* Browse Lists */
 .browseNav {
-    font-size:90%;
     background-color:#fff;
     width: 215px;
     border: 1px solid;
@@ -1870,7 +1799,6 @@ p.citationText {
 }
 .browseNav a.viewRecords {
     float:right;
-    font-size:80%;
 }
 
 /** Google search **/
@@ -1886,7 +1814,6 @@ div.fieldValue {
 
 /** system unavailable and other fatal error pages */
 div.unavailable, div.fatalError {
-    font-size:125%;
     margin:5em auto 5em auto;
     padding: 2em 5em;
     width: 65%;
@@ -1895,9 +1822,6 @@ div.unavailable, div.fatalError {
     -webkit-border-radius: 5px
 
     behavior: url(css/css3pie/PIE.php); /* for IE */
-}
-div.debug code {
-    font-size: x-small;
 }
 
 /** Open Library Subjects **/
@@ -1943,7 +1867,6 @@ div.debug code {
     height:55px;
     display:block;
     text-align:center;
-    font-size:86%;
     width:155px;
 }
 
@@ -1951,7 +1874,6 @@ div.debug code {
     display:block;
     height:40px;
     overflow:hidden;
-    line-height:1.2em;
 }
 
 td.gridCell {
@@ -1983,9 +1905,6 @@ tr:nth-child(even) td.gridMouseOver {
     background-color: #FFF;
     padding: 20px;
 }    
-.disambiguationDiv h1 {
-    font-size: 2em;
-}
 #disambiguationItemsDiv {
     padding: 5px;
     margin-bottom: 30px;
@@ -2036,7 +1955,6 @@ tr:nth-child(even) td.gridMouseOver {
 }
 .collectionDetails .paginationTop span {
     border: 1px solid #EEEEEE;
-    font-weight: bold;
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 3px;
@@ -2100,7 +2018,7 @@ tr:nth-child(even) td.gridMouseOver {
     display: none;
 }
 
-/* Rss Recommendations */
+/* RSS Recommendations */
 div.suggestionHeader {
     min-height:30px;
     padding-top: 5px;
@@ -2112,7 +2030,6 @@ div.submenuSuggestion {
 }
 
 .submenuSuggestion h4 {
-    font-family: Georgia,"Times New Roman",Serif;
     color: #7c1416;
     padding-top:12px;
 }
@@ -2123,8 +2040,6 @@ div.submenuSuggestion {
 }
 .suggestionWhatsThis {
     color: #7C1416;
-    font-family: Georgia,"Times New Roman",Serif;
-    font-size: 10px;
     float:right;
     clear:right;
 }
@@ -2189,8 +2104,6 @@ ul.suggestion li{
     background-color:#FFF;
 }
 .mapSeeAllDiv{
-    font-size:1.2em;
-    font-weight: bold;
     text-align:center;
 }
 .mapInfoResults{
@@ -2217,7 +2130,6 @@ ul.suggestion li{
 
 /* table for displaying full status in result list */
 table.summHoldings {
-    font-size: smaller;
     margin-bottom: .5em;
 }
 table.summHoldings th {
@@ -2238,9 +2150,7 @@ table.summHoldings .callnumColumn {
 table.summHoldings .statusColumn {
     width: 20%;
 }
-a.summHoldings {
-    font-size: smaller;
-}
+
 /*****************contextHelp*******************/
 
 table#contextHelp td, table#contextHelp tr {
@@ -2291,16 +2201,13 @@ table#contextHelp td.body {
     background: #ededed;
 }
 table#contextHelp td.body h2 {
-    font-size: 1.4em;
     margin-bottom: 5px;
     color: #2D4687;
-    font-weight: bold;
 }
 table#contextHelp a {
     color: #04778E;
     /*border-bottom: solid 1px #ACD4DB;*/
     text-decoration: underline;
-    font-weight: bold;
 }
 table#contextHelp a:hover {
     color: #024A59;
@@ -2321,9 +2228,7 @@ table#contextHelp div.arrow.up {
     margin-bottom: 3px;
 }
 table#contextHelp p {
-    font-size: 0.9em;
     text-align: left;
-    font-weight: bold;
 }
 table#contextHelp p.separator {
     background: url(../images/dashed-line-grey.gif) 0 top repeat-x scroll;
@@ -2499,7 +2404,6 @@ div#closeContextHelp:active {
 
 #hierarchyTree #treeList li.currentHierarchy > a, #hierarchyTree #treeList li.currentRecord > a {
     color: #000;
-    font-weight: bold;   
 }
 
 #toggleTree {
@@ -2535,10 +2439,6 @@ div#closeContextHelp:active {
     margin-right: 1em;
 }
 
-.jstree-highlight {
-    font-weight: bold;
-}
-
 .sysInfo {
     margin: 0 auto;
     padding: 1em;
@@ -2556,13 +2456,11 @@ div#closeContextHelp:active {
     padding:10px;
     background-color: #FDD5A3;
     border: solid 2px #E77825;
-    font-size:24px;
 }
 
 /* Dynatree */
 ul.dynatree-container {
     border: none;
-    font-size: 100%;
     margin: 0 0 0 -8px;
     max-height: 500px;
     overflow-y: auto; 
@@ -2571,7 +2469,6 @@ ul.dynatree-container a {
     margin: 0;
 }
 span.dynatree-node {
-    font-size: 100%;
     margin: 0 0 0 -6px;
 }
 span.dynatree-node a:hover {
@@ -2675,9 +2572,6 @@ input#coordinates {
     border:1px solid #84bbf3;
     display:inline-block;
     color:#ffffff;
-    font-family:arial;
-    font-size:15px;
-    font-weight:bold;
     padding:6px 24px;
     text-decoration:none;
     text-shadow:1px 1px 0px #528ecc;
