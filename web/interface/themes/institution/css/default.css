@@ -1228,7 +1228,7 @@ div.record {
     width: 506px;
     float: left;
 }
-#recordMetadata tr:hover {
+#recordMetadata tr:hover, .citation tr:hover {
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
 /*
     border: 1px solid #f4f4f4;

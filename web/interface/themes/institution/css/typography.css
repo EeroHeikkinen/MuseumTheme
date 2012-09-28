@@ -157,7 +157,9 @@ label.invalid {
 }
 
 .highlight {
+/*
     font-weight: bold;
+*/
 }
 
 .mobileViewLink {
@@ -200,6 +202,9 @@ fieldset.publishDateLimit .yearbox {
     font-size: 1em;
 }
 
+a.subjectHeading:hover {
+    font-weight: normal;
+} 
 
 /* Side facets */
 .navmenu dt {
@@ -246,9 +251,9 @@ table.authors th {
 }
 
 /* Dynamic Tabs */
-#dyntabnav .ui-widget {
+#dyntabnav, #dyntabnav .ui-widget, #dyntabnav li {
     font-family: inherit;
-    font-size: inherit;
+    font-size: 1em;
 }
 
 /* Similar Items (record view) */
