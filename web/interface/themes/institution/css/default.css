@@ -224,7 +224,8 @@ img.alignleft {
 }
 
 a.clear_input {
-    background: url("../images/clear-searchbar-16x16.png") no-repeat scroll 6px 2px transparent;
+    background: url("../images/searchbox.png") no-repeat scroll -192px -46px transparent;
+    /* For round clear button use coordinates -213px -46px */
     color: white;
     padding: 2px 0 0 12px;
     position: absolute;
@@ -251,8 +252,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     height: 34px;
     width: 169px;
     padding: 8px 9px;
-    -webkit-border-radius: 0; /* to fix round left corners on mac webkit-browsers */
-*/
+    -webkit-border-radius: 0;*/ /* to fix round left corners on mac webkit-browsers */
 }
 
 /** Dropdown **/

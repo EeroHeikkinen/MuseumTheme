@@ -12,7 +12,7 @@
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable" placeholder="{translate text="Find"}"/>
+      <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable" placeholder="{translate text="Find"}&hellip;"/>
   {if $prefilterList}
 {* DELETE THIS
   <div class="styled_select">
@@ -100,13 +100,13 @@
       $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
 
       // update value
-      valueContent = $(".clearable").attr('value');
+      valueContent = $(".clearable").attr("value");
       if (valueContent == null) {
-        $('.clearable').val('').change();
+        $(".clearable").val("").change();
       };
       
       // change width
-      $('.clearable').width('200px').change();
+      $(".clearable").width("200px").change();
     });
   </script>
   {/literal}
