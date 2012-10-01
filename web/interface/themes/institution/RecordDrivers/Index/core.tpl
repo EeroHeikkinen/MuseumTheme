@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/core.tpl -->
+
 <div id="recordMetadata">
     
   {* Display Title *}
@@ -328,3 +330,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: RecordDrivers/Index/core.tpl -->

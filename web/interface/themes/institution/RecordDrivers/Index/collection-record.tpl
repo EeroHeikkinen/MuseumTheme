@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/collection-record.tpl -->
+
 {* Display Title *}
   <h1>{$collRecordShortTitle|escape}
   {if $collRecordSubtitle}{$coreSubtitle|escape}{/if}
@@ -214,3 +216,5 @@
   </tr>
   {/if}
 </table>
+
+<!-- END of: RecordDrivers/Index/collection-record.tpl -->

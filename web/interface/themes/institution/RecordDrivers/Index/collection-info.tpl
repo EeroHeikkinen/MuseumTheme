@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/collection-info.tpl -->
+
 <div id="collectionInfo" class="collectionInfo">
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
   {if !empty($collMainAuthor)}
@@ -470,3 +472,5 @@
   {/if}
 </table>
 </div>
+
+<!-- END of: RecordDrivers/Index/collection-info.tpl -->

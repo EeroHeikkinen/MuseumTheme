@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/result-grid.tpl -->
+
 <div id="record{$summId|escape}" class="gridRecordBox recordId" >
     <span class="gridImageBox" >
     <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}">
@@ -30,3 +32,5 @@
 </div>
 
 {if $summCOinS}<span class="Z3988" title="{$summCOinS|escape}"></span>{/if}
+
+<!-- END of: RecordDrivers/Index/result-grid.tpl -->
