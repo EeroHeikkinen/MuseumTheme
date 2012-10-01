@@ -23,6 +23,7 @@
             {else}
               <a href="{$path}/Record/{$record.id|escape}">{$record.title|trim:'/:'|escape}</a>
             {/if}
+            {* {if $record.checkedOut}<span class="highlight">{translate text="fined_work_still_on_loan"}</span>{/if} *}
           </td>
           <td>{$record.checkout|escape}</td>
           <td>{$record.duedate|escape}</td>
