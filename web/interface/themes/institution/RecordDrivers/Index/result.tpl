@@ -90,7 +90,7 @@
       {/if}
     </div>
 
-    <div class="resultItemLine3 last">
+    <div class="resultItemLine3">
       {if !empty($summSnippetCaption)}<strong>{translate text=$summSnippetCaption}:</strong>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       {if $summDedupData}
@@ -169,10 +169,6 @@
       </div>
       {/if}
     {/if}
-  <div class="clear"></div>
-
-  <div class="span-3 last addToFavLink">
-    <a id="saveRecord{$summId|escape}" href="{$url}/Record/{$summId|escape:"url"}/Save" class="fav tool saveRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
 
     {* Display the lists that this record is saved to *}
     <div class="savedLists info hide" id="savedLists{$summId|escape}">
@@ -192,8 +188,10 @@
       </div>
       {/foreach}
     {/if}
-  </div>
 </div>
+  <div class="last addToFavLink">
+    <a id="saveRecord{$summId|escape}" href="{$url}/Record/{$summId|escape:"url"}/Save" class="fav tool saveRecord" title="{translate text='Add to favorites'}"></a>
+  </div>
   <div class="clear"></div>
 </div>
 

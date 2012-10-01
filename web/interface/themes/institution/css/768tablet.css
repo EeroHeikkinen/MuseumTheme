@@ -70,10 +70,10 @@ px      62    136    210    284    358    432    506    580    654    728   */
         margin: 0 12px 0 12px;
     }
     #resultList {
-        width: 506px;
+        width: 496px;
     }
     ul.recordSet .resultColumn2 {
-        width: 358px;
+        width: 312px;
     }
     #resultSidebar {
         width: 728px;

@@ -64,7 +64,7 @@
       
       </div>
 
-      <div class="last span-8">
+      <div class="resultItemLine3">
       {if !empty($summSnippetCaption)}<b>{translate text=$summSnippetCaption}:</b>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br>{/if}
       <div id="callnumAndLocation{$summId|escape}">
@@ -102,11 +102,8 @@
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
-<div class="clear"></div>
 
-  <div class="span-3 last addToFavLink">
-    <div id="saveLink{$summId|escape}">
-      <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool">{translate text='Add to favorites'}</a>
+   <div class="savedLists info hide" id="savedLists{$summId|escape}">
       <ul id="lists{$summId|escape}"></ul>
       <script language="JavaScript" type="text/javascript">
         getSaveStatuses('{$summId|escape:"javascript"}');
@@ -138,6 +135,8 @@
       {/if}
      {/if}
   </div>
+  <div class="last addToFavLink">
+      <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool"></a>
   </div>
   <div class="clear"></div>
  </div>

@@ -112,7 +112,12 @@ px      62    136    210    284    358    432   */
        width: auto;
     }
     ul.recordSet .resultColumn2 {
-        width: 284px;
+        width: 246px;
+    }
+    ul.recordSet .addToFavLink {
+        clear: none;
+        float: right;
+        margin: 0;
     }
 
 

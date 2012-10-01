@@ -667,14 +667,18 @@ ul.recordSet .addToFavLink {
     width: auto;
     float: right;
 }
+.addToFavLink a {
+    height: 20px;
+}
 ul.recordSet .resultColumn1 {
     float: left;
-    width: 136px;
+    width: 126px;
+    margin: 0 12px 0 10px;
 }
 ul.recordSet .resultColumn2 {
     float:left;
     margin:0;
-    width: 580px;
+    width: 540px;
 }
 ul.recordSet .resultCheckbox {
     position:absolute;
