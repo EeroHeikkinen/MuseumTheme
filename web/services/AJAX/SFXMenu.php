@@ -60,10 +60,8 @@ class SFXMenu extends Action
             return;
         }
         
-        $url = $baseURL = $configArray['OpenURL']['url'];
-        if (preg_match('/(https?:\/\/.*?)\/([\w-]+)/i', $baseURL, $matches)) {
-            $baseURL = $matches[1];
-        }
+        $url = $configArray['OpenURL']['url'];
+        $baseURL = substr($url, 0, strrpos($url, '/'));
         
         if (substr($_REQUEST['openurl'], 0, 1) != '?') {
             $url .= '?';
@@ -72,10 +70,8 @@ class SFXMenu extends Action
         $request = new Proxy_Request();
         $request->setMethod(HTTP_REQUEST_METHOD_GET);
         $request->setURL($url);
-        error_log("Int lang: " . $interface->lang);
         if (isset($configArray['OpenURL']['language'][$interface->lang])) {
             $request->addCookie('user-Profile', '%2B%2B%2B' . $configArray['OpenURL']['language'][$interface->lang]);
-            error_log("Lang:" . $configArray['OpenURL']['language'][$interface->lang]);
         }
                 
         // Perform request and die on error
