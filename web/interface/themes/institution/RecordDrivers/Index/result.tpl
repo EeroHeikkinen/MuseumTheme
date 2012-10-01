@@ -11,6 +11,7 @@
 </div>
 
 <div class="coverDiv">
+  <div class="resultNoImage"><p>{translate text='No image'}</p></div>
   {assign var=img_count value=$summImages|@count}
   {if $img_count >= 1}
       <div id="imagelinks">
@@ -20,9 +21,9 @@
       </div>
     {else}
       {if $summThumb}
-        <img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
+        <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}" class="title"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a>
         {else}
-        <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}" title="{translate text='No Cover Image'}"/>
+        {* <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}" class="resultNoImage">{translate text='No image'}</a> *}
       {/if}
   {/if}
   </div>

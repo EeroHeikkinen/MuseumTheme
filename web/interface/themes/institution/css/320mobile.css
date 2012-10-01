@@ -110,9 +110,13 @@ px      62    136    210    284    */
     
     ul.recordSet .resultColumn1 {
         width: 62px;
+        margin-left: 0;
     }
     .summcover {
         max-width: 62px;
+    }
+    .resultNoImage {
+        padding: 20px 0;
     }
     ul.recordSet .resultColumn1 .resultItemFormat {
        width: 20px;

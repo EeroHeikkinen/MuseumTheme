@@ -13,22 +13,22 @@
     </div>
   
     <div class="coverDiv">
-    	<div>
+        <div class="resultNoImage"><p>{translate text='No image'}</p></div>
     	{if $summThumb}
-        <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
+        {* large image link: <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large"> *}
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}" class="title">
           <img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}">
-        </a>
+        </a></div>
     	{else}
-        <img src="{$path}/bookcover.php" class="alignleft" alt="{translate text='No Cover Image'}"/>
+        {* <a href="{$url}/Record/{$summId|escape:"url"}" class="resultNoImage">{translate text='No image'}</a> *}
     	{/if}
-    	</div>
     	
     {* Multiple images *}
     {assign var=img_count value=$summImages|@count}
     {if $img_count > 1}
       <div class="imagelinks">
     {foreach from=$summImages item=desc name=imgLoop}
-        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onclick="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
           {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
         </a>
     {/foreach}

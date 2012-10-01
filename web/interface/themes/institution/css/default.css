@@ -695,11 +695,40 @@ ul.recordSet .resultItemLine2{
 }
 .summcover {
     margin: 0;
-    max-width: 120px;
+    max-width: 126px;
+}
+.resultNoImage {
+    display: table;
+    border: 1px solid #f0f0f0;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 1;
+    width: 124px;
+    height: 124px;
+}
+.resultNoImage p {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #dddddd;
+}
+.resultImage {
+    margin-top: -126px;
+    width: 126px;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 2;
 }
 .resultImages {
     float:left;
     margin:0 10px 0 0;
+}
+.result .imagelinks {
+    background-color: #ffffff;
+    position: relative;
+    z-index: 3;
+    min-height: 20px;
+    padding: 4px 0 0 4px;
 }
 .result .imagelinks a {
     float:left;
