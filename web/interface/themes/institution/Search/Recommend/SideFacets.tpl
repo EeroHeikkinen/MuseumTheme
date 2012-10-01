@@ -39,8 +39,6 @@
   {if $sideFacetSet && $recordCount > 0}
     {foreach from=$sideFacetSet item=cluster key=title}
     {if isset($dateFacets.$title)}
-      {* Load the publication date slider UI widget *}
-      {js filename="pubdate_slider.js"}
       <form action="" name="{$title|escape}Filter" id="{$title|escape}Filter">
         {* keep existing search parameters as hidden inputs *}
         {foreach from=$smarty.get item=paramValue key=paramName}
