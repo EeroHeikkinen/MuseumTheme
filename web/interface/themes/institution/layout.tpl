@@ -84,6 +84,8 @@
     {* Load dropdown menu modification *}
     {js filename="dropdown.js"}
 
+    {* Load clearsearch plugin *}
+    {js filename="jquery.clearsearch.js"}
 
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}

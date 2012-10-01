@@ -8,6 +8,8 @@ body {
     line-height: 1.5;
     font-weight: normal;
     font-style: normal;
+    /* Stop Mobile Safari from auto-adjusting font-sizes: */
+    -webkit-text-size-adjust: 100%;
 }
  
 /* Font sizes */
@@ -107,10 +109,277 @@ body {
     color: #cccccc;
 }
 
-/* Selection colours (easy to forget). The values might need a go-through... */
+/* Selection colors (easy to forget). The values might need a go-through... */
 ::selection 	 	{ background: #bbddff; }
 ::-moz-selection 	{ background: #bbddff; }
 img::selection 		{ background: transparent; }
 img::-moz-selection	{ background: transparent; }
 body { -webkit-tap-highlight-color: #bbddff; }
 
+
+/**** OTHERS ****/
+
+/* jQuery-ui modification */
+.ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Top right language selection */
+div.lang {
+    line-height: 30px;
+}
+div.lang li, div.lang a {
+    font-style: normal;
+}
+div.lang li {
+    font-size: 90%;
+}
+
+/* select custom dropdown */
+.dropdown dd, .dropdown dt, .dropdown ul {
+    font-weight: normal;
+}
+.dropdown dd ul li a {
+    font-weight: normal;
+    line-height: 1em;
+}
+
+/* Search Box dropdown */
+.searchbox .dropdown dt a {
+    line-height: 1.2em;
+}
+
+
+/* Misc styles */
+label.invalid {
+    font-weight: bold;
+}
+
+.highlight {
+/*
+    font-weight: bold;
+*/
+}
+
+.mobileViewLink {
+    font-size:24px;
+}
+
+.correction p, .correctionTerms {
+    line-height: 1.3em;
+}
+
+
+/* Alphabetic browse */
+.alphaBrowseHeader {
+    font-weight: bold;
+}
+.alphaBrowseHeading {
+    line-height: 1.31em;
+}
+.alphaBrowsePageLinks {
+    font-weight: bold;
+}
+.alphaBrowseRelatedHeading .title {
+    font-weight: bold;
+    font-size: 90%;
+}
+
+/* Publication Year facet */
+fieldset.publishDateLimit .yearbox {
+    font-size: 13px;
+}
+#suggestedTopics {
+    line-height: 1.4em;
+}
+
+/* Links (misc) */
+.result .imagelinks a {
+    font-size: .8em;
+}
+.coverImageLinks a {
+    font-size: 1em;
+}
+
+a.subjectHeading:hover {
+    font-weight: normal;
+} 
+
+/* Side facets */
+.navmenu dt {
+    font-weight: bold;
+}
+.facetCount {
+    font-size: .8em;
+}
+
+/* Resource types */
+.iconlabel { /* Common for all */
+    line-height: 16px;
+    font-size: 8pt;
+    font-weight: normal;
+}
+
+/* Pagination */
+.pagination {
+    font-size: 90%;
+}
+.pagination span {
+    font-weight: bold;
+}
+
+/* Record Page */
+.recordTitle {
+    font-weight: bold;
+}
+
+/* Citation Table */
+.citation {
+    font-size: 90%;
+}
+table.authors th {
+    font-size: 120%;
+}
+
+/* Tabs (Record Page) */
+#tabnav {
+    font-size: 90%;
+}
+#tabnav a {
+    font-weight: normal;
+}
+
+/* Dynamic Tabs */
+#dyntabnav, #dyntabnav .ui-widget, #dyntabnav li {
+    font-family: inherit;
+    font-size: 1em;
+}
+
+/* Similar Items (record view) */
+h5.recordTabHeader {
+    font-weight: normal;
+}
+
+/* Comments */
+ul.commentList li div.posted {
+    font-size: 80%;
+}
+
+/* Forms */
+label.displayBlock {
+    font-weight:bold;
+}
+
+/* Tag cloud */
+.cloud1 {
+    font-size: .8em;
+}
+.cloud2 {
+    font-size: 1em;
+}
+.cloud3 {
+    font-size: 1.2em;
+}
+.cloud4 {
+    font-size: 1.4em;
+}
+.cloud5 {
+    font-size: 1.6em;
+}
+
+/* New advanced search screen stuff */
+.searchGroups {
+    font-size: 125%;
+}
+
+/* Browse Lists */
+.browseNav {
+    font-size: 90%;
+}
+.browseNav a.viewRecords {
+    font-size: 80%;
+}
+
+/* system unavailable and other fatal error pages */
+div.unavailable, div.fatalError {
+    font-size: 125%;
+}
+div.debug code {
+    font-size: x-small;
+}
+
+/* Grid View */
+.gridTitleBox {
+    font-size: 86%;
+}
+.gridTitle {
+    line-height: 1.2em;
+}
+
+/* COLLECTIONS PAGE */
+.disambiguationDiv h1 {
+    font-size: 2em;
+}
+.collectionDetails .paginationTop span {
+    font-weight: bold;
+}
+
+/* RSS Recommendations */
+.submenuSuggestion h4 {
+    font-family: Georgia,"Times New Roman",Serif;
+}
+.suggestionWhatsThis {
+    font-family: Georgia,"Times New Roman",Serif;
+    font-size: 10px;
+}
+
+/* Google map */
+.mapSeeAllDiv{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* table for displaying full status in result list */
+table.summHoldings {
+    font-size: smaller;
+}
+a.summHoldings {
+    font-size: smaller;
+}
+
+/* contextHelp */
+table#contextHelp td.body h2 {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+table#contextHelp a {
+    font-weight: bold;
+}
+table#contextHelp p {
+    font-size: .9em;
+    font-weight: bold;
+}
+
+/* Hierarchy Tree */
+#hierarchyTree #treeList li.currentHierarchy > a, #hierarchyTree #treeList li.currentRecord > a {
+    font-weight: bold;   
+}
+.jstree-highlight {
+    font-weight: bold;
+}
+
+/* Dynatree */
+ul.dynatree-container {
+    font-size: 100%;
+}
+span.dynatree-node {
+    font-size: 100%;
+}
+
+/* Button styles for advanced search. May be added later to all buttons. */
+.button {
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+}

@@ -2,7 +2,7 @@
 
 <div class="result recordId" id="record{$summId|escape}">
 
-  <div class="span-2 resultColumn1">
+  <div class="resultColumn1">
 
     <div class="resultCheckbox">
 	{if $bookBag}
@@ -102,7 +102,6 @@
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
-    </div>
 <div class="clear"></div>
 
   <div class="span-3 last addToFavLink">
@@ -138,6 +137,7 @@
         {/if}
       {/if}
      {/if}
+  </div>
   </div>
   <div class="clear"></div>
  </div>
