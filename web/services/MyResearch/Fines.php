@@ -64,6 +64,7 @@ class Fines extends MyResearch
                 // with PHP5
                 for ($i = 0; $i < count($result); $i++) {
                     $row = &$result[$i];
+                    $sum += $row['balance'];
                     $record = $this->db->getRecord($row['id']);
                     $row['title'] = $record ? $record['title_short'] : null;
                     $row['checkedOut'] = false;
@@ -77,6 +78,7 @@ class Fines extends MyResearch
                     }
                 }
                 $interface->assign('rawFinesData', $result);
+                $interface->assign('sum', $sum);
             }
         }
 
