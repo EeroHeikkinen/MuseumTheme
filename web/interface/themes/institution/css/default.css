@@ -339,10 +339,10 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     padding: 8px 3px 8px 7px;
 }
 .searchbox .dropdown dd ul li a {
-    padding: 6px 5px 4px 7px;
+    padding: 6px 5px 6px 7px;
 }
 .searchbox .dropdown dd ul li a:hover {
-    padding: 5px 0 3px 5px;
+    padding: 5px 0 5px 5px;
 }
 
 
@@ -1219,7 +1219,7 @@ ul.recordSet .addToFavLink a {
     margin:1.5em 0;
     text-align:center;
 }
-.pagination:hover {
+.pagination:hover, .paginationTop:hover {
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
     border: 1px solid #f4f4f4;
     padding: 12px 0;
@@ -1248,7 +1248,9 @@ div.record {
     padding: 0;
     margin: 5px 0 1em 0;
 }
-
+#resultsCollection div.record, #headingHierarchyCollection div.record {
+    margin: -1em 0 0 .5em;
+}
 #resultMain, #resultSide {
     padding-top: 1.2em;
 }
@@ -1365,44 +1367,79 @@ table.authors th {
 
 #tabnav {
     margin-top:1em;
+/*
     padding:0 0 0 1em;
     background-color:#fafafa;
     border-top:1px #eee solid;
+*/
     border-bottom: 1px #dcdcdc solid;
 }
 #tabnav ul {
-float: left;
+    float: left;
     margin:0;
     padding:0px 5px 0 0;
     list-style:none;
+    background: #ffffff;
+    border-color: #dadada;
+    border-style: none none solid none;
 }
 #tabnav li {
     float:left;
+    background: url("images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+    border: 1px solid #d3d3d3;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-right: 3px;
+    position: relative;
+    top: 1px;
+/*
     margin:0 0 0 0px;
     padding:0 0 0 10px;
+*/
+}
+#tabnav li:hover {
+    background: #dadada;
+    border: 1px solid #cccccc;
+    color: 212121;
 }
 #tabnav a {
-    float:left;
-    display:block;
+    color: #555555;
+    float: left;
+    display: block;
+    padding: .4em .5em;
+/*
     padding:18px 10px 10px 5px;
+*/
     text-decoration:none;
-    color:#000;
 }
 /* Commented Backslash Hack
     hides rule from IE5-Mac \*/
 #tabnav a {float:none;}
 /* End IE5-Mac hack */
 #tabnav a:hover {
-    color:#000;
+    color: #212121;
 }
 #tabnav .active {
+/*
     background:url(../images/subnavTab_left.jpg) no-repeat left top;
+*/
+    background: url("images/ui-bg_glass_65_ffffff_1x400.png") repeat-x scroll 50% 50% #FFFFFF;
+    border: 1px solid #cccccc;
+    border-bottom: 1px solid #ffffff;
     margin-bottom:-1px;
+    padding-bottom: -1px;
+}
+#tabnav .active:hover {
+    background: url("images/ui-bg_glass_65_ffffff_1x400.png") repeat-x scroll 50% 50% #FFFFFF;
+    border: 1px solid #cccccc;
+    border-bottom: 1px solid #ffffff;
 }
 #tabnav .active a {
+    color: #212121;
+/*
     background:url(../images/subnavTab_right.jpg) no-repeat right top;
-    color:#000;
     padding:18px 10px 12px 0px;
+*/
 }
 
 /** Dynamic Tabs **/
@@ -1955,9 +1992,11 @@ tr:nth-child(even) td.gridMouseOver {
 }
 .collectionDetails {
     background-color: #ffffff;
-    padding: .6em 0 1em;
+    padding: .5em 0 1em;
+/*
     border-top: 2px solid #eeeeee;
     margin-top: -2px;
+*/
     margin-bottom: 20px;
 }
 .collectionDetails form {
@@ -1988,8 +2027,11 @@ tr:nth-child(even) td.gridMouseOver {
 .collectionDetails .paginationTop {
     border-bottom: 1px solid #eeeeee;
     margin-bottom: .6em;
-    padding-bottom: .6em;
+    padding: 7px 0;
     text-align: center;
+}
+.collectionDetails .paginationTop:hover {
+    padding: 6px 0 7px;
 }
 .collectionDetails .paginationTop span {
     border: 1px solid #EEEEEE;
@@ -2337,10 +2379,11 @@ div#closeContextHelp:active {
 }
 
 #treeSearch {
+    border-bottom: 1px solid #DCDCDC;
     display:none;
     float: right;
+    padding-bottom: .4em;
     width: 100%;
-    border: 1px solid  #DCDCDC;
 }
 
 #treeSearch #treeSearchText {
