@@ -32,6 +32,7 @@
           <td>{$record.balance/100.00|safe_money_format|escape}</td>
         </tr>
       {/foreach}
+      <tr><td colspan="5" style="font-weight:bold;">{translate text='Balance'}:</td><td style="font-weight:bold;">{$sum/100.00|safe_money_format|escape}</td></tr>
       </table>
     {/if}
   {else}
