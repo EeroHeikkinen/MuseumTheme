@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/extended.tpl -->
+
 {*<table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Description'}">*}
   {if !empty($extendedSummary)}
   {assign var=extendedContentDisplayed value=1}
@@ -247,3 +249,5 @@
   {/if}
    
 {*</table>*}
+
+<!-- END of: RecordDrivers/Index/extended.tpl -->
