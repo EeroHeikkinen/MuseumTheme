@@ -184,9 +184,9 @@ img.alignleft {
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
     color: initial;
-    height: 20px;
+    height: 19px;
     width: 220px;
-    padding: 8px 24px 6px 8px;
+    padding: 8px 24px 7px 8px;
 /*
     background-color: #ffffff;
     color: #333333;
@@ -355,7 +355,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     height: 34px;
     width: 89px;
     margin-left: 5px;
-    padding: .5em;
+    padding: 7px;
 
 /*
     background: url("../images/searchbutton_bg.png") transparent;
@@ -599,7 +599,7 @@ fieldset.publishDateLimit .ui-slider {
 #topPubDateVis strong {
     padding-left: .2em;
 }
-#sidebarFacets, #sidebarRecommend, .myResearchMenu {
+#sidebarFacets, #sidebarRecommend, #sidebarCollection, .myResearchMenu {
     float: left;
     margin-left: 12px;
     width: 220px;
@@ -611,7 +611,7 @@ fieldset.publishDateLimit .ui-slider {
 
 /*** Result List ***/
 
-#resultList, #authorList {
+#resultList, #authorList, #resultsCollection {
     width: 728px;
     float: left;
     margin: 0;
@@ -881,6 +881,11 @@ dl.narrowList a {
 .keywordFilterForm {
     margin: 5px 0px 5px 0px;
 }
+.sidegroup #keywordFilter_lookfor {
+    width: 190px;
+    padding: 0 2px;
+}
+
 .navmenu dd {
     list-style-type: none;
     /* border-bottom: 1px solid #e3e3e3; */
