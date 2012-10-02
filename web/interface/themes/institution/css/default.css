@@ -1996,8 +1996,8 @@ tr:nth-child(even) td.gridMouseOver {
 /*
     border-top: 2px solid #eeeeee;
     margin-top: -2px;
-*/
     margin-bottom: 20px;
+*/
 }
 .collectionDetails form {
     border: 1px solid #EEEEEE;
