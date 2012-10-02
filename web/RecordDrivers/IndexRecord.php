@@ -227,6 +227,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreTitleSection', $this->getTitleSection());
         $interface->assign('coreNextTitles', $this->getNewerTitles());
         $interface->assign('corePrevTitles', $this->getPreviousTitles());
+        $interface->assign('coreAlternativeTitles', $this->getAlternativeTitles());
         $interface->assign('corePublications', $this->getPublicationDetails());
         $interface->assign('coreEdition', $this->getEdition());
         $interface->assign('coreSeries', $this->getSeries());
@@ -288,6 +289,9 @@ class IndexRecord implements RecordInterface
         
         // Assign variables for BTJ images and descriptions
         $interface->assign('coreImages', $this->getAllImages());
+
+        // Genres in their own field
+        $interface->assign('coreGenres', isset($this->fields['genre']) ? $this->fields['genre'] : array());
         
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
@@ -971,6 +975,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('summTitle', $this->getTitle());
         $interface->assign('summHighlightedAuthor', $this->getHighlightedAuthor());
         $interface->assign('summAuthor', $this->getPrimaryAuthor());
+        $interface->assign('summAuthorForSearch', $this->getPrimaryAuthorForSearch());
         $interface->assign('summDate', $this->getPublicationDates());
         $interface->assign('summISBN', $this->getCleanISBN());
         $interface->assign('summThumb', $this->getThumbnail());
@@ -986,7 +991,7 @@ class IndexRecord implements RecordInterface
 
         //collection module only
         if (isset($configArray['Collections']['collections'])
-                && $configArray['Collections']['collections'] == true
+            && $configArray['Collections']['collections'] == true
         ) {
             $this->_assignSearchResultCollectionData();
         }
@@ -1031,6 +1036,9 @@ class IndexRecord implements RecordInterface
 
         // Display institutions and links to deduplicated records.
         $interface->assign('summDedupData', $this->getDedupData());
+        
+        // Publication end date
+        $interface->assign('summPublicationEndDate', $this->getPublicationEndDate());
         
         // Send back the template to display:
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
@@ -1767,7 +1775,6 @@ class IndexRecord implements RecordInterface
         $topic = isset($this->fields['topic']) ? $this->fields['topic'] : array();
         $geo = isset($this->fields['geographic']) ?
             $this->fields['geographic'] : array();
-        $genre = isset($this->fields['genre']) ? $this->fields['genre'] : array();
 
         // The Solr index doesn't currently store subject headings in a broken-down
         // format, so we'll just send each value as a single chunk.  Other record
@@ -1777,9 +1784,6 @@ class IndexRecord implements RecordInterface
             $retval[] = array($t);
         }
         foreach ($geo as $g) {
-            $retval[] = array($g);
-        }
-        foreach ($genre as $g) {
             $retval[] = array($g);
         }
 
@@ -2216,6 +2220,19 @@ class IndexRecord implements RecordInterface
     }
 
     /**
+     * Get the main author of the record (without year and role).
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getPrimaryAuthorForSearch()
+    {
+        // Index record doesn't know better, so just return author
+        return isset($this->fields['author']) ?
+            $this->fields['author'] : '';
+    }
+
+    /**
      * Get credits of people involved in production of the item.
      *
      * @return array
@@ -2251,6 +2268,13 @@ class IndexRecord implements RecordInterface
         $places = $this->getPlacesOfPublication();
         $names = $this->getPublishers();
         $dates = $this->getPublicationDates();
+        $endDate = $this->getPublicationEndDate();
+        if ($dates && $endDate) {
+            $dates[0] .= ' - ';
+            if ($endDate != 9999) {
+                $dates[0] .= $endDate;
+            }
+        }
 
         $i = 0;
         $retval = array();
@@ -2738,7 +2762,29 @@ class IndexRecord implements RecordInterface
     {
         return false;
     }
-    
+
+    /**
+     * Get the publication end date of the record
+     *
+     * @return number|false
+     * @access protected
+     */
+    protected function getPublicationEndDate()
+    {
+        return false;
+    }
+
+    /**
+     * Get an array of alternative titles for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getAlternativeTitles()
+    {
+        return array();
+    }
+
 }
 
 ?>

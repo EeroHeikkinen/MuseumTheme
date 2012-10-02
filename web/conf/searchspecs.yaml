@@ -309,6 +309,7 @@ AllFields:
     - allfields
     - fulltext
     - isbn
+    - issn
   QueryFields:
     -
       - [OR, 50]
@@ -362,6 +363,8 @@ AllFields:
     fulltext:
       - [or, ~]
     isbn:
+      - [onephrase, ~]
+    issn:
       - [onephrase, ~]
 
 # These are advanced searches that never use Dismax:

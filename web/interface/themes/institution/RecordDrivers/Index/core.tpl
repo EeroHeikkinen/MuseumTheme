@@ -4,7 +4,7 @@
     
   {* Display Title *}
   <h1 class="recordTitle">{$coreShortTitle|escape}
-  {if $coreSubtitle}{$coreSubtitle|escape}{/if}
+  {if $coreSubtitle} : {$coreSubtitle|escape}{/if}
   {* {if $coreTitleSection} / {$coreTitleSection|escape}{/if}
   {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
@@ -107,7 +107,18 @@
       <th>{translate text='Other Authors'}: </th>
       <td>
         {foreach from=$coreContributors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}; {/if}
+        {/foreach}
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreAlternativeTitles)}
+    <tr valign="top">
+      <th>{translate text='Other Titles'}: </th>
+      <td>
+        {foreach from=$coreAlternativeTitles item=field name=loop}
+          {$field|escape}{if !$smarty.foreach.loop.last}; {/if}
         {/foreach}
       </td>
     </tr>
@@ -182,6 +193,24 @@
       <th>{translate text='Subjects'}: </th>
       <td>
         {foreach from=$coreSubjects item=field name=loop}
+        <div class="subjectLine">
+          {assign var=subject value=""}
+          {foreach from=$field item=subfield name=subloop}
+            {if !$smarty.foreach.subloop.first} &gt; {/if}
+            {assign var=subject value="$subject $subfield"}
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|escape}</a>
+          {/foreach}
+        </div>
+        {/foreach}
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreGenres)}
+    <tr valign="top">
+      <th>{translate text='Genre'}: </th>
+      <td>
+        {foreach from=$coreGenres item=field name=loop}
         <div class="subjectLine">
           {assign var=subject value=""}
           {foreach from=$field item=subfield name=subloop}

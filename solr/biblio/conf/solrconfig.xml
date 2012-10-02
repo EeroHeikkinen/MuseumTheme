@@ -214,8 +214,8 @@
          maxTime - oldest uncommited update (in ms) is this long ago
     -->
     <autoCommit> 
-      <maxDocs>100000</maxDocs>
-      <maxTime>120000</maxTime>
+      <maxDocs>200000</maxDocs>
+      <maxTime>1200000</maxTime>
     </autoCommit>
 
     <!-- The RunExecutableListener executes an external command.
