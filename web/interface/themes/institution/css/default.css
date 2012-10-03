@@ -426,7 +426,6 @@ p.listDescription {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
-    display:none;
     border-bottom: 1px solid #eee;
     padding: 1em 0;
 }
@@ -599,7 +598,7 @@ fieldset.publishDateLimit .ui-slider {
 #topPubDateVis strong {
     padding-left: .2em;
 }
-#sidebarFacets, #sidebarRecommend, #sidebarCollection, .myResearchMenu {
+#sidebarFacets, #sidebarRecommend, #sidebarCollection {
     float: left;
     margin-left: 12px;
     width: 220px;
@@ -1768,8 +1767,8 @@ p.citationText {
 /* Profile / MyResearch */
 
 .myResearch .resultHead {
-    width: 716px;
 /*
+	  width: 716px;
     border-bottom: 1px solid #dddddd;
     padding: 0 12px 0.2em 0;
 */
@@ -1812,19 +1811,10 @@ p.citationText {
     clear: both;
 }
 .myResearchMenu {
-/*
-    width: 210px;
-    float: left;
-    margin-left: 12px;
-*/
-    border-left: 2px solid #dddddd;
+    border-bottom: 1px solid #ddd;
     margin-top: .6em;
+    padding: 0;
     margin-bottom: 1em;
-    width: 218px;
-}
-.myResearchMenu .sidegroup {
-    border-left: none;
-    margin-top: 0;
 }
 
 /* Browse Lists */

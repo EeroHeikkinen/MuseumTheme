@@ -1,5 +1,7 @@
 <!-- START of: MyResearch/profile.tpl -->
 
+{include file="MyResearch/menu.tpl"}
+
 {if count($pickup) > 1}
   {assign var='showHomeLibForm' value=true}
 {else}
@@ -46,10 +48,6 @@
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
-</div>
-
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
-  {include file="MyResearch/menu.tpl"}
 </div>
 
 <div class="clear"></div>

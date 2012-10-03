@@ -1,5 +1,7 @@
 <!-- START of: MyResearch/fines.tpl -->
 
+{include file="MyResearch/menu.tpl"}
+
 <div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
   {if $user->cat_username}
     {if empty($rawFinesData)}
@@ -38,9 +40,6 @@
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
-</div>
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
-  {include file="MyResearch/menu.tpl"}
 </div>
 <div class="clear"></div>
 

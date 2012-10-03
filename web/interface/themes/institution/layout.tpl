@@ -30,6 +30,8 @@
 
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe"/>
 
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css" />
+
     {* Load Blueprint CSS framework *}
     {css media="screen, projection" filename="blueprint/screen.css"}
     {css media="print" filename="blueprint/print.css"}
@@ -66,7 +68,6 @@
     
     {* Load jQuery UI *}
     {js filename="jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js"}
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css" />
         
     {* Load dialog/lightbox functions *}
     {js filename="lightbox.js"}
