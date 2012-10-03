@@ -20,7 +20,7 @@
           <img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}">
         </a></div>
     	{else}
-        {* <a href="{$url}/Record/{$summId|escape:"url"}" class="resultNoImage">{translate text='No image'}</a> *}
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
     	{/if}
     	
     {* Multiple images *}
