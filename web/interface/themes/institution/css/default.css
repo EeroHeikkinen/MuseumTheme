@@ -713,11 +713,17 @@ ul.recordSet .resultItemLine2{
     color: #dddddd;
 }
 .resultImage {
-    margin-top: -126px;
+    margin: -126px 0 0 0;
     width: 126px;
-    background-color: #ffffff;
     position: relative;
     z-index: 2;
+}
+.resultImage a {
+    display: block;
+}
+.resultImage img {
+    width: 126px;
+    height: auto;
 }
 .resultImages {
     float:left;
