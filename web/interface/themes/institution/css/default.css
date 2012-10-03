@@ -185,8 +185,10 @@ img.alignleft {
     border: none;
     color: initial;
     height: 17px;
+/*
     width: 220px;
-    padding: .65em 24px .5em 8px;
+*/
+    padding: 9px 24px 8px 8px;
 /*
     background-color: #ffffff;
     color: #333333;
@@ -214,12 +216,13 @@ img.alignleft {
 }
 
 a.clear_input {
-    background: url("../images/searchbox.png") no-repeat scroll -192px -46px transparent;
-    /* For round clear button use coordinates -213px -46px */
+    background: url("../images/searchbox.png") no-repeat scroll -194px -48px transparent;
+    /* For round clear button use coordinates -215px -48px */
     color: white;
-    padding: 2px 0 0 12px;
+    padding-left: 10px;
     position: absolute;
-    width: 10px;
+    height: 16px;
+    width: 15px;
 }
 a.clear_input:hover {
     text-style: none;
