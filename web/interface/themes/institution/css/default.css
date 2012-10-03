@@ -184,9 +184,9 @@ img.alignleft {
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
     color: initial;
-    height: 33px;
+    height: 17px;
     width: 220px;
-    padding: 1px 24px 0 8px;
+    padding: .65em 24px .5em 8px;
 /*
     background-color: #ffffff;
     color: #333333;
