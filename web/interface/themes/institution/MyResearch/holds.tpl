@@ -1,5 +1,7 @@
 <!-- START of: MyResearch/holds.tpl -->
 
+{include file="MyResearch/menu.tpl"}
+
 <div id="resultList" class="myResearch {if $sidebarOnLeft} push-5 last{/if}">
   <div class="resultHead">
   {if $user->cat_username}
@@ -152,10 +154,6 @@
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
-</div>
-
-<div id="sidebarFacets" class="{if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
-  {include file="MyResearch/menu.tpl"}
 </div>
 
 <div class="clear"></div>

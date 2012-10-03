@@ -1,5 +1,7 @@
 <!-- START of: Search/history.tpl -->
 
+{include file="MyResearch/menu.tpl"}
+
 <div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
     {if !$noHistory}
       {if $saved}
@@ -63,10 +65,6 @@
       <h3>{translate text="history_recent_searches"}</h3>
       {translate text="history_no_searches"}
     {/if}
-</div>
-
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
-  {include file="MyResearch/menu.tpl"}
 </div>
 
 <div class="clear"></div>

@@ -51,22 +51,22 @@ class Confirm extends Bulk
         global $configArray;
 
         // Delete List Confirmation
-        if (isset($_POST['deleteList']) && isset($_POST['listID'])) {
-            if ($_POST['confirmAction']) {
+        if (isset($_REQUEST['deleteList']) && isset($_REQUEST['listID'])) {
+            if ($_REQUEST['confirmAction']) {
                 include_once 'services/MyResearch/MyList.php';
                 $myList = new MyList();
                 $myList->launch();
-            } else if ($_POST['cancelAction']) {
+            } else if ($_REQUEST['cancelAction']) {
                 $followupUrl =  $configArray['Site']['url'] .
-                    "/MyResearch/MyList/" . urlencode($_POST['listID']);
+                    "/MyResearch/MyList/" . urlencode($_REQUEST['listID']);
                 header(
                     "Location: " . $followupUrl . "?infoMsg=fav_list_delete_cancel"
                 );
                 exit();
             } else {
                 $interface->assign('confirmAction', 'deleteList');
-                $interface->assign('listID', $_POST['listID']);
-                $interface->assign('listName', $_POST['listName']);
+                $interface->assign('listID', $_REQUEST['listID']);
+                $interface->assign('listName', $_REQUEST['listName']);
                 $interface->setpageTitle('delete_list');
                 $this->infoMsg = 'confirm_delete_list_text';
 
