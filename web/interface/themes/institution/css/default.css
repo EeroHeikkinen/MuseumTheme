@@ -184,9 +184,9 @@ img.alignleft {
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
     color: initial;
-    height: 19px;
+    height: 17px;
     width: 220px;
-    padding: 8px 24px 7px 8px;
+    padding: .65em 24px .5em 8px;
 /*
     background-color: #ffffff;
     color: #333333;
@@ -355,7 +355,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     height: 34px;
     width: 89px;
     margin-left: 5px;
-    padding: 7px;
+    padding: 0;
 
 /*
     background: url("../images/searchbutton_bg.png") transparent;
@@ -712,11 +712,17 @@ ul.recordSet .resultItemLine2{
     color: #dddddd;
 }
 .resultImage {
-    margin-top: -126px;
+    margin: -126px 0 0 0;
     width: 126px;
-    background-color: #ffffff;
     position: relative;
     z-index: 2;
+}
+.resultImage a {
+    display: block;
+}
+.resultImage img {
+    width: 126px;
+    height: auto;
 }
 .resultImages {
     float:left;

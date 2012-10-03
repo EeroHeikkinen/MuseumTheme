@@ -256,7 +256,7 @@ function dieWithFailImage()
 function dieWithDefaultFailImage()
 {
     header('Content-type: image/gif');
-    echo readfile('images/noCover2.gif');
+    echo readfile('images/NoCover2.gif');
     exit();
 }
 
