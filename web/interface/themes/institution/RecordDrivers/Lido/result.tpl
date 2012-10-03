@@ -16,7 +16,7 @@
         <div class="resultNoImage"><p>{translate text='No image'}</p></div>
     	{if $summThumb}
         {* large image link: <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large"> *}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}" class="title">
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
           <img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}">
         </a></div>
     	{else}
