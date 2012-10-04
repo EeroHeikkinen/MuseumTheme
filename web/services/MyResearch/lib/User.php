@@ -412,7 +412,7 @@ class User extends DB_DataObject
             'GROUP BY "user_list"."id", "user_list"."user_id", ' .
             '"user_list"."title", "user_list"."description", ' .
             '"user_list"."created", "user_list"."public" ' .
-            'ORDER BY "user_list"."title"';
+            'ORDER BY "user_list"."created"';
         $list = new User_list();
         $list->query($sql);
         if ($list->N) {
