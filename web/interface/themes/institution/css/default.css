@@ -358,7 +358,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     height: 34px;
     width: 89px;
     margin-left: 5px;
-    padding: 0;
+    padding: .5em 0;
 
 /*
     background: url("../images/searchbutton_bg.png") transparent;
