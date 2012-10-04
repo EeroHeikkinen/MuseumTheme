@@ -597,8 +597,6 @@
    If you register a searchComponent to one of the standard names, that will be used instead.
   
    -->
-   
-   <searchComponent name="facet"     class="fi.nationallibrary.ndl.solr.handler.component.RangeSupportingFacetComponent" />
  
   <requestHandler name="/search" class="org.apache.solr.handler.component.SearchHandler">
     <lst name="defaults">
