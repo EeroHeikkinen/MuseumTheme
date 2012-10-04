@@ -62,9 +62,19 @@ class Favorites extends MyResearch
             $user->removeResource($resource);
         }
 
+        // Get My Lists
+        $listList = $user->getLists();
+        $interface->assign('listList', $listList);
+        
         // Narrow by Tag
         if (isset($_GET['tag'])) {
             $interface->assign('tags', $_GET['tag']);
+        } else {
+            if ($listList) {
+                // Direct to the first list
+                header('Location: ' . $configArray['Site']['url'] . '/MyResearch/MyList/' . $listList[0]->id);
+                return;
+            } 
         }
 
         // Build Favorites List
@@ -74,10 +84,6 @@ class Favorites extends MyResearch
         if (!$this->infoMsg) {
             $this->infoMsg = $favList->getInfoMsg();
         }
-
-        // Get My Lists
-        $listList = $user->getLists();
-        $interface->assign('listList', $listList);
 
         // Get My Tags
         $tagList = $user->getTags();

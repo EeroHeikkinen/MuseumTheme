@@ -1,12 +1,11 @@
 /* Background of the logo image */
-.searchHome {
-    /* margin-bottom: 15em; */
+.header-home {
     background-color: #f3f3f3;
     border-bottom: 1px solid #ddd;
 }
 .searchHomeContent {
     margin: 0 auto;
-    padding: 0 0 3em 0;
+    padding: 3em 0 3em 0;
     text-align: left;
 }
 /* Logo image */
