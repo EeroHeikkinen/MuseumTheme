@@ -428,14 +428,14 @@ class Solr implements IndexEngine
             'qt' => 'morelikethis'
         );
         
-        if ($this->_mergedRecords === true) {
+        if ($this->_mergedRecords) {
             // Filter out merged children by default
             if (!isset($filter)) {
                 $filter = array();
             }
             $filter[] = '-merged_child_boolean:TRUE';
             $filter[] = '-local_ids_str_mv:"' . addcslashes($id, '"') . '"'; 
-        } elseif ($this->_mergedRecords === false) {
+        } elseif ($this->_mergedRecords !== null) {
             // Filter out merged records by default
             if (!isset($filter)) {
                 $filter = array();
@@ -1150,8 +1150,14 @@ class Solr implements IndexEngine
                 $filter = array();
             }
             $filter[] = '-merged_child_boolean:TRUE';
+        } elseif ($this->_mergedRecords !== null) {
+            // Filter out merged records by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-merged_boolean:TRUE';
         }
-
+        
         if ($this->_hideComponentParts) {
             // Filter out component parts by default
             if (!isset($filter)) {
