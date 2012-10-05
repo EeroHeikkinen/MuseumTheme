@@ -175,7 +175,7 @@ div.searchHomeForm div.searchform #searchForm {
 */
 .homeCustomCol2 {
     margin-top: .8em;
-    width: 284px;
+    width: 304px;
 }
 .homeCustomContent .homeCustomCol2 ul {
     padding: 0;
@@ -183,7 +183,7 @@ div.searchHomeForm div.searchform #searchForm {
 }
 .homeCustomContent .homeCustomCol2 ul li {
     float: left;
-    width: 130px;
+    width: 140px;
     margin: 0.5em 10px 0.5em 0;
     font-size: 1em;
 }
