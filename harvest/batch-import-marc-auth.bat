@@ -51,7 +51,7 @@ md %BASEPATH%\processed
 :processedfound
 
 rem Process all the files in the target directory:
-for %%a in (%BASEPATH%\*.xml) do (
+for %%a in (%BASEPATH%\*.xml %BASEPATH%\*.mrc) do (
   echo Processing %%a...
   call %VUFIND_HOME%\import-marc-auth.bat %%a %2 > %BASEPATH%\log\%%~nxa.log
   move %%a %BASEPATH%\processed\ > nul

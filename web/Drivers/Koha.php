@@ -22,6 +22,7 @@
  * @category VuFind
  * @package  ILS_Drivers
  * @author   Altaf Mahmud, System Programmer <altaf.mahmud@gmail.com>
+ * @author   David Maus <maus@hab.de>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_an_ils_driver Wiki
  */
@@ -35,6 +36,7 @@ require_once 'Interface.php';
  * @category VuFind
  * @package  ILS_Drivers
  * @author   Altaf Mahmud, System Programmer <altaf.mahmud@gmail.com>
+ * @author   David Maus <maus@hab.de>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_an_ils_driver Wiki
  */
@@ -55,14 +57,17 @@ class Koha implements DriverInterface
         $configArray = parse_ini_file(dirname(__FILE__).'/../conf/Koha.ini', true);
 
         //Connect to MySQL
-        $this->_db = mysql_pconnect(
-            $configArray['Catalog']['host'] . ':' . $configArray['Catalog']['port'],
+        $this->_db = new PDO(
+            'mysql:host=' . $configArray['Catalog']['host'] .
+            ';port=' . $configArray['Catalog']['port'] .
+            ';dbname=' . $configArray['Catalog']['database'],
             $configArray['Catalog']['username'],
             $configArray['Catalog']['password']
         );
-
-        //Select the database
-        mysql_select_db($configArray['Catalog']['database']);
+        // Throw PDOExceptions if something goes wrong
+        $this->_db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Return result set like mysql_fetch_assoc()
+        $this->_db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
         //Storing the base URL of ILS
         $this->_ilsBaseUrl = $configArray['Catalog']['url'];
@@ -96,21 +101,24 @@ class Koha implements DriverInterface
         $sql = "select itemnumber as ITEMNO, location as LOCATION, " .
             "holdingbranch as HLDBRNCH, reserves as RESERVES, itemcallnumber as " .
             "CALLNO, barcode as BARCODE, copynumber as COPYNO, " .
-            "notforloan as NOTFORLOAN from items where biblionumber = " . $id .
+            "notforloan as NOTFORLOAN from items where biblionumber = :id" .
             " order by itemnumber";
         try {
-            $itemSqlStmt = mysql_query($sql);
-            while ($rowItem = mysql_fetch_assoc($itemSqlStmt)) {
+            $itemSqlStmt = $this->_db->prepare($sql);
+            $itemSqlStmt->execute(array(':id' => $id));
+            foreach ($itemSqlStmt->fetchAll() as $rowItem) {
                 $inum = $rowItem['ITEMNO'];
-                $sql = "select date_due as DUEDATE from issues where itemnumber = " .
-                    $inum;
+                $sql = "select date_due as DUEDATE from issues " .
+                    "where itemnumber = :inum";
 
                 switch ($rowItem['NOTFORLOAN']) {
                 case 0:
                     // If the item is available for loan, then check its current
                     // status
-                    $issueSqlStmt = mysql_query($sql);
-                    if ($rowIssue = mysql_fetch_assoc($issueSqlStmt)) {
+                    $issueSqlStmt = $this->_db->prepare($sql);
+                    $issueSqlStmt->execute(array(':inum' => $inum));
+                    $rowIssue = $issueSqlStmt->fetch();
+                    if ($rowIssue) {
                         $available = false;
                         $status = 'Checked out';
                         $duedate = $rowIssue['DUEDATE'];
@@ -131,9 +139,11 @@ class Koha implements DriverInterface
                 //Retrieving the full branch name
                 if (null != ($loc = $rowItem['HLDBRNCH'])) {
                     $sql = "select branchname as BNAME from branches where " .
-                        "branchcode = \"$loc\"";
-                    $locSqlStmt = mysql_query($sql);
-                    if ($row = mysql_fetch_assoc($locSqlStmt)) {
+                        "branchcode = :loc";
+                    $locSqlStmt = $this->_db->prepare($sql);
+                    $locSqlStmt->execute(array(':loc' => $loc));
+                    $row = $locSqlStmt->fetch();
+                    if ($row) {
                         $loc = $row['BNAME'];
                     }
                 } else {
@@ -187,7 +197,7 @@ class Koha implements DriverInterface
     public function getHoldLink($id, $details)
     {
         // Web link of the ILS for placing hold on the item
-        return $this->_ilsBaseUrl . "/cgi-bin/koha/opac-detail.pl?biblionumber=$id";
+        return $this->_ilsBaseUrl . "/cgi-bin/koha/opac-reserve.pl?biblionumber=$id";
     }
 
     /**
@@ -217,9 +227,10 @@ class Koha implements DriverInterface
                 "accountlines.borrowernumber = issues.borrowernumber and " .
                 "accountlines.itemnumber = issues.itemnumber " .
                 "join items on accountlines.itemnumber = items.itemnumber " .
-                "where accountlines.borrowernumber = $id";
-            $sqlStmt = mysql_query($sql);
-            while ($row = mysql_fetch_assoc($sqlStmt)) {
+                "where accountlines.borrowernumber = :id";
+            $sqlStmt = $this->_db->prepare($sql);
+            $sqlStmt->execute(array(':id' => $id));
+            foreach ($sqlStmt->fetchAll() as $row) {
                 $fineLst[] = array(
                     'amount' => (null == $row['AMOUNT'])? 0 : $row['AMOUNT'],
                     'checkout' => $row['CHECKOUT'],
@@ -259,9 +270,10 @@ class Koha implements DriverInterface
                 "reserves.expirationdate as EXDATE, " .
                 "reserves.reservedate as RSVDATE from reserves " .
                 "join branches on reserves.branchcode = branches.branchcode " .
-                "where reserves.borrowernumber = $id";
-            $sqlStmt = mysql_query($sql);
-            while ($row = mysql_fetch_assoc($sqlStmt)) {
+                "where reserves.borrowernumber = :id";
+            $sqlStmt = $this->_db->prepare($sql);
+            $sqlStmt->execute(array(':id' => $id));
+            foreach ($sqlStmt->fetchAll() as $row) {
                 $holdLst[] = array(
                     'id' => $row['BIBNO'],
                     'location' => $row['BRNAME'],
@@ -296,9 +308,11 @@ class Koha implements DriverInterface
             $id = $patron['id'];
             $sql = "select address as ADDR1, address2 as ADDR2, zipcode as ZIP, " .
                 "phone as PHONE, categorycode as GRP from borrowers " .
-                "where borrowernumber = $id";
-            $sqlStmt = mysql_query($sql);
-            if ($row = mysql_fetch_assoc($sqlStmt)) {
+                "where borrowernumber = :id";
+            $sqlStmt = $this->_db->prepare($sql);
+            $sqlStmt->execute(array(':id' => $id));
+            $row = $sqlStmt->fetch();
+            if ($row) {
                 $profile = array(
                     'firstname' => $patron['firstname'],
                     'lastname' => $patron['lastname'],
@@ -339,9 +353,10 @@ class Koha implements DriverInterface
             $sql = "select issues.date_due as DUEDATE, items.biblionumber as " .
                 "BIBNO, items.barcode BARCODE, issues.renewals as RENEWALS " .
                 "from issues join items on issues.itemnumber = items.itemnumber " .
-                "where issues.borrowernumber = $id";
-            $sqlStmt = mysql_query($sql);
-            while ($row = mysql_fetch_assoc($sqlStmt)) {
+                "where issues.borrowernumber = :id";
+            $sqlStmt = $this->_db->prepare($sql);
+            $sqlStmt->execute(array(':id' => $id));
+            foreach ($sqlStmt->fetchAll() as $row) {
                 $transactionLst[] = array(
                     'duedate' => $row['DUEDATE'],
                     'id' => $row['BIBNO'],
@@ -450,11 +465,13 @@ class Koha implements DriverInterface
 
         $sql = "select borrowernumber as ID, firstname as FNAME, " .
             "surname as LNAME, email as EMAIL from borrowers " .
-            "where userid = \"$username\" and password = \"$db_pwd\"";
-
+            "where userid = :username and password = :db_pwd";
+        
         try {
-            $sqlStmt = mysql_query($sql);
-            if ($row = mysql_fetch_assoc($sqlStmt)) {
+            $sqlStmt = $this->_db->prepare($sql);
+            $sqlStmt->execute(array(':username' => $username, ':db_pwd' => $db_pwd));
+            $row = $sqlStmt->fetch();
+            if ($row) {
                 // NOTE: Here, 'cat_password' => $password is used, password is
                 // saved in a clear text as user provided.  If 'cat_password' =>
                 // $db_pwd was used, then password will be saved encrypted as in

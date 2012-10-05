@@ -71,6 +71,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
 
   <div class="span-10 last">
+  {if $list && $list->id}
+    <span class="hefty strong">{$list->title|escape:"html"}</span><br/>
+    {if $list->description}<p>{$list->description|escape}</p>{/if}
+  {else}
+    <span class="hefty strong">{translate text='Your Favorites'}</span><br/>
+  {/if}
   {if $resourceList}
     <div class="floatleft small">
     {if $recordCount}

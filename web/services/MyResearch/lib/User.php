@@ -30,6 +30,7 @@ require_once 'DB/DataObject/Cast.php';
 
 require_once 'User_resource.php';
 require_once 'User_list.php';
+require_once 'Resource.php';
 require_once 'Resource_tags.php';
 require_once 'Tags.php';
 

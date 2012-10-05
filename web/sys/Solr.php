@@ -217,8 +217,9 @@ class Solr implements IndexEngine
             $this->_specCache = $searchSettings['Cache']['type'];
         }
 
-        // Deal with session-based shard settings:
-        if (isset($_SESSION['shards'])) {
+        // Deal with session-based shard settings (but only in the main Solr class;
+        // shard settings will mess up subclasses):
+        if (isset($_SESSION['shards']) && get_class($this) == 'Solr') {
             $shards = array();
             foreach ($_SESSION['shards'] as $current) {
                 if (isset($configArray['IndexShards'][$current])) {
@@ -366,6 +367,13 @@ class Solr implements IndexEngine
 
         // Query String Parameters
         $options = array('q' => 'id:"' . addcslashes($id, '"') . '"');
+        if (get_class($this) == 'Solr') {
+            include_once 'sys/SearchObject/Solr.php';
+            $filters = SearchObject_Solr::getDefaultHiddenFilters();
+            if (!empty($filters)) {
+                $options['fq'] = $filters;
+            }
+        }
         $result = $this->_select('GET', $options);
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
@@ -495,37 +503,6 @@ class Solr implements IndexEngine
             array('field' => $field, 'limit' => $limit)
         );
         return $result['facet_counts']['facet_fields'][$field];
-    }
-
-    /**
-     * Get spelling suggestions based on input phrase.
-     *
-     * @param string $phrase The input phrase
-     *
-     * @return array         An array of spelling suggestions
-     * @access public
-     */
-    public function checkSpelling($phrase)
-    {
-        if ($this->debug) {
-            echo "<pre>Spell Check: $phrase</pre>\n";
-        }
-
-        // Query String Parameters
-        $options = array(
-            'q'          => $phrase,
-            'rows'       => 0,
-            'start'      => 1,
-            'indent'     => 'yes',
-            'spellcheck' => 'true'
-        );
-
-        $result = $this->_select($method, $options);
-        if (PEAR::isError($result)) {
-            PEAR::raiseError($result);
-        }
-
-        return $result;
     }
 
      /**
@@ -1890,22 +1867,6 @@ class Solr implements IndexEngine
         }
 
         return false;
-    }
-
-    /**
-     * Remove illegal characters from the provided query.
-     *
-     * @param string $query Query to clean.
-     *
-     * @return string       Clean query.
-     * @access public
-     */
-    public function cleanInput($query)
-    {
-        $query = trim(str_replace($this->_illegal, '', $query));
-        $query = strtolower($query);
-
-        return $query;
     }
 
     /**

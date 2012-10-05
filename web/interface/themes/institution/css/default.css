@@ -2538,6 +2538,11 @@ div#closeContextHelp:active {
     border: solid 2px #E77825;
 }
 
+/* Make sure COinS information is invisible */
+.Z3988 {
+    display: none;
+}
+
 /* Dynatree */
 ul.dynatree-container {
     border: none;
