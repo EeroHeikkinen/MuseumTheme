@@ -158,7 +158,8 @@ class HierarchyTreeGenerator
         if ($results === false) {
             return '';
         }
-        if ($results['response']['numFound'] > 10000) {
+        if ($results['response']['numFound'] > 30000) {
+            error_log("Hierarchy '$hierarchyID' too large");
             return '<root>' .
                 '<item id="' . $this->xmlencode($hierarchyID) .
                 '" isHierarchy="true"><content><name>Hierarchy too large</name></content>' .
