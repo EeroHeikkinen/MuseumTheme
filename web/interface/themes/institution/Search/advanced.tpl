@@ -165,10 +165,6 @@
             <span id="selectionMapHelpPolygon" class="hide">{translate text="adv_search_map_polygon_help"}</span>
             <span id="selectionMapHelpRectangle" class="hide">{translate text="adv_search_map_rectangle_help"}</span>
           </span>
-          {literal}
-          <script type="text/javascript">
-          </script>
-          {/literal}
         </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
       <div class="clear"></div>

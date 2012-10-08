@@ -47,6 +47,9 @@ $(document).ready(function() {
     $("#selectionMap").geomap("zoom", -1);
     $("#zoomPath").slider("option", "value", $("#selectionMap").geomap("option", "zoom")); 
   });
+  $("#zoomSlider").bind('dblclick', function(e) {
+    e.preventDefault();
+  });
   
   var sliderElement = $("#zoomPath");
   sliderElement.slider({
