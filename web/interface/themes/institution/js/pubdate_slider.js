@@ -23,7 +23,7 @@ $(document).ready(function(){
 });
 
 function updateFields() {
-	var values = $("#publishDateSlider").slider("value");	
+	var values = $("#publishDateSlider").jslider("value");	
 	var limits = values.split(";");
     $('#publishDatefrom').val(limits[0]);
     $('#publishDateto').val(limits[1]);
@@ -42,5 +42,5 @@ function updateSlider() {
     }
     
     // update the slider with the new min/max/values
-    $("#publishDateSlider").slider("value", from, to);	
+    $("#publishDateSlider").jslider("value", from, to);	
 }
