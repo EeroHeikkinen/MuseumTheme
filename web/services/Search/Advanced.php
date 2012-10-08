@@ -246,8 +246,7 @@ class Advanced extends Action
                 // If we haven't already found a selected facet and the current
                 // facet has been applied to the search, we should store it as
                 // the selected facet for the current control.
-                if ($searchObject && 
-                    ($searchObject->hasFilter($fullFilter))) {
+                if ($searchObject && $searchObject->hasFilter($fullFilter)) {
                     $selected = true;
                     // Remove the filter from the search object -- we don't want
                     // it to show up in the "applied filters" sidebar since it
