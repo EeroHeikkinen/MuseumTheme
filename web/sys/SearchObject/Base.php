@@ -455,7 +455,7 @@ abstract class SearchObject_Base
         if (!isset($_REQUEST['lookfor'])) {
             return false;
         }
-        
+
         // If lookfor is an array, we may be dealing with a legacy Advanced
         // Search URL.  If there's only one parameter, we can flatten it,
         // but otherwise we should treat it as an error -- no point in going
@@ -494,7 +494,7 @@ abstract class SearchObject_Base
             'index'   => $type,
             'lookfor' => $_REQUEST['lookfor']
         );
-        
+
         return true;
     }
 
@@ -1213,7 +1213,7 @@ abstract class SearchObject_Base
     {
         return $this->autocompleteStatus;
     }
-    
+
     /**
      * Should filter settings be retained across searches by default?
      *
@@ -2036,13 +2036,13 @@ abstract class SearchObject_Base
         // Return the URL
         return $url;
     }
-    
+
     /**
      * Return a url for the current search with a search index replaced
-     * 
+     *
      * @param string $oldTerm The old index to replace
      * @param string $newTerm The new index to search
-     * 
+     *
      * @return string URL of new search
      * @access public
      */
@@ -2131,7 +2131,7 @@ abstract class SearchObject_Base
                 = isset($searchSettings['General']['default_side_recommend']) ?
                 $searchSettings['General']['default_side_recommend'] : false;
         }
-        if ($searchType 
+        if ($searchType
             && isset($searchSettings['NoResultsRecommendations'][$searchType])
         ) {
             $recommend['noresults']

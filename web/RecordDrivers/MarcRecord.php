@@ -508,7 +508,7 @@ class MarcRecord extends IndexRecord
     {
         // These are the fields that may contain subject headings:
         $fields = array(
-            '600', '610', '611', '630', '648', '650', '651', '655', '656'
+            '600', '610', '611', '630', '648', '650', '651', '656'
         );
 
         // This is all the collected data:
@@ -539,6 +539,7 @@ class MarcRecord extends IndexRecord
                     }
                     // If we found at least one chunk, add a heading to our result:
                     if (!empty($current)) {
+                        $current[count($current) - 1] = $this->stripTrailingPunctuation($current[count($current) - 1]);
                         $retval[] = $current;
                     }
                 }
@@ -1461,6 +1462,109 @@ class MarcRecord extends IndexRecord
             $retval[] = compact('heading', 'title', 'author', 'isn');
         }
         return $retval;
+    }
+
+    /**
+     * Get the main author of the record (without year and role).
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getPrimaryAuthorForSearch()
+    {
+        return $this->getFirstFieldValue('100', array('a', 'b', 'c'));
+    }
+
+    /**
+     * Get the publication end date of the record
+     *
+     * @return number|false
+     * @access protected
+     */
+    protected function getPublicationEndDate()
+    {
+        $field = $this->marcRecord->getField('008');
+        if ($field) {
+            $data = $field->getData();
+            $year = substr($data, 11, 4);
+            if (is_numeric($year) && $year != 0) {
+                return $year;
+            } 
+        }
+        return false;
+    }
+
+    /**
+     * Strip trailing spaces and punctuation characters from a string
+     *
+     * @param string|string[] $input String to strip
+     * 
+     * @return string
+     */
+    public function stripTrailingPunctuation($input)
+    {
+        $array = is_array($input);
+        if (!$array) {
+            $input = array($input);
+        }
+        foreach ($input as &$str) {
+            $str = preg_replace('/[\s\/:;\,=\(]+$/', '', $str);
+            // Don't replace an initial letter (e.g. string "Smith, A.") followed by period
+            $thirdLast = substr($str, -3, 1);
+            if (substr($str, -1) == '.' && $thirdLast != ' '  && $thirdLast != ' ') {
+                if (!in_array(substr($str, -4), array('nid.', 'sid.', 'kuv.', 'ill.', 'säv.', 'col.'))) {
+                    $str = substr($str, 0, -1);
+                }
+            }
+        }
+        return $array ? $input : $input[0];
+    }
+    
+    /**
+     * Get an array of alternative titles for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getAlternativeTitles()
+    {
+        return $this->getFieldArray('246', array('a', 'b', 'f'));
+    }
+
+    /**
+     * Get an array of all ISBNs associated with the record (may be empty).
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getISBNs()
+    {
+        return $this->getFieldArray('020', array('a'));
+    }
+
+    /**
+     * Get an array of all ISSNs associated with the record (may be empty).
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getISSNs()
+    {
+        $fields = array(
+            '022' => array('a'),
+            '440' => array('x'),
+            '490' => array('x'),
+            '730' => array('x'),
+            '773' => array('x'),
+            '776' => array('x'),
+            '780' => array('x'),
+            '785' => array('x')
+        ); 
+        $issn = array();
+        foreach ($fields as $field => $subfields) {
+            $issn = array_merge($issn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields)));
+        }
+        return array_unique($issn);
     }
     
 }

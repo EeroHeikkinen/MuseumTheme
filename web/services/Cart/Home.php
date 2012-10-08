@@ -99,6 +99,10 @@ class Home extends Bulk
             } else if (isset($_REQUEST['add'])) {
                 //Update Cart
                 $action = array('module' => 'Cart', 'action' => 'Cart');
+            } else if (isset($_REQUEST['move']) && $_REQUEST['move']) {
+                $action = array('module' => 'MyResearch', 'action' => 'Move');
+            } else if (isset($_REQUEST['copy']) && $_REQUEST['copy']) {
+                $action = array('module' => 'MyResearch', 'action' => 'Copy');
             } else {
                 //Error
                 $action = array('module' => 'Cart', 'action' => 'BulkError');

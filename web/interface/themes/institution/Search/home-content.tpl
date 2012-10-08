@@ -11,17 +11,16 @@
   <div class="homeCustomCol2">
     <h4>With the search you can find:</h4>
     <ul>
-      <li><span class="iconlabel formatbook">Books</span></li>
-      <li><span class="iconlabel formatmusicalscore">Musical scores</span></li>
-      <li><span class="iconlabel formatserial">Journals and Articles</span></li>
-      <li><span class="iconlabel formatitem">Documents</span></li>
-      <li><span class="iconlabel formatjournal">Ephemera</span></li>
-      <li><span class="iconlabel formatmap">Maps</span></li>
-      <li><span class="iconlabel formatslide">Images</span></li>
-      <li><span class="iconlabel formatkit">Physical Objects</span></li>
-      <li><span class="iconlabel formatsoundrecording">Sound Recordings</span></li>
-      <li><span class="iconlabel formatebook">Databases</span></li>
-      <li><span class="iconlabel formatvideo">Videos</span></li>
+      <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>Books</a></span></li>
+      <li><span class="iconlabel formatmusicalscore"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMusicalScore"'>Musical scores</a></span></li>
+      <li><span class="iconlabel formatserial"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>Journals and Articles</a></span></li>
+      <li><span class="iconlabel formatitem"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDocument"'>Documents</a></span></li>
+      <li><span class="iconlabel formatmap"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMap"'>Maps</a></span></li>
+      <li><span class="iconlabel formatslide"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>Images</a></span></li>
+      <li><span class="iconlabel formatkit"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FPhysicalObject"'>Physical Objects</a></span></li>
+      <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Sound Recordings</a></span></li>
+      <li><span class="iconlabel formatebook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Databases</a></span></li>
+      <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videos</a></span></li>
   </div>
   
   <div class="homeCustomCol3">
@@ -40,17 +39,16 @@
   <div class="homeCustomCol2">
     <h4>Haulla löydät:</h4>
     <ul>
-      <li><span class="iconlabel formatbook">Kirjoja</span></li>
-      <li><span class="iconlabel formatmusicalscore">Nuotteja</span></li>
-      <li><span class="iconlabel formatserial">Lehtiä ja artikkeleita</span></li>
-      <li><span class="iconlabel formatitem">Asiakirjoja</span></li>
-      <li><span class="iconlabel formatjournal">Pienpainatteita</span></li>
-      <li><span class="iconlabel formatmap">Karttoja</span></li>
-      <li><span class="iconlabel formatslide">Kuvia</span></li>
-      <li><span class="iconlabel formatkit">Esineitä</span></li>
-      <li><span class="iconlabel formatsoundrecording">Äänitteitä</span></li>
-      <li><span class="iconlabel formatebook">Tietokantoja</span></li>
-      <li><span class="iconlabel formatvideo">Videoita</span></li>
+      <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>Kirjoja</a></span></li>
+      <li><span class="iconlabel formatmusicalscore"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMusicalScore"'>Nuotteja</a></span></li>
+      <li><span class="iconlabel formatserial"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>Lehtiä ja artikkeleita</a></span></li>
+      <li><span class="iconlabel formatitem"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDocument"'>Asiakirjoja</a></span></li>
+      <li><span class="iconlabel formatmap"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMap"'>Karttoja</a></span></li>
+      <li><span class="iconlabel formatslide"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>Kuvia</a></span></li>
+      <li><span class="iconlabel formatkit"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FPhysicalObject"'>Esineitä</a></span></li>
+      <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Äänitteitä</a></span></li>
+      <li><span class="iconlabel formatebook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Tietokantoja</a></span></li>
+      <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videoita</a></span></li>
   </div>
   
   <div class="homeCustomCol3">

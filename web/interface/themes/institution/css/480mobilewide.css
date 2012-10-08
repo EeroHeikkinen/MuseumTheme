@@ -104,15 +104,29 @@ px      62    136    210    284    358    432   */
     }
     ul.recordSet .resultColumn1 {
         width: 136px;
+        margin-left: 0;
     }
     .summcover {
         max-width: 136px;
+    }
+    .resultNoImage{
+        height: 124px;
+        width: 124px;
+    }
+    .resultImage {
+        margin: -126px 0 0 0;
+        width: 126px;
     }
     ul.recordSet .resultColumn1 .resultItemFormat {
        width: auto;
     }
     ul.recordSet .resultColumn2 {
-        width: 284px;
+        width: 246px;
+    }
+    ul.recordSet .addToFavLink {
+        clear: none;
+        float: right;
+        margin: 0;
     }
 
 

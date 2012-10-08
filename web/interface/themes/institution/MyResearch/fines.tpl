@@ -1,5 +1,7 @@
 <!-- START of: MyResearch/fines.tpl -->
 
+{include file="MyResearch/menu.tpl"}
+
 <div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
   {if $user->cat_username}
     {if empty($rawFinesData)}
@@ -23,6 +25,7 @@
             {else}
               <a href="{$path}/Record/{$record.id|escape}">{$record.title|trim:'/:'|escape}</a>
             {/if}
+            {* {if $record.checkedOut}<span class="highlight">{translate text="fined_work_still_on_loan"}</span>{/if} *}
           </td>
           <td>{$record.checkout|escape}</td>
           <td>{$record.duedate|escape}</td>
@@ -31,14 +34,12 @@
           <td>{$record.balance/100.00|safe_money_format|escape}</td>
         </tr>
       {/foreach}
+      <tr><td colspan="5" style="font-weight:bold;">{translate text='Balance'}:</td><td style="font-weight:bold;">{$sum/100.00|safe_money_format|escape}</td></tr>
       </table>
     {/if}
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
-</div>
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
-  {include file="MyResearch/menu.tpl"}
 </div>
 <div class="clear"></div>
 

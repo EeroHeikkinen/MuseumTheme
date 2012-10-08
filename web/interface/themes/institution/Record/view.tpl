@@ -227,15 +227,16 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <ul class="similar">
       {foreach from=$similarRecords item=similar}
       <li>
-        {if is_array($similar.format)}
-        <span class="{$similar.format[0]|lower|regex_replace:"/[^a-z0-9]/":""}">
+        {*{if is_array($similar.format)}
+        <span class="icon format{$similar.format[0]|lower|regex_replace:"/[^a-z]/":""}">
         {else}
-        <span class="{$similar.format|lower|regex_replace:"/[^a-z0-9]/":""}">
-        {/if}
+        <span class="icon format{$similar.format|lower|regex_replace:"/[^a-z]/":""}">
+        {/if}*}
           <a href="{$url}/Record/{$similar.id|escape:"url"}">{$similar.title|escape}</a>
-        </span>
-        {if $similar.author}<br/>{translate text='By'}: {$similar.author|escape}{/if}
-        {if $similar.publishDate} {translate text='Published'}: ({$similar.publishDate.0|escape}){/if}
+        {*</span>*}
+        <br/>
+        {if $similar.author}{$similar.author|escape}{/if}
+        {if $similar.publishDate} {$similar.publishDate.0|escape}{/if}
       </li>
       {/foreach}
     </ul>
@@ -250,15 +251,16 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <ul class="similar">
       {foreach from=$editions item=edition}
       <li>
-        {if is_array($edition.format)}
+        {*{if is_array($edition.format)}
           <span class="{$edition.format[0]|lower|regex_replace:"/[^a-z0-9]/":""}">
         {else}
           <span class="{$edition.format|lower|regex_replace:"/[^a-z0-9]/":""}">
-        {/if}
+        {/if}*}
         <a href="{$url}/Record/{$edition.id|escape:"url"}">{$edition.title|escape}</a>
-        </span>
+        {*</span>*}
+        <br/>
         {$edition.edition|escape}
-        {if $edition.publishDate}({$edition.publishDate.0|escape}){/if}
+        {if $edition.publishDate}{$edition.publishDate.0|escape}{/if}
       </li>
       {/foreach}
     </ul>

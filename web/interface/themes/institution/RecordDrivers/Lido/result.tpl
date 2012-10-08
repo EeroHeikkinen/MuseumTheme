@@ -2,7 +2,7 @@
 
 <div class="result recordId" id="record{$summId|escape}">
 
-  <div class="span-2 resultColumn1">
+  <div class="resultColumn1">
 
     <div class="resultCheckbox">
 	{if $bookBag}
@@ -13,22 +13,22 @@
     </div>
   
     <div class="coverDiv">
-    	<div>
+        <div class="resultNoImage"><p>{translate text='No image'}</p></div>
     	{if $summThumb}
-        <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
+        {* large image link: <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large"> *}
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
           <img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}">
-        </a>
+        </a></div>
     	{else}
-        <img src="{$path}/bookcover.php" class="alignleft" alt="{translate text='No Cover Image'}"/>
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
     	{/if}
-    	</div>
     	
     {* Multiple images *}
     {assign var=img_count value=$summImages|@count}
     {if $img_count > 1}
       <div class="imagelinks">
     {foreach from=$summImages item=desc name=imgLoop}
-        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onclick="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
           {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
         </a>
     {/foreach}
@@ -64,7 +64,7 @@
       
       </div>
 
-      <div class="last span-8">
+      <div class="resultItemLine3">
       {if !empty($summSnippetCaption)}<b>{translate text=$summSnippetCaption}:</b>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br>{/if}
       <div id="callnumAndLocation{$summId|escape}">
@@ -102,12 +102,8 @@
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
-    </div>
-<div class="clear"></div>
 
-  <div class="span-3 last addToFavLink">
-    <div id="saveLink{$summId|escape}">
-      <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool">{translate text='Add to favorites'}</a>
+   <div class="savedLists info hide" id="savedLists{$summId|escape}">
       <ul id="lists{$summId|escape}"></ul>
       <script language="JavaScript" type="text/javascript">
         getSaveStatuses('{$summId|escape:"javascript"}');
@@ -138,6 +134,9 @@
         {/if}
       {/if}
      {/if}
+  </div>
+  <div class="last addToFavLink">
+      <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool"></a>
   </div>
   <div class="clear"></div>
  </div>

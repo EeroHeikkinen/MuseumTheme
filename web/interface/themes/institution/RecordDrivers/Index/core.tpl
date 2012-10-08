@@ -1,8 +1,10 @@
+<!-- START of: RecordDrivers/Index/core.tpl -->
+
 <div id="recordMetadata">
     
   {* Display Title *}
   <h1 class="recordTitle">{$coreShortTitle|escape}
-  {if $coreSubtitle}{$coreSubtitle|escape}{/if}
+  {if $coreSubtitle} : {$coreSubtitle|escape}{/if}
   {* {if $coreTitleSection} / {$coreTitleSection|escape}{/if}
   {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
@@ -27,7 +29,9 @@
   {/if}
   End Cover Image *}
 
-  {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape} <a href='{$url}/Record/{$id|escape:"url"}/Description#tabnav'>{translate text='Full description'}</a></p>{/if}
+  {* Summary, commented out since it exists in extended.tpl 
+  {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape}</p>{/if}
+  *}
 
   {* Display Main Details *}
   <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
@@ -105,7 +109,18 @@
       <th>{translate text='Other Authors'}: </th>
       <td>
         {foreach from=$coreContributors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}; {/if}
+        {/foreach}
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreAlternativeTitles)}
+    <tr valign="top">
+      <th>{translate text='Other Titles'}: </th>
+      <td>
+        {foreach from=$coreAlternativeTitles item=field name=loop}
+          {$field|escape}{if !$smarty.foreach.loop.last}; {/if}
         {/foreach}
       </td>
     </tr>
@@ -127,7 +142,7 @@
 
     <tr valign="top">
       <th>{translate text='Language'}: </th>
-      <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br/>{/foreach}</td>
+      <td>{foreach from=$recordLanguage item=lang}{translate text=facet_$lang}<br/>{/foreach}</td>
     </tr>
 
     {if !empty($corePublications)}
@@ -180,6 +195,24 @@
       <th>{translate text='Subjects'}: </th>
       <td>
         {foreach from=$coreSubjects item=field name=loop}
+        <div class="subjectLine">
+          {assign var=subject value=""}
+          {foreach from=$field item=subfield name=subloop}
+            {if !$smarty.foreach.subloop.first} &gt; {/if}
+            {assign var=subject value="$subject $subfield"}
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|escape}</a>
+          {/foreach}
+        </div>
+        {/foreach}
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreGenres)}
+    <tr valign="top">
+      <th>{translate text='Genre'}: </th>
+      <td>
+        {foreach from=$coreGenres item=field name=loop}
         <div class="subjectLine">
           {assign var=subject value=""}
           {foreach from=$field item=subfield name=subloop}
@@ -328,3 +361,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: RecordDrivers/Index/core.tpl -->

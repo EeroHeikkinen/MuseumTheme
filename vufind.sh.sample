@@ -104,12 +104,6 @@ findDirectory()
 }
 
 ##################################################
-# Set Performance options for JETTY
-##################################################
-#JAVA_OPTIONS="-server -Xms1048576k -Xmx1048576k -XX:+UseParallelGC -XX:NewRatio=5"
-JAVA_OPTIONS="-server -Xms1024m -Xmx1024m -XX:+UseParallelGC -XX:NewRatio=5 -Djava.util.logging.config.file=/usr/local/vufind/solr/logging.properties"
-
-##################################################
 # Set VUFIND_HOME
 ##################################################
 if [ -z "$VUFIND_HOME" ]
@@ -149,6 +143,13 @@ fi
 # Jetty's hallmark
 ##################################################
 JETTY_INSTALL_TRACE_FILE="start.jar"
+
+
+##################################################
+# Set Performance options for JETTY
+##################################################
+#JAVA_OPTIONS="-server -Xms1048576k -Xmx1048576k -XX:+UseParallelGC -XX:NewRatio=5"
+JAVA_OPTIONS="-server -Xms1024m -Xmx1024m -XX:+UseParallelGC -XX:NewRatio=5 -Djava.util.logging.config.file=$SOLR_HOME/logging.properties"
 
 
 #####################################################

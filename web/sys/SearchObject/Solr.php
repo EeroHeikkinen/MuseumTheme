@@ -374,22 +374,25 @@ class SearchObject_Solr extends SearchObject_Base
     } // End init()
 
     /**
-     * Initialise the object for retrieving advanced
-     *   search screen facet data from inside solr.
+     * Initialise the object for retrieving facet summary data from Solr.
+     *
+     * @param string $configSection Name of configuration section listing fields
+     * to retrieve
      *
      * @return boolean
-     * @access public
+     * @access protected
      */
-    public function initAdvancedFacets()
+    protected function initFacetSummaryData($configSection)
     {
         // Call the standard initialization routine in the parent:
         parent::init();
 
         //********************
-        // Adjust facet options to use advanced settings
-        $this->facetConfig = isset($this->allFacetSettings['Advanced']) ?
-            $this->allFacetSettings['Advanced'] : array();
-        $facetLimit = $this->getFacetSetting('Advanced_Settings', 'facet_limit');
+        // Adjust facet options to use home page settings
+        $this->facetConfig = isset($this->allFacetSettings[$configSection]) ?
+            $this->allFacetSettings[$configSection] : array();
+        $facetLimit
+            = $this->getFacetSetting($configSection . '_Settings', 'facet_limit');
         if (is_numeric($facetLimit)) {
             $this->facetLimit = $facetLimit;
         }
@@ -405,6 +408,33 @@ class SearchObject_Solr extends SearchObject_Base
         );
 
         return true;
+    }
+
+    /**
+     * Initialise the object for retrieving home
+     *   page screen facet data from inside solr.
+     *
+     * @return boolean
+     * @access public
+     */
+    public function initHomePageFacets()
+    {
+        // Load Advanced settings if HomePage settings are missing (legacy support):
+        return $this->initFacetSummaryData(
+            isset($this->allFacetSettings['HomePage']) ? 'HomePage' : 'Advanced'
+        );
+    }
+
+    /**
+     * Initialise the object for retrieving advanced
+     *   search screen facet data from inside solr.
+     *
+     * @return boolean
+     * @access public
+     */
+    public function initAdvancedFacets()
+    {
+        return $this->initFacetSummaryData('Advanced');
     }
 
     /**
@@ -1381,7 +1411,9 @@ class SearchObject_Solr extends SearchObject_Base
 
         // Loop through every field returned by the result set
         $validFields = array_keys($filter);
-        foreach ($this->indexResult['facet_counts']['facet_fields'] as $field => $data) {
+        foreach (
+            $this->indexResult['facet_counts']['facet_fields'] as $field => $data
+        ) {
             // Skip filtered fields and empty arrays:
             if (!in_array($field, $validFields) || count($data) < 1) {
                 continue;

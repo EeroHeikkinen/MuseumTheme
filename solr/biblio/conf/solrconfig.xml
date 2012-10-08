@@ -214,8 +214,8 @@
          maxTime - oldest uncommited update (in ms) is this long ago
     -->
     <autoCommit> 
-      <maxDocs>100000</maxDocs>
-      <maxTime>120000</maxTime>
+      <maxDocs>200000</maxDocs>
+      <maxTime>1200000</maxTime>
     </autoCommit>
 
     <!-- The RunExecutableListener executes an external command.
@@ -597,8 +597,6 @@
    If you register a searchComponent to one of the standard names, that will be used instead.
   
    -->
-   
-   <searchComponent name="facet"     class="fi.nationallibrary.ndl.solr.handler.component.RangeSupportingFacetComponent" />
  
   <requestHandler name="/search" class="org.apache.solr.handler.component.SearchHandler">
     <lst name="defaults">

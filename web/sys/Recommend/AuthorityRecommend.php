@@ -127,12 +127,14 @@ class AuthorityRecommend implements RecommendationInterface
     {
         global $interface;
 
+        $lookfor = $_REQUEST['lookfor'];
+
         // function will return blank on Advanced Search
-        if ($this->searchObject->getSearchType()== 'advanced') {
+        if ($this->searchObject->getSearchType()== 'advanced'
+            || ConnectionManager::connectToIndex()->isAdvanced($lookfor)
+        ) {
             return;
         }
-
-        $lookfor = $_REQUEST['lookfor'];
 
         // Initialise and process search query, catching results in authResults var
         $authSearchObject = SearchObjectFactory::initSearchObject('SolrAuth');

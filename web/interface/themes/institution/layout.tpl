@@ -23,12 +23,15 @@
 
     <title>{$pageTitle|truncate:64:"..."}</title>
     <link rel="shortcut icon" href="{$url}/interface/themes/institution/images/favicon_line.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" href="{$url}/interface/themes/institution/images/apple-touch-icon.png" />
 
     {if $module=='Record' && $hasRDF}
     <link rel="alternate" type="application/rdf+xml" title="RDF Representation" href="{$url}/Record/{$id|escape}/RDF"/>    
     {/if}
 
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe"/>
+
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css" />
 
     {* Load Blueprint CSS framework *}
     {css media="screen, projection" filename="blueprint/screen.css"}
@@ -66,7 +69,6 @@
     
     {* Load jQuery UI *}
     {js filename="jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js"}
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css" />
         
     {* Load dialog/lightbox functions *}
     {js filename="lightbox.js"}
@@ -84,6 +86,8 @@
     {* Load dropdown menu modification *}
     {js filename="dropdown.js"}
 
+    {* Load clearsearch plugin *}
+    {js filename="jquery.clearsearch.js"}
 
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}

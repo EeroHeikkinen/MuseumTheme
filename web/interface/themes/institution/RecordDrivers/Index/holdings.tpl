@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/holdings.tpl -->
+
 {if !$hideLogin && $offlineMode != "ils-offline"}
   {if ($driverMode && !empty($holdings)) || $titleDriverMode}
     {if $showLoginMsg || $showTitleLoginMsg}
@@ -105,3 +107,5 @@
   {/foreach}
 </ul>
 {/if}
+
+<!-- END of: RecordDrivers/Index/holdings.tpl -->

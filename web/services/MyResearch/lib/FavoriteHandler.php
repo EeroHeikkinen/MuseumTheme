@@ -48,8 +48,8 @@ class FavoriteHandler
     private $_listId;
     private $_allowEdit;
     private $_records = array();
-    protected $_infoMsg = false;
-    protected $_sortOptions = array(
+    protected $infoMsg = false;
+    protected $sortOptions = array(
         'saved' => 'Order Added',
         'title' => 'Title',
         'author' => 'Author',
@@ -65,6 +65,7 @@ class FavoriteHandler
      * @param int    $listId    ID of list containing desired tags/notes (or null
      * to show tags/notes from all user's lists).
      * @param bool   $allowEdit Should we display edit controls?
+     * @param string $sort      Sort method
      *
      * @access public
      */
@@ -87,7 +88,7 @@ class FavoriteHandler
         global $interface;
 
         $currentSort = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'saved'; 
-        if (!isset($this->_sortOptions[$currentSort])) {
+        if (!isset($this->sortOptions[$currentSort])) {
             $currentSort = 'saved';
         }
         
@@ -119,10 +120,18 @@ class FavoriteHandler
                 $record = RecordDriverFactory::initRecordDriver($data);
                 $html = $interface->fetch($record->getListEntry($this->_user, $this->_listId, $this->_allowEdit));
                 switch ($currentSort) {
-                    case 'title': $sortKey = isset($data['title_sort']) ? $data['title_sort'] : ''; break;
-                    case 'author': $sortKey = isset($data['author']) ? $data['author'] : ''; break;
-                    case 'date': $sortKey = isset($data['publishDate'][0]) ? $data['publishDate'][0] : ''; break;
-                    case 'format': $sortKey = isset($data['format'][0]) ? translate($data['format'][0]) : ''; break;
+                case 'title': 
+                    $sortKey = isset($data['title_sort']) ? $data['title_sort'] : ''; 
+                    break;
+                case 'author': 
+                    $sortKey = isset($data['author']) ? $data['author'] : ''; 
+                    break;
+                case 'date': 
+                    $sortKey = isset($data['main_date_str']) ? $data['main_date_str'] : isset($data['publishDate'][0]) ? $data['publishDate'][0] : ''; 
+                    break;
+                case 'format': 
+                    $sortKey = isset($data['format'][0]) ? translate($data['format'][0]) : ''; 
+                    break;
                 }
             } else {
                 if (!isset($searchObjects[$source])) {
@@ -135,10 +144,18 @@ class FavoriteHandler
                     $this->_allowEdit
                 );
                 switch ($currentSort) {
-                    case 'title': $sortKey = isset($data['Title'][0]) ? $data['Title'][0] : ' '; break;
-                    case 'author': $sortKey = isset($data['Author'][0]) ? $data['Author'][0] : ' '; break;
-                    case 'date': $sortKey = isset($data['publicationDate'][0]) ? $data['publicationDate'][0] : ' '; break;
-                    case 'format': $sortKey = isset($data['format'][0]) ? translate($data['format'][0]) : ' '; break;
+                case 'title': 
+                    $sortKey = isset($data['Title'][0]) ? $data['Title'][0] : ' '; 
+                    break;
+                case 'author': 
+                    $sortKey = isset($data['Author'][0]) ? $data['Author'][0] : ' '; 
+                    break;
+                case 'date': 
+                    $sortKey = isset($data['main_date_str']) ? $data['main_date_str'] : isset($data['publicationDate'][0]) ? $data['publicationDate'][0] : ' '; 
+                    break;
+                case 'format': 
+                    $sortKey = isset($data['format'][0]) ? translate($data['format'][0]) : ' '; 
+                    break;
                 }
             }
             $sortKey .= '_' . $favorite->record_id;
@@ -186,7 +203,7 @@ class FavoriteHandler
         
         // Sorting options
         $sortList = array();
-        foreach ($this->_sortOptions as $sort => $desc) {
+        foreach ($this->sortOptions as $sort => $desc) {
             $sortList[$sort] = array(
                 'sortUrl'  => $searchObject->renderLinkWithSort($sort),
                 'desc' => $desc,
@@ -204,7 +221,7 @@ class FavoriteHandler
      */
     public function getInfoMsg()
     {
-        return $this->_infoMsg;
+        return $this->infoMsg;
     }
 }
 

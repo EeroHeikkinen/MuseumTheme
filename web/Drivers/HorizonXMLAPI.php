@@ -27,7 +27,6 @@
  * @link     http://vufind.org/wiki/building_an_ils_driver Wiki
  */
 require_once 'Horizon.php';
-require_once 'sys/VuFindDate.php';
 
 /**
  * Horizon ILS Driver
@@ -64,9 +63,6 @@ class HorizonXMLAPI extends Horizon
         $this->wsDefaultPickUpLocation
             = (isset($this->config['Holds']['defaultPickUpLocation']))
             ? $this->config['Holds']['defaultPickUpLocation'] : false;
-
-        // Set up object for formatting dates and times:
-        $this->dateFormat = new VuFindDate();
     }
 
     /**
@@ -164,7 +160,7 @@ class HorizonXMLAPI extends Horizon
      * @return array Keyed data for display by template files
      * @access protected
      */
-    protected function processTransactionRow($row)
+    protected function processTransactionsRow($row)
     {
         $transactions = parent::processTransactionsRow($row);
         $renewData = $this->_determineRenewability($row['REQUEST']);

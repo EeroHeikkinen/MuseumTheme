@@ -11,6 +11,7 @@
 </div>
 
 <div class="coverDiv">
+  <div class="resultNoImage"><p>{translate text='No image'}</p></div>
   {assign var=img_count value=$summImages|@count}
   {if $img_count >= 1}
       <div id="imagelinks">
@@ -20,9 +21,10 @@
       </div>
     {else}
       {if $summThumb}
-        <img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
+        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
+        
         {else}
-        <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}" title="{translate text='No Cover Image'}"/>
+        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
       {/if}
   {/if}
   </div>
@@ -63,9 +65,10 @@
     <div class="resultItemLine2">
       {if !empty($summAuthor)}
       {translate text='by'}:
-      <a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
+      <a href="{$url}/Author/Home?author={$summAuthorForSearch|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       {/if}
       {if $summDate}{translate text='Published'}: {$summDate.0|escape}{/if}
+      {if $summPublicationEndDate} - {if $summPublicationEndDate != 9999}{$summPublicationEndDate}{/if}{/if}
       {if $summInCollection}
         {foreach from=$summInCollection item=InCollection key=cKey}
           <div>
@@ -90,7 +93,7 @@
       {/if}
     </div>
 
-    <div class="resultItemLine3 last">
+    <div class="resultItemLine3">
       {if !empty($summSnippetCaption)}<strong>{translate text=$summSnippetCaption}:</strong>{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       {if $summDedupData}
@@ -169,10 +172,6 @@
       </div>
       {/if}
     {/if}
-  <div class="clear"></div>
-
-  <div class="span-3 last addToFavLink">
-    <a id="saveRecord{$summId|escape}" href="{$url}/Record/{$summId|escape:"url"}/Save" class="fav tool saveRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
 
     {* Display the lists that this record is saved to *}
     <div class="savedLists info hide" id="savedLists{$summId|escape}">
@@ -192,8 +191,10 @@
       </div>
       {/foreach}
     {/if}
-  </div>
 </div>
+  <div class="last addToFavLink">
+    <a id="saveRecord{$summId|escape}" href="{$url}/Record/{$summId|escape:"url"}/Save" class="fav tool saveRecord" title="{translate text='Add to favorites'}"></a>
+  </div>
   <div class="clear"></div>
 </div>
 

@@ -12,7 +12,6 @@ body {
     padding: 0 24px 48px;
     background-color: #ffffff;
     color: #3c3c3c;
-    -webkit-text-size-adjust: 100%; /* Stops Mobile Safari from auto-adjusting font-sizes */
 }
 .container {
     width: 960px; /* make this match the body width above */
@@ -53,9 +52,6 @@ a:focus, a:hover {
 }
 
 /*** Languages ***/
-div.lang {
-    line-height: 30px;
-}
 div.lang ul {
     margin: 0 .4em;
 }
@@ -63,11 +59,9 @@ div.lang li, div.lang a {
     float: left;
     overflow: hidden;
     height: 30px;
-    font-style: normal;
 }
 div.lang li {
     padding: 0 6px;
-    font-size: 90%;
 }
 
 /*** Position ***/
@@ -110,10 +104,6 @@ img.alignleft {
     display: none;
 }
 
-.ui-widget {
-    font-family: inherit;
-    font-size: inherit;
-}
 
 .sidebarOnLeft .sidegroup {
     margin-left: 10px;
@@ -153,7 +143,7 @@ img.alignleft {
     float: left;
     width: 506px;
 }
-.header, .header-home {
+.header {
     background-color: #f3f3f3;
 }
 .slogan {
@@ -193,10 +183,12 @@ img.alignleft {
 #searchForm_input {
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
-    color: #333333;
-    height: 16px;
+    color: initial;
+    height: 17px;
+/*
     width: 220px;
-    padding: 10px 4px 8px 8px;
+*/
+    padding: 9px 24px 8px 8px;
 /*
     background-color: #ffffff;
     color: #333333;
@@ -223,6 +215,18 @@ img.alignleft {
 */
 }
 
+a.clear_input {
+    background: url("../images/searchbox.png") no-repeat scroll -194px -48px transparent;
+    /* For round clear button use coordinates -215px -48px */
+    color: white;
+    padding-left: 10px;
+    position: absolute;
+    height: 16px;
+    width: 15px;
+}
+a.clear_input:hover {
+    text-style: none;
+} 
 div.styled_select { /* to get rid of the unstylable down-arrow */
 /*
     border-right: 1px solid #969696;
@@ -241,16 +245,11 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     height: 34px;
     width: 169px;
     padding: 8px 9px;
-    -webkit-border-radius: 0; /* to fix round left corners on mac webkit-browsers */
-*/
+    -webkit-border-radius: 0;*/ /* to fix round left corners on mac webkit-browsers */
 }
 
 /** Dropdown **/
 .dropdown dd, .dropdown dt, .dropdown ul {
-    font-weight: normal;
-/*    
-    font-size: .846em;
-*/
     margin: 0px;
     padding: 0px;
 }
@@ -312,7 +311,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     display: none;
 }
 .dropdown dd ul li a {
-    line-height: 1em;
     padding: 5px;
     display: block;
 }
@@ -341,14 +339,13 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 }
 .searchbox .dropdown dt a {
     height: 16px;
-    line-height: 1.2em;
     padding: 8px 3px 8px 7px;
 }
 .searchbox .dropdown dd ul li a {
-    padding: 6px 5px 4px 7px;
+    padding: 6px 5px 6px 7px;
 }
 .searchbox .dropdown dd ul li a:hover {
-    padding: 5px 0 3px 5px;
+    padding: 5px 0 5px 5px;
 }
 
 
@@ -361,7 +358,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     height: 34px;
     width: 89px;
     margin-left: 5px;
-    padding: .5em;
+    padding: .5em 0;
 
 /*
     background: url("../images/searchbutton_bg.png") transparent;
@@ -396,7 +393,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 label.invalid {
     background:url("../images/unchecked.gif") no-repeat scroll 0 0 transparent;
     color:#EA5200;
-    font-weight:bold;
     padding-bottom:2px;
     padding-left:16px;
     margin-left: 5px;
@@ -420,7 +416,6 @@ div.dialogLoading {
     background:none;
 }
 .highlight {
-    font-weight: bold;
     background: none;
 }
 .searchheader img.alignleft {
@@ -434,7 +429,6 @@ p.listDescription {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
-    display:none;
     border-bottom: 1px solid #eee;
     padding: 1em 0;
 }
@@ -502,7 +496,6 @@ ul.cartContent {
 .alphaBrowseHeading {
     float: left;
     width: 650px;
-    line-height: 1.31em;
 }
 
 .alphaBrowseCount {
@@ -512,13 +505,11 @@ ul.cartContent {
 .alphaBrowseHeader {
     text-align: right;
     clear: both;
-    font-weight: bold;
     zoom: 1;
 }
 
 .alphaBrowsePageLinks {
     margin: 1em;
-    font-weight: bold;
     background-color: #fff;
 }
 
@@ -535,8 +526,6 @@ ul.cartContent {
 }
 
 .alphaBrowseRelatedHeading .title {
-    font-weight: bold;
-    font-size: 90%;
     margin-left: 2em;
 }
 
@@ -582,7 +571,6 @@ fieldset.publishDateLimit legend {
     margin-bottom: .3em;
 }
 fieldset.publishDateLimit .yearbox {
-    font-size: 13px;
     width: 35px;
 }
 fieldset.publishDateLimit .ui-slider {
@@ -613,10 +601,7 @@ fieldset.publishDateLimit .ui-slider {
 #topPubDateVis strong {
     padding-left: .2em;
 }
-#suggestedTopics {
-    line-height: 1.4em;
-}
-#sidebarFacets, #sidebarRecommend, .myResearchMenu {
+#sidebarFacets, #sidebarRecommend, #sidebarCollection {
     float: left;
     margin-left: 12px;
     width: 220px;
@@ -628,7 +613,7 @@ fieldset.publishDateLimit .ui-slider {
 
 /*** Result List ***/
 
-#resultList, #authorList {
+#resultList, #authorList, #resultsCollection {
     width: 728px;
     float: left;
     margin: 0;
@@ -684,14 +669,18 @@ ul.recordSet .addToFavLink {
     width: auto;
     float: right;
 }
+.addToFavLink a {
+    height: 20px;
+}
 ul.recordSet .resultColumn1 {
     float: left;
-    width: 136px;
+    width: 126px;
+    margin: 0 12px 0 10px;
 }
 ul.recordSet .resultColumn2 {
     float:left;
     margin:0;
-    width: 580px;
+    width: 540px;
 }
 ul.recordSet .resultCheckbox {
     position:absolute;
@@ -708,11 +697,46 @@ ul.recordSet .resultItemLine2{
 }
 .summcover {
     margin: 0;
-    max-width: 120px;
+    max-width: 126px;
+}
+.resultNoImage {
+    display: table;
+    border: 1px solid #f0f0f0;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 1;
+    width: 124px;
+    height: 124px;
+}
+.resultNoImage p {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #dddddd;
+}
+.resultImage {
+    margin: -126px 0 0 0;
+    width: 126px;
+    position: relative;
+    z-index: 2;
+}
+.resultImage a {
+    display: block;
+}
+.resultImage img {
+    width: 126px;
+    height: auto;
 }
 .resultImages {
     float:left;
     margin:0 10px 0 0;
+}
+.result .imagelinks {
+    background-color: #ffffff;
+    position: relative;
+    z-index: 3;
+    min-height: 20px;
+    padding: 4px 0 0 4px;
 }
 .result .imagelinks a {
     float:left;
@@ -722,7 +746,6 @@ ul.recordSet .resultItemLine2{
     width:1em;
     margin:0 4px 4px 0;
     text-align:center;
-    font-size:0.8em;
 }
 .result .imagelinks a:hover {
     text-decoration:none;
@@ -778,7 +801,6 @@ ul.recordSet .resultItemLine2{
     padding-top: .5em;
 }
 .correction p, .correctionTerms {
-    line-height: 1.3em;
     margin: 0;
 }
 .correction a img {
@@ -867,6 +889,11 @@ dl.narrowList a {
 .keywordFilterForm {
     margin: 5px 0px 5px 0px;
 }
+.sidegroup #keywordFilter_lookfor {
+    width: 190px;
+    padding: 0 2px;
+}
+
 .navmenu dd {
     list-style-type: none;
     /* border-bottom: 1px solid #e3e3e3; */
@@ -874,7 +901,6 @@ dl.narrowList a {
 }
 .navmenu dt {
     margin-top:.75em;
-    font-weight:bold;
     padding:0.2em 0.4em;
     background-color: #eee;
 }
@@ -887,7 +913,6 @@ dl.narrowList a {
     margin-right:0.4em;
 }
 .facetCount {
-    font-size:0.8em;
     color:#999;
 }
 
@@ -1160,9 +1185,6 @@ ul.recordSet .addToFavLink a {
     background-position: left top;
     padding:2px .5em .5em 20px;
     margin-right:1em;
-    line-height: 16px;
-    font-size: 8pt;
-    font-weight: normal;
 }
 
 .formatbook      {background-image:url(../images/silk/book.png);}
@@ -1201,12 +1223,11 @@ ul.recordSet .addToFavLink a {
 /***** Pagination *****/
 
 .pagination {
-    font-size:90%;
     padding:13px 0;
     margin:1.5em 0;
     text-align:center;
 }
-.pagination:hover {
+.pagination:hover, .paginationTop:hover {
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
     border: 1px solid #f4f4f4;
     padding: 12px 0;
@@ -1227,7 +1248,6 @@ ul.recordSet .addToFavLink a {
 .pagination span {
     padding: .2em .3em;
     margin-right:.5em;
-    font-weight:bold;
 }
 
 /*** Record Page ***/
@@ -1236,7 +1256,9 @@ div.record {
     padding: 0;
     margin: 5px 0 1em 0;
 }
-
+#resultsCollection div.record, #headingHierarchyCollection div.record {
+    margin: -1em 0 0 .5em;
+}
 #resultMain, #resultSide {
     padding-top: 1.2em;
 }
@@ -1254,7 +1276,7 @@ div.record {
     width: 506px;
     float: left;
 }
-#recordMetadata tr:hover {
+#recordMetadata tr:hover, .citation tr:hover {
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
 /*
     border: 1px solid #f4f4f4;
@@ -1267,7 +1289,6 @@ div.record {
     behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .recordTitle {
-    font-weight:bold;
     margin-top:0;
 }
 div.recordsubcontent {
@@ -1287,7 +1308,6 @@ div.recordsubcontent {
     width: 1.5em;
     margin: 0 4px 4px 0;
     text-align: center;
-    font-size: 1em;
 }
 .coverImageLinks a:hover {
     text-decoration: none;
@@ -1318,9 +1338,6 @@ div.recordsubcontent {
 }
 
 /***** Citation Table *****/
-.citation {
-    font-size:90%;
-}
 .citation th {
     text-align:left;
     color:#666;
@@ -1351,54 +1368,86 @@ div.recordsubcontent table.citation {
 }
 
 table.authors th {
-    font-size:120%;
     padding:0 0.8em;
 }
 
 /************* Tabs (Record Page) *****************/
 
 #tabnav {
-    font-size:90%;
     margin-top:1em;
+/*
     padding:0 0 0 1em;
     background-color:#fafafa;
     border-top:1px #eee solid;
+*/
     border-bottom: 1px #dcdcdc solid;
 }
 #tabnav ul {
-float: left;
+    float: left;
     margin:0;
     padding:0px 5px 0 0;
     list-style:none;
+    background: #ffffff;
+    border-color: #dadada;
+    border-style: none none solid none;
 }
 #tabnav li {
     float:left;
+    background: url("images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
+    border: 1px solid #d3d3d3;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-right: 3px;
+    position: relative;
+    top: 1px;
+/*
     margin:0 0 0 0px;
     padding:0 0 0 10px;
+*/
+}
+#tabnav li:hover {
+    background: #dadada;
+    border: 1px solid #cccccc;
+    color: 212121;
 }
 #tabnav a {
-    float:left;
-    display:block;
+    color: #555555;
+    float: left;
+    display: block;
+    padding: .4em .5em;
+/*
     padding:18px 10px 10px 5px;
+*/
     text-decoration:none;
-    font-weight:normal;
-    color:#000;
 }
 /* Commented Backslash Hack
     hides rule from IE5-Mac \*/
 #tabnav a {float:none;}
 /* End IE5-Mac hack */
 #tabnav a:hover {
-    color:#000;
+    color: #212121;
 }
 #tabnav .active {
+/*
     background:url(../images/subnavTab_left.jpg) no-repeat left top;
+*/
+    background: url("images/ui-bg_glass_65_ffffff_1x400.png") repeat-x scroll 50% 50% #FFFFFF;
+    border: 1px solid #cccccc;
+    border-bottom: 1px solid #ffffff;
     margin-bottom:-1px;
+    padding-bottom: -1px;
+}
+#tabnav .active:hover {
+    background: url("images/ui-bg_glass_65_ffffff_1x400.png") repeat-x scroll 50% 50% #FFFFFF;
+    border: 1px solid #cccccc;
+    border-bottom: 1px solid #ffffff;
 }
 #tabnav .active a {
+    color: #212121;
+/*
     background:url(../images/subnavTab_right.jpg) no-repeat right top;
-    color:#000;
     padding:18px 10px 12px 0px;
+*/
 }
 
 /** Dynamic Tabs **/
@@ -1425,10 +1474,6 @@ float: left;
     background: #ffffff;
     border-color: #cccccc;
     border-style: none none solid none;
-}
-#dyntabnav .ui-widget {
-    font-family: inherit;
-    font-size: inherit;
 }
 #dyntabnav .ui-tabs-panel {
     padding: 1em 0;
@@ -1469,9 +1514,8 @@ ul.similar li {
     padding-bottom:10px;
 }
 
-h5.recordTabHeader{
-    font-weight:normal;
-    margin:5px 0 20px 0;
+h5.recordTabHeader {
+    margin: 5px 0 20px 0;
 }
 
 /*********** Toolbar (Record View) ************/
@@ -1627,7 +1671,6 @@ ul.commentList li {
 }
 ul.commentList li div.posted {
     color:#666;
-    font-size: 80%;
     margin-top:1em;
     width:100%;
 }
@@ -1643,7 +1686,6 @@ form#commentRecord #comment {
 
 label.displayBlock {
     display:block;
-    font-weight:bold;
 }
 input.button {
 }
@@ -1657,24 +1699,6 @@ p.citationText {
     padding-left:25px;
     text-indent:-25px;
     width:95%;
-}
-
-/* Tag cloud */
-
-.cloud1 {
-    font-size: .8em;
-}
-.cloud2 {
-    font-size: 1em;
-}
-.cloud3 {
-    font-size: 1.2em;
-}
-.cloud4 {
-    font-size: 1.4em;
-}
-.cloud5 {
-    font-size: 1.6em;
 }
 
 /* New advanced search screen stuff */
@@ -1743,7 +1767,6 @@ p.citationText {
 }
 .searchGroups {
     margin-bottom: 10px;
-    font-size: 125%;
 }
 .searchGroups .searchGroupDetails {
     float: right;
@@ -1753,8 +1776,8 @@ p.citationText {
 /* Profile / MyResearch */
 
 .myResearch .resultHead {
-    width: 716px;
 /*
+	  width: 716px;
     border-bottom: 1px solid #dddddd;
     padding: 0 12px 0.2em 0;
 */
@@ -1797,24 +1820,14 @@ p.citationText {
     clear: both;
 }
 .myResearchMenu {
-/*
-    width: 210px;
-    float: left;
-    margin-left: 12px;
-*/
-    border-left: 2px solid #dddddd;
+    border-bottom: 1px solid #ddd;
     margin-top: .6em;
+    padding: 0;
     margin-bottom: 1em;
-    width: 218px;
-}
-.myResearchMenu .sidegroup {
-    border-left: none;
-    margin-top: 0;
 }
 
 /* Browse Lists */
 .browseNav {
-    font-size:90%;
     background-color:#fff;
     width: 215px;
     border: 1px solid;
@@ -1860,7 +1873,6 @@ p.citationText {
 }
 .browseNav a.viewRecords {
     float:right;
-    font-size:80%;
 }
 
 /** Google search **/
@@ -1876,7 +1888,6 @@ div.fieldValue {
 
 /** system unavailable and other fatal error pages */
 div.unavailable, div.fatalError {
-    font-size:125%;
     margin:5em auto 5em auto;
     padding: 2em 5em;
     width: 65%;
@@ -1885,9 +1896,6 @@ div.unavailable, div.fatalError {
     -webkit-border-radius: 5px
 
     behavior: url(css/css3pie/PIE.php); /* for IE */
-}
-div.debug code {
-    font-size: x-small;
 }
 
 /** Open Library Subjects **/
@@ -1933,7 +1941,6 @@ div.debug code {
     height:55px;
     display:block;
     text-align:center;
-    font-size:86%;
     width:155px;
 }
 
@@ -1941,7 +1948,6 @@ div.debug code {
     display:block;
     height:40px;
     overflow:hidden;
-    line-height:1.2em;
 }
 
 td.gridCell {
@@ -1973,9 +1979,6 @@ tr:nth-child(even) td.gridMouseOver {
     background-color: #FFF;
     padding: 20px;
 }    
-.disambiguationDiv h1 {
-    font-size: 2em;
-}
 #disambiguationItemsDiv {
     padding: 5px;
     margin-bottom: 30px;
@@ -1988,10 +1991,12 @@ tr:nth-child(even) td.gridMouseOver {
 }
 .collectionDetails {
     background-color: #ffffff;
-    padding: .6em 0 1em;
+    padding: .5em 0 1em;
+/*
     border-top: 2px solid #eeeeee;
     margin-top: -2px;
     margin-bottom: 20px;
+*/
 }
 .collectionDetails form {
     border: 1px solid #EEEEEE;
@@ -2021,12 +2026,14 @@ tr:nth-child(even) td.gridMouseOver {
 .collectionDetails .paginationTop {
     border-bottom: 1px solid #eeeeee;
     margin-bottom: .6em;
-    padding-bottom: .6em;
+    padding: 7px 0;
     text-align: center;
+}
+.collectionDetails .paginationTop:hover {
+    padding: 6px 0 7px;
 }
 .collectionDetails .paginationTop span {
     border: 1px solid #EEEEEE;
-    font-weight: bold;
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 3px;
@@ -2090,7 +2097,7 @@ tr:nth-child(even) td.gridMouseOver {
     display: none;
 }
 
-/* Rss Recommendations */
+/* RSS Recommendations */
 div.suggestionHeader {
     min-height:30px;
     padding-top: 5px;
@@ -2102,7 +2109,6 @@ div.submenuSuggestion {
 }
 
 .submenuSuggestion h4 {
-    font-family: Georgia,"Times New Roman",Serif;
     color: #7c1416;
     padding-top:12px;
 }
@@ -2113,8 +2119,6 @@ div.submenuSuggestion {
 }
 .suggestionWhatsThis {
     color: #7C1416;
-    font-family: Georgia,"Times New Roman",Serif;
-    font-size: 10px;
     float:right;
     clear:right;
 }
@@ -2179,8 +2183,6 @@ ul.suggestion li{
     background-color:#FFF;
 }
 .mapSeeAllDiv{
-    font-size:1.2em;
-    font-weight: bold;
     text-align:center;
 }
 .mapInfoResults{
@@ -2207,7 +2209,6 @@ ul.suggestion li{
 
 /* table for displaying full status in result list */
 table.summHoldings {
-    font-size: smaller;
     margin-bottom: .5em;
 }
 table.summHoldings th {
@@ -2228,9 +2229,7 @@ table.summHoldings .callnumColumn {
 table.summHoldings .statusColumn {
     width: 20%;
 }
-a.summHoldings {
-    font-size: smaller;
-}
+
 /*****************contextHelp*******************/
 
 table#contextHelp td, table#contextHelp tr {
@@ -2281,16 +2280,13 @@ table#contextHelp td.body {
     background: #ededed;
 }
 table#contextHelp td.body h2 {
-    font-size: 1.4em;
     margin-bottom: 5px;
     color: #2D4687;
-    font-weight: bold;
 }
 table#contextHelp a {
     color: #04778E;
     /*border-bottom: solid 1px #ACD4DB;*/
     text-decoration: underline;
-    font-weight: bold;
 }
 table#contextHelp a:hover {
     color: #024A59;
@@ -2311,9 +2307,7 @@ table#contextHelp div.arrow.up {
     margin-bottom: 3px;
 }
 table#contextHelp p {
-    font-size: 0.9em;
     text-align: left;
-    font-weight: bold;
 }
 table#contextHelp p.separator {
     background: url(../images/dashed-line-grey.gif) 0 top repeat-x scroll;
@@ -2384,10 +2378,11 @@ div#closeContextHelp:active {
 }
 
 #treeSearch {
+    border-bottom: 1px solid #DCDCDC;
     display:none;
     float: right;
+    padding-bottom: .4em;
     width: 100%;
-    border: 1px solid  #DCDCDC;
 }
 
 #treeSearch #treeSearchText {
@@ -2489,7 +2484,6 @@ div#closeContextHelp:active {
 
 #hierarchyTree #treeList li.currentHierarchy > a, #hierarchyTree #treeList li.currentRecord > a {
     color: #000;
-    font-weight: bold;   
 }
 
 #toggleTree {
@@ -2525,10 +2519,6 @@ div#closeContextHelp:active {
     margin-right: 1em;
 }
 
-.jstree-highlight {
-    font-weight: bold;
-}
-
 .sysInfo {
     margin: 0 auto;
     padding: 1em;
@@ -2546,13 +2536,16 @@ div#closeContextHelp:active {
     padding:10px;
     background-color: #FDD5A3;
     border: solid 2px #E77825;
-    font-size:24px;
+}
+
+/* Make sure COinS information is invisible */
+.Z3988 {
+    display: none;
 }
 
 /* Dynatree */
 ul.dynatree-container {
     border: none;
-    font-size: 100%;
     margin: 0 0 0 -8px;
     max-height: 500px;
     overflow-y: auto; 
@@ -2561,7 +2554,6 @@ ul.dynatree-container a {
     margin: 0;
 }
 span.dynatree-node {
-    font-size: 100%;
     margin: 0 0 0 -6px;
 }
 span.dynatree-node a:hover {
@@ -2665,9 +2657,6 @@ input#coordinates {
     border:1px solid #84bbf3;
     display:inline-block;
     color:#ffffff;
-    font-family:arial;
-    font-size:15px;
-    font-weight:bold;
     padding:6px 24px;
     text-decoration:none;
     text-shadow:1px 1px 0px #528ecc;

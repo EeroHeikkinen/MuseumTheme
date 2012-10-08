@@ -91,10 +91,8 @@ class UserAccount
                         $ips[1] = UserAccount::normalizeIp($ips[1], true);
                     }
                     if ($remote >= $ips[0] && $remote <= $ips[1]) {
-                        error_log('Remote addr ' . $_SERVER['REMOTE_ADDR'] . " in $range (" . bin2hex($ips[0]) . ' <= ' . bin2hex($remote) . ' <= ' . bin2hex($ips[1]) . ')');
                         return true;
                     }
-                    error_log('Remote addr ' . $_SERVER['REMOTE_ADDR'] . " not in $range (" . bin2hex($ips[0]) . ' <= ' . bin2hex($remote) . ' <= ' . bin2hex($ips[1]) . ')');
                 }
             }
         }
@@ -228,7 +226,6 @@ class UserAccount
             while (substr_count($ip, ':') < 7) {
                 $ip .= $end ? ':ffff' : ':0';
             }
-            error_log("Widened: $ip");
         }
         return inet_pton($ip);
     }

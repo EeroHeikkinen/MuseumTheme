@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/listentry.tpl -->
+
 <div class="listentry recordId" id="record{$listId|escape}">
   <div class="resultCheckbox">
     <label for="checkbox_{$listId|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select"}: {$listTitle|escape}</label>
@@ -53,3 +55,5 @@
 
   <div class="clear"></div>
 </div>
+
+<!-- END of: RecordDrivers/Index/listentry.tpl -->

@@ -1,15 +1,15 @@
 /****** Homepage ******/
 
 /* temp style until the browse has been figured out to home page */
-.searchHome {
-    /* margin-bottom: 15em; */
-    background-color: #f3f3f3;
-    border-bottom: 1px solid #ddd;
-}
+
 .searchHomeContent {
-    padding: 2em 0 3em 0;
+    padding: 3em 0 3em 0;
     margin: 0 auto;
     text-align: left;
+}
+.header-home {
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #ddd;
 }
 
 /*** Logo ***/
@@ -19,7 +19,7 @@
 }
 .searchHomeLogo img {
     display: block;
-    margin: 0 auto 1em auto;
+    margin: 1em auto 1em auto;
 }
 
 
@@ -175,7 +175,7 @@ div.searchHomeForm div.searchform #searchForm {
 */
 .homeCustomCol2 {
     margin-top: .8em;
-    width: 284px;
+    width: 304px;
 }
 .homeCustomContent .homeCustomCol2 ul {
     padding: 0;
@@ -183,7 +183,7 @@ div.searchHomeForm div.searchform #searchForm {
 }
 .homeCustomContent .homeCustomCol2 ul li {
     float: left;
-    width: 130px;
+    width: 140px;
     margin: 0.5em 10px 0.5em 0;
     font-size: 1em;
 }

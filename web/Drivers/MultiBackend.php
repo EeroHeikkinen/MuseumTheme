@@ -237,6 +237,9 @@ class MultiBackend implements DriverInterface
      */
     public function patronLogin($username, $password)
     {
+        if (isset($_SESSION['logins'][$username])) {
+            return unserialize($_SESSION['logins'][$username]);
+        }
         $source = $this->getSource($username);
         if (!$source) {
             $source = $this->defaultDriver;
@@ -244,6 +247,8 @@ class MultiBackend implements DriverInterface
         $driver = $this->getDriver($source);
         if ($driver) {
             $patron = $driver->patronLogin($this->getLocalId($username), $password);
+            $patron = $this->addIdPrefixes($patron, $source);
+            $_SESSION['logins'][$username] = serialize($patron);
             return $this->addIdPrefixes($patron, $source);
         }
         error_log("No driver for '$username' found");
