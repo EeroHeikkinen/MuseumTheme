@@ -60,6 +60,8 @@ class Advanced extends Action
         // Go get the facets
         $searchObject->processSearch();
         $facetList = $searchObject->getFacetList();
+        // OR filters from advanced search
+        $orFilters = $searchObject->getOrFilters();
         //Assign page limit options & last limit from session
         $interface->assign('limitList',  $searchObject->getLimitList());
         // Shutdown the search object
@@ -71,7 +73,9 @@ class Advanced extends Action
         // Process the facets for appropriate display on the Advanced Search screen:
         $facets = $this->_processFacets($facetList, $savedSearch);
         $interface->assign('facetList', $facets);
-
+        // OR filters from advanced search
+        $interface->assign('orFilters', $orFilters);
+        
         // Integer for % width of each column (be careful to avoid divide by zero!)
         $columnWidth = (count($facets) > 1) ? round(100 / count($facets), 0) : 0;
         $interface->assign('columnWidth', $columnWidth);
@@ -242,7 +246,8 @@ class Advanced extends Action
                 // If we haven't already found a selected facet and the current
                 // facet has been applied to the search, we should store it as
                 // the selected facet for the current control.
-                if ($searchObject && $searchObject->hasFilter($fullFilter)) {
+                if ($searchObject && 
+                    ($searchObject->hasFilter($fullFilter))) {
                     $selected = true;
                     // Remove the filter from the search object -- we don't want
                     // it to show up in the "applied filters" sidebar since it

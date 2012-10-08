@@ -51,7 +51,8 @@ class SearchObject_Solr extends SearchObject_Base
     protected $facetOffset = null;
     protected $facetPrefix = null;
     protected $facetSort = null;
-
+    protected $orFilters = array();
+    
     // Index
     protected $index = null;
     // Field List
@@ -239,6 +240,7 @@ class SearchObject_Solr extends SearchObject_Base
         if (isset($_REQUEST['coordinates']) && $_REQUEST['coordinates']) {
             $this->addFilter('{!score=none}location_geo:"Intersects(' . str_replace('"', '\"', $_REQUEST['coordinates']) . ')"');
         }
+      
     }
 
     /**
@@ -570,6 +572,16 @@ class SearchObject_Solr extends SearchObject_Base
             $html[] = $interface->fetch($record->getSearchResult($currentView));
         }
         return $html;
+    }
+    
+    /**
+     * Get advanced search filters
+     *
+     * @return array OR filters from advanced search
+     * @access public
+     */    
+    public function getOrFilters() {
+        return $this->orFilters;
     }
 
     /**
@@ -1043,6 +1055,26 @@ class SearchObject_Solr extends SearchObject_Base
                 }
             }
         }
+        
+        // OR filters for advanced search
+        if (isset($_REQUEST['orfilter']) && $_REQUEST['orfilter']) {
+            $orQuery = array();
+            foreach ($_REQUEST['orfilter'] as $filter) {
+                $parsedFilter = $this->parseFilter($filter);
+                $field = $parsedFilter[0];
+                $value = $parsedFilter[1];
+                $orQuery[ $field ] [] = "$field:\"$value\"";
+                // Save OR filters for advanced search.
+                $this->orFilters[$field] [] = $value;
+            }
+        
+            if(!empty($orQuery)) {
+                foreach ($orQuery as $field => $filter) {
+                    $filterQuery[] = '{!tag=' . $field . '_filter}'
+                       . '('. implode(" OR ", $filter) . ')';
+                }
+            }
+        }
 
         // If we are only searching one field use the DisMax handler
         //    for that field. If left at null let solr take care of it
@@ -1067,6 +1099,7 @@ class SearchObject_Solr extends SearchObject_Base
                 $facetSet['sort'] = $this->facetSort;
             }
         }
+        
 
         // Build our spellcheck query
         if ($this->spellcheck) {
@@ -1631,6 +1664,7 @@ class SearchObject_Solr extends SearchObject_Base
         // Send back data:
         return $returnFacets;
     }
+
 }
 
 /**

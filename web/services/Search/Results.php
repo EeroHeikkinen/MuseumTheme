@@ -112,6 +112,7 @@ class Results extends Action
         $interface->assign('viewList',   $searchObject->getViewList());
         $interface->assign('rssLink',    $searchObject->getRSSUrl());
         $interface->assign('limitList',  $searchObject->getLimitList());
+        
         // Process Search
         $result = $searchObject->processSearch(true, true);
         if (PEAR::isError($result)) {
@@ -137,6 +138,10 @@ class Results extends Action
         $interface->assign(
             'sideRecommendations', $searchObject->getRecommendationsTemplates('side')
         );
+        $interface->assign(
+                'orFilters', $searchObject->getOrFilters()
+        );
+        
         
         // Whether RSI is enabled
         if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {

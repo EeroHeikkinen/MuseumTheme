@@ -188,7 +188,7 @@ abstract class SearchObject_Base
         }
         return false;
     }
-
+    
     /**
      * Take a filter string and add it into the protected
      *   array checking for duplicates.
@@ -830,6 +830,16 @@ abstract class SearchObject_Base
             }
         }
 
+        // Add OR filters
+        if (count($this->orFilters) > 0) {
+            foreach ($this->orFilters as $field => $filter) {
+                foreach ($filter as $value) {
+                    $params[] = urlencode("orfilter[]") . '=' .
+                            urlencode("$field:\"$value\"");
+                }
+            }
+        }
+        
         // Sorting
         if ($this->sort != null && $this->sort != $this->getDefaultSort()) {
             $params[] = "sort=" . urlencode($this->sort);
@@ -1525,6 +1535,7 @@ abstract class SearchObject_Base
         $this->resultsTotal = $minified->r;
         $this->filterList   = $minified->f;
         $this->searchType   = $minified->ty;
+        $this->orFilters    = $minified->o;
 
         // Search terms, we need to expand keys
         $tempTerms = $minified->t;
@@ -2443,6 +2454,7 @@ class minSO
         // It would be nice to shorten filter fields too, but
         //      it would be a nightmare to maintain.
         $this->f = $searchObject->getFilters();
+        $this->o = $searchObject->getOrFilters();
     }
 }
 ?>

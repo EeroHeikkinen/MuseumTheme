@@ -6,8 +6,14 @@
   <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
   <a href="{$path}/Search/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
   <a href="{$path}/" class="small">{translate text="Start a new Basic Search"}</a>
-  <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}</span>"
-
+  <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}
+  {foreach from=$orFilters item=values key=filter}
+    AND (
+    {foreach from=$values item=value name=orvalues}
+    {translate text=$filter|ucfirst}:{translate text=facet_$value}{if !$smarty.foreach.orvalues.last} OR {/if}
+    {/foreach})           
+  {/foreach}
+"</span>
 {else}
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
