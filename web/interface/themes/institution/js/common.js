@@ -112,6 +112,9 @@ function filterAll(element, formId) {
 
 function extractParams(str) {
     var params = {};
+    if (str == null) {
+        return params;
+    }
     var classes = str.split(/\s+/);
     var i;
     for(i = 0; i < classes.length; i++) {

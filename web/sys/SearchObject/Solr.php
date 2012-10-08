@@ -610,7 +610,8 @@ class SearchObject_Solr extends SearchObject_Base
      * @return array OR filters from advanced search
      * @access public
      */    
-    public function getOrFilters() {
+    public function getOrFilters() 
+    {
         return $this->orFilters;
     }
 
