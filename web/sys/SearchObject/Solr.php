@@ -1099,7 +1099,7 @@ class SearchObject_Solr extends SearchObject_Base
                 $this->orFilters[$field] [] = $value;
             }
         
-            if(!empty($orQuery)) {
+            if (!empty($orQuery)) {
                 foreach ($orQuery as $field => $filter) {
                     $filterQuery[] = '{!tag=' . $field . '_filter}'
                        . '('. implode(" OR ", $filter) . ')';

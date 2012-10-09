@@ -1464,7 +1464,7 @@ table.authors th {
 #dyntabnav .ui-tabs-nav li {
     margin-right: 3px;
 }
-#dyntabnav .ui-corner-all {
+#dyntabnav .ui-tabs-nav {
     -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px;
 }
 #dyntabnav .ui-tabs li a, #dyntabnav .ui-tabs-nav li a {
@@ -2612,9 +2612,6 @@ div#selectionMap {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-div#selectionMap ul {
-    background: rgba(255, 255, 255, 0.5);
-}
 input#coordinates {
     width: 100%;
     -webkit-box-sizing: border-box;
@@ -2623,6 +2620,16 @@ input#coordinates {
 }
 #selectionMapTools {
     background: rgba(255, 255, 255, 0.7);
+}
+
+/* Styles that apply to all jquery.geo maps */
+
+div.geo-map ul {
+    background: rgba(255, 255, 255, 0.5);
+}
+span.mapMarker  {
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1000;
 }
 #zoomSlider { 
 	  position: absolute;
@@ -2633,13 +2640,13 @@ input#coordinates {
 	  z-index: 1004;
 }
 #zoomSlider #zoomControlMinus { 
-	  height: 17px;
-	  width: 17px;
+	  height: 16px;
+	  width: 16px;
 	  cursor: pointer;
 }
 #zoomSlider #zoomControlPlus {
-	  height: 17px;
-	  width: 17px;
+	  height: 16px;
+	  width: 16px;
 	  cursor: pointer;
 }
 #zoomSlider #zoomPath 

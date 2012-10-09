@@ -91,8 +91,8 @@ class Results extends Action
         $interface->assign(
         	"showContext",
             isset($configArray['Content']['showHierarchyTree'])
-                ? $configArray['Content']['showHierarchyTree']
-                : false
+            ? $configArray['Content']['showHierarchyTree']
+            : false
         );
 
         // TODO : Stats, move inside the search object

@@ -236,6 +236,7 @@ class Advanced extends Action
     private function _processFacets($facetList, $searchObject = false)
     {
         // Process the facets, assuming they came back
+        $facetConfig = getExtraConfigArray('facets');
         $facets = array();
         foreach ($facetList as $facet => $list) {
             $currentList = array();
@@ -246,8 +247,7 @@ class Advanced extends Action
                 // If we haven't already found a selected facet and the current
                 // facet has been applied to the search, we should store it as
                 // the selected facet for the current control.
-                if ($searchObject && 
-                    ($searchObject->hasFilter($fullFilter))) {
+                if ($searchObject && $searchObject->hasFilter($fullFilter)) {
                     $selected = true;
                     // Remove the filter from the search object -- we don't want
                     // it to show up in the "applied filters" sidebar since it
@@ -257,8 +257,20 @@ class Advanced extends Action
                 } else {
                     $selected = false;
                 }
-                $currentList[$value['value']]
-                    = array('filter' => $fullFilter, 'selected' => $selected);
+                $parts = explode('/', $value['untranslated']);
+                if (!in_array($facet, $facetConfig['SpecialFacets']['hierarchical']) || count($parts) < 2) {
+                    $key = $value['value'];
+                    $level = 0;
+                } else {
+                    $level = array_shift($parts);
+                    $key = implode('/', $parts);
+                }
+                $currentList[$key] = array(
+                    'filter' => $fullFilter,
+                    'selected' => $selected,
+                    'translated' => $value['value'],
+                    'level' => $level
+                );
             }
 
             // Perform a natural case sort on the array of facet values:
