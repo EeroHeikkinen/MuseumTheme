@@ -4,7 +4,11 @@ $(document).ready(function() {
 
 function checkMetaLibLinks() {
     var id = $.map($('.recordId'), function(i) {
-        return $(i).attr('id').substr('record'.length);
+        var id = $(i).attr('id').substr('record'.length);
+        if (id.substr(0, 8) == 'metalib_') {
+            return id;
+        }
+        return null;
     });
     if (id.length) {
     	// set the spinner going
