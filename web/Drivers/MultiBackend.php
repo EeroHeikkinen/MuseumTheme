@@ -249,7 +249,7 @@ class MultiBackend implements DriverInterface
             $patron = $driver->patronLogin($this->getLocalId($username), $password);
             $patron = $this->addIdPrefixes($patron, $source);
             $_SESSION['logins'][$username] = serialize($patron);
-            return $this->addIdPrefixes($patron, $source);
+            return $patron;
         }
         error_log("No driver for '$username' found");
     }
