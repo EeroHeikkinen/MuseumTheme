@@ -710,9 +710,9 @@ class MetaLib
         $author = $this->getSingleValue($record, '100a');
         $addAuthors = $this->getSingleValue($record, '700a');
         $sources = $this->getMultipleValues($record, 'SIDt');
-        $year = str_replace('^^^^', '', $this->getSingleValue($record, 'YR a'));
+        $year = $this->getSingleValue($record, 'YR a');
         $languages = $this->getMultipleValues($record, '041a');
-        
+
         $urls = array();
         $res = $record->xpath("./m:datafield[@tag='856']");
         foreach ($res as $value) {
@@ -816,6 +816,7 @@ class MetaLib
             $hostTitle .= " $field773g";
         }
 
+        $year = str_replace('^^^^', '', $year);
         return array(
             'Title' => array($title), 
             'Author' => $author ? array($author) : null,
