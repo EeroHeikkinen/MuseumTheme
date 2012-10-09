@@ -17,6 +17,14 @@
 .searchHomeLogo {
     text-align: center;
 }
+.searchHomeLogo-metalib {
+    background: url("../images/finna-ml-logo_small.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+    margin: 0 auto 2em auto;
+    text-align: center;
+}
 .searchHomeLogo img {
     display: block;
     margin: 1em auto 1em auto;

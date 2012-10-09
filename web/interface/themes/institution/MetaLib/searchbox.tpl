@@ -23,7 +23,7 @@
       </div>
       <div class="advanced-link-wrapper clear">
         <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small advancedLink">{translate text="Advanced"}</a>
-        <a href="{$path}/" class="small last metalibLink">Paikallinen haku</a>
+        <a href="{$path}/" class="small last metalibLink">{translate text="Local search"}</a>
        </div>
        <script type="text/javascript" src="{$url}/interface/themes/institution/js/dropdown.js"></script>
 
