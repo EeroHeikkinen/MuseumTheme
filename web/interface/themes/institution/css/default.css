@@ -431,6 +431,12 @@ div.dialogLoading {
 .noLoad {
     background:none;
 }
+.no-hits {
+    margin-bottom: 4em;
+}
+.no-hits #topPubDateVis {
+    display: none;
+}
 .highlight {
     background: none;
 }
