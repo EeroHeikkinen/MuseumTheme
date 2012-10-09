@@ -51,7 +51,6 @@ class SearchObject_Solr extends SearchObject_Base
     protected $facetOffset = null;
     protected $facetPrefix = null;
     protected $facetSort = null;
-    protected $orFilters = array();
     
     // Index
     protected $index = null;
