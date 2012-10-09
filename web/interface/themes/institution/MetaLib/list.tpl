@@ -1,3 +1,5 @@
+<!-- START of: MetaLib/list.tpl -->
+
 {js filename="openurl.js"}
 {* Main Listing *}
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
@@ -77,3 +79,4 @@
 
 <div class="clear"></div>
 
+<!-- END of: MetaLib/list.tpl -->

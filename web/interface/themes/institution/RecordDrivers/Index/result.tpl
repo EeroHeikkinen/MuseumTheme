@@ -10,25 +10,27 @@
   {/if}
 </div>
 
+{assign var=img_count value=$summImages|@count}
 <div class="coverDiv">
   <div class="resultNoImage"><p>{translate text='No image'}</p></div>
-  {assign var=img_count value=$summImages|@count}
-  {if $img_count >= 1}
-      <div id="imagelinks">
-        <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
-          <img id="thumbnail_img_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}">
-        </a>
-      </div>
-    {else}
-      {if $summThumb}
+    {if $img_count > 0}
         <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
-        
-        {else}
+    {else}
         <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
-      {/if}
-  {/if}
-  </div>
+    {/if}
 
+{* Multiple images *}
+{if $img_count > 1}
+  <div class="imagelinks">
+{foreach from=$summImages item=desc name=imgLoop}
+	<a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+	  {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
+	</a>
+{/foreach}
+  </div>
+{/if}
+</div>
+  
   {if is_array($summFormats)}
     {assign var=mainFormat value=$summFormats.0} 
     {assign var=displayFormat value=$summFormats|@end} 

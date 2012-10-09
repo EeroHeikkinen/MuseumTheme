@@ -12,19 +12,19 @@
   	{/if}
     </div>
   
+    {assign var=img_count value=$summImages|@count}
     <div class="coverDiv">
         <div class="resultNoImage"><p>{translate text='No image'}</p></div>
-    	{if $summThumb}
+    	{if $img_count > 0}
         {* large image link: <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large"> *}
         <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
-          <img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}">
+          <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}">
         </a></div>
     	{else}
         <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
     	{/if}
     	
     {* Multiple images *}
-    {assign var=img_count value=$summImages|@count}
     {if $img_count > 1}
       <div class="imagelinks">
     {foreach from=$summImages item=desc name=imgLoop}
