@@ -2,14 +2,12 @@
 #logo {
     background: url("../images/finna-logo_small.png") no-repeat scroll center center transparent;
     display: block;
-    height: 73px;
-    margin: 0 0 0 10px;
-    width: 200px;
+    height: 60px;
+    margin: 20px 18px;
+    width: 190px;
 }
 #logoHeader {
     float: left;
-    margin: 16px 5px 20px 10px;
-    width: 210px;
 }
 /* Logo background, overwritten by admin panel */
 .header {

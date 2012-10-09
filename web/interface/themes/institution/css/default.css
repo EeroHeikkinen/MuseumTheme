@@ -129,9 +129,9 @@ img.alignleft {
 
 #logo {
     background: url("../images/finna_logo_small.png") no-repeat scroll center center transparent;
-    height: 39px;
-    width: 200px;
-    margin: 0 0 0 10px;
+    height: 60px;
+    width: 190px;
+    margin: 20px;
     display: block;
 }
 #logo-metalib {
@@ -143,8 +143,6 @@ img.alignleft {
 }
 #logoHeader {
     float: left;
-    width: 210px;
-    margin: 30px 0 20px;
 }
 #logoHeader-metalib {
     float: left;
@@ -191,7 +189,7 @@ img.alignleft {
 /*** Search Box ***/    /* also note home.css for Home Page */
 
 .searchbox {
-    margin: 2.8em 0 .5em;
+    margin: 2.6em 0 .5em;
 }
 #searchForm input, #searchForm select, .styled_select { 
     float:left;
@@ -232,8 +230,8 @@ img.alignleft {
 }
 
 a.clear_input {
-    background: url("../images/searchbox.png") no-repeat scroll -194px -48px transparent;
-    /* For round clear button use coordinates -215px -48px */
+    background: url("../images/searchbox.png") no-repeat scroll -194px -47px transparent;
+    /* For round clear button use coordinates -215px -47px */
     color: white;
     padding-left: 10px;
     position: absolute;

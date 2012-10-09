@@ -47,7 +47,7 @@
 {if $showTopSearchBox}
 
 <div id="logoHeader{if $module=='MetaLib'}-metalib{/if}">
-  <a id="logo{if $module=='MetaLib'}-metalib{else}{1|rand:4}{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
+  <a id="logo{if $module=='MetaLib'}-metalib{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
 </div>
 <div id="searchFormHeader">
   <div class="searchbox">
