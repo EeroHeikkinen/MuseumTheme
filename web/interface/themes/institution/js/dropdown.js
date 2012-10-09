@@ -3,7 +3,7 @@
 //
 // Modifications by NDL
 
-$(document).ready(function() {
+// $(document).ready(function() {
     createDropDown();
     
     $(".dropdown dt a").click(function() {
@@ -23,23 +23,23 @@ $(document).ready(function() {
         $(".dropdown dt a").html(text);
         $(".dropdown dd ul").hide();
         
-        var source = $("#searchForm_filter");
+        var source = $(".searchForm_styled");
         source.val($(this).find("span.value").html());
 
     });
-});
+// });
 
 function createDropDown(){
     var l = window.location;
     var base_url = l.protocol + "//" + l.host + "/" + l.pathname.split('/')[1] + '/';
 
-    var source = $("#searchForm_filter");
+    var source = $(".searchForm_styled");
     var selected = source.find("option[selected]");
     var options = $("option", source);
-    var classname = $("#searchForm_filter").attr("class");
+    var classname = $(".searchForm_styled").attr("class");
 
-    $("#searchForm_filter").hide();    
-    $("#searchForm_filter").before('<dl id="target" class="dropdown small' + classname + '"></dl>')
+    $(".searchForm_styled").hide();    
+    $(".searchForm_styled").before('<dl id="target" class="dropdown small' + classname + '"></dl>')
     $("#target").append('<dt><a href="#" class="hefty"><p>' + selected.text() + 
 '</p><span class="value">' + selected.val() + 
 '</span><img src="' + base_url + 'interface/themes/institution/images/dropdown_arrow.png" alt="v&nbsp;" /></a></dt>')

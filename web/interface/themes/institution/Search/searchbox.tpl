@@ -35,7 +35,7 @@
   </div>
 *}
       <div class="styled_select">
-        <select id="searchForm_filter" class="" name="prefilter">
+        <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
     {foreach from=$prefilterList item=searchDesc key=searchVal}    
           <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter || ($activePrefilter == null && $searchVal == "-") } selected="selected"{/if}>{translate text=$searchDesc}</option>
     {/foreach}
@@ -116,6 +116,7 @@
     });
   </script>
   {/literal}
+  <script type="text/javascript" src="{$url}/interface/themes/institution/js/dropdown.js"></script>
 {/if}
 
 </div>
