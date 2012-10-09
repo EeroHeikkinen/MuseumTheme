@@ -122,11 +122,15 @@
         {/if}
         {if $summURLs}
         <div>
+          {if $summURLs|@count > 2}
           <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></a></p>
+          {else}
+          <p class="resultContentToggle">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></p>
+          {/if}
           <div class="resultContentList">
-        {foreach from=$summURLs key=recordurl item=urldesc}
-          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
-        {/foreach}
+          {foreach from=$summURLs key=recordurl item=urldesc}
+          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank" title="{$recordurl|escape}">{if $recordurl == $urldesc}{$recordurl|truncate_url|escape}{else}{$urldesc|escape}{/if}</a>
+          {/foreach}
           </div>
         </div>
         {/if}
