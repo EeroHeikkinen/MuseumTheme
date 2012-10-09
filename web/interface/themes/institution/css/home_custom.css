@@ -18,3 +18,33 @@
     margin: 0 auto 3em auto;
     text-align: center;
 }
+/* Logo image */
+.searchHomeLogo1 {
+    background: url("../images/finna-logo_cyan.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    height: 198px;
+    margin: 0 auto 3em auto;
+    text-align: center;
+}
+/* Logo image */
+.searchHomeLogo2 {
+    background: url("../images/finna-logo_purple.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    height: 198px;
+    margin: 0 auto 3em auto;
+    text-align: center;
+}
+/* Logo image */
+.searchHomeLogo3 {
+    background: url("../images/finna-logo_violet.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    height: 198px;
+    margin: 0 auto 3em auto;
+    text-align: center;
+}

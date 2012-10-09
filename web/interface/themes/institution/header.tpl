@@ -77,7 +77,7 @@
       <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
       </div>
     {/if}
-    <div class="searchHomeLogo">
+    <div class="searchHomeLogo{1|rand:3}">
 {* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
 {*
       <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>
