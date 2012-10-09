@@ -1239,32 +1239,35 @@ ul.recordSet .addToFavLink a {
 /***** Pagination *****/
 
 .pagination {
-    padding:13px 0;
-    margin:1.5em 0;
-    text-align:center;
+    margin: 0 .3em;
+    padding: 13px .7em 13px;
 }
-.pagination:hover, .paginationTop:hover {
-    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;
-    border: 1px solid #f4f4f4;
-    padding: 12px 0;
-    border-radius: 6px;
-    -moz-border-radius: 6px;
-    -webkit-border-radius: 6px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
+.paginationTop {
+    margin: 1.5em 0;
+    padding-left: 0;
+    float: left;
 }
 .pagination a {
-    padding: .2em .3em;
-    margin-right:.5em;
+    padding: .2em .5em;
+    margin-left: .8em;
     border: 1px solid #fff;
 }
 .pagination a:hover {
     border: 1px solid #cccccc;
 }
 .pagination span {
-    padding: .2em .3em;
-    margin-right:.5em;
+    padding: .2em .5em;
+    margin-left: .8em;
 }
+
+/*** Result Options (sorting etc.) ***/
+.resultOptions {
+    margin: 1.5em 0;
+    padding: 13px .7em 13px;
+    float: right;
+    
+}
+
 
 /*** Record Page ***/
 

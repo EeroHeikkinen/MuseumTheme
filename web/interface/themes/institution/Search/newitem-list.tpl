@@ -63,7 +63,7 @@
       {$pageContent}
     {/if}
 
-    {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+    {include file="Search/paging.tpl"}
       
     <div class="searchtools">
       <strong>{translate text='Search Tools'}:</strong>
