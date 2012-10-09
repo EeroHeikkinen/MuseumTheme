@@ -1,4 +1,6 @@
-<div class="searchform span-10 last">
+<!-- START of: MetaLib/searchbox.tpl -->
+
+<div class="searchform last">
   {if $searchType == 'MetaLibAdvanced'}
     <a href="{$path}/MetaLib/Advanced?edit={$searchId}&set={$searchSet|escape}" class="small">{translate text="Edit this Advanced Search"}</a> |
     <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small">{translate text="Start a new Advanced Search"}</a> |
@@ -55,3 +57,5 @@
     <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
   {/if}
 </div>
+
+<!-- END of: MetaLib/searchbox.tpl -->
