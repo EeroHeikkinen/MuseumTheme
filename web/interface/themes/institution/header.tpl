@@ -46,8 +46,8 @@
 
 {if $showTopSearchBox}
 
-<div id="logoHeader">
-  <a id="logo" href="{$url}" alt="Logo" title="{translate text="Home"}"></a>
+<div id="logoHeader{if $module=='MetaLib'}-metalib{/if}">
+  <a id="logo{if $module=='MetaLib'}-metalib{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
 </div>
 <div id="searchFormHeader">
   <div class="searchbox">
@@ -57,7 +57,6 @@
   {if $pageTemplate != 'advanced.tpl'}
     {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
       {include file="`$module`/searchbox.tpl"}
-
     {else}
       {include file="Search/searchbox.tpl"}
     {/if}
@@ -77,7 +76,7 @@
       <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
       </div>
     {/if}
-    <div class="searchHomeLogo">
+    <div class="searchHomeLogo{if $module=='MetaLib'}-metalib{/if}">
 {* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
 {*
       <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>
@@ -85,7 +84,11 @@
     </div>
     <div class="searchHomeForm">
       <div class="searchbox">
-        {include file="Search/searchbox.tpl"}
+    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
+      {include file="`$module`/searchbox.tpl"}
+    {else}
+      {include file="Search/searchbox.tpl"}
+    {/if}
       </div>
     </div>
   </div>

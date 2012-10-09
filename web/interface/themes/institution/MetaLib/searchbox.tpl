@@ -10,10 +10,10 @@
     <form method="get" action="{$path}/MetaLib/Search" name="searchForm" id="searchForm" class="search">
       <div>
         <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
-        <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape:"html"}"/>
+        <input id="searchForm_input" type="text" name="lookfor" size="40" style="width:200px;" value="{$lookfor|escape:"html"}"/>
         <div class="styled_select">
           <label for="searchForm_set" class="offscreen">{translate text="Search In"}</label>
-          <select id="searchForm_set" name="set" class="searchForm_select">
+          <select id="searchForm_set" name="set" class="searchForm_styled">
           {foreach from=$metalibSearchSets item=searchDesc key=searchVal}
             <option value="{$searchVal}"{if $searchSet == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
           {/foreach}
@@ -23,8 +23,9 @@
       </div>
       <div class="advanced-link-wrapper clear">
         <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small advancedLink">{translate text="Advanced"}</a>
-        <a href="{$path}/MetaLib/Home?set={$searchSet|escape}" class="small last metalibLink">{translate text="MetaLib Search"}</a>
+        <a href="{$path}/" class="small last metalibLink">{translate text="Local search"}</a>
        </div>
+       <script type="text/javascript" src="{$url}/interface/themes/institution/js/dropdown.js"></script>
 
       {* Do we have any checkbox filters? *}
       {assign var="hasCheckboxFilters" value="0"}

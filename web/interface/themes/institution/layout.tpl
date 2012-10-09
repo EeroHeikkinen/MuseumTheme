@@ -84,7 +84,7 @@
     {js filename="tmpl.js"}
     
     {* Load dropdown menu modification *}
-    {js filename="dropdown.js"}
+    {* js filename="dropdown.js" *}
 
     {* Load clearsearch plugin *}
     {js filename="jquery.clearsearch.js"}
@@ -143,7 +143,7 @@
         </div>
       </div>
 
-      <div class="header{if !$showTopSearchBox}-home{/if} clear">
+      <div class="header{if !$showTopSearchBox}-home{/if}{if $module=='MetaLib'}-metalib{/if} clear">
         {include file="header.tpl"}
         <div class="clear"></div>
       </div>
@@ -174,7 +174,6 @@
         </div>
         {/if}
         {include file="$module/$pageTemplate"}
-
         <div class="footer small clear">
           {include file="footer.tpl"}
         </div>

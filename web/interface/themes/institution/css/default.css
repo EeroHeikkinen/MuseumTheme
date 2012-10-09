@@ -112,7 +112,7 @@ img.alignleft {
 .main {
     padding-top: .6em;
 }
-.main, .footer {
+.footer {
     border-top: 1px solid #dddddd;
 }
 .breadcrumbs {
@@ -134,10 +134,22 @@ img.alignleft {
     margin: 0 0 0 10px;
     display: block;
 }
+#logo-metalib {
+    background: url("../images/finna-ml-logo_small.png") no-repeat scroll center center transparent;
+    height: 71px;
+    width: 258px;
+    margin: 0 0 0 10px;
+    display: block;
+}
 #logoHeader {
     float: left;
     width: 210px;
     margin: 30px 0 20px;
+}
+#logoHeader-metalib {
+    float: left;
+    width: 258px;
+    margin: 20px 20px 10px;
 }
 #searchFormHeader {
     float: left;
@@ -145,6 +157,10 @@ img.alignleft {
 }
 .header {
     background-color: #f3f3f3;
+    border-bottom: 1px solid #dddddd;
+}
+.header-metalib .searchbox {
+    margin: 1em 0 0.5em;
 }
 .slogan {
     margin: 0 0 5px;
