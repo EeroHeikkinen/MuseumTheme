@@ -78,13 +78,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <span class="hefty strong">{translate text='Your Favorites'}</span><br/>
   {/if}
   {if $resourceList}
-    <div class="floatleft small">
-    {if $recordCount}
-      {translate text="Showing"}
-      <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-      {translate text='of'} <strong>{$recordCount}</strong>
-    {/if}
-    </div>
+    {include file="Search/paging.tpl" position="Top"}
     
     <div class="floatright small">
       <form action="{$path}/Search/SortResults" method="post">
@@ -161,7 +155,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <div class="clear"></div>
   </form>
   
-      {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}      
+    {include file="Search/paging.tpl"}
   {else}
     <div class="floatleft small">{translate text='You do not have any saved resources'}</div>
     <div class="clear"></div>

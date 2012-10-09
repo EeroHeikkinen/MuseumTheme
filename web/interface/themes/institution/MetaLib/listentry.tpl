@@ -5,7 +5,8 @@
         <input type="hidden" name="idsAll[]" value="{$record.ID.0|escape}" />
         </div>
         <div class="coverDiv">
-          <img src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}" class="alignleft" alt="{translate text="Cover Image"}"/>
+          <div class="resultNoImage"><p>{translate text='No image'}</p></div>
+          <div class="resultImage"><a href="{$url}/MetaLib/Record?id={$record.ID.0|escape:"url"}"><img src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}" class="summcover" alt="{translate text="Cover Image"}"/></a></div>
         </div>
         
         <div class="resultColumn2">

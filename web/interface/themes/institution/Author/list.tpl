@@ -5,15 +5,10 @@
   <div class="resulthead">
     <div class="floatleft small">
       {if $recordCount}
-        {translate text="Showing"}
-        <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-        {* total record count is not currently reliable due to Solr facet paging
-             limitations -- for now, displaying it is disabled.
-        {translate text='of'} <strong>{$recordCount}</strong>
-        *}
         {translate text='for search'} <strong>'{$lookfor|escape}'</strong>
       {/if}
     </div>
+    {include file="Search/paging.tpl" position="Top"}
     <div class="floatright small">
       <form action="{$path}/Search/SortResults" method="post">
         <label for="sort_options_1">{translate text='Sort'}</label>
@@ -42,7 +37,7 @@
       {/foreach}
     </tbody>
   </table>
-  {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+  {include file="Search/paging.tpl"}
 </div>
 
 <div id="sidebarRecommend" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">

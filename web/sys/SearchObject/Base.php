@@ -56,6 +56,7 @@ abstract class SearchObject_Base
 
     // Filters
     protected $filterList = array();
+    protected $orFilters = array();
     // Page number
     protected $page = 1;
     // Result limit
@@ -2355,6 +2356,17 @@ abstract class SearchObject_Base
      * @access public
      */
     abstract public function getIndexError();
+    
+    /**
+     * Get advanced search filters
+     *
+     * @return array OR filters from advanced search
+     * @access public
+     */    
+    public function getOrFilters() 
+    {
+        return array();
+    }    
 }
 
 /**

@@ -139,7 +139,7 @@ function uniqueValues(array) {
 }
 
 function initAutocomplete() {
-	var searchInput = $('#searchForm_input');
+	var searchInput = $('#searchForm_input.autocomplete');
 	if (searchInput.length === 0)
 		return;
 	var searchForm = $('#searchForm');

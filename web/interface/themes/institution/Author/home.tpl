@@ -27,14 +27,11 @@
   <div class="resulthead">
     <div class="floatleft small">
       {if $recordCount}
-        {translate text="Showing"}
-        <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-        {translate text='of'} <strong>{$recordCount}</strong>
         {translate text='for search'}: <strong>'{$authorName|escape:"html"}'</strong>,
       {/if}
       {translate text='query time'}: {$qtime}s
-
     </div>
+    {include file="Search/paging.tpl" position="Top"}
 
     <div class="floatright small">
       <div class="viewButtons">
@@ -77,7 +74,7 @@
     {$pageContent}
   {/if}
 
-  {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+  {include file="Search/paging.tpl"}
 
   <div class="searchtools">
     <strong>{translate text='Search Tools'}:</strong>

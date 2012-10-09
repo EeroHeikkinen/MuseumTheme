@@ -503,17 +503,6 @@ class SearchObject_MetaLib extends SearchObject_Base
     }
     
     /**
-     * Get advanced search filters
-     *
-     * @return array OR filters from advanced search
-     * @access public
-     */    
-    public function getOrFilters() 
-    {
-        return array();
-    }
-    
-    /**
      * Get information regarding the IRD
      * 
      * @param string $ird IRD ID
