@@ -144,6 +144,9 @@ div.lang li {
     font-weight: normal;
     line-height: 1em;
 }
+.dropdown dt a p {
+    font-size: .846em;
+}
 
 /* Search Box */
 #searchForm input, #searchForm select, .styled_select { 

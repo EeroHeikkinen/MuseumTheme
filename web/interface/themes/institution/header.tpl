@@ -47,7 +47,7 @@
 {if $showTopSearchBox}
 
 <div id="logoHeader{if $module=='MetaLib'}-metalib{/if}">
-  <a id="logo{if $module=='MetaLib'}-metalib{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
+  <a id="logo{if $module=='MetaLib'}-metalib{else}{1|rand:4}{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
 </div>
 <div id="searchFormHeader">
   <div class="searchbox">
@@ -76,11 +76,7 @@
       <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
       </div>
     {/if}
-<<<<<<< HEAD
-    <div class="searchHomeLogo{1|rand:3}">
-=======
-    <div class="searchHomeLogo{if $module=='MetaLib'}-metalib{/if}">
->>>>>>> origin/master
+    <div class="searchHomeLogo{if $module=='MetaLib'}-metalib{else}{1|rand:5}{/if}">
 {* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
 {*
       <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>

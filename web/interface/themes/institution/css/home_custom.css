@@ -9,17 +9,7 @@
     text-align: left;
 }
 /* Logo image */
-.searchHomeLogo {
-    background: url("../images/finna-logo.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    height: 150px;
-    margin: 0 auto 3em auto;
-    text-align: center;
-}
-/* Logo image */
-.searchHomeLogo1 {
+.searchHomeLogo1, .searchHomeLogo2, .searchHomeLogo3, .searchHomeLogo4, .searchHomeLogo5 {
     background: url("../images/finna-logo_cyan.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -28,23 +18,18 @@
     margin: 0 auto 3em auto;
     text-align: center;
 }
-/* Logo image */
+/* Alternating home logo image 2 */
 .searchHomeLogo2 {
-    background: url("../images/finna-logo_purple.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    height: 198px;
-    margin: 0 auto 3em auto;
-    text-align: center;
+    background-image: url("../images/finna-logo_purple.png");
 }
-/* Logo image */
+/* Alternating home logo image 3 */
 .searchHomeLogo3 {
-    background: url("../images/finna-logo_violet.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    display: block;
-    height: 198px;
-    margin: 0 auto 3em auto;
-    text-align: center;
+    background-image: url("../images/finna-logo_violet.png");
+}
+/* Alternating home logo image 4 */
+.searchHomeLogo4 {
+    background-image: url("../images/finna-logo_black.png");
+}
+.searchHomeLogo5 {
+    background-image: url("../images/finna-logo_cyan-inverse.png");
 }
