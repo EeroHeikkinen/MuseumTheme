@@ -33,7 +33,6 @@
       {if $recordCount}
         {if $searchType == 'basic'}{translate text='for search'}: <strong>'{$lookfor|escape:"html"}'</strong>,{/if}
       {/if}
-      {translate text='query time'}: {$qtime}s
       {if $spellingSuggestions}
       <div class="correction">
         <strong>{translate text='spell_suggest'}</strong>:
