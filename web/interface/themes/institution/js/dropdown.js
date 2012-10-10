@@ -8,6 +8,7 @@
     
     $(".dropdown dt a").click(function() {
         $(".dropdown dd ul").toggle();
+        return false;
     });
 
     $(document).bind('click', function(e) {
@@ -25,7 +26,7 @@
         
         var source = $(".searchForm_styled");
         source.val($(this).find("span.value").html());
-
+        return false;
     });
 // });
 
