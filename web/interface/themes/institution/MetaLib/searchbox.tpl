@@ -14,8 +14,8 @@
         <div class="styled_select">
           <label for="searchForm_set" class="offscreen">{translate text="Search In"}</label>
           <select id="searchForm_set" name="set" class="searchForm_styled">
-          {foreach from=$metalibSearchSets item=searchDesc key=searchVal}
-            <option value="{$searchVal}"{if $searchSet == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
+          {foreach from=$metalibSearchSets item=searchDesc key=searchVal name=loop}
+            <option value="{$searchVal}"{if $searchSet == $searchVal || (!$searchSet && $smarty.foreach.loop.first)} selected="selected"{/if}>{translate text=$searchDesc}</option>
           {/foreach}
           </select>
         </div>

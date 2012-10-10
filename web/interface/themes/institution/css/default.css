@@ -1245,6 +1245,7 @@ ul.recordSet .addToFavLink a {
 .pagination {
     margin: 0 .3em;
     padding: 13px .7em 13px;
+    clear: left;
 }
 .paginationTop {
     margin: 1.5em 0;
