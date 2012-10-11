@@ -265,7 +265,7 @@ class VoyagerRestful extends Voyager
             $itemID = isset($data['item_id']) ? $data['item_id'] : false;
             $result = $this->determineHoldType($patron['id'], $id, $itemID);
             if (!$result || $result == 'block') {
-                return false;
+                return $result;
             }
         }
         return true;

@@ -13,8 +13,11 @@
   {/if}
 {/if}
 
-{if $holdingTitleHold}
+{if $holdingTitleHold && $holdingTitleHold != 'block'}
     <a class="holdPlace" href="{$holdingTitleHold|escape}">{translate text="title_hold_place"}</a>
+{/if}
+{if $holdingTitleHold == 'block'}
+    {translate text="hold_error_blocked"}
 {/if}
 
 {if !empty($holdingURLs) || $holdingsOpenURL}

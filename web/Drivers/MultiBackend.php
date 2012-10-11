@@ -120,7 +120,7 @@ class MultiBackend implements DriverInterface
         $source = $this->getSource($id);    
         $driver = $this->getDriver($source);
         if ($driver) {
-            $holdings = $driver->getHolding($this->getLocalId($id), $patron);
+            $holdings = $driver->getHolding($this->getLocalId($id), $patron ? $this->stripIdPrefixes($patron, $source) : false);
             if ($holdings) {
                 return $this->addIdPrefixes($holdings, $source);
             }
