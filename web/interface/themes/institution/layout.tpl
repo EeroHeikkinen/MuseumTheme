@@ -143,7 +143,7 @@
         </div>
       </div>
 
-      <div class="header{if !$showTopSearchBox}-home{/if}{if $module=='MetaLib'}-metalib{/if} clear">
+      <div class="header{if !$showTopSearchBox}-home{/if}{if $module!='Search'}{$module}{/if} clear">
         {include file="header.tpl"}
         <div class="clear"></div>
       </div>

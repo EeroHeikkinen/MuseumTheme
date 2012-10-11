@@ -17,7 +17,7 @@
 .searchHomeLogo {
     text-align: center;
 }
-.searchHomeLogo-metalib {
+.searchHomeLogoMetaLib {
     background: url("../images/finna-ml-logo_small.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -61,6 +61,7 @@ div.searchHomeForm div.searchform #searchForm {
 }
 
 .searchHomeForm #searchForm_input {
+    width: 200px;
 /*
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;

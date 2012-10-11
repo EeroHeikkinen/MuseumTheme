@@ -13,7 +13,7 @@
       <label for="searchForm_type" class="offscreen">{translate text="Search Type"}</label>
   {if $prefilterList}
       <div class="styled_select">
-        <select id="searchForm_filter" class="searchForm_select" name="prefilter">
+        <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
     {foreach from=$prefilterList item=searchDesc key=searchVal}
           <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter}selected="selected"{/if}>{translate text=$searchDesc}</option>
     {/foreach}
@@ -54,6 +54,7 @@
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
     </form>
     <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
+    <script type="text/javascript" src="{$url}/interface/themes/institution/js/dropdown.js"></script>
   {/if}
 </div>
 
