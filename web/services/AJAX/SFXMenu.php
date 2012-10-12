@@ -67,9 +67,11 @@ class SFXMenu extends Action
             $url .= '?';
         }
         $url .= $_REQUEST['openurl'];
+        
         $request = new Proxy_Request();
         $request->setMethod(HTTP_REQUEST_METHOD_GET);
         $request->setURL($url);
+        $request->addHeader('X-Forwarded-For', $_SERVER['REMOTE_ADDR']);
         if (isset($configArray['OpenURL']['language'][$interface->lang])) {
             $request->addCookie('user-Profile', '%2B%2B%2B' . $configArray['OpenURL']['language'][$interface->lang]);
         }
@@ -81,7 +83,7 @@ class SFXMenu extends Action
         }
         $html = new simple_html_dom();
         $html->load($request->getResponseBody());
-
+        
         echo <<<EOF
 <html>
 <head>
@@ -104,6 +106,7 @@ EOF;
 </head>
 <body>
 EOF;
+
         
         $container = $html->find('#basic_target_list_container', 0);
         if (!$container) {

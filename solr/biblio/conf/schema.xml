@@ -109,6 +109,7 @@
     <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
     <fieldType name="tdouble" class="solr.TrieField" type="double" omitNorms="true" positionIncrementGap="0" indexed="true" stored="false" />
     <fieldType name="geo" class="solr.SpatialRecursivePrefixTreeFieldType" spatialContextFactory="com.spatial4j.core.context.jts.JtsSpatialContextFactory" units="degrees" distErrPct="0.025" maxDistErr="0.000009" />
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
   </types>
  <fields>
    <!-- Core Fields  -->
@@ -245,6 +246,9 @@
    <!-- Coordinates -->
    <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="true"/>
    <dynamicField name="*_geo"  type="geo"  indexed="true" stored="true"  multiValued="true" />
+   
+   <!-- Version for Solr -->
+   <field name="_version_" type="long" indexed="true" stored="true"/>
  </fields>
  <uniqueKey>id</uniqueKey>
  <defaultSearchField>allfields</defaultSearchField>
