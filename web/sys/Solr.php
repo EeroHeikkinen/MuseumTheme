@@ -1582,7 +1582,7 @@ class Solr implements IndexEngine
         $result = json_decode($result, true);
 
         // Handle merged records (choose the local record by priority)
-        if ($this->_mergedRecords) {
+        if ($this->_mergedRecords && isset($result['response']['docs'])) {
             $sourcePriority = array_flip(explode(',', $this->_mergeSourcePriority));
             $idList = array();
             // Find out the best records and list their IDs
