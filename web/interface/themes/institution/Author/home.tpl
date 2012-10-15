@@ -27,9 +27,8 @@
   <div class="resulthead">
     <div class="floatleft small">
       {if $recordCount}
-        {translate text='for search'}: <strong>'{$authorName|escape:"html"}'</strong>,
+        <strong>'{$authorName|escape:"html"}'</strong>
       {/if}
-      {translate text='query time'}: {$qtime}s
     </div>
     {include file="Search/paging.tpl" position="Top"}
 
