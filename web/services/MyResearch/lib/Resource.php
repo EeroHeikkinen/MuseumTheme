@@ -66,16 +66,20 @@ class Resource extends DB_DataObject
     public function getTags($limit = 0)
     {
         $tagList = array();
-
+        
         $query = 'SELECT MIN("tags"."id"), "tags"."tag", COUNT(*) as cnt ' .
-            'FROM "tags", "resource_tags", "resource" ' .
+            'FROM "tags", "resource_tags"  ' .
             'WHERE "tags"."id" = "resource_tags"."tag_id" ' .
-            'AND "resource"."id" = "resource_tags"."resource_id" ' .
+            'AND "tags"."id" IN (SELECT "resource_tags"."tag_id" ' .
+            'FROM "resource", "resource_tags" ' .
+            'WHERE "resource"."id" = "resource_tags"."resource_id" ' .
             'AND "resource"."record_id" = ' .
             "'" . $this->escape($this->record_id) . "' " .
             'AND "resource"."source" = ' .
             "'" . $this->escape($this->source) . "' " .
-            'GROUP BY "tags"."tag" ORDER BY cnt DESC, "tags"."tag"';
+            ')' .
+            'GROUP BY "tags"."tag" ORDER BY cnt DESC, "tags"."tag"';        
+        
         $tag = new Tags();
         $tag->query($query);
         if ($tag->N) {

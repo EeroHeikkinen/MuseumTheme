@@ -5,7 +5,7 @@
 {if $tagCloud}
 {foreach from=$tagCloud item=values key=tag}
   <span class="cloud{$values.font}">
-    <a href="{$path}/Search/Results?tag={$tag|escape:"url"}">{$tag|escape} ({$values.count})</a>
+    <a href="{$path}/Search/Results?tag={$tag|escape:"url"}">{$tag|escape}</a> ({$values.count})
   </span>
 {/foreach}
 {else}
