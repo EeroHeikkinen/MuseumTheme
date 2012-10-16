@@ -189,6 +189,27 @@ abstract class SearchObject_Base
         }
         return false;
     }
+
+    /**
+     * Does the object already contain the specified OR filter?
+     *
+     * @param string $filter A filter string from url : "field:value"
+     *
+     * @return bool
+     * @access public
+     */
+    public function hasOrFilter($filter)
+    {
+        // Extract field and value from URL string:
+        list($field, $value) = $this->parseFilter($filter);
+    
+        if (isset($this->orFilters[$field])
+                && in_array($value, $this->orFilters[$field])
+        ) {
+            return true;
+        }
+        return false;
+    }    
     
     /**
      * Take a filter string and add it into the protected
