@@ -5,7 +5,7 @@
   <div class="resulthead">
     <div class="floatleft small">
       {if $recordCount}
-        {translate text='for search'} <strong>'{$lookfor|escape}'</strong>
+        <strong>'{$lookfor|escape}'</strong>
       {/if}
     </div>
     {include file="Search/paging.tpl" position="Top"}

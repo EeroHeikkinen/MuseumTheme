@@ -46,8 +46,9 @@
 
 {if $showTopSearchBox}
 
-<div id="logoHeader{if $module!='Search'}{$module}{/if}">
-  <a id="logo{if $module!='Search'}{$module}{/if}" href="{$url}{if $module!='Search'}/{$module}/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
+{* This is a temporary solution: assign specific id for MetaLib, all others can use the default logo *}
+<div id="logoHeader{if $module=='MetaLib'}MetaLib{/if}">
+  <a id="logo{if $module=='MetaLib'}MetaLib{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
 </div>
 <div id="searchFormHeader">
   <div class="searchbox">
@@ -76,7 +77,7 @@
       <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
       </div>
     {/if}
-    <div class="searchHomeLogo{if $module!='Search'}{$module}{else}{1|rand:5}{/if}">
+    <div class="searchHomeLogo{if $module=='MetaLib'}MetaLib{else}{1|rand:5}{/if}">
 {* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
 {*
       <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>

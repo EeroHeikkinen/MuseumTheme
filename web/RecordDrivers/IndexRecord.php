@@ -2734,6 +2734,7 @@ class IndexRecord implements RecordInterface
         
     /**
      * Get the number of component parts belonging to this record
+     *
      * @return number
      */
     protected function getComponentPartCount()
@@ -2746,9 +2747,9 @@ class IndexRecord implements RecordInterface
         // TODO: this is all quite ugly. Come up with a nicer way to do this?
         $searchObject = SearchObjectFactory::initSearchObject();
         $query = 'hierarchy_parent_id:"' . addcslashes($this->getUniqueID(), '"') . '"';
-		// TODO: HACK: pretend this is a browse to avoid spellcheck and facets
+        // TODO: HACK: pretend this is a browse to avoid spellcheck and facets
         $searchObject->initBrowseScreen();
-		$searchObject->disableLogging();
+        $searchObject->disableLogging();
         $searchObject->setQueryString($query);
        	$result = $searchObject->processSearch();
         $searchObject->close();
