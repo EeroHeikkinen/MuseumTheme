@@ -106,7 +106,7 @@ class SaveSearch extends MyResearch
             $search->user_id = $user->id;
             $search->saved = 1;
             if (isset($_REQUEST['schedule'])) {
-                $search->schedule = $_REQUEST['schedule'];
+                $search->schedule = intval($_REQUEST['schedule']);
             }
             $search->update();
         }

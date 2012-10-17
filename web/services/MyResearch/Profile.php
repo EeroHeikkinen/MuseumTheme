@@ -66,7 +66,6 @@ class Profile extends MyResearch
                     $interface->assign('userMsg', 'profile_update');
                 }
             }
-            $patron['email'] = $user->email;
             $result = $this->catalog->getMyProfile($patron);
             if (!PEAR::isError($result)) {
                 $result['home_library'] = $user->home_library;
@@ -76,6 +75,7 @@ class Profile extends MyResearch
                 $interface->assign('defaultPickUpLocation', $defaultPickUpLocation);
                 $interface->assign('pickup', $libs);
                 $interface->assign('profile', $result);
+                $interface->assign('email', $user->email);
             }
         }
 

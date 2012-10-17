@@ -18,7 +18,7 @@
     {/if}
     <span class="span-3"><strong>{translate text='First Name'}:</strong></span> {$profile.firstname|escape}<br class="clear"/>
     <span class="span-3"><strong>{translate text='Last Name'}:</strong></span> {$profile.lastname|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Email'}:</strong></span> <input type="text" name="email" value="{$profile.email|escape}"></input><br class="clear"/>
+    <span class="span-3"><strong>{translate text='Email'}:</strong></span> <input type="text" name="email" value="{$email|escape}"></input><br class="clear"/>
     {if $showHomeLibForm}
     <span class="span-3"><label for="home_library">{translate text="Preferred Library"}:</label></span>
       {if count($pickup) > 1}
