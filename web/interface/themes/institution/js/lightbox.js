@@ -23,8 +23,19 @@ function getLightbox(module, action, id, lookfor, message, followupModule, follo
 
     // create a new modal dialog
     $dialog = $('<div id="modalDialog"><div class="dialogLoading">&nbsp;</div></div>')
-        .load(path + '/AJAX/JSON?' + $.param(params), postParams)
-            .dialog({
+        .load(path + '/AJAX/JSON?' + $.param(params), postParams, function(responseText) {
+            if (module == 'Record' && action == 'Save' && responseText == '') {
+                // Update user save statuses if the current context calls for it:
+                if (typeof(checkSaveStatuses) == 'function') {
+                    checkSaveStatuses();
+                }
+                // Update tag list if appropriate:
+                if (typeof(refreshTagList) == 'function') {
+                    refreshTagList(id);
+                }
+                $dialog.dialog('close');
+            } 
+        }).dialog({
                 modal: true,
                 autoOpen: false,
                 closeOnEscape: true,
