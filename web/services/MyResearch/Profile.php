@@ -61,6 +61,12 @@ class Profile extends MyResearch
                     $interface->assign('userMsg', 'profile_update');
                 }
             }
+            if (isset($_POST['email'])) {
+                if ($user->changeEmailAddress($_POST['email'])) {
+                    $interface->assign('userMsg', 'profile_update');
+                }
+            }
+            $patron['email'] = $user->email;
             $result = $this->catalog->getMyProfile($patron);
             if (!PEAR::isError($result)) {
                 $result['home_library'] = $user->home_library;

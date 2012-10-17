@@ -59,9 +59,10 @@ class User extends DB_DataObject
     public $cat_username;                    // string(50)
     public $cat_password;                    // string(50)
     public $college;                         // string(100)  not_null
-    public $home_library;                         // string(100)  not_null
+    public $home_library;                    // string(100)  not_null
     public $major;                           // string(100)  not_null
     public $created;                         // datetime(19)  not_null binary
+    public $language;                        // string(30)  not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User',$k,$v); }
@@ -81,7 +82,8 @@ class User extends DB_DataObject
     {
         return array(
             'id', 'username', 'password', 'cat_username', 'cat_password',
-            'firstname', 'lastname', 'email', 'college', 'home_library', 'major'
+            'firstname', 'lastname', 'email', 'college', 'home_library', 'major',
+            'language'
         );
     }
 
@@ -447,4 +449,47 @@ class User extends DB_DataObject
         return true;
     }
 
+    /**
+     * Changes the email address of a user
+     *
+     * @param string $email The new email address
+     *
+     * @return boolean True on success
+     * @access public
+     */
+    public function changeEmailAddress($email)
+    {
+        $this->email = $email;
+        $this->update();
+        
+        // Update Session
+
+        if ($session_info = UserAccount::isLoggedIn()) {
+            $session_info->email = $email;
+            UserAccount::updateSession($session_info);
+        }
+        return true;
+    }
+
+    /**
+     * Changes the language a user
+     *
+     * @param string $language The new language
+     *
+     * @return boolean True on success
+     * @access public
+     */
+    public function changeLanguage($language)
+    {
+        $this->language = $language;
+        $this->update();
+        
+        // Update Session
+
+        if ($session_info = UserAccount::isLoggedIn()) {
+            $session_info->language = $language;
+            UserAccount::updateSession($session_info);
+        }
+        return true;
+    }
 }

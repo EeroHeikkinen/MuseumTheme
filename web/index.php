@@ -192,6 +192,11 @@ if ($user && $configArray['Authentication']['method'] == 'Shibboleth'
     }
 }
 
+// Update user's language
+if ($user && (isset($_POST['mylang']) || isset($_GET['lng']))) {
+    $user->changeLanguage($language);    
+}
+
 // Assign global interface values now that the environment is all set up:
 $interface->initGlobals();
 

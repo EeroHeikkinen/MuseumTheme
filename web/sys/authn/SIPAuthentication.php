@@ -154,7 +154,10 @@ class SIPAuthentication implements Authentication
         // Should revisit this.
         $user->cat_username = $username;
         $user->cat_password = $password;
-        $user->email = 'email';
+        // Special case: don't override user's email address if it's already set
+        if ($insert || !$user->email) {
+            $user->email = '';
+        }
         $user->major = 'null';
         $user->college = 'null';
 

@@ -2,16 +2,30 @@
 
 {include file="MyResearch/menu.tpl"}
 
-<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-13">
     {if !$noHistory}
       {if $saved}
         <h3>{translate text="history_saved_searches"}</h3>
+        {assign var="scheduled" value=false}
+        {foreach item=info from=$saved name=historyLoop}
+          {if $info.schedule > 0}
+            {assign var="scheduled" value=true}
+          {/if}   
+        {/foreach}
+        {if $scheduled}
+          {if !$user->email || $user->email == " "}
+        <div class="error">{translate text="no_email_address"} <a href="{$path}/MyResearch/Profile">{translate text="check_profile"}</a></div>
+          {else}
+        <div class="info">{translate text="alert_email_address"}: {$user->email} (<a href="{$path}/MyResearch/Profile">{translate text="edit"}</a>)</div>
+          {/if}
+        {/if}
         <table class="datagrid" width="100%">
           <tr>
-            <th width="25%">{translate text="history_time"}</th>
+            <th width="15%">{translate text="history_time"}</th>
             <th width="30%">{translate text="history_search"}</th>
-            <th width="30%">{translate text="history_limits"}</th>
+            <th width="20%">{translate text="history_limits"}</th>
             <th width="10%">{translate text="history_results"}</th>
+            <th width="20%">{translate text="history_schedule"}</th>
             <th width="5%">{translate text="history_delete"}</th>
           </tr>
           {foreach item=info from=$saved name=historyLoop}
@@ -26,6 +40,13 @@
               <strong>{translate text=$field|escape}</strong>: {$filter.display|escape}<br/>
             {/foreach}{/foreach}</td>
             <td>{$info.hits}</td>
+            <td>
+              <select name="schedule" onchange="javascript:window.location='{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history&amp;schedule=' + $(this).attr('value'); return false;">
+                <option value="0"{if $info.schedule == 0} selected="selected"{/if}>{translate text="schedule_none"}</option>
+                <option value="1"{if $info.schedule == 1} selected="selected"{/if}>{translate text="schedule_daily"}</option>
+                <option value="2"{if $info.schedule == 2} selected="selected"{/if}>{translate text="schedule_weekly"}</option>
+              </select>
+            </td>
             <td><a href="{$path}/MyResearch/SaveSearch?delete={$info.searchId|escape:"url"}&amp;mode=history" class="delete">{translate text="history_delete_link"}</a></td>
           </tr>
           {/foreach}
@@ -36,9 +57,9 @@
         <h3>{translate text="history_recent_searches"}</h3>
         <table class="datagrid" width="100%">
           <tr>
-            <th width="25%">{translate text="history_time"}</th>
-            <th width="30%">{translate text="history_search"}</th>
-            <th width="30%">{translate text="history_limits"}</th>
+            <th width="15%">{translate text="history_time"}</th>
+            <th width="35%">{translate text="history_search"}</th>
+            <th width="35%">{translate text="history_limits"}</th>
             <th width="10%">{translate text="history_results"}</th>
             <th width="5%">{translate text="history_save"}</th>
           </tr>

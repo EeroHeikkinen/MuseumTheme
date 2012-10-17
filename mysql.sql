@@ -68,6 +68,8 @@ CREATE TABLE `search` (
   `title` varchar(20) DEFAULT NULL,
   `saved` int(1) NOT NULL DEFAULT '0',
   `search_object` blob,
+  `schedule` int(1) NOT NULL DEFAULT '0',
+  `last_executed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`),
@@ -105,6 +107,7 @@ CREATE TABLE `user` (
   `major` varchar(100) NOT NULL DEFAULT '',
   `home_library` varchar(100) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `language` varchar(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 CHARSET=utf8 COLLATE=utf8_swedish_ci;

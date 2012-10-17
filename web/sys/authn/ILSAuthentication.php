@@ -113,7 +113,10 @@ class ILSAuthentication implements Authentication
             ? " " : $info['cat_username'];
         $user->cat_password = $info['cat_password'] == null
             ? " " : $info['cat_password'];
-        $user->email = $info['email']        == null ? " " : $info['email'];
+        // Special case: don't override user's email address if it's already set
+        if ($insert || !$user->email) {
+            $user->email = $info['email']        == null ? " " : $info['email'];
+        }
         $user->major = $info['major']        == null ? " " : $info['major'];
         $user->college = $info['college']      == null ? " " : $info['college'];
 

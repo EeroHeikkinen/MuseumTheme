@@ -13,6 +13,5 @@
       <li class="active ui-state-default ui-corner-top {if $user && $pageTemplate=="history.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/Search/History?require_login">{translate text='history_saved_searches'}</a></li>
     </ul>
   </div>
-  </div>
   
 <!-- END of: MyResearch/menu.tpl -->
