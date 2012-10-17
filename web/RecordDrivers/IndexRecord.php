@@ -1046,6 +1046,7 @@ class IndexRecord implements RecordInterface
 
     /**
      * Return metadata required for RSI full text availability check
+     * 
      * @return NULL|array
      */
     public function getRSIValues()
@@ -1103,10 +1104,10 @@ class IndexRecord implements RecordInterface
         global $interface;
 
         $interface->assign(
-                'summInCollection', ''
+            'summInCollection', ''
         );
         $interface->assign(
-                'summInCollectionID', ''
+            'summInCollectionID', ''
         );
         
         $hierarchyType = $this->getHierarchyType();
@@ -1135,17 +1136,17 @@ class IndexRecord implements RecordInterface
             $isCollection = (isset($this->fields['is_hierarchy_title']) &&
                     isset($this->fields['is_hierarchy_id']) &&
                     in_array(
-                            $this->fields['is_hierarchy_id'],
-                            $this->fields['hierarchy_top_id']
+                        $this->fields['is_hierarchy_id'],
+                        $this->fields['hierarchy_top_id']
                     )
             );
             $interface->assign('summCollection', $isCollection);
             if (isset($this->fields['hierarchy_top_title'])) {
                 $interface->assign(
-                        'summInCollection', $this->fields['hierarchy_top_title']
+                    'summInCollection', $this->fields['hierarchy_top_title']
                 );
                 $interface->assign(
-                        'summInCollectionID', $this->fields['hierarchy_top_id']
+                    'summInCollectionID', $this->fields['hierarchy_top_id']
                 );
             }
         }
@@ -1183,8 +1184,8 @@ class IndexRecord implements RecordInterface
             $isCollection = (isset($this->fields['is_hierarchy_title']) &&
                     isset($this->fields['is_hierarchy_id']) &&
                     in_array(
-                            $this->fields['is_hierarchy_id'],
-                            $this->fields['hierarchy_top_id']
+                        $this->fields['is_hierarchy_id'],
+                        $this->fields['hierarchy_top_id']
                     )
             );
             $interface->assign('collCollection', $isCollection);
@@ -1312,8 +1313,13 @@ class IndexRecord implements RecordInterface
     
     /**
      * Get the value of wether or not this is a collection level record
+     * 
+     * @param string $hierarchyDriver Hierarchy driver 
+     * 
+     * @return bool
      */
-    public function getIsHierarchy($hierarchyDriver=null){
+    public function getIsHierarchy($hierarchyDriver = null)
+    {
         global $configArray;
         global $interface;
     

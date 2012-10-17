@@ -139,9 +139,8 @@ class Results extends Action
             'sideRecommendations', $searchObject->getRecommendationsTemplates('side')
         );
         $interface->assign(
-                'orFilters', $searchObject->getOrFilters()
+            'orFilters', $searchObject->getOrFilters()
         );
-        
         
         // Whether RSI is enabled
         if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
