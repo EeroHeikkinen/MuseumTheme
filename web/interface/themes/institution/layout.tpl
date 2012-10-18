@@ -44,6 +44,9 @@
     {css media="screen" filename="ui.dynatree.css"}
     {css media="screen" filename="datatables.css"}
     {css media="screen, projection" filename="styles.css"}
+    {css media="screen, projection" filename="default_custom.css"}
+    {css media="screen, projection" filename="home_custom.css"}
+    {css media="screen, projection" filename="settings.css"}
     {css media="print" filename="print.css"}
     <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
     <!--[if lt IE 7]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/iepngfix/iepngfix.css" type="text/css" media="screen, projection"><![endif]-->
