@@ -59,7 +59,7 @@
          before flushing.
          If both ramBufferSizeMB and maxBufferedDocs is set, then
          Lucene will flush based on whichever limit is hit first.  -->
-    <!-- <ramBufferSizeMB>32</ramBufferSizeMB> -->
+    <ramBufferSizeMB>256</ramBufferSizeMB>
     <!-- <maxBufferedDocs>1000</maxBufferedDocs> -->
 
     <!-- Expert: Merge Policy 
@@ -468,7 +468,7 @@
       <str name="spellcheck.maxCollations">10</str>
       <str name="spellcheck.maxCollationTries">10</str>
       <str name="spellcheck.collateParam.mm">100%</str>
-      <str name="spellcheck.collateExtendedResults">true</str>  
+      <str name="spellcheck.collateExtendedResults">false</str>  
     </lst>
     <arr name="last-components">
       <str>spellcheck</str>
@@ -494,7 +494,7 @@
       <str name="spellcheck.maxCollations">10</str>
       <str name="spellcheck.maxCollationTries">10</str>
       <str name="spellcheck.collateParam.mm">100%</str>
-      <str name="spellcheck.collateExtendedResults">true</str>  
+      <str name="spellcheck.collateExtendedResults">false</str>  
     </lst>
     <arr name="last-components">
       <str>spellcheck</str>
