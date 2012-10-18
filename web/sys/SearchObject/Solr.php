@@ -1247,55 +1247,77 @@ class SearchObject_Solr extends SearchObject_Base
         if (count($suggestions) == 0) {
             return;
         }
-
+        
         // Loop through the array of search terms we have suggestions for
         $suggestionList = array();
-        foreach ($suggestions as $suggestion) {
-            $ourTerm = $suggestion[0];
-
-            // Skip numeric terms if numeric suggestions are disabled
-            if ($this->spellSkipNumeric && is_numeric($ourTerm)) {
-                continue;
-            }
-
-            $ourHit  = $suggestion[1]['origFreq'];
-            $count   = $suggestion[1]['numFound'];
-            $newList = $suggestion[1]['suggestion'];
-
-            $validTerm = true;
-
-            // Make sure the suggestion is for a valid search term.
-            // Sometimes shingling will have bridged two search fields (in
-            // an advanced search) or skipped over a stopword.
-            if (!$this->findSearchTerm($ourTerm)) {
-                $validTerm = false;
-            }
-
-            // Unless this term had no hits
-            if ($ourHit != 0) {
-                // Filter out suggestions we are already using
-                $newList = $this->_filterSpellingTerms($newList);
-            }
-
-            // Make sure it has suggestions and is valid
-            if (count($newList) > 0 && $validTerm) {
-                // Did we get more suggestions then our limit?
-                if ($count > $this->spellingLimit) {
-                    // Cut the list at the limit
-                    array_splice($newList, $this->spellingLimit);
+        // More than one word use collation suggestions
+        $queryTerm = $this->getQuery();
+        $useCollate = (str_word_count($queryTerm, 0) > 1);
+        
+        if ($useCollate) {
+            foreach ($suggestions as $suggestion) {
+                if ($suggestion[0] != "collation") {
+                    continue;
                 }
-                $suggestionList[$ourTerm]['freq'] = $ourHit;
-                // Format the list nicely
-                foreach ($newList as $item) {
-                    if (is_array($item)) {
-                        $suggestionList[$ourTerm]['suggestions'][$item['word']]
+
+                $suggestionList[$queryTerm] ['suggestions'][ $suggestion[1] ] = 0;
+            }
+            $count = count($suggestionList[$queryTerm]['suggestions']);
+            // Did we get more suggestions then our limit?
+            if ($count > $this->spellingLimit) {
+                // Cut the list at the limit
+                array_splice($suggestionList[$queryTerm]['suggestions'], $this->spellingLimit);
+            }
+        } else {
+            foreach ($suggestions as $suggestion) {
+                $ourTerm = $suggestion[0];
+            
+                // Skip numeric terms if numeric suggestions are disabled
+                if (($this->spellSkipNumeric && is_numeric($ourTerm)) ||
+                        $ourTerm == 'collation' || $ourTerm == 'correctlySpelled') {
+                    continue;
+                }
+            
+                $ourHit  = $suggestion[1]['origFreq'];
+                $count   = $suggestion[1]['numFound'];
+                $newList = $suggestion[1]['suggestion'];
+            
+                $validTerm = true;
+            
+                // Make sure the suggestion is for a valid search term.
+                // Sometimes shingling will have bridged two search fields (in
+                // an advanced search) or skipped over a stopword.
+                if (!$this->findSearchTerm($ourTerm)) {
+                    $validTerm = false;
+                }
+            
+                // Unless this term had no hits
+                if ($ourHit != 0) {
+                    // Filter out suggestions we are already using
+                    $newList = $this->_filterSpellingTerms($newList);
+                }
+            
+                // Make sure it has suggestions and is valid
+                if (count($newList) > 0 && $validTerm) {
+                    // Did we get more suggestions then our limit?
+                    if ($count > $this->spellingLimit) {
+                        // Cut the list at the limit
+                        array_splice($newList, $this->spellingLimit);
+                    }
+                    $suggestionList[$ourTerm]['freq'] = $ourHit;
+                    // Format the list nicely
+                    foreach ($newList as $item) {
+                        if (is_array($item)) {
+                            $suggestionList[$ourTerm]['suggestions'][$item['word']]
                             = $item['freq'];
-                    } else {
-                        $suggestionList[$ourTerm]['suggestions'][$item] = 0;
+                        } else {
+                            $suggestionList[$ourTerm]['suggestions'][$item] = 0;
+                        }
                     }
                 }
-            }
+            }            
         }
+        
         $this->suggestions = $suggestionList;
     }
 
