@@ -2603,6 +2603,7 @@ span.dynatree-drag-helper-img,
     background-image: url("../images/dynatree_icons.gif");
 }
 .dynatree-loading span.dynatree-expander,
+.dynatree-loading span.dynatree-expander:hover,
 .dynatree-statusnode-wait span.dynatree-icon {
     background-position: 3px 3px;
     background-image: url("../images/ajax_loading_small.gif");

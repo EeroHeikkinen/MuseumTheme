@@ -77,7 +77,7 @@
     {js filename="lightbox.js"}
 
     {* Load dynatree and dynamic facets *}
-    {js filename="jquery.dynatree.min.js"}
+    {js filename="jquery.dynatree-1.2.2-mod.js"}
     {js filename="facets.js"}
 
     {* Load common javascript functions *}
