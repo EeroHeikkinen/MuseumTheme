@@ -677,7 +677,7 @@ class MultiBackend implements DriverInterface
                     $value, $source, $modifyFields
                 );
             } else {
-                if (in_array($key, $modifyFields)) {
+                if (!is_numeric($key) && in_array($key, $modifyFields)) {
                     $array[$key] = $source . '.' . $value; 
                 }
             }

@@ -1108,6 +1108,26 @@ class VoyagerRestful extends Voyager
         $renewDetails = $checkOutDetails['item_id'];
         return $renewDetails;
     }
+
+    /**
+     * Get Patron Profile
+     *
+     * This is responsible for retrieving the profile for a specific patron.
+     *
+     * @param array $patron The patron array
+     *
+     * @return mixed        Array of the patron's profile data on success,
+     * PEAR_Error otherwise.
+     * @access public
+     */
+    public function getMyProfile($patron)
+    {
+        $result = parent::getMyProfile($patron);
+        if ($result) {
+            $result['blocks'] = $this->checkAccountBlocks($patron['id']);
+        }
+        return $result;
+    }
 }
 
 ?>

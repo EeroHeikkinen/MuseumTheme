@@ -21,6 +21,14 @@
     <span class="span-3"><strong>{translate text='Zip'}:</strong></span> {$profile.zip|escape}<br class="clear"/>
     <span class="span-3"><strong>{translate text='Phone Number'}:</strong></span> {$profile.phone|escape}<br class="clear"/>
     <span class="span-3"><strong>{translate text='Group'}:</strong></span> {$profile.group|escape}<br class="clear"/>
+    {foreach from=$profile.blocks item=block name=loop}
+    {if $smarty.foreach.loop.first}
+    <span class="span-3"><strong>{translate text='Borrowing Blocks'}:</strong></span>
+    {else}
+    <span class="span-3">&nbsp;</span>
+    {/if}
+    {$block|escape}<br class="clear"/>
+    {/foreach}
     <h4>{translate text='Local Settings'}</h4>
     <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
     {if $showHomeLibForm}
