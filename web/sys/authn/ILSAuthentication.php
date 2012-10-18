@@ -60,6 +60,11 @@ class ILSAuthentication implements Authentication
             if ($catalog && $catalog->status) {
                 $patron = $catalog->patronLogin($username, $password);
                 if ($patron && !PEAR::isError($patron)) {
+                    // If the login command did not return an email address, try to fetch it from the profile information
+                    if (!$patron['email']) {
+                        $profile = $catalog->getMyProfile($patron);
+                        $patron['email'] = $profile['email'];
+                    }
                     $user = $this->_processILSUser($patron);
                 } else {
                     $user = new PEAR_Error('authentication_error_invalid');
@@ -114,7 +119,7 @@ class ILSAuthentication implements Authentication
         $user->cat_password = $info['cat_password'] == null
             ? " " : $info['cat_password'];
         // Special case: don't override user's email address if it's already set
-        if ($insert || !$user->email) {
+        if ($insert || !trim($user->email)) {
             $user->email = $info['email']        == null ? " " : $info['email'];
         }
         $user->major = $info['major']        == null ? " " : $info['major'];

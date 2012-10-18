@@ -68,6 +68,9 @@ class ScheduledAlerts
         $configArray = $mainConfig = readConfig();
         $institutionConfig = getExtraConfigArray('institutions');
     
+        // Setup time zone
+        date_default_timezone_set($configArray['Site']['timezone']);
+        
         // Setup Local Database Connection
         ConnectionManager::connectToDatabase();
         

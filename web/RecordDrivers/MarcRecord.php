@@ -375,21 +375,21 @@ class MarcRecord extends IndexRecord
                         break;
                     case 'c':
                         if ($partAuthor) {
-                            $partAuthor .= ', ';
+                            $partAuthor .= '; ';
                         }    
                         $partAuthor .= $subfield->getData();
                         break;
                     case 'd':
                         if ($partAdditionalAuthors) {
-                            $partAdditionalAuthors .= ', ';
+                            $partAdditionalAuthors .= '; ';
                         } 
                         $partAdditionalAuthors .= $subfield->getData();
                         break;          
                     }              
                 }
-                if ($partAuthor) {
-                    $partAuthors = $partAuthor . ', ';
-                }    
+                if ($partAuthor && $partAdditionalAuthors) {
+                    $partAuthors = $partAuthor . '; ';
+                }
                 $partAuthors .= $partAdditionalAuthors;  
                 $componentparts[] = array(
                                         'number' => $partOrderCounter,
@@ -1564,7 +1564,7 @@ class MarcRecord extends IndexRecord
         foreach ($fields as $field => $subfields) {
             $issn = array_merge($issn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields)));
         }
-        return array_unique($issn);
+        return array_values(array_unique($issn));
     }
     
 }

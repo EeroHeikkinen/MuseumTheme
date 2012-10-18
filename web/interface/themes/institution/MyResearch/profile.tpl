@@ -13,13 +13,18 @@
     {if $userMsg}
       <p class="success">{translate text=$userMsg}</p>
     {/if}
-    {if $showHomeLibForm}
-      <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
-    {/if}
     <span class="span-3"><strong>{translate text='First Name'}:</strong></span> {$profile.firstname|escape}<br class="clear"/>
     <span class="span-3"><strong>{translate text='Last Name'}:</strong></span> {$profile.lastname|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Email'}:</strong></span> <input type="text" name="email" value="{$profile.email|escape}"></input><br class="clear"/>
+    <span class="span-3"><strong>{translate text='Email'}:</strong></span> {$info.email|escape}<br class="clear"/>
+    <span class="span-3"><strong>{translate text='Address'} 1:</strong></span> {$profile.address1|escape}<br class="clear"/>
+    <span class="span-3"><strong>{translate text='Address'} 2:</strong></span> {$profile.address2|escape}<br class="clear"/>
+    <span class="span-3"><strong>{translate text='Zip'}:</strong></span> {$profile.zip|escape}<br class="clear"/>
+    <span class="span-3"><strong>{translate text='Phone Number'}:</strong></span> {$profile.phone|escape}<br class="clear"/>
+    <span class="span-3"><strong>{translate text='Group'}:</strong></span> {$profile.group|escape}<br class="clear"/>
+    <h4>{translate text='Local Settings'}</h4>
+    <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
     {if $showHomeLibForm}
+    <span class="span-3"><strong>{translate text='Email'}:</strong></span> <input type="text" name="email" value="{$email|escape}"></input><br class="clear"/>
     <span class="span-3"><label for="home_library">{translate text="Preferred Library"}:</label></span>
       {if count($pickup) > 1}
         {if $profile.home_library != ""}
@@ -37,15 +42,8 @@
       {/if}
       <br class="clear"/>
     {/if}
-    <span class="span-3"><strong>{translate text='Address'} 1:</strong></span> {$profile.address1|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Address'} 2:</strong></span> {$profile.address2|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Zip'}:</strong></span> {$profile.zip|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Phone Number'}:</strong></span> {$profile.phone|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Group'}:</strong></span> {$profile.group|escape}<br class="clear"/>
-    {if $showHomeLibForm}
-      <input type="submit" value="{translate text='Save Profile'}" />
-      </form>
-    {/if}
+    <input type="submit" value="{translate text='Save'}" />
+    </form>
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}

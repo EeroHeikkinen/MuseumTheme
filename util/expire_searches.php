@@ -44,6 +44,9 @@ if ($daysOld < 2) {
 // Retrieve values from configuration file
 $configArray = readConfig();
 
+// Setup time zone
+date_default_timezone_set($configArray['Site']['timezone']);
+
 // Setup Local Database Connection
 ConnectionManager::connectToDatabase();
 
