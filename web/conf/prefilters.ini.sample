@@ -1,17 +1,60 @@
 [Prefilters]
--=Local Index
-local_books=Books in Local Index
+-=Paikallinen aineisto
 summon=Summon
+local_books = Kirjat
+local_journal = Lehdet
+local_videos = Videot
+local_sound = Äänilevyt
+local_art = Taideteokset
+local_object = Esineet
+local_thesis = Opinnäytteet
+local_document = Asiakirjat
 
 [-]
 module=Search
 action=Results
 
-[local_books]
-module=Search
-action=Results
-filter[]='format:"Book"'
-
 [summon]
 module=Summon
 action=Search
+
+[local_books]
+module=Search
+action=Results
+filter[]='format:"0/Book"'
+
+[local_journal]
+module = Search
+action = Results
+filter[] = 'format:"0/Journal"'
+ 
+[local_videos]
+module = Search
+action = Results
+filter[] = 'format:"0/Video"'
+ 
+[local_sound]
+module = Search
+action = Results
+filter[] = 'format:"0/Sound"'
+ 
+[local_art]
+module = Search
+action = Results
+filter[] = 'format:"0/WorkOfArt"'
+ 
+[local_object]
+module = Search
+action = Results
+filter[] = 'format:"0/PhysicalObject"'
+ 
+[local_thesis]
+module = Search
+action = Results
+filter[] = 'format:"0/Thesis"'
+ 
+[local_document]
+module = Search
+action = Results
+filter[] = 'format:"0/Document"'
+ 
