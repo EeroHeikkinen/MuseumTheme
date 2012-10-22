@@ -1,5 +1,12 @@
 <!-- START of: RecordDrivers/Index/holdings.tpl -->
 
+{if $id|substr:0:7 == 'helmet.'}
+  <br/>
+  <span class="native_link">
+    <a href="http://haku.helmet.fi/iii/encore/record/C|R{$id|substr:7|escape}">{translate text='Holdings details from'} HelMet</a><br/>
+  </span>
+{/if}
+
 {if !$hideLogin && $offlineMode != "ils-offline"}
   {if ($driverMode && !empty($holdings)) || $titleDriverMode}
     {if $showLoginMsg || $showTitleLoginMsg}
