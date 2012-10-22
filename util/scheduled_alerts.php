@@ -62,14 +62,13 @@ class ScheduledAlerts
         
         ini_set('display_errors', true);
         
-        $this->msg('Sending scheduled alerts');
-        
-        $this->msg('Initializing');
         $configArray = $mainConfig = readConfig();
         $institutionConfig = getExtraConfigArray('institutions');
-    
-        // Setup time zone
+
+        // Set up time zone. N.B. Don't use msg() or other functions requiring date before this.
         date_default_timezone_set($configArray['Site']['timezone']);
+
+        $this->msg('Sending scheduled alerts');
         
         // Setup Local Database Connection
         ConnectionManager::connectToDatabase();
