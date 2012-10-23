@@ -1741,7 +1741,7 @@ class IndexRecord implements RecordInterface
     */
     public function getAllImages()
     {
-        return false;
+        return array();
     }
     
     /**
