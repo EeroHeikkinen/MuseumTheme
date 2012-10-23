@@ -258,7 +258,6 @@ class MarcRecord extends IndexRecord
     {
         global $interface;
         
-        $interface->assign('summImages', $this->getAllImages());
         // get other links from MARC field 787
         $interface->assign('coreOtherLinks', $this->getOtherLinks());
         

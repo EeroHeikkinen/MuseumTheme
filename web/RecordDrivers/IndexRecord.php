@@ -287,7 +287,7 @@ class IndexRecord implements RecordInterface
 
         $interface->assign('hasContainedComponentParts', $this->hasContainedComponentParts());
         
-        // Assign variables for BTJ images and descriptions
+        // All images
         $interface->assign('coreImages', $this->getAllImages());
 
         // Genres in their own field
@@ -764,6 +764,9 @@ class IndexRecord implements RecordInterface
         $interface->assign('listSelected', $listId);
         $interface->assign('listEditAllowed', $allowEdit);
 
+        // All images
+        $interface->assign('summImages', $this->getAllImages());
+        
         return 'RecordDrivers/Index/listentry.tpl';
     }
 
@@ -1039,6 +1042,9 @@ class IndexRecord implements RecordInterface
         
         // Publication end date
         $interface->assign('summPublicationEndDate', $this->getPublicationEndDate());
+        
+        // All images
+        $interface->assign('summImages', $this->getAllImages());
         
         // Send back the template to display:
         return 'RecordDrivers/Index/result-' . $view . '.tpl';
