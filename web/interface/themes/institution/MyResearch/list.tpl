@@ -18,7 +18,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 {include file="MyResearch/menu.tpl"}
 
-<div class="myResearch span-13">
+<div class="myResearch">
   <div class="resultHead">
   {if $errorMsg || $infoMsg}
     <div class="messages">
@@ -27,22 +27,24 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     </div>
   {/if}
   </div>
-  <div class="span-3">
+  <div id="sidebarFavoritesLists">
   {if $listList}
-    <span class="hefty strong">{translate text='Your Lists'}</span> <a href="{$url}/MyResearch/ListEdit" class="listEdit" id="listEdit" title="{translate text='Create a List'}">+ {translate text='Create a List'}</a>
+    <span class="hefty">{translate text='Your Lists'}</span> <a href="{$url}/MyResearch/ListEdit" class="listAdd add" id="listAdd" title="{translate text='Create a List'}">{translate text='Create a List'}</a>
+    
     <ul>
       {foreach from=$listList item=listItem}
       <li>
         {if $list && $listItem->id == $list->id}
-        <strong>{$listItem->title|escape:"html"}</strong> ({$listItem->cnt})
+        <div class="selected">{$listItem->title|escape:"html"}&nbsp;<span class="favoritesCount">({$listItem->cnt})</span></div>
           {if $listEditAllowed}
-        <br/>
-        - <a href="{$url}//MyResearch/EditList/{$list->id|escape:"url"}">{translate text="edit_list"}</a>
-        <br/>
-        - <a href="{$url}/Cart/Home?listID={$list->id|escape}&amp;listName={$list->title|escape}&amp;origin=Favorites&amp;listFunc=editList&amp;deleteList=true">{translate text="delete_list"}</a>
+        
+        <div class="editList">
+          <a class="edit" href="{$url}//MyResearch/EditList/{$list->id|escape:"url"}">{translate text="edit_list"}</a>
+          <a class="delete" href="{$url}/Cart/Home?listID={$list->id|escape}&amp;listName={$list->title|escape}&amp;origin=Favorites&amp;listFunc=editList&amp;deleteList=true">{translate text="delete_list"}</a>
+        </div>
           {/if}
         {else}
-        <a href="{$url}/MyResearch/MyList/{$listItem->id|escape:"url"}">{$listItem->title|escape:"html"}</a> ({$listItem->cnt})
+        <div class="listItem"><a href="{$url}/MyResearch/MyList/{$listItem->id|escape:"url"}">{$listItem->title|escape:"html"}</a>&nbsp;<span class="favoritesCount">({$listItem->cnt})</span></div>
         {/if}
       </li>
      {/foreach}
@@ -50,7 +52,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {/if}
   {if $tagList}
     <div>
-      <span class="hefty strong">{if $list}{translate text='Tags'}: {$list->title|escape:"html"}{else}{translate text='Your Tags'}{/if}</span>
+      <span class="hefty">{if $list}{translate text='Tags'}: {$list->title|escape:"html"}{else}{translate text='Your Tags'}{/if}</span>
       {if $tags}
       <ul>
         {foreach from=$tags item=tag}
@@ -70,17 +72,17 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {/if}
   </div>
 
-  <div class="span-10 last">
+  <div class="favoritesList last">
   {if $list && $list->id}
-    <span class="hefty strong">{$list->title|escape:"html"}</span><br/>
-    {if $list->description}<p>{$list->description|escape}</p>{/if}
+    <span class="hefty">{$list->title|escape:"html"}</span><br/>
+    {if $list->description}<p class="favoritesDescription">{$list->description|escape}</p>{/if}
   {else}
-    <span class="hefty strong">{translate text='Your Favorites'}</span><br/>
+    <span class="hefty">{translate text='Your Favorites'}</span><br/>
   {/if}
   {if $resourceList}
     {include file="Search/paging.tpl" position="Top"}
     
-    <div class="floatright small">
+    <div class="floatright small resultOptions">
       <form action="{$path}/Search/SortResults" method="post">
         <label for="sort_options_1">{translate text='Sort'}</label>
         <select id="sort_options_1" name="sort" class="jumpMenu">
@@ -105,8 +107,8 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {/if}
 
     <div class="bulkActionButtons">
-      <input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" />
-      <span class="floatleft">|</span>
+      <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
+      {* <span class="floatleft">|</span> *}
       <div class="floatright"><strong>{translate text="with_selected"}: </strong>
       {if $bookBag}
         <a id="updateCart" class="bookbagAdd offscreen" href="">{translate text='Add to Book Bag'}</a>
@@ -133,9 +135,9 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           {/foreach}
         </select>
       {/if}  
-        <input type="submit" class="mail button" name="email" value="{translate text='Email'}" title="{translate text='email_selected'}"/>
+        <input type="submit" class="mail button" name="email" value="{translate text='Email this'}" title="{translate text='Email this'}"/>
         {if is_array($exportOptions) && count($exportOptions) > 0}
-        <input type="submit" class="export button" name="export" value="{translate text='Export'}" title="{translate text='export_selected'}"/>
+        <input type="submit" class="export button" name="export" value="{translate text='export_expanding'}" title="{translate text='export_expanding'}"/>
         {/if}
         <input type="submit" class="print button" name="print" value="{translate text='Print'}" title="{translate text='print_selected'}"/>
         {if $listEditAllowed}<input id="delete_list_items_{if $list}{$list->id|escape}{/if}" type="submit" class="delete button" name="delete" value="{translate text='Delete'}" title="{translate text='delete_selected'}"/>{/if}

@@ -7,13 +7,34 @@
     <input type="hidden" name="idsAll[]" value="{$listId|escape}" />
   </div>
   
+  {assign var=img_count value=$summImages|@count}
+<div class="coverDiv">
+  <div class="resultNoImage"><p>{translate text='No image'}</p></div>
+    {if $img_count > 0}
+        <div class="resultImage"><a href="{$url}/Record/{$listId|escape:"url"}"><img src="{$listThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
+    {else}
+        <div class="resultImage"><a href="{$url}/Record/{$listId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
+    {/if}
+
+{* Multiple images *}
+{if $img_count > 1}
+  <div class="imagelinks">
+{foreach from=$summImages item=desc name=imgLoop}
+	<a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+	  {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
+	</a>
+{/foreach}
+  </div>
+{/if}
+</div>
+  {*
     <div class="coverDiv">
     {if $listThumb}
       <img src="{$listThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/>
     {else}
       <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
     {/if}
-    </div>
+    </div> *}
     <div class="resultColumn2">
       <a href="{$url}/Record/{$listId|escape:"url"}" class="title">{$listTitle|escape}</a><br/>
       {if $listAuthor}
@@ -40,8 +61,8 @@
     </div>
 
   {if $listEditAllowed}
-    <div class="floatright">
-      <a href="{$url}/MyResearch/Edit?id={$listId|escape:"url"}{if !is_null($listSelected)}&amp;list_id={$listSelected|escape:"url"}{/if}" class="edit tool">{translate text='Edit'}</a>
+    <div class="last floatright editItem">
+      <a href="{$url}/MyResearch/Edit?id={$listId|escape:"url"}{if !is_null($listSelected)}&amp;list_id={$listSelected|escape:"url"}{/if}" class="edit tool"></a>
       {* Use a different delete URL if we're removing from a specific list or the overall favorites: *}
       <a
       {if is_null($listSelected)}
@@ -49,7 +70,7 @@
       {else}
         href="{$url}/MyResearch/MyList/{$listSelected|escape:"url"}?delete={$listId|escape:"url"}"
       {/if}
-      class="delete tool" onclick="return confirm('{translate text='confirm_delete'}');">{translate text='Delete'}</a>
+      class="delete tool" onclick="return confirm('{translate text='confirm_delete'}');"></a>
     </div>
   {/if}
 
