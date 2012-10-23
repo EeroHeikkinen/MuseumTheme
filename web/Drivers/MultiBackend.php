@@ -124,10 +124,8 @@ class MultiBackend implements DriverInterface
             if ($holdings) {
                 return $this->addIdPrefixes($holdings, $source);
             }
-        } else {
-            error_log("No driver for '$id' found");
         }
-        return Array();
+        return array();
     }
     
     /**
@@ -149,7 +147,7 @@ class MultiBackend implements DriverInterface
         if ($driver) {
             return $driver->getPurchaseHistory($this->getLocalId($id));
         }
-        error_log("No driver for '$id' found");
+        return array();
     }
     
     /**
@@ -176,7 +174,7 @@ class MultiBackend implements DriverInterface
         if ($driver) {
             return $driver->getNewItems($page, $limit, $daysOld, $fundId);
         }
-        error_log("No driver for '$id' found");
+        return array();
     }
     
     /**
@@ -198,7 +196,7 @@ class MultiBackend implements DriverInterface
         if ($driver) {
             return $driver->findReserves($course, $inst, $dept);
         }
-        error_log("No driver for '$id' found");
+        return array();
     }
     
     /**
@@ -220,7 +218,7 @@ class MultiBackend implements DriverInterface
             $profile = $driver->getMyProfile($this->stripIdPrefixes($user, $source));
             return $this->addIdPrefixes($profile, $source);
         }
-        error_log("No driver for '$user' found");
+        return array();
     }
     
     /**
@@ -251,7 +249,7 @@ class MultiBackend implements DriverInterface
             $_SESSION['logins'][$username] = serialize($patron);
             return $patron;
         }
-        error_log("No driver for '$username' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -274,7 +272,7 @@ class MultiBackend implements DriverInterface
             $transactions = $driver->getMyTransactions($this->stripIdPrefixes($user, $source));
             return $this->addIdPrefixes($transactions, $source);
         }
-        error_log("No driver for '$user' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -298,7 +296,7 @@ class MultiBackend implements DriverInterface
             $details = $driver->getRenewDetails($this->stripIdPrefixes($checkoutDetails, $source));
             return $this->addIdPrefixes($details, $source);
         } 
-        error_log("No driver for '$id' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -321,7 +319,7 @@ class MultiBackend implements DriverInterface
             $details = $driver->renewMyItems($this->stripIdPrefixes($renewDetails, $source));
             return $this->addIdPrefixes($details, $source);
         }
-        error_log("No driver for '$id' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -343,7 +341,7 @@ class MultiBackend implements DriverInterface
             $fines = $driver->getMyFines($this->stripIdPrefixes($user, $source));
             return $this->addIdPrefixes($fines, $source);
         }
-        error_log("No driver for '$user' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -365,7 +363,7 @@ class MultiBackend implements DriverInterface
             $holds = $driver->getMyHolds($this->stripIdPrefixes($user, $source));
             return $this->addIdPrefixes($holds, $source);
         }
-        error_log("No driver for '$user' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
 
     /**
@@ -431,7 +429,7 @@ class MultiBackend implements DriverInterface
             );
             return $this->addIdPrefixes($locations, $source);
         }
-        error_log("No driver for '" . $patron['cat_username'] . "' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -466,8 +464,7 @@ class MultiBackend implements DriverInterface
             );
             return $this->addIdPrefixes($locations, $source);
         }
-        error_log("No driver for '" . $patron['cat_username'] . "' found");
-        return '';
+        return new PEAR_Error('No suitable backend driver found');
     }    
     
     /**
@@ -497,7 +494,7 @@ class MultiBackend implements DriverInterface
             $holdDetails = $this->stripIdPrefixes($holdDetails, $source);
             return $driver->placeHold($holdDetails);
         }
-        error_log("No driver for '$id' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -519,7 +516,7 @@ class MultiBackend implements DriverInterface
         if ($driver) {
             return $driver->cancelHolds($this->stripIdPrefixes($cancelDetails, $source));
         }
-        error_log("No driver for '$id' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
@@ -543,7 +540,7 @@ class MultiBackend implements DriverInterface
             $holdDetails = $this->stripIdPrefixes($holdDetails, $source);
             return $driver->getCancelHoldDetails($holdDetails);
         }
-        error_log("No driver for '" . $holdDetails['id'] . "' found");
+        return new PEAR_Error('No suitable backend driver found');
     }
     
     /**
