@@ -1259,11 +1259,10 @@ class SearchObject_Solr extends SearchObject_Base
                 if ($suggestion[0] != "collation") {
                     continue;
                 }
-
-                $suggestionList[$queryTerm] ['suggestions'][ $suggestion[1] ] = 0;
+                $suggestionList[$queryTerm]['suggestions'][$suggestion[1]] = 0;
             }
-            $count = count($suggestionList[$queryTerm]['suggestions']);
-            // Did we get more suggestions then our limit?
+            $count = isset($suggestionList[$queryTerm]['suggestions']) ? count($suggestionList[$queryTerm]['suggestions']) : 0;
+            // Did we get more suggestions than our limit?
             if ($count > $this->spellingLimit) {
                 // Cut the list at the limit
                 array_splice($suggestionList[$queryTerm]['suggestions'], $this->spellingLimit);
