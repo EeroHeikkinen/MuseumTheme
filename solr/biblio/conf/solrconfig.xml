@@ -569,7 +569,7 @@
 
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
     <lst name="spellchecker">
-      <str name="name">default</str>
+      <str name="name">basicSpell</str>
       <str name="field">spelling</str>
       <str name="queryAnalyzerFieldType">textSpell</str>
       <str name="classname">solr.DirectSolrSpellChecker</str>
@@ -583,7 +583,7 @@
       <float name="thresholdTokenFrequency">.0001</float>
     </lst>
     <lst name="spellchecker">
-      <str name="name">basicSpell</str>
+      <str name="name">default</str>
       <str name="field">spelling</str>
       <str name="accuracy">0.75</str>
       <str name="spellcheckIndexDir">./spellchecker</str>
