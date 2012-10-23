@@ -136,6 +136,10 @@ class FavoriteHandler
             } else {
                 if (!isset($searchObjects[$source])) {
                     $searchObjects[$source] = SearchObjectFactory::initSearchObject($source);
+                    if ($searchObjects[$source] === false) {
+                        error_log("Could not create search object for source '$source'");
+                        continue;
+                    }
                 }
                 $html = $searchObjects[$source]->getResultHTML(
                     $data,
