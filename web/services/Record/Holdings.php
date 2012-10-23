@@ -52,7 +52,8 @@ class Holdings extends Record
         global $configArray;
 
         if (!$this->hasHoldings 
-            && !(isset($configArray['Site']['ajaxRecordTabs']) && $configArray['Site']['ajaxRecordTabs'])) {
+            && !(isset($configArray['Site']['ajaxRecordTabs']) && $configArray['Site']['ajaxRecordTabs'])
+        ) {
             $url = $configArray['Site']['url'] . "/Record/" . $_REQUEST['id'] . "/Description";
             header('Location: '. $url);
         }
