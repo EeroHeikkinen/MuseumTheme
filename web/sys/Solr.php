@@ -135,9 +135,14 @@ class Solr implements IndexEngine
     private $_mergedRecords = null;
 
     /**
-    * Comma-separated list of data source codes in order of priority (most desired first)
-    */
+     * Comma-separated list of data source codes in order of priority (most desired first)
+     */
     private $_mergeSourcePriority = '';
+    
+    /**
+     * Array of buildings in facet query, used to override configured merge priority
+     */
+    private $_mergeBuildingPriority = array();
 
     /**
      * Whether to filter out component parts merged with host records
@@ -1144,8 +1149,15 @@ class Solr implements IndexEngine
         }
         
         // Build Filter Query
+        $this->_mergeBuildingPriority = array();
         if (is_array($filter) && count($filter)) {
             $options['fq'] = $filter;
+            foreach ($filter as $f) {
+                if (strncmp($f, 'building:', 9) == 0) {
+                    // Assume we have a facet hierarchy...
+                    $this->_mergeBuildingPriority[] = substr($f, 12, -1);
+                }
+            }
         }
 
         // Enable Spell Checking
@@ -1563,6 +1575,8 @@ class Solr implements IndexEngine
      */
     private function _process($result, $returnSolrError = false)
     {
+        $datasourceConfig = getExtraConfigArray('datasources');
+        
         // Catch errors from SOLR
         if (substr(trim($result), 0, 2) == '<h') {
             $errorMsg = substr($result, strpos($result, '<pre>'));
@@ -1584,6 +1598,9 @@ class Solr implements IndexEngine
         // Handle merged records (choose the local record by priority)
         if ($this->_mergedRecords && isset($result['response']['docs'])) {
             $sourcePriority = array_flip(explode(',', $this->_mergeSourcePriority));
+            $buildingPriority = $this->_mergeBuildingPriority;
+            array_unshift($buildingPriority, '');
+            $buildingPriority = array_flip($buildingPriority);
             $idList = array();
             // Find out the best records and list their IDs
             foreach ($result['response']['docs'] as &$doc) {
@@ -1594,30 +1611,38 @@ class Solr implements IndexEngine
                     // Find the document that matches the source priority best
                     $dedupData = array();
                     foreach ($localIds as $localId) {
-                        $source = explode('.', $localId, 2);
-                        $source = $source[0];
-                        if (isset($sourcePriority[$source]) && $sourcePriority[$source] < $priority) {
-                            $dedupId = $localId;
-                            $priority = $sourcePriority[$source];
+                        $localPriority = null;
+                        $source = reset(explode('.', $localId, 2));
+                        if (!empty($buildingPriority)) {
+                            if (isset($datasourceConfig[$source]['institution'])) {
+                                $institution = $datasourceConfig[$source]['institution'];
+                                if (isset($buildingPriority[$institution])) {
+                                    $localPriority = -$buildingPriority[$institution];
+                                }
+                            }
                         }
-                        $dedupData[$source] = array('id' => $localId);
+                        if (!isset($localPriority)) {
+                            if (isset($sourcePriority[$source])) {
+                                $localPriority = $sourcePriority[$source];
+                            }
+                        }
+                        if (isset($localPriority) && $localPriority < $priority) {
+                            $dedupId = $localId;
+                            $priority = $localPriority;
+                        }
+                        $dedupData[$source] = array('id' => $localId, 'priority' => isset($localPriority) ? $localPriority : 99999);
                     }
                     $doc['dedup_id'] = $dedupId;
                     $idList[] = $dedupId;
                 		
                     // Sort dedupData by priority
-                    $doc['dedup_data'] = array();
-                    foreach ($sourcePriority as $source => $priority) {
-                        if (isset($dedupData[$source])) {
-                            $doc['dedup_data'][$source] = $dedupData[$source];
+                    uasort(
+                        $dedupData, 
+                        function($a, $b) {
+                            return $a['priority'] - $b['priority'];    
                         }
-                    }
-                    // All the rest non-prioritized
-                    foreach ($dedupData as $source => $data) {
-                        if (!isset($sourcePriority[$source])) {
-                            $doc['dedup_data'][$source] = $data;
-                        }
-                    }
+                    );
+                    $doc['dedup_data'] = $dedupData;
                 }
             }
             // Fetch records and assign them to the result
