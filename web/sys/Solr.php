@@ -242,9 +242,9 @@ class Solr implements IndexEngine
         }
         
         // Merged records
-        if (isset($searchSettings['General']['merged_records'])) {
-           	$this->_mergedRecords = $searchSettings['General']['merged_records'];
-           	$this->_mergeSourcePriority = $searchSettings['General']['merge_source_priority'];
+        if (isset($searchSettings['Merged_Records']['merged_records'])) {
+           	$this->_mergedRecords = $searchSettings['Merged_Records']['merged_records'];
+           	$this->_mergeSourcePriority = $searchSettings['Merged_Records']['merge_source_priority'];
         }
         
         // Hide component parts?
@@ -1155,7 +1155,10 @@ class Solr implements IndexEngine
             foreach ($filter as $f) {
                 if (strncmp($f, 'building:', 9) == 0) {
                     // Assume we have a facet hierarchy...
-                    $this->_mergeBuildingPriority[] = substr($f, 12, -1);
+                    $fullHierarchy = substr($f, 12, -1);
+                    foreach (explode('/', $fullHierarchy) as $part) {
+                        $this->_mergeBuildingPriority[] = $part;
+                    }
                 }
             }
         }
@@ -1575,8 +1578,6 @@ class Solr implements IndexEngine
      */
     private function _process($result, $returnSolrError = false)
     {
-        $datasourceConfig = getExtraConfigArray('datasources');
-        
         // Catch errors from SOLR
         if (substr(trim($result), 0, 2) == '<h') {
             $errorMsg = substr($result, strpos($result, '<pre>'));
@@ -1597,6 +1598,7 @@ class Solr implements IndexEngine
 
         // Handle merged records (choose the local record by priority)
         if ($this->_mergedRecords && isset($result['response']['docs'])) {
+            $datasourceConfig = getExtraConfigArray('datasources');
             $sourcePriority = array_flip(explode(',', $this->_mergeSourcePriority));
             $buildingPriority = $this->_mergeBuildingPriority;
             array_unshift($buildingPriority, '');
@@ -1614,7 +1616,9 @@ class Solr implements IndexEngine
                         $localPriority = null;
                         $source = reset(explode('.', $localId, 2));
                         if (!empty($buildingPriority)) {
-                            if (isset($datasourceConfig[$source]['institution'])) {
+                            if (isset($buildingPriority[$source])) {
+                                $localPriority = -$buildingPriority[$source];
+                            } elseif (isset($datasourceConfig[$source]['institution'])) {
                                 $institution = $datasourceConfig[$source]['institution'];
                                 if (isset($buildingPriority[$institution])) {
                                     $localPriority = -$buildingPriority[$institution];

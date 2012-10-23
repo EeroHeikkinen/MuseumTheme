@@ -1273,8 +1273,9 @@ class SearchObject_Solr extends SearchObject_Base
                 $ourTerm = $suggestion[0];
             
                 // Skip numeric terms if numeric suggestions are disabled
-                if (($this->spellSkipNumeric && is_numeric($ourTerm)) ||
-                        $ourTerm == 'collation' || $ourTerm == 'correctlySpelled') {
+                if (($this->spellSkipNumeric && is_numeric($ourTerm))
+                    || $ourTerm == 'collation' || $ourTerm == 'correctlySpelled'
+                ) {
                     continue;
                 }
             
@@ -1309,7 +1310,7 @@ class SearchObject_Solr extends SearchObject_Base
                     foreach ($newList as $item) {
                         if (is_array($item)) {
                             $suggestionList[$ourTerm]['suggestions'][$item['word']]
-                            = $item['freq'];
+                                = $item['freq'];
                         } else {
                             $suggestionList[$ourTerm]['suggestions'][$item] = 0;
                         }
@@ -1372,6 +1373,7 @@ class SearchObject_Solr extends SearchObject_Base
         $newSearch->disableLogging();
 
         // Run the search
+        $newSearch->setLimit(0);
         $newSearch->processSearch();
         // Get the spelling results
         $newList = $newSearch->getRawSuggestions();
