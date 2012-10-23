@@ -151,7 +151,7 @@ div.lang li {
 /* Search Box */
 #searchForm input, #searchForm select, .styled_select { 
     font-family: inherit;
-
+}
 /* Search Box dropdown */
 .searchbox .dropdown dt a {
     line-height: 1.2em;
