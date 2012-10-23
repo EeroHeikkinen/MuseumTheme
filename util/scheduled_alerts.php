@@ -63,7 +63,7 @@ class ScheduledAlerts
         ini_set('display_errors', true);
         
         $configArray = $mainConfig = readConfig();
-        $institutionConfig = getExtraConfigArray('institutions');
+        $datasourceConfig = getExtraConfigArray('datasources');
 
         // Set up time zone. N.B. Don't use msg() or other functions requiring date before this.
         date_default_timezone_set($configArray['Site']['timezone']);
@@ -115,10 +115,10 @@ class ScheduledAlerts
             $userInstitution = reset(explode('.', $user->username, 2));
             if (!$institution || $institution != $userInstitution) {
                 $institution = $userInstitution;
-                if (isset($institutionConfig['Institution_Main_Views'][$institution])) {
+                if (isset($datasourceConfig[$institution]['mainView'])) {
                     // Read institution's configuration
                     $this->msg("Switching to configuration of '$institution'");
-                    $configArray = readConfig('../' . $institutionConfig['Institution_Main_Views'][$institution] . '/conf');
+                    $configArray = readConfig('../' . $datasourceConfig[$institution]['mainView'] . '/conf');
                 } else {
                     // Use default configuration
                     $this->msg("Switching to default configuration");
@@ -160,45 +160,44 @@ class ScheduledAlerts
             $lastExecutionDate = $lastTime->format($iso8601);
             if ($newestRecordDate < $lastExecutionDate) { 
                 $this->msg('No new results for search ' . $s->id . ": $newestRecordDate < $lastExecutionDate");
-                continue;
+            } else {
+                $this->msg('New results for search ' . $s->id . ": $newestRecordDate >= $lastExecutionDate");
+                
+                $interface->assign(
+                    'info', 
+                    array(
+                        'time' =>  $dateFormat->convertToDisplayDate("U", floor($searchObject->getStartTime())),
+                        'url'  => $searchObject->renderSearchUrl(),
+                        'searchId' => $searchObject->getSearchId(),
+                        'description' => $searchObject->displayQuery(),
+                        'filters' => $searchObject->getFilterList(),
+                        'hits' => $searchObject->getResultTotal(),
+                        'speed' => round($searchObject->getQuerySpeed(), 2)."s",
+                        'schedule' => $s->schedule,
+                        'last_executed' => $s->last_executed
+                    )
+                );
+                $interface->assign('summary', $searchObject->getResultSummary());
+                $interface->assign('searchDate', $dateFormat->convertToDisplayDate("U", floor($searchTime)));
+                $interface->assign('lastSearchDate', $dateFormat->convertToDisplayDate("U", floor($lastTime->getTimestamp())));
+        
+                $records = array();
+                foreach ($results['response']['docs'] as &$doc) {
+                    $record = RecordDriverFactory::initRecordDriver($doc);
+                    $records[] = $interface->fetch($record->getSearchResult('email'));
+                }
+                $interface->assign('recordSet', $records);
+        
+                $searchObject->close();
+                
+                // Load template
+                $message = $interface->fetch('MyResearch/alert-email.tpl');
+                if (strstr($message, 'Warning: Smarty error:')) {
+                    $this->msg("Message template processing failed: $message");
+                    continue;
+                }
+                $this->sendEmail($configArray['Site']['email'], $user->email, translate('Scheduled Alert Results'), $message);
             }
-    
-            $this->msg('New results for search ' . $s->id . ": $newestRecordDate >= $lastExecutionDate");
-            
-            $interface->assign(
-                'info', 
-                array(
-                    'time' =>  $dateFormat->convertToDisplayDate("U", floor($searchObject->getStartTime())),
-                    'url'  => $searchObject->renderSearchUrl(),
-                    'searchId' => $searchObject->getSearchId(),
-                    'description' => $searchObject->displayQuery(),
-                    'filters' => $searchObject->getFilterList(),
-                    'hits' => $searchObject->getResultTotal(),
-                    'speed' => round($searchObject->getQuerySpeed(), 2)."s",
-                    'schedule' => $s->schedule,
-                    'last_executed' => $s->last_executed
-                )
-            );
-            $interface->assign('summary', $searchObject->getResultSummary());
-            $interface->assign('searchDate', $dateFormat->convertToDisplayDate("U", floor($searchTime)));
-            $interface->assign('lastSearchDate', $dateFormat->convertToDisplayDate("U", floor($lastTime->getTimestamp())));
-    
-            $records = array();
-            foreach ($results['response']['docs'] as &$doc) {
-                $record = RecordDriverFactory::initRecordDriver($doc);
-                $records[] = $interface->fetch($record->getSearchResult('email'));
-            }
-            $interface->assign('recordSet', $records);
-    
-            $searchObject->close();
-            
-            // Load template
-            $message = $interface->fetch('MyResearch/alert-email.tpl');
-            if (strstr($message, 'Warning: Smarty error:')) {
-                $this->msg("Message template processing failed: $message");
-                continue;
-            }
-            $this->sendEmail($configArray['Site']['email'], $user->email, translate('Scheduled Alert Results'), $message);
             
             // Update search date
             $s->changeLastExecuted($searchDate);

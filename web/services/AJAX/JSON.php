@@ -431,7 +431,7 @@ class JSON extends Action
     
         $feedbackService = new Feedback();
         $result = $feedbackService->sendEmail(
-            $_REQUEST['to'], $_REQUEST['from'], $_REQUEST['message']
+            $_REQUEST['from'], $_REQUEST['message']
         );
     
         if (PEAR::isError($result)) {

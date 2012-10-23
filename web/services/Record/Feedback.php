@@ -54,7 +54,7 @@ class Feedback extends Record
 
         if (isset($_POST['submit'])) {
             $result = $this->sendEmail(
-                $_POST['to'], $_POST['from'], $_POST['message']
+                $_POST['from'], $_POST['message']
             );
             if (!PEAR::isError($result)) {
                 include_once 'Home.php';
@@ -67,11 +67,10 @@ class Feedback extends Record
 
         // Display Page
         $institutionDetails = $this->recordDriver->getInstitutionDetails();
-        $institutions = getExtraConfigArray('institutions');
+        $datasources = getExtraConfigArray('datasources');
         
         $interface->assign('institution', $institutionDetails['institution']);
         $interface->assign('datasource', $institutionDetails['datasource']);
-        $interface->assign('institutionEmail', $institutions['Institution_Emails'][$institutionDetails['datasource']]);
         $interface->assign(
             'formTargetPath', '/Record/' . urlencode($_GET['id']) . '/Feedback'
         );
@@ -89,17 +88,20 @@ class Feedback extends Record
     /**
      * Send feedback on record.
      *
-     * @param string $to      Message recipient address
      * @param string $from    Message sender address
      * @param string $message Message to send
      *
      * @return mixed          Boolean true on success, PEAR_Error on failure.
      * @access public
      */
-    public function sendEmail($to, $from, $message)
+    public function sendEmail($from, $message)
     {
         global $interface;
 
+        $institutionDetails = $this->recordDriver->getInstitutionDetails();
+        $datasources = getExtraConfigArray('datasources');
+        $to = $datasources[$institutionDetails['datasource']]['feedbackEmail'];
+        
         $subject = translate('Feedback on Record') . ': ' .
             $this->recordDriver->getBreadcrumb();
         $interface->assign('from', $from);
