@@ -1,6 +1,6 @@
 <!-- START of: MyResearch/menu.tpl -->
 
-  <h2>{translate text="Your Account"}</h2>
+  <h2 class="account">{translate text="Your Account"}</h2>
 
   <div class="ui-tabs ui-widget myResearchMenu">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">

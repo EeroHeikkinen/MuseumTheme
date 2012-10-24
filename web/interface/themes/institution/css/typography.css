@@ -176,7 +176,10 @@ label.invalid {
 .correction p, .correctionTerms {
     line-height: 1.3em;
 }
-
+.favoritesList div.bulkActionButtons input.button {
+    font-size: 0.9em;
+    font-weight: normal;
+}
 
 /* Alphabetic browse */
 .alphaBrowseHeader {
@@ -217,9 +220,10 @@ a.subjectHeading:hover {
 .navmenu dt {
     font-weight: bold;
 }
-.facetCount {
+.facetCount, .favoritesCount, .favoritesDescription {
     font-size: .8em;
 }
+
 
 /* Resource types */
 .iconlabel { /* Common for all */

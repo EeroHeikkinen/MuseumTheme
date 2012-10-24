@@ -459,7 +459,7 @@ div.bulkActionButtons input, div.bulkActionButtons label, div.bulkActionButtons 
 div.bulkActionButtons a {
     padding-bottom: 0.2em;
 }
-
+/*
 div.bulkActionButtons input.button {
     background-color:transparent;
     background-position: 2px center;
@@ -470,7 +470,29 @@ div.bulkActionButtons input.button {
     vertical-align: top;
     color: #06C;
 }
-
+*/
+div.bulkActionButtons input.button {
+    text-shadow: none;
+    color: #444444;
+    padding: 2px;
+    margin: 2px;
+    background-color: #eeeeee;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f3f3f3), color-stop(1, #cccccc) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #eeeeee 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
+    border: 1px solid #cccccc;
+}
+div.bulkActionButtons input.button:hover {
+    text-shadow: none;
+    color: #444444;
+    padding: 2px;
+    margin: 2px;
+    background-color: #eeeeee;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f3f3f3), color-stop(1, #cccccc) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #ffffff 100% );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
+    border: 1px solid #cccccc;
+}
 div.bulkActionButtons input.button {
     width: 0;  /* IE table-cell margin fix */
     overflow: visible;
@@ -483,6 +505,10 @@ div.bulkActionButtons input.button[class] {  /* IE < 7 ignores [class] */
 div.bulkActionButtons input.checkbox {
     vertical-align: top;
 }
+div.bulkActionButtons select {
+    padding: 2px;
+}
+
 
 /** Cart **/
 .cartSummary {
@@ -621,13 +647,75 @@ fieldset.publishDateLimit .ui-slider {
 #topPubDateVis strong {
     padding-left: .2em;
 }
-#sidebarFacets, #sidebarRecommend, #sidebarCollection {
+#sidebarFacets, #sidebarRecommend, #sidebarCollection, #sidebarFavoritesLists {
     float: left;
     margin-left: 12px;
     width: 220px;
 /*
     width: 210px;
 */
+}
+#sidebarFavoritesLists {
+    margin: 0 12px 0 0;
+}
+#sidebarFavoritesLists a.listAdd {
+    /* float: right; */
+    margin-left: 1em;
+}
+#sidebarFavoritesLists .hefty {
+}
+#sidebarFavoritesLists ul {
+    margin: 1em 0 0 0;
+    width: 202px;
+    padding: 0;
+}
+#sidebarFavoritesLists .editList {
+    margin-bottom: 1em;
+}
+#sidebarFavoritesLists .editList a {
+    display: block;
+    padding: 0.2em 0.2em 0.2em 22px;
+}
+#sidebarFavoritesLists ul li div {
+    padding: 6px 8px;
+}
+#sidebarFavoritesLists .selected {
+    background-color: #eeeeee;
+}
+
+.favoritesList {
+    float: left;
+    width: 728px;
+}
+.favoritesList .paginationTop, .favoritesList .resultOptions {
+    margin: 0.4em 0 0 0;
+}
+.favoritesList .selectAllCheckboxes {
+    margin:  -2px 0 0 14px;
+}
+.favoritesList .bulkActionButtons {
+    border-top: 1px solid #eeeeee;
+    height: 10px;
+}
+.favoritesList .bulkActionButtons select {
+    max-width: 160px;
+}
+.favoritesList .editItem {
+    margin: 0;
+}
+.listentry .summcover {
+	max-width: 62px;
+}
+.listentry .resultNoImage{
+	height: 60px;
+	width: 60px;
+}
+.listentry .resultImage {
+	margin: -62px 0 0 0;
+	width: 62px;
+}
+.listentry .result .imagelinks {
+	padding: 5px 0 0 5px;
 }
 
 
@@ -745,7 +833,6 @@ ul.recordSet .resultItemLine2{
 }
 .resultImage img {
     width: 126px;
-    height: auto;
 }
 .resultImages {
     float:left;
@@ -804,6 +891,7 @@ ul.recordSet .resultItemLine2{
     position: relative;
 */
 }
+
 #authorList .resulthead {
     margin-top: 1.2em;
     padding: 0 0 .2em .8em;
@@ -932,8 +1020,11 @@ dl.narrowList a {
     width:auto;
     margin-right:0.4em;
 }
-.facetCount {
-    color:#999;
+.facetCount, .favoritesCount, .favoritesDescription {
+    color: #999;
+}
+.pagingDisabled {
+    color: #ddd;
 }
 
 
@@ -1246,6 +1337,7 @@ ul.recordSet .addToFavLink a {
     margin: 0 .3em;
     padding: 13px .7em 13px;
     clear: left;
+    width: 300px;
 }
 .paginationTop {
     margin: 1.5em 0;
@@ -1799,6 +1891,12 @@ p.citationText {
 
 /* Profile / MyResearch */
 
+.headerMyResearch {
+    border-bottom: 1px solid #dddddd;
+}
+.myResearch {
+    margin: 2em 0 3em 0;
+}
 .myResearch .resultHead {
 /*
 	  width: 716px;
@@ -1829,13 +1927,11 @@ p.citationText {
 .myResearch ul.recordSet .resultCheckbox {
     position: inherit;
     display: inherit;
-    width: 62px;
-    margin: 1em 12px 0 0;
+    margin: 1em 12px 0 9px;
     float: left;
-    text-align: center;
 }
 .myResearch .coverDiv {
-    width: 60px;
+    width: 62px;
     margin-right: 12px;
     float: left;
 }
@@ -1849,6 +1945,7 @@ p.citationText {
     padding: 0;
     margin-bottom: 1em;
 }
+
 
 /* Browse Lists */
 .browseNav {
