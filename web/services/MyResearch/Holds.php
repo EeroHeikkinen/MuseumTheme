@@ -81,6 +81,11 @@ class Holds extends MyResearch
                     foreach ($result as $row) {
                         $record = $this->db->getRecord($row['id']);
                         $record['ils_details'] = $row;
+                        $formats = array();
+                        foreach (isset($record['format']) ? $record['format'] : array() as $format) {
+                            $formats[] = preg_replace('/^\d\//', '', $format);
+                        }
+                        $record['format'] = $formats;
                         $recordList[] = $record;
                     }
 
