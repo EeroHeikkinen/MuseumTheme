@@ -176,5 +176,25 @@ abstract class Hierarchy
     {
         return array();
     }
+    
+    /**
+     * Check Function
+     *
+     * This is responsible for checking the driver configuration to determine
+     * if the system supports a particular function.
+     *
+     * @param string $function The name of the function to check.
+     * @param string $id       (optional) A record id used to identify the used backend with
+     * MultiBackend driver  
+     *
+     * @return mixed On success, an associative array with specific function keys
+     * and values; on failure, false.
+     * @access public
+     */
+    public function checkFunction($function, $id = null)
+    {
+        return false;    	
+    }
+    
 }
 ?>
