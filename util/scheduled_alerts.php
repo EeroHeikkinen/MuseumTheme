@@ -88,14 +88,14 @@ class ScheduledAlerts
             if ($s->schedule == 1) {
                 // Daily
                 if ($todayTime->format('Y-m-d') == $lastTime->format('Y-m-d')) { 
-                    $this->msg('Bypassing search ' . $s->id . ': previous execution too recent');
+                    $this->msg('Bypassing search ' . $s->id . ': previous execution too recent (daily, ' . $lastTime->format($iso8601) . ')');
                     continue;
                 }
             } elseif ($s->schedule == 2) {
                 // Weekly
                 $diff = $todayTime->diff($lastTime);
                 if ($diff->days < 6) {
-                    $this->msg('Bypassing search ' . $s->id . ': previous execution too recent');
+                    $this->msg('Bypassing search ' . $s->id . ': previous execution too recent (weekly, ' . $lastTime->format($iso8601) . ')');
                     continue;
                 }
             } else {

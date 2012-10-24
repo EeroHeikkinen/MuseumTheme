@@ -20,9 +20,9 @@
 
 {translate text='component_part_is_part_of'}: {$summContainerTitle}{/if}{if $summContainerReference} {$summContainerReference}{/if}{/if}
 {if is_array($summFormats)}
-  {assign var=displayFormat value=$summFormats|@end} 
+  {assign var=displayFormat value=$summFormats|@end}
 {else}
-  {assign var=displayFormat value=$summFormats} 
+  {assign var=displayFormat value=$summFormats}
 {/if}
 
 {translate text="Full Record"}: {$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}
