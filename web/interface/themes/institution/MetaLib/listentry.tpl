@@ -1,3 +1,4 @@
+<!-- START of: MetaLib/listentry.tpl -->
       <div class="listentry recordId" id="record{$record.ID.0|escape}">
         <div class="resultCheckbox">
         <label for="checkbox_{$record.ID.0|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
@@ -45,8 +46,8 @@
         </div>
         
       {if $listEditAllowed}
-        <div class="floatright">
-          <a href="{$url}/MyResearch/Edit?id={$record.ID.0|escape:"url"}{if !is_null($listSelected)}&amp;list_id={$listSelected|escape:"url"}{/if}" class="edit tool">{translate text='Edit'}</a>
+        <div class="last floatright editItem">
+          <a href="{$url}/MyResearch/Edit?id={$record.ID.0|escape:"url"}{if !is_null($listSelected)}&amp;list_id={$listSelected|escape:"url"}{/if}" class="edit tool"></a>
           {* Use a different delete URL if we're removing from a specific list or the overall favorites: *}
           <a
           {if is_null($listSelected)}
@@ -54,9 +55,10 @@
           {else}
             href="{$url}/MyResearch/MyList/{$listSelected|escape:"url"}?delete={$record.ID.0|escape:"url"}"
           {/if}
-          class="delete tool" onclick="return confirm('{translate text='confirm_delete'}');">{translate text='Delete'}</a>
+          class="delete tool" onclick="return confirm('{translate text='confirm_delete'}');"></a>
         </div>
       {/if}
         <div class="clear"></div>
         <span class="Z3988" title="{$record.openUrl|escape}"></span>
       </div>
+<!-- END of: MetaLib/listentry.tpl -->
