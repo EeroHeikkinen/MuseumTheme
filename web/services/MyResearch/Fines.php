@@ -76,6 +76,11 @@ class Fines extends MyResearch
                             }
                         }
                     }
+                    $formats = array();
+                    foreach (isset($record['format']) ? $record['format'] : array() as $format) {
+                        $formats[] = preg_replace('/^\d\//', '', $format);
+                    }
+                    $row['format'] = $formats;
                 }
                 $interface->assign('rawFinesData', $result);
                 $interface->assign('sum', $sum);
