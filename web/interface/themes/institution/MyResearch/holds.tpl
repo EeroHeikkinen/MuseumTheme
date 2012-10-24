@@ -2,23 +2,10 @@
 
 {include file="MyResearch/menu.tpl"}
 
-<div id="resultList" class="myResearch {if $sidebarOnLeft} push-5 last{/if}">
-  <div class="resultHead">
+<div class="myResearch holdsList{if $sidebarOnLeft} last{/if}">
+  <span class="hefty">{translate text='Your Holds and Recalls'}</span>
   {if $user->cat_username}
-    <h3>{translate text='Your Holds and Recalls'}</h3>
-
-    {if $cancelForm}
-      <div class="floatright">
-      <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
-        <div class="toolbar">
-          <ul>
-            <li><input type="submit" class="button holdCancel" name="cancelSelected" value="{translate text="hold_cancel_selected"}" onClick="return confirm('{translate text="confirm_hold_cancel_selected_text}')" /></li>
-            <li><input type="submit" class="button holdCancelAll" name="cancelAll" value="{translate text='hold_cancel_all'}" onClick="return confirm('{translate text="confirm_hold_cancel_all_text}')" /></li>
-          </ul>
-        </div>
-      </div>
-    {/if}
-
+  <div class="resultHead">
     {if $holdResults.success}
       <div class="holdsMessage"><p class="success">{translate text=$holdResults.status}</p></div>
     {/if}
@@ -30,8 +17,20 @@
     {if $cancelResults.count > 0}
       <div class="holdsMessage"><p class="info">{$cancelResults.count|escape} {translate text="hold_cancel_success_items"}</p></div>
     {/if}
+  </div>
+    {if $cancelForm}
+    <div class="bulkActionButtons">
+      <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
+        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
+        <div class="floatright">
+          <input type="submit" class="button holdCancel" name="cancelSelected" value="{translate text="hold_cancel_selected"}" onClick="return confirm('{translate text="confirm_hold_cancel_selected_text}')" />
+          <input type="submit" class="button holdCancelAll" name="cancelAll" value="{translate text='hold_cancel_all'}" onClick="return confirm('{translate text="confirm_hold_cancel_all_text}')" />
+        </div>
+      </div>
+    {/if}
+
     <div class="clear"></div>
-    </div>
+
     {if is_array($recordList)}
     <ul class="recordSet">
     {foreach from=$recordList item=resource name="recordLoop"}
@@ -39,7 +38,7 @@
         {if $cancelForm && $resource.ils_details.cancel_details}
           <div class="resultCheckbox">
           <input type="hidden" name="cancelAllIDS[]" value="{$resource.ils_details.cancel_details|escape}" />
-          <input type="checkbox" name="cancelSelectedIDS[]" value="{$resource.ils_details.cancel_details|escape}" class="checkbox" style="margin-left:0;" />
+          <input type="checkbox" name="cancelSelectedIDS[]" value="{$resource.ils_details.cancel_details|escape}" class="checkbox" />
           </div>
         {/if}
         <div id="record{$resource.id|escape}">
@@ -76,15 +75,14 @@
               <strong>{translate text='Notes'}:</strong> {$resource.notes|escape}<br/>
             {/if}
 
-            {if is_array($resource.format)}
-              {foreach from=$resource.format item=format}
-                <span class="iconlabel format{$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
-              {/foreach}
-              <br/>
-            {elseif isset($resource.format)}
-              <span class="iconlabel format{$resource.format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$resource.format}</span>
-              <br/>
-            {/if}
+ 			  {if is_array($resource.format)}
+				{assign var=mainFormat value=$resource.format.0} 
+				{assign var=displayFormat value=$resource.format|@end} 
+			  {else}
+				{assign var=mainFormat value=$resource.format} 
+				{assign var=displayFormat value=$resource.format} 
+			  {/if}
+			  <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
 
             {if $resource.ils_details.volume}
               <strong>{translate text='Volume'}:</strong> {$resource.ils_details.volume|escape}<br />
@@ -95,8 +93,9 @@
             {/if}
             </div>
             <div class="dueDate">
-            {* Depending on the ILS driver, the "location" value may be a string or an ID; figure out the best
-               value to display... *}
+              {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
+              {translate text="source_$source"},
+            {* Depending on the ILS driver, the "location" value may be a string or an ID; figure out the best value to display... *}
             {assign var="pickupDisplay" value=""}
             {assign var="pickupTranslate" value="0"}
             {if isset($resource.ils_details.location)}
@@ -118,7 +117,7 @@
               <br />
             {/if}
 
-            <strong>{translate text='Created'}:</strong> {$resource.ils_details.create|escape} |
+            <strong>{translate text='Created'}:</strong> {$resource.ils_details.create|escape},
             <strong>{translate text='Expires'}:</strong> {$resource.ils_details.expire|escape}
             <br />
 
@@ -129,7 +128,7 @@
             {/foreach}
 
             {if $resource.ils_details.available == true}
-              <div class="userMsg">{translate text="hold_available"}</div>
+              <span class="available">{translate text="hold_available"}</span>
             {else}
               {if $resource.ils_details.position}
               <p><strong>{translate text='hold_queue_position'}:</strong> {$resource.ils_details.position|escape}</p>

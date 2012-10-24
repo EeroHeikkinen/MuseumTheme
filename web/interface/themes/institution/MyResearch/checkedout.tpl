@@ -3,7 +3,7 @@
 {include file="MyResearch/menu.tpl"}
 
 <div class="myResearch checkedoutList{if $sidebarOnLeft} last{/if}">
- <div class="resultHead">
+  <div class="resultHead">
   {if $errorMsg || $infoMsg}
     <div class="messages">
     {if $errorMsg}<p class="error">{$errorMsg|translate}</p>{/if}
@@ -26,7 +26,7 @@
     <div class="bulkActionButtons">
       <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
         <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
-        <div class="floatright"><strong>{translate text="with_selected"}: </strong>
+        <div class="floatright">
           <input type="submit" class="button renew" name="renewSelected" value="{translate text="renew_selected"}" />
           <input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" />
         </div>
@@ -99,12 +99,14 @@
             {if $resource.notes}
               {translate text='Notes'}: {$resource.notes|escape}<br/>
             {/if}
-            {if isset($resource.format)}
-              {assign var=mainFormat value=$resource.format.0} 
-              {assign var=displayFormat value=$resource.format|@end} 
-              <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
-              <br/>
-            {/if}
+ 			{if is_array($resource.format)}
+			  {assign var=mainFormat value=$resource.format.0} 
+			  {assign var=displayFormat value=$resource.format|@end} 
+			{else}
+			  {assign var=mainFormat value=$resource.format} 
+			  {assign var=displayFormat value=$resource.format} 
+			{/if}
+			<span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
             {if $resource.ils_details.volume}
               <strong>{translate text='Volume'}:</strong> {$resource.ils_details.volume|escape}
               <br />
@@ -143,12 +145,13 @@
             {if $resource.ils_details.renewable && $resource.ils_details.renew_link}
               <a href="{$resource.ils_details.renew_link|escape}">{translate text='renew_item'}</a>
             {/if}
-          </div> <!-- class="dueDate" -->
-          
-          <div class="checkedOutSource">
-            <a href="{$url}/Record/{$dedupData.id|escape:"url"}" class="title">{translate text="source_$source"}</a>
+            
+          <div class="checkedoutSource">
+            {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
+            <span>{translate text="source_$source"}</span>
           </div>
-          
+
+          </div> <!-- class="dueDate" -->
           <div class="clear"></div>
         </div> <!-- record{$resource.id|escape} -->
       </li>

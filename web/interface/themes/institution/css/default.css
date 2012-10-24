@@ -725,7 +725,7 @@ div.bulkActionButtons {
 #resultList.checkedoutList {
     width: 960px;
 }
-.checkedoutList div.bulkActionButtons {
+.checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines {
     margin: 1.8em 0 0 0;
 }
 
@@ -1753,9 +1753,9 @@ table.datagrid {
 }
 
 table.datagrid th {
-    color: #003366;
-    background-color: #DDEEFF;
-    border: solid 1px #99CCFF;
+    color: #000000;
+    background-color: #dddddd;
+    border: solid 1px #999999;
     text-align: left;
     border-left: 1px solid #FFFFFF;
     border-right: 1px solid #FFFFFF;
@@ -1763,7 +1763,7 @@ table.datagrid th {
 }
 
 table.datagrid th a {
-    color: #336699;
+    /*color: #336699;*/
 }
 
 table.datagrid td {
@@ -1946,6 +1946,7 @@ p.citationText {
     float: left;
 }
 .myResearch .dueDate {
+    float: left;
     margin: 0 20px 0 12px;
 }
 .myResearchMenu {
