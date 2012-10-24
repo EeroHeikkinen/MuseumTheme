@@ -2,10 +2,17 @@
 
 {include file="MyResearch/menu.tpl"}
 
-<div id="resultList" class="myResearch {if $sidebarOnLeft} push-5 last{/if}">
+<div class="myResearch checkedoutList{if $sidebarOnLeft} last{/if}">
  <div class="resultHead">
+  {if $errorMsg || $infoMsg}
+    <div class="messages">
+    {if $errorMsg}<p class="error">{$errorMsg|translate}</p>{/if}
+    {if $infoMsg}<p class="info">{$infoMsg|translate}{if $showExport} <a class="save" target="_new" href="{$showExport|escape}">{translate text="export_save"}</a>{/if}</p>{/if}
+    </div>
+  {/if}
+  </div>
   {if $user->cat_username}
-    <h3>{translate text='Your Checked Out Items'}</h3>
+    <span class="hefty">{translate text='Your Checked Out Items'}</span>
     {if $blocks}
       {foreach from=$blocks item=block}
         <p class="info">{translate text=$block}</p>
@@ -15,6 +22,16 @@
     {if $transList}
 
       {if $renewForm}
+      
+    <div class="bulkActionButtons">
+      <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
+        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
+        <div class="floatright"><strong>{translate text="with_selected"}: </strong>
+          <input type="submit" class="button renew" name="renewSelected" value="{translate text="renew_selected"}" />
+          <input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" />
+        </div>
+     </div>       
+      {*
       <div class="floatright">
       <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
         <div class="toolbar">
@@ -23,14 +40,15 @@
             <li><input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" /></li>
           </ul>
         </div>
-    </div>
+    </div>*}
       {/if}
 
       {if $errorMsg}
         <p class="error">{translate text=$errorMsg}</p>
       {/if}
       <div class="clear"></div>
-  </div>
+  
+
     <ul class="recordSet">
     {foreach from=$transList item=resource name="recordLoop"}
       <li class="result{if ($smarty.foreach.recordLoop.iteration % 2) == 0} alt{/if}">
@@ -43,7 +61,7 @@
             {else}
               {translate text='Title not available'}
             {/if}</label>
-            <input type="checkbox" name="renewSelectedIDS[]" value="{$resource.ils_details.renew_details}" class="checkbox" style="margin-left: 0" id="checkbox_{$resource.id|regex_replace:'/[^a-z0-9]/':''|escape}" />
+            <input type="checkbox" name="renewSelectedIDS[]" value="{$resource.ils_details.renew_details}" class="checkbox" id="checkbox_{$resource.id|regex_replace:'/[^a-z0-9]/':''|escape}" />
             <input type="hidden" name="renewAllIDS[]" value="{$resource.ils_details.renew_details}" />
         {/if}
         </div>
@@ -97,7 +115,7 @@
               <br />
             {/if}
         </div>
-        <div class="dueDate">
+        <div class="dueDate floatright">
             {assign var="showStatus" value="show"}
             {if $renewResult[$resource.ils_details.item_id]}
               {if $renewResult[$resource.ils_details.item_id].success}
@@ -126,6 +144,11 @@
               <a href="{$resource.ils_details.renew_link|escape}">{translate text='renew_item'}</a>
             {/if}
           </div> <!-- class="dueDate" -->
+          
+          <div class="checkedOutSource">
+            <a href="{$url}/Record/{$dedupData.id|escape:"url"}" class="title">{translate text="source_$source"}</a>
+          </div>
+          
           <div class="clear"></div>
         </div> <!-- record{$resource.id|escape} -->
       </li>

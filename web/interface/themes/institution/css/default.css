@@ -474,18 +474,21 @@ div.bulkActionButtons input.button {
 div.bulkActionButtons input.button {
     text-shadow: none;
     color: #444444;
-    padding: 2px;
+    padding: 3px 2px 2px 2px;
     margin: 2px;
     background-color: #eeeeee;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f3f3f3), color-stop(1, #cccccc) );
     background:-moz-linear-gradient( center top, #ffffff 5%, #eeeeee 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
     border: 1px solid #cccccc;
+    -webkit-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
+	-moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
+	box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
 }
 div.bulkActionButtons input.button:hover {
     text-shadow: none;
     color: #444444;
-    padding: 2px;
+    padding: 3px 2px 2px 2px;
     margin: 2px;
     background-color: #eeeeee;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f3f3f3), color-stop(1, #cccccc) );
@@ -690,10 +693,10 @@ fieldset.publishDateLimit .ui-slider {
 .favoritesList .paginationTop, .favoritesList .resultOptions {
     margin: 0.4em 0 0 0;
 }
-.favoritesList .selectAllCheckboxes {
+.selectAllCheckboxes {
     margin:  -2px 0 0 14px;
 }
-.favoritesList .bulkActionButtons {
+div.bulkActionButtons {
     border-top: 1px solid #eeeeee;
     height: 10px;
 }
@@ -718,6 +721,13 @@ fieldset.publishDateLimit .ui-slider {
 	padding: 5px 0 0 5px;
 }
 
+/* MyResearch/checkedout */
+#resultList.checkedoutList {
+    width: 960px;
+}
+.checkedoutList div.bulkActionButtons {
+    margin: 1.8em 0 0 0;
+}
 
 /*** Result List ***/
 
@@ -1936,8 +1946,7 @@ p.citationText {
     float: left;
 }
 .myResearch .dueDate {
-    margin: 0 20px 0 148px;
-    clear: both;
+    margin: 0 20px 0 12px;
 }
 .myResearchMenu {
     border-bottom: 1px solid #ddd;

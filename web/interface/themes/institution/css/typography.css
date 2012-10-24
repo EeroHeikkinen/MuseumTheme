@@ -176,7 +176,7 @@ label.invalid {
 .correction p, .correctionTerms {
     line-height: 1.3em;
 }
-.favoritesList div.bulkActionButtons input.button {
+div.bulkActionButtons input.button {
     font-size: 0.9em;
     font-weight: normal;
 }
