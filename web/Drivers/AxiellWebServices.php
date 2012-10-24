@@ -51,6 +51,7 @@ class AxiellWebServices implements DriverInterface
     protected $payments_wsdl = '';
     protected $reservations_wsdl = '';
     protected $dateFormat;
+    protected $logFile = '';
 
     /**
      * Constructor
@@ -70,6 +71,10 @@ class AxiellWebServices implements DriverInterface
         $this->loans_wsdl = 'conf/' . $this->config['Catalog']['loans_wsdl'];
         $this->payments_wsdl = 'conf/' . $this->config['Catalog']['payments_wsdl'];
         $this->reservations_wsdl = 'conf/' . $this->config['Catalog']['reservations_wsdl'];
+        
+        if (isset($this->config['Debug']['log'])) {
+            $this->logFile = $this->config['Debug']['log'];
+        }
         
         // Set up object for formatting dates and times:
         $this->dateFormat = new VuFindDate();
@@ -154,17 +159,17 @@ class AxiellWebServices implements DriverInterface
             
             $result = $client->GetCatalogueRecordDetail(array('catalogueRecordDetailRequest' => array('arenaMember' => $this->arenaMember, 'id' => $localId, 'language' => $language, 'cover' => array('enable' => 'no'), 'facets' => array('enable' => 'no'), 'holdings' => array('enable' => 'yes'), 'linkedRecords' => array('enable' => 'no'), 'ratings' => array('enable' => 'no'), 'ratingAverage' => array('enable' => 'no'), 'reviews' => array('enable' => 'no'), 'similarRecords' => array('suggestionCount' => 10, 'enable' => 'no'), 'tags' => array('count' => 10, 'enable' => 'no'))));
             if ($result->catalogueRecordDetailResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Catalogue record detail request failed for '$id'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
-                return Array();
+                $this->debugLog("Catalogue record detail request failed for '$id'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
+                return array();
             }
 
-            error_log("AxiellWebServices: Catalogue record detail request for '$id':");
-            error_log("Request: " . $client->__getLastRequest());
-            error_log("Response: " . $client->__getLastResponse());
+            $this->debugLog("Catalogue record detail request for '$id':");
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
                 
-            $vfHoldings = Array();
+            $vfHoldings = array();
             if (!isset($result->catalogueRecordDetailResponse->holdings->holding)) {
                 return $vfHoldings;
             }
@@ -172,7 +177,7 @@ class AxiellWebServices implements DriverInterface
 
             $copy = 0;
             foreach ($holdings as $holding) {
-                $vfHolding = Array(
+                $vfHolding = array(
                     'id'           => $id,
                     'number'       => 1,
                     'barcode'      => ' ',
@@ -217,7 +222,7 @@ class AxiellWebServices implements DriverInterface
                     $available = null;
                     break;
                 default:
-                    error_log('Unhandled status ' + $holding->status + " for $id");
+                    $this->debugLog('Unhandled status ' + $holding->status + " for $id");
                 }
                     
                 $vfHolding['number'] = $copy++;
@@ -229,10 +234,10 @@ class AxiellWebServices implements DriverInterface
             }
             return empty($vfHoldings) ? false : $vfHoldings;
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
-            error_log("Request: " . $client->__getLastRequest());
-            error_log("Response: " . $client->__getLastResponse());
-            return Array();
+            $this->debugLog($e->getMessage());
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
+            return array();
         }
     }
 
@@ -307,7 +312,7 @@ class AxiellWebServices implements DriverInterface
      */
     public function getMyProfile($patron)
     {
-        error_log("AWS: getMyProfile called");
+        $this->debugLog("AWS: getMyProfile called");
         return $patron;
     }
 
@@ -339,18 +344,18 @@ class AxiellWebServices implements DriverInterface
             
             $result = $client->getPatronInformation(array('patronInformationRequest' => array('arenaMember' => $this->arenaMember, 'language' => 'en', 'patronId' => $patronId)));
             if ($result->patronInformationResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Patron information request failed for '$username'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
+                $this->debugLog("Patron information request failed for '$username'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
                 return null;
             }
 
-            error_log("Request: " . $client->__getLastRequest());
-            error_log("Response: " . $client->__getLastResponse());
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
             
             $info = $result->patronInformationResponse->patronInformation;
             
-            $user = Array();
+            $user = array();
             $user['id'] = $username;
             $user['cat_username'] = $username;
             $user['cat_password'] = $password;
@@ -386,7 +391,7 @@ class AxiellWebServices implements DriverInterface
             return $user;
 
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -416,26 +421,26 @@ class AxiellWebServices implements DriverInterface
             
             $result = $client->getLoans(array('loansRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $patronId, 'language' => 'en')));
             if ($result->loansResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Loans request failed for '" . $user['cat_username'] . "'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
+                $this->debugLog("Loans request failed for '" . $user['cat_username'] . "'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
                 if (isset($result->loansResponse->loans->loan)) {
                     // Workaround for AWS problem when it cannot find a record
-                    error_log('AxiellWebServices: It seems we got the loans anyway...');
+                    $this->debugLog('AxiellWebServices: It seems we got the loans anyway...');
                 } else {
                     return null;
                 }
             }
-            error_log("Request: " . $client->__getLastRequest());
-            error_log("Response: " . $client->__getLastResponse());
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
             
-            $transList = Array();
+            $transList = array();
             if (!isset($result->loansResponse->loans->loan))
                 return $transList;
             $loans = is_object($result->loansResponse->loans->loan) ? array($result->loansResponse->loans->loan) : $result->loansResponse->loans->loan;
             
             foreach ($loans as $loan) {
-                $trans = Array();
+                $trans = array();
                 $trans['id'] = $this->arenaMember . '.' . $loan->catalogueRecord->id;
                 $trans['title'] = $loan->catalogueRecord->title;
                 // Convert Axiell format to display date format
@@ -447,7 +452,7 @@ class AxiellWebServices implements DriverInterface
             return $transList;
 
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -489,25 +494,25 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->loans_wsdl, $options);
         try {
             $succeeded = 0;
-            $results = Array();
+            $results = array();
             foreach ($renewDetails['details'] as $id) {
                 $patronId = $this->getPatronId($renewDetails['patron']['cat_username'], $renewDetails['patron']['cat_password']);
                 
                 $result = $client->renewLoans(array('renewLoansRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $patronId, 'language' => 'en', 'loans' => array($id))));
 
                 if ($result->renewLoansResponse->status->type != 'ok') {
-                    error_log("AxiellWebServices: Renew loans request failed for '" . $renewDetails['patron']['cat_username'] . "'");
-                    error_log("Request: " . $client->__getLastRequest());
-                    error_log("Response: " . $client->__getLastResponse());
-                    $results[$id] = Array(
+                    $this->debugLog("Renew loans request failed for '" . $renewDetails['patron']['cat_username'] . "'");
+                    $this->debugLog("Request: " . $client->__getLastRequest());
+                    $this->debugLog("Response: " . $client->__getLastResponse());
+                    $results[$id] = array(
                         'success' => false,
                         'status' => 'Renewal failed', // TODO
                         'sys_message' => $result->renewLoansResponse->status->message
                     );
                 } else {
-                    error_log("Renew loans Request: " . $client->__getLastRequest());
-                    error_log("Renew loans Response: " . $client->__getLastResponse());
-                    $results[$details] = Array(
+                    $this->debugLog("Renew loans Request: " . $client->__getLastRequest());
+                    $this->debugLog("Renew loans Response: " . $client->__getLastResponse());
+                    $results[$details] = array(
                         'success' => true,
                         'status' => 'Loan renewed', // TODO
                         'sys_message' => '',
@@ -519,12 +524,12 @@ class AxiellWebServices implements DriverInterface
             }
             return $results;
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
-            error_log("Request: " . $client->__getLastRequest());
-            error_log("Response: " . $client->__getLastResponse());
-            return Array(
+            $this->debugLog($e->getMessage());
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
+            return array(
                 'block' => 'Renewal failed',
-                'details' => Array()
+                'details' => array()
             );
         }
     }
@@ -553,21 +558,21 @@ class AxiellWebServices implements DriverInterface
             
             $result = $client->getDebts(array('debtsRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $patronId, 'language' => 'en', 'fromDate' => '1699-12-31', 'toDate' => time())));
             if ($result->debtsResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Debts request failed for '" . $user['cat_username'] . "'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
+                $this->debugLog("Debts request failed for '" . $user['cat_username'] . "'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
                 return null;
             }
-            error_log("Request: " . $client->__getLastRequest());
-            error_log("Response: " . $client->__getLastResponse());
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
             
-            $finesList = Array();
+            $finesList = array();
             if (!isset($result->debtsResponse->debts->debt))
                 return $finesList;
             $debts = is_object($result->debtsResponse->debts->debt) ? array($result->debtsResponse->debts->debt) : $result->debtsResponse->debts->debt;
             
             foreach ($debts as $debt) {
-                $fine = Array();
+                $fine = array();
                 $fine['amount'] = $debt->debtAmount * 100;
                 $fine['checkout'] = '';
                 $fine['fine'] = $debt->debtType . ' - ' . $debt->debtNote;
@@ -581,7 +586,7 @@ class AxiellWebServices implements DriverInterface
             return $finesList;
 
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -610,22 +615,22 @@ class AxiellWebServices implements DriverInterface
             
             $result = $client->getReservations(array('reservationsRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $patronId, 'language' => 'en')));
             if ($result->reservationsResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Reservations request failed for '" . $user['cat_username'] . "'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
+                $this->debugLog("Reservations request failed for '" . $user['cat_username'] . "'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
                 return null;
             }
 
-            error_log("Reservations Request: " . $client->__getLastRequest());
-            error_log("Reservations Response: " . $client->__getLastResponse());
+            $this->debugLog("Reservations Request: " . $client->__getLastRequest());
+            $this->debugLog("Reservations Response: " . $client->__getLastResponse());
                         
-            $holdsList = Array();
+            $holdsList = array();
             if (!isset($result->reservationsResponse->reservations->reservation))
                 return $holdsList;
             $reservations = is_object($result->reservationsResponse->reservations->reservation) ? array($result->reservationsResponse->reservations->reservation) : $result->reservationsResponse->reservations->reservation;
 
             foreach ($reservations as $reservation) {
-                $hold = Array();
+                $hold = array();
                 $hold['type'] = $reservation->reservationStatus; // TODO
                 $hold['id'] = $this->arenaMember . '.' . $reservation->catalogueRecord->id;
                 $hold['location'] = $reservation->organisation;
@@ -649,7 +654,7 @@ class AxiellWebServices implements DriverInterface
             return $holdsList;
 
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -667,7 +672,7 @@ class AxiellWebServices implements DriverInterface
      */
     public function getPickUpLocations($user)
     {
-        error_log("getPickUpLocations $user");
+        $this->debugLog("getPickUpLocations $user");
         $options = array(
             'soap_version'=>SOAP_1_1,
             'exceptions'=>true,
@@ -678,16 +683,16 @@ class AxiellWebServices implements DriverInterface
         try {
             $result = $client->getReservationBranches(array('reservationBranchesRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $patronId, 'language' => 'en', 'country' => 'FI', 'reservationEntities' => '', 'reservationType' => 'normal')));
             if ($result->reservationBranchesResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Reservation branches request failed for '" . $user['cat_username'] . "'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
+                $this->debugLog("Reservation branches request failed for '" . $user['cat_username'] . "'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
                 return null;
             }
 
-                    error_log("Request: " . $client->__getLastRequest());
-                    error_log("Response: " . $client->__getLastResponse());
+                    $this->debugLog("Request: " . $client->__getLastRequest());
+                    $this->debugLog("Response: " . $client->__getLastResponse());
                         
-            $locationsList = Array();
+            $locationsList = array();
             if (!isset($result->reservationBranchesResponse->organisations->organisation))
                 return $locationsList;
             $organisations = is_object($result->reservationBranchesResponse->organisations->organisation) ? array($result->reservationBranchesResponse->organisations->organisation) : $result->reservationBranchesResponse->organisations->organisation;
@@ -698,13 +703,13 @@ class AxiellWebServices implements DriverInterface
                 // TODO: Make it configurable whether organisation names should be included in the location name
                 $branches = is_object($organisation->branches->branch) ? array($organisation->branches->branch) : $organisation->branches->branch;
                 if (is_object($organisation->branches->branch)) {
-                    $locationsList[] = Array(
+                    $locationsList[] = array(
                         'locationID' => $organisation->branches->branch->id,
                         'locationDisplay' => $organisation->branches->branch->name
                     );
                 }
                 else foreach ($organisation->branches->branch as $branch) {
-                    $locationsList[] = Array(
+                    $locationsList[] = array(
                         'locationID' => $branch->id,
                         'locationDisplay' => $branch->name
                     );
@@ -713,7 +718,7 @@ class AxiellWebServices implements DriverInterface
             return $locationsList;
 
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -734,7 +739,7 @@ class AxiellWebServices implements DriverInterface
      */
     public function getDefaultPickUpLocation($patron = false, $holdDetails = null)
     {
-        return $this->defaultPickUpLocation;
+        return ''; // TODO: can we get this somewhere?
     }
     
     /**
@@ -767,24 +772,24 @@ class AxiellWebServices implements DriverInterface
             $organisation = substr($branch, 0, -3);
             $result = $client->addReservation(array('addReservationRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $patronId, 'language' => 'en', 'reservationEntities' => $id, 'reservationSource' => 'holdings', 'reservationType' => 'normal', 'organisation' => $organisation, 'pickUpBranch' => $branch, 'validFromDate' => time(), 'validToDate' => $expirationDate )));
 
-                    error_log("Request: " . $client->__getLastRequest());
-                    error_log("Response: " . $client->__getLastResponse());
+                    $this->debugLog("Request: " . $client->__getLastRequest());
+                    $this->debugLog("Response: " . $client->__getLastResponse());
                               
                           
             if ($result->addReservationResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Add reservation request failed for '" . $holdDetails['patron']['cat_username'] . "'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
-                return Array(
+                $this->debugLog("Add reservation request failed for '" . $holdDetails['patron']['cat_username'] . "'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
+                return array(
                     'success' => false,
                     'sysMessage' => $result->addReservationResponse->status->message
                 );
             }
-            return Array(
+            return array(
                 'success' => true
             );
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -810,23 +815,23 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->reservations_wsdl, $options);
         try {
             $succeeded = 0;
-            $results = Array();
+            $results = array();
             foreach ($cancelDetails['details'] as $details) {
                 $result = $client->removeReservation(array('removeReservationRequest' => array('arenaMember' => $this->arenaMember, 'patronId' => $cancelDetails['patron']['cat_username'], 'language' => 'en', 'id' => $details)));
 
                 if ($result->removeReservationResponse->status->type != 'ok') {
-                    error_log("AxiellWebServices: Remove reservation request failed for '" . $cancelDetails['patron']['cat_username'] . "'");
-                    error_log("Request: " . $client->__getLastRequest());
-                    error_log("Response: " . $client->__getLastResponse());
-                    $results[] = Array(
+                    $this->debugLog("Remove reservation request failed for '" . $cancelDetails['patron']['cat_username'] . "'");
+                    $this->debugLog("Request: " . $client->__getLastRequest());
+                    $this->debugLog("Response: " . $client->__getLastResponse());
+                    $results[] = array(
                         'success' => false,
                         'status' => 'Failed to cancel hold', // TODO
                         'sysMessage' => $result->removeReservationResponse->status->message
                     );
                 } else {
-                    error_log("Cancel hold Request: " . $client->__getLastRequest());
-                    error_log("Cancel hold Response: " . $client->__getLastResponse());
-                    $results[$details] = Array(
+                    $this->debugLog("Cancel hold Request: " . $client->__getLastRequest());
+                    $this->debugLog("Cancel hold Response: " . $client->__getLastResponse());
+                    $results[$details] = array(
                         'success' => true,
                         'status' => 'Hold canceled', // TODO
                         'sysMessage' => ''
@@ -837,7 +842,7 @@ class AxiellWebServices implements DriverInterface
             $results['count'] = $succeeded;
             return $results;
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -867,7 +872,7 @@ class AxiellWebServices implements DriverInterface
      */
     public function getConfig($function)
     {
-        error_log("getConfig $function");
+        $this->debugLog("getConfig $function");
         switch ($function) {
         case 'Holds':
             return array(
@@ -884,7 +889,7 @@ class AxiellWebServices implements DriverInterface
         case 'Renewals':
             return array();
         default:
-            error_log("AxiellWebServices: unhandled getConfig function: '$function'");
+            $this->debugLog("unhandled getConfig function: '$function'");
         }
         return array();
     }
@@ -908,18 +913,18 @@ class AxiellWebServices implements DriverInterface
         try {
             $result = $client->authenticatePatron(array('authenticatePatronRequest' => array('arenaMember' => $this->arenaMember, 'language' => 'en', 'user' => $username, 'password' => $password)));
             if ($result->authenticatePatronResponse->status->type != 'ok') {
-                error_log("AxiellWebServices: Authenticate patron request failed for '$username'");
-                error_log("Request: " . $client->__getLastRequest());
-                error_log("Response: " . $client->__getLastResponse());
+                $this->debugLog("Authenticate patron request failed for '$username'");
+                $this->debugLog("Request: " . $client->__getLastRequest());
+                $this->debugLog("Response: " . $client->__getLastResponse());
                 return null;
             }
-            error_log("Request: " . $client->__getLastRequest());
-            error_log("Response: " . $client->__getLastResponse());
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
 
             return $result->authenticatePatronResponse->patronId;
         
         } catch (Exception $e) {
-            error_log('AxiellWebServices: ' . $e->getMessage());
+            $this->debugLog($e->getMessage());
             return null;
         }
     }
@@ -939,6 +944,22 @@ class AxiellWebServices implements DriverInterface
             return $dateString;
         }
         return $this->dateFormat->convertToDisplayDate("Y-m-d", $date);
+    }
+    
+    /**
+     * Write to debug log, if defined
+     * 
+     * @param string $msg Message to write
+     * 
+     * @return void
+     */
+    protected function debugLog($msg)
+    {
+        if (!$this->logFile) {
+            return;
+        }
+        $msg = date('Y-m-d H:i:s') . ' [' . getmypid() . "] $msg\n";        
+        file_put_contents($this->logFile, $msg, FILE_APPEND);
     }
 }
 
