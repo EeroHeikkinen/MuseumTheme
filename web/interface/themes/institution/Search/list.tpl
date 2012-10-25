@@ -21,6 +21,10 @@
         <h3 style="margin:0;">{if $searchType == 'basic'}{$lookfor|escape:"html"}{/if}</h3>
       {/if}
     <div class="floatleft">
+      {if $searchType != 'advanced' && $orFilters}
+        {foreach from=$orFilters item=values key=filter}
+    AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=facet_$value}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}
+      {/if}
     {/if}
     {if $spellingSuggestions}
       <div class="correction">

@@ -149,9 +149,16 @@ if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO'
             foreach ($params as &$value) {
                 $value = preg_replace('/^prefilter=/', 'prefiltered=', $value);
             }
-            if (isset($prefilter['filter'])) {
-                foreach ($prefilter['filter'] as $filter) {
-                    $params[] = 'filter[]=' . urlencode($filter);
+            foreach ($prefilter as $key => $value) {
+                if ($key == 'module' || $key == 'action') {
+                    continue;
+                }
+                if (is_array($value)) {
+                    foreach ($value as $v) {
+                        $params[] = $key . '[]=' . urlencode($v);
+                    }
+                } else {
+                    $params[] = "$key=" . urlencode($value);
                 }
             }
             $url = '';

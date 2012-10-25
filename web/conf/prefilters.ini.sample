@@ -9,6 +9,7 @@ local_art = Taideteokset
 local_object = Esineet
 local_thesis = Opinnäytteet
 local_document = Asiakirjat
+local_archives = Arkistot
 
 [-]
 module=Search
@@ -57,4 +58,10 @@ filter[] = 'format:"0/Thesis"'
 module = Search
 action = Results
 filter[] = 'format:"0/Document"'
+ 
+[local_archives]
+module=Search
+action=Results
+orfilter[]='building:"0/TMA"'
+orfilter[]='building:"0/MMA"'
  
