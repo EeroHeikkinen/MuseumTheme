@@ -741,7 +741,14 @@ div.bulkActionButtons {
     border-top: 3px solid #cccccc;
     border-bottom: 1px solid #cccccc;
 }
-
+.myResearch .savedHistory, .myResearch .sessionHistory {
+    margin-top: 1.8em;
+    margin-bottom: 2.4em;
+    border-bottom: 1px solid #cccccc;
+}
+.myResearch .sessionHistory {
+    margin-bottom: 1em;
+}
 
 /*** Result List ***/
 

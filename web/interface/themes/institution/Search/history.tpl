@@ -2,10 +2,10 @@
 
 {include file="MyResearch/menu.tpl"}
 
-<div class="span-13">
+<div class="myResearch">
     {if !$noHistory}
       {if $saved}
-        <h3>{translate text="history_saved_searches"}</h3>
+        <span class="hefty">{translate text="history_saved_searches"}</span>
         {assign var="scheduled" value=false}
         {foreach item=info from=$saved name=historyLoop}
           {if $info.schedule > 0}
@@ -19,12 +19,12 @@
         <div class="info">{translate text="alert_email_address"}: {$user->email} (<a href="{$path}/MyResearch/Profile">{translate text="edit"}</a>)</div>
           {/if}
         {/if}
-        <table class="datagrid" width="100%">
+        <table class="datagrid savedHistory" width="100%">
           <tr>
             <th width="15%">{translate text="history_time"}</th>
             <th width="30%">{translate text="history_search"}</th>
             <th width="20%">{translate text="history_limits"}</th>
-            <th width="10%">{translate text="history_results"}</th>
+            <th width="10%" style="text-align:right">{translate text="history_results"}</th>
             <th width="20%">{translate text="history_schedule"}</th>
             <th width="5%">{translate text="history_delete"}</th>
           </tr>
@@ -39,7 +39,7 @@
             <td>{foreach from=$info.filters item=filters key=field}{foreach from=$filters item=filter}
               <strong>{translate text=$field|escape}</strong>: {$filter.display|escape}<br/>
             {/foreach}{/foreach}</td>
-            <td>{$info.hits}</td>
+            <td style="text-align:right">{$info.hits}</td>
             <td>
               <select name="schedule" onchange="javascript:window.location='{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history&amp;schedule=' + $(this).attr('value'); return false;">
                 <option value="0"{if $info.schedule == 0} selected="selected"{/if}>{translate text="schedule_none"}</option>
@@ -54,13 +54,14 @@
       {/if}
 
       {if $links}
-        <h3>{translate text="history_recent_searches"}</h3>
-        <table class="datagrid" width="100%">
+        <span class="hefty">{translate text="history_recent_searches"}</span>
+        <table class="datagrid sessionHistory" width="100%">
           <tr>
             <th width="15%">{translate text="history_time"}</th>
-            <th width="35%">{translate text="history_search"}</th>
-            <th width="35%">{translate text="history_limits"}</th>
-            <th width="10%">{translate text="history_results"}</th>
+            <th width="30%">{translate text="history_search"}</th>
+            <th width="20%">{translate text="history_limits"}</th>
+            <th width="10%" style="text-align:right">{translate text="history_results"}</th>
+            <th width="20%"> </th>
             <th width="5%">{translate text="history_save"}</th>
           </tr>
           {foreach item=info from=$links name=historyLoop}
@@ -74,20 +75,22 @@
             <td>{foreach from=$info.filters item=filters key=field}{foreach from=$filters item=filter}
               <strong>{translate text=$field|escape}</strong>: {$filter.display|escape}<br/>
             {/foreach}{/foreach}</td>
-            <td>{$info.hits}</td>
+            <td style="text-align:right">{$info.hits}</td>
+            <td> </td>
             <td><a href="{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history" class="add">{translate text="history_save_link"}</a></td>
           </tr>
           {/foreach}
         </table>
-        <a href="{$path}/Search/History?purge=true" class="delete">{translate text="history_purge"}</a>
+        <a href="{$path}/Search/History?purge=true" class="delete floatright">{translate text="history_purge"}</a>
       {/if}
 
     {else}
-      <h3>{translate text="history_recent_searches"}</h3>
-      {translate text="history_no_searches"}
+      <span class="hefty">{translate text="history_recent_searches"}</span>
+      <div class="resultHead"></div>
+      <br />{translate text="history_no_searches"}
     {/if}
+<div class="clear"></div>
 </div>
 
-<div class="clear"></div>
 
 <!-- END of: Search/history.tpl -->
