@@ -685,18 +685,18 @@ div.bulkActionButtons {
 .favoritesList .editItem {
     margin: 0;
 }
-.listentry .summcover {
+.listentry .summcover, .checkedoutList .summcover, .holdsList .summcover {
 	max-width: 62px;
 }
-.listentry .resultNoImage{
+.listentry .resultNoImage, .checkedoutList .resultNoImage, .holdsList .resultNoImage {
 	height: 60px;
 	width: 60px;
 }
-.listentry .resultImage {
+.listentry .resultImage, .checkedoutList .resultImage, .holdsList .resultImage {
 	margin: -62px 0 0 0;
 	width: 62px;
 }
-.listentry .result .imagelinks {
+.listentry .result .imagelinks, .checkedoutList .result .imagelinks, .holdsList .result .imagelinks {
 	padding: 5px 0 0 5px;
 }
 
@@ -735,6 +735,9 @@ div.bulkActionButtons {
 .profileInfo .button {
     margin: 2em 0;
     float: right;
+}
+.finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
+   border-bottom: 1px solid #dddddd;
 }
 .fineBalance {
     text-align: right;

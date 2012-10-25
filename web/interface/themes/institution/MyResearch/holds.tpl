@@ -18,9 +18,9 @@
       <div class="holdsMessage"><p class="info">{$cancelResults.count|escape} {translate text="hold_cancel_success_items"}</p></div>
     {/if}
   </div>
+  <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
     {if $cancelForm}
     <div class="bulkActionButtons">
-      <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
         <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
         <div class="floatright">
           <input type="submit" class="button holdCancel" name="cancelSelected" value="{translate text="hold_cancel_selected"}" onClick="return confirm('{translate text="confirm_hold_cancel_selected_text}')" />
@@ -42,6 +42,30 @@
           </div>
         {/if}
         <div id="record{$resource.id|escape}">
+        	{assign var=summImages value=$resource.summImages}
+        	{assign var=summThumb value=$resource.summThumb}        	
+        	{assign var=summId value=$resource.id}        	
+			{assign var=img_count value=$summImages|@count}
+			<div class="coverDiv">
+			  <div class="resultNoImage"><p>{translate text='No image'}</p></div>
+				{if $img_count > 0}
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
+				{else}
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
+				{/if}
+			
+			{* Multiple images *}
+			{if $img_count > 1}
+			  <div class="imagelinks">
+			{foreach from=$summImages item=desc name=imgLoop}
+				<a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+				  {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
+				</a>
+			{/foreach}
+			  </div>
+			{/if}
+			</div>
+          {*
           <div class="coverDiv">
             {if $resource.isbn.0}
               <img src="{$path}/bookcover.php?isn={$resource.isbn.0|@formatISBN}&amp;size=small" class="summcover" alt="{translate text='Cover Image'}"/>
@@ -49,6 +73,7 @@
               <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
             {/if}
           </div>
+          *}
           <div class="resultColumn2">
             {* If $resource.id is set, we have the full Solr record loaded and should display a link... *}
             {if !empty($resource.id)}
