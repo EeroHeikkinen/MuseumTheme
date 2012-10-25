@@ -729,6 +729,13 @@ div.bulkActionButtons {
     margin: 1.8em 0 0 0;
 }
 
+.fineBalance {
+    text-align: right;
+    border-top: 3px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+
 /*** Result List ***/
 
 #resultList, #authorList, #resultsCollection {
@@ -1307,6 +1314,12 @@ ul.recordSet .addToFavLink a {
     padding:2px .5em .5em 20px;
     margin-right:1em;
 }
+.icon { /* If using icon only */
+    background-repeat: no-repeat;
+    background-position: left top;
+    padding: 1px 2px 1px 20px;
+    margin-right: 2px;
+}
 
 .formatbook      {background-image:url(../images/silk/book.png);}
 .formatbookebook {background-image:url(../images/silk/world.png);}
@@ -1747,35 +1760,39 @@ table.marc th {
 /***** Data Grid (Holdings) ******/
 
 table.datagrid {
-    width:100%;/*oringinally set to auto*/
+    width: 100%;/*oringinally set to auto*/
     border-collapse: collapse;
-    margin-bottom:1.5em;
+    margin-bottom: 1.5em;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
 }
 
 table.datagrid th {
     color: #000000;
     background-color: #dddddd;
-    border: solid 1px #999999;
+    border-top: solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
     text-align: left;
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
-    padding: 5px 15px 5px 15px;
+    /*border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;*/
+    padding: 5px 15px 4px 10px;
 }
-
+/*
 table.datagrid th a {
-    /*color: #336699;*/
+    color: #336699;
 }
-
+*/
 table.datagrid td {
-    border-left: 1px solid #FFFFFF;
-    border-right: 1px solid #FFFFFF;
+    /*border-left: 1px solid #FFFFFF;
+    border-right: 1px solid #FFFFFF;*/
     padding: 5px 10px 5px 10px;
 }
 
-table.datagrid td a {
+/*table.datagrid td a {
     color: #003366;
 }
-
+*/
+/*
 table.datagrid tr.evenrow {
     background-color: #EEEEEE;
 }
@@ -1783,6 +1800,9 @@ table.datagrid tr.evenrow {
 table.datagrid tr.oddrow {
     background-color: #DDDDDD;
 }
+*/
+/* Try commenting out the next line if odd and even table rows give you trouble */
+/* table.datagrid tr:nth-child(odd) td, table.datagrid tr.odd td {background:#eeeeee;} */
 
 /* Comments */
 
