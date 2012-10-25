@@ -139,10 +139,13 @@
           </select>
         </fieldset>
       {/if}
-        <div class="span-8 mapContainer">
+        <div class="mapContainer">
           {js filename="jquery.geo.min.js"}
           {js filename="selection_map.js"}
           <label class="displayBlock" for="coordinates">{translate text='Coordinates:'}</label>
+          {* help text, currently not included 
+          <span class="small">Valitse kartalta tai syötä käsin muodossa: vasen yläkulma lat, vasen yläkulma lon, oikea alakulma lat, oikea alakulma lon</span>
+          *}
           <input id="coordinates" name="coordinates"></input>
           <div id="selectionMapContainer">
             <div id="zoomSlider">

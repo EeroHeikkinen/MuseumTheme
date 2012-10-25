@@ -1924,7 +1924,9 @@ p.citationText {
 .searchGroups .searchGroupDetails {
     float: right;
 }
-
+.mapContainer {
+    width: 728px;
+}
 
 /* Profile / MyResearch */
 
