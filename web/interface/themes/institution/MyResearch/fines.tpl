@@ -7,6 +7,7 @@
   {if $user->cat_username}
   <div class="resultHead"></div>
     {if empty($rawFinesData)}
+      <br />
       {translate text='You do not have any fines'}
     {else}
       <table class="datagrid fines" summary="{translate text='Your Fines'}">
