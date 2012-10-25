@@ -728,7 +728,35 @@ div.bulkActionButtons {
 .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines {
     margin: 1.8em 0 0 0;
 }
-
+.profileInfo {
+    line-height: 1.8em;
+    width: 452px;
+}
+.profileGroup {
+    margin-bottom: 1em;
+}
+.profileGroup h4 {
+    margin: 1em 0;
+}
+.profileInfo span {
+    float: left;
+    width: 210px;
+    margin-left: 12px;
+}
+.profileInfo label {
+    font-weight: normal;
+}
+.profileInfo span input {
+    width: 204px;
+}
+.profileInfo select#home_library {
+    width: 210px;
+    padding: 2px;
+}
+.profileInfo .button {
+    margin: 2em 0;
+    float: right;
+}
 .fineBalance {
     text-align: right;
     border-top: 3px solid #cccccc;
