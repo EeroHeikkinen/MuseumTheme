@@ -49,7 +49,7 @@
 			<div class="coverDiv">
 			  <div class="resultNoImage"><p>{translate text='No image'}</p></div>
 				{if $img_count > 0}
-					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
 				{else}
 					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
 				{/if}
