@@ -86,6 +86,10 @@ class Holds extends MyResearch
                             $formats[] = preg_replace('/^\d\//', '', $format);
                         }
                         $record['format'] = $formats;
+                        $driver = RecordDriverFactory::initRecordDriver($record);
+                        if ($driver) {
+                            $record['summImages'] = $driver->getAllImages();
+                        }
                         $recordList[] = $record;
                     }
 

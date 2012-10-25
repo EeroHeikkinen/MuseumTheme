@@ -1352,9 +1352,9 @@ class MarcRecord extends IndexRecord
      * default).
      *
      * @return mixed
-     * @access protected
+     * @access public
      */
-    protected function getThumbnail($size = 'small')
+    public function getThumbnail($size = 'small')
     {
         global $configArray;
         foreach ($this->marcRecord->getFields('856') as $url) {

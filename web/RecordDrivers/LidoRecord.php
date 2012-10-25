@@ -201,9 +201,9 @@ class LidoRecord extends IndexRecord
 	 * default).
 	 *
 	 * @return mixed
-	 * @access protected
+	 * @access public
 	 */
-	protected function getThumbnail($size = 'small')
+	public function getThumbnail($size = 'small')
 	{
 	    global $configArray;
 		if (isset($this->fields['thumbnail']) && $this->fields['thumbnail']) {

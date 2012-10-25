@@ -77,6 +77,8 @@ class CheckedOut extends MyResearch
                     foreach ($formats as &$format) {
                         $format = preg_replace('/^\d\//', '', $format);
                     } 
+                    $driver = RecordDriverFactory::initRecordDriver($record);
+                    
                     $current += array(
                         'id' => $record['id'],
                         'isbn' => isset($record['isbn']) ? $record['isbn'] : null,
@@ -84,7 +86,9 @@ class CheckedOut extends MyResearch
                             isset($record['author']) ? $record['author'] : null,
                         'title' =>
                             isset($record['title']) ? $record['title'] : null,
-                        'format' => $formats
+                        'format' => $formats,
+                        'summImages' => $driver ? $driver->getAllImages() : null,
+                        'summThumb' => $driver ? $driver->getThumbnail() : null,
                     );
                 }
                 $transList[] = $current;
