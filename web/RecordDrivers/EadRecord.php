@@ -90,7 +90,6 @@ class EadRecord extends IndexRecord
             $title .= " $years";
         }
         $interface->assign('summTitle', $title);
-        print_r($this->getDedupData());
         
         return $template;
     }
