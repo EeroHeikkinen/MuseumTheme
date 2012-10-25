@@ -28,7 +28,7 @@
 				{assign var=mainFormat value=$record.format} 
 				{assign var=displayFormat value=$record.format} 
 			  {/if}
-			  <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{*translate text=format_$displayFormat*}</span>
+			  <span class="icon format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{*translate text=format_$displayFormat*}</span>
             {if empty($record.title)}
               {translate text='not_applicable'}
             {else}
@@ -40,10 +40,10 @@
           <td>{$record.duedate|escape}</td>
           <td>{$record.fine|escape}</td>
           {* <td>{$record.amount/100.00|safe_money_format|escape}</td> *}
-          <td>{$record.balance/100.00|safe_money_format|escape}</td>
+          <td style="text-align:right;">{$record.balance/100.00|safe_money_format|escape}</td>
         </tr>
       {/foreach}
-      <tr><td colspan="4" style="font-weight:bold;">{translate text='Balance'}:</td><td style="font-weight:bold;">{$sum/100.00|safe_money_format|escape}</td></tr>
+      <tr><td colspan="5" class="fineBalance">{translate text='Balance total'}: <span class="hefty">{$sum/100.00|safe_money_format|escape}</span></td></tr>
       </table>
     {/if}
   {else}
