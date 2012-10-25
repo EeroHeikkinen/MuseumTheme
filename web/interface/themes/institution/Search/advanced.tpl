@@ -168,7 +168,7 @@
         </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
       <div class="clear"></div>
-      <input type="submit" class="push-9 button" name="submit" value="{translate text="Find"}"/>
+      <input type="submit" class="push-9 button searchButton" name="submit" value="{translate text="Find"}"/>
     </div>
   </div>
 
