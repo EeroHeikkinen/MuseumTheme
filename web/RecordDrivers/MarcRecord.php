@@ -297,9 +297,10 @@ class MarcRecord extends IndexRecord
         $doc = new DOMDocument;
         if ($doc->loadXML($xml)) {
             $html = $xsl->transformToXML($doc);
-            $interface->assign('details', $html);
+            $interface->assign('marc', $html);
         }
-
+        $interface->assign('details', $this->fields);
+        
         return 'RecordDrivers/Marc/staff.tpl';
     }
 
