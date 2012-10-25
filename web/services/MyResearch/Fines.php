@@ -62,6 +62,7 @@ class Fines extends MyResearch
                 // assign the "raw" fines data to the template
                 // NOTE: could use foreach($result as &$row) here but it only works
                 // with PHP5
+                $sum = 0;
                 for ($i = 0; $i < count($result); $i++) {
                     $row = &$result[$i];
                     $sum += $row['balance'];
