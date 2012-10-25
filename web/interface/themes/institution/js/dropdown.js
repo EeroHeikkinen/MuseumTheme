@@ -47,8 +47,12 @@ function createDropDown(){
     $("#target").append('<dd><ul></ul></dd>')
 
     options.each(function(){
-        $("#target dd ul").append('<li><a href="#" class="big"><p>' + 
-            $(this).text() + '</p><span class="value">' + 
-            $(this).val() + '</span><img src="' + base_url + 'interface/themes/institution/images/dropdown_arrow.png" alt="v&nbsp;" /></a></li>');
+        if ($(this).text()) {
+            $("#target dd ul").append('<li><a href="#" class="big"><p>' + 
+                $(this).text() + '</p><span class="value">' + 
+                $(this).val() + '</span><img src="' + base_url + 'interface/themes/institution/images/dropdown_arrow.png" alt="v&nbsp;" /></a></li>');
+        } else {
+            $("#target dd ul").append('<li style="height: 2px"><hr/></li>');
+        }
     });
 }
