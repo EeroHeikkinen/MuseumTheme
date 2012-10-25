@@ -90,7 +90,7 @@ class History extends Action
                     'searchId' => $searchObject->getSearchId(),
                     'description' => $searchObject->displayQuery(),
                     'filters' => $searchObject->getFilterList(),
-                    'hits' => number_format($searchObject->getResultTotal()),
+                    'hits' => number_format($searchObject->getResultTotal(), 0, ',', ' '),
                     'speed' => round($searchObject->getQuerySpeed(), 2)."s",
                     // Size is purely for debugging. Not currently displayed in the
                     // template. It's the size of the serialized, minified search in
