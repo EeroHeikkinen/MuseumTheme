@@ -270,6 +270,7 @@ class UInterface extends Smarty
      */
     public function setTemplate($tpl)
     {
+        $tpl = $this->getLocalOverride($tpl, true);
         $this->assign('pageTemplate', $tpl);
     }
 
@@ -412,6 +413,64 @@ class UInterface extends Smarty
             }
         }
     }
+    
+    /**
+     * Check if a .local.tpl version of a template exists and return it if it does
+     * 
+     * @param string $tpl      Template file name
+     * @param bool   $inModule Whether to look in the $module directory
+     * 
+     * @return string Template file name (local if found, otherwise original)
+     */
+    protected function getLocalOverride($tpl, $inModule)
+    {
+        global $module;
+        
+        $localTpl = preg_replace('/(.*)\./', '\\1.local.', $tpl);
+        if ($inModule) {
+            $fullPath = $this->template_dir . DIRECTORY_SEPARATOR . $module
+                . DIRECTORY_SEPARATOR . $localTpl;
+        } else {
+            $fullPath = $this->template_dir . DIRECTORY_SEPARATOR . $localTpl;
+        }
+        if (file_exists($fullPath)) {
+            return $localTpl;            
+        }
+        return $tpl;
+    }
+    
+    // @codingStandardsIgnoreStart
+    /**
+     * called for included templates
+     *
+     * @param string $_smarty_include_tpl_file
+     * @param string $_smarty_include_vars
+     */
+
+    // $_smarty_include_tpl_file, $_smarty_include_vars
+
+    function _smarty_include($params)
+    {
+        if (isset($params['smarty_include_tpl_file'])) {
+            $params['smarty_include_tpl_file'] = $this->getLocalOverride($params['smarty_include_tpl_file'], false);
+        }
+        return parent::_smarty_include($params);
+    }
+    
+    /**
+     * executes & returns or displays the template results
+     *
+     * @param string $resource_name
+     * @param string $cache_id
+     * @param string $compile_id
+     * @param boolean $display
+     */
+    function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
+    {
+        $resource_name = $this->getLocalOverride($resource_name, false);
+        return parent::fetch($resource_name, $cache_id, $compile_id, $display);
+    }
+    // @codingStandardsIgnoreEnd
 }
 
 /**
