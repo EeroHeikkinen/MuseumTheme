@@ -2001,7 +2001,8 @@ p.citationText {
 }
 .myResearch .dueDate {
     float: left;
-    margin: 0 20px 0 12px;
+    width: 284px;
+    margin: 0 0 0 12px;
 }
 .myResearchMenu {
     border-bottom: 1px solid #ddd;
