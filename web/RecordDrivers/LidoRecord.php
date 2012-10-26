@@ -96,7 +96,7 @@ class LidoRecord extends IndexRecord
 
         $events = array();
         foreach ($this->xml->xpath('/lidoWrap/lido/descriptiveMetadata/eventWrap/eventSet/event') as $node) {
-            $type = isset($node->eventType->term) ? translate('lido_event_type_' . $mainFormat . (string)$node->eventType->term) : '';
+            $type = isset($node->eventType->term) ? translate('lido_event_type_' . $mainFormat . mb_strtolower((string)$node->eventType->term)) : '';
             $date = isset($node->eventDate->displayDate) ? (string)$node->eventDate->displayDate : '';
             $method = isset($node->eventMethod->term) ? (string)$node->eventMethod->term : '';
             $materials = isset($node->eventMaterialsTech->displayMaterialsTech) ? (string)$node->eventMaterialsTech->displayMaterialsTech : '';

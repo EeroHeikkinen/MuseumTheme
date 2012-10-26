@@ -27,6 +27,9 @@
  * @link     http://vufind.org/wiki/developer_manual Wiki
  */
 
+// Set internal encoding to UTF-8 for mb functions
+mb_internal_encoding("UTF-8");
+
 // Retrieve values from configuration file
 require_once 'sys/ConfigArray.php';
 $configArray = readConfig();
