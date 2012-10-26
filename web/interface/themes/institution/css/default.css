@@ -737,7 +737,9 @@ div.bulkActionButtons {
     float: right;
 }
 .finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
-   border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
 }
 .fineBalance {
     text-align: right;

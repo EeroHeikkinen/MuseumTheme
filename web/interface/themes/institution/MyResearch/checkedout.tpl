@@ -142,6 +142,10 @@
             {/if}
         </div>
         <div class="dueDate floatright">
+          <div class="checkedoutSource">
+            {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
+            <span>{translate text="source_$source"}</span>
+          </div>
             {assign var="showStatus" value="show"}
             {if $renewResult[$resource.ils_details.item_id]}
               {if $renewResult[$resource.ils_details.item_id].success}
@@ -169,11 +173,6 @@
             {if $resource.ils_details.renewable && $resource.ils_details.renew_link}
               <a href="{$resource.ils_details.renew_link|escape}">{translate text='renew_item'}</a>
             {/if}
-            
-          <div class="checkedoutSource">
-            {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
-            <span>{translate text="source_$source"}</span>
-          </div>
 
           </div> <!-- class="dueDate" -->
           <div class="clear"></div>
