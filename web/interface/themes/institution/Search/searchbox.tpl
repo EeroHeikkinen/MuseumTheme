@@ -111,7 +111,7 @@
     });
   </script>
   {/literal}
-  <script type="text/javascript" src="{$url}/interface/themes/institution/js/dropdown.js"></script>
+  {js filename="dropdown.js"}
 {/if}
 
 </div>

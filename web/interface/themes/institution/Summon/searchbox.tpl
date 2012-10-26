@@ -54,7 +54,7 @@
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
     </form>
     <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
-    <script type="text/javascript" src="{$url}/interface/themes/institution/js/dropdown.js"></script>
+    {js filename="dropdown.js"}
   {/if}
 </div>
 
