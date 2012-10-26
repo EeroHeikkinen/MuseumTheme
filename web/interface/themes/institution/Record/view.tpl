@@ -34,6 +34,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 {* <div class="span-10{if $sidebarOnLeft} push-5 last{/if}"> *}
 
+{if $errorMsg || $infoMsg || $lastsearch || $previousRecord || $nextRecord}
 <div class="resultLinks">
   {if $errorMsg || $infoMsg}
   <div class="messages">
@@ -58,6 +59,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 	{/if}
 <div class="clear"></div>
 </div>
+{/if}
 
 <div class="record recordId" style="padding: 0" id="record{$id|escape}">
 
