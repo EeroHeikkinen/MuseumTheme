@@ -153,7 +153,7 @@ img.alignleft {
     float: left;
     width: 506px;
 }
-.header {
+.header, .headerRecord {
     background-color: #f3f3f3;
     border-bottom: 1px solid #dddddd;
 }
@@ -1001,7 +1001,6 @@ ul.filters a {
 }
 div.sidegroup {
     border-left: 2px solid #ddd;
-    margin-top: .5em;
     padding-bottom: 1em;
     padding-left: 20px;
 /*
@@ -1411,6 +1410,9 @@ ul.recordSet .addToFavLink a {
 
 /*** Record Page ***/
 
+div.resultLinks {
+    border-bottom: 1px solid #dddddd;
+}
 div.record {
     padding: 0;
     margin: 5px 0 1em 0;
@@ -1418,8 +1420,8 @@ div.record {
 #resultsCollection div.record, #headingHierarchyCollection div.record {
     margin: -1em 0 0 .5em;
 }
-#resultMain, #resultSide {
-    padding-top: 1.2em;
+#resultMain, div.sidegroup {
+    margin-top: 1em;
 }
 #resultMain {
     width: 728px;
@@ -1430,6 +1432,9 @@ div.record {
     width: 210px;
     float: left;
     margin-right: 12px;
+}
+.coverImageLinks {
+    margin-bottom: 20px;
 }
 #recordMetadata {
     width: 506px;
@@ -1683,9 +1688,9 @@ h5.recordTabHeader {
     width: 210px;
 }
 .toolbar {
-    float:right;
-    padding:10px 0 10px 0;
-    margin:10px 0 40px 0;
+    float: right;
+    padding: 10px 0 10px 0;
+    margin: 0 0 40px 0;
     background-color:#eef4ff;
 }
 .toolbar ul {
@@ -1730,7 +1735,7 @@ h5.recordTabHeader {
     width: 200px;
 }
 .resultscroller {
-    border-bottom: 1px solid #dddddd;
+    /* border-bottom: 1px solid #dddddd; */
 }
 .resultscroller .prevRecord {
     margin-right: 0.5em; 

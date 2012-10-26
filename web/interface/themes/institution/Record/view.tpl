@@ -34,7 +34,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 {* <div class="span-10{if $sidebarOnLeft} push-5 last{/if}"> *}
 
-<div class="{* TODO *}">
+<div class="resultLinks">
   {if $errorMsg || $infoMsg}
   <div class="messages">
     {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
@@ -83,7 +83,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </div>
         {/if}
         {else}
-        <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
+        {* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}
     {/if}
     </div>
     {* End Cover Image *}
