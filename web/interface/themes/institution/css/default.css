@@ -707,6 +707,9 @@ div.bulkActionButtons {
 .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
     margin: 1.8em 0 0 0;
 }
+.checkedoutList .iconlabel, .holdsList .iconlabel {
+    line-height: 2.4em;
+}
 .profileInfo {
     line-height: 1.8em;
     width: 452px;
@@ -740,6 +743,10 @@ div.bulkActionButtons {
     border-bottom: 1px solid #dddddd;
     padding-top: 0.4em;
     padding-bottom: 0.4em;
+}
+.finesList table tr td:first-child {
+    padding-left: 29px;
+    text-indent: -25px;
 }
 .fineBalance {
     text-align: right;
