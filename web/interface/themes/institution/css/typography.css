@@ -184,6 +184,10 @@ div.bulkActionButtons input.button {
     font-size: 0.9em;
     font-weight: normal;
 }
+.finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
+    line-height: 1.2em;
+    vertical-align: text-top;
+}
 
 /* Alphabetic browse */
 .alphaBrowseHeader {
@@ -246,7 +250,7 @@ a.subjectHeading:hover {
 
 /* Record Page */
 .recordTitle {
-    font-weight: bold;
+    font-weight: normal;
 }
 
 /* Citation Table */

@@ -245,7 +245,7 @@
 
   {* Avoid errors if there were no rows above *}
   {if !$extendedContentDisplayed}
-  <tr><td>&nbsp;</td></tr>
+  {*<tr><td>&nbsp;</td></tr>*}
   {/if}
    
 {*</table>*}

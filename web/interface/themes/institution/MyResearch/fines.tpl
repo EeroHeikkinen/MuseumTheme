@@ -12,7 +12,7 @@
     {else}
       <table class="datagrid fines" summary="{translate text='Your Fines'}">
       <tr>
-        <th>{translate text='Title'}</th>
+        <th style="width:50%;">{translate text='Title'}</th>
         <th>{translate text='Checked Out'}</th>
         <th>{translate text='Due Date'}</th>
         <th>{translate text='Fine'}</th>
@@ -29,16 +29,15 @@
 				{assign var=mainFormat value=$record.format} 
 				{assign var=displayFormat value=$record.format} 
 			  {/if}
-			  <span class="icon format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{*translate text=format_$displayFormat*}</span>
+			  <span class="icon format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}" title="{translate text=format_$displayFormat}">{*translate text=format_$displayFormat*}</span>
             {if empty($record.title)}
               {translate text='not_applicable'}
             {else}
               <a href="{$path}/Record/{$record.id|escape}">{$record.title|trim:'/:'|escape}</a>
             {/if}
-            {* {if $record.checkedOut}<span class="highlight">{translate text="fined_work_still_on_loan"}</span>{/if} *}
           </td>
           <td>{$record.checkout|escape}</td>
-          <td>{$record.duedate|escape}</td>
+          <td>{$record.duedate|escape}{if $record.checkedOut} <span class="highlight">{translate text="fined_work_still_on_loan"}</span>{/if}</td>
           <td>{$record.fine|escape}</td>
           {* <td>{$record.amount/100.00|safe_money_format|escape}</td> *}
           <td style="text-align:right;">{$record.balance/100.00|safe_money_format|escape}</td>

@@ -100,7 +100,7 @@ $(document).ready(function() {
           {if $thisFacet.isApplied}
             <dd>{$thisFacet.value|escape} <img src="{$path}/images/silk/tick.png" alt="Selected"/></dd>
           {else}
-            <dd><a href="{$thisFacet.url|escape}">{$thisFacet.value|escape} <span class="facetCount">({$thisFacet.count})</span></a></dd>
+            <dd><a href="{$thisFacet.url|escape}">{$thisFacet.value|escape}&nbsp;<span class="facetCount">({$thisFacet.count})</span></a></dd>
           {/if}
         {/foreach}
         {if $smarty.foreach.narrowLoop.total > 5}<dd><a href="#" onclick="lessFacets('{$title}'); return false;">{translate text='less'} ...</a></dd>{/if}

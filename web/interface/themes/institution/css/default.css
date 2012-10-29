@@ -153,7 +153,7 @@ img.alignleft {
     float: left;
     width: 506px;
 }
-.header {
+.header, .headerRecord {
     background-color: #f3f3f3;
     border-bottom: 1px solid #dddddd;
 }
@@ -707,6 +707,9 @@ div.bulkActionButtons {
 .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
     margin: 1.8em 0 0 0;
 }
+.checkedoutList .iconlabel, .holdsList .iconlabel {
+    line-height: 2.4em;
+}
 .profileInfo {
     line-height: 1.8em;
     width: 452px;
@@ -737,7 +740,13 @@ div.bulkActionButtons {
     float: right;
 }
 .finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
-   border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+}
+.finesList table tr td:first-child {
+    padding-left: 29px;
+    text-indent: -25px;
 }
 .fineBalance {
     text-align: right;
@@ -999,7 +1008,6 @@ ul.filters a {
 }
 div.sidegroup {
     border-left: 2px solid #ddd;
-    margin-top: .5em;
     padding-bottom: 1em;
     padding-left: 20px;
 /*
@@ -1026,7 +1034,8 @@ dl.narrowList a:hover {
 dl.narrowList a {
     display:block;
     text-decoration: none;
-    padding: 0.1em 0 0.1em 0.4em;
+    padding: 0.1em 0 0.1em 0.6em;
+    text-indent: -0.4em;
 }
 .keywordFilterForm {
     margin: 5px 0px 5px 0px;
@@ -1226,7 +1235,7 @@ ul.recordSet .addToFavLink a {
     padding-left:18px
 }
 .openurl_more {
-    background-image:url(../images/sfx.gif);
+    background-image:url(../images/sfx.png);
     background-repeat:no-repeat;
     padding-left:16px;
     margin-left:2px;
@@ -1408,6 +1417,9 @@ ul.recordSet .addToFavLink a {
 
 /*** Record Page ***/
 
+div.resultLinks {
+    border-bottom: 1px solid #dddddd;
+}
 div.record {
     padding: 0;
     margin: 5px 0 1em 0;
@@ -1415,8 +1427,8 @@ div.record {
 #resultsCollection div.record, #headingHierarchyCollection div.record {
     margin: -1em 0 0 .5em;
 }
-#resultMain, #resultSide {
-    padding-top: 1.2em;
+#resultMain, div.sidegroup {
+    margin-top: 1em;
 }
 #resultMain {
     width: 728px;
@@ -1427,6 +1439,9 @@ div.record {
     width: 210px;
     float: left;
     margin-right: 12px;
+}
+.coverImageLinks {
+    margin-bottom: 20px;
 }
 #recordMetadata {
     width: 506px;
@@ -1680,9 +1695,9 @@ h5.recordTabHeader {
     width: 210px;
 }
 .toolbar {
-    float:right;
-    padding:10px 0 10px 0;
-    margin:10px 0 40px 0;
+    float: right;
+    padding: 10px 0 10px 0;
+    margin: 0 0 40px 0;
     background-color:#eef4ff;
 }
 .toolbar ul {
@@ -1727,7 +1742,7 @@ h5.recordTabHeader {
     width: 200px;
 }
 .resultscroller {
-    border-bottom: 1px solid #dddddd;
+    /* border-bottom: 1px solid #dddddd; */
 }
 .resultscroller .prevRecord {
     margin-right: 0.5em; 
@@ -1986,7 +2001,8 @@ p.citationText {
 }
 .myResearch .dueDate {
     float: left;
-    margin: 0 20px 0 12px;
+    width: 284px;
+    margin: 0 0 0 12px;
 }
 .myResearchMenu {
     border-bottom: 1px solid #ddd;

@@ -159,8 +159,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
     {include file="Search/paging.tpl"}
   {else}
-    <div class="floatleft small">{translate text='You do not have any saved resources'}</div>
-    <div class="clear"></div>
+    <div style="padding-top: 2em;">{translate text='You do not have any saved resources'}</div>
   </div>
   {/if}
 </div>
