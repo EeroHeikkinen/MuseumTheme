@@ -427,14 +427,16 @@ class UInterface extends Smarty
         global $module;
         
         $localTpl = preg_replace('/(.*)\./', '\\1.local.', $tpl);
-        if ($inModule) {
-            $fullPath = $this->template_dir . DIRECTORY_SEPARATOR . $module
-                . DIRECTORY_SEPARATOR . $localTpl;
-        } else {
-            $fullPath = $this->template_dir . DIRECTORY_SEPARATOR . $localTpl;
-        }
-        if (file_exists($fullPath)) {
-            return $localTpl;            
+        foreach (is_array($this->template_dir) ? $this->template_dir : array($this->template_dir) as $templateDir) {
+            if ($inModule) {
+                $fullPath = $templateDir . DIRECTORY_SEPARATOR . $module
+                    . DIRECTORY_SEPARATOR . $localTpl;
+            } else {
+                $fullPath = $templateDir . DIRECTORY_SEPARATOR . $localTpl;
+            }
+            if (file_exists($fullPath)) {
+                return $localTpl;            
+            }
         }
         return $tpl;
     }
