@@ -108,9 +108,11 @@
     <tr valign="top">
       <th>{translate text='Other Authors'}: </th>
       <td>
+        <div class="truncateField">
         {foreach from=$coreContributors item=field name=loop}
           <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}; {/if}
         {/foreach}
+        </div>
       </td>
     </tr>
     {/if}
@@ -194,6 +196,7 @@
     <tr valign="top">
       <th>{translate text='Subjects'}: </th>
       <td>
+        <div class="truncateField">
         {foreach from=$coreSubjects item=field name=loop}
         <div class="subjectLine">
           {assign var=subject value=""}
@@ -204,6 +207,7 @@
           {/foreach}
         </div>
         {/foreach}
+        </div>
       </td>
     </tr>
     {/if}
@@ -277,9 +281,11 @@
     <tr valign="top">
       <th>{translate text='Table of Contents'}: </th>
       <td>
+        <div class="truncateField">
       {foreach from=$toc item=line}
         {$line|escape}<br />
       {/foreach}
+        </div>
       </td>
     </tr>
     {/if}

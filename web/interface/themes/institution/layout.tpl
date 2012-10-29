@@ -31,12 +31,12 @@
 
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe"/>
 
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css" />
+    {css media="screen, projection" filename="../js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css"}
 
     {* Load Blueprint CSS framework *}
     {css media="screen, projection" filename="blueprint/screen.css"}
     {css media="print" filename="blueprint/print.css"}
-    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 8]>{css media="screen, projection" filename="blueprint/ie.css"}<![endif]-->
     {* Adjust some default Blueprint CSS styles *}
     {css media="screen, projection" filename="blueprint/blueprint-adjust.css"}
 
@@ -48,8 +48,8 @@
     {css media="screen, projection" filename="home_custom.css"}
     {css media="screen, projection" filename="settings.css"}
     {css media="print" filename="print.css"}
-    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
-    <!--[if lt IE 7]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/iepngfix/iepngfix.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
+    <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
     {* Set global javascript variables *}
     <script type="text/javascript">
@@ -60,41 +60,43 @@
 
     {* Load jQuery framework and plugins *}
     {js filename="jquery-1.8.0.min.js"}
+    {js filename="jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js"}
     {js filename="jquery.form.js"}
     {js filename="jquery.metadata.js"}
     {js filename="jquery.validate.min.js"}
-
-    {* Load QRCode *}
     {js filename="jquery.qrcode.js"}
-
-    {* Component parts *}
     {js filename="jquery.dataTables.js"}   
-    
-    {* Load jQuery UI *}
-    {js filename="jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js"}
-        
-    {* Load dialog/lightbox functions *}
-    {js filename="lightbox.js"}
-
-    {* Load dynatree and dynamic facets *}
+    {js filename="jquery.clearsearch.js"}
+    {js filename="jquery.collapse.js"}
     {js filename="jquery.dynatree-1.2.2-mod.js"}
+
+    {* Load dynamic facets *}
     {js filename="facets.js"}
 
-    {* Load common javascript functions *}
-    {js filename="common.js"}
-    
     {* Load javascript microtemplating *}
     {js filename="tmpl.js"}
+
+    {* Load dialog/lightbox functions *}
+    {js filename="lightbox.js"}
+    
+    {* Load common javascript functions *}
+    {js filename="common.js"}
     
     {* Load dropdown menu modification *}
     {* js filename="dropdown.js" *}
 
-    {* Load clearsearch plugin *}
-    {js filename="jquery.clearsearch.js"}
-
+{literal}
+    <script type="text/javascript">
+// Long field truncation
+$(document).ready(function() {
+  $('.truncateField').collapse({maxLength: 150, more: "{/literal}{translate text="more"}{literal}&nbsp;»", less: "«&nbsp;{/literal}{translate text="less"}{literal}"});
+});
+    </script>    
+{/literal}
+    
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
-    <!--[if lt IE 7]><script type="text/javascript" src="{$url}/interface/themes/institution/css/iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+    <!--[if lt IE 7]>{js filename="../css/iepngfix/iepngfix_tilebg.js"}<![endif]-->
     {* Enable HTML5 in old IE - http://code.google.com/p/html5shim/
        can also use src="//html5shiv.googlecode.com/svn/trunk/html5.js" *}
     <!--[if lt IE 9]>

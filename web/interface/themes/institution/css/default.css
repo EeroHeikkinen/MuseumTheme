@@ -446,6 +446,20 @@ p.listDescription {
     padding: .4em;
 }
 
+div.truncateField {
+	  background-color: inherit;
+}
+div.moreLink, div.lessLink {
+    z-index: 1004;
+    height: 1.5em;
+    background-color: inherit;
+}
+div.moreLink {
+    position: absolute;
+    left: 0; bottom: 0; right: 0;
+}
+
+
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
@@ -1447,6 +1461,9 @@ div.record {
     width: 506px;
     float: left;
 }
+#recordMetadata tr, .citation tr {
+	  background-color: white;
+}
 #recordMetadata tr:hover, .citation tr:hover {
     background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
 /*
@@ -1528,7 +1545,7 @@ div.recordsubcontent {
 }
 
 .citation tbody tr td, .citation tbody tr.even td {
-    background: none repeat scroll 0 0 transparent
+    background: inherit
 /*
     background:none repeat scroll 0 0 white;
 */
