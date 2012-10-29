@@ -168,7 +168,9 @@ class Save extends Action
         } else {
             $list->user_id = $user->id;
             $list->title = translate("My Favorites");
-            $list->insert();
+            if (!$list->find(true)) {
+                $list->insert();
+            }
         }
 
         // Remember that the list was used so it can be the default in future
