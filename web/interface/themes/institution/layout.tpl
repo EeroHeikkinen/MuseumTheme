@@ -43,10 +43,22 @@
     {* Load VuFind specific stylesheets *}
     {css media="screen" filename="ui.dynatree.css"}
     {css media="screen" filename="datatables.css"}
-    {css media="screen, projection" filename="styles.css"}
+    
+    {*  Set of css files based loosely on
+        Less Framework 4 http://lessframework.com by Joni Korpi
+        License: http://opensource.org/licenses/mit-license.php  *}
+    {css media="screen, projection" filename="typography.css"}
+    {css media="screen, projection" filename="default.css"}
+    {css media="screen, projection" filename="breadcrumbs.css"}
+    {css media="screen, projection" filename="home.css"}
+    {css media="screen, projection" filename="footer.css"}
+    {css media="screen, projection" filename="768tablet.css"}
+    {css media="screen, projection" filename="320mobile.css"}
+    {css media="screen, projection" filename="480mobilewide.css"}
     {css media="screen, projection" filename="default_custom.css"}
     {css media="screen, projection" filename="home_custom.css"}
     {css media="screen, projection" filename="settings.css"}
+    
     {css media="print" filename="print.css"}
     <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
     <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
