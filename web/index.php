@@ -105,7 +105,7 @@ if (!in_array($language, $validLanguages)) {
     $language = $configArray['Site']['language'];
 }
 $translator = new I18N_Translator(
-    'lang', $language, $configArray['System']['debug']
+    array('lang', 'lang_local'), $language, $configArray['System']['debug']
 );
 $interface->setLanguage($language);
 

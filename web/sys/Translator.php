@@ -48,7 +48,7 @@ class I18N_Translator
     /**
      * Language translation files path
      *
-     * @var    string
+     * @var    string|string[]
      * @access public
      */
     public $path;
@@ -89,9 +89,9 @@ class I18N_Translator
     /**
      * Constructor
      *
-     * @param string $path     The path to the language files
-     * @param string $langCode The ISO 639-1 Language Code
-     * @param bool   $debug    Are we in debug mode?
+     * @param string|string[] $path     The path to the language files
+     * @param string          $langCode The ISO 639-1 Language Code
+     * @param bool            $debug    Are we in debug mode?
      *
      * @access public
      */
@@ -105,15 +105,18 @@ class I18N_Translator
         }
 
         // Load file in specified path
-        if (is_dir($path)) {
-            $file = $path . '/' . $this->langCode . '.ini';
-            if ($this->langCode != '' && is_file($file)) {
-                $this->words = $this->_parseLanguageFile($file);
+        $this->words = array();
+        foreach (is_array($path) ? $path : array($path) as $singlePath) {
+            if (is_dir($singlePath)) {
+                $file = $singlePath . '/' . $this->langCode . '.ini';
+                if ($this->langCode != '' && is_file($file)) {
+                    $this->words = array_merge($this->words, $this->_parseLanguageFile($file));
+                } else {
+                    $this->error = "Unknown language file";
+                }
             } else {
-                $this->error = "Unknown language file";
+                $this->error = "Cannot open $path for reading";
             }
-        } else {
-            $this->error = "Cannot open $path for reading";
         }
     }
 

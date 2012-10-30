@@ -493,7 +493,7 @@ function translate($params)
         global $configArray;
 
         $translator = new I18N_Translator(
-            'lang', $configArray['Site']['language'], $configArray['System']['debug']
+            array('lang', 'lang_local'), $configArray['Site']['language'], $configArray['System']['debug']
         );
     }
     if (is_array($params)) {

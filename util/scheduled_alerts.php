@@ -136,7 +136,9 @@ class ScheduledAlerts
             }
         
             $translator = new I18N_Translator(
-                $configArray['Site']['local'] . '/lang', $language, $configArray['System']['debug']
+                array($configArray['Site']['local'] . '/lang', $configArray['Site']['local'] . '/lang_local'),
+                $language,
+                $configArray['System']['debug']
             );
             $interface->setLanguage($language);
             
