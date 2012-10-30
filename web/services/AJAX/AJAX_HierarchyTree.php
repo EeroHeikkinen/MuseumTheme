@@ -131,11 +131,10 @@ class AJAX_HierarchyTree extends Action
                 unset($id);
             }
         }
-        if (count($resultIDs) > $limit){
-        	$limitReached = true;
-        }
-        else {
-        	$limitReached = false;
+        if (count($resultIDs) > $limit) {
+            $limitReached = true;
+        } else {
+            $limitReached = false;
         }
         $returnArray = array("limitReached" => $limitReached, "results" => array_slice($resultIDs, 0, $limit));
         $jsonString = json_encode($returnArray);

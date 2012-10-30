@@ -59,7 +59,7 @@ class JSON_RSI extends JSON
        
         $dom = new DOMDocument('1.0', 'UTF-8');
         
-        # ID REQUEST
+        // ID REQUEST
         $idReq = $dom->createElement('IDENTIFIER_REQUEST', '');
         $idReq->setAttribute("VERSION", "1.0");
         $idReq->setAttribute("xsi:noNamespaceSchemaLocation", "ISSNRequest.xsd");

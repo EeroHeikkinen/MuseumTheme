@@ -88,11 +88,10 @@ class HierarchyTree extends Record
         $interface->assign('context', "Record");
         $interface->assign('hierarchyID', $hierarchyID);
         $interface->assign('hasHierarchyTree', $hasHierarchyTree);
-    	if (isset($configArray['Hierarchy']['search'])?
-        		$configArray['Hierarchy']['search']:true){
-        	$interface->assign('showTreeSearch', true);
-        	$interface->assign('treeSearchLimit', $configArray["Hierarchy"]["treeSearchLimit"]);
-        	$interface->assign('treeSearchFullURL', $configArray["Site"]["url"] . "/Search/Results");
+        if (isset($configArray['Hierarchy']['search']) ? $configArray['Hierarchy']['search'] : true) {
+            $interface->assign('showTreeSearch', true);
+            $interface->assign('treeSearchLimit', $configArray["Hierarchy"]["treeSearchLimit"]);
+            $interface->assign('treeSearchFullURL', $configArray["Site"]["url"] . "/Search/Results");
         }
         $interface->assign(
             'disablePartialHierarchy',

@@ -197,9 +197,9 @@ class LDAPAuthentication implements Authentication
                     && ($ldapConnectionParameter['email'] != "")
                 ) {
                      // Special case: don't override user's email address if it's already set
-                     if (!$userIsInVufindDatabase || !$user->email) {
-                         $user->email = $data[$i][$data[$i][$j]][0];
-                     }
+                    if (!$userIsInVufindDatabase || !$user->email) {
+                        $user->email = $data[$i][$data[$i][$j]][0];
+                    }
                 }
 
                 if ($data[$i][$j] == $ldapConnectionParameter['cat_username']

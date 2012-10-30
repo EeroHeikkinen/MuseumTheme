@@ -204,7 +204,7 @@ abstract class SearchObject_Base
         list($field, $value) = $this->parseFilter($filter);
     
         if (isset($this->orFilters[$field])
-                && in_array($value, $this->orFilters[$field])
+            && in_array($value, $this->orFilters[$field])
         ) {
             return true;
         }

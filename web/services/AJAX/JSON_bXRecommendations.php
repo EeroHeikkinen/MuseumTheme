@@ -41,7 +41,18 @@ require_once 'RecordDrivers/Factory.php';
 // TODO: This should probably be a recommendation subclass, but those are geared
 // towards search results, so we'll keep this separate for now
 
+/**
+ * JSON bX Recommendations action
+ * 
+ * @category VuFind
+ * @package  Controller_Record
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     http://vufind.org/wiki/building_a_module Wiki
+ */
+// @codingStandardsIgnoreStart
 class JSON_bXRecommendations extends JSON
+// @codingStandardsIgnoreEnd
 {
     /**
      * Get data and output in JSON
@@ -60,7 +71,7 @@ class JSON_bXRecommendations extends JSON
         
         $id = $_REQUEST['id'];
         if (strncmp($id, 'metalib.', 8) == 0) {
-            require_once 'sys/MetaLib.php';
+            include_once 'sys/MetaLib.php';
             $metalib = new MetaLib();
             if (!($record = $metalib->getRecord($id))) {
                 $this->output('Record does not exist', JSON::STATUS_ERROR);
@@ -109,11 +120,11 @@ class JSON_bXRecommendations extends JSON
         $jnl = 'info:ofi/fmt:xml:xsd:journal';
         $xml->registerXPathNamespace('jnl', $jnl);
         foreach ($xml->xpath('//jnl:journal') as $journal) {
-            $item = $this->_convertToArray($journal, $jnl);
+            $item = $this->convertToArray($journal, $jnl);
             if (!isset($item['authors']['author'][0])) {
                 $item['authors']['author'] = array($item['authors']['author']);
             }
-            $item['openurl'] = $this->_createOpenUrl($item);
+            $item['openurl'] = $this->createOpenUrl($item);
             $data[] = $item;
         }
         $this->output($data, JSON::STATUS_OK);
@@ -121,19 +132,20 @@ class JSON_bXRecommendations extends JSON
     
     /**
      * Convert XML to array
-     * @param simpleXMLElement $xml  XML to convert
-     * @param string           $ns   Optional namespace for nodes
+     * 
+     * @param simpleXMLElement $xml XML to convert
+     * @param string           $ns  Optional namespace for nodes
      * 
      * @return array
      * @access protected
      */
-    protected function _convertToArray($xml, $ns = '')
+    protected function convertToArray($xml, $ns = '')
     {
         $result = array();
         foreach ($xml->children($ns) as $node) {
             $children = $node->children($ns);
             if (count($children) > 0) {
-                $item = $this->_convertToArray($node, $ns);
+                $item = $this->convertToArray($node, $ns);
             } else {
                 $item = (string)$node;
             }
@@ -152,12 +164,13 @@ class JSON_bXRecommendations extends JSON
     
     /**
      * Create OpenURL for the item
-     * @param array $item  Item fields
+     * 
+     * @param array $item Item fields
      * 
      * @return string
      * @access protected
      */
-    protected function _createOpenUrl($item)
+    protected function createOpenUrl($item)
     {
         global $configArray;
         

@@ -204,8 +204,10 @@ function dieWithDefaultFailImage()
 /**
  * Load image from URL, store in cache if requested, display if possible.
  *
- * @param string $url   URL to load image from
- * @param string $cache Boolean -- should we store in local cache?
+ * @param string $url       URL to load image from
+ * @param string $localFile Local file name if the file is to be cached
+ * @param string $size      Image size (small, medium or large)
+ * @param string $cache     Boolean -- should we store in local cache?
  *
  * @return bool         True if image displayed, false on failure.
  */
@@ -234,9 +236,13 @@ function processImageURL($url, $localFile, $size, $cache = true)
         
         // Convert to JPEG and downsize the image if necessary.
         switch ($size) {
-            case 'small': $maxWidth = $maxHeight = 200; break;
-            case 'medium': $maxWidth = 350; $maxHeight = 250; break;
-            default: $maxWidth = $maxHeight = 2048; 
+        case 'small': 
+            $maxWidth = $maxHeight = 200; 
+            break;
+        case 'medium': 
+            $maxWidth = 350; $maxHeight = 250; 
+            break;
+        default: $maxWidth = $maxHeight = 2048; 
         }
         if ($type != IMAGETYPE_JPEG || $width > $maxWidth || $height > $maxHeight) {
             // We no longer need the temp file:

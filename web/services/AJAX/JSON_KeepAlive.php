@@ -27,6 +27,15 @@
 */
 require_once 'JSON.php';
 
+/**
+ * Session keepalive action
+ * 
+ * @category VuFind
+ * @package  Controller_Record
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     http://vufind.org/wiki/building_a_module Wiki
+ */
 class JSON_KeepAlive extends JSON
 {
     /**

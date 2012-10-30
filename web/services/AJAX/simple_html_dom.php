@@ -1,4 +1,5 @@
 <?php
+// @codingStandardsIgnoreStart
 /**
  * Website: http://sourceforge.net/projects/simplehtmldom/
  * Acknowledge: Jose Solorzano (https://sourceforge.net/projects/php-html/)
@@ -1390,4 +1391,5 @@ class simple_html_dom {
     function loadFile() {$args = func_get_args();$this->load_file($args);}
 }
 
+// @codingStandardsIgnoreEnd
 ?>
