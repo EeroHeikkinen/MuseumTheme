@@ -9,19 +9,18 @@ px      62    136    210    284    358    432    506    580    654    728   */
 @media only screen and (min-width: 768px) and (max-width: 997px) {
 
     body {
-        width: 728px;
-        padding: 0 20px 40px;
+        width: 768px;
+        padding: 0 0px 40px;
     }
 
     .container {
-        width: 728px; /* make this match the body width above */
+        width: 768px; /* make this match the body width above */
         background: none repeat scroll 0 0 #FFFFFF;
         border: none/*1px solid #dddddd;
         -moz-border-radius: 5px 5px 5px 5px;
         -webkit-border-radius: 5px 5px 5px 5px;
         border-radius: 5px 5px 5px 5px*/;
     }
-
 
 
 
@@ -38,7 +37,7 @@ px      62    136    210    284    358    432    506    580    654    728   */
         margin: 0;
     }
     #resultMain {
-        margin-right: 0px;
+        width: 768px;
     }
     .homeNavigation ul li {
         display: inline-block;
@@ -61,26 +60,52 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
 
 
-
     #topFacets {
-        width: 728px;
+        width: 768px;
     }
     #suggestedTopics {
-        width: 704px;
-        margin: 0 12px 0 12px;
+        width: 744px;
+        margin: 0 12px .4em;
+    }
+    #topPubDateVis {
+        width: 756px;
+    }
+    .paginationTop {
+        margin: .5em 0 0;
+        padding: 0;
+    }
+    .pagination {
+        width: 272px;
+    }
+    .resultOptions {
+        margin: .15em 0 0;
+        padding: 0;
+    }
+    #sort_options_1 {
+        width: 150px;
     }
     #resultList {
-        width: 496px;
+        width: 536px;
     }
     ul.recordSet .resultColumn2 {
         width: 312px;
     }
+    #recordMetadata {
+        width: 546px;
+    }
+    #dyntabnav {
+        width: 768px;
+    }
+    #dyntabnav .ui-tabs-panel {
+        padding: 1em .7em;
+    }
     #resultSidebar {
-        width: 728px;
+        width: 768px;
     }
     #resultSidebar .sidegroup {
         border-top: 2px solid #dddddd;
         border-left: none;
+        padding: 1em;
     }
     #resultSidebar ul li {
         width: 210px;
@@ -91,9 +116,9 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
 
 
-
     .footer {
         font-size: 1.0em;
+        padding: .8em 12px 0;
     }
     #footerCol1, #footerCol2, #footerCol3 {
         float:left;
@@ -101,7 +126,11 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
     #footerCol4 {
         float:left;
-        width: 284px;
+        margin-left: 10px;
+        width: 290px;
+    }
+   .main-home #footerCol4 {
+        width: 266px;       /* accomodates wider footer margin on homepage */
     }
     
 }
