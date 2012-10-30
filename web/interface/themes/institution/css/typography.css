@@ -97,6 +97,10 @@ div.recordsubcontent h3 {
     font-weight: bold;
     background: none;   /* could maybe be changed to some highlight color? */
 }
+.subjectLine .highlight {
+    font-weight: normal;
+    text-decoration: underline;
+}
 .normal {
     font-weight: normal;
 }
@@ -167,11 +171,6 @@ label.invalid {
     font-weight: bold;
 }
 
-.highlight {
-/*
-    font-weight: bold;
-*/
-}
 
 .mobileViewLink {
     font-size:24px;

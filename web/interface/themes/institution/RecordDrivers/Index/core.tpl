@@ -3,8 +3,7 @@
 <div id="recordMetadata">
     
   {* Display Title *}
-  <h1 class="recordTitle">{$coreShortTitle|escape}
-  {if $coreSubtitle} : {$coreSubtitle|escape}{/if}
+  <h1 class="recordTitle">{$coreShortTitle|escape}{if $coreSubtitle}&nbsp;: {$coreSubtitle|escape}{/if}
   {* {if $coreTitleSection} / {$coreTitleSection|escape}{/if}
   {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
