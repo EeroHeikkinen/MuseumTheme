@@ -9,7 +9,9 @@ vufindString.showTree = "{translate text="hierarchy_show_tree"}";
 vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
 </script>
 
+{*
 <div class="span-13">
+*}
     {if $showTreeSelector}
     <div id="treeSelector">
     {foreach from=$hasHierarchyTree item=hierarchyTitle key=hierarchy}
@@ -43,9 +45,13 @@ vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
           </div>
         </div>
     {/if}
+{*
 </div>
+*}
 
+{*
 <div class="span-13">
+*}
     <div id="hierarchyRecord">
     {if $collectionRecord}
         {if $collectionRecord == "unknown"}
@@ -56,7 +62,9 @@ vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
         {/if}
     {/if}
    </div>
+{*
 </div>
+*}
 <div class="clear">&nbsp;</div>
 
 <!-- END of: Collection/view-hierarchyTree_JSTree.tpl -->
