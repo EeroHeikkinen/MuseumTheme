@@ -333,7 +333,14 @@ class UInterface extends Smarty
         $this->assign('action', $action);
         // Don't pass a PEAR error to interface
         $this->assign('user', PEAR::isError($user) ? null : $user);
-
+        
+        if (isset($configArray['Authentication']['mozillaPersona']) && $configArray['Authentication']['mozillaPersona']) {
+            $this->assign('mozillaPersona', true);
+            if (isset($_SESSION['authMethod']) && $_SESSION['authMethod'] == 'MozillaPersona') {
+                $this->assign('mozillaPersonaCurrentUser', PEAR::isError($user) ? null : $user->username);
+            }
+        }
+        
         // Load the last limit from the request or session for initializing default
         // in search box:
         if (isset($_REQUEST['limit'])) {

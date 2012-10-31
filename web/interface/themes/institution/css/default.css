@@ -1154,6 +1154,12 @@ ul.recordSet .addToFavLink a {
     background-position: left;
     padding:.5em .5em .5em 20px;
 }
+.persona-login {
+    background-image:url(../images/persona-logo.png);
+    background-repeat:no-repeat;
+    background-position: left;
+    padding:.5em .5em .5em 22px;
+}
 .logout {
     background-image:url(../images/silk/door_out.png);
     background-repeat:no-repeat;

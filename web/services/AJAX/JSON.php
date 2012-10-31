@@ -64,11 +64,11 @@ class JSON extends Action
     {
         // Call the method specified by the 'method' parameter as long as it is
         // valid and will not result in an infinite loop!
-        if ($_GET['method'] != 'launch'
-            && $_GET['method'] != '__construct'
+        if ($_REQUEST['method'] != 'launch'
+            && $_REQUEST['method'] != '__construct'
             && is_callable(array($this, $_GET['method']))
         ) {
-            $this->$_GET['method']();
+            $this->$_REQUEST['method']();
         } else {
             return $this->output(translate('Invalid Method'), JSON::STATUS_ERROR);
         }
