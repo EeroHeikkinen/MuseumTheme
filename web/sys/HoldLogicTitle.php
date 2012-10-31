@@ -109,9 +109,10 @@ class HoldLogicTitle
         );
         if ($checkHolds != false) {
             $valid = $this->catalog->checkRequestIsValid($id, $data, $patron);
-            if ($valid) {
+            if ($valid === true) {
                 return $this->_getHoldDetails($data, $checkHolds['HMACKeys']);
             }
+            return $valid;
         }
         return false;
     }

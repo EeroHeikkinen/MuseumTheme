@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/login.tpl -->
+
 {if $offlineMode == "ils-offline"}
   <div class="sysInfo">
     <h2>{translate text="ils_offline_title"}</h2>
@@ -11,7 +13,7 @@
 
 {if !$hideLogin}
 <h2>{translate text='Login'}</h2>
-{if $message}<div class="error">{$message|translate}</div>{/if}
+{if $message}<div class="error" id="errormessage">{$message|translate}</div>{/if}
 {if $authMethod != 'Shibboleth'}
   <form method="post" action="{$url}/MyResearch/Home" name="loginForm" id="loginForm">
     <label class="span-2" for="login_username">{translate text='Username'}:</label>
@@ -35,10 +37,15 @@
   <script>
     {literal}
     $(document).ready(function() {
-      $('#loginForm').validate();
+      $("#loginForm").validate();      
+      $("input").one("keydown", function () { 
+        $("#errormessage").css({"visibility":"hidden"});
+      });
     });
     {/literal}
   </script>
   {if $authMethod == 'DB'}<a class="new_account" href="{$url}/MyResearch/Account">{translate text='Create New Account'}</a>{/if}
 {/if}
 {/if}
+
+<!-- END of: MyResearch/login.tpl -->

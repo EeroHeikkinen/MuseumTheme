@@ -27,6 +27,7 @@
  */
 require_once 'JSON.php';
 require_once 'RecordDrivers/Factory.php';
+require_once 'sys/MetaLib.php';
 
 /**
  * JSON RSI check action
@@ -53,17 +54,12 @@ class JSON_RSI extends JSON
         global $configArray;
 
         $sfxUrl = $configArray['OpenURL']['url'] . "/cgi/core/rsi/rsi.cgi";
-        $source = $_REQUEST['source'];
-        if ($source == 'MetaLib') {
-            require_once 'sys/MetaLib.php';
-            $metalib = new MetaLib();
-        } else {
-            $indexEngine = SearchObjectFactory::initSearchObject()->getIndexEngine();
-        }
-
+        $metalib = new MetaLib();
+        $indexEngine = SearchObjectFactory::initSearchObject()->getIndexEngine();
+       
         $dom = new DOMDocument('1.0', 'UTF-8');
         
-        # ID REQUEST
+        // ID REQUEST
         $idReq = $dom->createElement('IDENTIFIER_REQUEST', '');
         $idReq->setAttribute("VERSION", "1.0");
         $idReq->setAttribute("xsi:noNamespaceSchemaLocation", "ISSNRequest.xsd");
@@ -74,12 +70,11 @@ class JSON_RSI extends JSON
         $rsiResults = array();
         $validRequest = false;
         foreach ($_REQUEST['id'] as $id) {
-            if ($source == 'MetaLib') {
+            if (strncmp($id, 'metalib.', 8) == 0) {
                 if (!($record = $metalib->getRecord($id))) {
                     $this->output('Record does not exist', JSON::STATUS_ERROR);
                     return;
                 }
-                $record = $record['documents'][0];
                 $values = array(
                     'isbn' => !empty($record['ISBN']) ? $record['ISBN'][0] : '',
                     'issn' => !empty($record['ISSN']) ? $record['ISSN'][0] : '',

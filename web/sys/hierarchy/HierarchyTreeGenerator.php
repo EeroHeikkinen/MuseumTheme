@@ -86,8 +86,13 @@ class HierarchyTreeGenerator
     
     /**
      * Generates the xml for this tree
+     * 
+     * @param string $hierarchyTopID Hierarchy ID 
+     * 
+     * @return boolean Success
      */
-    public function generateXMLfromSolr($hierarchyTopID){
+    public function generateXMLfromSolr($hierarchyTopID)
+    {
     	$this->getXMLFromSolr($hierarchyTopID, true);
     	return true;
     }
@@ -99,44 +104,35 @@ class HierarchyTreeGenerator
     *
     * TODO: this should return false if it fails.
     *
-    * @param string $hierarchyTopID hierarchy_top_id form Solr
+    * @param string  $hierarchyTopID hierarchy_top_id form Solr
+    * @param boolean $createNew      Bypass cache     
     *
     * @return string The XML
     * @access protected
     */
     protected function getXMLFromSolr($hierarchyTopID, $createNew = false)
     {
-    	global $configArray;
+        global $configArray;
         $top = $this->_db->getRecord($hierarchyTopID);
         $topRecord = RecordDriverFactory::initRecordDriver($top);
         $cacheFile = $configArray['Site']['local'] . '/interface/cache/hierarchyTree_' .
             urlencode($hierarchyTopID) . '.xml';
             
-        //check if create new is set, if so don't bother looking up the config
-        if(!$createNew){
-        	$cacheTime = $this->recordDriver->getTreeCacheTime();
-        }
-        else {
-            error_log("Create new");
-        	$cacheTime = -1;
+        // Check if create new is set, if so don't bother looking up the config
+        if (!$createNew) {
+            $cacheTime = $this->recordDriver->getTreeCacheTime();
+        } else {
+            $cacheTime = -1;
         }
         
-        if (file_exists($cacheFile )
-            && filemtime($cacheFile) > (time() - $cacheTime )
+        if (file_exists($cacheFile)
+            && filemtime($cacheFile) > (time() - $cacheTime)
         ) {
-            error_log("Using cached data from $cacheFile");
             $xml = file_get_contents($cacheFile);
         } else {
             $starttime = microtime(true);
             $count = 0;
-            $isHierarchyId = $topRecord->getIsHierarchy() ? "true" : "false";
-            $xml = '<root><item id="' .
-                $this->xmlencode(htmlentities($hierarchyTopID)) .
-                '" isHierarchy="' . $isHierarchyId . '">' .
-                '<content><name>' . $this->xmlencode($top['title']) .
-                '</name></content>';
-            $xml .= $this->getChildren($hierarchyTopID, &$count);
-            $xml .= '</item></root>';
+            $xml = $this->getTree($hierarchyTopID, &$count);
             file_put_contents($cacheFile, $xml);
             error_log(
                 "Hierarchy of $count records built in " .
@@ -147,84 +143,108 @@ class HierarchyTreeGenerator
     }
 
     /**
-     * Get Solr Children
+     * Get the tree from Solr
      *
-     * @param string $parentID The starting point for the current recursion
-     * (equivlent to Solr field hierarchy_parent_id)
-     * @param string $count    The total count of items in the tree
-     * before this recursion
+     * @param string $hierarchyID Hierarchy ID (equivalent to Solr 
+     *                            field hierarchy_top_id)
+     * @param string &$count      The total count of items in the tree
      *
-     * @return bool false
-     * @access public
+     * @return string XML
      */
-    protected function getChildren($parentID, $count)
+    protected function getTree($hierarchyID, &$count)
     {
-        $query = 'hierarchy_parent_id:"' . addcslashes($parentID, '"') . '"';
+        $query = 'hierarchy_top_id:"' . addcslashes($hierarchyID, '"') . '"';
         $results = $this->_db->search($query, null, null, 0, 10000);
         if ($results === false) {
             return '';
         }
+        if ($results['response']['numFound'] > 30000) {
+            error_log("Hierarchy '$hierarchyID' too large");
+            return '<root>' .
+                '<item id="' . $this->xmlencode($hierarchyID) .
+                '" isHierarchy="true"><content><name>Hierarchy too large</name></content>' .
+                '</item></root>';
+        }
+        $docs = array();
+        foreach ($results['response']['docs'] as $doc) {
+            $item = array('id' => $doc['id'], 'title_full' => $doc['title_full']);
+            if (isset($doc['hierarchy_parent_id']) && !empty($doc['hierarchy_parent_id'])) {
+                $item['hierarchy_parent_id'] = $doc['hierarchy_parent_id']; 
+            }
+            if (isset($doc['is_hierarchy_id']) && !empty($doc['is_hierarchy_id'])) {
+                $item['is_hierarchy_id'] = $doc['is_hierarchy_id']; 
+            }
+            if (isset($doc['hierarchy_sequence'])) {
+                $item['hierarchy_sequence'] = $doc['hierarchy_sequence']; 
+            }
+            $docs[$doc['id']] = $item;
+        }
+        $tree = array();
+        foreach ($docs as &$doc) {
+            $id = $doc['id'];
+            if (!isset($doc['hierarchy_parent_id'])) {
+                $tree[$id] = &$doc;
+            } else {
+                foreach ($doc['hierarchy_parent_id'] as $parentId) {
+                    if (!isset($docs[$parentId]['children'])) {
+                        $docs[$parentId]['children'] = array();
+                    }
+                    $docs[$parentId]['children'][$id] = &$doc;
+                }
+                ++$count;
+            }
+        }
+        $xml = '<root>';
+        $xml .= $this->treeToXML($tree);
+        $xml .= '</root>';
+        return $xml;
+    }
+    
+    /**
+     * Convert an array tree to XML
+     * 
+     * @param array $tree Nested array
+     * 
+     * @return string XML
+     */
+    protected function treeToXML($tree)
+    {
+        $idx = 0;
         $xml = array();
         $sorting = $this->recordDriver->treeSorting();
-
-        foreach ($results['response']['docs'] as $doc) {
-            ++$count;
-            if ($sorting) {
+        foreach ($tree as $doc) {
+            if (isset($doc['hierarchy_parent_id']) && $sorting) {
                 foreach ($doc['hierarchy_parent_id'] as $key => $val) {
-                    if ($val == $parentID && isset($doc['hierarchy_sequence'])) {
+                    if ($val == isset($doc['hierarchy_parent_id']) && isset($doc['hierarchy_sequence'])) {
                         $sequence = $doc['hierarchy_sequence'][$key];
                     }
                 }
             }
-
-            $topRecord = RecordDriverFactory::initRecordDriver($doc);
-            error_log("$parentID: " . $doc['id']);
+            if (!isset($sequence)) {
+                $sequence = $doc['id'];
+            }
+            $isHierarchy = isset($doc['is_hierarchy_id']) ? 'true' : 'false';
             $xmlNode = '';
-            $isHierarchyId = $topRecord->getIsHierarchy() ? "true" : "false";
             $xmlNode .= '<item id="' . $this->xmlencode($doc['id']) .
-                '" isHierarchy="' . $isHierarchyId . '"><content><name>' .
+                '" isHierarchy="' . $isHierarchy . '"><content><name>' .
                 $this->xmlencode($doc['title_full']) . '</name></content>';
-            $xmlNode .= $this->getChildren($doc['id'], &$count);
+            if (isset($doc['children'])) {
+                $xmlNode .= $this->treeToXML($doc['children']);
+            }
             $xmlNode .= '</item>';
-            array_push($xml, array((isset($sequence)?$sequence: 0),$xmlNode));
+            ++$idx;
+            $xml[$sequence . '-' . $idx] = $xmlNode; 
         }
 
-        if ($sorting) {
-            $this->sortNodes(&$xml, 0);
-        }
+        ksort($xml);
 
         $xmlReturnString = '';
         foreach ($xml as $node) {
-            $xmlReturnString .= $node[1];
+            $xmlReturnString .= $node;
         }
         return $xmlReturnString;
     }
-
-    /**
-     * Sort Nodes
-     *
-     * @param array  &$array The Array to Sort
-     * @param string $key    The key to sort on
-     *
-     * @return void
-     * @access public
-     */
-    function sortNodes (&$array, $key)
-    {
-        $sorter=array();
-        $ret=array();
-        reset($array);
-        foreach ($array as $ii => $va) {
-            $sorter[$ii]=$va[$key];
-        }
-        asort($sorter);
-        foreach ($sorter as $ii => $va) {
-            $ret[$ii]=$array[$ii];
-        }
-        $array=$ret;
-    }
-
-
+    
     /**
      * XML Encode
      *
@@ -260,5 +280,3 @@ class HierarchyTreeGenerator
         return $inHierarchiesTitle[$key];
     }
 }
-
-?>

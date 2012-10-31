@@ -1,0 +1,10 @@
+[Debug]
+log = /var/log/aws_debug.log
+
+[Catalog]
+arena_member = xyz
+catalogue_wsdl = axiell_catalogue.wsdl
+patron_wsdl = axiell_patron.wsdl
+loans_wsdl = axiell_loans.wsdl
+payments_wsdl = axiell_payments.wsdl
+reservations_wsdl = axiell_reservations.wsdl

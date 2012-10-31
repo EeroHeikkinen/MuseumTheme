@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/account.tpl -->
+
 <h2>{translate text="User Account"}</h2>
 
 {if $message}<div class="error">{$message|translate}</div>{/if}
@@ -31,3 +33,5 @@
   });
   {/literal}
 </script>
+
+<!-- END of: MyResearch/account.tpl -->

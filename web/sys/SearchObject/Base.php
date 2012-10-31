@@ -56,6 +56,7 @@ abstract class SearchObject_Base
 
     // Filters
     protected $filterList = array();
+    protected $orFilters = array();
     // Page number
     protected $page = 1;
     // Result limit
@@ -189,6 +190,27 @@ abstract class SearchObject_Base
         return false;
     }
 
+    /**
+     * Does the object already contain the specified OR filter?
+     *
+     * @param string $filter A filter string from url : "field:value"
+     *
+     * @return bool
+     * @access public
+     */
+    public function hasOrFilter($filter)
+    {
+        // Extract field and value from URL string:
+        list($field, $value) = $this->parseFilter($filter);
+    
+        if (isset($this->orFilters[$field])
+            && in_array($value, $this->orFilters[$field])
+        ) {
+            return true;
+        }
+        return false;
+    }    
+    
     /**
      * Take a filter string and add it into the protected
      *   array checking for duplicates.
@@ -455,7 +477,7 @@ abstract class SearchObject_Base
         if (!isset($_REQUEST['lookfor'])) {
             return false;
         }
-        
+
         // If lookfor is an array, we may be dealing with a legacy Advanced
         // Search URL.  If there's only one parameter, we can flatten it,
         // but otherwise we should treat it as an error -- no point in going
@@ -481,10 +503,10 @@ abstract class SearchObject_Base
             $type = $this->defaultIndex;
         }
 
-        # If searching with ISBN, normalize to ISBN 13.
-        # NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
+        // If searching with ISBN, normalize to ISBN 13.
+        // NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
         if ($type == 'AllFields' || $type == 'ISN') {
-        	$isbn = $this->_normalizeIfValidIsbn($_REQUEST['lookfor']);
+        	$isbn = $this->normalizeIfValidISBN($_REQUEST['lookfor']);
             if ($isbn) {
             	$_REQUEST['lookfor'] = $isbn;
             }
@@ -494,7 +516,7 @@ abstract class SearchObject_Base
             'index'   => $type,
             'lookfor' => $_REQUEST['lookfor']
         );
-        
+
         return true;
     }
 
@@ -532,10 +554,10 @@ abstract class SearchObject_Base
                     }
 
 					
-        			# If searching with ISBN, normalize to ISBN 13.
-        			# NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
+                    // If searching with ISBN, normalize to ISBN 13.
+                    // NOTE: for AllFields search the ISBN needs to be recognized as one. Not the best solution...
                     if ($type == 'AllFields' || $type == 'ISN') {
-                    	$isbn = $this->_normalizeIfValidIsbn($_REQUEST['lookfor'.$groupCount][$i]);
+                    	$isbn = $this->normalizeIfValidISBN($_REQUEST['lookfor'.$groupCount][$i]);
                     	if ($isbn) {
                     		$_REQUEST['lookfor'.$groupCount][$i] = $isbn;
                     	}
@@ -830,6 +852,16 @@ abstract class SearchObject_Base
             }
         }
 
+        // Add OR filters
+        if (count($this->orFilters) > 0) {
+            foreach ($this->orFilters as $field => $filter) {
+                foreach ($filter as $value) {
+                    $params[] = urlencode("orfilter[]") . '=' .
+                            urlencode("$field:\"$value\"");
+                }
+            }
+        }
+        
         // Sorting
         if ($this->sort != null && $this->sort != $this->getDefaultSort()) {
             $params[] = "sort=" . urlencode($this->sort);
@@ -1203,7 +1235,7 @@ abstract class SearchObject_Base
     {
         return $this->autocompleteStatus;
     }
-    
+
     /**
      * Should filter settings be retained across searches by default?
      *
@@ -1525,6 +1557,7 @@ abstract class SearchObject_Base
         $this->resultsTotal = $minified->r;
         $this->filterList   = $minified->f;
         $this->searchType   = $minified->ty;
+        $this->orFilters    = $minified->o;
 
         // Search terms, we need to expand keys
         $tempTerms = $minified->t;
@@ -1913,7 +1946,7 @@ abstract class SearchObject_Base
      */
     protected function replaceSearchIndex($old, $new)
     {
-        for ($i = 0; $i < count($this->searchTerms); $i++){
+        for ($i = 0; $i < count($this->searchTerms); $i++) {
             if ($this->searchTerms[$i]['index'] == $old) {
                 $this->searchTerms[$i]['index'] = $new;
             }
@@ -2025,13 +2058,13 @@ abstract class SearchObject_Base
         // Return the URL
         return $url;
     }
-    
-    /*
+
+    /**
      * Return a url for the current search with a search index replaced
-     * 
+     *
      * @param string $oldTerm The old index to replace
      * @param string $newTerm The new index to search
-     * 
+     *
      * @return string URL of new search
      * @access public
      */
@@ -2120,11 +2153,11 @@ abstract class SearchObject_Base
                 = isset($searchSettings['General']['default_side_recommend']) ?
                 $searchSettings['General']['default_side_recommend'] : false;
         }
-        if ($searchType 
+        if ($searchType
             && isset($searchSettings['NoResultsRecommendations'][$searchType])
         ) {
-            $recommend['noresults'] = 
-                $searchSettings['NoResultsRecommendations'][$searchType];
+            $recommend['noresults']
+                = $searchSettings['NoResultsRecommendations'][$searchType];
         } else {
             $recommend['noresults']
                 = isset($searchSettings['General']['default_noresults_recommend']) ?
@@ -2184,25 +2217,27 @@ abstract class SearchObject_Base
         }
     }
 
-     /**
+    /**
      * Checks if passed string is an ISBN and converts to ISBN 13
+     *
+     * @param string $lookfor The query string
      *
      * @return valid ISBN 13 or false
      * @access protected
      */
-	protected function _normalizeIfValidIsbn($lookfor = false)
-	{
-		if (! $lookfor) { 
-			return false;
-		}
-		
-		if (ISBN::isValidISBN10($lookfor) || ISBN::isValidISBN13($lookfor)) {    				
-    		$isbn = new ISBN($lookfor);
-    		return $isbn->get13();
-    	}
-
-    	return false;
-	}
+    protected function normalizeIfValidISBN($lookfor = false)
+    {
+        if (!$lookfor) { 
+            return false;
+        }
+        
+        if (ISBN::isValidISBN10($lookfor) || ISBN::isValidISBN13($lookfor)) {
+            $isbn = new ISBN($lookfor);
+            return $isbn->get13();
+        }
+        
+        return false;
+    }
     
     /**
      * Load all available facet settings.  This is mainly useful for showing
@@ -2342,6 +2377,17 @@ abstract class SearchObject_Base
      * @access public
      */
     abstract public function getIndexError();
+    
+    /**
+     * Get advanced search filters
+     *
+     * @return array OR filters from advanced search
+     * @access public
+     */    
+    public function getOrFilters() 
+    {
+        return array();
+    }    
 }
 
 /**
@@ -2441,6 +2487,7 @@ class minSO
         // It would be nice to shorten filter fields too, but
         //      it would be a nightmare to maintain.
         $this->f = $searchObject->getFilters();
+        $this->o = $searchObject->getOrFilters();
     }
 }
 ?>

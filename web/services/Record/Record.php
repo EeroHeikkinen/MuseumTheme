@@ -166,6 +166,11 @@ class Record extends Action
 
         $interface->assign('hasTOC', $this->recordDriver->hasTOC());
         $interface->assign('hasMap', $this->recordDriver->hasMap());
+        $this->recordDriver->getTOC();
+
+        $interface->assign(
+            'extendedMetadata', $this->recordDriver->getExtendedMetadata()
+        );
 
         // Assign the next/previous record data:
         $scroller = new ResultScroller();
@@ -181,8 +186,8 @@ class Record extends Action
             isset($_SESSION['lastSearchURL']) ? $_SESSION['lastSearchURL'] : false
         );
         $interface->assign(
-                'lastsearchdisplayquery',
-                isset($_SESSION['lastSearchDisplayQuery']) ? $_SESSION['lastSearchDisplayQuery'] : false
+            'lastsearchdisplayquery',
+            isset($_SESSION['lastSearchDisplayQuery']) ? $_SESSION['lastSearchDisplayQuery'] : false
         );
         
         $this->cacheId = 'Record|' . $_REQUEST['id'] . '|' . get_class($this);

@@ -1,3 +1,5 @@
+<!-- START of: Summon/searchbox.tpl -->
+
 <div class="searchform">
   {if $searchType == 'SummonAdvanced'}
     <a href="{$path}/Summon/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
@@ -9,13 +11,15 @@
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
       <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape:"html"}"/>
       <label for="searchForm_type" class="offscreen">{translate text="Search Type"}</label>
+  {if $prefilterList}
       <div class="styled_select">
-      <select id="searchForm_type" name="type">
-      {foreach from=$summonSearchTypes item=searchDesc key=searchVal}
-        <option value="{$searchVal}"{if $searchIndex == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
-      {/foreach}
-      </select>
+        <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
+    {foreach from=$prefilterList item=searchDesc key=searchVal}
+          <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter}selected="selected"{/if}>{translate text=$searchDesc}</option>
+    {/foreach}
+        </select>
       </div>
+  {/if}
       <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
       <div class="advanced-link-wrapper clear">
       <a href="{$path}/Summon/Advanced" class="small">{translate text="Advanced"}</a>
@@ -50,5 +54,8 @@
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
     </form>
     <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
+    {js filename="dropdown.js"}
   {/if}
 </div>
+
+<!-- END of: Summon/searchbox.tpl -->

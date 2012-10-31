@@ -12,7 +12,7 @@
 {/if}
 
 {if $holdingTitleHold}
-    <a class="holdPlace" href="{$holdingTitleHold|replace:"#tabnav":""|escape}">{translate text="title_hold_place"}</a>
+    <a rel="external" class="holdPlace" href="{$holdingTitleHold|replace:"#tabnav":""|escape}">{translate text="title_hold_place"}</a>
 {/if}
 
 {foreach from=$holdings item=holding key=location}

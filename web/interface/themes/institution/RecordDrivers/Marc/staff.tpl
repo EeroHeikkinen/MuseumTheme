@@ -1,2 +1,4 @@
 {* No escaping is necessary here -- $details is preformatted HTML. *}
-{$details}
+{$marc}
+<hr/>
+{include file="RecordDrivers/Index/staff.tpl}

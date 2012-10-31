@@ -8,9 +8,8 @@
       {include file=$recommendations}
     {/foreach}
   {/if}
-  {translate text="Showing"}
-  <b>{$recordStart}</b> - <b>{$recordEnd}</b>
-  {translate text='of'} <b>{$recordCount}</b>
+  {include file="Search/paging.tpl" position="Top"}
+
   {translate text='Items'}
   <form class="collectionSortSelector" action="{$path}/Search/SortResults" method="post">
       <label for="sort_options_1">{translate text='Sort'}</label>
@@ -30,7 +29,6 @@
       {/foreach}
     </div>    
   {/if}
-  <div class="paginationTop">{$pageLinks.all}</div>
   <div class="clearer"></div>
 {/if}
 {if $recordSet}
@@ -38,6 +36,6 @@
 {else}
   {translate text='collection_empty'}
 {/if}
-{if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+{include file="Search/paging.tpl" position="Top"}
 
 <!-- END of: Collection/list.tpl -->

@@ -1,3 +1,5 @@
+<!-- START of: Record/view-comments-list.tpl -->
+
 {foreach from=$commentList item=comment}
   <li>
     {$comment->comment|escape:"html"}
@@ -12,3 +14,5 @@
 {foreachelse}
   <li>{translate text='Be the first to leave a comment'}!</li>
 {/foreach}
+
+<!-- END of: Record/view-comments-list.tpl -->

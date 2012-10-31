@@ -1,3 +1,5 @@
+<!-- START of: Collection/browse.tpl -->
+
 {capture name=pagelinks}
   <div class="alphaBrowsePageLinks">
     {if isset ($prevpage)}
@@ -46,3 +48,5 @@
   <div class="clearer"></div>
   {$smarty.capture.pagelinks}
 </div>
+
+<!-- END of: Collection/browse.tpl -->

@@ -29,7 +29,12 @@
             </div>
           </form>
           {else}
-            <h3 class="fav">{translate text='Your Favorites'}</h3>
+            {if $list && $list->id}
+              <h3 class="list">{$list->title|escape:"html"}</h3>
+              {if $list->description}<p>{$list->description|escape}</p>{/if}
+            {else}
+              <h3 class="fav">{translate text='Your Favorites'}</h3>
+            {/if}
           {/if}
 
           {if $errorMsg || $infoMsg}

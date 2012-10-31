@@ -1,3 +1,5 @@
+<!-- START of: Summon/advanced.tpl -->
+
 <form method="get" action="{$url}/Summon/Search" id="advSearchForm" name="searchForm" class="search">
   <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
     <h3>{translate text='Advanced Search'}</h3>
@@ -180,3 +182,5 @@
   $("#addGroupLink").removeClass("offscreen");
 //]]>
 </script>
+
+<!-- END of: Summon/advanced.tpl -->

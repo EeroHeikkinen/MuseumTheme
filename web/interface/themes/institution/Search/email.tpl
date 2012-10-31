@@ -1,3 +1,5 @@
+<!-- START of: Search/email.tpl -->
+
 {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
 {if $infoMsg}<div class="info">{$infoMsg|translate}</div>{/if}
 
@@ -12,3 +14,5 @@
     <br/>
     <input class="button" type="submit" name="submit" value="{translate text='Send'}"/>
 </form>
+
+<!-- END of: Search/email.tpl -->

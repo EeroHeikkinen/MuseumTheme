@@ -149,7 +149,7 @@ class TagCloud extends Action
         }
 
         foreach ($data as $key => $value) {
-            $data[$key] = $distinctToFont["$value"];
+            $data[$key] = array ("font" => $distinctToFont["$value"], "count" => $value);
         }
 
         return $data;

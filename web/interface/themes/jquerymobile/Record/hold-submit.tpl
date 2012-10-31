@@ -12,7 +12,7 @@
 
   <div class="hold-form">
 
-    <form action="{$url|escape}/Record/{$id|escape}/Hold{$formURL|escape}" method="post">
+    <form action="{$url|escape}/Record/{$id|escape}/Hold{$formURL|escape}" method="post" data-ajax="false">
 
       {if in_array("comments", $extraHoldFields)}
         <div>

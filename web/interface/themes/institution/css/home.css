@@ -1,15 +1,15 @@
 /****** Homepage ******/
 
 /* temp style until the browse has been figured out to home page */
-.searchHome {
-    /* margin-bottom: 15em; */
-    background-color: #f3f3f3;
-    border-bottom: 1px solid #ddd;
-}
+
 .searchHomeContent {
-    padding: 2em 0 2em 0;
+    padding: 3em 0 3em 0;
     margin: 0 auto;
     text-align: left;
+}
+.header-home {
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #ddd;
 }
 
 /*** Logo ***/
@@ -17,16 +17,24 @@
 .searchHomeLogo {
     text-align: center;
 }
+.searchHomeLogoMetaLib {
+    background: url("../images/finna-ml-logo_small.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+    margin: 0 auto 2em auto;
+    text-align: center;
+}
 .searchHomeLogo img {
     display: block;
-    margin: 0 auto 1em auto;
+    margin: 1em auto 1em auto;
 }
 
 
 /** Search Box **/
 
 .searchHome .searchbox {
-    margin-top: 0;
+    margin: 0;
 }
 
 .searchHomeForm {
@@ -38,42 +46,42 @@
 */
     margin: 0 auto;
     text-align: left;
+/*
     font-size: 12pt;
+*/
     color: #264409;
 }
 div.searchHomeForm div.searchform {
     float:none;
-    margin:12px auto 0;
+    margin:0 auto;
 }
 div.searchHomeForm div.searchform #searchForm {
-    margin:12px auto 0;
+    width:506px;
+    margin:0 auto;
 }
 
 .searchHomeForm #searchForm_input {
-    background-color: #ffffff;
-    color: #333333;
-    height: 24px;
-    width: 220px;
-    padding: 4px 4px 4px 8px;
-    border: 1px solid #999999;
-    border-right: 0;
-    border-radius: 6px 0 0 6px;
-    -moz-border-radius: 6px 0 0 6px;
-    -webkit-border-radius: 6px 0 0 6px;
+    width: 200px;
 /*
-    -webkit-border-top-left-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
+    background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
+    border: none;
+    color: #333333;
+    height: 16px;
+    width: 220px;
+    padding: 10px 4px 8px 8px;
 */
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .searchHomeForm div.styled_select { /* to get rid of unstylable down-arrow */
+/*
     border-right: 1px solid #969696;
     width: 145px;
     height: 34px;
     overflow: hidden;
     background: none no-repeat right transparent;
+*/
 }
-.searchHomeForm #searchForm_type {
+.searchHomeForm .searchForm_select {
+/*
     background: url("../images/searchselect_bg.png") transparent no-repeat;
     border: none;
     color: #555555;
@@ -81,18 +89,35 @@ div.searchHomeForm div.searchform #searchForm {
     height: 34px;
     width: 169px;
     padding: 8px 9px;
-    -webkit-border-radius: 0; /* to fix round left corners on mac webkit-browsers */
+*/
+/*    -webkit-border-radius: 0;*/ /* to fix round left corners on mac webkit-browsers */
 }
+
+/** Dropdown **/
+.searchHomeForm .dropdown dd, .searchHomeForm .dropdown dt, .searchHomeForm .dropdown ul {
+/*
+    font-size: .9em;
+*/
+}
+
 .searchHomeForm #searchForm_searchButton {
-    background: url("../images/searchbutton_bg.png") transparent;
+/*
+    background: url("../images/searchbox.png") no-repeat scroll -240px -3px transparent;
     border: none;
     color: #555555;
     cursor: pointer;
     height: 34px;
     width: 89px;
     margin-left: 5px;
+*/
 }
 
+.searchHomeForm #searchForm_searchButton:hover {
+/*
+    background: url("../images/searchbox.png") no-repeat scroll -240px -38px transparent;
+    color: #333333;
+*/
+}
 .searchHomeForm a, .searchHomeForm a:hover {
 /*
     color:#264409;
@@ -130,11 +155,21 @@ div.searchHomeForm div.searchform #searchForm {
 
 /*** Custom content ***/
 
-.homeCustomContent .homeCustomCol1 {
-    float: left;
-    width: 346px;
-    margin: 1em 12px 4em 12px;
+.homeCustomContent {
+    background-color: #f3f3f3;
+    padding: 0 24px 4em;
 }
+
+.homeCustomCol1, .homeCustomCol2, .homeCustomCol3 {
+    float: left;
+    margin-left: 24px;
+}
+
+.homeCustomCol1 {
+    margin-left: 0;
+    width: 340px;
+}
+/*
 .homeCustomContent .homeCustomCol1 h2 {
     font-size: 2em;
     font-weight: bold;
@@ -146,10 +181,10 @@ div.searchHomeForm div.searchform #searchForm {
     font-size: 1.2em;
     margin-bottom: 0.5em;
 }
-.homeCustomContent .homeCustomCol2 {
-    float: left;
-    width: 284px;
-    margin: 1em 12px 2em 0;
+*/
+.homeCustomCol2 {
+    margin-top: .8em;
+    width: 304px;
 }
 .homeCustomContent .homeCustomCol2 ul {
     padding: 0;
@@ -157,7 +192,7 @@ div.searchHomeForm div.searchform #searchForm {
 }
 .homeCustomContent .homeCustomCol2 ul li {
     float: left;
-    width: 130px;
+    width: 140px;
     margin: 0.5em 10px 0.5em 0;
     font-size: 1em;
 }
@@ -165,10 +200,7 @@ div.searchHomeForm div.searchform #searchForm {
     font-size: 0.9em;
 }
 .homeCustomContent .homeCustomCol3 {
-    float: left;
     width: 210px;
-    margin: 1em 12px 2em 0;
-    background-color:#99ff99;
 }
 
 /*** Browse Search ***/

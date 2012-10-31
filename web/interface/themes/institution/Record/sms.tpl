@@ -1,3 +1,5 @@
+<!-- START of: Record/sms.tpl -->
+
 {if $message}<div class="error">{$message|translate}</div>{/if}
 
 <form method="post" action="{$url}{$formTargetPath|escape}" name="smsRecord">
@@ -19,3 +21,5 @@
   <br/>
   <input class="button" type="submit" name="submit" value="{translate text="Send"}"/>
 </form>
+
+<!-- END of: Record/sms.tpl -->

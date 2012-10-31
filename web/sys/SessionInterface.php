@@ -55,12 +55,17 @@ class SessionInterface
      */
     public function init($lt)
     {
+        global $configArray;
+        
         self::$lifetime = $lt;
         session_set_save_handler(
             array(get_class($this), 'open'), array(get_class($this),'close'),
             array(get_class($this),'read'), array(get_class($this),'write'),
             array(get_class($this),'destroy'), array(get_class($this),'gc')
         );
+        if (isset($configArray['Session']['limit_session_path']) && $configArray['Session']['limit_session_path']) {
+            session_set_cookie_params(0, $configArray['Site']['path']);
+        } 
         session_start();
 
         // According to the PHP manual, session_write_close should always be

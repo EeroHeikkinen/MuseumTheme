@@ -1,3 +1,5 @@
+<!-- START of: Search/openurl_autocheck.tpl -->
+
 {if $openUrlAutoCheck}
 {js filename="jquery.inview.min.js"}
 {literal}
@@ -8,3 +10,5 @@ $(document).ready(function() {
 {/literal}
 </script>
 {/if}
+
+<!-- END of: Search/openurl_autocheck.tpl -->

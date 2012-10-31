@@ -1,3 +1,5 @@
+<!-- START of: Search/newitem.tpl -->
+
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
   <h3>{translate text='Find New Items'}</h3>
   <form method="get" action="{$url}/Search/NewItem" class="search">
@@ -35,4 +37,5 @@
 <div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
 </div>
 <div class="clear"></div>
-      
+
+<!-- END of: Search/newitem.tpl -->

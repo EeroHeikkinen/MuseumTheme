@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/catalog-login.tpl -->
+
 {if $offlineMode == "ils-offline"}
   <div class="sysInfo">
     <h2>{translate text="ils_offline_title"}</h2>
@@ -28,3 +30,5 @@
 
   </form>
 {/if}
+
+<!-- END of: MyResearch/catalog-login.tpl -->

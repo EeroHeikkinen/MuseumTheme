@@ -64,11 +64,11 @@ class JSON extends Action
     {
         // Call the method specified by the 'method' parameter as long as it is
         // valid and will not result in an infinite loop!
-        if ($_GET['method'] != 'launch'
-            && $_GET['method'] != '__construct'
+        if ($_REQUEST['method'] != 'launch'
+            && $_REQUEST['method'] != '__construct'
             && is_callable(array($this, $_GET['method']))
         ) {
-            $this->$_GET['method']();
+            $this->$_REQUEST['method']();
         } else {
             return $this->output(translate('Invalid Method'), JSON::STATUS_ERROR);
         }
@@ -339,6 +339,7 @@ class JSON extends Action
             // Check if resource is saved to favorites
             $resource = new Resource();
             $resource->record_id = $id;
+            unset($resource->source);
 
             if ($resource->find(true)) {
                 $data = $user->getSavedData($id);
@@ -366,7 +367,12 @@ class JSON extends Action
      */
     public function saveRecord()
     {
-        include_once 'services/Record/Save.php';
+        $id = $_GET['id'];
+        if (strncmp($id, 'metalib.', 8) == 0) {
+            include_once 'services/MetaLib/Save.php';
+        } else {
+            include_once 'services/Record/Save.php';
+        }     
 
         // check if user is logged in
         $user = UserAccount::isLoggedIn();
@@ -410,6 +416,32 @@ class JSON extends Action
 
         return $this->output(translate('email_success'), JSON::STATUS_OK);
     }
+    
+    /**
+     * Give feedback on a record.
+     *
+     * @return void
+     * @access public
+     */
+    public function feedbackRecord()
+    {
+        // Load the appropriate module based on the "type" parameter:
+        $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 'Record';
+        include_once 'services/' . $type . '/Feedback.php';
+    
+        $feedbackService = new Feedback();
+        $result = $feedbackService->sendEmail(
+            $_REQUEST['from'], $_REQUEST['message']
+        );
+    
+        if (PEAR::isError($result)) {
+            return $this->output(
+                translate($result->getMessage()), JSON::STATUS_ERROR
+            );
+        }
+    
+        return $this->output(translate('email_success'), JSON::STATUS_OK);
+    }    
 
     /**
      * SMS a record.

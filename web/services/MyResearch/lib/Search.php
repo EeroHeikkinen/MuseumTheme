@@ -51,6 +51,8 @@ class SearchEntry extends DB_DataObject
     public $saved;                           // int(1) not_null default 0
     public $search_object;                   // blob
     public $session_id;                      // varchar(128)
+    public $schedule;                        // int(1) not_null default 0
+    public $last_executed;                   // datetime(19) not_null binary
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Search',$k,$v); }
@@ -116,4 +118,21 @@ class SearchEntry extends DB_DataObject
         }
         return $searches;
     }
+    
+    /**
+     * Changes the last execution date
+     *
+     * @param string $date The new date in ISO8601 format (2012-10-16T10:23:56Z)
+     *
+     * @return boolean True on success
+     * @access public
+     */
+    public function changeLastExecuted($date)
+    {
+        $this->last_executed = $date;
+        $this->update();
+        
+        return true;
+    }
+    
 }

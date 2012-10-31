@@ -1,3 +1,5 @@
+<!-- START of: Collection/browseList.tpl -->
+
 {foreach from=$result item=item name=recordLoop}
   <div class="collectionBrowseEntry listBrowse {if ($smarty.foreach.recordLoop.iteration % 2) == 0}alt {/if}">
     <div class="collectionBrowseHeading">
@@ -11,4 +13,5 @@
     <div class="clearer"><!-- empty --></div>
   </div>
 {/foreach}
-  
+
+<!-- END of: Collection/browseList.tpl -->

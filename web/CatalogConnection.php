@@ -101,7 +101,7 @@ class CatalogConnection
      * if the system supports a particular function.
      *
      * @param string $function The name of the function to check.
-     * @param string $id (optional) A record id used to identify the used backend with
+     * @param string $id       (optional) A record id used to identify the used backend with
      * MultiBackend driver  
      *
      * @return mixed On success, an associative array with specific function keys

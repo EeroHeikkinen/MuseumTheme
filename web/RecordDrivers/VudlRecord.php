@@ -49,9 +49,9 @@ class VudlRecord extends IndexRecord
      * default).
      *
      * @return mixed
-     * @access protected
+     * @access public
      */
-    protected function getThumbnail($size = 'small')
+    public function getThumbnail($size = 'small')
     {
         // We are currently storing only one size of thumbnail; we'll use this for
         // small and medium sizes in the interface, flagging "large" as unavailable

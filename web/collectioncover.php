@@ -67,8 +67,8 @@ function sanitizeParameters()
 /**
  * Load bookcover fom URL from cache or remote provider and display if possible.
  *
- * @param string $isn  ISBN (10 characters preferred)
- * @param string $size Size of cover (large, medium, small)
+ * @param string $title Collection title
+ * @param string $size  Size of cover (large, medium, small)
  *
  * @return bool        True if image displayed, false on failure.
  */
@@ -83,8 +83,8 @@ function fetchFromTitle($title, $size)
     //print_r($title);
     $solr = new solr($configArray['Index']['url']);
     $collections = $solr->getCollectionsFromName($title);
-    if (count($collections) > 1 || count($collections) == 0){
-    	return false;
+    if (count($collections) > 1 || count($collections) == 0) {
+        return false;
     }
     
     $id = $collections[0]['id'];

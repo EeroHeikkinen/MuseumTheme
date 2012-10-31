@@ -1,3 +1,12 @@
+<!-- START of: RecordDrivers/Index/holdings.tpl -->
+
+{if $id|substr:0:7 == 'helmet.'}
+  <br/>
+  <span class="native_link">
+    <a href="http://haku.helmet.fi/iii/encore/record/C|R{$id|substr:7|escape}">{translate text='Holdings details from'} HelMet</a><br/>
+  </span>
+{/if}
+
 {if !$hideLogin && $offlineMode != "ils-offline"}
   {if ($driverMode && !empty($holdings)) || $titleDriverMode}
     {if $showLoginMsg || $showTitleLoginMsg}
@@ -11,8 +20,11 @@
   {/if}
 {/if}
 
-{if $holdingTitleHold}
+{if $holdingTitleHold && $holdingTitleHold != 'block'}
     <a class="holdPlace" href="{$holdingTitleHold|escape}">{translate text="title_hold_place"}</a>
+{/if}
+{if $holdingTitleHold == 'block'}
+    {translate text="hold_error_blocked"}
 {/if}
 
 {if !empty($holdingURLs) || $holdingsOpenURL}
@@ -105,3 +117,5 @@
   {/foreach}
 </ul>
 {/if}
+
+<!-- END of: RecordDrivers/Index/holdings.tpl -->

@@ -42,6 +42,7 @@ require_once 'Pager/Pager.php';
 class VuFindPager
 {
     private $_pager;
+    protected $options;
 
     /**
      * Constructor
@@ -55,13 +56,14 @@ class VuFindPager
     public function __construct($options = array())
     {
         // Set default Pager options:
+        $perPage = isset($options['perPage']) ? $options['perPage'] : 20;
         $finalOptions = array(
             'mode'       => 'sliding',
             'path'       => "",
             'delta'      => 5,
             'perPage'    => 20,
-            'nextImg'    => translate('Next') . ' &raquo;',
-            'prevImg'    => '&laquo; ' . translate('Prev'),
+            'nextImg'    => sprintf(translate('page_link_next'), $perPage),
+            'prevImg'    => sprintf(translate('page_link_prev'), $perPage),
             'separator'  => '',
             'spacesBeforeSeparator' => 0,
             'spacesAfterSeparator'  => 0,
@@ -78,6 +80,8 @@ class VuFindPager
 
         // Create the pager object:
         $this->_pager =& Pager::factory($finalOptions);
+        
+        $this->options = $finalOptions;
     }
 
     /**
@@ -88,7 +92,9 @@ class VuFindPager
      */
     public function getLinks()
     {
-        return $this->_pager->getLinks();
+        $links = $this->_pager->getLinks();
+        $links['pagerOptions'] = $this->options; 
+        return $links;
     }
 }
 ?>

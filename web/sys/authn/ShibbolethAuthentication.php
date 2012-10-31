@@ -80,6 +80,7 @@ class ShibbolethAuthentication implements Authentication
         }
 
         $user = new User();
+        $user->authMethod = 'Shibboleth';
         $user->username = $_SERVER[$this->_userAttributes['username']];
         $userIsInVufindDatabase = $this->_isUserInVufindDatabase($user);
 
@@ -92,6 +93,10 @@ class ShibbolethAuthentication implements Authentication
             if (isset($configArray['Shibboleth'][$attribute])
                 && isset($_SERVER[$configArray['Shibboleth'][$attribute]])
             ) {
+                // Special case: don't override user's email address if it's already set
+                if ($attribute == 'email' && $userIsInVufindDatabase && $user->{$attribute}) {
+                    continue;
+                }
                 $user->{$attribute}
                     = $_SERVER[$configArray['Shibboleth'][$attribute]];
             }

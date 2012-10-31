@@ -1,5 +1,7 @@
+<!-- START of: Search/advanced.tpl -->
+
 <form method="get" action="{$url}/Search/Results" id="advSearchForm" name="searchForm" class="search">
-  <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+  <div class="span-10">
     <h3>{translate text='Advanced Search'}</h3>
     <div class="advSearchContent">
       {if $editErr}
@@ -19,7 +21,7 @@
       </div>
   
       {* An empty div. This is the target for the javascript that builds this screen *}
-      <div id="searchHolder">
+      <div id="searchHolder" class="span-10 last">
         {* fallback to a fixed set of search groups/fields if JavaScript is turned off *}
         <noscript>
         {if $searchDetails}
@@ -74,22 +76,44 @@
       <a id="addGroupLink" href="#" class="add offscreen" onclick="addGroup(); return false;">{translate text="add_search_group"}</a>
   
       <br/><br/>
+    {if $dateRangeLimit}
+        {* Load the jslider UI widget *}
+        {js filename="pubdate_slider.js"}
+        {js filename="jshashtable-2.1_src.js"}
+        {js filename="jquery.numberformatter-1.2.3.js"}
+        {js filename="jquery.dependClass-0.1.js"}
+        {js filename="draggable-0.1.js"}
+        {js filename="jslider/jquery.slider.js"}
+        {css media="screen, projection" filename="jslider/jslider.css"}     
+    <div class="span-10">
+        <input type="hidden" name="daterange[]" value="publishDate"/>
+          <legend id="pubDateLegend">{translate text='adv_search_year'}</legend>
+          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDatefrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" /> - 
+          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDateto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
+        <br>
+        <div class="span-10" id="sliderContainer">
+            <input id="publishDateSlider" class="dateSlider span-10" type="slider" name="sliderContainer" value="0000;2012" />
+        </div>
+    </div>
+    {/if}
   
-      <input type="submit" name="submit" value="{translate text="Find"}"/>
-      {if $facetList}
-        <h3>{translate text='Limit To'}</h3>
+    {if $facetList}
+        {js filename="chosen/chosen.jquery.js"}
+        {js filename="chosen_multiselects.js"}
+        {css media="screen, projection" filename="chosen/chosen.css"}
         {foreach from=$facetList item="list" key="label"}
-        <div class="{if $label=='Call Number'}span-7{else}span-4{/if}">
+        <div id ="facetsContainer" class="span-4">
           <label class="displayBlock" for="limit_{$label|replace:' ':''|escape}">{translate text=$label}:</label>
-          <select id="limit_{$label|replace:' ':''|escape}" name="filter[]" multiple="multiple" size="10">
+          <select class="chzn-select span-4" data-placeholder="{translate text="No Preference"}" id="limit_{$label|replace:' ':''|escape}" name="orfilter[]" multiple="multiple" size="10">
             {foreach from=$list item="value" key="display"}
-              <option value="{$value.filter|escape}"{if $value.selected} selected="selected"{/if}>{$display|escape}</option>
+              <option value="{$value.filter|escape}"{if $value.selected} selected="selected"{/if}>{if $value.level > 0}&nbsp;&nbsp;&nbsp;{/if}{if $value.level > 1}&nbsp;&nbsp;&nbsp;{/if}{$value.translated|escape}</option>
             {/foreach}
           </select>
         </div>
         {/foreach}
         <div class="clear"></div>
       {/if}
+      
       {if $illustratedLimit}
         <fieldset class="span-4">
           <legend>{translate text="Illustrated"}:</legend>
@@ -99,6 +123,7 @@
           {/foreach}
         </fieldset>
       {/if}
+      
       {if $limitList|@count gt 1}
         <fieldset class="span-4">
           <legend>{translate text='Results per page'}</legend>
@@ -114,26 +139,43 @@
           </select>
         </fieldset>
       {/if}
+        <div class="mapContainer">
+          {js filename="jquery.geo.min.js"}
+          {js filename="selection_map.js"}
+          <label class="displayBlock" for="coordinates">{translate text='Coordinates:'}</label>
+          {* help text, currently not included 
+          <span class="small">Valitse kartalta tai syötä käsin muodossa: vasen yläkulma lat, vasen yläkulma lon, oikea alakulma lat, oikea alakulma lon</span>
+          *}
+          <input id="coordinates" name="coordinates"></input>
+          <div id="selectionMapContainer">
+            <div id="zoomSlider">
+              <div id="zoomControlPlus" class="ui-state-default ui-corner-all ui-icon ui-icon-plus"></div>
+              <div id="zoomRange">
+                <div id="zoomPath"></div>
+              </div>
+              <div id="zoomControlMinus" class="ui-state-default ui-corner-all ui-icon ui-icon-minus"></div>
+            </div>
+            <div id="selectionMap">
+              <div id="selectionMapTools">
+                <input id="mapPan" type="radio" name="tool" value="pan" checked="checked"><label for="mapPan">{translate text='Move Map'}</label>
+                <input id="mapPolygon" type="radio" name="tool" value="drawPolygon"><label for="mapPolygon">{translate text='Select Polygon'}</label>
+                <input id="mapRectangle" type="radio" name="tool" value="dragBox"><label for="mapRectangle">{translate text='Select Rectangle'}</label>
+              </div>
+            </div>
+          </div>
+          <span id="selectionMapHelp">
+            <span id="selectionMapHelpPan">{translate text="adv_search_map_pan_help"}</span>
+            <span id="selectionMapHelpPolygon" class="hide">{translate text="adv_search_map_polygon_help"}</span>
+            <span id="selectionMapHelpRectangle" class="hide">{translate text="adv_search_map_rectangle_help"}</span>
+          </span>
+        </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
-      {if $dateRangeLimit}
-        {* Load the publication date slider UI widget *}
-        {js filename="pubdate_slider.js"}
-        <input type="hidden" name="daterange[]" value="publishDate"/>
-        <fieldset class="publishDateLimit span-5" id="publishDate">
-          <legend>{translate text='adv_search_year'}</legend>
-          <label for="publishDatefrom">{translate text='date_from'}:</label>
-          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDatefrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" />
-          <label for="publishDateto">{translate text='date_to'}:</label>
-          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDateto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
-          <div id="publishDateSlider" class="dateSlider"></div>
-        </fieldset>
-      {/if}
       <div class="clear"></div>
-      <input type="submit" name="submit" value="{translate text="Find"}"/>
+      <input type="submit" class="push-9 button searchButton" name="submit" value="{translate text="Find"}"/>
     </div>
   </div>
-  
-  <div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+
+  <div class="span-3 last">
     {if $searchFilters}
       <div class="filterList">
         <h3>{translate text="adv_search_filters"}<br/><span>({translate text="adv_search_select_all"} <input type="checkbox" checked="checked" onclick="filterAll(this, 'advSearchForm');" />)</span></h3>
@@ -158,7 +200,44 @@
 
   <div class="clear"></div>
 </form>
-
+{literal}
+<script type="text/html" id="new_search_tmpl">
+<div class="advRow">
+    <div class="label">
+        <label class="<%=(groupSearches[group] > 0 ? "hide" : "")%>" for="search_lookfor<%=group%>_<%=groupSearches[group]%>"><%=searchLabel%>:</label>&nbsp;
+    </div>
+    <div class="terms">
+        <input type="text" id="search_lookfor<%=group%>_<%=groupSearches[group]%>" name="lookfor<%=group%>[]" size="50" value="<%=jsEntityEncode(term)%>" />
+    </div>
+    <div class="field">
+        <label for="search_type<%=group%>_<%=groupSearches[group]%>"><%=searchFieldLabel%></label>
+        <select id="search_type<%=group%>_<%=groupSearches[group]%>" name="type<%=group%>[]">
+        <% for ( key in searchFields ) { %>
+            <option value="<%=key%>"<%=key == field ? ' selected="selected"' : ""%>"><%=searchFields[key]%></option>
+        <% } %>
+        </select>
+    </div>
+<span class="clearer"></span>
+</div>
+</script>
+<script type="text/html" id="new_group_tmpl">
+    <div id="group<%=nextGroupNumber%>" class="group group<%=nextGroupNumber % 2%>">
+        <div class="groupSearchDetails">
+            <div class="join">
+                <label for="search_bool<%=nextGroupNumber%>"><%=searchMatch%>:</label>
+                <select id="search_bool<%=nextGroupNumber%>" name="bool<%=nextGroupNumber%>[]">
+                    <% for ( key in searchJoins ) { %>
+                        <option value="<%=key%>"<%=key == join ? ' selected="selected"' : ""%>"><%=searchJoins[key]%></option>
+                    <% } %>
+                </select>
+            </div>
+            <a href="#" class="delete" id="delete_link_<%=nextGroupNumber%>" onclick="deleteGroupJS(this); return false;"><%=deleteSearchGroupString%></a>
+        </div>
+        <div id="group<%=nextGroupNumber%>SearchHolder" class="groupSearchHolder"></div>
+        <div class="addSearch"><a href="#" class="add" id="add_search_link_<%=nextGroupNumber%>" onclick="addSearchJS(this); return false;"><%=addSearchString%></a></div>
+    </div>
+</script>
+{/literal}
 {* Step 1: Define our search arrays so they are usuable in the javascript *}
 <script type="text/javascript">
 //<![CDATA[
@@ -202,3 +281,5 @@
   $("#addGroupLink").removeClass("offscreen");
 //]]>
 </script>
+
+<!-- END of: Search/advanced.tpl -->

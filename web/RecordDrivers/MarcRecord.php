@@ -258,8 +258,9 @@ class MarcRecord extends IndexRecord
     {
         global $interface;
         
-        $interface->assign('summImages', $this->getAllImages());
-
+        // get other links from MARC field 787
+        $interface->assign('coreOtherLinks', $this->getOtherLinks());
+        
         // MARC results work just like index results, except that we want to
         // enable the AJAX status display since we assume that MARC records
         // come from the ILS:
@@ -296,9 +297,10 @@ class MarcRecord extends IndexRecord
         $doc = new DOMDocument;
         if ($doc->loadXML($xml)) {
             $html = $xsl->transformToXML($doc);
-            $interface->assign('details', $html);
+            $interface->assign('marc', $html);
         }
-
+        $interface->assign('details', $this->fields);
+        
         return 'RecordDrivers/Marc/staff.tpl';
     }
 
@@ -373,21 +375,21 @@ class MarcRecord extends IndexRecord
                         break;
                     case 'c':
                         if ($partAuthor) {
-                            $partAuthor .= ', ';
+                            $partAuthor .= '; ';
                         }    
                         $partAuthor .= $subfield->getData();
                         break;
                     case 'd':
                         if ($partAdditionalAuthors) {
-                            $partAdditionalAuthors .= ', ';
+                            $partAdditionalAuthors .= '; ';
                         } 
                         $partAdditionalAuthors .= $subfield->getData();
                         break;          
                     }              
                 }
-                if ($partAuthor) {
-                    $partAuthors = $partAuthor . ', ';
-                }    
+                if ($partAuthor && $partAdditionalAuthors) {
+                    $partAuthors = $partAuthor . '; ';
+                }
                 $partAuthors .= $partAdditionalAuthors;  
                 $componentparts[] = array(
                                         'number' => $partOrderCounter,
@@ -506,7 +508,7 @@ class MarcRecord extends IndexRecord
     {
         // These are the fields that may contain subject headings:
         $fields = array(
-            '600', '610', '611', '630', '648', '650', '651', '655', '656'
+            '600', '610', '611', '630', '648', '650', '651', '656'
         );
 
         // This is all the collected data:
@@ -537,6 +539,7 @@ class MarcRecord extends IndexRecord
                     }
                     // If we found at least one chunk, add a heading to our result:
                     if (!empty($current)) {
+                        $current[count($current) - 1] = $this->stripTrailingPunctuation($current[count($current) - 1]);
                         $retval[] = $current;
                     }
                 }
@@ -1350,9 +1353,9 @@ class MarcRecord extends IndexRecord
      * default).
      *
      * @return mixed
-     * @access protected
+     * @access public
      */
-    protected function getThumbnail($size = 'small')
+    public function getThumbnail($size = 'small')
     {
         global $configArray;
         foreach ($this->marcRecord->getFields('856') as $url) {
@@ -1398,6 +1401,170 @@ class MarcRecord extends IndexRecord
             }
         }      
         return false;
+    }
+
+    /**
+     * Overload the IndexRecord method to include other references from MARC field 787. 
+     * @return string Name of Smarty template file to display.
+     * @access public
+     */
+    public function getCoreMetadata()
+    {
+        global $configArray;
+        global $interface;
+    
+        $interface->assign('coreOtherLinks', $this->getOtherLinks());     
+        
+        // Call the parent method:
+        return parent::getCoreMetadata();
+    }
+        
+    /**
+     * Get the "other links" from MARC field 787.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getOtherLinks()
+    {
+        $retval = array();
+        foreach ($this->marcRecord->getFields('787') as $link) {
+            $heading = $link->getSubfield('i');
+            if ($heading) {
+                $heading = $heading->getData();
+            } else {
+                $heading = '';
+            }
+            // Normalize heading
+            $heading = str_replace(':', '', $heading);
+            $title = $link->getSubfield('t');
+            if ($title) {
+                $title = $title->getData();
+            } else {
+                $title = '';
+            }
+            $author = $link->getSubfield('a');
+            if ($author) {
+                $author = $author->getData();
+            } else {
+                $author = '';
+            }
+            $isbn = $link->getSubfield('z');
+            $issn = $link->getSubfield('x');
+            if ($isbn) {
+                $isn = $isbn->getData();
+            } else if ($issn) {
+                $isn = $issn->getData();
+            } else {
+                $isn = '';
+            }
+            
+            $retval[] = compact('heading', 'title', 'author', 'isn');
+        }
+        return $retval;
+    }
+
+    /**
+     * Get the main author of the record (without year and role).
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getPrimaryAuthorForSearch()
+    {
+        return $this->getFirstFieldValue('100', array('a', 'b', 'c'));
+    }
+
+    /**
+     * Get the publication end date of the record
+     *
+     * @return number|false
+     * @access protected
+     */
+    protected function getPublicationEndDate()
+    {
+        $field = $this->marcRecord->getField('008');
+        if ($field) {
+            $data = $field->getData();
+            $year = substr($data, 11, 4);
+            if (is_numeric($year) && $year != 0) {
+                return $year;
+            } 
+        }
+        return false;
+    }
+
+    /**
+     * Strip trailing spaces and punctuation characters from a string
+     *
+     * @param string|string[] $input String to strip
+     * 
+     * @return string
+     */
+    public function stripTrailingPunctuation($input)
+    {
+        $array = is_array($input);
+        if (!$array) {
+            $input = array($input);
+        }
+        foreach ($input as &$str) {
+            $str = preg_replace('/[\s\/:;\,=\(]+$/', '', $str);
+            // Don't replace an initial letter (e.g. string "Smith, A.") followed by period
+            $thirdLast = substr($str, -3, 1);
+            if (substr($str, -1) == '.' && $thirdLast != ' '  && $thirdLast != ' ') {
+                if (!in_array(substr($str, -4), array('nid.', 'sid.', 'kuv.', 'ill.', 'säv.', 'col.'))) {
+                    $str = substr($str, 0, -1);
+                }
+            }
+        }
+        return $array ? $input : $input[0];
+    }
+    
+    /**
+     * Get an array of alternative titles for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getAlternativeTitles()
+    {
+        return $this->getFieldArray('246', array('a', 'b', 'f'));
+    }
+
+    /**
+     * Get an array of all ISBNs associated with the record (may be empty).
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getISBNs()
+    {
+        return $this->getFieldArray('020', array('a'));
+    }
+
+    /**
+     * Get an array of all ISSNs associated with the record (may be empty).
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getISSNs()
+    {
+        $fields = array(
+            '022' => array('a'),
+            '440' => array('x'),
+            '490' => array('x'),
+            '730' => array('x'),
+            '773' => array('x'),
+            '776' => array('x'),
+            '780' => array('x'),
+            '785' => array('x')
+        ); 
+        $issn = array();
+        foreach ($fields as $field => $subfields) {
+            $issn = array_merge($issn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields)));
+        }
+        return array_values(array_unique($issn));
     }
     
 }

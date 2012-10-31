@@ -1,3 +1,5 @@
+<!-- START of: Search/reserves-list.tpl -->
+
 {* Main Listing *}
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
   {if $errorMsg || $infoMsg}
@@ -19,16 +21,14 @@
   {* Listing Options *}
   <div class="resulthead">
     <div class="span-12">
-      {translate text="Showing"}
-      <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-      {translate text='of'} <strong>{$recordCount}</strong>
       {translate text='Reserves'}
       {if $instructor || $course}
       ({if $instructor}{translate text='Instructor'}: <strong>{$instructor|escape}</strong>{if $course}, {/if}{/if}
       {if $course}{translate text='Course'}: <strong>{$course|escape}</strong>{/if})
       {/if}
     </div>
-
+    {include file="Search/paging.tpl" position="Top"}
+    
     <div class="span-5 last">
       <div class="limitSelect">
         {if $limitList|@count gt 1}
@@ -63,7 +63,7 @@
     {$pageContent}
   {/if}
 
-  {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+  {include file="Search/paging.tpl"}
     <div class="searchtools">
       <strong>{translate text='Search Tools'}:</strong>
       <a href="{$rssLink|escape}" class="feed">{translate text='Get RSS Feed'}</a>
@@ -84,3 +84,5 @@
 {* End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Search/reserves-list.tpl -->

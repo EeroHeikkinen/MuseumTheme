@@ -35,7 +35,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 			width		: 256,
 			height		: 256,
 			typeNumber	: -1,
-			correctLevel	: QRErrorCorrectLevel.H,
+			correctLevel	: QRErrorCorrectLevel.L, // changed to L, was H
                         background      : "#ffffff",
                         foreground      : "#000000"
 		}, options);

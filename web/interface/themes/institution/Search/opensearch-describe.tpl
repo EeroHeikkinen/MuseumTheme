@@ -1,3 +1,5 @@
+<!-- START of: Search/opensearch-describe.tpl -->
+
 <?xml version="1.0"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
   <ShortName>{$site.title}</ShortName>
@@ -8,3 +10,5 @@
   <Url type="application/rss+xml" method="get" template="{$site.url}/Search/Results?lookfor={literal}{searchTerms}{/literal}&amp;view=rss"/>
   <Url type="application/x-suggestions+json" method="get" template="{$site.url}/Search/Suggest?lookfor={literal}{searchTerms}{/literal}&amp;format=JSON"/>
 </OpenSearchDescription>
+
+<!-- END of: Search/opensearch-describe.tpl -->

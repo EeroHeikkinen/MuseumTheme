@@ -1,12 +1,17 @@
-  <div class="sidegroup">
-    <h4 class="account">{translate text='Your Account'}</h4>
-    <ul class="bulleted">
-      <li{if $pageTemplate=="favorites.tpl"} class="active"{/if}><a href="{$url}/MyResearch/Favorites">{translate text='Favorites'}</a></li>
-      <li{if $pageTemplate=="checkedout.tpl"} class="active"{/if}><a href="{$url}/MyResearch/CheckedOut">{translate text='Checked Out Items'}</a></li>
-      <li{if $pageTemplate=="holds.tpl"} class="active"{/if}><a href="{$url}/MyResearch/Holds">{translate text='Holds and Recalls'}</a></li>
-      <li{if $pageTemplate=="fines.tpl"} class="active"{/if}><a href="{$url}/MyResearch/Fines">{translate text='Fines'}</a></li>
-      <li{if $pageTemplate=="profile.tpl"} class="active"{/if}><a href="{$url}/MyResearch/Profile">{translate text='Profile'}</a></li>
+<!-- START of: MyResearch/menu.tpl -->
+
+  <h2 class="account">{translate text="Your Account"}</h2>
+
+  <div class="ui-tabs ui-widget myResearchMenu">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix">
+      <li class="active ui-state-default ui-corner-top {if $pageTemplate=="favorites.tpl" || $pageTemplate=="list.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Favorites">{translate text='Favorites'}</a></li>
+      <li class="active ui-state-default ui-corner-top {if $pageTemplate=="checkedout.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/CheckedOut">{translate text='Checked Out Items'}</a></li>
+      <li class="active ui-state-default ui-corner-top {if $pageTemplate=="holds.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Holds">{translate text='Holds and Recalls'}</a></li>
+      <li class="active ui-state-default ui-corner-top {if $pageTemplate=="fines.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Fines">{translate text='Fines'}</a></li>
+      <li class="active ui-state-default ui-corner-top {if $pageTemplate=="profile.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Profile">{translate text='Profile'}</a></li>
       {* Only highlight saved searches as active if user is logged in: *}
-      <li{if $user && $pageTemplate=="history.tpl"} class="active"{/if}><a href="{$url}/Search/History?require_login">{translate text='history_saved_searches'}</a></li>
+      <li class="active ui-state-default ui-corner-top {if $user && $pageTemplate=="history.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/Search/History?require_login">{translate text='history_saved_searches'}</a></li>
     </ul>
   </div>
+  
+<!-- END of: MyResearch/menu.tpl -->

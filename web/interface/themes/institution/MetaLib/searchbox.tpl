@@ -1,22 +1,32 @@
-<div class="searchform">
+<!-- START of: MetaLib/searchbox.tpl -->
+
+<div class="searchform last">
   {if $searchType == 'MetaLibAdvanced'}
-    <a href="{$path}/MetaLib/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
-    <a href="{$path}/MetaLib/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
-    <a href="{$path}/MetaLib/Home" class="small">{translate text="Start a new Basic Search"}</a>
+    <a href="{$path}/MetaLib/Advanced?edit={$searchId}&set={$searchSet|escape}" class="small">{translate text="Edit this Advanced Search"}</a> |
+    <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small">{translate text="Start a new Advanced Search"}</a> |
+    <a href="{$path}/MetaLib/Home?set={$searchSet|escape}" class="small">{translate text="Start a new Basic Search"}</a>
     <br/>{translate text="Your search terms"} : "<strong>{$lookfor|escape:"html"}</strong>"
   {else}
     <form method="get" action="{$path}/MetaLib/Search" name="searchForm" id="searchForm" class="search">
-      <label for="searchForm_lookfor" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_lookfor" type="text" name="lookfor" size="40" value="{$lookfor|escape:"html"}"/>
-      <label for="searchForm_set" class="offscreen">{translate text="Search In"}</label>
-      <select id="searchForm_set" name="set">
-      {foreach from=$metalibSearchSets item=searchDesc key=searchVal}
-        <option value="{$searchVal}"{if $searchSet == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
-      {/foreach}
-      </select>
-      <input type="submit" name="submit" value="{translate text="Find"}"/>
-      <a href="{$path}/MetaLib/Advanced" class="small">{translate text="Advanced"}</a>
-
+      <div>
+        <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
+        <input id="searchForm_input" type="text" name="lookfor" size="40" style="width:200px;" value="{$lookfor|escape:"html"}"/>
+        <div class="styled_select">
+          <label for="searchForm_set" class="offscreen">{translate text="Search In"}</label>
+          <select id="searchForm_set" name="set" class="searchForm_styled">
+          {foreach from=$metalibSearchSets item=searchDesc key=searchVal name=loop}
+            <option value="{$searchVal}"{if $searchSet == $searchVal || (!$searchSet && $smarty.foreach.loop.first)} selected="selected"{/if}>{translate text=$searchDesc}</option>
+          {/foreach}
+          </select>
+        </div>
+        <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
+      </div>
+      <div class="advanced-link-wrapper clear">
+        <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small advancedLink">{translate text="Advanced"}</a>
+        <a href="{$path}/" class="small last metalibLink">{translate text="Local search"}</a>
+      </div>
+      {js filename="dropdown.js"}
+    
       {* Do we have any checkbox filters? *}
       {assign var="hasCheckboxFilters" value="0"}
       {if isset($checkboxFilters) && count($checkboxFilters) > 0}
@@ -48,3 +58,5 @@
     <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
   {/if}
 </div>
+
+<!-- END of: MetaLib/searchbox.tpl -->

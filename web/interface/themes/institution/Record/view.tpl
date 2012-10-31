@@ -30,11 +30,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 {if $coreOpenURL || $holdingsOpenURL}
   {js filename="openurl.js"}
 {/if}
-
+{js filename="metalib_links.js"}
 
 {* <div class="span-10{if $sidebarOnLeft} push-5 last{/if}"> *}
 
-<div class="{* TODO *}">
+{if $errorMsg || $infoMsg || $lastsearch || $previousRecord || $nextRecord}
+<div class="resultLinks">
   {if $errorMsg || $infoMsg}
   <div class="messages">
     {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
@@ -58,16 +59,19 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 	{/if}
 <div class="clear"></div>
 </div>
+{/if}
 
 <div class="record recordId" style="padding: 0" id="record{$id|escape}">
 
-  <div id="resultSide" class="span-3">
+  <div id="resultMain">
+  
+  <div id="resultSide">
   
     {* Display Cover Image *}
     <div class="coverImages">
     {if $coreThumbMedium}
-        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}" class="span-3">{/if}
-        <img id="thumbnail" alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}">
+        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
+        <img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}">
         {if $coreThumbLarge}</a>{/if}
         <div class="clear"></div>
         {assign var=img_count value=$coreImages|@count}
@@ -81,12 +85,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </div>
         {/if}
         {else}
-        <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}">
+        {* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}
     {/if}
     </div>
     {* End Cover Image *}
   
-    <div id="resultToolbar" class="toolbar span-3">
+    <div id="resultToolbar" class="toolbar">
       <ul>
         <li id="saveLink"><a href="{$url}/Record/{$id|escape:"url"}/Save" class="saveRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
         
@@ -95,22 +99,31 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         *}
         
         <li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li>
+        <li><a href="{$url}/Record/{$id|escape:"url"}/Feedback" class="feedbackRecord mail" id="feedbackRecord{$id|escape}" title="{translate text="Send Feedback"}">{translate text="Send Feedback"}</a></li>
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
-          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"}</a>
+          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6"}</a>
           <ul class="menu offscreen" id="exportMenu">
           {foreach from=$exportFormats item=exportFormat}
             <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
           {/foreach}
+            <li>
+              <div class="qr_wrapper">
+              <div id="qrcode"><span class="overlay"></span></div>
+              {js filename="qrcodeNDL.js"}
+              </div>
+            </li>
           </ul>
         </li>
         {/if}
-        <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li>
+        {* Citation commented out for now
+        <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
+        {* Bookmark commented out for now
         {if !empty($addThis)}
-        <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text='Bookmark'}</a></li>
-        {/if}
+        <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text="Bookmark"}</a></li>
+        {/if} *}
         {if $bookBag}
-        <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text='Add to Book Bag'}</a></li>
+        <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text="Add to Book Bag"}</a></li>
         {/if}
       </ul>
       {if $bookBag}
@@ -120,9 +133,9 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <noscript>
           {if in_array($id|escape, $bookBagItems)}
           <input id="cartId" type="hidden" name="ids[]" value="{$id|escape}" />
-          <input type="submit" class="button cart bookbagDelete" name="delete" value="{translate text='Remove from Book Bag'}"/>
+          <input type="submit" class="button cart bookbagDelete" name="delete" value="{translate text="Remove from Book Bag"}"/>
           {else}
-          <input type="submit" class="button bookbagAdd" name="add" value="{translate text='Add to Book Bag'}"/>
+          <input type="submit" class="button bookbagAdd" name="add" value="{translate text="Add to Book Bag"}"/>
           {/if}
         </noscript>
       </form>
@@ -131,13 +144,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       <div class="clear"></div>
     </div>
       <div class="clear"></div>
-      <div class="qr_wrapper">
-      <div id="qrcode"><span class="overlay"></span></div>
+      {* <div class="qr_wrapper">
+      <div id="qrcode"><!-- span class="overlay"></span --></div>
       {js filename="qrcodeNDL.js"}
-      </div>
+      </div> *}
   </div>
-  
-  <div id="resultMain" class="span-7">
   
    {include file=$coreMetadata}
   
@@ -146,47 +157,50 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       <ul>
         {if $hasHoldings}
         <li{if $tab == 'Holdings' || $tab == 'Hold'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/Holdings{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Holdings'}</a>
+          <a id="holdingstab" href="{$url}/Record/{$id|escape:"url"}/Holdings{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Holdings'}</a>
         </li>
         {/if}
-        <li{if $tab == 'Description'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/Description{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Description'}</a>
-        </li>
+        {* Description moved to RecordDrivers/Index/core.tpl 
+        <li id="description"{if $tab == 'Description'} class="active"{/if}>
+          <a id="descriptiontab" href="{$url}/Record/{$id|escape:"url"}/Description{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Description'}</a>
+        </li> *}
+        {* TOC moved to core.tpl
         {if $hasTOC}
-        <li{if $tab == 'TOC'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/TOC{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Table of Contents'}</a>
+        <li id="toc{if $tab == 'TOC'} class="active"{/if}>
+          <a id="toctab" href="{$url}/Record/{$id|escape:"url"}/TOC{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Table of Contents'}</a>
         </li>
         {/if}
+        *}
         {if $hasContainedComponentParts}
         <li{if $tab == 'ComponentParts'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/ComponentParts{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='Contents/Parts'}</a>
+          <a id="componentstab" href="{$url}/Record/{$id|escape:"url"}/ComponentParts{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='Contents/Parts'}</a>
         </li>
         {/if}
         <li{if $tab == 'UserComments'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/UserComments{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Comments'}</a>
+          <a id="commentstab" href="{$url}/Record/{$id|escape:"url"}/UserComments{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Comments'}</a>
         </li>
         {if $hasReviews}
         <li{if $tab == 'Reviews'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/Reviews{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Reviews'}</a>
+          <a id="reviewstab" href="{$url}/Record/{$id|escape:"url"}/Reviews{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Reviews'}</a>
         </li>
         {/if}
         {if $hasExcerpt}
         <li{if $tab == 'Excerpt'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/Excerpt{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Excerpt'}</a>
+          <a id="excerpttab" href="{$url}/Record/{$id|escape:"url"}/Excerpt{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Excerpt'}</a>
         </li>
         {/if}
         {if $hasHierarchyTree}
           <li{if $tab == 'Hierarchytree'} class="active"{/if}>
-            <a href="{$url}/Record/{$id|escape:"url"}/HierarchyTree{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='hierarchy_tree'}</a>
+            <a id="hierarchytab" href="{$url}/Record/{$id|escape:"url"}/HierarchyTree{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='hierarchy_tree'}</a>
           </li>
         {/if}
         {if $hasMap}
           <li{if $tab == 'Map'} class="active"{/if}>
-            <a href="{$url}/Record/{$id|escape:"url"}/Map{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='Map View'}</a>
+            <a id="maptab" href="{$url}/Record/{$id|escape:"url"}/Map{if $dynamicTabs}?subPage=1{/if}#tabnav" class="first"><span></span>{translate text='Map View'}</a>
           </li>
         {/if}
         <li{if $tab == 'Details'} class="active"{/if}>
-          <a href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Staff View'}</a>
+          <a id="detailstab" href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Staff View'}</a>
         </li>
       </ul>
     {/if}
@@ -208,22 +222,24 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
   
 
-<div id="resultSidebar" class="span-3 last">
+
+<div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   <div class="sidegroup">
     <h4>{translate text="Similar Items"}</h4>
     {if is_array($similarRecords)}
     <ul class="similar">
       {foreach from=$similarRecords item=similar}
       <li>
-        {if is_array($similar.format)}
-        <span class="{$similar.format[0]|lower|regex_replace:"/[^a-z0-9]/":""}">
+        {*{if is_array($similar.format)}
+        <span class="icon format{$similar.format[0]|lower|regex_replace:"/[^a-z]/":""}">
         {else}
-        <span class="{$similar.format|lower|regex_replace:"/[^a-z0-9]/":""}">
-        {/if}
+        <span class="icon format{$similar.format|lower|regex_replace:"/[^a-z]/":""}">
+        {/if}*}
           <a href="{$url}/Record/{$similar.id|escape:"url"}">{$similar.title|escape}</a>
-        </span>
-        {if $similar.author}<br/>{translate text='By'}: {$similar.author|escape}{/if}
-        {if $similar.publishDate} {translate text='Published'}: ({$similar.publishDate.0|escape}){/if}
+        {*</span>*}
+        <br/>
+        {if $similar.author}{$similar.author|escape}{/if}
+        {if $similar.publishDate} {$similar.publishDate.0|escape}{/if}
       </li>
       {/foreach}
     </ul>
@@ -238,15 +254,16 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <ul class="similar">
       {foreach from=$editions item=edition}
       <li>
-        {if is_array($edition.format)}
+        {*{if is_array($edition.format)}
           <span class="{$edition.format[0]|lower|regex_replace:"/[^a-z0-9]/":""}">
         {else}
           <span class="{$edition.format|lower|regex_replace:"/[^a-z0-9]/":""}">
-        {/if}
+        {/if}*}
         <a href="{$url}/Record/{$edition.id|escape:"url"}">{$edition.title|escape}</a>
-        </span>
+        {*</span>*}
+        <br/>
         {$edition.edition|escape}
-        {if $edition.publishDate}({$edition.publishDate.0|escape}){/if}
+        {if $edition.publishDate}{$edition.publishDate.0|escape}{/if}
       </li>
       {/foreach}
     </ul>

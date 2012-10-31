@@ -1,3 +1,5 @@
+<!-- START of: MetaLib/list.tpl -->
+
 {js filename="openurl.js"}
 {* Main Listing *}
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
@@ -11,22 +13,36 @@
   {* Listing Options *}
   <div class="resulthead">
     <div class="floatleft">
+      {if $failedDatabases}
+        <p class="error">
+          {translate text='Search failed in:'}<br/>
+          {foreach from=$failedDatabases item=failed name=failedLoop}
+            {$failed|escape}{if !$smarty.foreach.failedLoop.last}<br/>{/if}
+          {/foreach}
+        </p>
+      {/if}
+      {if $disallowedDatabases}
+        <p class="notice">
+          {translate text='metalib_not_authorized_results'}
+          <br/>
+          {foreach from=$disallowedDatabases item=failed name=failedLoop}
+            {$failed|escape}{if !$smarty.foreach.failedLoop.last}<br/>{/if}
+          {/foreach}
+        </p>
+      {/if}
       {if $recordCount}
-        {translate text="Showing"}
-        <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-        {translate text='of'} <strong>{$recordCount}</strong>
         {if $searchType == 'basic'}{translate text='for search'}: <strong>'{$lookfor|escape:"html"}'</strong>,{/if}
       {/if}
-      {translate text='query time'}: {$qtime}s
       {if $spellingSuggestions}
       <div class="correction">
         <strong>{translate text='spell_suggest'}</strong>:
         {foreach from=$spellingSuggestions item=details key=term name=termLoop}
-          <br/>{$term|escape} &raquo; {foreach from=$details.suggestions item=data key=word name=suggestLoop}<a href="{$data.replace_url|escape}">{$word|escape}</a>{if $data.expand_url} <a href="{$data.expand_url|escape}"><img src="{$path}/images/silk/expand.png" alt="{translate text='spell_expand_alt'}"/></a> {/if}{if !$smarty.foreach.suggestLoop.last}, {/if}{/foreach}
+          <br/>{$term|escape} &raquo; {foreach from=$details.suggestions item=data key=word name=suggestLoop}<a href="{$data.replace_url|escape}">{$word|escape}</a>{if $data.expand_url} <a href="{$data.expand_url|escape}"><img src="{$path}/images/silk/expand.png" alt="{translate text='spell_expand_alt'}"/></a> {/if}{if !$smarty.foreach.termLoop.last}, {/if}{/foreach}
         {/foreach}
       </div>
       {/if}
     </div>
+    {include file="Search/paging.tpl" position="Top"}
 
     <div class="clear"></div>
   </div>
@@ -38,7 +54,8 @@
     {$pageContent}
   {/if}
 
-  {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+  {include file="Search/paging.tpl"}
+
   <div class="searchtools">
     <strong>{translate text='Search Tools'}:</strong>
     {* TODO: Implement RSS <a href="{$rssLink|escape}" class="feed">{translate text='Get RSS Feed'}</a> *}
@@ -60,3 +77,4 @@
 
 <div class="clear"></div>
 
+<!-- END of: MetaLib/list.tpl -->

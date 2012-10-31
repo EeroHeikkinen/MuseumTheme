@@ -11,7 +11,7 @@ CREATE TABLE `comments` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `resource_id` (`resource_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -24,9 +24,14 @@ CREATE TABLE `resource` (
   `record_id` varchar(60) NOT NULL DEFAULT '',
   `title` varchar(200) NOT NULL DEFAULT '',
   `source` varchar(50) NOT NULL DEFAULT 'VuFind',
+  `data` blob,
+  `title_sort` varchar(60) NOT NULL DEFAULT '',
+  `author_sort` varchar(60) NOT NULL DEFAULT '',
+  `date_sort` varchar(60) NOT NULL DEFAULT '',
+  `format_sort` varchar(60) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `record_id` (`record_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -46,7 +51,7 @@ CREATE TABLE `resource_tags` (
   KEY `resource_id` (`resource_id`),
   KEY `tag_id` (`tag_id`),
   KEY `list_id` (`list_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -63,11 +68,13 @@ CREATE TABLE `search` (
   `title` varchar(20) DEFAULT NULL,
   `saved` int(1) NOT NULL DEFAULT '0',
   `search_object` blob,
+  `schedule` int(1) NOT NULL DEFAULT '0',
+  `last_executed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`),
   INDEX (`session_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -79,7 +86,7 @@ CREATE TABLE `tags` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `tag` varchar(25) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=55 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -100,9 +107,10 @@ CREATE TABLE `user` (
   `major` varchar(100) NOT NULL DEFAULT '',
   `home_library` varchar(100) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `language` varchar(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -119,7 +127,7 @@ CREATE TABLE `user_list` (
   `public` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -140,7 +148,7 @@ CREATE TABLE `user_resource` (
   KEY `list_id` (`list_id`),
   CONSTRAINT `user_resource_ibfk_2` FOREIGN KEY (`resource_id`) REFERENCES `resource` (`id`) ON DELETE CASCADE,
   CONSTRAINT `user_resource_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 --
 -- Table structure for table `session`
@@ -156,7 +164,7 @@ CREATE TABLE `session` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `session_id` (`session_id`),
   INDEX (`last_used`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 
 --
@@ -173,7 +181,7 @@ CREATE TABLE `change_tracker` (
   `deleted` datetime,                       -- time record was removed from index
   PRIMARY KEY (`core`, `id`),
   KEY `deleted_index` (`deleted`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 
 --
@@ -186,7 +194,7 @@ CREATE TABLE `oai_resumption` (
   `params` text,
   `expires` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 
 --
