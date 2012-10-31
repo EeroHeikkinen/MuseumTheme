@@ -153,7 +153,7 @@ img.alignleft {
     float: left;
     width: 506px;
 }
-.header, .headerRecord {
+.header, .headerRecord, .headerCollection {
     background-color: #f3f3f3;
     border-bottom: 1px solid #dddddd;
 }
@@ -2568,6 +2568,11 @@ div#closeContextHelp:active {
 }
 
 /*** Hierarchy Tree ***/
+
+#hierarchyTreeHolder, #hierarchyRecord {
+    width: 960px;
+}
+
 #hierarchyTreeHolder {
     background-color: #FFF;
     border: 1px solid #DCDCDC;

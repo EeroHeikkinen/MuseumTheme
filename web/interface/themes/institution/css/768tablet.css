@@ -8,13 +8,22 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
 @media only screen and (min-width: 768px) and (max-width: 997px) {
 
-    body {
+    body, .container, #resultMain, #topFacets, #dyntabnav, #resultSidebar,
+    #headingHierarchyCollection {
         width: 768px;
+    }
+
+    body {
+    /*
+        width: 768px;
+    */    
         padding: 0 0px 40px;
     }
 
     .container {
-        width: 768px; /* make this match the body width above */
+    /*
+        width: 768px;
+    */
         background: none repeat scroll 0 0 #FFFFFF;
         border: none/*1px solid #dddddd;
         -moz-border-radius: 5px 5px 5px 5px;
@@ -36,9 +45,11 @@ px      62    136    210    284    358    432    506    580    654    728   */
     .searchbox {
         margin: 0;
     }
+    /*
     #resultMain {
         width: 768px;
     }
+    */
     .homeNavigation ul li {
         display: inline-block;
         margin: 0;
@@ -59,10 +70,11 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
 
 
-
+    /*
     #topFacets {
         width: 768px;
     }
+    */
     #suggestedTopics {
         width: 744px;
         margin: 0 12px .4em;
@@ -93,9 +105,11 @@ px      62    136    210    284    358    432    506    580    654    728   */
     #recordMetadata {
         width: 546px;
     }
+    /*
     #dyntabnav {
         width: 768px;
     }
+    */
     #dyntabnav .ui-tabs-panel {
         padding: 1em .7em;
     }
@@ -114,7 +128,14 @@ px      62    136    210    284    358    432    506    580    654    728   */
         vertical-align: top;
     }
 
+    #resultsCollection, #hierarchyCollection, #hierarchyRecord {
+        padding: 0 0 .4em 4px;
+        width: 758px;
+    }
 
+    #hierarchyTreeHolder {
+        width: 743px;
+    }
 
     .footer {
         font-size: 1.0em;
@@ -134,4 +155,3 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
     
 }
-
