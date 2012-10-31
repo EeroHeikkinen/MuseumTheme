@@ -121,7 +121,7 @@
       <th>{translate text='Other Titles'}: </th>
       <td>
         {foreach from=$coreAlternativeTitles item=field name=loop}
-          {$field|escape}{if !$smarty.foreach.loop.last}; {/if}
+          {$field|escape}{if !$smarty.foreach.loop.last}<br/>{/if}
         {/foreach}
       </td>
     </tr>
@@ -138,6 +138,12 @@
           {assign var=displayFormat value=$recordFormat} 
         {/if}
         <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
+        {if !empty($extendedPhysical)}
+          {assign var=extendedContentDisplayed value=1}
+          {foreach from=$extendedPhysical item=field name=loop}
+            <br/>{$field|escape}
+          {/foreach}
+        {/if}
       </td>
     </tr>
 
@@ -306,28 +312,6 @@
         </div>
       </td>
     </tr>
-   
-   {* BTJ description moved to RecordDrivers/Index/extended.tpl 
-   <tr valign="top" id="btjdescription" style="display: none;">
-     <th>{translate text=Description}: </th>
-     <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
-   </tr>
-   
-   <script type="text/javascript">
-     var path = {$path|@json_encode};
-     var id = {$id|@json_encode};
-     {literal}
-     $(document).ready(function() {
-       var url = path + '/description.php?id=' + id;
-       $("#btjdescription_text").load(url, function(response, status, xhr) {
-       if (response.length != 0) {
-         $("#btjdescription").show();
-       }
-       });
-     });
-     {/literal}
-   </script>  
-   BTJ description end *}
   </table>
   {* End Main Details *}
 </div>

@@ -688,7 +688,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getGeneralNotes()
     {
-        return $this->getFieldArray('500');
+        return $this->getFieldArray('500', '504', '508', '518', '534', '550', '580', '586');
     }
 
     /**
@@ -925,7 +925,7 @@ class MarcRecord extends IndexRecord
         $primaryFields = array(
             '440' => array('a', 'p'),
             '800' => array('a', 'b', 'c', 'd', 'f', 'p', 'q', 't'),
-            '830' => array('a', 'p'));
+            '830' => array('a', 'p', 'x'));
         $matches = $this->getSeriesFromMARC($primaryFields);
         if (!empty($matches)) {
             return $matches;
@@ -1404,7 +1404,8 @@ class MarcRecord extends IndexRecord
     }
 
     /**
-     * Overload the IndexRecord method to include other references from MARC field 787. 
+     * Overload the IndexRecord method to include other references from MARC field 787.
+     *  
      * @return string Name of Smarty template file to display.
      * @access public
      */
@@ -1528,7 +1529,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getAlternativeTitles()
     {
-        return $this->getFieldArray('246', array('a', 'b', 'f'));
+        return $this->stripTrailingPunctuation($this->getFieldArray('246', array('a', 'b', 'f')));
     }
 
     /**

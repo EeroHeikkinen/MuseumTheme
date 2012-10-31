@@ -2297,8 +2297,8 @@ class IndexRecord implements RecordInterface
                 str_replace(
                     '  ', ' ',
                     ((isset($places[$i]) ? $places[$i] . ' ' : '') .
-                    (isset($names[$i]) ? $names[$i] . ' ' : '') .
-                    (isset($dates[$i]) ? $dates[$i] : ''))
+                    (isset($names[$i]) ? $names[$i] : '') .
+                    (isset($dates[$i]) ? ', ' . $dates[$i] : ''))
                 )
             );
             $i++;
