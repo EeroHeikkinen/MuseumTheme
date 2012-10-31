@@ -19,7 +19,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 <script src="{$syndetics_plus_js}" type="text/javascript"></script>
 {/if}
 {if !empty($addThis)}
-<!-- <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script> -->
+<script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pub={$addThis|escape:"url"}"></script>
 {/if}
 
 {js filename="record.js"}
@@ -118,10 +118,23 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         {/if}
         {* Citation commented out for now
         <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
-        {* Bookmark commented out for now
+        {* AddThis-Bookmark commented out
         {if !empty($addThis)}
         <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text="Bookmark"}</a></li>
         {/if} *}
+        {* AddThis for social sharing START *}
+		{if !empty($addThis)}
+		<li id="addThis">
+        <div class="truncateField">
+		 	<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_facebook"></a>
+				<a class="addthis_button_twitter"></a>
+				<a class="addthis_button_google_plusone_share"></a>
+			</div>
+		</div>
+		</li>
+        {/if}
+        {* Addthis for social sharing END *}
         {if $bookBag}
         <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text="Add to Book Bag"}</a></li>
         {/if}
