@@ -51,6 +51,7 @@ class SearchObject_Solr extends SearchObject_Base
     protected $facetOffset = null;
     protected $facetPrefix = null;
     protected $facetSort = null;
+    protected $facetExcludes = array();
     
     // Index
     protected $index = null;
@@ -1018,6 +1019,21 @@ class SearchObject_Solr extends SearchObject_Base
     {
         $this->hiddenFilters[] = $fq;
     }
+    
+    /**
+     * Excludes a filter from being applied to facet counts.
+     * This is useful when a facet value is selected as filter
+     * and it would otherwise be the only facet returned.
+     *
+     * @param string $facet The name of the facet.
+     *
+     * @return void
+     * @access public
+     */
+    public function excludeFilterForFacet($facet)
+    {
+        $this->facetExcludes[$facet] = true;
+    }
 
     /**
      * Actually process and submit the search
@@ -1075,6 +1091,8 @@ class SearchObject_Solr extends SearchObject_Base
         $filterQuery = $this->hiddenFilters;
         foreach ($this->filterList as $field => $filter) {
             foreach ($filter as $value) {
+                if(!empty($this->facetExcludes[$field]))
+                    $field = "{!tag=" . "ex_" . $field . "}" . $field;
                 // Special case -- allow trailing wildcards and ranges:
                 if (substr($value, -1) == '*'
                     || preg_match('/\[[^\]]+\s+TO\s+[^\]]+\]/', $value)
@@ -1117,7 +1135,11 @@ class SearchObject_Solr extends SearchObject_Base
         if (!empty($this->facetConfig)) {
             $facetSet['limit'] = $this->facetLimit;
             foreach ($this->facetConfig as $facetField => $facetName) {
-                $facetSet['field'][] = $facetField;
+                if(!empty($this->facetExcludes[$facetField])) {
+                    $facetSet['field'][] = "{!ex=" . "ex_" . $facetField . "}" . $facetField;
+                }
+                else 
+                    $facetSet['field'][] = $facetField;
             }
             if ($this->facetOffset != null) {
                 $facetSet['offset'] = $this->facetOffset;
