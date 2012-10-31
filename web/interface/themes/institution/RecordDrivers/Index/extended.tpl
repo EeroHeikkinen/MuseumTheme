@@ -15,7 +15,7 @@
   
   {* BTJ description start *}
   <tr valign="top" id="btjdescription" style="display: none;">
-      <th>{translate text=Description}: </th>
+    <th>{translate text='Description'}: </th>
     <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
   </tr>
   <script type="text/javascript">
@@ -37,7 +37,7 @@
   {if !empty($extendedDateSpan)}
   {assign var=extendedContentDisplayed value=1}
   <tr valign="top">
-    <th>{translate text='Published'}: </th>
+    <th>{translate text='Dates of Publication'}: </th>
     <td>
       {foreach from=$extendedDateSpan item=field name=loop}
         {$field|escape}<br/>
@@ -52,18 +52,6 @@
     <th>{translate text='Item Description'}: </th>
     <td>
       {foreach from=$extendedNotes item=field name=loop}
-        {$field|escape}<br/>
-      {/foreach}
-    </td>
-  </tr>
-  {/if}
-
-  {if !empty($extendedPhysical)}
-  {assign var=extendedContentDisplayed value=1}
-  <tr valign="top">
-    <th>{translate text='Physical Description'}: </th>
-    <td>
-      {foreach from=$extendedPhysical item=field name=loop}
         {$field|escape}<br/>
       {/foreach}
     </td>
@@ -97,7 +85,7 @@
   {if !empty($extendedSystem)}
   {assign var=extendedContentDisplayed value=1}
   <tr valign="top">
-    <th>{translate text='Format'}: </th>
+    <th>{translate text='System Details'}: </th>
     <td>
       {foreach from=$extendedSystem item=field name=loop}
         {$field|escape}<br/>

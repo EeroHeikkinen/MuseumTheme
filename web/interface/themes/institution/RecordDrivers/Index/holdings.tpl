@@ -8,7 +8,7 @@
 {/if}
 
 {if !$hideLogin && $offlineMode != "ils-offline"}
-  {if ($driverMode && !empty($holdings)) || $titleDriverMode}
+  {if ($driverMode || $titleDriverMode) && !empty($holdings)}
     {if $showLoginMsg || $showTitleLoginMsg}
       <div class="userMsg">
         <a href="{$path}/MyResearch/Home?followup=true&followupModule=Record&followupAction={$id}">{translate text="Login"}</a> {translate text="hold_login"}

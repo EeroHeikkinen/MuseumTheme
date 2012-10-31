@@ -97,14 +97,25 @@
     {* Load dropdown menu modification *}
     {* js filename="dropdown.js" *}
 
+    {* Load Mozilla Persona support *}
+    {if $mozillaPersona}
+    <script src="https://login.persona.org/include.js"></script>
+    {js filename="persona.js"}
+    {/if}
+
 {literal}
     <script type="text/javascript">
 // Long field truncation
 $(document).ready(function() {
   $('.truncateField').collapse({maxLength: 150, more: "{/literal}{translate text="more"}{literal}&nbsp;»", less: "«&nbsp;{/literal}{translate text="less"}{literal}"});
-});
-    </script>    
 {/literal}
+{if $mozillaPersona}
+    mozillaPersonaSetup({if $mozillaPersonaCurrentUser}"{$mozillaPersonaCurrentUser}"{else}null{/if});
+{/if}
+{literal}
+});
+{/literal}
+    </script>    
     
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
