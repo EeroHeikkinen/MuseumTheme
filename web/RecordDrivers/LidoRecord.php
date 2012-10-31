@@ -41,7 +41,7 @@ require_once 'RecordDrivers/IndexRecord.php';
 class LidoRecord extends IndexRecord
 {
     // LIDO record
-    protected $_xml;
+    protected $xml;
     
     /**
      * Constructor.  We build the object using all the data retrieved
@@ -59,7 +59,7 @@ class LidoRecord extends IndexRecord
     {
         parent::__construct($indexFields);
         
-        $this->_xml = simplexml_load_string($this->fields['fullrecord']);
+        $this->xml = simplexml_load_string($this->fields['fullrecord']);
     }
     
     /**
@@ -80,7 +80,7 @@ class LidoRecord extends IndexRecord
             $interface->assign('coreSubtitle', $this->getDescription());
         }
         $summary = array();
-        foreach ($this->_xml->xpath('/lidoWrap/lido/descriptiveMetadata/objectRelationWrap/relatedWorksWrap/relatedWorkSet/relatedWork/displayObject') as $node) {
+        foreach ($this->xml->xpath('/lidoWrap/lido/descriptiveMetadata/objectRelationWrap/relatedWorksWrap/relatedWorkSet/relatedWork/displayObject') as $node) {
             $summary[] = (string)$node;
         }
         $interface->assign('coreSummary', implode(" -- ", $summary));
@@ -95,8 +95,8 @@ class LidoRecord extends IndexRecord
         }
 
         $events = array();
-        foreach ($this->_xml->xpath('/lidoWrap/lido/descriptiveMetadata/eventWrap/eventSet/event') as $node) {
-            $type = isset($node->eventType->term) ? translate('lido_event_type_' . $mainFormat . (string)$node->eventType->term) : '';
+        foreach ($this->xml->xpath('/lidoWrap/lido/descriptiveMetadata/eventWrap/eventSet/event') as $node) {
+            $type = isset($node->eventType->term) ? translate('lido_event_type_' . $mainFormat . mb_strtolower((string)$node->eventType->term)) : '';
             $date = isset($node->eventDate->displayDate) ? (string)$node->eventDate->displayDate : '';
             $method = isset($node->eventMethod->term) ? (string)$node->eventMethod->term : '';
             $materials = isset($node->eventMaterialsTech->displayMaterialsTech) ? (string)$node->eventMaterialsTech->displayMaterialsTech : '';
@@ -150,6 +150,7 @@ class LidoRecord extends IndexRecord
             }
             $interface->assign('summTitle', $this->getTitle() . $summary);
         }
+        $interface->assign('summSubtitle', $this->getSubtitle());
         
         $mainFormat = $this->getFormats();
         if (is_array($mainFormat)) {
@@ -185,7 +186,7 @@ class LidoRecord extends IndexRecord
     {
         $urls = array();
         $url = '';
-        foreach ($this->_xml->xpath('/lidoWrap/lido/administrativeMetadata/resourceWrap/resourceSet/resourceRepresentation/linkResource') as $node) {
+        foreach ($this->xml->xpath('/lidoWrap/lido/administrativeMetadata/resourceWrap/resourceSet/resourceRepresentation/linkResource') as $node) {
             $url = (string)$node;
             $urls[$url] = '';
         }
@@ -200,9 +201,9 @@ class LidoRecord extends IndexRecord
 	 * default).
 	 *
 	 * @return mixed
-	 * @access protected
+	 * @access public
 	 */
-	protected function getThumbnail($size = 'small')
+	public function getThumbnail($size = 'small')
 	{
 	    global $configArray;
 		if (isset($this->fields['thumbnail']) && $this->fields['thumbnail']) {
@@ -229,6 +230,18 @@ class LidoRecord extends IndexRecord
 	        return $this->fields['thumbnail'];
 	    }
 	    return false;
+	}
+
+	/**
+	 * Get the description of the current record.
+	 *
+	 * @return string
+	 * @access protected
+	 */
+	protected function getDescription()
+	{
+	    return isset($this->fields['description']) ?
+	    $this->fields['description'] : '';
 	}
 	
 }

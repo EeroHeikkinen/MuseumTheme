@@ -1,3 +1,5 @@
+<!-- START of: Record/view-holdings.tpl -->
+
 {if $offlineMode == "ils-offline"}
   <div class="sysInfo">
     <h2>{translate text="ils_offline_title"}</h2>
@@ -8,3 +10,5 @@
 {/if}
 
 {include file=$holdingsMetadata}
+
+<!-- END of: Record/view-holdings.tpl -->

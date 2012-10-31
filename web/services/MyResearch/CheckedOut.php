@@ -70,6 +70,15 @@ class CheckedOut extends MyResearch
             foreach ($result as $data) {
                 $current = array('ils_details' => $data);
                 if ($record = $this->db->getRecord($data['id'])) {
+                    $formats = isset($record['format']) ? $record['format'] : '';
+                    if (!is_array($formats)) {
+                        $formats = array($formats);
+                    }
+                    foreach ($formats as &$format) {
+                        $format = preg_replace('/^\d\//', '', $format);
+                    } 
+                    $driver = RecordDriverFactory::initRecordDriver($record);
+                    
                     $current += array(
                         'id' => $record['id'],
                         'isbn' => isset($record['isbn']) ? $record['isbn'] : null,
@@ -77,8 +86,9 @@ class CheckedOut extends MyResearch
                             isset($record['author']) ? $record['author'] : null,
                         'title' =>
                             isset($record['title']) ? $record['title'] : null,
-                        'format' =>
-                            isset($record['format']) ? $record['format'] : null,
+                        'format' => $formats,
+                        'summImages' => $driver ? $driver->getAllImages() : null,
+                        'summThumb' => $driver ? $driver->getThumbnail() : null,
                     );
                 }
                 $transList[] = $current;

@@ -1,3 +1,5 @@
+<!-- START of: Search/list-grid.tpl -->
+
 {js filename="check_item_statuses.js"}
 {js filename="check_save_statuses.js"}
 {js filename="jquery.cookie.js"}
@@ -5,6 +7,7 @@
 {if $showPreviews}
 {js filename="preview.js"}
 {/if}
+{js filename="metalib_links.js"}
 {include file="Search/rsi.tpl"}
 {include file="Search/openurl_autocheck.tpl"}
 
@@ -21,3 +24,5 @@
   </tr>
 </table>
 </form>
+
+<!-- END of: Search/list-grid.tpl -->

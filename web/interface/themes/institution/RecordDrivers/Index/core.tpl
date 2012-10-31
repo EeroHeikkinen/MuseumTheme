@@ -1,10 +1,11 @@
-<div>
+<!-- START of: RecordDrivers/Index/core.tpl -->
+
+<div id="recordMetadata">
     
   {* Display Title *}
-  <h1 class="recordTitle">{$coreShortTitle|escape}
-  {if $coreSubtitle}{$coreSubtitle|escape}{/if}
-  {if $coreTitleSection}{$coreTitleSection|escape}{/if}
-  {* {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
+  <h1 class="recordTitle">{$coreShortTitle|escape}{if $coreSubtitle}&nbsp;: {$coreSubtitle|escape}{/if}
+  {* {if $coreTitleSection} / {$coreTitleSection|escape}{/if}
+  {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
   {* End Title *}
 
@@ -27,7 +28,9 @@
   {/if}
   End Cover Image *}
 
-  {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape} <a href='{$url}/Record/{$id|escape:"url"}/Description#tabnav'>{translate text='Full description'}</a></p>{/if}
+  {* Summary, commented out since it exists in extended.tpl 
+  {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape}</p>{/if}
+  *}
 
   {* Display Main Details *}
   <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
@@ -36,7 +39,7 @@
       <th>{translate text='component_part_is_part_of'}:</th>
       <td>
       {if $coreHierarchyParentId}
-        <a href="{$url}/Record/{$coreHierarchyParentId[0]|escape:"url"}">{$coreContainerTitle|escape}</a>
+        <a href="{$url}/Record/{$coreHierarchyParentId[0]|escape:"url"}/ComponentParts">{$coreContainerTitle|escape}</a>
       {else}
         {$coreContainerTitle|escape}
       {/if}
@@ -67,6 +70,25 @@
     </tr>
     {/if}
 
+    {if !empty($coreOtherLinks)}
+    {foreach from=$coreOtherLinks item=coreOtherLink}
+    <tr valign="top">
+      <th>{translate text=$coreOtherLink.heading}:</th>
+      <td>
+        {if $coreOtherLinks.isn}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {else}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {/if}
+      </td>
+    </tr>
+    {/foreach}    
+    {/if}
+
     {if !empty($coreMainAuthor)}
     <tr valign="top">
       <th>{translate text='Main Author'}: </th>
@@ -85,8 +107,21 @@
     <tr valign="top">
       <th>{translate text='Other Authors'}: </th>
       <td>
+        <div class="truncateField">
         {foreach from=$coreContributors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}; {/if}
+        {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreAlternativeTitles)}
+    <tr valign="top">
+      <th>{translate text='Other Titles'}: </th>
+      <td>
+        {foreach from=$coreAlternativeTitles item=field name=loop}
+          {$field|escape}{if !$smarty.foreach.loop.last}; {/if}
         {/foreach}
       </td>
     </tr>
@@ -95,19 +130,20 @@
     <tr valign="top">
       <th>{translate text='Format'}: </th>
       <td>
-       {if is_array($recordFormat)}
-        {foreach from=$recordFormat item=displayFormat name=loop}
-          <span class="iconlabel {$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat}</span>
-        {/foreach}
-      {else}
-        <span class="iconlabel {$recordFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$recordFormat}</span>
-      {/if}
+        {if is_array($recordFormat)}
+          {assign var=mainFormat value=$recordFormat.0} 
+          {assign var=displayFormat value=$recordFormat|@end} 
+        {else}
+          {assign var=mainFormat value=$recordFormat} 
+          {assign var=displayFormat value=$recordFormat} 
+        {/if}
+        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
       </td>
     </tr>
 
     <tr valign="top">
       <th>{translate text='Language'}: </th>
-      <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br/>{/foreach}</td>
+      <td>{foreach from=$recordLanguage item=lang}{translate text=facet_$lang}<br/>{/foreach}</td>
     </tr>
 
     {if !empty($corePublications)}
@@ -159,7 +195,27 @@
     <tr valign="top">
       <th>{translate text='Subjects'}: </th>
       <td>
+        <div class="truncateField">
         {foreach from=$coreSubjects item=field name=loop}
+        <div class="subjectLine">
+          {assign var=subject value=""}
+          {foreach from=$field item=subfield name=subloop}
+            {if !$smarty.foreach.subloop.first} &gt; {/if}
+            {assign var=subject value="$subject $subfield"}
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|escape}</a>
+          {/foreach}
+        </div>
+        {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreGenres)}
+    <tr valign="top">
+      <th>{translate text='Genre'}: </th>
+      <td>
+        {foreach from=$coreGenres item=field name=loop}
         <div class="subjectLine">
           {assign var=subject value=""}
           {foreach from=$field item=subfield name=subloop}
@@ -173,7 +229,21 @@
     </tr>
     {/if}
 
-    {if !empty($coreURLs) || $coreOpenURL}
+    {if $extendedMetadata}
+      {include file=$extendedMetadata}
+    {/if}
+
+    {if $coreComponentPartCount > 0 && !$hasContainedComponentParts}
+    <tr valign="top">
+      <th>{translate text='component_part_count_label'} </th>
+      <td>
+        {translate text='component_part_count_prefix'} <a href="{$url}/Search/Results?lookfor={$id|escape:"url"}&amp;type=hierarchy_parent_id">{$coreComponentPartCount|escape} {translate text='component_part_count_suffix'}</a>
+      </td>
+    </tr>
+    {/if}
+
+    {assign var="idPrefix" value=$id|substr:0:8}
+    {if !empty($coreURLs) || $coreOpenURL || $idPrefix == 'metalib_'}
     <tr valign="top">
       <th>{translate text='Online Access'}: </th>
       <td>
@@ -184,6 +254,12 @@
           {include file="Search/openurl.tpl" openUrl=$coreOpenURL}<br/>
           {include file="Search/rsi.tpl"}
           {include file="Search/openurl_autocheck.tpl"}
+        {/if}
+        {if $idPrefix == 'metalib_'}
+          <span class="metalib_link">
+            <span id="metalib_link_{$id|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a></span>
+            <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
+          </span>
         {/if}
       </td>
     </tr>
@@ -199,6 +275,19 @@
     {/foreach}
     {/if}
     *}
+    
+    {if $toc}
+    <tr valign="top">
+      <th>{translate text='Table of Contents'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$toc item=line}
+        {$line|escape}<br />
+      {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
     
     <tr valign="top">
       <th>{translate text='Tags'}: </th>
@@ -218,7 +307,7 @@
       </td>
     </tr>
    
-   {* BTJ description start *}
+   {* BTJ description moved to RecordDrivers/Index/extended.tpl 
    <tr valign="top" id="btjdescription" style="display: none;">
      <th>{translate text=Description}: </th>
      <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
@@ -238,7 +327,7 @@
      });
      {/literal}
    </script>  
-   {* BTJ description end *}
+   BTJ description end *}
   </table>
   {* End Main Details *}
 </div>
@@ -277,3 +366,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: RecordDrivers/Index/core.tpl -->

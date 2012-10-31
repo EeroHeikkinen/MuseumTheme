@@ -92,6 +92,11 @@ class Save extends Action
             exit();
         }
 
+        if (isset($configArray['Site']['quickAddToFavorites']) && $configArray['Site']['quickAddToFavorites']) {
+            $this->saveRecord($this->_user);
+            exit();
+        }
+        
         if (isset($_GET['submit'])) {
             $this->saveRecord($this->_user);
             header(
@@ -165,16 +170,24 @@ class Save extends Action
         } else {
             $list->user_id = $user->id;
             $list->title = translate("My Favorites");
-            $list->insert();
+            if (!$list->find(true)) {
+                $list->insert();
+            }
         }
 
         // Remember that the list was used so it can be the default in future
         // dialog boxes:
         $list->rememberLastUsed();
 
+        // Setup Search Engine Connection
+        $db = ConnectionManager::connectToIndex();
+        
+        // Get Record Information
+        $record = $db->getRecord($_GET['id']);
+        
         $resource = new Resource();
         $resource->record_id = $_GET['id'];
-        $resource->service = $_GET['service'];
+        $resource->data = serialize($record);
         if (!$resource->find(true)) {
             $resource->insert();
         }

@@ -1,3 +1,5 @@
+<!-- START of: Help/en/advsearch.tpl -->
+
 <h1>Advanced Searching Tips</h1>
 
 <ul class="HelpMenu">
@@ -50,3 +52,5 @@
     </ul>
   </dd>
 </dl>
+
+<!-- END of: Help/en/advsearch.tpl -->

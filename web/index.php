@@ -27,6 +27,9 @@
  * @link     http://vufind.org/wiki/developer_manual Wiki
  */
 
+// Set internal encoding to UTF-8 for mb functions
+mb_internal_encoding("UTF-8");
+
 // Retrieve values from configuration file
 require_once 'sys/ConfigArray.php';
 $configArray = readConfig();
@@ -102,7 +105,7 @@ if (!in_array($language, $validLanguages)) {
     $language = $configArray['Site']['language'];
 }
 $translator = new I18N_Translator(
-    'lang', $language, $configArray['System']['debug']
+    array('lang', 'lang_local'), $language, $configArray['System']['debug']
 );
 $interface->setLanguage($language);
 
@@ -135,6 +138,43 @@ $module = preg_replace('/[^\w]/', '', $module);
 $action = (isset($_GET['action'])) ? $_GET['action'] : 'Home';
 $action = preg_replace('/[^\w]/', '', $action);
 
+// Process prefilter redirection
+if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO', 'PCI')) 
+    && isset($_REQUEST['prefilter'])
+) {
+    $prefilters = getExtraConfigArray('prefilters');
+    if (isset($prefilters[$_REQUEST['prefilter']])) {
+        $prefilter = $prefilters[$_REQUEST['prefilter']];
+        if (($prefilter && $_REQUEST['prefilter'] != '-') 
+            || $prefilter['module'] != $module || $prefilter['action'] != $action
+        ) {
+            $params = explode('&', parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
+            foreach ($params as &$value) {
+                $value = preg_replace('/^prefilter=/', 'prefiltered=', $value);
+            }
+            foreach ($prefilter as $key => $value) {
+                if ($key == 'module' || $key == 'action') {
+                    continue;
+                }
+                if (is_array($value)) {
+                    foreach ($value as $v) {
+                        $params[] = $key . '[]=' . urlencode($v);
+                    }
+                } else {
+                    $params[] = "$key=" . urlencode($value);
+                }
+            }
+            $url = '';
+            if ($prefilter['module'] != $module) {
+                $url = '../' . $prefilter['module'] . '/';
+            }
+            $url .= $prefilter['action'] . '?' . implode('&', array_unique($params));
+            header("Location: $url");
+            return;
+        }
+    }
+}
+
 // Process Authentication
 if ($user && $configArray['Authentication']['method'] == 'Shibboleth'
     && empty($_SERVER[$configArray['Shibboleth']['username']])
@@ -162,6 +202,11 @@ if ($user && $configArray['Authentication']['method'] == 'Shibboleth'
             exit();
         }
     }
+}
+
+// Update user's language
+if ($user && (isset($_POST['mylang']) || isset($_GET['lng']))) {
+    $user->changeLanguage($language);    
 }
 
 // Assign global interface values now that the environment is all set up:

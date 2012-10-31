@@ -51,11 +51,11 @@ class SearchObject_Solr extends SearchObject_Base
     protected $facetOffset = null;
     protected $facetPrefix = null;
     protected $facetSort = null;
-
+    
     // Index
     protected $index = null;
     // Field List
-    protected $fields = 'score';
+    protected $fields = '*,score';
     // HTTP Method
     //protected $method = HTTP_REQUEST_METHOD_GET;
     protected $method = HTTP_REQUEST_METHOD_POST;
@@ -234,6 +234,12 @@ class SearchObject_Solr extends SearchObject_Base
                 $this->addFilter('illustrated:"Not Illustrated"');
             }
         }
+        
+        // Coordinates
+        if (isset($_REQUEST['coordinates']) && $_REQUEST['coordinates']) {
+            $this->addFilter('{!score=none}location_geo:"Intersects(' . str_replace('"', '\"', $_REQUEST['coordinates']) . ')"');
+        }
+      
     }
 
     /**
@@ -367,22 +373,25 @@ class SearchObject_Solr extends SearchObject_Base
     } // End init()
 
     /**
-     * Initialise the object for retrieving advanced
-     *   search screen facet data from inside solr.
+     * Initialise the object for retrieving facet summary data from Solr.
+     *
+     * @param string $configSection Name of configuration section listing fields
+     * to retrieve
      *
      * @return boolean
-     * @access public
+     * @access protected
      */
-    public function initAdvancedFacets()
+    protected function initFacetSummaryData($configSection)
     {
         // Call the standard initialization routine in the parent:
         parent::init();
 
         //********************
-        // Adjust facet options to use advanced settings
-        $this->facetConfig = isset($this->allFacetSettings['Advanced']) ?
-            $this->allFacetSettings['Advanced'] : array();
-        $facetLimit = $this->getFacetSetting('Advanced_Settings', 'facet_limit');
+        // Adjust facet options to use home page settings
+        $this->facetConfig = isset($this->allFacetSettings[$configSection]) ?
+            $this->allFacetSettings[$configSection] : array();
+        $facetLimit
+            = $this->getFacetSetting($configSection . '_Settings', 'facet_limit');
         if (is_numeric($facetLimit)) {
             $this->facetLimit = $facetLimit;
         }
@@ -398,6 +407,33 @@ class SearchObject_Solr extends SearchObject_Base
         );
 
         return true;
+    }
+
+    /**
+     * Initialise the object for retrieving home
+     *   page screen facet data from inside solr.
+     *
+     * @return boolean
+     * @access public
+     */
+    public function initHomePageFacets()
+    {
+        // Load Advanced settings if HomePage settings are missing (legacy support):
+        return $this->initFacetSummaryData(
+            isset($this->allFacetSettings['HomePage']) ? 'HomePage' : 'Advanced'
+        );
+    }
+
+    /**
+     * Initialise the object for retrieving advanced
+     *   search screen facet data from inside solr.
+     *
+     * @return boolean
+     * @access public
+     */
+    public function initAdvancedFacets()
+    {
+        return $this->initFacetSummaryData('Advanced');
     }
 
     /**
@@ -565,6 +601,17 @@ class SearchObject_Solr extends SearchObject_Base
             $html[] = $interface->fetch($record->getSearchResult($currentView));
         }
         return $html;
+    }
+    
+    /**
+     * Get advanced search filters
+     *
+     * @return array OR filters from advanced search
+     * @access public
+     */    
+    public function getOrFilters() 
+    {
+        return $this->orFilters;
     }
 
     /**
@@ -1038,6 +1085,26 @@ class SearchObject_Solr extends SearchObject_Base
                 }
             }
         }
+        
+        // OR filters for advanced search
+        if (isset($_REQUEST['orfilter']) && $_REQUEST['orfilter']) {
+            $orQuery = array();
+            foreach ($_REQUEST['orfilter'] as $filter) {
+                $parsedFilter = $this->parseFilter($filter);
+                $field = $parsedFilter[0];
+                $value = $parsedFilter[1];
+                $orQuery[ $field ] [] = "$field:\"$value\"";
+                // Save OR filters for advanced search.
+                $this->orFilters[$field] [] = $value;
+            }
+        
+            if (!empty($orQuery)) {
+                foreach ($orQuery as $field => $filter) {
+                    $filterQuery[] = '{!tag=' . $field . '_filter}'
+                       . '('. implode(" OR ", $filter) . ')';
+                }
+            }
+        }
 
         // If we are only searching one field use the DisMax handler
         //    for that field. If left at null let solr take care of it
@@ -1062,6 +1129,7 @@ class SearchObject_Solr extends SearchObject_Base
                 $facetSet['sort'] = $this->facetSort;
             }
         }
+        
 
         // Build our spellcheck query
         if ($this->spellcheck) {
@@ -1179,55 +1247,77 @@ class SearchObject_Solr extends SearchObject_Base
         if (count($suggestions) == 0) {
             return;
         }
-
+        
         // Loop through the array of search terms we have suggestions for
         $suggestionList = array();
-        foreach ($suggestions as $suggestion) {
-            $ourTerm = $suggestion[0];
-
-            // Skip numeric terms if numeric suggestions are disabled
-            if ($this->spellSkipNumeric && is_numeric($ourTerm)) {
-                continue;
-            }
-
-            $ourHit  = $suggestion[1]['origFreq'];
-            $count   = $suggestion[1]['numFound'];
-            $newList = $suggestion[1]['suggestion'];
-
-            $validTerm = true;
-
-            // Make sure the suggestion is for a valid search term.
-            // Sometimes shingling will have bridged two search fields (in
-            // an advanced search) or skipped over a stopword.
-            if (!$this->findSearchTerm($ourTerm)) {
-                $validTerm = false;
-            }
-
-            // Unless this term had no hits
-            if ($ourHit != 0) {
-                // Filter out suggestions we are already using
-                $newList = $this->_filterSpellingTerms($newList);
-            }
-
-            // Make sure it has suggestions and is valid
-            if (count($newList) > 0 && $validTerm) {
-                // Did we get more suggestions then our limit?
-                if ($count > $this->spellingLimit) {
-                    // Cut the list at the limit
-                    array_splice($newList, $this->spellingLimit);
+        // More than one word use collation suggestions
+        $queryTerm = $this->getQuery();
+        $useCollate = (str_word_count($queryTerm, 0) > 1);
+        
+        if ($useCollate) {
+            foreach ($suggestions as $suggestion) {
+                if ($suggestion[0] != "collation") {
+                    continue;
                 }
-                $suggestionList[$ourTerm]['freq'] = $ourHit;
-                // Format the list nicely
-                foreach ($newList as $item) {
-                    if (is_array($item)) {
-                        $suggestionList[$ourTerm]['suggestions'][$item['word']]
-                            = $item['freq'];
-                    } else {
-                        $suggestionList[$ourTerm]['suggestions'][$item] = 0;
+                $suggestionList[$queryTerm]['suggestions'][$suggestion[1]] = 0;
+            }
+            $count = isset($suggestionList[$queryTerm]['suggestions']) ? count($suggestionList[$queryTerm]['suggestions']) : 0;
+            // Did we get more suggestions than our limit?
+            if ($count > $this->spellingLimit) {
+                // Cut the list at the limit
+                array_splice($suggestionList[$queryTerm]['suggestions'], $this->spellingLimit);
+            }
+        } else {
+            foreach ($suggestions as $suggestion) {
+                $ourTerm = $suggestion[0];
+            
+                // Skip numeric terms if numeric suggestions are disabled
+                if (($this->spellSkipNumeric && is_numeric($ourTerm))
+                    || $ourTerm == 'collation' || $ourTerm == 'correctlySpelled'
+                ) {
+                    continue;
+                }
+            
+                $ourHit  = $suggestion[1]['origFreq'];
+                $count   = $suggestion[1]['numFound'];
+                $newList = $suggestion[1]['suggestion'];
+            
+                $validTerm = true;
+            
+                // Make sure the suggestion is for a valid search term.
+                // Sometimes shingling will have bridged two search fields (in
+                // an advanced search) or skipped over a stopword.
+                if (!$this->findSearchTerm($ourTerm)) {
+                    $validTerm = false;
+                }
+            
+                // Unless this term had no hits
+                if ($ourHit != 0) {
+                    // Filter out suggestions we are already using
+                    $newList = $this->_filterSpellingTerms($newList);
+                }
+            
+                // Make sure it has suggestions and is valid
+                if (count($newList) > 0 && $validTerm) {
+                    // Did we get more suggestions then our limit?
+                    if ($count > $this->spellingLimit) {
+                        // Cut the list at the limit
+                        array_splice($newList, $this->spellingLimit);
+                    }
+                    $suggestionList[$ourTerm]['freq'] = $ourHit;
+                    // Format the list nicely
+                    foreach ($newList as $item) {
+                        if (is_array($item)) {
+                            $suggestionList[$ourTerm]['suggestions'][$item['word']]
+                                = $item['freq'];
+                        } else {
+                            $suggestionList[$ourTerm]['suggestions'][$item] = 0;
+                        }
                     }
                 }
-            }
+            }            
         }
+        
         $this->suggestions = $suggestionList;
     }
 
@@ -1282,6 +1372,7 @@ class SearchObject_Solr extends SearchObject_Base
         $newSearch->disableLogging();
 
         // Run the search
+        $newSearch->setLimit(0);
         $newSearch->processSearch();
         // Get the spelling results
         $newList = $newSearch->getRawSuggestions();
@@ -1343,7 +1434,9 @@ class SearchObject_Solr extends SearchObject_Base
 
         // Loop through every field returned by the result set
         $validFields = array_keys($filter);
-        foreach ($this->indexResult['facet_counts']['facet_fields'] as $field => $data) {
+        foreach (
+            $this->indexResult['facet_counts']['facet_fields'] as $field => $data
+        ) {
             // Skip filtered fields and empty arrays:
             if (!in_array($field, $validFields) || count($data) < 1) {
                 continue;
@@ -1626,6 +1719,7 @@ class SearchObject_Solr extends SearchObject_Base
         // Send back data:
         return $returnFacets;
     }
+
 }
 
 /**

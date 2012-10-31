@@ -130,20 +130,25 @@ class Solr implements IndexEngine
     private $_specCache = false;
 
     /**
-     * Field to use for collapsing duplicate records
+     * Whether merged records are in use
      */
-    private $_collapseField = '';
+    private $_mergedRecords = null;
 
     /**
-    * Comma-separated list of institution codes in order of priority (most desired first)
-    */
-    private $_collapsingInstitutionPriority = '';
+     * Comma-separated list of data source codes in order of priority (most desired first)
+     */
+    private $_mergeSourcePriority = '';
     
     /**
-    * Allow left truncation?
-    */
-    private $_leftTruncation = false;
+     * Array of buildings in facet query, used to override configured merge priority
+     */
+    private $_mergeBuildingPriority = array();
 
+    /**
+     * Whether to filter out component parts merged with host records
+     */
+    private $_hideComponentParts = false;
+    
     /**
      * Constructor
      *
@@ -217,8 +222,9 @@ class Solr implements IndexEngine
             $this->_specCache = $searchSettings['Cache']['type'];
         }
 
-        // Deal with session-based shard settings:
-        if (isset($_SESSION['shards'])) {
+        // Deal with session-based shard settings (but only in the main Solr class;
+        // shard settings will mess up subclasses):
+        if (isset($_SESSION['shards']) && get_class($this) == 'Solr') {
             $shards = array();
             foreach ($_SESSION['shards'] as $current) {
                 if (isset($configArray['IndexShards'][$current])) {
@@ -235,17 +241,17 @@ class Solr implements IndexEngine
             $this->setShards($shards);
         }
         
-    	// Field Collapsing for deduplication
-		if (isset($searchSettings['Field_Collapsing'])) {
-	       	$this->_collapseField = $searchSettings['Field_Collapsing']['field'];
-	       	$this->_collapsingInstitutionPriority = $searchSettings['Field_Collapsing']['institution_priority'];
-		}
-	    
-	    // Allow left truncation?
-	    if (isset($searchSettings['General']['allow_left_truncation'])) {
-	    	$this->_leftTruncation
-    	    	= $searchSettings['General']['allow_left_truncation'];
-	    }	    	 
+        // Merged records
+        if (isset($searchSettings['Merged_Records']['merged_records'])) {
+           	$this->_mergedRecords = $searchSettings['Merged_Records']['merged_records'];
+           	$this->_mergeSourcePriority = $searchSettings['Merged_Records']['merge_source_priority'];
+        }
+        
+        // Hide component parts?
+        if (isset($searchSettings['General']['hide_component_parts'])) {
+        	$this->_hideComponentParts
+            	= $searchSettings['General']['hide_component_parts'];
+        }	    	 
     }
 
     /**
@@ -282,7 +288,7 @@ class Solr implements IndexEngine
         $fullPath = dirname(__FILE__) . '/../' . $this->searchSpecsFile;
 
         // Check for a local override file:
-        $local = str_replace('.yaml', '_local.yaml', $fullPath);
+        $local = str_replace('.yaml', '.local.yaml', $fullPath);
         $local = file_exists($local) ? $local : false;
 
         // Generate cache key:
@@ -366,6 +372,13 @@ class Solr implements IndexEngine
 
         // Query String Parameters
         $options = array('q' => 'id:"' . addcslashes($id, '"') . '"');
+        if (get_class($this) == 'Solr') {
+            include_once 'sys/SearchObject/Solr.php';
+            $filters = SearchObject_Solr::getDefaultHiddenFilters();
+            if (!empty($filters)) {
+                $options['fq'] = $filters;
+            }
+        }
         $result = $this->_select('GET', $options);
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
@@ -375,6 +388,38 @@ class Solr implements IndexEngine
             $result['response']['docs'][0] : null;
     }
 
+    /**
+     * Retrieves documents specified by the ID array.
+     *
+     * @param array $ids The document IDs to retrieve from Solr
+     *
+     * @throws object    PEAR Error
+     * @return string    The requested resources (or null if bad ID)
+     * @access public
+     */
+    public function getRecords($ids)
+    {
+        if ($this->debug) {
+            echo "<pre>Get Records: " . print_r($ids) . "</pre>\n";
+        }
+
+        // Query String Parameters
+        foreach ($ids as &$id) {
+            $id = '"' . addcslashes($id, '"') . '"';
+        }
+        $options = array(
+            'q' => 'id:(' . implode(' OR ', $ids) . ')',
+            'rows' => count($ids)
+        );
+        $result = $this->_select('GET', $options);
+        if (PEAR::isError($result)) {
+            PEAR::raiseError($result);
+        }
+
+        return isset($result['response']['docs'])
+            ? $result['response']['docs'] : null;
+    }
+    
     /**
      * Get records similiar to one record
      * Uses MoreLikeThis Request Handler
@@ -395,6 +440,39 @@ class Solr implements IndexEngine
             'q' => 'id:"' . addcslashes($id, '"') . '"',
             'qt' => 'morelikethis'
         );
+        
+        if ($this->_mergedRecords) {
+            // Filter out merged children by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-merged_child_boolean:TRUE';
+            $filter[] = '-local_ids_str_mv:"' . addcslashes($id, '"') . '"'; 
+        } elseif ($this->_mergedRecords !== null) {
+            // Filter out merged records by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-merged_boolean:TRUE';
+        }
+
+        if ($this->_hideComponentParts) {
+            // Filter out component parts by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-hidden_component_boolean:TRUE';
+        }
+        
+        if (isset($filter)) {
+            $options['fq'] = $filter;
+        }
+        
+        // Build Filter Query
+        if (is_array($filter) && count($filter)) {
+            $options['fq'] = $filter;
+        }
+        
         $result = $this->_select('GET', $options);
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
@@ -430,37 +508,6 @@ class Solr implements IndexEngine
             array('field' => $field, 'limit' => $limit)
         );
         return $result['facet_counts']['facet_fields'][$field];
-    }
-
-    /**
-     * Get spelling suggestions based on input phrase.
-     *
-     * @param string $phrase The input phrase
-     *
-     * @return array         An array of spelling suggestions
-     * @access public
-     */
-    public function checkSpelling($phrase)
-    {
-        if ($this->debug) {
-            echo "<pre>Spell Check: $phrase</pre>\n";
-        }
-
-        // Query String Parameters
-        $options = array(
-            'q'          => $phrase,
-            'rows'       => 0,
-            'start'      => 1,
-            'indent'     => 'yes',
-            'spellcheck' => 'true'
-        );
-
-        $result = $this->_select($method, $options);
-        if (PEAR::isError($result)) {
-            PEAR::raiseError($result);
-        }
-
-        return $result;
     }
 
      /**
@@ -1079,9 +1126,41 @@ class Solr implements IndexEngine
             }
         }
 
+        if ($this->_mergedRecords) {
+            // Filter out merged children by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-merged_child_boolean:TRUE';
+        } elseif ($this->_mergedRecords !== null) {
+            // Filter out merged records by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-merged_boolean:TRUE';
+        }
+        
+        if ($this->_hideComponentParts) {
+            // Filter out component parts by default
+            if (!isset($filter)) {
+                $filter = array();
+            }
+            $filter[] = '-hidden_component_boolean:TRUE';
+        }
+        
         // Build Filter Query
+        $this->_mergeBuildingPriority = array();
         if (is_array($filter) && count($filter)) {
             $options['fq'] = $filter;
+            foreach ($filter as $f) {
+                if (strncmp($f, 'building:', 9) == 0) {
+                    // Assume we have a facet hierarchy...
+                    $fullHierarchy = substr($f, 12, -1);
+                    foreach (explode('/', $fullHierarchy) as $part) {
+                        $this->_mergeBuildingPriority[] = $part;
+                    }
+                }
+            }
         }
 
         // Enable Spell Checking
@@ -1099,14 +1178,6 @@ class Solr implements IndexEngine
             $options['hl.fl'] = '*';
             $options['hl.simple.pre'] = '{{{{START_HILITE}}}}';
             $options['hl.simple.post'] = '{{{{END_HILITE}}}}';
-        }
-
-        if ($this->_collapseField && $query != '*:*') {
-        	$options['group'] = 'true';
-        	$options['group.field'] = $this->_collapseField;
-        	$options['group.limit'] = 400;
-        	$options['group.ngroups'] = 'true';
-        	$options['group.truncate'] = 'true';
         }
 
         if ($this->debug) {
@@ -1525,61 +1596,93 @@ class Solr implements IndexEngine
         }
         $result = json_decode($result, true);
 
-        // De-group if field collapsing is in use
-        if ($this->_collapseField && isset($result['responseHeader']['params']['group'])) {
-        	$degrouped = array();
-        	foreach ($result as $key => $value) {
-        		if ($key == 'grouped') {
-        			$degrouped['response'] = array();
-        			$degrouped['response']['docs'] = array();
-        			$degrouped['response']['numFound'] = $value[$this->_collapseField]['ngroups'];
-
-        			$instPriority = array_flip(explode(',', $this->_collapsingInstitutionPriority));
-        			
-        			foreach ($value[$this->_collapseField]['groups'] as $groupKey => $group) {
-        				$dedupDoc = $group['doclist']['docs'][0];
-        				$docPriority = 99999;
-        				if ($group['doclist']['numFound'] > 1) {
-        					// Find the document that matches the organisation priority best
-        					foreach ($group['doclist']['docs'] as $doc) {
-	        					$inst = $doc['institution'][0];
-	        					if (isset($instPriority[$inst])) {
-	        						if ($instPriority[$inst] < $docPriority) {
-	        							$dedupDoc = $doc;
-	        							//error_log("  select $inst with priority " . $instPriority[$inst]);
-	        							$docPriority = $instPriority[$inst];
-	        						}
-	        					}
-        					}
-        				}        				
-        				
-        				$dedupData = array();
-        				foreach ($group['doclist']['docs'] as $doc) {
-        					$dedupData[$doc['institution'][0]][] = array('id' => $doc['id']);
-        					//error_log($doc['institution'][0] . ': ' . $doc['title'] . ' (' . $doc['id'] . ')');
-        				}
-        				
-        				// Sort dedupData by institution priority
-        				$dedupDoc['dedup_data'] = array();
-        				foreach ($instPriority as $inst => $priority) {
-        					if (isset($dedupData[$inst])) {
-        						$dedupDoc['dedup_data'][$inst] = $dedupData[$inst];
-        					}
-        				}
-        				// All the rest non-prioritized
-        				foreach ($dedupData as $inst => $data) {
-        					if (!isset($instPriority[$inst])) {
-        						$dedupDoc['dedup_data'][$inst] = $data;
-        					}
-        				}
-
-        				$degrouped['response']['docs'][] = $dedupDoc;
-        			}
-        		} else {
-        			$degrouped[$key] = $value;
-        		}
-        	}
-        	$result = $degrouped;
+        // Handle merged records (choose the local record by priority)
+        if ($this->_mergedRecords && isset($result['response']['docs'])) {
+            $datasourceConfig = getExtraConfigArray('datasources');
+            $sourcePriority = array_flip(explode(',', $this->_mergeSourcePriority));
+            $buildingPriority = $this->_mergeBuildingPriority;
+            array_unshift($buildingPriority, '');
+            $buildingPriority = array_flip($buildingPriority);
+            $idList = array();
+            // Find out the best records and list their IDs
+            foreach ($result['response']['docs'] as &$doc) {
+                if (isset($doc['merged_boolean'])) {
+                    $localIds = $doc['local_ids_str_mv'];
+                    $dedupId = $localIds[0];
+                    $priority = 99999;
+                    // Find the document that matches the source priority best
+                    $dedupData = array();
+                    foreach ($localIds as $localId) {
+                        $localPriority = null;
+                        $source = reset(explode('.', $localId, 2));
+                        if (!empty($buildingPriority)) {
+                            if (isset($buildingPriority[$source])) {
+                                $localPriority = -$buildingPriority[$source];
+                            } elseif (isset($datasourceConfig[$source]['institution'])) {
+                                $institution = $datasourceConfig[$source]['institution'];
+                                if (isset($buildingPriority[$institution])) {
+                                    $localPriority = -$buildingPriority[$institution];
+                                }
+                            }
+                        }
+                        if (!isset($localPriority)) {
+                            if (isset($sourcePriority[$source])) {
+                                $localPriority = $sourcePriority[$source];
+                            }
+                        }
+                        if (isset($localPriority) && $localPriority < $priority) {
+                            $dedupId = $localId;
+                            $priority = $localPriority;
+                        }
+                        $dedupData[$source] = array('id' => $localId, 'priority' => isset($localPriority) ? $localPriority : 99999);
+                    }
+                    $doc['dedup_id'] = $dedupId;
+                    $idList[] = $dedupId;
+                		
+                    // Sort dedupData by priority
+                    uasort(
+                        $dedupData, 
+                        function($a, $b) {
+                            return $a['priority'] - $b['priority'];    
+                        }
+                    );
+                    $doc['dedup_data'] = $dedupData;
+                }
+            }
+            // Fetch records and assign them to the result
+            if (!empty($idList)) {
+                $records = $this->getRecords($idList);
+                foreach ($result['response']['docs'] as &$doc) {
+                    if (!isset($doc['dedup_id'])) {
+                        continue;
+                    }
+                    $dedupRecord = null;
+                    foreach ($records as $record) {
+                        if ($record['id'] == $doc['dedup_id']) {
+                            $dedupRecord = $record;
+                            break;
+                        }
+                    }
+                    assert($dedupRecord);
+                    if ($dedupRecord) {
+                        $dedupRecord['local_ids_str_mv'] = $doc['local_ids_str_mv'];
+                        $dedupRecord['dedup_data'] = $doc['dedup_data'];
+                        // Duplicate highlighting information
+                        if (isset($result['highlighting'][$doc['id']])) {
+                            $result['highlighting'][$dedupRecord['id']] = $result['highlighting'][$doc['id']];
+                        } 
+                        	        					
+                        $doc = $dedupRecord;
+                    }
+                }
+            }
+            foreach ($result['response']['docs'] as &$doc) {
+                if (!isset($doc['dedup_data'])) {
+                    $source = explode('.', $doc['id'], 2);
+                    $source = $source[0];
+                    $doc['dedup_data'] = array($source => array('id' => $doc['id']));
+                }
+            }
         }
         
         // Inject highlighting details into results if necessary:
@@ -1687,7 +1790,7 @@ class Solr implements IndexEngine
         }
 
         // Ensure wildcards are not at beginning of input
-        if (!$this->_leftTruncation && ((substr($input, 0, 1) == '*') || (substr($input, 0, 1) == '?'))) {
+        if ((substr($input, 0, 1) == '*') || (substr($input, 0, 1) == '?')) {
             $input = substr($input, 1);
         }
 
@@ -1793,22 +1896,6 @@ class Solr implements IndexEngine
         }
 
         return false;
-    }
-
-    /**
-     * Remove illegal characters from the provided query.
-     *
-     * @param string $query Query to clean.
-     *
-     * @return string       Clean query.
-     * @access public
-     */
-    public function cleanInput($query)
-    {
-        $query = trim(str_replace($this->_illegal, '', $query));
-        $query = strtolower($query);
-
-        return $query;
     }
 
     /**

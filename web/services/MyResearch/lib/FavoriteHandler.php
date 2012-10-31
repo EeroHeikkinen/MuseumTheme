@@ -47,8 +47,15 @@ class FavoriteHandler
     private $_user;
     private $_listId;
     private $_allowEdit;
-    private $_ids = array();
+    private $_records = array();
     protected $infoMsg = false;
+    protected $sortOptions = array(
+        'saved' => 'Order Added',
+        'title' => 'Title',
+        'author' => 'Author',
+        'date' => 'Date',
+        'format' => 'Format'
+    );
 
     /**
      * Constructor.
@@ -58,29 +65,16 @@ class FavoriteHandler
      * @param int    $listId    ID of list containing desired tags/notes (or null
      * to show tags/notes from all user's lists).
      * @param bool   $allowEdit Should we display edit controls?
+     * @param string $sort      Sort method
      *
      * @access public
      */
-    public function __construct($favorites, $user, $listId = null, $allowEdit = true)
+    public function __construct($favorites, $user, $listId = null, $allowEdit = true, $sort = 'saved')
     {
-        $this->_favorites = $favorites;
+        $this->_favorites = is_array($favorites) ? $favorites : array($favorites);
         $this->_user = $user;
         $this->_listId = $listId;
         $this->_allowEdit = $allowEdit;
-
-        // Process the IDs found in the favorites (sort by source):
-        if (is_array($favorites)) {
-            foreach ($favorites as $current) {
-                $id = $current->record_id;
-                if (!empty($id)) {
-                    $source = $current->source;
-                    if (!isset($this->_ids[$source])) {
-                        $this->_ids[$source] = array();
-                    }
-                    $this->_ids[$source][] = $id;
-                }
-            }
-        }
     }
 
     /**
@@ -93,43 +87,134 @@ class FavoriteHandler
     {
         global $interface;
 
-        // Initialise from the current search globals
-        $searchObject = SearchObjectFactory::initSearchObject();
-        $searchObject->init();
-        $interface->assign('sortList', $searchObject->getSortList());
+        $currentSort = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'saved'; 
+        if (!isset($this->sortOptions[$currentSort])) {
+            $currentSort = 'saved';
+        }
+        
+        $interface->assign('listEditAllowed', $this->_allowEdit);
 
-        // Retrieve records from index (currently, only Solr IDs supported):
-        if (array_key_exists('VuFind', $this->_ids)
-            && count($this->_ids['VuFind']) > 0
-        ) {
-            if (!$searchObject->setQueryIDs($this->_ids['VuFind'])) {
-                $this->infoMsg = 'too_many_favorites';
+        // Get html for the records
+        $resourceList = array();
+        $searchObjects = array();
+        $searchObject = SearchObjectFactory::initSearchObject();
+        foreach ($this->_favorites as $favorite) {
+            $source = $favorite->source;
+            $data = $favorite->data;
+            if (!empty($data)) {
+                $data = unserialize($data);
             }
-            $result = $searchObject->processSearch();
-            $resourceList = $searchObject->getResultListHTML(
-                $this->_user, $this->_listId, $this->_allowEdit
-            );
-            $interface->assign('resourceList', $resourceList);
-        } else {
-            // If no records are displayed, $allowListEdit will be missing;
-            // make sure it gets assigned so the list can be edited:
-            $interface->assign('listEditAllowed', $this->_allowEdit);
+            $sortKey = $favorite->saved;
+            if ($source == 'VuFind') {
+                if (empty($data)) {
+                    // Fetch data from index for backwards compatibility and store it in the resource
+                    $data = $searchObject->getIndexEngine()->getRecord($favorite->record_id);
+                    $resource = new Resource();
+                    $resource->id = $favorite->id;
+                    $resource->source = $favorite->source;
+                    if ($resource->find(true)) {
+                        $resource->data = serialize($data);
+                        $resource->update();
+                    }
+                }
+                $record = RecordDriverFactory::initRecordDriver($data);
+                $html = $interface->fetch($record->getListEntry($this->_user, $this->_listId, $this->_allowEdit));
+                switch ($currentSort) {
+                case 'title': 
+                    $sortKey = isset($data['title_sort']) ? $data['title_sort'] : ''; 
+                    break;
+                case 'author': 
+                    $sortKey = isset($data['author']) ? $data['author'] : ''; 
+                    break;
+                case 'date': 
+                    $sortKey = isset($data['main_date_str']) ? $data['main_date_str'] : isset($data['publishDate'][0]) ? $data['publishDate'][0] : ''; 
+                    break;
+                case 'format': 
+                    $sortKey = isset($data['format'][0]) ? translate($data['format'][0]) : ''; 
+                    break;
+                }
+            } else {
+                if (!isset($searchObjects[$source])) {
+                    $searchObjects[$source] = SearchObjectFactory::initSearchObject($source);
+                    if ($searchObjects[$source] === false) {
+                        error_log("Could not create search object for source '$source'");
+                        continue;
+                    }
+                }
+                $html = $searchObjects[$source]->getResultHTML(
+                    $data,
+                    $this->_user,
+                    $this->_listId,
+                    $this->_allowEdit
+                );
+                switch ($currentSort) {
+                case 'title': 
+                    $sortKey = isset($data['Title'][0]) ? $data['Title'][0] : ' '; 
+                    break;
+                case 'author': 
+                    $sortKey = isset($data['Author'][0]) ? $data['Author'][0] : ' '; 
+                    break;
+                case 'date': 
+                    $sortKey = isset($data['main_date_str']) ? $data['main_date_str'] : isset($data['publicationDate'][0]) ? $data['publicationDate'][0] : ' '; 
+                    break;
+                case 'format': 
+                    $sortKey = isset($data['format'][0]) ? translate($data['format'][0]) : ' '; 
+                    break;
+                }
+            }
+            $sortKey .= '_' . $favorite->record_id;
+            $resourceList[$sortKey] = $html;
         }
 
+        // Setup paging variables 
+        if (isset($_REQUEST['page'])) {
+            $page = $_REQUEST['page'];
+            $page = intval($page);
+            if ($page < 1) {
+                $page = 1;
+            }
+        } else {
+            $page = 1;
+        } 
+        $perPage = 20; // TODO: configurable?
+        $recordCount = count($this->_favorites);
+        $startRecord = ($page - 1) * $perPage;
+        
+        // Sort and slice the array
+        ksort($resourceList);
+        $resourceList = array_slice($resourceList, $startRecord, $perPage, true);
+        
+        $html = array();
+        $interface->assign('resourceList', $resourceList);
+        
         // Set up paging of list contents:
-        $summary = $searchObject->getResultSummary();
-        $interface->assign('recordCount', $summary['resultTotal']);
-        $interface->assign('recordStart', $summary['startRecord']);
-        $interface->assign('recordEnd',   $summary['endRecord']);
+        $endRecord = $startRecord + $perPage;
+        if ($endRecord > $recordCount) {
+            $endRecord = $recordCount;
+        }
+        $interface->assign('recordCount', $recordCount);
+        $interface->assign('recordStart', $startRecord + 1);
+        $interface->assign('recordEnd', $endRecord);
 
-        $link = $searchObject->renderLinkPageTemplate();
+        $searchObject->init();
         $options = array(
-            'totalItems' => $summary['resultTotal'],
-            'perPage' => $summary['perPage'],
-            'fileName' => $link
+            'totalItems' => $recordCount,
+            'perPage' => $perPage,
+            'fileName' => $searchObject->renderLinkPageTemplate()
         );
         $pager = new VuFindPager($options);
         $interface->assign('pageLinks', $pager->getLinks());
+        
+        // Sorting options
+        $sortList = array();
+        foreach ($this->sortOptions as $sort => $desc) {
+            $sortList[$sort] = array(
+                'sortUrl'  => $searchObject->renderLinkWithSort($sort),
+                'desc' => $desc,
+                'selected' => ($sort == $currentSort)
+            );
+        }
+        $interface->assign('sortList', $sortList);
     }
 
     /**

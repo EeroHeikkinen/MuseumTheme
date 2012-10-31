@@ -66,16 +66,10 @@ class Record extends Base
         // Fetch Record
         $config = getExtraConfigArray('MetaLib');
         $metalib = new MetaLib();
-        $record = $metalib->getRecord($_REQUEST['id']);
-        if (PEAR::isError($record)) {
-            PEAR::raiseError($record);
-        } else if (!isset($record['documents'][0])) {
-            PEAR::raiseError(
-                new PEAR_Error("Cannot access record {$_REQUEST['id']}")
-            );
-        } else {
-            $this->record = $record['documents'][0];
-        }
+        $this->record = $metalib->getRecord($_REQUEST['id']);
+        if (PEAR::isError($this->record)) {
+            PEAR::raiseError($this->record);
+        } 
 
         // Set Proxy URL
         $interface->assign(

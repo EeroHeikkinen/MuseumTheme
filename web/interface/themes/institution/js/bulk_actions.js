@@ -43,6 +43,10 @@ function registerBulkActions() {
         return false;
     });
 
+    $('form[name="bulkActionForm"] select').change(function(){
+        $(this).closest('form').submit();
+    });
+    
     // Support delete list button:
     $('.deleteList').unbind('click').click(function(){
         var id = $(this).attr('id').substr('deleteList'.length);

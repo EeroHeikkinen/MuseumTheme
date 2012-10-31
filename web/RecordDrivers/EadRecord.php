@@ -63,7 +63,7 @@ class EadRecord extends IndexRecord
         
         $template = parent::getCoreMetadata();
         
-        $interface->assign('coreSubtitle', $this->_getYearRange());
+        $interface->assign('coreSubtitle', $this->getYearRange());
         
         return $template;
     }
@@ -85,7 +85,7 @@ class EadRecord extends IndexRecord
         $template = parent::getSearchResult($view);
         
         $title = $this->getTitle();
-        $years = $this->_getYearRange();
+        $years = $this->getYearRange();
         if ($years) {
             $title .= " $years";
         }
@@ -128,7 +128,7 @@ class EadRecord extends IndexRecord
      * @return string
      * @access protected
      */
-    protected function _getYearRange()
+    protected function getYearRange()
     {
         if (isset($this->fields['unit_daterange'])) {
             $dates = explode(',', $this->fields['unit_daterange']);
@@ -287,6 +287,22 @@ class EadRecord extends IndexRecord
         return null;
     }
     
+    /**
+     * Get an array of all the dedup data associated with the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getDedupData()
+    {
+        $institution = is_array($this->fields['institution']) ? $this->fields['institution'][0] : $this->fields['institution'];
+        return array(
+            $institution => array(
+                'id' => $this->fields['id']
+            )
+        );
+    }
+        
 }
 
 ?>

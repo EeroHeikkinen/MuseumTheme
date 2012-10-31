@@ -63,7 +63,7 @@ th {font-weight:bold;}
 thead th {background:#c3d9ff;}
 th, td, caption {padding:4px 10px 4px 5px;}
 /* Try commenting out the next line if odd and even table rows give you trouble */
-tbody tr:nth-child(even) td, tbody tr.even td {background:#e5ecf9;}
+/* tbody tr:nth-child(even) td, tbody tr.even td {background:#e5ecf9;} */
 
 tfoot {font-style:italic;}
 caption {background:#eee;}

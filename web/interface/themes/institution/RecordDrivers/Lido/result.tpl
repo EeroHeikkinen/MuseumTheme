@@ -1,36 +1,34 @@
+<!-- START of: RecordDrivers/Lido/result.tpl -->
+
 <div class="result recordId" id="record{$summId|escape}">
-  
-		{if $bookBag}
+
+  <div class="resultColumn1">
+
+    <div class="resultCheckbox">
+	{if $bookBag}
   	<label for="checkbox_{$summId|regex_replace:'/[^a-z0-9]/':''|escape}" class="offscreen">{translate text="Select this record"}</label>
   	<input id="checkbox_{$summId|regex_replace:'/[^a-z0-9]/':''|escape}" type="checkbox" name="ids[]" value="{$summId|escape}" class="checkbox_ui"/>
   	<input type="hidden" name="idsAll[]" value="{$summId|escape}" />
   	{/if}
+    </div>
   
-  
-  
-  
-  
-    <div class="coverDiv span-2">
-    	<div>
-    	{if $summThumb}
-        <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large">
-          <img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}">
-        </a>
+    {assign var=img_count value=$summImages|@count}
+    <div class="coverDiv">
+        <div class="resultNoImage"><p>{translate text='No image'}</p></div>
+    	{if $img_count > 0}
+        {* large image link: <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large"> *}
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
+          <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}">
+        </a></div>
     	{else}
-        <img src="{$path}/bookcover.php" class="alignleft" alt="{translate text='No Cover Image'}"/>
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
     	{/if}
-    	</div>
-    	
-    	
-    	
-    	
     	
     {* Multiple images *}
-    {assign var=img_count value=$summImages|@count}
     {if $img_count > 1}
       <div class="imagelinks">
     {foreach from=$summImages item=desc name=imgLoop}
-        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onclick="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
           {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
         </a>
     {/foreach}
@@ -38,12 +36,19 @@
     {/if}
     </div>
     
-    
-    
-    
-    <div class="span-6">
+  {if is_array($summFormats)}
+    {assign var=mainFormat value=$summFormats.0} 
+    {assign var=displayFormat value=$summFormats|@end} 
+  {else}
+    {assign var=mainFormat value=$summFormats} 
+    {assign var=displayFormat value=$summFormats} 
+  {/if}
+  <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span></div>
+</div>
+
+ <div class="resultColumn2">
       <div class="resultItemLine1">
-      	<a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
+      	<a href="{$url}/Record/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if} {$summSubtitle}</a>
       </div>
 
       <div class="resultItemLine2">
@@ -97,20 +102,8 @@
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
-      {foreach from=$summFormats item=format}
-        <span class="iconlabel {$format|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$format}</span>
-      {/foreach}
-      <br>
-      {foreach from=$summDedupData key=institution item=dedupData}
-        {foreach from=$dedupData item=dedupItem}
-        <a href="{$url}/Record/{$dedupItem.id|escape:"url"}" class="title">{translate text=$institution}</a>
-        {/foreach}
-      {/foreach}
-    </div>
 
-  <div class="span-3 last addToFavLink">
-    <div id="saveLink{$summId|escape}">
-      <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool">{translate text='Add to favorites'}</a>
+   <div class="savedLists info hide" id="savedLists{$summId|escape}">
       <ul id="lists{$summId|escape}"></ul>
       <script language="JavaScript" type="text/javascript">
         getSaveStatuses('{$summId|escape:"javascript"}');
@@ -142,6 +135,9 @@
       {/if}
      {/if}
   </div>
+  <div class="last addToFavLink">
+      <a href="{$url}/Record/{$summId|escape:"url"}/Save" onClick="getLightbox('Record', 'Save', '{$summId|escape}', '', '{translate text='Add to favorites'}', 'Record', 'Save', '{$summId|escape}'); return false;" class="fav tool"></a>
+  </div>
   <div class="clear"></div>
  </div>
 
@@ -163,3 +159,4 @@
 </script>
 {/if}
 
+<!-- END of: RecordDrivers/Lido/result.tpl -->

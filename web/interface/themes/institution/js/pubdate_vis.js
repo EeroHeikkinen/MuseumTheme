@@ -109,17 +109,15 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
 
 function PadDigits(n, totalDigits) 
 { 
-    if (n <= 0){
-        n= 1;
-    }
-    n = n.toString(); 
-    var pd = ''; 
-    if (totalDigits > n.length) 
-    { 
-        for (i=0; i < (totalDigits-n.length); i++) 
-        { 
-            pd += '0'; 
-        } 
-    } 
-    return pd + n; 
+	var neg = false
+	if (n < 0) {
+		neg = true;
+		n = n.toString().substr(1); 
+	} else {
+		n = n.toString();
+	}
+	while (n.length < totalDigits) {
+		n = '0' + n;
+	}
+    return (neg ? '-' : '') + n; 
 }

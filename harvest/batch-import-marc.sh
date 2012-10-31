@@ -37,7 +37,7 @@ then
 fi
 
 # Process all the files in the target directory:
-for file in $BASEPATH/*.xml
+for file in $BASEPATH/*.xml $BASEPATH/*.mrc
 do
   if [ -f $file ]
   then

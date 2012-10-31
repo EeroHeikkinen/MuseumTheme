@@ -1,3 +1,5 @@
+<!-- START of: Web/home.tpl -->
+
 <script src="http://www.google.com/jsapi?key={$googleKey}" type="text/javascript"></script>
 <script type="text/javascript">
 //<![CDATA[
@@ -63,3 +65,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Web/home.tpl -->

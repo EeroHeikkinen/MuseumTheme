@@ -1,3 +1,5 @@
+<!-- START of: Summon/record.tpl -->
+
 {js filename="record.js"}
 {js filename="openurl.js"}
 <div class="span-10{if $sidebarOnLeft} push-3 last{/if}">
@@ -31,7 +33,7 @@
   <div class="record recordId" id="record{$id|escape}">
 
     {* Display Title *}
-    <h1>{$record.Title.0|escape}</h1>
+    <h1>{$record.Title.0|escape}{if $record.Subtitle} {$record.Subtitle.0|escape}{/if}</h1>
     {* End Title *}
 
     {* Display Cover Image *}
@@ -204,3 +206,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Summon/record.tpl -->

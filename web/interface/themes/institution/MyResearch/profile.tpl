@@ -1,53 +1,89 @@
+<!-- START of: MyResearch/profile.tpl -->
+
+{include file="MyResearch/menu.tpl"}
+
 {if count($pickup) > 1}
   {assign var='showHomeLibForm' value=true}
 {else}
   {assign var='showHomeLibForm' value=false}
 {/if}
-<div class="span-10{if $sidebarOnLeft} push-5 last{/if}">
-  {if $user->cat_username}
-    <h3>{translate text='Your Profile'}</h3>
+<div class="myResearch{if $sidebarOnLeft} last{/if}">
+  <span class="hefty">{translate text='Your Profile'}</span>
+    {if $user->cat_username}
+    <div class="resultHead">
     {if $userMsg}
       <p class="success">{translate text=$userMsg}</p>
     {/if}
-    {if $showHomeLibForm}
-      <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
-    {/if}
-    <span class="span-3"><strong>{translate text='First Name'}:</strong></span> {$profile.firstname|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Last Name'}:</strong></span> {$profile.lastname|escape}<br class="clear"/>
-    {if $showHomeLibForm}
-    <span class="span-3"><label for="home_library">{translate text="Preferred Library"}:</label></span>
-      {if count($pickup) > 1}
-        {if $profile.home_library != ""}
-          {assign var='selected' value=$profile.home_library}
+    </div>
+    <div class="profileInfo">
+      <div class="profileGroup">
+        <h4>{translate text='Source of information'}:
+          {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
+          {translate text="source_$source"}
+        </h4>
+      </div>
+      
+      <div class="profileGroup">
+        <span>{translate text='First Name'}:</span><span>{if $profile.firstname}{$profile.firstname|escape}{else}-{/if}</span><br class="clear"/>
+        <span>{translate text='Last Name'}:</span><span>{if $profile.lastname}{$profile.lastname|escape}{else}-{/if}</span><br class="clear"/>
+      </div>
+
+      <div class="profileGroup">
+        <span>{translate text='Address'} 1:</span><span>{if $profile.address1}{$profile.address1|escape}{else}-{/if}</span><br class="clear"/>
+        <span>{translate text='Address'} 2:</span><span>{if $profile.address2}{$profile.address2|escape}{else}-{/if}</span><br class="clear"/>
+        <span>{translate text='Zip'}:</span><span>{if $profile.zip}{$profile.zip|escape}{else}-{/if}</span><br class="clear"/>
+      </div>
+    
+      <div class="profileGroup">
+        <span>{translate text='Phone Number'}:</span><span>{if $profile.phone}{$profile.phone|escape}{else}-{/if}</span><br class="clear" />
+        <span>{translate text='Email'}:</span><span>{if $info.email}{$info.email|escape}{else}-{/if}</span><br class="clear" />
+      </div>
+    
+      <div class="profileGroup">
+        <span>{translate text='Group'}:</span><span>{$profile.group|escape}</span><br class="clear"/>
+      </div>
+    
+      <div class="profileGroup">
+      {foreach from=$profile.blocks item=block name=loop}
+        {if $smarty.foreach.loop.first}
+          <span>{translate text='Borrowing Blocks'}:</span>
         {else}
-          {assign var='selected' value=$defaultPickUpLocation}
+          <span>&nbsp;</span>
         {/if}
-        <select id="home_library" name="home_library">
-          {foreach from=$pickup item=lib name=loop}
-            <option value="{$lib.locationID|escape}" {if $selected == $lib.locationID}selected="selected"{/if}>{$lib.locationDisplay|escape}</option>
-          {/foreach}
-        </select>
+        <span>{$block|escape}</span><br class="clear"/>
+      {/foreach}
+      </div>
+      
+      <div class="profileGroup">
+        <h4>{translate text='Local Settings'}</h4>
+        <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
+        {if $showHomeLibForm}
+          <span>{translate text='Email'}:</span><span><input type="text" name="email" value="{$email|escape}"></input></span><br class="clear"/>
+          <span><label for="home_library">{translate text="Preferred Library"}:</label></span>
+          {if count($pickup) > 1}
+            {if $profile.home_library != ""}
+              {assign var='selected' value=$profile.home_library}
+            {else}
+              {assign var='selected' value=$defaultPickUpLocation}
+            {/if}
+              <span><select id="home_library" name="home_library">
+            {foreach from=$pickup item=lib name=loop}
+              <option value="{$lib.locationID|escape}" {if $selected == $lib.locationID}selected="selected"{/if}>{$lib.locationDisplay|escape}</option>
+            {/foreach}
+          </select></span>
+          {else}
+            {$pickup.0.locationDisplay}
+          {/if}
+          <br class="clear"/>
+        {/if}
+          <input class="button" type="submit" value="{translate text='Save'}" />
+        </form>
       {else}
-        {$pickup.0.locationDisplay}
+        {include file="MyResearch/catalog-login.tpl"}
       {/if}
-      <br class="clear"/>
-    {/if}
-    <span class="span-3"><strong>{translate text='Address'} 1:</strong></span> {$profile.address1|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Address'} 2:</strong></span> {$profile.address2|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Zip'}:</strong></span> {$profile.zip|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Phone Number'}:</strong></span> {$profile.phone|escape}<br class="clear"/>
-    <span class="span-3"><strong>{translate text='Group'}:</strong></span> {$profile.group|escape}<br class="clear"/>
-    {if $showHomeLibForm}
-      <input type="submit" value="{translate text='Save Profile'}" />
-      </form>
-    {/if}
-  {else}
-    {include file="MyResearch/catalog-login.tpl"}
-  {/if}
-</div>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
 
-<div class="span-3 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
-  {include file="MyResearch/menu.tpl"}
-</div>
-
-<div class="clear"></div>
+<!-- END of: MyResearch/profile.tpl -->

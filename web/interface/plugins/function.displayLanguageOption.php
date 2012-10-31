@@ -48,7 +48,7 @@ function smarty_function_displayLanguageOption($params, &$smarty)
     if (!$translator) {
         global $configArray;
         $translator
-            = new I18N_Translator('lang', 'native', $configArray['System']['debug']);
+            = new I18N_Translator(array('lang', 'lang_local'), 'native', $configArray['System']['debug']);
     }
     return $translator->translate($params['text']);
 }

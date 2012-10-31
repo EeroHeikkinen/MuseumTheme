@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * Copyright (C) Villanova University 2007.
+ * Copyright (C) The National Library of Finland 2012
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -20,8 +20,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * @category VuFind
- * @package  BTJ Descriptions
- * @author   
+ * @package  BTJ_Descriptions
+ * @author   Bjarne Beckmann <bjarne.beckmann@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/use_of_external_content Wiki
  */
@@ -42,7 +42,7 @@ fetchFromRecord($_GET['id']);
 /**
  * Get URL from Record.
  *
- * @param string $id    Record ID
+ * @param string $id Record ID
  *
  * @return mixed: true if description available, otherwise false.
  */

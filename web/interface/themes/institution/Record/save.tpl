@@ -1,3 +1,5 @@
+<!-- START of: Record/save.tpl -->
+
 <h2>{translate text='add_favorite_prefix'} {$record.title|escape:"html"} {translate text='add_favorite_suffix'}</h2>
 <form method="get" action="{$url}/Record/{$id|escape}/Save" name="saveRecord">
   <input type="hidden" name="submit" value="1" />
@@ -39,3 +41,5 @@
     <input class="button" type="submit" value="{translate text='Save'}"/>
   {/if}
 </form>
+
+<!-- END of: Record/save.tpl -->

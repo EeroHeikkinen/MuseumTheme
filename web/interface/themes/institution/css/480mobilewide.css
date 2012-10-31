@@ -21,6 +21,181 @@ px      62    136    210    284    358    432   */
         -webkit-border-radius: 5px 5px 5px 5px;
         border-radius: 5px 5px 5px 5px*/;
     }
+    #searchFormHeader {
+        width: 432px;
+        margin: 0;
+        padding: 0;
+    }
+    div.searchHomeLogo img {
+        width:70%;
+        margin: 0 auto;
+    }
+    div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm {
+        width: 284px;
+        margin: 0 auto;
+        padding: 0 0 0 30px;
+    }
+    .searchform #searchForm_input {
+        padding: 4px;
+        font-size: 1.0em;
+        border-right: 1px solid #999999;
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+    }
+    .searchHomeForm div.styled_select, .searchform div.styled_select { /* to get rid of unstylable down-arrow */
+        border-radius: 6px 0 0 6px;
+        -moz-border-radius: 6px 0 0 6px;
+        -webkit-border-radius: 6px 0 0 6px;
+    }
+    .searchform #searchForm_searchButton {
+        float:left;
+        background-position: top right;
+        height: 34px;
+        width: 84px;
+        margin:0 24px 0 0;
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+    }
+
+
+
+
+    .homeNavigation ul li {
+        display: block;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+    }
+    .homeCustomContent .homeCustomCol1 {
+        width: 432px;
+        margin: 1em 0 1em 0;
+    }
+    .homeCustomContent .homeCustomCol2 {
+        width: 432px;
+        margin: 1em 0 1em 60px;
+    }
+    .homeCustomContent .homeCustomCol2 ul li {
+    float: left;
+    width: 160px;
+    margin: 0.5em 10px 0.5em 1em;
+    }
+    .footer {
+        font-size:1.0em;
+        padding:1em 20px;
+    } 
+
+
+
+
+
+    #topPubDateVis {
+        width: 432px;
+    }
+    #topFacets {
+        width: 432px;
+    }
+    #suggestedTopics {
+        width: 408px;
+        margin: 0 12px 0 12px;
+    }
+    #resultList {
+        width: 432px;
+    }
+    ul.recordSet .resultColumn1 {
+        width: 136px;
+        margin-left: 0;
+    }
+    .summcover {
+        max-width: 136px;
+    }
+    .resultNoImage{
+        height: 124px;
+        width: 124px;
+    }
+    .resultImage {
+        margin: -126px 0 0 0;
+        width: 126px;
+    }
+    ul.recordSet .resultColumn1 .resultItemFormat {
+       width: auto;
+    }
+    ul.recordSet .resultColumn2 {
+        width: 246px;
+    }
+    ul.recordSet .addToFavLink {
+        clear: none;
+        float: right;
+        margin: 0;
+    }
+
+
+
+    #sidebarFacets {
+        width: 408px;
+        float:left;
+        margin: 0 12px;
+        border-top: 1px solid #dddddd;
+    }
+    #sidebarFacets .sidegroup {
+        border-left: none;
+    }
+
+
+
+    .backToResults {
+        margin-left: 10px;
+        width: 180px;
+    }
+    .resultscroller {
+        clear: none;
+        margin-left: 0;
+    }
+    #resultSide {
+        width: 432px;
+        margin-right: 0;
+    }
+    .coverImages {
+        width: 210px;
+        float: left;
+    }
+    .recordcover {
+        max-width: 210px;
+    }
+    .record .toolbar {
+        width: 210px;
+        float: right;
+    }
+    #qrcode {
+        display: none;
+    }
+    
+    #resultMain {
+        width: 432px;
+        margin-right: 0;
+    }
+    #recordMetadata {
+        width: 432px;
+        float: left;
+    }
+    #dyntabnav {
+        width: 432px;
+    }
+
+    #resultSidebar {
+        width: 432px;
+    }
+    #resultSidebar .sidegroup {
+        border-top: 2px solid #dddddd;
+        border-left: none;
+        padding: 0;
+    }
+    #resultSidebar ul li {
+        width: 136px;
+        margin-right:0;
+        display: inline-block;
+        vertical-align: top;
+    }
 
 
 }

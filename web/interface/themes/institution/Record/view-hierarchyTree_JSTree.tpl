@@ -1,3 +1,5 @@
+<!-- START of: Record/view-hierarchyTree_JSTree.tpl -->
+
 <script type="text/javascript">
 vufindString.lightboxMode = {if $lightbox == true}true{else}false{/if};
 vufindString.fullHierarchy = {if $treeSettings.fullHierarchyRecordView == true || $disablePartialHierarchy == true}true{else}false{/if};
@@ -41,3 +43,5 @@ vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
     </div>
     {/if}
 </div>
+
+<!-- END of: Record/view-hierarchyTree_JSTree.tpl -->

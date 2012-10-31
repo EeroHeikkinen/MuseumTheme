@@ -1,3 +1,5 @@
+<!-- START of: Search/newitem-list.tpl -->
+
 {* Main Listing *}
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
   {if $errorMsg || $infoMsg}
@@ -61,7 +63,7 @@
       {$pageContent}
     {/if}
 
-    {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+    {include file="Search/paging.tpl"}
       
     <div class="searchtools">
       <strong>{translate text='Search Tools'}:</strong>
@@ -83,3 +85,5 @@
 {* End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Search/newitem-list.tpl -->

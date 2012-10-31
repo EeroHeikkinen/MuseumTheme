@@ -42,6 +42,9 @@
  */ // @codingStandardsIgnoreStart
 function smarty_modifier_substr($str, $start, $length = null)
 {   // @codingStandardsIgnoreEnd
+    if ($length === null) {
+        return substr($str, $start);
+    }
     return substr($str, $start, $length);
 }
 ?>

@@ -1,47 +1,33 @@
 <!-- START of: header.tpl -->
 
-{if $showTopSearchBox}
-<div id="logoHeader" class="span-3">
-  <a id="logo" href="{$url}"></a>
-</div>
-<div id="searchFormHeader" class="span-7">
-  <div class="searchbox">
-{* Commented out for now
-	<h3 class="slogan">{translate text="searchbox_headline_text"}</h3>
-*}
-  {if $pageTemplate != 'advanced.tpl'}
-    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
-      {include file="`$module`/searchbox.tpl"}
-
-    {else}
-      {include file="Search/searchbox.tpl"}
-    {/if}
-  {/if}
-  </div>
-</div>
-{/if}
-
 {js filename="jquery.cookie.js"}
 {if $bookBag}
   {js filename="cart.js"}
   {assign var=bookBagItems value=$bookBag->getItems()}
 {/if}
-<div id="loginHeader" class="span-3 last right small">
+<div id="loginHeader" class="last right small">
 <!-- 2 columns TEST
 <div class="right alignright" style="width:50%; padding-right:.5em;">
 -->
   {if !$hideLogin}
   <div id="logoutOptions"{if !$user} class="hide"{/if}>
-    <a class="account" href="{$path}/MyResearch/Home">{translate text="Your Account"}</a> |
+    <a class="account" href="{$path}/MyResearch/Home">{translate text="Your Account"}</a>
+    {if $mozillaPersonaCurrentUser}
+    <a id="personaLogout" class="logout" href="">{translate text="Log Out"}</a>
+    {else}
     <a class="logout" href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
+    {/if}
   </div>
   <div id="loginOptions"{if $user} class="hide"{/if}>
+  {if $mozillaPersona}
+    <a id="personaLogin" class="persona-login" href=""><span>{translate text="Sign in with your Email"}</span></a>
+  {/if}
   {if $authMethod == 'Shibboleth'}
     <a class="login" href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
-    <br/><a class="" href="">{translate text="Create Account"}</a>
+    {*<br/><a class="" href="">{translate text="Create Account"}</a>*}
   {else}
-    <a class="" href="{$path}/MyResearch/Home">{translate text="Login"}</a>
-    <a class="right" href="">{translate text="Create Account"}</a>
+    <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
+    {*<a href="">{translate text="Create Account"}</a>*}
 <!--
     <span class="strong account">{translate text="Guest"}</span>
 -->
@@ -64,5 +50,58 @@
 </div>
 -->
 </div>
+
+{if $showTopSearchBox}
+
+{* This is a temporary solution: assign specific id for MetaLib, all others can use the default logo *}
+<div id="logoHeader{if $module=='MetaLib'}MetaLib{/if}">
+  <a id="logo{if $module=='MetaLib'}MetaLib{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
+</div>
+<div id="searchFormHeader">
+  <div class="searchbox">
+{* Commented out for now
+	<h3 class="slogan">{translate text="searchbox_headline_text"}</h3>
+*}
+  {if $pageTemplate != 'advanced.tpl'}
+    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
+      {include file="`$module`/searchbox.tpl"}
+    {else}
+      {include file="Search/searchbox.tpl"}
+    {/if}
+  {/if}
+  </div>
+</div>
+
+{else}
+
+<div class="searchHome">
+  <div class="searchHomeContent">
+    {if $offlineMode == "ils-offline"}
+      <div class="sysInfo">
+      <h2>{translate text="ils_offline_title"}</h2>
+      <p><strong>{translate text="ils_offline_status"}</strong></p>
+      <p>{translate text="ils_offline_home_message"}</p>
+      <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
+      </div>
+    {/if}
+    <div class="searchHomeLogo{if $module=='MetaLib'}MetaLib{else}{1|rand:5}{/if}">
+{* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
+{*
+      <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>
+*}
+    </div>
+    <div class="searchHomeForm">
+      <div class="searchbox">
+    {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
+      {include file="`$module`/searchbox.tpl"}
+    {else}
+      {include file="Search/searchbox.tpl"}
+    {/if}
+      </div>
+    </div>
+  </div>
+</div>
+
+{/if}
 
 <!-- END of: header.tpl -->

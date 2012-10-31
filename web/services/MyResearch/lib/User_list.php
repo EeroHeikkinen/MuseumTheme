@@ -57,6 +57,17 @@ class User_list extends DB_DataObject
     // @codingStandardsIgnoreEnd
 
     /**
+     * Insert a record
+     * 
+     * @return mixed
+     */
+    public function insert()
+    {
+        $this->created = date('Y-m-d H:i:s');
+        return parent::insert();
+    }
+    
+    /**
      * Load the resources associated with the list.
      *
      * @param array $tags Tags to use as filters against retrieved results.
@@ -68,7 +79,7 @@ class User_list extends DB_DataObject
     {
         $resourceList = array();
 
-        $sql = 'SELECT DISTINCT "resource".* FROM "resource", "user_resource" ' .
+        $sql = 'SELECT DISTINCT "resource".*, "user_resource"."saved" FROM "resource", "user_resource" ' .
             'WHERE "resource"."id" = "user_resource"."resource_id" ' .
             'AND "user_resource"."user_id" = ' .
             "'" . $this->escape($this->user_id) . "' " .

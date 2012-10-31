@@ -1,0 +1,15 @@
+/* Logo image on search results, overwritten by admin panel */
+#logo {
+    background: url("../images/finna-logo_small.png") no-repeat scroll center center transparent;
+    display: block;
+    height: 60px;
+    margin: 20px 18px;
+    width: 190px;
+}
+#logoHeader {
+    float: left;
+}
+/* Logo background, overwritten by admin panel */
+.header {
+    background-color: #f3f3f3;
+}

@@ -18,9 +18,7 @@
       </li>
       {/if}
       *}
-      {* TODO: save
       <li id="saveLink"><a href="{$url}/MetaLib/Save?id={$id|escape:"url"}" class="saveRecord metalibRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
-       *}
     </ul>
     <div class="clear"></div>
   </div>
@@ -67,7 +65,7 @@
         <th>{translate text='Other Authors'}: </th>
         <td>
       {foreach from=$record.AdditionalAuthors item="author" name="loop"}
-          <a href="{$url}/MetaLib/Search?type=Author&amp;lookfor={$author|escape:"url"}">{$author|escape}</a>{if !$smarty.foreach.loop.last},{/if} 
+          {$author|escape}{if !$smarty.foreach.loop.last},{/if} 
       {/foreach}
         </td>
       </tr>
@@ -110,7 +108,7 @@
         <th>{translate text='Related Author'}: </th>
         <td>
         {foreach from=$record.RelatedAuthor item="author"}
-          <a href="{$url}/MetaLib/Search?type=Author&amp;lookfor={$author|escape:"url"}">{$author|escape}</a>
+          {$author|escape}
         {/foreach}
         </td>
       </tr>
@@ -128,7 +126,7 @@
         <th>{translate text='Subjects'}: </th>
         <td>
         {foreach from=$record.SubjectTerms item=field name=loop}
-      <a href="{$path}/MetaLib/Search?type=SubjectTerms&amp;lookfor=%22{$field|escape:"url"}%22">{$field|escape}</a><br/>
+          {$field|escape}<br/>
         {/foreach}
         </td>
       </tr>

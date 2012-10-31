@@ -71,16 +71,6 @@ Interface IndexEngine
      * @access public
      */
     function getSuggestion($phrase, $field, $limit);
-    
-    /**
-     * Get spelling suggestions based on input phrase.
-     *
-     * @param string $phrase The input phrase
-     *
-     * @return array         An array of spelling suggestions
-     * @access public
-     */
-    function checkSpelling($phrase);
 
     /**
      * Build Query string from search parameters

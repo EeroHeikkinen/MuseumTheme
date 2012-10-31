@@ -137,6 +137,7 @@ class SIPAuthentication implements Authentication
         include_once "services/MyResearch/lib/User.php";
 
         $user = new User();
+        $user->authMethod = 'SIP';
         $user->username = $info['variable']['AA'][0];
         if ($user->find(true)) {
             $insert = false;
@@ -153,7 +154,10 @@ class SIPAuthentication implements Authentication
         // Should revisit this.
         $user->cat_username = $username;
         $user->cat_password = $password;
-        $user->email = 'email';
+        // Special case: don't override user's email address if it's already set
+        if ($insert || !$user->email) {
+            $user->email = '';
+        }
         $user->major = 'null';
         $user->college = 'null';
 

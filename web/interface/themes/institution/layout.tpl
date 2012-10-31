@@ -1,10 +1,10 @@
-<!-- START of: layout.tpl -->
-
 {if $smarty.request.subPage && $subTemplate}
   {include file="$module/$subTemplate"}
 {else}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{* Do not use HTML comments before DOCTYPE to avoid quirks-mode in IE *} 
+<!-- START of: layout.tpl -->
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{$userLang}" lang="{$userLang}">
 
@@ -23,6 +23,7 @@
 
     <title>{$pageTitle|truncate:64:"..."}</title>
     <link rel="shortcut icon" href="{$url}/interface/themes/institution/images/favicon_line.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" href="{$url}/interface/themes/institution/images/apple-touch-icon.png" />
 
     {if $module=='Record' && $hasRDF}
     <link rel="alternate" type="application/rdf+xml" title="RDF Representation" href="{$url}/Record/{$id|escape}/RDF"/>    
@@ -30,20 +31,37 @@
 
     <link rel="search" type="application/opensearchdescription+xml" title="Library Catalog Search" href="{$url}/Search/OpenSearch?method=describe"/>
 
+    {css media="screen, projection" filename="../js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css"}
+
     {* Load Blueprint CSS framework *}
     {css media="screen, projection" filename="blueprint/screen.css"}
     {css media="print" filename="blueprint/print.css"}
-    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 8]>{css media="screen, projection" filename="blueprint/ie.css"}<![endif]-->
     {* Adjust some default Blueprint CSS styles *}
     {css media="screen, projection" filename="blueprint/blueprint-adjust.css"}
 
     {* Load VuFind specific stylesheets *}
     {css media="screen" filename="ui.dynatree.css"}
     {css media="screen" filename="datatables.css"}
-    {css media="screen, projection" filename="styles.css"}
+    
+    {*  Set of css files based loosely on
+        Less Framework 4 http://lessframework.com by Joni Korpi
+        License: http://opensource.org/licenses/mit-license.php  *}
+    {css media="screen, projection" filename="typography.css"}
+    {css media="screen, projection" filename="default.css"}
+    {css media="screen, projection" filename="breadcrumbs.css"}
+    {css media="screen, projection" filename="home.css"}
+    {css media="screen, projection" filename="footer.css"}
+    {css media="screen, projection" filename="768tablet.css"}
+    {css media="screen, projection" filename="320mobile.css"}
+    {css media="screen, projection" filename="480mobilewide.css"}
+    {css media="screen, projection" filename="default_custom.css"}
+    {css media="screen, projection" filename="home_custom.css"}
+    {css media="screen, projection" filename="settings.css"}
+    
     {css media="print" filename="print.css"}
-    <!--[if lt IE 8]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/ie.css" type="text/css" media="screen, projection"><![endif]-->
-    <!--[if lt IE 7]><link rel="stylesheet" href="{$url}/interface/themes/institution/css/iepngfix/iepngfix.css" type="text/css" media="screen, projection"><![endif]-->
+    <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
+    <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
     {* Set global javascript variables *}
     <script type="text/javascript">
@@ -53,34 +71,55 @@
     </script>
 
     {* Load jQuery framework and plugins *}
-    {js filename="jquery-1.7.1.min.js"}
+    {js filename="jquery-1.8.0.min.js"}
+    {js filename="jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js"}
     {js filename="jquery.form.js"}
     {js filename="jquery.metadata.js"}
     {js filename="jquery.validate.min.js"}
-
-    {* Load QRCode *}
     {js filename="jquery.qrcode.js"}
-
-    {* Component parts *}
     {js filename="jquery.dataTables.js"}   
-    
-    {* Load jQuery UI *}
-    {js filename="jquery-ui-1.8.7.custom/js/jquery-ui-1.8.7.custom.min.js"}
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="{$url}/interface/themes/institution/js/jquery-ui-1.8.7.custom/css/smoothness/jquery-ui-1.8.7.custom.css" />
-        
-    {* Load dialog/lightbox functions *}
-    {js filename="lightbox.js"}
+    {js filename="jquery.clearsearch.js"}
+    {js filename="jquery.collapse.js"}
+    {js filename="jquery.dynatree-1.2.2-mod.js"}
 
-    {* Load dynatree and dynamic facets *}
-    {js filename="jquery.dynatree.min.js"}
+    {* Load dynamic facets *}
     {js filename="facets.js"}
 
+    {* Load javascript microtemplating *}
+    {js filename="tmpl.js"}
+
+    {* Load dialog/lightbox functions *}
+    {js filename="lightbox.js"}
+    
     {* Load common javascript functions *}
     {js filename="common.js"}
+    
+    {* Load dropdown menu modification *}
+    {* js filename="dropdown.js" *}
 
+    {* Load Mozilla Persona support *}
+    {if $mozillaPersona}
+    <script src="https://login.persona.org/include.js"></script>
+    {js filename="persona.js"}
+    {/if}
+
+{literal}
+    <script type="text/javascript">
+// Long field truncation
+$(document).ready(function() {
+  $('.truncateField').collapse({maxLength: 150, more: "{/literal}{translate text="more"}{literal}&nbsp;»", less: "«&nbsp;{/literal}{translate text="less"}{literal}"});
+{/literal}
+{if $mozillaPersona}
+    mozillaPersonaSetup({if $mozillaPersonaCurrentUser}"{$mozillaPersonaCurrentUser}"{else}null{/if});
+{/if}
+{literal}
+});
+{/literal}
+    </script>    
+    
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
-    <!--[if lt IE 7]><script type="text/javascript" src="{$url}/interface/themes/institution/css/iepngfix/iepngfix_tilebg.js"></script><![endif]-->
+    <!--[if lt IE 7]>{js filename="../css/iepngfix/iepngfix_tilebg.js"}<![endif]-->
     {* Enable HTML5 in old IE - http://code.google.com/p/html5shim/
        can also use src="//html5shiv.googlecode.com/svn/trunk/html5.js" *}
     <!--[if lt IE 9]>
@@ -113,7 +152,7 @@
       <div class="breadcrumbs">
       {if $showBreadcrumbs}
         <div class="breadcrumbinner">
-          <a href="{$url}">{translate text="Home"}</a> <span>&gt;</span>
+          <a href="{$url}">{translate text="Home"}</a> <span></span>
           {include file="$module/breadcrumbs.tpl"}
         </div>
       {/if}
@@ -124,8 +163,7 @@
                 {if $userLang == $langCode}
                 <li class="strong">{translate text=$langName}</li>
                 {else}
-                <li><a 
-             href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"}">{translate text=$langName}</a></li>
+                <li><a href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"|encodeAmpersands}">{translate text=$langName}</a></li>
                 {/if}
               {/foreach}
               </ul>
@@ -133,7 +171,7 @@
         </div>
       </div>
 
-      <div class="header{if !$showTopSearchBox}-home{/if} clear">
+      <div class="header{if !$showTopSearchBox}-home{/if}{if $module!='Search'}{$module}{/if} clear">
         {include file="header.tpl"}
         <div class="clear"></div>
       </div>
@@ -164,7 +202,6 @@
         </div>
         {/if}
         {include file="$module/$pageTemplate"}
-
         <div class="footer small clear">
           {include file="footer.tpl"}
         </div>
@@ -193,6 +230,7 @@
 *}
 
 {include file="piwik.tpl"}
+{include file="AJAX/keepAlive.tpl"}
   </body>
 </html>
 {/if}

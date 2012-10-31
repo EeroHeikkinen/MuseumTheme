@@ -265,7 +265,7 @@ class VoyagerRestful extends Voyager
             $itemID = isset($data['item_id']) ? $data['item_id'] : false;
             $result = $this->determineHoldType($patron['id'], $id, $itemID);
             if (!$result || $result == 'block') {
-                return false;
+                return $result;
             }
         }
         return true;
@@ -1107,6 +1107,26 @@ class VoyagerRestful extends Voyager
     {
         $renewDetails = $checkOutDetails['item_id'];
         return $renewDetails;
+    }
+
+    /**
+     * Get Patron Profile
+     *
+     * This is responsible for retrieving the profile for a specific patron.
+     *
+     * @param array $patron The patron array
+     *
+     * @return mixed        Array of the patron's profile data on success,
+     * PEAR_Error otherwise.
+     * @access public
+     */
+    public function getMyProfile($patron)
+    {
+        $result = parent::getMyProfile($patron);
+        if ($result) {
+            $result['blocks'] = $this->checkAccountBlocks($patron['id']);
+        }
+        return $result;
     }
 }
 

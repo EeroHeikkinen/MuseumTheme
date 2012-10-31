@@ -27,6 +27,7 @@
  * @link     http://vufind.org/wiki/building_an_ils_driver Wiki
  */
 require_once 'Interface.php';
+require_once 'sys/VuFindDate.php';
 
 /**
  * Horizon ILS Driver
@@ -42,6 +43,7 @@ class Horizon implements DriverInterface
 {
     private $_db;
     protected $config;
+    protected $dateFormat;
 
     /**
      * Constructor
@@ -72,6 +74,9 @@ class Horizon implements DriverInterface
 
         // Select the databse
         mssql_select_db($this->config['Catalog']['database']);
+
+        // Set up object for formatting dates and times:
+        $this->dateFormat = new VuFindDate();
     }
 
     /**
@@ -690,7 +695,7 @@ class Horizon implements DriverInterface
         try {
             $sqlStmt = mssql_query($sql);
             while ($row = mssql_fetch_assoc($sqlStmt)) {
-                $transList[] = $this->processTransactionRow($row);
+                $transList[] = $this->processTransactionsRow($row);
             }
             return $transList;
         } catch (PDOException $e) {

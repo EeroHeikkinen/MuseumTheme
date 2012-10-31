@@ -95,8 +95,8 @@ class Results extends Action
         $interface->assign(
         	"showContext",
             isset($configArray['Content']['showHierarchyTree'])
-                ? $configArray['Content']['showHierarchyTree']
-                : false
+            ? $configArray['Content']['showHierarchyTree']
+            : false
         );
 
         // TODO : Stats, move inside the search object
@@ -116,6 +116,7 @@ class Results extends Action
         $interface->assign('viewList',   $searchObject->getViewList());
         $interface->assign('rssLink',    $searchObject->getRSSUrl());
         $interface->assign('limitList',  $searchObject->getLimitList());
+        
         // Process Search
         $result = $searchObject->processSearch(true, true);
         if (PEAR::isError($result)) {
@@ -140,6 +141,9 @@ class Results extends Action
         );
         $interface->assign(
             'sideRecommendations', $searchObject->getRecommendationsTemplates('side')
+        );
+        $interface->assign(
+            'orFilters', $searchObject->getOrFilters()
         );
         
         // Whether RSI is enabled
@@ -166,6 +170,10 @@ class Results extends Action
             // Was the empty result set due to an error?
             $error = $searchObject->getIndexError();
             if ($error !== false) {
+                // Solr 4 returns error as an array
+                if (is_array($error)) {
+                    $error = $error['msg'];
+                }
                 // If it's a parse error or the user specified an invalid field, we
                 // should display an appropriate message:
                 if (stristr($error, 'org.apache.lucene.queryParser.ParseException')

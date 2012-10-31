@@ -30,6 +30,7 @@ require_once 'DB/DataObject/Cast.php';
 
 require_once 'User_resource.php';
 require_once 'User_list.php';
+require_once 'Resource.php';
 require_once 'Resource_tags.php';
 require_once 'Tags.php';
 
@@ -58,9 +59,10 @@ class User extends DB_DataObject
     public $cat_username;                    // string(50)
     public $cat_password;                    // string(50)
     public $college;                         // string(100)  not_null
-    public $home_library;                         // string(100)  not_null
+    public $home_library;                    // string(100)  not_null
     public $major;                           // string(100)  not_null
     public $created;                         // datetime(19)  not_null binary
+    public $language;                        // string(30)  not_null
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User',$k,$v); }
@@ -80,7 +82,8 @@ class User extends DB_DataObject
     {
         return array(
             'id', 'username', 'password', 'cat_username', 'cat_password',
-            'firstname', 'lastname', 'email', 'college', 'home_library', 'major'
+            'firstname', 'lastname', 'email', 'college', 'home_library', 'major',
+            'language'
         );
     }
 
@@ -279,7 +282,7 @@ class User extends DB_DataObject
     {
         $resourceList = array();
 
-        $sql = 'SELECT DISTINCT "resource".* FROM "resource", "user_resource" ' .
+        $sql = 'SELECT DISTINCT "resource".*, "user_resource"."saved" FROM "resource", "user_resource" ' .
             'WHERE "resource"."id" = "user_resource"."resource_id" ' .
             'AND "user_resource"."user_id" = ' .
             "'" . $this->escape($this->id) . "'";
@@ -404,6 +407,14 @@ class User extends DB_DataObject
     {
         $lists = array();
 
+        // Make sure at least "My Favorites" always exists
+        $list = new User_list();
+        $list->user_id = $this->id;
+        $list->title = translate("My Favorites");
+        if (!$list->find(true)) {
+            $list->insert();
+        }
+        
         $sql = 'SELECT "user_list".*, COUNT("user_resource"."id") AS cnt ' .
             'FROM "user_list" LEFT JOIN "user_resource" ' .
             'ON "user_list"."id" = "user_resource"."list_id" ' .
@@ -412,7 +423,7 @@ class User extends DB_DataObject
             'GROUP BY "user_list"."id", "user_list"."user_id", ' .
             '"user_list"."title", "user_list"."description", ' .
             '"user_list"."created", "user_list"."public" ' .
-            'ORDER BY "user_list"."title"';
+            'ORDER BY "user_list"."created"';
         $list = new User_list();
         $list->query($sql);
         if ($list->N) {
@@ -446,4 +457,47 @@ class User extends DB_DataObject
         return true;
     }
 
+    /**
+     * Changes the email address of a user
+     *
+     * @param string $email The new email address
+     *
+     * @return boolean True on success
+     * @access public
+     */
+    public function changeEmailAddress($email)
+    {
+        $this->email = $email;
+        $this->update();
+        
+        // Update Session
+
+        if ($session_info = UserAccount::isLoggedIn()) {
+            $session_info->email = $email;
+            UserAccount::updateSession($session_info);
+        }
+        return true;
+    }
+
+    /**
+     * Changes the language a user
+     *
+     * @param string $language The new language
+     *
+     * @return boolean True on success
+     * @access public
+     */
+    public function changeLanguage($language)
+    {
+        $this->language = $language;
+        $this->update();
+        
+        // Update Session
+
+        if ($session_info = UserAccount::isLoggedIn()) {
+            $session_info->language = $language;
+            UserAccount::updateSession($session_info);
+        }
+        return true;
+    }
 }

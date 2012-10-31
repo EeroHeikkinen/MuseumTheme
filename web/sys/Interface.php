@@ -101,7 +101,7 @@ class UInterface extends Smarty
         }
         $this->plugins_dir   = array('plugins', "$local/interface/plugins");
         $this->caching       = false;
-        $this->debugging     = $configArray['System']['debug'];
+        $this->debug         = true;
         $this->compile_check = true;
 
         unset($local);
@@ -224,6 +224,24 @@ class UInterface extends Smarty
             ? false : $configArray['Piwik']['site_id'] 
         );
 
+        // Create prefilter list
+        $prefilters = getExtraConfigArray('prefilters');
+        if (isset($prefilters['Prefilters'])) {
+            $filters = array();
+            foreach ($prefilters['Prefilters'] as $key => $filter) {
+                $filters[$key] = translate($filter);
+            }
+            $this->assign('prefilterList', $filters);
+        }
+        if (isset($_REQUEST['prefiltered'])) {
+            $this->assign('activePrefilter', $_REQUEST['prefiltered']);
+        }
+        
+        $metalib = getExtraConfigArray('MetaLib');
+        if (!empty($metalib)) {
+            $this->assign('metalibEnabled', true);
+        }
+        
         $catalog = ConnectionManager::connectToCatalog();
         $this->assign("offlineMode", $catalog->getOfflineMode());
         $hideLogin = isset($configArray['Authentication']['hideLogin'])
@@ -252,6 +270,7 @@ class UInterface extends Smarty
      */
     public function setTemplate($tpl)
     {
+        $tpl = $this->getLocalOverride($tpl, true);
         $this->assign('pageTemplate', $tpl);
     }
 
@@ -312,8 +331,16 @@ class UInterface extends Smarty
         // Pass along module and action to the templates.
         $this->assign('module', $module);
         $this->assign('action', $action);
-        $this->assign('user', $user);
-
+        // Don't pass a PEAR error to interface
+        $this->assign('user', PEAR::isError($user) ? null : $user);
+        
+        if (isset($configArray['Authentication']['mozillaPersona']) && $configArray['Authentication']['mozillaPersona']) {
+            $this->assign('mozillaPersona', true);
+            if (isset($_SESSION['authMethod']) && $_SESSION['authMethod'] == 'MozillaPersona') {
+                $this->assign('mozillaPersonaCurrentUser', PEAR::isError($user) ? null : $user->username);
+            }
+        }
+        
         // Load the last limit from the request or session for initializing default
         // in search box:
         if (isset($_REQUEST['limit'])) {
@@ -393,6 +420,66 @@ class UInterface extends Smarty
             }
         }
     }
+    
+    /**
+     * Check if a .local.tpl version of a template exists and return it if it does
+     * 
+     * @param string $tpl      Template file name
+     * @param bool   $inModule Whether to look in the $module directory
+     * 
+     * @return string Template file name (local if found, otherwise original)
+     */
+    protected function getLocalOverride($tpl, $inModule)
+    {
+        global $module;
+        
+        $localTpl = preg_replace('/(.*)\./', '\\1.local.', $tpl);
+        foreach (is_array($this->template_dir) ? $this->template_dir : array($this->template_dir) as $templateDir) {
+            if ($inModule) {
+                $fullPath = $templateDir . DIRECTORY_SEPARATOR . $module
+                    . DIRECTORY_SEPARATOR . $localTpl;
+            } else {
+                $fullPath = $templateDir . DIRECTORY_SEPARATOR . $localTpl;
+            }
+            if (file_exists($fullPath)) {
+                return $localTpl;            
+            }
+        }
+        return $tpl;
+    }
+    
+    // @codingStandardsIgnoreStart
+    /**
+     * called for included templates
+     *
+     * @param string $_smarty_include_tpl_file
+     * @param string $_smarty_include_vars
+     */
+
+    // $_smarty_include_tpl_file, $_smarty_include_vars
+
+    function _smarty_include($params)
+    {
+        if (isset($params['smarty_include_tpl_file'])) {
+            $params['smarty_include_tpl_file'] = $this->getLocalOverride($params['smarty_include_tpl_file'], false);
+        }
+        return parent::_smarty_include($params);
+    }
+    
+    /**
+     * executes & returns or displays the template results
+     *
+     * @param string $resource_name
+     * @param string $cache_id
+     * @param string $compile_id
+     * @param boolean $display
+     */
+    function fetch($resource_name, $cache_id = null, $compile_id = null, $display = false)
+    {
+        $resource_name = $this->getLocalOverride($resource_name, false);
+        return parent::fetch($resource_name, $cache_id, $compile_id, $display);
+    }
+    // @codingStandardsIgnoreEnd
 }
 
 /**
@@ -413,7 +500,7 @@ function translate($params)
         global $configArray;
 
         $translator = new I18N_Translator(
-            'lang', $configArray['Site']['language'], $configArray['System']['debug']
+            array('lang', 'lang_local'), $configArray['Site']['language'], $configArray['System']['debug']
         );
     }
     if (is_array($params)) {

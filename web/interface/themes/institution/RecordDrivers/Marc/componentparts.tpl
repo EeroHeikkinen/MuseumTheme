@@ -1,4 +1,4 @@
-
+<!-- START of: RecordDrivers/Marc/componentparts.tpl -->
 
 <table cellpadding="0" cellspacing="0" border="0" class="display" id="componentparts" width="100%">
 	<thead>
@@ -50,5 +50,4 @@
 </script>
 {/literal}
 
-
-
+<!-- END of: RecordDrivers/Marc/componentparts.tpl -->

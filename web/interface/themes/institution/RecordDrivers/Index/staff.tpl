@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Index/staff.tpl -->
+
 <table class="citation">
   {foreach from=$details key='field' item='values'}
     <tr>
@@ -10,3 +12,5 @@
     </tr>
   {/foreach}
 </table>
+
+<!-- END of: RecordDrivers/Index/staff.tpl -->

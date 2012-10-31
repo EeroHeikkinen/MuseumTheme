@@ -5,6 +5,14 @@
       {include file=$recommendations}
     {/foreach}
   {/if}
+  {if $failedDatabases}
+    <p class="error">
+      {translate text='Search failed in:'}<br/>
+      {foreach from=$failedDatabases item=failed name=failedLoop}
+        {$failed|escape}{if !$smarty.foreach.failedLoop.last}<br/>{/if}
+      {/foreach}
+    </p>
+  {/if}
   <div class="resulthead"><h3>{translate text='nohit_heading'}</h3></div>
   <p class="error">{translate text='nohit_prefix'} - <strong>{$lookfor|escape:"html"}</strong> - {translate text='nohit_suffix'}</p>
 

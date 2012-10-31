@@ -29,6 +29,7 @@
  */
 require_once 'Action.php';
 require_once 'sys/SearchObject/MetaLib.php';
+require_once 'sys/User.php';
 
 /**
  * Base class for most MetaLib module actions.
@@ -57,15 +58,32 @@ class Base extends Action
         // Send MetaLib search types to the template so the basic search box can
         // function on all pages of the MetaLib.
         $this->searchObject = SearchObjectFactory::initSearchObject('MetaLib');
-        $interface->assign(
-            'metalibSearchTypes', $this->searchObject->getBasicTypes()
-        );
-        $interface->assign(
-            'metalibSearchSets', $this->searchObject->getSearchSets()
-        );
+
+        $sets = $this->searchObject->getSearchSets();
+        if (isset($_REQUEST['set']) && strncmp($_REQUEST['set'], '_ird:', 5) == 0) {
+            $ird = substr($_REQUEST['set'], 5);
+            if (preg_match('/\W/', $ird)) {
+                PEAR::raiseError(new PEAR_Error('Invalid parameter'));
+            }
+            $irdInfo = $this->searchObject->getIRDInfo($ird);
+            if ($irdInfo === false) {
+                PEAR::raiseError(new PEAR_Error('Invalid parameter'));
+            }
+            if (strcasecmp($irdInfo['access'], 'guest') != 0 && !UserAccount::isAuthorized()) {
+                PEAR::raiseError(translate('metalib_not_authorized_single'));
+            }
+            
+            // Add selected ird as a virtual search set in the beginning and select it
+            $sets = array_reverse($sets, true);
+            $sets["_ird:$ird"] = $irdInfo['name'];
+            $sets = array_reverse($sets, true);
+            $interface->assign('searchSet', "_ird:$ird");
+        }
+
+        $interface->assign('metalibSearchTypes', $this->searchObject->getBasicTypes());
+        $interface->assign('metalibSearchSets', $sets);
         
         // Increase max execution time to allow slow MetaLib searches to complete
         set_time_limit(60); 
     }
 }
-?>

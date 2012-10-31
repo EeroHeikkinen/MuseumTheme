@@ -97,7 +97,7 @@ class SwitchType implements RecommendationInterface
 
         // If this is not an AllFields search, suggest one:
         $searchType = $this->searchObject->getSearchIndex();
-        if ($searchType != $this->newIndex) {
+        if (!is_null($searchType) && $searchType != $this->newIndex) {
             $interface->assign('widenedType', $this->newIndexName);
             $interface->assign(
                 'widenedUrl',

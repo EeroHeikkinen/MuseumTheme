@@ -1,4 +1,6 @@
-<table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Description'}">
+<!-- START of: RecordDrivers/Index/extended.tpl -->
+
+{*<table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Description'}">*}
   {if !empty($extendedSummary)}
   {assign var=extendedContentDisplayed value=1}
   <tr valign="top">
@@ -10,6 +12,27 @@
     </td>
   </tr>
   {/if}
+  
+  {* BTJ description start *}
+  <tr valign="top" id="btjdescription" style="display: none;">
+      <th>{translate text=Description}: </th>
+    <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
+  </tr>
+  <script type="text/javascript">
+     var path = {$path|@json_encode};
+     var id = {$id|@json_encode};
+     {literal}
+     $(document).ready(function() {
+       var url = path + '/description.php?id=' + id;
+       $("#btjdescription_text").load(url, function(response, status, xhr) {
+       if (response.length != 0) {
+         $("#btjdescription").show();
+       }
+       });
+     });
+     {/literal}
+  </script>  
+  {* BTJ description end *}
 
   {if !empty($extendedDateSpan)}
   {assign var=extendedContentDisplayed value=1}
@@ -222,6 +245,9 @@
 
   {* Avoid errors if there were no rows above *}
   {if !$extendedContentDisplayed}
-  <tr><td>&nbsp;</td></tr>
+  {*<tr><td>&nbsp;</td></tr>*}
   {/if}
-</table>
+   
+{*</table>*}
+
+<!-- END of: RecordDrivers/Index/extended.tpl -->

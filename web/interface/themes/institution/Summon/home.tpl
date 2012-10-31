@@ -1,3 +1,5 @@
+<!-- START of: Summon/home.tpl -->
+
 <div class="searchHomeContent">    
   <div class="searchHomeForm">
     {include file="Summon/searchbox.tpl"}
@@ -20,3 +22,5 @@
   </ul>
   <div class="clear"></div>
 </div>
+
+<!-- END of: Summon/home.tpl -->

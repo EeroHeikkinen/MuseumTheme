@@ -52,7 +52,7 @@ class Home extends Action
         global $configArray;
 
         // Cache homepage
-        $interface->caching = 1; 
+        // Don't. $interface->caching = 1; 
         $cacheId = 'homepage|' . $interface->lang . '|' .
             (UserAccount::isLoggedIn() ? '1' : '0') . '|' .
             (isset($_SESSION['lastUserLimit']) ? $_SESSION['lastUserLimit'] : '') .
@@ -65,11 +65,8 @@ class Home extends Action
 
             // Create our search object
             $searchObject = SearchObjectFactory::initSearchObject();
-            // Re-use the advanced search facets method,
-            //   it is (for now) calling the same facets.
-            // The template however is looking for specific
-            //   facets. Bear in mind for later.
-            $searchObject->initAdvancedFacets();
+            // TODO: The template looks for specific facets. Make it more flexible.
+            $searchObject->initHomePageFacets();
             // We don't want this search in the search history
             $searchObject->disableLogging();
             // Go get the facets

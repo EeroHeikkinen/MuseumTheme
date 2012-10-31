@@ -1,3 +1,5 @@
+<!-- START of: Help/en/tag.tpl -->
+
 <h1>Tagging</h1>
 
 <p>
@@ -13,3 +15,5 @@ Typically, an item will have one or more &quot;tags&quot; associated with it, as
 </p>
 
 <a href="http://en.wikipedia.org/wiki/Tag_%28metadata%29">From Wikipedia</a>
+
+<!-- END of: Help/en/tag.tpl -->
