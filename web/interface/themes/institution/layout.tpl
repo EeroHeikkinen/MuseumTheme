@@ -99,7 +99,7 @@
 
     {* Load Mozilla Persona support *}
     {if $mozillaPersona}
-    <script src="https://login.persona.org/include.js"></script>
+    <script type="text/javascript" src="https://login.persona.org/include.js"></script>
     {js filename="persona.js"}
     {/if}
 

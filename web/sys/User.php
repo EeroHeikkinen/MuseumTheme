@@ -111,7 +111,9 @@ class UserAccount
     public static function updateSession($user)
     {
         $_SESSION['userinfo'] = serialize($user);
-        $_SESSION['authMethod'] = $user->authMethod;
+        if (isset($user->authMethod)) {
+            $_SESSION['authMethod'] = $user->authMethod;
+        }
     }
 
     /**
