@@ -251,6 +251,9 @@ a.subjectHeading:hover {
 .recordTitle {
     font-weight: normal;
 }
+h1.recordTitle {
+    margin-top: 0;
+}
 
 /* Citation Table */
 .citation {

@@ -1473,18 +1473,20 @@ div.record {
 #recordMetadata tr, .citation tr {
 	  background-color: white;
 }
-#recordMetadata tr:hover, .citation tr:hover {
-    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;   
 /*
+#recordMetadata tr:hover {
+    background: url("../images/highlight_bg.png") repeat-x #f3f3f3;  
+
     border: 1px solid #f4f4f4;
     padding: 12px 1px 12px 0;
-*/
+
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
 
     behavior: url(css/css3pie/PIE.php); /* for IE */
 }
+*/
 .recordTitle {
     margin-top:0;
 }
