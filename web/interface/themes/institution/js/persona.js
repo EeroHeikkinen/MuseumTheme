@@ -12,10 +12,11 @@ function mozillaPersonaSetup(currentUser)
             assertion: assertion
           },
           success: function(response, status, xhr) { 
-            $("#personaLogin").removeClass("persona-login-loading");
             if (response.status == "OK") { 
-              window.location.reload();
+              // No reload to avoid POST request problems
+              window.location = window.location.href;
             } else {
+              $("#personaLogin").removeClass("persona-login-loading");
               alert("Login failed");
             }
           },
@@ -30,7 +31,14 @@ function mozillaPersonaSetup(currentUser)
           type: "GET",
           dataType: "json",
           url: path + "/AJAX/JSON_PersonaLogin?method=logout",
-          success: function(response, status, xhr) { if (window.location.href != path) window.location = path; else window.location.reload() },
+          success: function(response, status, xhr) { 
+              if (window.location.href != path) { 
+                window.location = path;
+              } else  {
+                // No reload to avoid POST request problems
+                window.location = window.location.href;
+              }
+          },
           error: function(xhr, status, err) { alert("logout failure: " + err); }
         });
       }
