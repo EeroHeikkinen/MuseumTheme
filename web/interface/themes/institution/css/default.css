@@ -124,6 +124,12 @@ img.alignleft {
     height: 250px;
     border: 1px solid #dddddd;
 }
+.mainContent {
+    float: right;
+    width: 650px;
+    margin: 0 82px 3em 0;
+    
+}
 
 /*** Header ***/
 
@@ -153,7 +159,7 @@ img.alignleft {
     float: left;
     width: 506px;
 }
-.header, .headerRecord, .headerCollection {
+.header, .headerRecord, .headerCollection, .headerContent {
     background-color: #f3f3f3;
     border-bottom: 1px solid #dddddd;
 }
