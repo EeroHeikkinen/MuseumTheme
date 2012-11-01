@@ -3,29 +3,42 @@ function mozillaPersonaSetup(currentUser)
     navigator.id.watch({
       loggedInUser: currentUser,
       onlogin: function(assertion) {
+        $("#personaLogin").addClass("persona-login-loading");
         $.ajax({
-          type: 'POST',
-          dataType: 'json',
+          type: "POST",
+          dataType: "json",
           url: path + "/AJAX/JSON_PersonaLogin?method=login",
           data: {
             assertion: assertion
           },
           success: function(response, status, xhr) { 
             if (response.status == "OK") { 
-              window.location.reload();
+              // No reload to avoid POST request problems
+              window.location = window.location.href;
             } else {
+              $("#personaLogin").removeClass("persona-login-loading");
               alert("Login failed");
             }
           },
-          error: function(xhr, status, err) { alert("login failure: " + err); }
+          error: function(xhr, status, err) { 
+              $("#personaLogin").removeClass("persona-login-loading");
+              alert("login failure: " + err); 
+          }
         });
       },
       onlogout: function() {
         $.ajax({
-          type: 'GET',
-          dataType: 'json',
+          type: "GET",
+          dataType: "json",
           url: path + "/AJAX/JSON_PersonaLogin?method=logout",
-          success: function(response, status, xhr) { if (window.location.href != path) window.location = path; else window.location.reload() },
+          success: function(response, status, xhr) { 
+              if (window.location.href != path) { 
+                window.location = path;
+              } else  {
+                // No reload to avoid POST request problems
+                window.location = window.location.href;
+              }
+          },
           error: function(xhr, status, err) { alert("logout failure: " + err); }
         });
       }

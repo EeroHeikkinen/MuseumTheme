@@ -397,7 +397,6 @@ span.dynatree-node {
 
 /* Button styles for advanced search. May be added later to all buttons. */
 .button {
-    font-family:arial;
-    font-size:15px;
-    font-weight:bold;
+    font-family: arial;
+    font-size: 14px;
 }

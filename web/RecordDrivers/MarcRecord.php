@@ -1540,7 +1540,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getISBNs()
     {
-        return $this->getFieldArray('020', array('a'));
+        return $this->stripTrailingPunctuation($this->getFieldArray('020', array('a')));
     }
 
     /**

@@ -45,7 +45,7 @@
 <div class="clear"></div>
 
 {literal}
-<script>   
+<script type="text/javascript">   
   $(document).ready(function(){
     $('.toggleHeader').parent().next().hide();
 	$('.toggleHeader').click(function(){
