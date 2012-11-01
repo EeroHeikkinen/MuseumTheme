@@ -34,6 +34,21 @@ mb_internal_encoding("UTF-8");
 require_once 'sys/ConfigArray.php';
 $configArray = readConfig();
 
+// Force HTTPS if configured to use SSL.
+if (isset($configArray['Site']['useHttps']) && $configArray['Site']['useHttps']) {
+    $port = isset($configArray['Site']['httpsPort']) ? ':' . $configArray['Site']['httpsPort'] : '';
+    if ($_SERVER['HTTPS'] != 'on') {
+        $url = 'https://' . $_SERVER['SERVER_NAME'] . $port . $_SERVER['REQUEST_URI'];
+        header("Location: $url");
+        exit;
+    } else {
+        $url = parse_url($configArray['Site']['url']);
+        $host = isset($url['host']) ? $url['host'] : '';
+        $path = isset($url['path']) ? $url['path'] : '';
+        $configArray['Site']['url'] = 'https://' . $host . $port . $path;
+    }    
+}
+
 // Try to set the locale to UTF-8, but fail back to the exact string from the config
 // file if this doesn't work -- different systems may vary in their behavior here.
 setlocale(
