@@ -121,7 +121,7 @@
       <th>{translate text='Other Titles'}: </th>
       <td>
         {foreach from=$coreAlternativeTitles item=field name=loop}
-          {$field|escape}{if !$smarty.foreach.loop.last}<br/>{/if}
+          {$field|escape}{if !$smarty.foreach.loop.last}; {/if}
         {/foreach}
       </td>
     </tr>
@@ -257,7 +257,7 @@
           <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
         {/foreach}
         {if $coreOpenURL}
-          {include file="Search/openurl.tpl" openUrl=$coreOpenURL}<br/>
+          {include file="Search/openurl.tpl" openUrl=$coreOpenURL}
           {include file="Search/rsi.tpl"}
           {include file="Search/openurl_autocheck.tpl"}
         {/if}
