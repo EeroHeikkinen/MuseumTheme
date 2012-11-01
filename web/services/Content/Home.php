@@ -55,7 +55,7 @@ class Home extends Action
 
         // Try language-specific file first
         $file = "$page.{$interface->lang}.tpl";
-        if (!$interface->template_exists($file)) {
+        if (!$interface->template_exists("Content/$file")) {
             $file = "$page.tpl";
         }
         $interface->setPageTitle(translate("content-$page"));
