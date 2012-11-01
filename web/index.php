@@ -153,6 +153,11 @@ $module = preg_replace('/[^\w]/', '', $module);
 $action = (isset($_GET['action'])) ? $_GET['action'] : 'Home';
 $action = preg_replace('/[^\w]/', '', $action);
 
+// Special case: Always use the Home action for Content.
+if ($module == 'Content') {
+    $action = 'Home';
+}
+
 // Process prefilter redirection
 if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO', 'PCI')) 
     && isset($_REQUEST['prefilter'])

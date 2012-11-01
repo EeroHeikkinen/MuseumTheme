@@ -145,7 +145,7 @@ $(document).ready(function() {
     <div id="popupbox" class="popupBox"><b class="btop"><b></b></b></div>
     {* End LightBox *}
 
-    <div class="container">
+    <div class="container module-{$module}">
       {* Work-In-Progress disclaimer, remove when appropriate *}
       <div class="w-i-p">{translate text="development_disclaimer"}</div>
       
