@@ -1731,9 +1731,11 @@ h5.recordTabHeader {
 .toolbar ul {
     list-style-type:none;
 }
+/*
 .toolbar ul li a:hover{
     background-color:#f9f9f9;
 }
+*/
 /*
 .toolbar ul.menu {
     display:block;
