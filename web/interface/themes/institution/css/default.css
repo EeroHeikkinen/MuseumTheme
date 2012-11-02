@@ -191,6 +191,34 @@ img.alignleft {
     margin: 0 .5em .5em .5em;
 }
 
+/*** Page navigation links ***/
+
+.navigationMenu {
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+.navigationMenu ul {
+  margin: 0;
+  padding: 0;
+}
+.navigationMenu ul li {
+  display: inline;
+  margin: 0 1em;
+}
+.navigationMenu ul li a {
+  display: inline-block;
+  padding: 12px 0 12px 0;
+  font-size: 1.2em;
+}
+.navigationMenu ul li a:link, .navigationMenu ul li a:visited {
+  color: #666;
+}
+.navigationMenu ul li a:hover {
+  color: #999;
+  text-decoration: none;
+}
+
 
 /*** Search Box ***/    /* also note home.css for Home Page */
 

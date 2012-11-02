@@ -176,6 +176,10 @@ $(document).ready(function() {
         <div class="clear"></div>
       </div>
       
+      <div class="navigationMenu{if !$showTopSearchBox} navigationMenu-home{/if}">
+      {include file="Search/navigation.tpl"} 
+      </div>
+      
       <div class="main{if !$showTopSearchBox}-home{/if} clear">
         {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI || $useMetaLib}
         <div id="toptab">
