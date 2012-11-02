@@ -235,6 +235,18 @@
     </tr>
     {/if}
 
+    {if !empty($coreClassifications)}
+    <tr valign="top">
+      <th>{translate text='Classification'}: </th>
+      <td>
+        <div class="truncateField">
+        {* This is a single-line mess due to Smarty otherwise adding spaces *}
+        {foreach from=$coreClassifications key=class item=field name=loop}{if !$smarty.foreach.loop.first}, {/if}{foreach from=$field item=subfield name=subloop}{if !$smarty.foreach.subloop.first}, {/if}{$class|escape} {$subfield|escape}{/foreach}{/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
     {if $extendedMetadata}
       {include file=$extendedMetadata}
     {/if}

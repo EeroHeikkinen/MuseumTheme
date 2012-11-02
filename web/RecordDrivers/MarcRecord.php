@@ -1498,18 +1498,19 @@ class MarcRecord extends IndexRecord
     /**
      * Strip trailing spaces and punctuation characters from a string
      *
-     * @param string|string[] $input String to strip
+     * @param string|string[] $input      String to strip
+     * @param string          $additional Additional punctuation characters
      * 
      * @return string
      */
-    public function stripTrailingPunctuation($input)
+    public function stripTrailingPunctuation($input, $additional = '')
     {
         $array = is_array($input);
         if (!$array) {
             $input = array($input);
         }
         foreach ($input as &$str) {
-            $str = preg_replace('/[\s\/:;\,=\(]+$/', '', $str);
+            $str = preg_replace("/[\s\/:;\,=\($additional]+\$/", '', $str);
             // Don't replace an initial letter (e.g. string "Smith, A.") followed by period
             $thirdLast = substr($str, -3, 1);
             if (substr($str, -1) == '.' && $thirdLast != ' '  && $thirdLast != ' ') {
@@ -1563,11 +1564,50 @@ class MarcRecord extends IndexRecord
         ); 
         $issn = array();
         foreach ($fields as $field => $subfields) {
-            $issn = array_merge($issn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields)));
+            $issn = array_merge($issn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields), '-'));
         }
         return array_values(array_unique($issn));
     }
-    
+
+    /**
+     * Get an array of classifications for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getClassifications()
+    {
+        $result = array();
+        
+        foreach (array('050', '080', '084') as $fieldCode) {
+            $fields = $this->marcRecord->getFields($fieldCode);
+            if (is_array($fields)) {
+                foreach ($fields as $field) {
+                    switch ($fieldCode) {
+                    case '050': 
+                        $classification = 'dlc';
+                        break;
+                    case '080':
+                        $classification = 'udk';
+                        break;
+                    default:    
+                        $classification = $this->getSubfieldArray($field, array('2'));
+                        if (empty($classification)) {
+                            continue;
+                        }
+                        $classification = $classification[0];
+                        break;
+                    }
+                
+                    $subfields = $this->getSubfieldArray($field, array('a', 'b'));
+                    if (!empty($subfields)) {
+                        $result[$classification][] = $subfields[0];
+                    }
+                }
+            }
+        }        
+        return $result;        
+    }
 }
 
 ?>

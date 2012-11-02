@@ -239,6 +239,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreContainerReference', $this->getContainerReference());
         $interface->assign('coreInstitutions', $this->getInstitutions());
         $interface->assign('coreHierarchyParentId', $this->getHierarchyParentId());
+        $interface->assign('coreClassifications', $this->getClassifications());
         
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
@@ -2298,7 +2299,7 @@ class IndexRecord implements RecordInterface
                     '  ', ' ',
                     ((isset($places[$i]) ? $places[$i] . ' ' : '') .
                     (isset($names[$i]) ? $names[$i] : '') .
-                    (isset($dates[$i]) ? ', ' . $dates[$i] : ''))
+                    (isset($dates[$i]) ? (isset($places[$i]) || isset($names[$i]) ? ', ' : '') . $dates[$i] : ''))
                 )
             );
             $i++;
@@ -2829,6 +2830,17 @@ class IndexRecord implements RecordInterface
         return array();
     }
 
+    /**
+     * Get an array of classifications for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getClassifications()
+    {
+        return array();
+    }
+    
 }
 
 ?>
