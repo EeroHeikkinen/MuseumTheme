@@ -15,20 +15,6 @@
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
       <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable" placeholder="{translate text="Find"}&hellip;"/>
   {if $prefilterList}
-{* DELETE THIS
-  <div class="styled_select">
-      <select id="source" class="">
-        <option selected="selected" value="BR">Brasil</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
-        <option value="IN">India</option>
-        <option value="JP">Japan</option>
-        <option value="RS">Serbia</option>
-        <option value="UK">United Kingdom</option>
-        <option value="US">United States</option>
-      </select>
-  </div>
-*}
       <div class="styled_select">
         <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
     {foreach from=$prefilterList item=searchDesc key=searchVal}    
