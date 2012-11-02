@@ -229,7 +229,7 @@ class UInterface extends Smarty
         if (isset($prefilters['Prefilters'])) {
             $filters = array();
             foreach ($prefilters['Prefilters'] as $key => $filter) {
-                $filters[$key] = translate($filter);
+                $filters[$key] = $filter;
             }
             $this->assign('prefilterList', $filters);
         }
