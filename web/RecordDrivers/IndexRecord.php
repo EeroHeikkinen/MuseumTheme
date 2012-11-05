@@ -239,6 +239,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreContainerReference', $this->getContainerReference());
         $interface->assign('coreInstitutions', $this->getInstitutions());
         $interface->assign('coreHierarchyParentId', $this->getHierarchyParentId());
+        $interface->assign('coreClassifications', $this->getClassifications());
         
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
@@ -276,6 +277,11 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreCorporateAuthor', $corpAuthor);
         $interface->assign('coreContributors', $secondaryAuthors);
 
+        // All but presenters
+        $interface->assign('coreNonPresenterAuthors', $this->getNonPresenterAuthors());
+        // and presenters
+        $interface->assign('corePresenters', $this->getPresenters());
+        
         // Assign only the first piece of summary data for the core; we'll get the
         // rest as part of the extended data.
         $summary = $this->getSummary();
@@ -292,6 +298,9 @@ class IndexRecord implements RecordInterface
 
         // Genres in their own field
         $interface->assign('coreGenres', isset($this->fields['genre']) ? $this->fields['genre'] : array());
+        
+        // Manufacturer
+        $interface->assign('coreManufacturer', $this->getManufacturer());
         
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
@@ -435,7 +444,7 @@ class IndexRecord implements RecordInterface
         // Only load URLs if we have no OpenURL or we are configured to allow
         // URLs and OpenURLs to coexist:
         if (!isset($configArray['OpenURL']['replace_other_urls'])
-                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+            || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
         ) {
             //$interface->assign('collURLs', $this->getURLs());
         }
@@ -531,7 +540,7 @@ class IndexRecord implements RecordInterface
         // Only load URLs if we have no OpenURL or we are configured to allow
         // URLs and OpenURLs to coexist:
         if (!isset($configArray['OpenURL']['replace_other_urls'])
-                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+            || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
         ) {
             //$interface->assign('collRecordURLs', $this->getURLs());
         }
@@ -1350,8 +1359,8 @@ class IndexRecord implements RecordInterface
             $isCollection = (isset($this->fields['is_hierarchy_title']) &&
                     isset($this->fields['is_hierarchy_id']) &&
                     in_array(
-                            $this->fields['is_hierarchy_id'],
-                            $this->fields['hierarchy_top_id']
+                        $this->fields['is_hierarchy_id'],
+                        $this->fields['hierarchy_top_id']
                     )
             );
         }
@@ -1425,8 +1434,8 @@ class IndexRecord implements RecordInterface
      * @access public
      */
     public function getHierarchyTree($hierarchyDriver = false,
-            $context = false, $mode = false, $hierarchyID = false,
-            $currentRecordID = false
+        $context = false, $mode = false, $hierarchyID = false,
+        $currentRecordID = false
     ) {
         global $configArray;
     
@@ -1448,7 +1457,7 @@ class IndexRecord implements RecordInterface
                 include_once 'sys/hierarchy/' . $generator . '.php';
                 $hierarchyTree = new $generator($this);
                 return $hierarchyTree->getHierarchyTree(
-                        $source, $context, $mode, $hierarchyID, $currentRecordID
+                    $source, $context, $mode, $hierarchyID, $currentRecordID
                 );
             }
         }
@@ -2298,7 +2307,7 @@ class IndexRecord implements RecordInterface
                     '  ', ' ',
                     ((isset($places[$i]) ? $places[$i] . ' ' : '') .
                     (isset($names[$i]) ? $names[$i] : '') .
-                    (isset($dates[$i]) ? ', ' . $dates[$i] : ''))
+                    (isset($dates[$i]) ? (isset($places[$i]) || isset($names[$i]) ? ', ' : '') . $dates[$i] : ''))
                 )
             );
             $i++;
@@ -2829,6 +2838,57 @@ class IndexRecord implements RecordInterface
         return array();
     }
 
+    /**
+     * Get an array of classifications for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getClassifications()
+    {
+        return array();
+    }
+
+    /**
+     * Get all authors apart from presenters
+     * 
+     * @return array
+     */
+    protected function getNonPresenterAuthors()
+    {
+        $authors = array();
+        if ($author = $this->getPrimaryAuthor()) {
+            $authors[] = array('name' => $author);
+        }
+        if ($author = $this->getCorporateAuthor()) {
+            $authors[] = array('name' => $author);
+        }
+        foreach ($this->getSecondaryAuthors() as $author) {
+            $authors[] = array('name' => $author);
+        }
+        return $authors;
+    }
+
+    /**
+     * Get presenters
+     * 
+     * @return array
+     */
+    protected function getPresenters()
+    {
+        // IndexRecord knows nothing about roles, so just return empty array
+        return array();
+    }
+
+    /**
+     * Get manufacturer
+     * 
+     * @return string
+     */
+    protected function getManufacturer()
+    {
+        return '';
+    }
 }
 
 ?>

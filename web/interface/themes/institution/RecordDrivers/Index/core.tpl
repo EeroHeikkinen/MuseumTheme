@@ -10,7 +10,7 @@
   {* End Title *}
 
   {if !empty($coreRecordLinks)}
-  <div style="margin:0 0 5px 0;padding:6px 0;">
+  <div class="recordLinks">
     {foreach from=$coreRecordLinks item=coreRecordLink}
       {translate text=$coreRecordLink.title}:
       <a href="{$coreRecordLink.link|escape}">{$coreRecordLink.value|escape}</a>
@@ -35,7 +35,7 @@
   {* Display Main Details *}
   <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
     {if !empty($coreContainerTitle)}
-    <tr valign="top">
+    <tr valign="top" class="recordContainerReference">
       <th>{translate text='component_part_is_part_of'}:</th>
       <td>
       {if $coreHierarchyParentId}
@@ -49,7 +49,7 @@
     {/if}
 
     {if !empty($coreNextTitles)}
-    <tr valign="top">
+    <tr valign="top" class="recordNextTitles">
       <th>{translate text='New Title'}: </th>
       <td>
         {foreach from=$coreNextTitles item=field name=loop}
@@ -60,7 +60,7 @@
     {/if}
 
     {if !empty($corePrevTitles)}
-    <tr valign="top">
+    <tr valign="top" class="recordPrevTitles">
       <th>{translate text='Previous Title'}: </th>
       <td>
         {foreach from=$corePrevTitles item=field name=loop}
@@ -72,7 +72,7 @@
 
     {if !empty($coreOtherLinks)}
     {foreach from=$coreOtherLinks item=coreOtherLink}
-    <tr valign="top">
+    <tr valign="top" class="recordOtherLink">
       <th>{translate text=$coreOtherLink.heading}:</th>
       <td>
         {if $coreOtherLinks.isn}
@@ -89,35 +89,34 @@
     {/foreach}    
     {/if}
 
-    {if !empty($coreMainAuthor)}
-    <tr valign="top">
-      <th>{translate text='Main Author'}: </th>
-      <td><a href="{$url}/Author/Home?author={$coreMainAuthor|escape:"url"}">{$coreMainAuthor|escape}</a></td>
-    </tr>
-    {/if}
-
-    {if !empty($coreCorporateAuthor)}
-    <tr valign="top">
-      <th>{translate text='Corporate Author'}: </th>
-      <td><a href="{$url}/Author/Home?author={$coreCorporateAuthor|escape:"url"}">{$coreCorporateAuthor|escape}</a></td>
-    </tr>
-    {/if}
-
-    {if !empty($coreContributors)}
-    <tr valign="top">
-      <th>{translate text='Other Authors'}: </th>
+    {if $coreNonPresenterAuthors}
+    <tr valign="top" class="recordAuthors">
+      <th>{translate text='Authors'}: </th>
       <td>
         <div class="truncateField">
-        {foreach from=$coreContributors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}; {/if}
-        {/foreach}
+      {foreach from=$coreNonPresenterAuthors item=field name=loop}
+          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if $corePresenters}
+    <tr valign="top" class="recordPresenters">
+      <th>{translate text='Presenters'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$corePresenters item=field name=loop}
+          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
         </div>
       </td>
     </tr>
     {/if}
 
     {if !empty($coreAlternativeTitles)}
-    <tr valign="top">
+    <tr valign="top" class="recordAltTitles">
       <th>{translate text='Other Titles'}: </th>
       <td>
         {foreach from=$coreAlternativeTitles item=field name=loop}
@@ -127,7 +126,7 @@
     </tr>
     {/if}
 
-    <tr valign="top">
+    <tr valign="top" class="recordFormat">
       <th>{translate text='Format'}: </th>
       <td>
         {if is_array($recordFormat)}
@@ -147,13 +146,15 @@
       </td>
     </tr>
 
-    <tr valign="top">
+    {if $recordLanguage}
+    <tr valign="top" class="recordLanguage">
       <th>{translate text='Language'}: </th>
       <td>{foreach from=$recordLanguage item=lang}{translate text=facet_$lang}<br/>{/foreach}</td>
     </tr>
+    {/if}
 
     {if !empty($corePublications)}
-    <tr valign="top">
+    <tr valign="top" class="recordPublications">
       <th>{translate text='Published'}: </th>
       <td>
         {foreach from=$corePublications item=field name=loop}
@@ -163,8 +164,17 @@
     </tr>
     {/if}
 
+    {if !empty($coreManufacturer)}
+    <tr valign="top" class="recordManufacturer">
+      <th>{translate text='Manufacturer'}: </th>
+      <td>
+        {$coreManufacturer|escape}
+      </td>
+    </tr>
+    {/if}
+
     {if !empty($coreEdition)}
-    <tr valign="top">
+    <tr valign="top" class="recordEdition">
       <th>{translate text='Edition'}: </th>
       <td>
         {$coreEdition|escape}
@@ -174,7 +184,7 @@
 
     {* Display series section if at least one series exists. *}
     {if !empty($coreSeries)}
-    <tr valign="top">
+    <tr valign="top" class="recordSeries">
       <th>{translate text='Series'}: </th>
       <td>
         {foreach from=$coreSeries item=field name=loop}
@@ -198,7 +208,7 @@
     {/if}
 
     {if !empty($coreSubjects)}
-    <tr valign="top">
+    <tr valign="top" class="recordSubjects">
       <th>{translate text='Subjects'}: </th>
       <td>
         <div class="truncateField">
@@ -218,7 +228,7 @@
     {/if}
 
     {if !empty($coreGenres)}
-    <tr valign="top">
+    <tr valign="top" class="recordGenres">
       <th>{translate text='Genre'}: </th>
       <td>
         {foreach from=$coreGenres item=field name=loop}
@@ -235,12 +245,24 @@
     </tr>
     {/if}
 
+    {if !empty($coreClassifications)}
+    <tr valign="top" class="recordClassifications">
+      <th>{translate text='Classification'}: </th>
+      <td>
+        <div class="truncateField">
+        {* This is a single-line mess due to Smarty otherwise adding spaces *}
+        {foreach from=$coreClassifications key=class item=field name=loop}{if !$smarty.foreach.loop.first}, {/if}{foreach from=$field item=subfield name=subloop}{if !$smarty.foreach.subloop.first}, {/if}{$class|escape} {$subfield|escape}{/foreach}{/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
     {if $extendedMetadata}
       {include file=$extendedMetadata}
     {/if}
 
     {if $coreComponentPartCount > 0 && !$hasContainedComponentParts}
-    <tr valign="top">
+    <tr valign="top" class="recordComponentParts">
       <th>{translate text='component_part_count_label'} </th>
       <td>
         {translate text='component_part_count_prefix'} <a href="{$url}/Search/Results?lookfor={$id|escape:"url"}&amp;type=hierarchy_parent_id">{$coreComponentPartCount|escape} {translate text='component_part_count_suffix'}</a>
@@ -250,7 +272,7 @@
 
     {assign var="idPrefix" value=$id|substr:0:8}
     {if !empty($coreURLs) || $coreOpenURL || $idPrefix == 'metalib_'}
-    <tr valign="top">
+    <tr valign="top" class="recordURLs">
       <th>{translate text='Online Access'}: </th>
       <td>
         {foreach from=$coreURLs item=desc key=currentUrl name=loop}
@@ -274,7 +296,7 @@
     {*
     {if !empty($coreRecordLinks)}
     {foreach from=$coreRecordLinks item=coreRecordLink}
-    <tr valign="top">
+    <tr valign="top" class="recordLinks">
       <th>{translate text=$coreRecordLink.title}: </th>
       <td><a href="{$coreRecordLink.link|escape}">{$coreRecordLink.value|escape}</a></td>
     </tr>
@@ -283,7 +305,7 @@
     *}
     
     {if $toc}
-    <tr valign="top">
+    <tr valign="top" class="recordTOC">
       <th>{translate text='Table of Contents'}: </th>
       <td>
         <div class="truncateField">
@@ -295,7 +317,7 @@
     </tr>
     {/if}
     
-    <tr valign="top">
+    <tr valign="top" class="recordTags">
       <th>{translate text='Tags'}: </th>
       <td>
         <span style="float:right;">

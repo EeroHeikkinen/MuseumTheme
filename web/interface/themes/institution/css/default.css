@@ -1566,6 +1566,10 @@ div.recordsubcontent {
 .recordUserMsg {
     margin: 2em 0;
 }
+.recordLinks {
+    margin: 0 0 5px 0;
+    padding: 6px 0;
+}
 
 /* hack to hide redundant titles introduced by syndetics plus */
 #syn_nyreview .syn_title,

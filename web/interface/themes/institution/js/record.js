@@ -76,6 +76,15 @@ $(document).ready(function(){
         }
     });
     
+    $('.similarItems').each(function() {
+        var id = this.id.substr('similarItems'.length);
+        $(this).load(path + '/AJAX/AJAX_SimilarItems', {id: id}, function(response, status, xhr) {
+            if (status != 'success') {
+                $(this).text('Failed to load similar items');
+            }
+        });
+    });
+    
     setUpCheckRequest();
 });
 
