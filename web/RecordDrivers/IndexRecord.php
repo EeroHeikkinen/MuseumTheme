@@ -436,7 +436,7 @@ class IndexRecord implements RecordInterface
         // Only load URLs if we have no OpenURL or we are configured to allow
         // URLs and OpenURLs to coexist:
         if (!isset($configArray['OpenURL']['replace_other_urls'])
-                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+            || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
         ) {
             //$interface->assign('collURLs', $this->getURLs());
         }
@@ -532,7 +532,7 @@ class IndexRecord implements RecordInterface
         // Only load URLs if we have no OpenURL or we are configured to allow
         // URLs and OpenURLs to coexist:
         if (!isset($configArray['OpenURL']['replace_other_urls'])
-                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+            || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
         ) {
             //$interface->assign('collRecordURLs', $this->getURLs());
         }
@@ -1351,8 +1351,8 @@ class IndexRecord implements RecordInterface
             $isCollection = (isset($this->fields['is_hierarchy_title']) &&
                     isset($this->fields['is_hierarchy_id']) &&
                     in_array(
-                            $this->fields['is_hierarchy_id'],
-                            $this->fields['hierarchy_top_id']
+                        $this->fields['is_hierarchy_id'],
+                        $this->fields['hierarchy_top_id']
                     )
             );
         }
@@ -1426,8 +1426,8 @@ class IndexRecord implements RecordInterface
      * @access public
      */
     public function getHierarchyTree($hierarchyDriver = false,
-            $context = false, $mode = false, $hierarchyID = false,
-            $currentRecordID = false
+        $context = false, $mode = false, $hierarchyID = false,
+        $currentRecordID = false
     ) {
         global $configArray;
     
@@ -1449,7 +1449,7 @@ class IndexRecord implements RecordInterface
                 include_once 'sys/hierarchy/' . $generator . '.php';
                 $hierarchyTree = new $generator($this);
                 return $hierarchyTree->getHierarchyTree(
-                        $source, $context, $mode, $hierarchyID, $currentRecordID
+                    $source, $context, $mode, $hierarchyID, $currentRecordID
                 );
             }
         }
