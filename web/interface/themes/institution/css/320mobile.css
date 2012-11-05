@@ -38,6 +38,7 @@ px      62    136    210    284    */
     div.searchHomeForm div.searchform #searchForm {
         width:284px;
     }
+/*    
     .searchHomeForm #searchForm_input, .searchform #searchForm_input {
         padding: 4px;
         font-size: 1.0em;
@@ -46,11 +47,12 @@ px      62    136    210    284    */
         -moz-border-radius: 6px;
         -webkit-border-radius: 6px;
     }
-    .searchHomeForm div.styled_select { /* to get rid of unstylable down-arrow */
+    .searchHomeForm div.styled_select {
         border-radius: 6px 0 0 6px;
         -moz-border-radius: 6px 0 0 6px;
         -webkit-border-radius: 6px 0 0 6px;
     }
+*/
     .searchHomeForm #searchForm_searchButton {
         background: url("../images/searchbutton_bg.png") transparent;
         background-position: top right;
