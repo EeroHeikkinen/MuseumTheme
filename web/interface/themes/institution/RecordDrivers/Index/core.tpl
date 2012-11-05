@@ -89,28 +89,27 @@
     {/foreach}    
     {/if}
 
-    {if !empty($coreMainAuthor)}
+    {if $coreNonPresenterAuthors}
     <tr valign="top">
-      <th>{translate text='Main Author'}: </th>
-      <td><a href="{$url}/Author/Home?author={$coreMainAuthor|escape:"url"}">{$coreMainAuthor|escape}</a></td>
-    </tr>
-    {/if}
-
-    {if !empty($coreCorporateAuthor)}
-    <tr valign="top">
-      <th>{translate text='Corporate Author'}: </th>
-      <td><a href="{$url}/Author/Home?author={$coreCorporateAuthor|escape:"url"}">{$coreCorporateAuthor|escape}</a></td>
-    </tr>
-    {/if}
-
-    {if !empty($coreContributors)}
-    <tr valign="top">
-      <th>{translate text='Other Authors'}: </th>
+      <th>{translate text='Authors'}: </th>
       <td>
         <div class="truncateField">
-        {foreach from=$coreContributors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}; {/if}
-        {/foreach}
+      {foreach from=$coreNonPresenterAuthors item=field name=loop}
+          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if $corePresenters}
+    <tr valign="top">
+      <th>{translate text='Presenters'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$corePresenters item=field name=loop}
+          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
         </div>
       </td>
     </tr>
@@ -147,10 +146,12 @@
       </td>
     </tr>
 
+    {if $recordLanguage}
     <tr valign="top">
       <th>{translate text='Language'}: </th>
       <td>{foreach from=$recordLanguage item=lang}{translate text=facet_$lang}<br/>{/foreach}</td>
     </tr>
+    {/if}
 
     {if !empty($corePublications)}
     <tr valign="top">

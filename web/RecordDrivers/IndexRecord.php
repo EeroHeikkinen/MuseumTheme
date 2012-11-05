@@ -277,6 +277,11 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreCorporateAuthor', $corpAuthor);
         $interface->assign('coreContributors', $secondaryAuthors);
 
+        // All but presenters
+        $interface->assign('coreNonPresenterAuthors', $this->getNonPresenterAuthors());
+        // and presenters
+        $interface->assign('corePresenters', $this->getPresenters());
+        
         // Assign only the first piece of summary data for the core; we'll get the
         // rest as part of the extended data.
         $summary = $this->getSummary();
@@ -2840,7 +2845,37 @@ class IndexRecord implements RecordInterface
     {
         return array();
     }
-    
+
+    /**
+     * Get all authors apart from presenters
+     * 
+     * @return array
+     */
+    protected function getNonPresenterAuthors()
+    {
+        $authors = array();
+        if ($author = $this->getPrimaryAuthor()) {
+            $authors[] = array('name' => $author);
+        }
+        if ($author = $this->getCorporateAuthor()) {
+            $authors[] = array('name' => $author);
+        }
+        foreach ($this->getSecondaryAuthors() as $author) {
+            $authors[] = array('name' => $author);
+        }
+        return $authors;
+    }
+
+    /**
+     * Get presenters
+     * 
+     * @return array
+     */
+    protected function getPresenters()
+    {
+        // IndexRecord knows nothing about roles, so just return empty array
+        return array();
+    }
 }
 
 ?>

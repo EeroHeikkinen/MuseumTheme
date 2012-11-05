@@ -1608,6 +1608,71 @@ class MarcRecord extends IndexRecord
         }        
         return $result;        
     }
+
+    /**
+     * Get all authors apart from presenters
+     * 
+     * @return array
+     */
+    protected function getNonPresenterAuthors()
+    {
+        global $configArray;
+        $result = array();
+        
+        foreach (array('100', '110', '700', '710') as $fieldCode) {
+            $fields = $this->marcRecord->getFields($fieldCode);
+            if (is_array($fields)) {
+                foreach ($fields as $field) {
+                    $role = $this->getSubfieldArray($field, array('e'));
+                    $role = empty($role) ? '' : mb_strtolower($role[0]);
+                    if ($role && in_array($role, $configArray['Record']['presenter_roles'])) {
+                        continue;
+                    }
+                    $subfields = $this->getSubfieldArray($field, array('a', 'b', 'c', 'd'));
+                    if (!empty($subfields)) {
+                        $result[] = array(
+                            'name' => $this->stripTrailingPunctuation($subfields[0]),
+                            'role' => $role
+                        );
+                    }
+                }
+            }
+        }
+        return $result;        
+    }
+    
+    /**
+     * Get presenters
+     * 
+     * @return array
+     */
+    protected function getPresenters()
+    {
+        global $configArray;
+        $result = array();
+        
+        foreach (array('100', '110', '700', '710') as $fieldCode) {
+            $fields = $this->marcRecord->getFields($fieldCode);
+            if (is_array($fields)) {
+                foreach ($fields as $field) {
+                    $role = $this->getSubfieldArray($field, array('e'));
+                    $role = empty($role) ? '' : mb_strtolower($role[0]);
+                    if (!$role || !in_array($role, $configArray['Record']['presenter_roles'])) {
+                        continue;
+                    }
+                    $subfields = $this->getSubfieldArray($field, array('a', 'b', 'c', 'd'));
+                    if (!empty($subfields)) {
+                        $result[] = array(
+                            'name' => $this->stripTrailingPunctuation($subfields[0]),
+                            'role' => $role
+                        );
+                    }
+                }
+            }
+        }
+        return $result;        
+    }
+    
 }
 
 ?>
