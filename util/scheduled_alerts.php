@@ -150,10 +150,8 @@ class ScheduledAlerts
             $searchObject = SearchObjectFactory::deminify($minSO);
             $searchTime = time();
             $searchDate = gmdate($iso8601, time());
-            $oldLimit = $searchObject->getLimit();
             $searchObject->setLimit(50);
             $results = $searchObject->processSearch();
-            $searchObject->setLimit($oldLimit);
             if (PEAR::isError($results)) {
                 $this->msg('Search ' . $s->id . ' failed: ' . $results->getMessage());
                 continue;
