@@ -45,6 +45,7 @@ px      62    136    210    284    358    432   */
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm {
         margin: 0 auto;
         padding: 0;
+        width: 476px;
     }
 /*
     .searchform #searchForm_input {
@@ -66,7 +67,7 @@ px      62    136    210    284    358    432   */
         float:left;
         background-position: top right;
         height: 34px;
-        width: 74px;
+        width: 70px;
         margin:0;
         border-radius: 0 6px 6px 0;
         -moz-border-radius: 0 6px 6px 0;
