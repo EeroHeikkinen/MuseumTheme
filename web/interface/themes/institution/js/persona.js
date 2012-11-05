@@ -27,6 +27,9 @@ function mozillaPersonaSetup(currentUser)
         });
       },
       onlogout: function() {
+        if (!currentUser) {
+          return;  
+        }
         $.ajax({
           type: "GET",
           dataType: "json",
