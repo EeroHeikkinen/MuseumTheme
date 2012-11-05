@@ -1673,6 +1673,15 @@ class MarcRecord extends IndexRecord
         return $result;        
     }
     
+    /**
+     * Get manufacturer
+     * 
+     * @return string
+     */
+    protected function getManufacturer()
+    {
+        return $this->getFirstFieldValue('260', array('e', 'f', 'g'));
+    }
 }
 
 ?>

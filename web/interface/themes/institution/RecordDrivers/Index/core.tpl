@@ -164,6 +164,15 @@
     </tr>
     {/if}
 
+    {if !empty($coreManufacturer)}
+    <tr valign="top">
+      <th>{translate text='Manufacturer'}: </th>
+      <td>
+        {$coreManufacturer|escape}
+      </td>
+    </tr>
+    {/if}
+
     {if !empty($coreEdition)}
     <tr valign="top">
       <th>{translate text='Edition'}: </th>

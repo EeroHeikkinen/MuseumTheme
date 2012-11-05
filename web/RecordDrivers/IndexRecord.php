@@ -299,6 +299,9 @@ class IndexRecord implements RecordInterface
         // Genres in their own field
         $interface->assign('coreGenres', isset($this->fields['genre']) ? $this->fields['genre'] : array());
         
+        // Manufacturer
+        $interface->assign('coreManufacturer', $this->getManufacturer());
+        
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
     }
@@ -2875,6 +2878,16 @@ class IndexRecord implements RecordInterface
     {
         // IndexRecord knows nothing about roles, so just return empty array
         return array();
+    }
+
+    /**
+     * Get manufacturer
+     * 
+     * @return string
+     */
+    protected function getManufacturer()
+    {
+        return '';
     }
 }
 
