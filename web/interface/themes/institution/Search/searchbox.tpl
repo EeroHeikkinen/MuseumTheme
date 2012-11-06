@@ -13,7 +13,7 @@
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable" placeholder="{translate text="Find"}&hellip;"/>
+      <input id="searchForm_input" type="text" name="lookfor" size="27" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable" placeholder="{translate text="Find"}&hellip;"/>
   {if $prefilterList}
       <div class="styled_select">
         <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
