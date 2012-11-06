@@ -15,6 +15,13 @@ px      62    136    210    284    */
         width: 320px;
     }
 
+    body, .container, div.searchFormHome,
+    div.searchHomeForm div.searchform #searchForm,
+    .homeCustomContent .homeCustomCol1, .homeCustomContent .homeCustomCol2,
+    #topPubDateVis, #topFacets, #resultList {
+        width: 320px;
+    }
+
     body {
         padding: 0 0 36px 0;
     }
