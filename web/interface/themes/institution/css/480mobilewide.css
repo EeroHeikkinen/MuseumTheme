@@ -47,22 +47,16 @@ px      62    136    210    284    358    432   */
         padding: 0;
         width: 476px;
     }
-/*
-    .searchform #searchForm_input {
-        padding: 4px;
-        font-size: 1.0em;
-        border-right: 1px solid #999999;
-        border-radius: 6px;
-        -moz-border-radius: 6px;
-        -webkit-border-radius: 6px;
+    .searchHomeForm #searchForm_input {
+        margin-left: auto;
+        border-right: none;
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
     }
-    .searchHomeForm div.styled_select,
-    .searchform div.styled_select { 
-        border-radius: 6px 0 0 6px;
-        -moz-border-radius: 6px 0 0 6px;
-        -webkit-border-radius: 6px 0 0 6px;
+    .searchHomeForm div.styled_select {
+        padding-left: 0;
     }
-*/
     .searchform #searchForm_searchButton {
         float:left;
         background-position: top right;
