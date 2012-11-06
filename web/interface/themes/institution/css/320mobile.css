@@ -6,17 +6,9 @@
 cols    1     2      3      4
 px      62    136    210    284    */
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 479px) {
 
     body, .container, div.searchFormHome,
-    div.searchHomeForm div.searchform #searchForm,
-    .homeCustomContent .homeCustomCol1, .homeCustomContent .homeCustomCol2,
-    #topPubDateVis, #topFacets, #resultList {
-        width: 320px;
-    }
-
-    body, .container, div.searchFormHome,
-    div.searchHomeForm div.searchform #searchForm,
     .homeCustomContent .homeCustomCol1, .homeCustomContent .homeCustomCol2,
     #topPubDateVis, #topFacets, #resultList {
         width: 320px;
@@ -47,18 +39,24 @@ px      62    136    210    284    */
         width:75%;
         margin: 0 auto;
     }
+    div.searchHomeForm div.searchform,
+    div.searchHomeForm div.searchform #searchForm {
+        width: 235px;
+    }    
     form#searchForm {
         padding: 0;
     }
     .searchHomeForm #searchForm_input {
-        margin-left: 42px;
-        border-right: 1px solid #999999;
+        background-position: -2px -3px;
+        border-right: 1px solid #888888;
         border-radius: 6px;
         -moz-border-radius: 6px;
         -webkit-border-radius: 6px;
     }
     .searchHomeForm div.styled_select {
+/*
         padding-left: 30px;
+*/
     }
     .searchHomeForm #searchForm_searchButton {
         background: url("../images/searchbutton_bg.png") transparent;
@@ -67,8 +65,11 @@ px      62    136    210    284    */
         color: #555555;
         cursor: pointer;
         height: 34px;
-        width: 84px;
+        width: 59px;
         margin-left: 0;
+        border-radius: 0 6px 6px 0;
+        -moz-border-radius: 0 6px 6px 0;
+        -webkit-border-radius: 0 6px 6px 0;
     }
     .advancedLink {
         display:none;
@@ -115,7 +116,7 @@ px      62    136    210    284    */
     }
     .homeCustomContent .homeCustomCol2 ul li {
         float: left;
-        margin: 0.5em 0 0.5em 20px;
+        margin: 0.5em 0 0.5em 16px;
         width: 135px;
     }
 
