@@ -194,35 +194,36 @@ img.alignleft {
 /*** Page navigation links ***/
 
 .navigationMenu {
-  width: 100%;
-  border-top: 1px solid #ddd;
-  text-align: center;
-  margin-top: 2em;
+    clear: both;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin-top: 2em;
 }
 .navigationMenu-home {
-  border-top: none;
-  border-bottom: 1px solid #ddd;
-  margin-top: 0;
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    margin-top: 0;
 }
 .navigationMenu ul {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 .navigationMenu ul li {
-  display: inline;
-  margin: 0 1em;
+    display: inline;
+    margin: 0 1em;
 }
 .navigationMenu ul li a {
-  display: inline-block;
-  padding: 12px 0;
-  font-size: 1.2em;
+    display: inline-block;
+    padding: 12px 0;
+    font-size: 1.2em;
 }
 .navigationMenu ul li a:link, .navigationMenu ul li a:visited {
-  color: #666;
+    color: #666;
 }
 .navigationMenu ul li a:hover {
-  color: #999;
-  text-decoration: none;
+    color: #999;
+    text-decoration: none;
 }
 
 
