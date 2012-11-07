@@ -22,8 +22,8 @@
     {if $addHeader}{$addHeader}{/if}
 
     <title>{$pageTitle|truncate:64:"..."}</title>
-    <link rel="shortcut icon" href="{$url}/interface/themes/institution/images/favicon_line.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon-precomposed" href="{$url}/interface/themes/institution/images/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="{path filename="images/favicon_line.ico"}" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" href="{path filename="images/apple-touch-icon.png"}" />
 
     {if $module=='Record' && $hasRDF}
     <link rel="alternate" type="application/rdf+xml" title="RDF Representation" href="{$url}/Record/{$id|escape}/RDF"/>    

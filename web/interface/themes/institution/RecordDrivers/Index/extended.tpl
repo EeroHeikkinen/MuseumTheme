@@ -16,7 +16,7 @@
   {* BTJ description start *}
   <tr valign="top" id="btjdescription" style="display: none;">
     <th>{translate text='Description'}: </th>
-    <td id="btjdescription_text"><img src="{$path}/interface/themes/institution/images/ajax_loading.gif" alt="{translate text='Loading'}..."/></td>  
+    <td id="btjdescription_text"><img src="{path filename="images/ajax_loading.gif"}" alt="{translate text='Loading'}..."/></td>  
   </tr>
   <script type="text/javascript">
      var path = {$path|@json_encode};
