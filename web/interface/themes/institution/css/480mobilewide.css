@@ -48,25 +48,24 @@ px      62    136    210    284    358    432   */
         width: 476px;
     }
 /*
-    .searchform #searchForm_input {
-        padding: 4px;
-        font-size: 1.0em;
-        border-right: 1px solid #999999;
-        border-radius: 6px;
-        -moz-border-radius: 6px;
-        -webkit-border-radius: 6px;
+    .searchHomeForm #searchForm_input {
+        margin-left: auto;
+        border-right: none;
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
     }
-    .searchHomeForm div.styled_select,
-    .searchform div.styled_select { 
-        border-radius: 6px 0 0 6px;
-        -moz-border-radius: 6px 0 0 6px;
-        -webkit-border-radius: 6px 0 0 6px;
+    .searchHomeForm div.styled_select {
+        padding-left: 0;
     }
 */
     .searchform #searchForm_searchButton {
+/*
         float:left;
-        background-position: top right;
+*/
+        background-position: -260px -3px;
         height: 34px;
+        border: none;
         width: 70px;
         margin:0;
         border-radius: 0 6px 6px 0;
@@ -88,7 +87,6 @@ px      62    136    210    284    358    432   */
         padding: 0 0 2em;
     }
     .homeCustomContent .homeCustomCol1 {
-        font-size: .846em;
         margin: 0;
         padding: 0 12px;
         width: 456px;
@@ -111,6 +109,7 @@ px      62    136    210    284    358    432   */
     }
     
     .main-home .footer, .footer {
+        font-size: 1em;
         padding: .2em 0 0;
     }
     #footerCol1, #footerCol2, #footerCol3 {
