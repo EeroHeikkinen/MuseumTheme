@@ -6,7 +6,13 @@
       <th>{$field|escape}</th>
       <td>
         {foreach from=$values item='value'}
+          {if is_array($value)}
+            {foreach from=$value key=key item=subValue}
+              {$key|escape} = {$subValue|escape}<br />
+            {/foreach}
+          {else}
           {$value|escape}<br />
+          {/if}
         {/foreach}
       </td>
     </tr>

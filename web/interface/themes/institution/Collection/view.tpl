@@ -51,10 +51,9 @@
         </a>
       </div>
       {/if}
-	  <h1>{$collShortTitle|escape}</h1>
-	  <p>{$collSummary|escape}</p>
-	  <a id="moreInfoToggle" href="#" style="display:none">{translate text="Show/hide more info."}</a>
-      {include file=$info}
+      <h1>{$collShortTitle|escape} {$collYearRange|escape}</h1>
+      <p>{$collSummary|escape}</p>
+      <a href="{$url}/Record/{$collectionID}">{translate text="Full Record"}</a>
     </div>
     <div style="clear: left;"></div>
     <span class="Z3988" title="{$openURL|escape}"></span>

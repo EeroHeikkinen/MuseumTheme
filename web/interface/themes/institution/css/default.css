@@ -1032,7 +1032,9 @@ li.result blockquote {
     padding: 2px 0 0 5px;
     display: inline-block;
 }
- 
+ .resultHierarchyLinks .hierarchyDesc {
+    font-size: 0.75em;
+}
 
 /** Side facets */
 
@@ -1506,9 +1508,11 @@ div.record {
 .coverImageLinks {
     margin-bottom: 20px;
 }
+/* Note: background colors required here for field truncation */
 #recordMetadata {
     width: 506px;
     float: left;
+    background-color: white;
 }
 #recordMetadata tr, .citation tr {
 	  background-color: white;
@@ -1569,6 +1573,9 @@ div.recordsubcontent {
 .recordLinks {
     margin: 0 0 5px 0;
     padding: 6px 0;
+}
+#recordMetadata .recordHierarchyLinks {
+	  margin: -6px 0 12px 0;
 }
 
 /* hack to hide redundant titles introduced by syndetics plus */
@@ -3013,3 +3020,15 @@ span.mapMarker  {
     background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
 }
+
+/* Staff view xml styles */
+.xml .re0 {
+    color: #990000;
+}
+.xml .re1 {
+	  color: #990099;
+}
+.xml .st0 {
+	  color: #330099;
+}
+

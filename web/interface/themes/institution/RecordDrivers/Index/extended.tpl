@@ -23,7 +23,7 @@
      var id = {$id|@json_encode};
      {literal}
      $(document).ready(function() {
-       var url = path + '/description.php?id=' + id;
+       var url = path + '/AJAX/AJAX_Description?id=' + id;
        $("#btjdescription_text").load(url, function(response, status, xhr) {
        if (response.length != 0) {
          $("#btjdescription").show();
