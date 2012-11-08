@@ -159,7 +159,7 @@ img.alignleft {
     padding: 2.6em 0 .5em;
     width: 506px;
 }
-.header, .headerRecord, .headerCollection, .headerContent {
+.header, .headerRecord, .headerCollection, .headerContent, .headerAuthor {
     background-color: #f3f3f3;
     border-bottom: 1px solid #dddddd;
 }
