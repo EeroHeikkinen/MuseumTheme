@@ -123,6 +123,17 @@ End Cover Image *}
   </tr>
   {/if}
 
+  {if !empty($corePublications)}
+  <tr valign="top" class="recordPublications">
+    <th>{translate text='Main Year'}: </th>
+    <td>
+      {foreach from=$corePublications item=field name=loop}
+        {$field|escape}<br>
+      {/foreach}
+    </td>
+  </tr>
+  {/if}
+
   {if !empty($coreInstitutions)}
   <tr valign="top" class="recordCollection">
     <th>{translate text='Location'}: </th>
@@ -205,17 +216,6 @@ End Cover Image *}
   <tr valign="top" class="recordLanguage">
     <th>{translate text='Language'}: </th>
     <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br>{/foreach}</td>
-  </tr>
-  {/if}
-
-  {if !empty($corePublications)}
-  <tr valign="top" class="recordPublications">
-    <th>{translate text='Published'}: </th>
-    <td>
-      {foreach from=$corePublications item=field name=loop}
-        {$field|escape}<br>
-      {/foreach}
-    </td>
   </tr>
   {/if}
 
