@@ -221,6 +221,7 @@ class IndexRecord implements RecordInterface
 
         // These variables are only used by the core template, and they are prefixed
         // with "core" to prevent conflicts with other variable names.
+        $interface->assign('coreTitle', $this->getTitle());
         $interface->assign('coreShortTitle', $this->getShortTitle());
         $interface->assign('coreSubtitle', $this->getSubtitle());
         $interface->assign('coreTitleStatement', $this->getTitleStatement());
@@ -429,6 +430,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('collCredits', $this->getProductionCredits());
         $interface->assign('collBibliography', $this->getBibliographyNotes());
         $interface->assign('collFindingAids', $this->getFindingAids());
+        $interface->assign('collTitle', $this->getTitle());
         $interface->assign('collShortTitle', $this->getShortTitle());
         $interface->assign('collSubtitle', $this->getSubtitle());
         $interface->assign('collTitleStatement', $this->getTitleStatement());

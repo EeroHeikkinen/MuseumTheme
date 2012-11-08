@@ -3,7 +3,7 @@
 <div id="recordMetadata">
     
   {* Display Title *}
-  <h1 class="recordTitle">{$coreShortTitle|escape} {$coreYearRange|escape}
+  <h1 class="recordTitle">{$coreTitle|escape} {if $coreYearRange}({$coreYearRange|escape}){/if}
   {* {if $coreTitleSection} / {$coreTitleSection|escape}{/if}
   {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>

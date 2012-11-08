@@ -51,7 +51,7 @@
         </a>
       </div>
       {/if}
-      <h1>{$collShortTitle|escape} {$collYearRange|escape}</h1>
+      <h1>{$collTitle|escape} {if $collYearRange}({$collYearRange|escape}){/if}</h1>
       <p>{$collSummary|escape}</p>
       <a href="{$url}/Record/{$collectionID}">{translate text="Full Record"}</a>
     </div>
