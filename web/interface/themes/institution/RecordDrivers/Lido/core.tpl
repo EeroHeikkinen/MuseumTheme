@@ -75,28 +75,6 @@ End Cover Image *}
 
 {* Display Main Details *}
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
-  {if !empty($coreInstitutions)}
-  <tr valign="top" class="recordCollection">
-    <th>{translate text='Location'}: </th>
-    <td>
-      {foreach from=$coreInstitutions item=field name=loop}
-        {translate text="source_$field"}<br>
-      {/foreach}
-    </td>
-  </tr>
-  {/if}
-
-  {if !empty($coreCollections)}
-  <tr valign="top" class="recordCollection">
-    <th>{translate text='Collection'}: </th>
-    <td>
-      {foreach from=$coreCollections item=field name=loop}
-        {$field|escape}<br>
-      {/foreach}
-    </td>
-  </tr>
-  {/if}
-
   {if !empty($coreNextTitles)}
   <tr valign="top" class="recordNextTitles">
     <th>{translate text='New Title'}: </th>
@@ -141,6 +119,39 @@ End Cover Image *}
         <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
     {/foreach}
       </div>
+    </td>
+  </tr>
+  {/if}
+
+  {if !empty($coreInstitutions)}
+  <tr valign="top" class="recordCollection">
+    <th>{translate text='Location'}: </th>
+    <td>
+      {foreach from=$coreInstitutions item=field name=loop}
+        {translate text="source_$field"}<br>
+      {/foreach}
+    </td>
+  </tr>
+  {/if}
+
+  {if !empty($coreCollections)}
+  <tr valign="top" class="recordCollection">
+    <th>{translate text='Collection'}: </th>
+    <td>
+      {foreach from=$coreCollections item=field name=loop}
+        {$field|escape}<br>
+      {/foreach}
+    </td>
+  </tr>
+  {/if}
+
+  {if !empty($coreIdentifier)}
+  <tr valign="top" class="recordIdentifier">
+    <th>{translate text='Inventory ID'}: </th>
+    <td>
+      {foreach from=$coreIdentifier item=field name=loop}
+        {$field|escape}{if !$smarty.foreach.loop.last}, {/if}
+      {/foreach}
     </td>
   </tr>
   {/if}

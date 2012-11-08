@@ -113,6 +113,8 @@ class LidoRecord extends IndexRecord
         }
         $interface->assign('coreEvents', $events);
         
+        $interface->assign('coreIdentifier', $this->getIdentifier());
+        
         return 'RecordDrivers/Lido/core.tpl';
     }
         
@@ -278,5 +280,16 @@ class LidoRecord extends IndexRecord
         $interface->assign('details', $this->fields);
         
         return 'RecordDrivers/Lido/staff.tpl';
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getIdentifier()
+    {
+        return isset($this->fields['identifier']) ? $this->fields['identifier'] : array();
     }
 }
