@@ -53,14 +53,14 @@
 
       <div class="resultItemLine2">
       	{if !empty($summAuthor)}
-      	{translate text='by'}
+      	{translate text='by'}:
       	<a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       	{/if}
 
-      	{if $summDate}{translate text='Published'} {$summDate.0|escape}<br>{/if}
-      	{if $summImageDate}{translate text='Photo Taken:'} {$summImageDate|escape}<br>{/if}
-      	{if $summCreationDate}{translate text='Created:'} {$summCreationDate|escape}<br>{/if}
-      	{if $summUseDate}{translate text='Used:'} {$summUseDate|escape}{if $summUsePlace}, {$summUsePlace|escape}{/if}<br>{/if}
+      	{if $summDate}<br>{translate text='Main Year'}: {$summDate.0|escape}{/if}
+      	{if $summImageDate}<br>{translate text='Photo Taken:'} {$summImageDate|escape}{/if}
+      	{if $summCreationDate}<br>{translate text='Created:'} {$summCreationDate|escape}{/if}
+      	{if $summUseDate}<br>{translate text='Used:'} {$summUseDate|escape}{if $summUsePlace}, {$summUsePlace|escape}{/if}{/if}
       
       </div>
 

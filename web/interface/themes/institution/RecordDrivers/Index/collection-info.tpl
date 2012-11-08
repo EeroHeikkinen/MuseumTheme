@@ -148,7 +148,11 @@
         {assign var=subject value=""}
         {foreach from=$field item=subfield name=subloop}
           {if !$smarty.foreach.subloop.first} &gt; {/if}
-          {assign var=subject value="$subject $subfield"}
+          {if $subject}
+            {assign var=subject value="$subject $subfield"}
+          {else}
+            {assign var=subject value="$subfield"}
+          {/if}
           <a id="subjectLink_{$smarty.foreach.loop.index}_{$smarty.foreach.subloop.index}"
             href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject"
           onmouseover="subjectHighlightOn({$smarty.foreach.loop.index}, {$smarty.foreach.subloop.index});"
@@ -174,7 +178,11 @@
             <dd>        {assign var=subject value=""}
         {foreach from=$field item=subfield name=subloop}
           {if !$smarty.foreach.subloop.first} &gt; {/if}
-          {assign var=subject value="$subject $subfield"}
+          {if $subject}
+            {assign var=subject value="$subject $subfield"}
+          {else}
+            {assign var=subject value="$subfield"}
+          {/if}
           <a href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject">{$subfield|escape}</a>
         {/foreach}</dd>
         {/foreach}

@@ -302,6 +302,15 @@ class IndexRecord implements RecordInterface
         // Manufacturer
         $interface->assign('coreManufacturer', $this->getManufacturer());
         
+        // Hierarchy
+        $interface->assign('coreHierarchyParentId', $this->getHierarchyParentId());
+        $interface->assign('coreHierarchyParentTitle', $this->getHierarchyParentTitle());
+        $interface->assign('coreHierarchyTopId', $this->getHierarchyTopId());
+        $interface->assign('coreHierarchyTopTitle', $this->getHierarchyTopTitle());
+        
+        // Collections
+        $interface->assign('coreCollections', $this->getCollections());
+        
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
     }
@@ -1000,7 +1009,11 @@ class IndexRecord implements RecordInterface
         $interface->assign('summContainerTitle', $this->getContainerTitle());
         $interface->assign('summContainerReference', $this->getContainerReference());
         $interface->assign('summHierarchyParentId', $this->getHierarchyParentId());
-
+        $interface->assign('summHierarchyParentTitle', $this->getHierarchyParentTitle());
+        $interface->assign('summHierarchyTopId', $this->getHierarchyTopId());
+        $interface->assign('summHierarchyTopTitle', $this->getHierarchyTopTitle());
+        $interface->assign('summInstitutions', $this->getInstitutions());
+        
         //collection module only
         if (isset($configArray['Collections']['collections'])
             && $configArray['Collections']['collections'] == true
@@ -1135,7 +1148,7 @@ class IndexRecord implements RecordInterface
     
         //check config setting for what constitutes a collection
         $collectionIdentifier = $hierarchyDriver->getCollectionIdentifier();
-    
+
         if ($collectionIdentifier == "All Containers") {
             $isCollection = (isset($this->fields['is_hierarchy_id']));
             $interface->assign('summCollection', $isCollection);
@@ -1289,28 +1302,53 @@ class IndexRecord implements RecordInterface
     }    
     
     /**
-     * Get the hierarchy_top_id associated with this item (empty string if none).
+     * Get the hierarchy_top_id associated with this item (empty array if none).
      *
-     * @return string
+     * @return array
      * @access protected
      */
     public function getHierarchyTopID()
     {
         return isset($this->fields['hierarchy_top_id']) ?
-        $this->fields['hierarchy_top_id'] : array();
+            $this->fields['hierarchy_top_id'] : array();
     }
     
     /**
      * Get the absolute parent title associated with this item
-     * (empty string if none).
+     * (empty array if none).
      *
-     * @return string
+     * @return array
      * @access protected
      */
     public function getHierarchyTopTitle()
     {
         return isset($this->fields['hierarchy_top_title']) ?
-        $this->fields['hierarchy_top_title'] : array();
+            $this->fields['hierarchy_top_title'] : array();
+    }
+
+    /**
+     * Get the hierarchy_parent_id associated with this item (empty array if none).
+     *
+     * @return array
+     * @access protected
+     */
+    public function getHierarchyParentID()
+    {
+        return isset($this->fields['hierarchy_parent_id']) ?
+            $this->fields['hierarchy_parent_id'] : array();
+    }
+    
+    /**
+     * Get the parent title associated with this item
+     * (empty array if none).
+     *
+     * @return array
+     * @access protected
+     */
+    public function getHierarchyParentTitle()
+    {
+        return isset($this->fields['hierarchy_parent_title']) ?
+            $this->fields['hierarchy_parent_title'] : array();
     }
     
     /**
@@ -2127,6 +2165,18 @@ class IndexRecord implements RecordInterface
         return isset($this->fields['institution']) ?
         $this->fields['institution'] : array();
     }
+
+    /**
+     * Get the collections of the current record.
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getCollections()
+    {
+        return isset($this->fields['collection']) ?
+        $this->fields['collection'] : array();
+    }
     
     /**
      * Get an array of all ISBNs associated with the record (may be empty).
@@ -2780,19 +2830,6 @@ class IndexRecord implements RecordInterface
         return $result['response']['numFound'];
     }
     
-    /**
-     * Returns an id of hierarchy parent record if any
-     *
-     * @access protected
-     * @return array
-     *
-     */
-    protected function getHierarchyParentId() 
-    {
-        return isset($this->fields['hierarchy_parent_id']) 
-            ? $this->fields['hierarchy_parent_id'] : '';
-    }
-
     /**
     * Get an array of all the dedup data associated with the record.
     *

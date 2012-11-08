@@ -159,7 +159,7 @@ img.alignleft {
     padding: 2.6em 0 .5em;
     width: 506px;
 }
-.header, .headerRecord, .headerCollection, .headerContent {
+.header, .headerRecord, .headerCollection, .headerContent, .headerAuthor {
     background-color: #f3f3f3;
     border-bottom: 1px solid #dddddd;
 }
@@ -194,35 +194,36 @@ img.alignleft {
 /*** Page navigation links ***/
 
 .navigationMenu {
-  width: 100%;
-  border-top: 1px solid #ddd;
-  text-align: center;
-  margin-top: 2em;
+    clear: both;
+    width: 100%;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    margin-top: 2em;
 }
 .navigationMenu-home {
-  border-top: none;
-  border-bottom: 1px solid #ddd;
-  margin-top: 0;
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    margin-top: 0;
 }
 .navigationMenu ul {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 .navigationMenu ul li {
-  display: inline;
-  margin: 0 1em;
+    display: inline;
+    margin: 0 1em;
 }
 .navigationMenu ul li a {
-  display: inline-block;
-  padding: 12px 0;
-  font-size: 1.2em;
+    display: inline-block;
+    padding: 12px 0;
+    font-size: 1.2em;
 }
 .navigationMenu ul li a:link, .navigationMenu ul li a:visited {
-  color: #666;
+    color: #666;
 }
 .navigationMenu ul li a:hover {
-  color: #999;
-  text-decoration: none;
+    color: #999;
+    text-decoration: none;
 }
 
 
@@ -1031,7 +1032,9 @@ li.result blockquote {
     padding: 2px 0 0 5px;
     display: inline-block;
 }
- 
+ .resultHierarchyLinks .hierarchyDesc {
+    font-size: 0.75em;
+}
 
 /** Side facets */
 
@@ -1505,9 +1508,11 @@ div.record {
 .coverImageLinks {
     margin-bottom: 20px;
 }
+/* Note: background colors required here for field truncation */
 #recordMetadata {
     width: 506px;
     float: left;
+    background-color: white;
 }
 #recordMetadata tr, .citation tr {
 	  background-color: white;
@@ -1568,6 +1573,9 @@ div.recordsubcontent {
 .recordLinks {
     margin: 0 0 5px 0;
     padding: 6px 0;
+}
+#recordMetadata .recordHierarchyLinks {
+	  margin: -6px 0 12px 0;
 }
 
 /* hack to hide redundant titles introduced by syndetics plus */
@@ -3012,3 +3020,15 @@ span.mapMarker  {
     background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
 }
+
+/* Staff view xml styles */
+.xml .re0 {
+    color: #990000;
+}
+.xml .re1 {
+	  color: #990099;
+}
+.xml .st0 {
+	  color: #330099;
+}
+

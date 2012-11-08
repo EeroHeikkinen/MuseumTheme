@@ -1,9 +1,9 @@
-<!-- START of: RecordDrivers/Index/core.tpl -->
+<!-- START of: RecordDrivers/Ead/core.tpl -->
 
 <div id="recordMetadata">
     
   {* Display Title *}
-  <h1 class="recordTitle">{$coreShortTitle|escape}{if $coreSubtitle}&nbsp;: {$coreSubtitle|escape}{/if}
+  <h1 class="recordTitle">{$coreShortTitle|escape} {$coreYearRange|escape}
   {* {if $coreTitleSection} / {$coreTitleSection|escape}{/if}
   {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
@@ -31,9 +31,51 @@
   {* Summary, commented out since it exists in extended.tpl 
   {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape}</p>{/if}
   *}
+  <p class="recordInstitution">
+    {foreach from=$coreInstitutions name=loop item=institution}{translate text="source_$institution"}{if !$smarty.foreach.loop.last}, {/if}{/foreach}
+  </p>
 
   {* Display Main Details *}
   <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
+  
+    <tr valign="top" class="recordFormat">
+      <th>{translate text='Format'}: </th>
+      <td>
+        {if is_array($recordFormat)}
+          {assign var=mainFormat value=$recordFormat.0} 
+          {assign var=displayFormat value=$recordFormat|@end} 
+        {else}
+          {assign var=mainFormat value=$recordFormat} 
+          {assign var=displayFormat value=$recordFormat} 
+        {/if}
+        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
+        {if !empty($extendedPhysical)}
+          {assign var=extendedContentDisplayed value=1}
+          {foreach from=$extendedPhysical item=field name=loop}
+            <br/>{$field|escape}
+          {/foreach}
+        {/if}
+      </td>
+    </tr>
+  
+    {if !empty($coreOrigination)}
+    <tr valign="top" class="recordHierarchyLinks">
+      <th>{translate text='Archive Origination:'}</th>
+      <td><a href="{$url}/Author/Home?author={$coreOrigination|escape:"url"}">{$coreOrigination|escape}</a></td>
+    </tr>
+    {/if}
+    {if $displayFormat != 'Document/ArchiveFonds'} 
+    <tr valign="top" class="recordHierarchyLinks">
+      <th>{translate text='Archive:'}</th>
+      <td>{foreach from=$coreHierarchyTopId name=loop key=topKey item=topId}<a href="{$url}/Collection/{$topId|escape:"url"}">{$coreHierarchyTopTitle.$topKey|truncate:180:"..."|escape}</a>{if !$smarty.foreach.loop.last}, {/if}{/foreach}</td>
+    </tr>
+    {/if}  
+    {if $displayFormat != 'Document/ArchiveFonds' && $displayFormat != 'Document/ArchiveSeries'} 
+    <tr valign="top" class="recordHierarchyLinks">
+      <th>{translate text='Archive Series:'}</th>
+      <td>{foreach from=$coreHierarchyParentId name=loop key=parentKey item=parentId}<a href="{$url}/Record/{$parentId|escape:"url"}">{$coreHierarchyParentTitle.$parentKey|truncate:180:"..."|escape}</a>{if !$smarty.foreach.loop.last}, {/if}{/foreach}</td>
+    {/if}  
+  
     {if !empty($coreContainerTitle)}
     <tr valign="top" class="recordContainerReference">
       <th>{translate text='component_part_is_part_of'}:</th>
@@ -89,32 +131,6 @@
     {/foreach}    
     {/if}
 
-    {if $coreNonPresenterAuthors}
-    <tr valign="top" class="recordAuthors">
-      <th>{translate text='Authors'}: </th>
-      <td>
-        <div class="truncateField">
-      {foreach from=$coreNonPresenterAuthors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
-      {/foreach}
-        </div>
-      </td>
-    </tr>
-    {/if}
-
-    {if $corePresenters}
-    <tr valign="top" class="recordPresenters">
-      <th>{translate text='Presenters'}: </th>
-      <td>
-        <div class="truncateField">
-      {foreach from=$corePresenters item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
-      {/foreach}
-        </div>
-      </td>
-    </tr>
-    {/if}
-
     {if !empty($coreAlternativeTitles)}
     <tr valign="top" class="recordAltTitles">
       <th>{translate text='Other Titles'}: </th>
@@ -125,26 +141,6 @@
       </td>
     </tr>
     {/if}
-
-    <tr valign="top" class="recordFormat">
-      <th>{translate text='Format'}: </th>
-      <td>
-        {if is_array($recordFormat)}
-          {assign var=mainFormat value=$recordFormat.0} 
-          {assign var=displayFormat value=$recordFormat|@end} 
-        {else}
-          {assign var=mainFormat value=$recordFormat} 
-          {assign var=displayFormat value=$recordFormat} 
-        {/if}
-        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
-        {if !empty($extendedPhysical)}
-          {assign var=extendedContentDisplayed value=1}
-          {foreach from=$extendedPhysical item=field name=loop}
-            <br/>{$field|escape}
-          {/foreach}
-        {/if}
-      </td>
-    </tr>
 
     {if $recordLanguage}
     <tr valign="top" class="recordLanguage">
@@ -279,7 +275,6 @@
     {/if}
 
     {assign var="idPrefix" value=$id|substr:0:8}
-    {if !empty($coreURLs) || $coreOpenURL || $idPrefix == 'metalib_'}
     <tr valign="top" class="recordURLs">
       <th>{translate text='Online Access'}: </th>
       <td>
@@ -297,9 +292,11 @@
             <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
           </span>
         {/if}
+        <span class="vakkaLink">
+          <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a>
+        </span>
       </td>
     </tr>
-    {/if}
     
     {*
     {if !empty($coreRecordLinks)}
@@ -381,4 +378,4 @@
 
 <div class="clear"></div>
 
-<!-- END of: RecordDrivers/Index/core.tpl -->
+<!-- END of: RecordDrivers/Ead/core.tpl -->
