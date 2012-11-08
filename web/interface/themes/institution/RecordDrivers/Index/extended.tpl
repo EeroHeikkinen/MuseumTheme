@@ -181,7 +181,7 @@
   {if !empty($extendedAccess)}
   {assign var=extendedContentDisplayed value=1}
   <tr valign="top">
-    <th>{translate text='Access'}: </th>
+    <th>{translate text='Access restrictions'}: </th>
     <td>
       {foreach from=$extendedAccess item=field name=loop}
         {$field|escape}<br/>
