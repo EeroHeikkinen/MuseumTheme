@@ -85,6 +85,11 @@ class EadRecord extends IndexRecord
         $interface->assign('coreYearRange', $this->getYearRange());
         $interface->assign('coreOrigination', $this->getOrigination());
         $interface->assign('coreOriginationId', $this->getOriginationID());
+        $interface->assign('corePhysicalLocation', $this->getPhysicalLocation());
+        if ($this->record->daoloc) {
+            $interface->assign('coreDigitizedMaterial', true);
+        }
+        $interface->assign('coreIdentifier', $this->getIdentifier());
         
         return 'RecordDrivers/Ead/core.tpl';
     }
@@ -108,6 +113,7 @@ class EadRecord extends IndexRecord
         $interface->assign('summYearRange', $this->getYearRange());
         $interface->assign('summOrigination', $this->getOrigination());
         $interface->assign('summOriginationId', $this->getOriginationID());
+        $interface->assign('summPhysicalLocation', $this->getPhysicalLocation());
         
         return 'RecordDrivers/Ead/result-' . $view . '.tpl';
     }
@@ -382,5 +388,69 @@ class EadRecord extends IndexRecord
         $interface->assign('details', $this->fields);
         
         return 'RecordDrivers/Ead/staff.tpl';
+    }
+
+    /**
+     * Get access restriction notes for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getAccessRestrictions()
+    {
+        return isset($this->record->accessrestrict->p) ? $this->record->accessrestrict->p : array();
+    }
+
+    /**
+     * Get notes on bibliography content.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getBibliographyNotes()
+    {
+        $bibliography = array();
+        foreach ($this->record->xpath('//bibliography') as $node) {
+            // Filter out Portti links, they're displayed in links
+            if (!preg_match('/(.+) (http:\/\/wiki\.narc\.fi\/portti.*)/', (string)$node->p)) {
+                $bibliography[] = (string)$node->p;
+            }
+        } 
+        return $bibliography;
+    }
+
+    /**
+     * Get physical location related to the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getPhysicalLocation()
+    {
+        return isset($this->record->did->physloc) ? $this->record->did->physloc : array();
+    }
+
+    /**
+     * Get notes on finding aids related to the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getFindingAids()
+    {
+        return isset($this->record->otherfindaid->p) ? $this->record->otherfindaid->p : array();
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getIdentifier()
+    {
+        return isset($this->record->did->unitid->attributes()->{'identifier'}) 
+            ? (string)$this->record->did->unitid->attributes()->{'identifier'}
+            : (string)$this->record->did->unitid;
     }
 }

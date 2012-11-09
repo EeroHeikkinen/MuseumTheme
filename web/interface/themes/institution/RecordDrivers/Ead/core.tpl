@@ -226,6 +226,18 @@
       </td>
     </tr>
     {/if}
+    {if !empty($corePhysicalLocation)}
+    <tr valign="top" class="recordPhysicalLocation">
+      <th>{translate text='Location'}: </th>
+      <td>
+        {foreach from=$corePhysicalLocation item=field name=loop}
+          {$field|escape}
+          {if !$smarty.foreach.loop.last}, {/if}
+        {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
 
     {if !empty($coreGenres)}
     <tr valign="top" class="recordGenres">
@@ -278,23 +290,31 @@
     <tr valign="top" class="recordURLs">
       <th>{translate text='Online Access'}: </th>
       <td>
-        {foreach from=$coreURLs item=desc key=currentUrl name=loop}
-          <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
-        {/foreach}
-        {if $coreOpenURL}
-          {include file="Search/openurl.tpl" openUrl=$coreOpenURL}
-          {include file="Search/rsi.tpl"}
-          {include file="Search/openurl_autocheck.tpl"}
-        {/if}
-        {if $idPrefix == 'metalib_'}
-          <span class="metalib_link">
-            <span id="metalib_link_{$id|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a></span>
-            <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
+        <div class="truncateField">
+          {if $displayFormat == 'Document/ArchiveItem' && !$coreDigitizedMaterial}
+            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_checkout.php?id={$coreIdentifier|escape:'url'}">{translate text='Asiakirjan tilaus'}<br/>            
+          {/if}
+          {if $extendedAccess}
+            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_askpermission.php?id={$coreIdentifier|escape:'url'}">{translate text='Käyttölupahakemus'}<br/>            
+          {/if}
+          {foreach from=$coreURLs item=desc key=currentUrl name=loop}
+            <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
+          {/foreach}
+          {if $coreOpenURL}
+            {include file="Search/openurl.tpl" openUrl=$coreOpenURL}
+            {include file="Search/rsi.tpl"}
+            {include file="Search/openurl_autocheck.tpl"}
+          {/if}
+          {if $idPrefix == 'metalib_'}
+            <span class="metalib_link">
+              <span id="metalib_link_{$id|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a></span>
+              <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
+            </span>
+          {/if}
+          <span class="vakkaLink">
+            <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a>
           </span>
-        {/if}
-        <span class="vakkaLink">
-          <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a>
-        </span>
+        </div>
       </td>
     </tr>
     

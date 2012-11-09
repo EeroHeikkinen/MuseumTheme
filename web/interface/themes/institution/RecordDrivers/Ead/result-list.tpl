@@ -134,10 +134,6 @@
           <span id="metalib_link_na_{$summId|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
         </span>
       {/if}
-      <br/>
-      <span class="vakkaLink">
-        <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$summOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a>
-      </span>
 
       {* <br class="hideIfDetailed{$summId|escape}"/> *}
 
