@@ -156,11 +156,10 @@ class EadRecord extends IndexRecord
         
         // Portti links parsed from bibliography
         foreach ($this->record->xpath('//bibliography') as $node) {
-            if (preg_match('/(.+) (http://wiki\.narc\.fi/portti.*)/', $node->p, $matches)) {
-                $urls[$matches[1]] = $matches[2];
+            if (preg_match('/(.+) (http:\/\/wiki\.narc\.fi\/portti.*)/', (string)$node->p, $matches)) {
+                $urls[$matches[2]] = translate($matches[1]);
             }
         } 
-        
         return $urls;
     }
     
