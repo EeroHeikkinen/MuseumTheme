@@ -107,9 +107,13 @@
       <th>{translate text='Presenters'}: </th>
       <td>
         <div class="truncateField">
-      {foreach from=$corePresenters item=field name=loop}
+      {foreach from=$corePresenters.presenters item=field name=loop}
           <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
       {/foreach}
+      {foreach from=$corePresenters.details item=detail name=loop}
+          <br />
+          {$detail|escape}
+      {/foreach}        
         </div>
       </td>
     </tr>

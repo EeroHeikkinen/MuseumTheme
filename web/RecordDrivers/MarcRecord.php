@@ -1649,7 +1649,7 @@ class MarcRecord extends IndexRecord
     protected function getPresenters()
     {
         global $configArray;
-        $result = array();
+        $result = array('presenters' => array(), 'details' => array());
         
         foreach (array('100', '110', '700', '710') as $fieldCode) {
             $fields = $this->marcRecord->getFields($fieldCode);
@@ -1662,7 +1662,7 @@ class MarcRecord extends IndexRecord
                     }
                     $subfields = $this->getSubfieldArray($field, array('a', 'b', 'c', 'd'));
                     if (!empty($subfields)) {
-                        $result[] = array(
+                        $result['presenters'][] = array(
                             'name' => $this->stripTrailingPunctuation($subfields[0]),
                             'role' => $role
                         );
@@ -1670,6 +1670,7 @@ class MarcRecord extends IndexRecord
                 }
             }
         }
+        $result['details'] = $this->stripTrailingPunctuation($this->getFieldArray('511', array('a')));
         return $result;        
     }
     
