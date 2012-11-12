@@ -154,6 +154,9 @@ px      62    136    210    284    358    432   */
     #sort_options_1 {
         width: 10em;
     }
+    ul.recordSet {
+        padding: 0 12px;
+    }
     ul.recordSet li.result {
         padding: 13px 1px 13px 13px;
     }
