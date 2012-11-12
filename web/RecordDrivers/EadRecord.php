@@ -86,7 +86,7 @@ class EadRecord extends IndexRecord
         $interface->assign('coreOrigination', $this->getOrigination());
         $interface->assign('coreOriginationId', $this->getOriginationID());
         $interface->assign('corePhysicalLocation', $this->getPhysicalLocation());
-        if ($this->record->daoloc) {
+        if ($this->record->did->daogrp) {
             $interface->assign('coreDigitizedMaterial', true);
         }
         $interface->assign('coreIdentifier', $this->getIdentifier());
