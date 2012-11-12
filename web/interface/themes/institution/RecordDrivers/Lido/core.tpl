@@ -71,7 +71,7 @@
 
 End Cover Image *}
 
-{if $coreSummary}<p class="recordSummary">{$coreSummary|escape}</p>{/if}
+{if $coreSummary}<div class="recordSummary truncateField">{$coreSummary|escape|nl2br}</div>{/if}
 
 {* Display Main Details *}
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
@@ -123,6 +123,50 @@ End Cover Image *}
   </tr>
   {/if}
 
+  {if !empty($corePublications)}
+  <tr valign="top" class="recordPublications">
+    <th>{translate text='Main Year'}: </th>
+    <td>
+      {foreach from=$corePublications item=field name=loop}
+        {$field|escape}<br>
+      {/foreach}
+    </td>
+  </tr>
+  {/if}
+
+  {if !empty($coreInstitutions)}
+  <tr valign="top" class="recordCollection">
+    <th>{translate text='Location'}: </th>
+    <td>
+      {foreach from=$coreInstitutions item=field name=loop}
+        {translate text="source_$field"}<br>
+      {/foreach}
+    </td>
+  </tr>
+  {/if}
+
+  {if !empty($coreCollections)}
+  <tr valign="top" class="recordCollection">
+    <th>{translate text='Collection'}: </th>
+    <td>
+      {foreach from=$coreCollections item=field name=loop}
+        {$field|escape}<br>
+      {/foreach}
+    </td>
+  </tr>
+  {/if}
+
+  {if !empty($coreIdentifier)}
+  <tr valign="top" class="recordIdentifier">
+    <th>{translate text='Inventory ID'}: </th>
+    <td>
+      {foreach from=$coreIdentifier item=field name=loop}
+        {$field|escape}{if !$smarty.foreach.loop.last}, {/if}
+      {/foreach}
+    </td>
+  </tr>
+  {/if}
+
   <tr valign="top" class="recordFormat">
     <th>{translate text='Format'}: </th>
     <td>
@@ -145,18 +189,24 @@ End Cover Image *}
   {/if}
 
   {if is_array($coreEvents)}
-    {foreach from=$coreEvents item=event}
+    {foreach from=$coreEvents key=eventType item=events}
   <tr valign="top" class="recordEvents">
-      <th>{$event.type|escape}:</th> 
+      <th>{$eventType|escape}:</th> 
       <td>
-      {$event.date|escape} 
-      {if !empty($event.method)} -- {$event.method|escape}{/if}
-      {if !empty($event.materials)} -- {$event.materials|escape}{/if}
-      {if !empty($event.place)} -- {$event.place|escape}{/if}
-      {foreach from=$event.actors item=actor name=actorsLoop}
-        {if $smarty.foreach.actorsLoop.index > 1}, {/if}
-        {$actor.name|escape}{if !empty($actor.role)} ({$actor.role|escape}){/if}
+        <div class="truncateField">
+      {foreach from=$events item=event name=eventLoop}
+        {if $event.name}{$event.name}<br/>{/if}
+        {$event.date|escape} 
+        {if !empty($event.method)} -- {$event.method|escape}{/if}
+        {if !empty($event.materials)} -- {$event.materials|escape}{/if}
+        {if !empty($event.place)} -- {$event.place|escape}{/if}
+        {foreach from=$event.actors item=actor name=actorsLoop}
+          {if $smarty.foreach.actorsLoop.index > 1}, {/if}
+          {$actor.name|escape}{if !empty($actor.role)} ({$actor.role|escape}){/if}
+        {/foreach}
+        {if !$smarty.foreach.eventLoop.last}<br/><br/>{/if}        
       {/foreach}
+        </div>
       </td>
   </tr>
     {/foreach}
@@ -166,17 +216,6 @@ End Cover Image *}
   <tr valign="top" class="recordLanguage">
     <th>{translate text='Language'}: </th>
     <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br>{/foreach}</td>
-  </tr>
-  {/if}
-
-  {if !empty($corePublications)}
-  <tr valign="top" class="recordPublications">
-    <th>{translate text='Published'}: </th>
-    <td>
-      {foreach from=$corePublications item=field name=loop}
-        {$field|escape}<br>
-      {/foreach}
-    </td>
   </tr>
   {/if}
 
@@ -218,11 +257,16 @@ End Cover Image *}
   <tr valign="top" class="recordSubjects">
     <th>{translate text='Subjects'}: </th>
     <td>
+      <div class="truncateField">
       {foreach from=$coreSubjects item=field name=loop}
         {assign var=subject value=""}
         {foreach from=$field item=subfield name=subloop}
           {if !$smarty.foreach.subloop.first} &gt; {/if}
-          {assign var=subject value="$subject $subfield"}
+          {if $subject}
+            {assign var=subject value="$subject $subfield"}
+          {else}
+            {assign var=subject value="$subfield"}
+          {/if}
           <a id="subjectLink_{$smarty.foreach.loop.index}_{$smarty.foreach.subloop.index}"
             href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject"
           onmouseover="subjectHighlightOn({$smarty.foreach.loop.index}, {$smarty.foreach.subloop.index});"
@@ -230,6 +274,7 @@ End Cover Image *}
         {/foreach}
         <br>
       {/foreach}
+      </div>
     </td>
   </tr>
   {/if}

@@ -25,11 +25,9 @@
 
   {* Listing Options *}
   <div class="resulthead">
-    <div class="floatleft small">
       {if $recordCount}
-        <strong>'{$authorName|escape:"html"}'</strong>
+        <h3 style="margin: 0;">'{$authorName|escape:"html"}'</h3>
       {/if}
-    </div>
     {include file="Search/paging.tpl" position="Top"}
 
     <div class="floatright small">

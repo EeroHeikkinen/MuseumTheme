@@ -31,26 +31,23 @@
 // });
 
 function createDropDown(){
-    var l = window.location;
-    var base_url = l.protocol + "//" + l.host + "/" + l.pathname.split('/')[1] + '/';
-
     var source = $(".searchForm_styled");
     var selected = source.find("option[selected]");
     var options = $("option", source);
     var classname = $(".searchForm_styled").attr("class");
 
     $(".searchForm_styled").hide();    
-    $(".searchForm_styled").before('<dl id="target" class="dropdown small' + classname + '"></dl>')
+    $(".searchForm_styled").before('<dl id="target" class="dropdown small' + classname + '"></dl>');
     $("#target").append('<dt><a href="#" class="hefty"><p>' + selected.text() + 
 '</p><span class="value">' + selected.val() + 
-'</span><img src="' + base_url + 'interface/themes/institution/images/dropdown_arrow.png" alt="v&nbsp;" /></a></dt>')
-    $("#target").append('<dd><ul></ul></dd>')
+'</span></a></dt>');
+    $("#target").append('<dd><ul></ul></dd>');
 
     options.each(function(){
         if ($(this).text()) {
             $("#target dd ul").append('<li><a href="#" class="big"><p>' + 
                 $(this).text() + '</p><span class="value">' + 
-                $(this).val() + '</span><img src="' + base_url + 'interface/themes/institution/images/dropdown_arrow.png" alt="v&nbsp;" /></a></li>');
+                $(this).val() + '</span></a></li>');
         } else {
             $("#target dd ul").append('<li style="height: 2px"><hr/></li>');
         }

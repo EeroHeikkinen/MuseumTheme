@@ -59,18 +59,15 @@ class Home extends Collection
         } elseif (is_array($this->collections) && count($this->collections) == 1) {
             $this->showDefaultTab();
         } elseif ($action == "Home") {
-        	$browseType = (isset($configArray['Collections']['browseType'])) ?
+            $browseType = (isset($configArray['Collections']['browseType'])) ?
                 $configArray['Collections']['browseType'] : 'Index';
-            if( $browseType == 'Index'){
-            	$this->showBrowseIndex();
+            if ($browseType == 'Index') {
+                $this->showBrowseIndex();
+            } elseif ($browseType == 'Alphabetic') {
+                $this->showBrowseAlphabetic();
+            } else {
+                $this->showBrowseIndex();
             }
-            elseif($browseType == 'Alphabetic'){
-            	$this->showBrowseAlphabetic();
-            }
-        	else{
-            	$this->showBrowseIndex();
-            }
-
         } else {
             Header(
                 "Location:" .
@@ -122,7 +119,7 @@ class Home extends Collection
         $interface->display('layout.tpl');
     }
 
-	/**
+    /**
      * Show the Browse Menu
      *
      * @return void
@@ -207,24 +204,24 @@ class Home extends Collection
 
         // If required parameters are present, load results:
         if ($from !== false) {
-        	$browseField = "hierarchy_browse";
+            $browseField = "hierarchy_browse";
 
-        	$this->_searchObject = SearchObjectFactory::initSearchObject();
-        	$this->_searchObject->init();
-        	foreach($appliedFilters as $filter){
-				$this->_searchObject->addFilter($filter);
-        	}
+            $this->_searchObject = SearchObjectFactory::initSearchObject();
+            $this->_searchObject->init();
+            foreach ($appliedFilters as $filter) {
+                $this->_searchObject->addFilter($filter);
+            }
 
-        	$result = $this->_searchObject->getFacetsForBrowsing(array($browseField));
-        	$result = $result[$browseField]['data'];
+            $result = $this->_searchObject->getFacetsForBrowsing(array($browseField));
+            $result = $result[$browseField]['data'];
 
-        	//sort the $results and get the position of the from string once sorted
-        	$key = $this->sortFindKeyLocation(&$result, $from);
+            //sort the $results and get the position of the from string once sorted
+            $key = $this->sortFindKeyLocation(&$result, $from);
 
-        	//offset the key by how many pages in we are
-        	$key = $key + ($limit * $page);
+            //offset the key by how many pages in we are
+            $key = $key + ($limit * $page);
 
-        	//Only display next/previous page links when applicable:
+            //Only display next/previous page links when applicable:
             if (count($result) > $key + $limit) {
                 $interface->assign('nextpage', $page + 1);
             }
@@ -233,16 +230,15 @@ class Home extends Collection
             }
 
             //catch out of range keys
-        	if ($key < 0) {
+            if ($key < 0) {
                 $key = 0;
             }
-        	if ($key >= count($result)) {
+            if ($key >= count($result)) {
                 $key = count($result)-1;
             }
 
             //select just the records to display
-        	$result = array_slice( $result, $key,
-        		count($result) > $key + $limit ? $limit: null);
+            $result = array_slice($result, $key, count($result) > $key + $limit ? $limit: null);
 
             // Send other relevant values to the template:
             $interface->assign('from', $from);
@@ -252,18 +248,19 @@ class Home extends Collection
             //we have to cheat a little bit and do some string manipulation to the
             //removal urls
             $filters = $this->_searchObject->getFilterList(true);
-            if (isset($filters) && isset($filters['Other'])){
-            	$filtersString = "";
-            	foreach ($filters['Other'] as $filterK =>$filter){
-            		$filters['Other'][$filterK]['removalUrl'] = str_ireplace(
-            			'Search/Results?lookfor=&type=AllFields',
-            			'Collection/Home?from=' . $from . '&page=' .
-            			$page, $filter['removalUrl']);
-            		$filtersString .= "&".urlencode("filter[]") . '=' .
+            if (isset($filters) && isset($filters['Other'])) {
+                $filtersString = "";
+                foreach ($filters['Other'] as $filterK =>$filter) {
+                    $filters['Other'][$filterK]['removalUrl'] = str_ireplace(
+                        'Search/Results?lookfor=&type=AllFields',
+                        'Collection/Home?from=' . $from . '&page=' .
+                        $page, $filter['removalUrl']
+                    );
+                    $filtersString .= "&".urlencode("filter[]") . '=' .
                         urlencode($filter['field'] . ":\"" . $filter['value'] . "\"");
-            	}
-            	$interface->assign('filtersString', $filtersString);
-            	$interface->assign('filterList', $filters);
+                }
+                $interface->assign('filtersString', $filtersString);
+                $interface->assign('filterList', $filters);
             }
         }
 
@@ -277,109 +274,111 @@ class Home extends Collection
         $interface->display('layout.tpl');
     }
 
-	/**
-     *
-     * Fucntion to Sort the from array and find the position of the from
+    /**
+     * Function to Sort the array and find the position of the from
      * value in the result set, if the value doesn't exist it's inserted.
      *
-     * @param array $array
-     * @param string $from
+     * @param array  &$result Array to sort
+     * @param string $from    Position to find or insert
      *
      * @return int $key
      */
-    function sortFindKeyLocation(&$result, $from){
-    	//normalize the from value so it matches the values we are looking up
-    	$from = $this->normalizeForBrowse($from);
+    function sortFindKeyLocation(&$result, $from)
+    {
+        //normalize the from value so it matches the values we are looking up
+        $from = $this->normalizeForBrowse($from);
 
-    	//key set to 0 at start
-    	$key = 0;
+        //key set to 0 at start
+        $key = 0;
 
-    	//sort the values into $facetsNormalized
-    	$facetsNormalizedSorted = $this->normalizeAndSortFacets(&$result);
+        //sort the values into $facetsNormalized
+        $facetsNormalizedSorted = $this->normalizeAndSortFacets(&$result);
 
-    	//define the from regex to match
-    	$regExForFrom = '/^' . preg_quote($from) . '.*/';
-    	$foundMatch = false;
+        //define the from regex to match
+        $regExForFrom = '/^' . preg_quote($from) . '.*/';
+        $foundMatch = false;
 
         $i = 0;
-        foreach($facetsNormalizedSorted as $resVals){
-        	if(preg_match($regExForFrom, $resVals)){
-        		$key = $i;
-        		$foundMatch = true;
-        		break;
-        	}
-        	$i++;
+        foreach ($facetsNormalizedSorted as $resVals) {
+            if (preg_match($regExForFrom, $resVals)) {
+                $key = $i;
+                $foundMatch = true;
+                break;
+            }
+            $i++;
         }
-        if (!$foundMatch){
-        	//try to insert the value, resort the array, and find the place where
-        	//it would be
+        if (!$foundMatch) {
+            //try to insert the value, resort the array, and find the place where
+            //it would be
 
-        	//unset facetsNormalizedSorted before it's reassigned
-        	unset($facetsNormalizedSorted);
+            //unset facetsNormalizedSorted before it's reassigned
+            unset($facetsNormalizedSorted);
 
-        	//add from and sort
-        	array_push($result, array($from, 0));//giving count of zero to highlight
-        	$facetsNormalizedSorted = $this->normalizeAndSortFacets(&$result);
+            //add from and sort
+            array_push($result, array($from, 0));//giving count of zero to highlight
+            $facetsNormalizedSorted = $this->normalizeAndSortFacets(&$result);
 
-        	$i = 0;
-        	foreach($facetsNormalizedSorted as $resVals){
-        		if(preg_match($regExForFrom, $resVals)){
-        			$key = $i;
-        			$foundMatch = true;
-        			break;
-        		}
-        		$i++;
-        	}
+            $i = 0;
+            foreach ($facetsNormalizedSorted as $resVals) {
+                if (preg_match($regExForFrom, $resVals)) {
+                    $key = $i;
+                    $foundMatch = true;
+                    break;
+                }
+                $i++;
+            }
         }
 
         //declare array to hold the $result array in the right sort order
         $sorted=array();
-    	$i = 0;
-    	foreach ($facetsNormalizedSorted as $ii => $va) {
-    	    $sorted[$i]=$result[$ii];
-    	    unset($result[$ii]);//clear this out of memory
-    	    $i++;
-    	}
-    	unset($facetsNormalizedSorted);
-    	$result = $sorted;
+        $i = 0;
+        foreach ($facetsNormalizedSorted as $ii => $va) {
+            $sorted[$i]=$result[$ii];
+            unset($result[$ii]);//clear this out of memory
+            $i++;
+        }
+        unset($facetsNormalizedSorted);
+        $result = $sorted;
 
-    	return $key;
+        return $key;
     }
 
     /**
-     *
      * Function to normalize the names so they sort properly
      *
-     * @param array $result passed by refference to use less memory
+     * @param array &$result passed by reference to use less memory
      *
-     * @return array $resultOut
+     * @return array 
      */
-    function normalizeAndSortFacets(&$result){
-    	$valuesSorted= array();
-    	foreach($result as $resKey => $resVal){
-    		$valuesSorted[$resKey] = $this->normalizeForBrowse($resVal[0]);
-    	}
-    	asort($valuesSorted);
+    function normalizeAndSortFacets(&$result)
+    {
+        $valuesSorted= array();
+        foreach ($result as $resKey => $resVal) {
+            $valuesSorted[$resKey] = $this->normalizeForBrowse($resVal[0]);
+        }
+        asort($valuesSorted);
 
-    	//now the $valuesSorted is in the right order
-    	return $valuesSorted;
+        //now the $valuesSorted is in the right order
+        return $valuesSorted;
     }
 
     /**
-     *
      * Normalize the value for the browse sort
-     * @param string $val
-     * @return string $valNormalized
+     *
+     * @param string $val Value
+     * 
+     * @return string Normalized value
      */
-    function normalizeForBrowse($val){
-    	$valNormalized = $val;
-    	//$valNormalized = strtolower($valNormalized);
-    	$valNormalized = iconv('UTF-8', 'US-ASCII//TRANSLIT//IGNORE', $valNormalized);
-    	$valNormalized = strtolower($valNormalized);
-    	$valNormalized = preg_replace("/[^a-zA-Z0-9\s]/", "",$valNormalized);
-    	$valNormalized = trim($valNormalized);
-    	//$valNormalized = removePrefixes($valNomralized);
-    	return $valNormalized;
+    function normalizeForBrowse($val) 
+    {
+        $valNormalized = $val;
+        //$valNormalized = strtolower($valNormalized);
+        $valNormalized = iconv('UTF-8', 'US-ASCII//TRANSLIT//IGNORE', $valNormalized);
+        $valNormalized = strtolower($valNormalized);
+        $valNormalized = preg_replace("/[^a-zA-Z0-9\s]/", "", $valNormalized);
+        $valNormalized = trim($valNormalized);
+        //$valNormalized = removePrefixes($valNomralized);
+        return $valNormalized;
     }
 
     /**

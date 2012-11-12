@@ -90,7 +90,8 @@ class Record extends Base
         global $interface;
 
         // Assign the ID of the last search so the user can return to it.
-        $interface->assign('lastsearch',
+        $interface->assign(
+            'lastsearch',
             isset($_SESSION['lastSearchURL']) ? $_SESSION['lastSearchURL'] : false
         );     
         

@@ -1,3 +1,5 @@
+<!-- START of: RecordDrivers/Ead/result-list.tpl -->
+
 <div class="result recordId" id="record{$summId|escape}">
 
 <div class="resultColumn1">
@@ -23,9 +25,9 @@
 {if $img_count > 1}
   <div class="imagelinks">
 {foreach from=$summImages item=desc name=imgLoop}
-	<a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
-	  {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
-	</a>
+  <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+    {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
+  </a>
 {/foreach}
   </div>
 {/if}
@@ -44,7 +46,20 @@
   <div class="resultColumn2">
 
     <div class="resultItemLine1">
-      <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}" class="title">{if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape}{/if}</a>
+      <a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}" class="title">{$summSubtitle|escape} {if !empty($summHighlightedTitle)}{$summHighlightedTitle|addEllipsis:$summTitle|highlight}{elseif !$summTitle}{translate text='Title not available'}{else}{$summTitle|truncate:180:"..."|escape} {if $summYearRange}({$summYearRange|escape}){/if}{/if}</a>
+    </div>
+   
+    <div class="resultHierarchyLinks">
+        <span class="hierarchyDesc">{translate text='Archive Repository:'} </span>{foreach from=$summInstitutions name=loop item=institution}{translate text="source_$institution"}{if !$smarty.foreach.loop.last}, {/if}{/foreach}
+        {if !empty($summOrigination)}
+          <br/><span class="hierarchyDesc">{translate text='Archive Origination:'} </span><a href="{$url}/Author/Home?author={$summOrigination|escape:"url"}">{$summOrigination|escape}</a>
+        {/if}
+        {if $displayFormat != 'Document/ArchiveFonds'} 
+            <br/><span class="hierarchyDesc">{translate text='Archive:'} </span>{foreach from=$summHierarchyTopId name=loop key=topKey item=topId}<a href="{$url}/Collection/{$topId|escape:"url"}">{$summHierarchyTopTitle.$topKey|truncate:180:"..."|escape}</a>{if !$smarty.foreach.loop.last}, {/if}{/foreach}
+        {/if}  
+        {if $displayFormat != 'Document/ArchiveFonds' && $displayFormat != 'Document/ArchiveSeries'} 
+            <br/><span class="hierarchyDesc">{translate text='Archive Series:'} </span>{foreach from=$summHierarchyParentId name=loop key=parentKey item=parentId}<a href="{$url}/Record/{$parentId|escape:"url"}">{$summHierarchyParentTitle.$parentKey|truncate:180:"..."|escape}</a>{if !$smarty.foreach.loop.last}, {/if}{/foreach}
+        {/if}  
     </div>
    
     {if !empty($coreOtherLinks)}
@@ -65,34 +80,8 @@
     {/if}
 
     <div class="resultItemLine2">
-      {if !empty($summAuthor)}
-      {translate text='by'}:
-      <a href="{$url}/Author/Home?author={$summAuthorForSearch|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
-      {/if}
       {if $summDate}{translate text='Published'}: {$summDate.0|escape}{/if}
       {if $summPublicationEndDate} - {if $summPublicationEndDate != 9999}{$summPublicationEndDate}{/if}{/if}
-      {if $summInCollection}
-        {foreach from=$summInCollection item=InCollection key=cKey}
-          <div>
-            <b>{translate text="in_collection_label"}</b>
-            <a class="collectionLinkText" href="{$path}/Collection/{$summInCollectionID[$cKey]|urlencode|escape:"url"}?recordID={$summId|urlencode|escape:"url"}">
-               {$InCollection}
-            </a>
-          </div>
-        {/foreach}
-      {else}
-          {if !empty($summContainerTitle)}
-          <div>
-            <b>{translate text='component_part_is_part_of'}:</b>
-            {if $summHierarchyParentId}
-              <a href="{$url}/Record/{$summHierarchyParentId.0|escape:"url"}">{$summContainerTitle|escape}</a>
-            {else}
-              {$summContainerTitle|escape}
-            {/if}
-            {if !empty($summContainerReference)}{$summContainerReference|escape}{/if}
-          </div>
-          {/if}
-      {/if}
     </div>
 
     <div class="resultItemLine3">
@@ -125,9 +114,9 @@
         {if $summURLs}
         <div>
           {if $summURLs|@count > 2}
-          <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{path filename="images/down.png"}" width="11" height="6" /></a></p>
+          <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></a></p>
           {else}
-          <p class="resultContentToggle">{translate text='Contents'}<img src="{path filename="images/down.png"}" width="11" height="6" /></p>
+          <p class="resultContentToggle">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></p>
           {/if}
           <div class="resultContentList">
           {foreach from=$summURLs key=recordurl item=urldesc}
@@ -205,3 +194,5 @@
 </div>
 
 {if $summCOinS}<span class="Z3988" title="{$summCOinS|escape}"></span>{/if}
+
+<!-- END of: RecordDrivers/Ead/result-list.tpl -->

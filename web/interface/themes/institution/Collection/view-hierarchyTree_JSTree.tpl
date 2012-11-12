@@ -1,6 +1,9 @@
 <!-- START of: Collection/view-hierarchyTree_JSTree.tpl -->
 
 {js filename="jsTree/jquery.jstree.js"}
+<script type="text/javascript">
+{literal}$.jstree._themes = "{/literal}{path filename="js/jstree/themes/"}";
+</script>
 {js filename="hierarchyTree_JSTree.js"}
 <script type="text/javascript">
 vufindString.lightboxMode = false;
@@ -8,7 +11,6 @@ vufindString.fullHierarchy = {if $treeSettings.fullHierarchyRecordView == true |
 vufindString.showTree = "{translate text="hierarchy_show_tree"}";
 vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
 </script>
-
 {*
 <div class="span-13">
 *}

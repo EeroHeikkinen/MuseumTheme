@@ -36,7 +36,7 @@ require_once 'Base.php';
  * @package  Controller_EBSCO
  * @author   Andrew Nagy <vufind-tech@lists.sourceforge.net>
  * @author   Ere Maijala <ere.maijala@helsinki.fi>
- * @author   Markku HeinŠsenaho <markku.heinasenaho@helsinki.fi>
+ * @author   Markku Heinï¿½senaho <markku.heinasenaho@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
@@ -91,7 +91,7 @@ class Advanced extends Base
         $interface->display('layout.tpl');
     }
 
-   /**
+    /**
      * Get the current settings for the date range facet, if it is set:
      *
      * @param object $savedSearch Saved search object (false if none)
@@ -199,5 +199,3 @@ class Advanced extends Base
         return $filters;
     }
 }
-
-?>

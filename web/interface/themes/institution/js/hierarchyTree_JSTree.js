@@ -95,14 +95,11 @@ $(document).ready(function() {
             },
             "xsl" : "nest"
         },
-        "plugins" : [ "themes", "xml_data", "ui" ],
-        "themes" : {
-            "url": path + '/interface/themes/institution/js/jsTree/themes/apple/style.css'
-        }
+        "themes" : {"url": $.jstree._themes + "apple/style.css"},
+        "plugins" : [ "themes", "xml_data", "ui" ]
     }).bind("open_node.jstree close_node.jstree", function (e, data) {
         $(data.args[0]).find("li").show();
     });
-
     $('#treeSearch').show();
     $('#treeSearchText').bind('keypress', function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);

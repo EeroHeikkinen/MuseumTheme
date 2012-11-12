@@ -58,7 +58,7 @@ function smarty_function_image($params, &$smarty)
     $themes = explode(',', $smarty->getVuFindTheme());
     $filename = $params['src'];
 
-    // Loop through the available themes looking for the requested JS file:
+    // Loop through the available themes looking for the requested image file:
     $image = false;
     foreach ($themes as $theme) {
         $theme = trim($theme);
