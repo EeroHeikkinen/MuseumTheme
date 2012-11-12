@@ -10,7 +10,7 @@ px      62    136    210    284    358    432   */
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent {
+    .homeCustomContent, #resultList, #sidebarFacets {
         width: 480px;
     }
 
@@ -72,6 +72,10 @@ px      62    136    210    284    358    432   */
         -moz-border-radius: 0 6px 6px 0;
         -webkit-border-radius: 0 6px 6px 0;
     }
+    .advanced-link-wrapper {
+        margin-bottom: .6em;
+    }    
+
     .homeNavigation ul li {
         display: block;
         margin: 0;
@@ -126,17 +130,35 @@ px      62    136    210    284    358    432   */
 
 
     #topPubDateVis {
-        width: 432px;
+        width: 468px;
     }
     #topFacets {
-        width: 432px;
+        width: 480px;
     }
     #suggestedTopics {
-        width: 408px;
-        margin: 0 12px 0 12px;
+        width: 456px;
+        margin: 0 12px .6em;
     }
-    #resultList {
-        width: 432px;
+    .pagination {
+        margin: 0;
+        padding: .5em 12px;
+        width: 275px;
+    }
+    .paginationTop {
+        padding: .5em 0;
+    }
+    .resultOptions {
+        margin: 0;
+        padding: .1em 0;
+    }
+    #sort_options_1 {
+        width: 10em;
+    }
+    ul.recordSet li.result {
+        padding: 13px 1px 13px 13px;
+    }
+    ul.recordSet li.result:hover {
+        padding: 12px 0 12px 12px;
     }
     ul.recordSet .resultColumn1 {
         width: 136px;
@@ -168,13 +190,13 @@ px      62    136    210    284    358    432   */
 
 
     #sidebarFacets {
-        width: 408px;
         float:left;
-        margin: 0 12px;
+        margin: 0;
         border-top: 1px solid #dddddd;
     }
     #sidebarFacets .sidegroup {
         border-left: none;
+        padding-left: 12px;
     }
 
 
