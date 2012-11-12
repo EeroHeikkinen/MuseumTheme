@@ -105,9 +105,6 @@
 
    <div class="savedLists info hide" id="savedLists{$summId|escape}">
       <ul id="lists{$summId|escape}"></ul>
-      <script language="JavaScript" type="text/javascript">
-        getSaveStatuses('{$summId|escape:"javascript"}');
-      </script>
     </div>
     {if $showPreviews}
       {if (!empty($summLCCN) || !empty($summISBN) || !empty($summOCLC))}
