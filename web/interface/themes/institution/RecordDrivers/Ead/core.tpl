@@ -292,11 +292,14 @@
       <td>
         <div class="truncateField">
           {if $displayFormat == 'Document/ArchiveItem' && !$coreDigitizedMaterial}
-            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_checkout.php?id={$coreIdentifier|escape:'url'}">{translate text='Asiakirjan tilaus'}<br/>            
+            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_checkout.php?id={$coreIdentifier|escape:'url'}">{translate text='Document Order'}<br/>            
           {/if}
           {if $extendedAccess}
-            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_askpermission.php?id={$coreIdentifier|escape:'url'}">{translate text='Käyttölupahakemus'}<br/>            
+            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_askpermission.php?id={$coreIdentifier|escape:'url'}">{translate text='Usage Permission Request'}<br/>            
           {/if}
+          <span class="vakkaLink">
+            <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a><br/>
+          </span>
           {foreach from=$coreURLs item=desc key=currentUrl name=loop}
             <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
           {/foreach}
@@ -311,9 +314,6 @@
               <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
             </span>
           {/if}
-          <span class="vakkaLink">
-            <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a>
-          </span>
         </div>
       </td>
     </tr>
