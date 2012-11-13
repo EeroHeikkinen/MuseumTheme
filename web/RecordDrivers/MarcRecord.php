@@ -1683,6 +1683,45 @@ class MarcRecord extends IndexRecord
     {
         return $this->getFirstFieldValue('260', array('e', 'f', 'g'));
     }
+    
+    /**
+     * Get the estimated publication date of the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getProjectedPublicationDate()
+    {
+        $dateString = $this->getFirstFieldValue('263', array('a'));
+        if (strlen($dateString) === 8) {
+            $year = intval(substr($dateString, 0, 4));
+            $month = intval(substr($dateString, 4, 2));
+            $day = intval(substr($dateString, 6, 2));
+            return implode('.', array($day, $month, $year));
+        } else if (strlen($dateString) === 6) {
+            $year = intval(substr($dateString, 0, 4));
+            $month = intval(substr($dateString, 4, 2));
+            return implode('/', array($month, $year));
+        } else {
+            return $datestring;
+        }
+    }
+    
+    /**
+     * Get dissertation note for the record.
+     * Use field 502 if available. If not use local field 509
+     * 
+     * @return string dissertation notes 
+     * @access protected
+     */
+    protected function getDissertationNote()
+    {
+        $notes = $this->getFirstFieldValue('502', array('a', 'b', 'c'));
+        if (!$notes) {
+            $notes = $this->getFirstFieldValue('509', array('a', 'b', 'c'));
+        }
+        return $notes;
+    }
 }
 
 ?>

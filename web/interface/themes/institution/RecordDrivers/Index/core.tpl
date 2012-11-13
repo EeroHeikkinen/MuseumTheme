@@ -102,7 +102,7 @@
     </tr>
     {/if}
 
-    {if $corePresenters}
+    {if $corePresenters.presenters or $corePresenters.details}
     <tr valign="top" class="recordPresenters">
       <th>{translate text='Presenters'}: </th>
       <td>
@@ -167,7 +167,25 @@
       </td>
     </tr>
     {/if}
+    
+    {if !empty($coreProjectedPublicationDate)}
+    <tr valign="top" class="coreProjectedPublicationDate">
+      <th>{translate text='Projected Publication Date'}: </th>
+      <td>
+        {$coreProjectedPublicationDate}
+      </td>
+    </tr>
+    {/if}
 
+    {if $coreDissertationNote}
+    <tr valign="top" class="coreDissertationNote">
+      <th>{translate text='Dissertation Note'}: </th>
+      <td>
+        {$coreDissertationNote}
+      </td>
+    </tr>
+    {/if}
+    
     {if !empty($coreManufacturer)}
     <tr valign="top" class="recordManufacturer">
       <th>{translate text='Manufacturer'}: </th>

@@ -230,6 +230,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('corePrevTitles', $this->getPreviousTitles());
         $interface->assign('coreAlternativeTitles', $this->getAlternativeTitles());
         $interface->assign('corePublications', $this->getPublicationDetails());
+        $interface->assign('coreProjectedPublicationDate', $this->getProjectedPublicationDate());
         $interface->assign('coreEdition', $this->getEdition());
         $interface->assign('coreSeries', $this->getSeries());
         $interface->assign('coreSubjects', $this->getAllSubjectHeadings());
@@ -241,7 +242,8 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreInstitutions', $this->getInstitutions());
         $interface->assign('coreHierarchyParentId', $this->getHierarchyParentId());
         $interface->assign('coreClassifications', $this->getClassifications());
-        
+        $interface->assign('coreDissertationNote', $this->getDissertationNote());
+                
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
@@ -2364,8 +2366,20 @@ class IndexRecord implements RecordInterface
             );
             $i++;
         }
-
         return $retval;
+    }
+
+    
+    /**
+     * Get the estimated publication dates of the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getProjectedPublicationDate()
+    {
+        // Not currently stored in the Solr index
+        array();
     }
 
     /**
@@ -2928,6 +2942,17 @@ class IndexRecord implements RecordInterface
     {
         return '';
     }
+    
+    /**
+     * Get dissertation note for the record.
+     *
+     * @return string dissertation notes
+     * @access protected
+     */
+    protected function getDissertationNote()
+    {
+        return '';
+    }    
 }
 
 ?>
