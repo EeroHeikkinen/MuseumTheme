@@ -169,8 +169,8 @@ if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO'
             || $prefilter['module'] != $module || $prefilter['action'] != $action
         ) {
             $params = explode('&', parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
-            foreach ($params as &$value) {
-                $value = preg_replace('/^prefilter=/', 'prefiltered=', $value);
+            foreach ($params as &$paramValue) {
+                $paramValue = preg_replace('/^prefilter=/', 'prefiltered=', $paramValue);
             }
             foreach ($prefilter as $key => $value) {
                 if ($key == 'module' || $key == 'action') {
