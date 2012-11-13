@@ -2,7 +2,7 @@
 
 {if $topFacetSet}
   {foreach from=$topFacetSet item=cluster key=title}
-  <div {if $cluster.label == "Suggested Topics"}id="suggestedTopics" class="suggestedTopics span-3{if !$sidebarOnLeft} right last{/if}" {else}class="authorbox"{/if}>
+  <div {if $cluster.label == "Suggested Topics"}id="suggestedTopics" class="suggestedTopics span-3{if !$sidebarOnLeft} {* right *} last{/if}" {else}class="authorbox"{/if}>
     {* $cluster.label *}
     <strong>{translate text=$cluster.label}</strong><br />{* translate text="top_facet_suffix" *}
     {foreach from=$cluster.list item=thisFacet name="narrowLoop"}
