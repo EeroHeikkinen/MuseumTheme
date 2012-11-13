@@ -10,7 +10,7 @@ px      62    136    210    284    358    432   */
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent, #resultList, #sidebarFacets {
+    .homeCustomContent, #resultList, #sidebarFacets, #resultMain {
         width: 480px;
     }
 
@@ -130,7 +130,7 @@ px      62    136    210    284    358    432   */
 
 
     #topPubDateVis {
-        width: 462px;
+        width: 460px;
     }
     #topFacets {
         width: 480px;
@@ -190,7 +190,10 @@ px      62    136    210    284    358    432   */
         margin: 0;
     }
 
-
+    .searchtools {
+        margin: 0;
+        padding: .4em 0 0 12px;
+    }
 
     #sidebarFacets {
         float:left;
@@ -232,24 +235,17 @@ px      62    136    210    284    358    432   */
     }
     
     #resultMain {
-        width: 432px;
         margin-right: 0;
     }
-    #recordMetadata {
-        width: 432px;
-        float: left;
-    }
-    #dyntabnav {
-        width: 432px;
+    #recordMetadata, #dyntabnav, #resultSidebar {
+        width: 456px;
+        padding: 0 12px;
     }
 
-    #resultSidebar {
-        width: 432px;
-    }
     #resultSidebar .sidegroup {
         border-top: 2px solid #dddddd;
         border-left: none;
-        padding: 0;
+        padding:  .4em 0 0;
     }
     #resultSidebar ul li {
         width: 136px;
