@@ -10,7 +10,7 @@ px      62    136    210    284    358    432   */
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent, #resultList, #sidebarFacets, #resultMain {
+    .homeCustomContent, #resultList, #sidebarFacets, #resultMain, #authorList {
         width: 480px;
     }
 
@@ -190,6 +190,10 @@ px      62    136    210    284    358    432   */
         margin: 0;
     }
 
+    #tagList {
+        width: 330px;
+    }
+
     .searchtools {
         margin: 0;
         padding: .4em 0 0 12px;
@@ -254,5 +258,16 @@ px      62    136    210    284    358    432   */
         vertical-align: top;
     }
 
+    #hierarchyTree {
+        overflow: auto;
+        width: 441px;
+    }
+
+    .jstree ins {
+        display: none;
+    }
+    .jstree li {
+        font-size: .9em;
+    }
 
 }
