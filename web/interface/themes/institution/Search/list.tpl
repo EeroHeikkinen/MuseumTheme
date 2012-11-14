@@ -11,7 +11,7 @@
  <div class="clear"></div>
 </div>
 
-<div id="resultList" class="{if $sidebarOnLeft} push-3 last{/if}">
+<div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
   {* Listing Options *}
   <div class="resulthead">
     {if $recordCount}

@@ -1702,9 +1702,8 @@ class MarcRecord extends IndexRecord
             $year = intval(substr($dateString, 0, 4));
             $month = intval(substr($dateString, 4, 2));
             return implode('/', array($month, $year));
-        } else {
-            return $datestring;
         }
+        return $dateString;
     }
     
     /**

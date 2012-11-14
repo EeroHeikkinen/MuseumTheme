@@ -102,12 +102,11 @@ img.alignleft {
 .hiddenLabel {
     display: none;
 }
-
-
-.sidebarOnLeft .sidegroup {
-    margin-left: 10px;
+div.sidegroup {
+    border-left: 2px solid #ddd;
+    padding-bottom: 1em;
+    padding-left: 20px;
 }
-
 .main {
     padding-top: .6em;
 }
@@ -670,6 +669,7 @@ fieldset.publishDateLimit .ui-slider {
 #topFacets {
     margin-bottom: .6em;
     padding-bottom: .6em;
+    padding-left: 10px;
     width: 960px;
 /*
     margin: 0;
@@ -677,22 +677,38 @@ fieldset.publishDateLimit .ui-slider {
 */
 }
 #topPubDateVis {
+    float: left;
     border: none;
-    width: 728px;
+    width: 718px;
 }
 #topPubDateVis strong {
     padding-left: .2em;
 }
-#sidebarFacets, #sidebarRecommend, #sidebarCollection, #sidebarFavoritesLists {
-    float: left;
+#sidebarFacets {
+    float: right;
     margin-left: 12px;
     width: 220px;
 /*
     width: 210px;
 */
 }
-#sidebarFavoritesLists {
+#sidebarFacets.sidebarOnLeft {
+    float: left;
     margin: 0 12px 0 0;
+}
+#sidebarFacets.sidebarOnLeft .sidegroup {
+    margin-left: 0;
+    border-left: none;
+    border-right: 2px solid #dddddd;
+    padding-left: 0;
+    padding-right: 20px;
+    margin-left: 0;
+}
+
+#sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
+    float: left;
+    margin: 0 12px 0 0;
+    width: 220px;
 }
 #sidebarFavoritesLists a.listAdd {
     /* float: right; */
@@ -826,6 +842,9 @@ div.bulkActionButtons {
 /*
     margin: .6em 0 0 0;
 */
+}
+#resultList.sidebarOnLeft {
+    float: right;
 }
 ul.recordSet {
     margin: 0;
@@ -1062,14 +1081,6 @@ ul.filters a {
     color: white;
     text-decoration: none;
 }
-div.sidegroup {
-    border-left: 2px solid #ddd;
-    padding-bottom: 1em;
-    padding-left: 20px;
-/*
-    padding-left: 10px;
-*/
-}
 #sidebarRecommend div.sidegroup {
     margin-top: 1.2em;
 }
@@ -1112,7 +1123,7 @@ dl.narrowList a {
     background-color: #eee;
 }
 .suggestedTopics {
-    float: right;
+    float: left;
 }
 .suggestedTopicsHidden {
     margin-top:1em;
