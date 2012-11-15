@@ -57,7 +57,7 @@
 
       {assign var=mainFormat value=$listFormats.0} 
       {assign var=displayFormat value=$listFormats|@end} 
-      <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
+      <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
     </div>
 
   {if $listEditAllowed}

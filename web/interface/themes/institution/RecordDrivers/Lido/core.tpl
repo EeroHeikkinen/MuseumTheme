@@ -139,7 +139,7 @@ End Cover Image *}
     <th>{translate text='Location'}: </th>
     <td>
       {foreach from=$coreInstitutions item=field name=loop}
-        {translate text="source_$field"}<br>
+        {translate text=$field prefix='source_'}<br>
       {/foreach}
     </td>
   </tr>
@@ -177,7 +177,7 @@ End Cover Image *}
         {assign var=mainFormat value=$recordFormat} 
         {assign var=displayFormat value=$recordFormat} 
       {/if}
-      <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
+      <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
     </td>
   </tr>
 
@@ -191,7 +191,7 @@ End Cover Image *}
   {if is_array($coreEvents)}
     {foreach from=$coreEvents key=eventType item=events}
   <tr valign="top" class="recordEvents">
-      <th>{$eventType|escape}:</th> 
+      <th>{$eventType|translate_prefix:"lido_event_type_$mainFormat\x5f"|escape}:</th> 
       <td>
         <div class="truncateField">
       {foreach from=$events item=event name=eventLoop}

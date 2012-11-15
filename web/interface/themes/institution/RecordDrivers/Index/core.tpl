@@ -73,7 +73,7 @@
     {if !empty($coreOtherLinks)}
     {foreach from=$coreOtherLinks item=coreOtherLink}
     <tr valign="top" class="recordOtherLink">
-      <th>{translate text=$coreOtherLink.heading}:</th>
+      <th>{translate text=$coreOtherLink.heading prefix='link_'}:</th>
       <td>
         {if $coreOtherLinks.isn}
         <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
@@ -140,7 +140,7 @@
           {assign var=mainFormat value=$recordFormat} 
           {assign var=displayFormat value=$recordFormat} 
         {/if}
-        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
+        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
         {if !empty($extendedPhysical)}
           {assign var=extendedContentDisplayed value=1}
           {foreach from=$extendedPhysical item=field name=loop}
@@ -153,7 +153,7 @@
     {if $recordLanguage}
     <tr valign="top" class="recordLanguage">
       <th>{translate text='Language'}: </th>
-      <td>{foreach from=$recordLanguage item=lang}{translate text=facet_$lang}<br/>{/foreach}</td>
+      <td>{foreach from=$recordLanguage item=lang}{translate text=$lang prefix='facet_'}<br/>{/foreach}</td>
     </tr>
     {/if}
 
