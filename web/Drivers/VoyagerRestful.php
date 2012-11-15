@@ -51,6 +51,7 @@ class VoyagerRestful extends Voyager
     protected $ws_pickUpLocations;
     protected $defaultPickUpLocation;
     protected $holdCheckLimit;
+    protected $callSlipCheckLimit;
     protected $checkRenewalsUpFront;
 
     /**
@@ -80,6 +81,9 @@ class VoyagerRestful extends Voyager
         $this->holdCheckLimit
             = isset($this->config['Holds']['holdCheckLimit'])
             ? $this->config['Holds']['holdCheckLimit'] : "15";
+        $this->callSlipCheckLimit
+            = isset($this->config['CallSlips']['checkLimit'])
+            ? $this->config['CallSlips']['checkLimit'] : "15";
         $this->checkRenewalsUpFront
             = isset($this->config['Renewals']['checkUpFront'])
             ? $this->config['Renewals']['checkUpFront'] : true;
@@ -158,6 +162,28 @@ class VoyagerRestful extends Voyager
     }
 
     /**
+     * Support method for VuFind Call Slip Logic. Take a holdings row array 
+     * and determine whether or not a call slip is allowed based on the
+     * valid_call_slip_locations settings in configuration file
+     *
+     * @param array $holdingsRow The holdings row to analyze.
+     *
+     * @return bool Whether an item is holdable
+     * @access protected
+     */
+    protected function isCallSlipAllowed($holdingsRow)
+    {
+        $holdingsRow = $holdingsRow['_fullRow'];
+        if (isset($this->config['CallSlips']['valid_item_types'])) {
+            $validTypes = explode(":", $this->config['CallSlips']['valid_item_types']);
+
+            $location = $holdingsRow['TEMP_ITEM_TYPE_ID'] ? $holdingsRow['TEMP_ITEM_TYPE_ID'] : $holdingsRow['ITEM_TYPE_ID'];
+            return in_array($location, $validTypes);
+        }
+        return true;
+    }
+    
+    /**
      * Protected support method for getHolding.
      *
      * @param array $id A Bibliographic id
@@ -211,9 +237,10 @@ class VoyagerRestful extends Voyager
             if (!$is_borrowable || !$is_holdable) {
                 $is_holdable = false;
             }
-
+            
             // Only used for driver generated hold links
             $addLink = false;
+            $addCallSlipLink = false;
 
             // Hold Type - If we have patron data, we can use it to dermine if a
             // hold link should be shown
@@ -228,15 +255,27 @@ class VoyagerRestful extends Voyager
                     $holdType = "auto";
                     $addLink = "check";
                 }
+                if ($i < $this->callSlipCheckLimit && $this->callSlipCheckLimit != "0") {
+                    $callslip = false;
+                    if ($this->isCallSlipAllowed($row)) {
+                        $callslip = $this->checkItemRequests($patron['id'], 'callslip', $row['id'], $row['item_id']);
+                    }
+                } else {
+                    $callslip = "auto";
+                    $addCallSlipLink = "check";
+                }
             } else {
                 $holdType = "auto";
+                $callslip = "auto";
             }
 
             $holding[$i] += array(
                 'is_holdable' => $is_holdable,
                 'holdtype' => $holdType,
                 'addLink' => $addLink,
-                'level' => "copy"
+                'level' => "copy",
+                'callslip' => $callslip,
+                'addCallSlipLink' => $addCallSlipLink
             );
             unset($holding[$i]['_fullRow']);
         }
@@ -271,6 +310,33 @@ class VoyagerRestful extends Voyager
         return true;
     }
 
+    /**
+     * checkCallSlipRequestIsValid
+     *
+     * This is responsible for determining if an item is requestable
+     *
+     * @param string $id     The Bib ID
+     * @param array  $data   An Array of item data
+     * @param patron $patron An array of patron data
+     *
+     * @return string True if request is valid, false if not
+     * @access public
+     */
+    public function checkCallSlipRequestIsValid($id, $data, $patron)
+    {
+        if ($this->checkAccountBlocks($patron['id'])) {
+            return 'block';
+        }
+        
+        $level = isset($data['level']) ? $data['level'] : "copy";
+        $itemID = ($level != 'title' && isset($data['item_id'])) ? $data['item_id'] : false;
+        $result = $this->checkItemRequests($patron['id'], 'callslip', $id, $itemID);
+        if (!$result || $result == 'block') {
+            return $result;
+        }
+        return true;
+    }
+    
     /**
      * Determine Renewability
      *
@@ -511,10 +577,14 @@ class VoyagerRestful extends Voyager
 
             foreach ($nodes as $nodeName => $nodeValue) {
                 $xmlString .= "<" . $nodeName . ">";
-                $xmlString .= htmlentities($nodeValue, ENT_COMPAT, "UTF-8");
+                $xmlString .= htmlspecialchars($nodeValue, ENT_COMPAT, "UTF-8");
+                // Split out any attributes
+                $nodeName = strtok($nodeName, ' ');
                 $xmlString .= "</" . $nodeName . ">";
             }
 
+            // Split out any attributes
+            $root = strtok($root, ' '); 
             $xmlString .= "</" . $root . ">";
         }
 
@@ -1128,6 +1198,180 @@ class VoyagerRestful extends Voyager
         }
         return $result;
     }
+    
+
+    /**
+     * Place Call Slip Request
+     *
+     * Attempts to place a call slip request on a particular item and returns
+     * an array with result details or a PEAR error on failure of support classes
+     *
+     * @param array $details An array of item and patron data
+     *
+     * @return mixed An array of data on the request including
+     * whether or not it was successful and a system message (if available) or a
+     * PEAR error on failure of support classes
+     * @access public
+     */
+    public function placeCallSlipRequest($details)
+    {
+        $patron = $details['patron'];
+        $level = isset($details['level']) && !empty($details['level'])
+            ? $details['level'] : 'copy';
+        $itemId = isset($details['item_id']) ? $details['item_id'] : false;
+        $mfhdId = isset($details['mfhd_id']) ? $details['mfhd_id'] : false;
+        $comment = $details['comment'];
+        $bibId = $details['id'];
+
+        // Attempt Request
+        $hierarchy = array();
+
+        // Build Hierarchy
+        $hierarchy['record'] = $bibId;
+
+        if ($itemId && $level != 'title') {
+            $hierarchy['items'] = $itemId;
+        }
+
+        $hierarchy['callslip'] = false;
+
+        // Add Required Params
+        $params = array(
+            'patron' => $patron['id'],
+            'patron_homedb' => $this->ws_patronHomeUbId,
+            'view' => 'full'
+        );
+
+        if ('title' == $level) {
+            $xml['call-slip-title-parameters'] = array(
+                'comment' => $comment,
+                'reqinput field="1"' => $details['volume'],
+                'reqinput field="2"' => $details['issue'],
+                'reqinput field="3"' => $details['year'],
+                'dbkey' => $this->ws_dbKey,
+                'mfhdId' => $mfhdId 
+            );
+        } else {
+            $xml['call-slip-parameters'] = array(
+                'comment' => $comment,
+                'dbkey' => $this->ws_dbKey,
+            );
+        }
+        
+        // Generate XML
+        $requestXML = $this->buildBasicXML($xml);
+
+        // Get Data
+        $result = $this->makeRequest($hierarchy, $params, "PUT", $requestXML);
+
+        if ($result) {
+            // Process
+            $result = $result->children();
+            $reply = (string)$result->{'reply-text'};
+
+            $responseNode = 'title' == $level ? 'create-call-slip-title' : 'create-call-slip';
+            $note = (isset($result->$responseNode))
+                ? trim((string)$result->$responseNode->note) : false;
+
+            // Valid Response
+            if ($reply == "ok" && $note == "Your request was successful.") {
+                $response['success'] = true;
+                $response['status'] = "call_slip_success";
+            } else {
+                // Failed
+                $response['sysMessage'] = $note;
+            }
+            return $response;
+        }
+        
+        return $this->holdError('call_slip_error_blocked');
+    }
+
+    /**
+     * Cancel Call Slips
+     *
+     * Attempts to Cancel a call slip on a particular item. The
+     * data in $cancelDetails['details'] is determined by getCancelCallSlipDetails().
+     *
+     * @param array $cancelDetails An array of item and patron data
+     *
+     * @return array               An array of data on each request including
+     * whether or not it was successful and a system message (if available)
+     * @access public
+     */
+    public function cancelCallSlips($cancelDetails)
+    {
+        $details = $cancelDetails['details'];
+        $patron = $cancelDetails['patron'];
+        $count = 0;
+        $response = array();
+
+        foreach ($details as $cancelDetails) {
+            list($itemId, $cancelCode) = explode("|", $cancelDetails);
+
+             // Create Rest API Cancel Key
+            $cancelID = $this->ws_dbKey. "|" . $cancelCode;
+
+            // Build Hierarchy
+            $hierarchy = array(
+                "patron" => $patron['id'],
+                 "circulationActions" => 'requests',
+                 "callslips" => $cancelID
+            );
+
+            // Add Required Params
+            $params = array(
+                "patron_homedb" => $this->ws_patronHomeUbId,
+                "view" => "full"
+            );
+
+            // Get Data
+            $cancel = $this->makeRequest($hierarchy, $params, "DELETE");
+
+            if ($cancel) {
+
+                // Process Cancel
+                $cancel = $cancel->children();
+                $node = "reply-text";
+                $reply = (string)$cancel->$node;
+                $count = ($reply == "ok") ? $count+1 : $count;
+
+                $response[$itemId] = array(
+                    'success' => ($reply == "ok") ? true : false,
+                    'status' => ($reply == "ok")
+                        ? "call_slip_cancel_success" : "call_slip_cancel_fail",
+                    'sysMessage' => ($reply == "ok") ? false : $reply,
+                );
+
+            } else {
+                $response[$itemId] = array(
+                    'success' => false, 'status' => "call_slip_cancel_fail"
+                );
+            }
+        }
+        $result = array('count' => $count, 'items' => $response);
+        return $result;
+    }
+    
+    /**
+     * Get Cancel Call Slip Details
+     *
+     * In order to cancel a call slip, Voyager requires the patron details an item ID
+     * and a recall ID. This function returns the item id and call slip id as a string
+     * separated by a pipe, which is then submitted as form data in CallSlip.php. This
+     * value is then extracted by the CancelCallSlips function.
+     *
+     * @param array $details An array of item data
+     *
+     * @return string Data for use in a form field
+     * @access public
+     */
+    public function getCancelCallSlipDetails($details)
+    {
+        $details = $details['item_id']."|".$details['reqnum'];
+        return $details;
+    }
+    
 }
 
 ?>
