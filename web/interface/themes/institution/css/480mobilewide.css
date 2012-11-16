@@ -74,7 +74,11 @@ px      62    136    210    284    358    432   */
     }
     .advanced-link-wrapper {
         margin-bottom: .6em;
-    }    
+    }
+
+    .keepFilters {
+        padding-bottom: .5em;
+    }
 
     .homeNavigation ul li {
         display: block;
@@ -130,10 +134,10 @@ px      62    136    210    284    358    432   */
 
 
     #topPubDateVis {
-        width: 460px;
+        width: 450px;
     }
     #topFacets {
-        width: 480px;
+        width: 470px;
     }
     #suggestedTopics {
         width: 456px;

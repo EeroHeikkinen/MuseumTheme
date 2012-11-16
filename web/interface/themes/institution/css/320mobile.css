@@ -10,10 +10,10 @@ px      62    136    210    284    */
 
     body, .container, div.searchFormHome,
     .homeCustomContent .homeCustomCol1, .homeCustomContent .homeCustomCol2,
-    #topPubDateVis, #topFacets, #resultList {
+    #topFacets, #resultList {
         width: 320px;
     }
-
+    
     body {
         padding: 0 0 36px 0;
     }
@@ -35,18 +35,26 @@ px      62    136    210    284    */
     div.searchHomeContent {
         padding: 3em 0 0 0;
     }
-    div.searchHomeLogo img {
-        width:75%;
-        margin: 0 auto;
+    #logoHeader {
+        width: 320px;
+    }
+    #logo {
+        margin: 18px auto;
+    }
+    #searchFormHeader {
+        padding-top: 1em;
+        width: 320px;
     }
     div.searchHomeForm div.searchform,
-    div.searchHomeForm div.searchform #searchForm {
+    div.searchHomeForm div.searchform #searchForm,
+    div.searchform, div.searchform #searchForm {
         width: 235px;
-    }    
+        margin: 0 auto;
+    }
     form#searchForm {
         padding: 0;
     }
-    .searchHomeForm #searchForm_input {
+    .searchHomeForm #searchForm_input, #searchForm_input {
         background: none #ffffff;
         border: 1px solid #999999; 
 /*
@@ -57,12 +65,12 @@ px      62    136    210    284    */
         -moz-border-radius: 6px;
         -webkit-border-radius: 6px;
     }
-    .searchHomeForm div.styled_select {
+    .searchHomeForm div.styled_select, div.styled_select {
 /*
         padding-left: 30px;
 */
     }
-    .searchHomeForm #searchForm_searchButton {
+    .searchHomeForm #searchForm_searchButton, #searchForm_searchButton {
         background: url("../images/searchbutton_bg.png") transparent;
         background-position: top right;
         border: none;
@@ -144,16 +152,20 @@ px      62    136    210    284    */
 
 
     #topPubDateVis {
+        width: 309px;
     }
     #topFacets {
+        padding: 0;
     }
     #suggestedTopics {
         width: 260px;
-        margin: 0 12px 0 12px;
+        margin: 0 12px .5em;
     }
     #resultList {
     }
-    
+    ul.recordSet {
+        padding: 0 8px;
+    }
     ul.recordSet .resultColumn1 {
         width: 62px;
         margin-left: 0;
