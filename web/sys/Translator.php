@@ -166,14 +166,15 @@ class I18N_Translator
      * Translate the phrase
      *
      * @param string $phrase The phrase to translate
+     * @param string $prefix A translation prefix prepended to the actual phrase
      *
      * @return string        Translated phrase
      * @access public
      */
-    public function translate($phrase)
+    public function translate($phrase, $prefix = '')
     {
-        if (isset($this->words[$phrase])) {
-            return $this->words[$phrase];
+        if (isset($this->words[$prefix . $phrase])) {
+            return $this->words[$prefix . $phrase];
         } else {
             if ($this->debug) {
                 return "translate_index_not_found($phrase)";

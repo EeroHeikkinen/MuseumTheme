@@ -139,7 +139,7 @@ class HoldLogic
             }
 
             $mode = CatalogConnection::getHoldsMode();
-
+            
             if ($mode == "disabled") {
                  $holdings = $this->standardHoldings($result);
             } else if ($mode == "driver") {
@@ -192,7 +192,7 @@ class HoldLogic
             $id = $record['id'];
         }
         $checkHolds = $this->catalog->checkFunction("Holds", $id);
-
+        $checkCallSlips = $this->catalog->checkFunction("CallSlips", $id);
         if (count($result)) {
             foreach ($result as $copy) {
                 $show = !in_array($copy['location'], $this->hideHoldings);
@@ -210,6 +210,19 @@ class HoldLogic
                             // If we are unsure whether hold options are available,
                             // set a flag so we can check later via AJAX:
                             $copy['check'] = (strcmp($copy['addLink'], 'check') == 0)
+                                ? true : false;
+                        }
+                    }
+                    if ($checkCallSlips !== false) {
+                        if (isset($copy['addCallSlipLink']) && $copy['addCallSlipLink']) {
+                            $copy['callSlipLink'] = (strcmp($copy['addCallSlipLink'], 'block') == 0)
+                                ? "?errorMsg=call_slip_error_blocked"
+                                : $this->_getCallSlipDetails(
+                                    $copy, $checkCallSlips['HMACKeys']
+                                );
+                            // If we are unsure whether call slip options are available,
+                            // set a flag so we can check later via AJAX:
+                            $copy['checkCallSlip'] = (strcmp($copy['addCallSlipLink'], 'check') == 0)
                                 ? true : false;
                         }
                     }
@@ -357,6 +370,46 @@ class HoldLogic
         $holdLink = $siteUrl."/Record/".urlencode($id)."/Hold".$urlParams."#tabnav";
 
         return $holdLink;
+    }
+
+    /**
+     * Get Call Slip Form
+     *
+     * Supplies holdLogic with the form details required to place a call slip request
+     *
+     * @param array $details  An array of item data
+     * @param array $HMACKeys An array of keys to hash
+     *
+     * @return string A url link (with HMAC key)
+     * @access private
+     */
+    private function _getCallSlipDetails($details, $HMACKeys)
+    {
+        global $configArray;
+
+        $siteUrl = $configArray['Site']['url'];
+        $id = $details['id'];
+
+        // Generate HMAC
+        $HMACkey = generateHMAC($HMACKeys, $details);
+
+        // Add Params
+        foreach ($details as $key => $param) {
+            $needle = in_array($key, $HMACKeys);
+            if ($needle) {
+                $queryString[] = $key. "=" .urlencode($param);
+            }
+        }
+
+        //Add HMAC
+        $queryString[] = "hashKey=" . $HMACkey;
+
+        // Build Params
+        $urlParams = "?" . implode("&", $queryString);
+
+        $link = $siteUrl."/Record/".urlencode($id)."/CallSlip".$urlParams."#tabnav";
+
+        return $link;
     }
 }
 ?>

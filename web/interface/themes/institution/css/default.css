@@ -461,7 +461,7 @@ div.dialogLoading {
     height:100%;
 }
 
-.ajax_availability, .ajax_hold_availability, .ajax_fulltext_availability, .iframe_loading, .facet_loading {
+.ajax_availability, .ajax_hold_availability, .ajax_fulltext_availability, .iframe_loading, .facet_loading, .ajax_call_slip_availability {
     background: url(../images/ajax_loading.gif) no-repeat left top;
     padding:0 .5em .5em 20px;
 }
@@ -1334,7 +1334,7 @@ ul.recordSet .addToFavLink a {
     background-repeat:no-repeat;
     padding-left:18px
 }
-.holdPlace {
+.holdPlace, .callSlipPlace {
     background-image:url(../images/fugue/holdPlace.png);
     background-repeat:no-repeat;
     background-position: left;
@@ -1369,7 +1369,7 @@ ul.recordSet .addToFavLink a {
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
-.checkRequest {
+.checkRequest, .checkCallSlipRequest {
     background-image:url(../images/fugue/checkRequest.png);
     background-repeat:no-repeat;
     padding-left:18px;
@@ -1609,6 +1609,15 @@ div.recordsubcontent {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */ 
 }
 
+.call-slip-form .reference {
+	  margin-left: 24px;
+}
+.call-slip-form .label {
+	  width: 70px;
+	  stext-align: right;
+	  float: left;
+	  margin-right: 12px;
+}
 
 /***** Citation Table *****/
 .citation th {

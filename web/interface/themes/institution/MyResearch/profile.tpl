@@ -53,7 +53,7 @@
       <div class="profileGroup">
         <h4>{translate text='Source of information'}:
           {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
-          {translate text="source_$source"}
+          {translate text=$source prefix='source_'}
         </h4>
       </div>
       

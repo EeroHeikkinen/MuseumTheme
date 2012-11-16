@@ -70,12 +70,6 @@ $(document).ready(function(){
         $('.subjectHeading').removeClass('highlight');
     });
 
-    $('.checkRequest').each(function(i) {
-        if($(this).hasClass('checkRequest')) {
-            $(this).addClass('ajax_hold_availability');
-        }
-    });
-    
     $('.similarItems').each(function() {
         var id = this.id.substr('similarItems'.length);
         $(this).load(path + '/AJAX/AJAX_SimilarItems', {id: id}, function(response, status, xhr) {
@@ -86,9 +80,16 @@ $(document).ready(function(){
     });
     
     setUpCheckRequest();
+    setUpCheckCallSlipRequest();
 });
 
 function setUpCheckRequest() {
+    $('.checkRequest').each(function(i) {
+        if($(this).hasClass('checkRequest')) {
+            $(this).addClass('ajax_hold_availability');
+        }
+    });
+    
     $('.checkRequest').each(function(i) {
         if($(this).hasClass('checkRequest')) {
             var isValid = checkRequestIsValid(this, this.href);
@@ -124,6 +125,53 @@ function checkRequestIsValid(element, requestURL) {
                 }
             } else if (response.status == 'NEED_AUTH') {
                 $(element).replaceWith('<span class="holdBlocked">' + response.data.msg + '</span>');
+            }
+        }
+    });   
+}
+
+function setUpCheckCallSlipRequest() {
+    $('.checkCallSlipRequest').each(function(i) {
+        if($(this).hasClass('checkCallSlipRequest')) {
+            $(this).addClass('ajax_call_slip_availability');
+        }
+    });
+    
+    $('.checkCallSlipRequest').each(function(i) {
+        if($(this).hasClass('checkCallSlipRequest')) {
+            var isValid = checkCallSlipRequestIsValid(this, this.href);
+        }
+    });
+}
+
+function checkCallSlipRequestIsValid(element, requestURL) {
+    var recordId = requestURL.match(/\/Record\/([^\/]+)\//)[1];
+    var vars = {}, hash;
+    var hashes = requestURL.slice(requestURL.indexOf('?') + 1).split('&');
+
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        var x = hash[0];
+        var y = hash[1]
+        vars[x] = y;
+    }
+    vars['id'] = recordId;
+    
+    var url = path + '/AJAX/JSON_CallSlip?' + $.param({method:'checkRequestIsValid', id: recordId, data: vars});
+    $.ajax({
+        dataType: 'json',
+        cache: false,
+        url: url,
+        success: function(response) {
+            if (response.status == 'OK') {
+                if (response.data.status) {
+                    $(element).removeClass('checkCallSlipRequest ajax_call_slip_availability').html(response.data.msg);
+                } else {
+                    $(element).remove();
+                }
+            } else if (response.status == 'NEED_AUTH') {
+                $(element).replaceWith('<span class="callSlipBlocked">' + response.data.msg + '</span>');
             }
         }
     });   

@@ -504,7 +504,7 @@ function translate($params)
         );
     }
     if (is_array($params)) {
-        return $translator->translate($params['text']);
+        return $translator->translate($params['text'], isset($params['prefix']) ? $params['prefix'] : '');
     } else {
         return $translator->translate($params);
     }

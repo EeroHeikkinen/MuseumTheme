@@ -1454,7 +1454,7 @@ class SearchObject_Solr extends SearchObject_Base
                 // Initialize the array of data about the current facet:
                 $currentSettings = array();
                 $currentSettings['value']
-                    = $translate ? translate($translationPrefix . $facet[0]) : $facet[0];
+                    = $translate ? translate(array('prefix' => $translationPrefix, 'text' => $facet[0])) : $facet[0];
                 $currentSettings['untranslated'] = $facet[0];
                 $currentSettings['count'] = $facet[1];
                 $currentSettings['isApplied'] = false;

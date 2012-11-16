@@ -32,7 +32,7 @@
   {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape}</p>{/if}
   *}
   <p class="recordInstitution">
-    {foreach from=$coreInstitutions name=loop item=institution}{translate text="source_$institution"}{if !$smarty.foreach.loop.last}, {/if}{/foreach}
+    {foreach from=$coreInstitutions name=loop item=institution}{translate text=$institution prefix='source_'}{if !$smarty.foreach.loop.last}, {/if}{/foreach}
   </p>
 
   {* Display Main Details *}
@@ -48,7 +48,7 @@
           {assign var=mainFormat value=$recordFormat} 
           {assign var=displayFormat value=$recordFormat} 
         {/if}
-        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
+        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
         {if !empty($extendedPhysical)}
           {assign var=extendedContentDisplayed value=1}
           {foreach from=$extendedPhysical item=field name=loop}
@@ -115,7 +115,7 @@
     {if !empty($coreOtherLinks)}
     {foreach from=$coreOtherLinks item=coreOtherLink}
     <tr valign="top" class="recordOtherLink">
-      <th>{translate text=$coreOtherLink.heading}:</th>
+      <th>{translate text=$coreOtherLink.heading prefix='link_'}:</th>
       <td>
         {if $coreOtherLinks.isn}
         <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
@@ -145,7 +145,7 @@
     {if $recordLanguage}
     <tr valign="top" class="recordLanguage">
       <th>{translate text='Language'}: </th>
-      <td>{foreach from=$recordLanguage item=lang}{translate text=facet_$lang}<br/>{/foreach}</td>
+      <td>{foreach from=$recordLanguage item=lang}{translate text=$lang prefix='facet_'}<br/>{/foreach}</td>
     </tr>
     {/if}
 
@@ -301,7 +301,7 @@
             <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a><br/>
           </span>
           {foreach from=$coreURLs item=desc key=currentUrl name=loop}
-            <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
+            <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|translate_prefix:'link_'|escape}</a><br/>
           {/foreach}
           {if $coreOpenURL}
             {include file="Search/openurl.tpl" openUrl=$coreOpenURL}

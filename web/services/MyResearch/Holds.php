@@ -42,7 +42,9 @@ class Holds extends MyResearch
 {
     protected $holdResults;
     protected $cancelResults;
-
+    protected $callSlipResults;
+    protected $cancelCallSlipResults;
+    
     /**
      * Process parameters and display the page.
      *
@@ -65,6 +67,13 @@ class Holds extends MyResearch
                 );
                 $interface->assign('holdResults', $this->holdResults);
             }
+            // Get Message from CallSlip.php
+            if (isset($_GET['callslip_success']) && $_GET['callslip_success'] != "") {
+                $this->callSlipResults = array(
+                    'success' => true, 'status' => "call_slip_success"
+                );
+                $interface->assign('callSlipResults', $this->callSlipResults);
+            }
             // Is cancelling Holds Available
             if ($this->cancelHolds != false) {
                 // Process Submitted Form
@@ -74,6 +83,15 @@ class Holds extends MyResearch
                 $interface->assign('cancelResults', $this->cancelResults);
             }
 
+            if (isset($_POST['cancelSelectedCallSlips']) || isset($_POST['cancelAllCallSlips'])) {
+                $cancelCallSlipRequest = $this->_cancelCallSlips($patron);
+                $interface->assign('cancelCallSlipResults', $this->cancelCallSlipResults);
+            }
+            
+            // Get List of PickUp Libraries based on patrons home library
+            $libs = $this->catalog->getPickUpLocations($patron);
+            $interface->assign('pickup', $libs);
+    
             $result = $this->catalog->getMyHolds($patron);
             if (!PEAR::isError($result)) {
                 if (count($result)) {
@@ -93,10 +111,6 @@ class Holds extends MyResearch
                         $recordList[] = $record;
                     }
 
-                    // Get List of PickUp Libraries based on patrons home library
-                    $libs = $this->catalog->getPickUpLocations($patron);
-                    $interface->assign('pickup', $libs);
-
                     if ($this->cancelHolds != false) {
                         $recordList = $this->_addCancelDetails($recordList);
                     }
@@ -107,10 +121,37 @@ class Holds extends MyResearch
             } else {
                 PEAR::raiseError($result);
             }
+
+            $result = $this->catalog->getMyCallSlips($patron);
+            if (!PEAR::isError($result)) {
+                if (count($result)) {
+                    $recordList = array();
+                    foreach ($result as $row) {
+                        $record = $this->db->getRecord($row['id']);
+                        $record['ils_details'] = $row;
+                        $formats = array();
+                        foreach (isset($record['format']) ? $record['format'] : array() as $format) {
+                            $formats[] = preg_replace('/^\d\//', '', $format);
+                        }
+                        $record['format'] = $formats;
+                        $driver = RecordDriverFactory::initRecordDriver($record);
+                        if ($driver) {
+                            $record['summImages'] = $driver->getAllImages();
+                        }
+                        $recordList[] = $record;
+                    }
+                    $recordList = $this->_addCallSlipCancelDetails($recordList);
+                    $interface->assign('callSlipList', $recordList);
+                } else {
+                    $interface->assign('callSlipList', false);
+                }
+            } else {
+                PEAR::raiseError($result);
+            }
         }
 
         $interface->setTemplate('holds.tpl');
-        $interface->setPageTitle('My Holds');
+        $interface->setPageTitle('Holds and Requests');
         $interface->display('layout.tpl');
     }
 
@@ -190,6 +231,78 @@ class Holds extends MyResearch
         $_SESSION['cancelValidData'] = $session_details;
         return $holdList;
     }
+    
+    /**
+     * Private method for cancelling call slips
+     *
+     * @param array $patron An array of patron information
+     *
+     * @return null
+     * @access private
+     */
+    private function _cancelCallSlips($patron)
+    {
+        global $interface;
+
+        $gatheredDetails['details'] = isset($_POST['cancelAllCallSlips'])
+                ? $_POST['cancelAllCallSlipIDS'] : $_POST['cancelSelectedCallSlipIDS'];
+
+        if (is_array($gatheredDetails['details'])) {
+
+            $session_details = $_SESSION['cancelCallSlipValidData'];
+
+            foreach ($gatheredDetails['details'] as $info) {
+                // If the user input contains a value not found in the session
+                // whitelist, something has been tampered with -- abort the process.
+                if (!in_array($info, $session_details)) {
+                    $interface->assign('errorMsg', 'error_inconsistent_parameters');
+                    echo("INCONSISTENT");
+                    return false;
+                }
+            }
+
+            // Add Patron Data to Submitted Data
+            $gatheredDetails['patron'] = $patron;
+            $this->cancelCallSlipResults = $this->catalog->cancelCallSlips($gatheredDetails);
+            if ($this->cancelCallSlipResults == false) {
+                echo "FAIL";
+                $interface->assign('errorMsg', 'call_slip_cancel_fail');
+            } else {
+                return true;
+            }
+        } else {
+                echo "EMPTY SEL";
+            $interface->assign('errorMsg', 'call_slip_empty_selection');
+        }
+        return false;
+    }
+
+    /**
+     * Adds a link or form details to existing call slip details
+     *
+     * @param array $recordList An array of patron call slips
+     *
+     * @return array An array of patron call slips with links / form details
+     * @access private
+     */
+    private function _addCallSlipCancelDetails($recordList)
+    {
+        global $interface;
+        $session_details = array();
+
+        foreach ($recordList as $record) {
+            // Form Details
+            $interface->assign('cancelForm', true);
+            $cancel_details
+                = $this->catalog->getCancelCallSlipDetails($record['ils_details']);
+            $record['ils_details']['cancel_details']
+                = $session_details[] = $cancel_details;
+            $holdList[] = $record;
+        }
+        // Save all valid options in the session so user input can be validated later
+        $_SESSION['cancelCallSlipValidData'] = $session_details;
+        return $holdList;
+    }    
 }
 
 ?>

@@ -84,6 +84,9 @@
           {if $row.link}
             <a class="holdPlace{if $row.check} checkRequest{/if}" href="{$row.link|escape}"><span>{if !$row.check}{translate text="Place a Hold"}{else}{translate text="Check Hold"}{/if}</span></a>
           {/if}
+          {if $row.callSlipLink}
+            <a class="callSlipPlace{if $row.checkCallSlip} checkCallSlipRequest{/if}" href="{$row.callSlipLink|escape}"><span>{if !$row.checkCallSlip}{translate text="Call Slip Request"}{else}{translate text="Check Call Slip Request"}{/if}</span></a>
+          {/if}
           </div>
         {else}
         {* Begin Unavailable Items (Recalls) *}

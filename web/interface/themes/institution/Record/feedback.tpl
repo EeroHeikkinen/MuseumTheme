@@ -6,7 +6,7 @@
 <form action="{$url}{$formTargetPath|escape}" method="post"  name="feedbackRecord">
     <input type="hidden" name="id" value="{$id|escape}" />
     <input type="hidden" name="type" value="{$module|escape}" />
-    <label class="displayBlock" for="feedback_to">{translate text='To'}: {translate text=facet_$institution} / {translate text=source_$datasource}</label>
+    <label class="displayBlock" for="feedback_to">{translate text='To'}: {translate text=facet_$institution} / {translate text=$datasource prefix='source_'}</label>
     <label class="displayBlock" for="feedback_from">{translate text='Email From'}:</label>
     <input id="feedback_from" type="text" name="from" size="40" class="{jquery_validation required='This field is required' email='Email address is invalid'}"/>
     <label class="displayBlock" for="feedback_message">{translate text='Message'}:</label>

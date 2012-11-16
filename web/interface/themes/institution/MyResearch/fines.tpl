@@ -29,7 +29,7 @@
 				{assign var=mainFormat value=$record.format} 
 				{assign var=displayFormat value=$record.format} 
 			  {/if}
-			  <span class="icon format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}" title="{translate text=format_$displayFormat}">{*translate text=format_$displayFormat*}</span>
+			  <span class="icon format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}" title="{translate text=$displayFormat prefix='format_'}">{*translate text=format_$displayFormat*}</span>
             {if empty($record.title)}
               {translate text='not_applicable'}
             {else}

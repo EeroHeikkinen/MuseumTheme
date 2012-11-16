@@ -220,6 +220,35 @@ class CatalogConnection
     }
 
     /**
+     * Check Call Slips
+     *
+     * A support method for checkFunction(). This is responsible for checking
+     * the driver configuration to determine if the system supports call slips.
+     *
+     * @param string $functionConfig The call slip configuration values
+     *
+     * @return mixed On success, an associative array with specific function keys
+     * and values either for placing requests via a form; on failure, false.
+     * @access private
+     */
+    private function _checkMethodCallSlips($functionConfig)
+    {
+        global $configArray;
+        $response = false;
+
+        if (method_exists($this->driver, 'placeCallSlipRequest')
+            && isset($functionConfig['HMACKeys'])
+        ) {
+            $response = array('function' => "placeCallSlipRequest");
+            $response['HMACKeys'] = explode(":", $functionConfig['HMACKeys']);
+            if (isset($functionConfig['extraFields'])) {
+                $response['extraFields'] = $functionConfig['extraFields'];
+            }
+        }
+        return $response;
+    }
+    
+    /**
      * Check Request is Valid
      *
      * This is responsible for checking if a request is valid from hold.php
@@ -244,6 +273,31 @@ class CatalogConnection
         return true;
     }
 
+    /**
+     * Check Call Slip Request is Valid
+     *
+     * This is responsible for checking if a call slip request is valid 
+     *
+     * @param string $id     A Bibliographic ID
+     * @param array  $data   Collected Holds Data
+     * @param array  $patron Patron related data
+     *
+     * @return mixed The result of the checkRequestIsValid function if it
+     *               exists, true if it does not
+     * @access public
+     */
+    public function checkCallSlipRequestIsValid($id, $data, $patron)
+    {
+        $method = array($this->driver, 'checkCallSlipRequestIsValid');
+        if (is_callable($method)) {
+            return $this->driver->checkCallSlipRequestIsValid($id, $data, $patron);
+        }
+        // If the driver has no checkCallSlipRequestIsValid method, we will assume that
+        // all requests are valid - failure can be handled later after the user
+        // attempts to place an illegal hold
+        return true;
+    }
+    
     /**
      * Get Holds Mode
      *
