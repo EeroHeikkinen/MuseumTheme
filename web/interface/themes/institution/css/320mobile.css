@@ -7,13 +7,19 @@ cols    1     2      3      4
 px      62    136    210    284    */
 
 @media only screen and (max-width: 479px) {
-
+/*
     body, .container, div.searchFormHome,
     .homeCustomContent .homeCustomCol1, .homeCustomContent .homeCustomCol2,
     #topFacets, #resultList, #sidebarFacets {
         width: 320px;
     }
-    
+*/    
+    body, .container, #searchFormHeader,
+    div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
+    .homeCustomContent, #resultList, #sidebarFacets, #resultMain, #authorList {
+        width: 320px;
+    }
+
     body {
         padding: 0 0 36px 0;
     }
@@ -184,26 +190,31 @@ px      62    136    210    284    */
     ul.recordSet {
         padding: 0 4px;
     }
+/*
     ul.recordSet li.result {
         padding: 7px 1px 9px 9px;
     }
     ul.recordSet li.result:hover {
         padding: 6px 0 8px 8px;
     }
+
     ul.recordSet .resultColumn1 {
         width: 62px;
         margin-left: 0;
     }
+*/
     .coverDiv {
         padding-top: .3em;
     }
     .summcover {
         max-width: 62px;
     }
+/*
     .resultNoImage{
         height: 60px;
         width: 60px;
     }
+
     .resultImage {
         margin: -120px 0 0;
         width: 62px;
@@ -218,6 +229,7 @@ px      62    136    210    284    */
     ul.recordSet .resultColumn2 {
         width: 225px;
     }
+
     ul.recordSet .addToFavLink {
         clear: both;
         float: left;
@@ -235,7 +247,7 @@ px      62    136    210    284    */
         border-left: none;
     }
     
-    
+*/    
     
     .backToResults {
         margin-left: 10px;
@@ -294,21 +306,4 @@ px      62    136    210    284    */
         vertical-align: top;
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 }
