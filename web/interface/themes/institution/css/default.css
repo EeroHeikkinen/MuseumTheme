@@ -1520,7 +1520,7 @@ div.record {
     margin-right: 12px;
 }
 .coverImageLinks {
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 /* Note: background colors required here for field truncation */
 #recordMetadata {
@@ -1556,15 +1556,16 @@ div.recordsubcontent {
     margin: 0 1em 1em 0;
 }
 .coverImages {
-    text-align:center;
+    /* text-align:center; */
 }
 .coverImageLinks a {
     display: inline-block;
     border: 1px solid #cfcfcf;
-    padding: 4px 0 3px 0;
-    width: 1.5em;
-    margin: 0 4px 4px 0;
-    text-align: center;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    background-position: 50% 50%;
+    background-size: cover;
 }
 .coverImageLinks a:hover {
     text-decoration: none;
