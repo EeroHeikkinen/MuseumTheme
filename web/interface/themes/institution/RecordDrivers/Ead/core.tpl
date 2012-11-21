@@ -292,10 +292,10 @@
       <td>
         <div class="truncateField">
           {if $displayFormat == 'Document/ArchiveItem' && !$coreDigitizedMaterial}
-            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_checkout.php?id={$coreIdentifier|escape:'url'}">{translate text='Document Order'}<br/>            
+            <a href="https://testavapaingest.narc.fi/astiaUi/palvelut/kdk_checkout.php?id={$coreIdentifier|escape:'url'}">{translate text='Document Order'}<br/>            
           {/if}
           {if $extendedAccess}
-            <a href="https://astia.narc.fi/astiaUi/palvelut/kdk_askpermission.php?id={$coreIdentifier|escape:'url'}">{translate text='Usage Permission Request'}<br/>            
+            <a href="https://testavapaingest.narc.fi/astiaUi/palvelut/kdk_askpermission.php?id={$coreIdentifier|escape:'url'}">{translate text='Usage Permission Request'}<br/>            
           {/if}
           <span class="vakkaLink">
             <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a><br/>
