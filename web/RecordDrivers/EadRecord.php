@@ -78,6 +78,7 @@ class EadRecord extends IndexRecord
      */
     public function getCoreMetadata()
     {
+        global $configArray;
         global $interface;
         
         $template = parent::getCoreMetadata();
@@ -90,6 +91,9 @@ class EadRecord extends IndexRecord
             $interface->assign('coreDigitizedMaterial', true);
         }
         $interface->assign('coreIdentifier', $this->getIdentifier());
+        
+        $interface->assign('coreDocumentOrderLinkTemplate', $configArray['Record']['ead_document_order_link_template']);
+        $interface->assign('coreUsagePermissionRequestLinkTemplate', $configArray['Record']['ead_usage_permission_request_link_template']);
         
         return 'RecordDrivers/Ead/core.tpl';
     }
