@@ -272,13 +272,14 @@ class HoldLogic
                 $id = $record['id'];
             }
             $checkHolds = $this->catalog->checkFunction("Holds", $id);
-
-            if ($checkHolds != false) {
-                if (is_array($holdings)) {
-                    // Generate Links
-                    // Loop through each holding
-                    foreach ($holdings as $location_key => $location) {
-                        foreach ($location as $copy_key => $copy) {
+            $checkCallSlips = $this->catalog->checkFunction("CallSlips", $id);
+            
+            if (is_array($holdings)) {
+                // Generate Links
+                // Loop through each holding
+                foreach ($holdings as $location_key => $location) {
+                    foreach ($location as $copy_key => $copy) {
+                        if ($checkHolds != false) {
                             // Override the default hold behavior with a value from
                             // the ILS driver if allowed and applicable:
                             $switchType
@@ -323,6 +324,19 @@ class HoldLogic
                                             $copy, $checkHolds['HMACKeys']
                                         );
                                 }
+                            }
+                        }
+                        if ($checkCallSlips !== false) {
+                            if (isset($copy['addCallSlipLink']) && $copy['addCallSlipLink']) {
+                                $holdings[$location_key][$copy_key]['callSlipLink'] = (strcmp($copy['addCallSlipLink'], 'block') == 0)
+                                    ? "?errorMsg=call_slip_error_blocked"
+                                    : $this->_getCallSlipDetails(
+                                        $copy, $checkCallSlips['HMACKeys']
+                                    );
+                                // If we are unsure whether call slip options are available,
+                                // set a flag so we can check later via AJAX:
+                                $holdings[$location_key][$copy_key]['checkCallSlip'] = (strcmp($copy['addCallSlipLink'], 'check') == 0)
+                                    ? true : false;
                             }
                         }
                     }
