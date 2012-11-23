@@ -799,7 +799,8 @@ class Voyager implements DriverInterface
                 $returnDate = (in_array("Discharged", $row['STATUS_ARRAY']))
                     ? $returnDate : false;
 
-                $requests_placed = $row['HOLDS_PLACED'] + $row['RECALLS_PLACED'];
+                $requests_placed = (isset($row['HOLDS_PLACED']) ? $row['HOLDS_PLACED'] : 0)
+                    + (isset($row['RECALLS_PLACED']) ? $row['RECALLS_PLACED'] : 0);
 
                 $holding[$i] = $this->processHoldingRow($row);
                 $holding[$i] += array(
