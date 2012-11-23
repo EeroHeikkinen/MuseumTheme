@@ -177,8 +177,8 @@ class VoyagerRestful extends Voyager
         if (isset($this->config['CallSlips']['valid_item_types'])) {
             $validTypes = explode(":", $this->config['CallSlips']['valid_item_types']);
 
-            $location = $holdingsRow['TEMP_ITEM_TYPE_ID'] ? $holdingsRow['TEMP_ITEM_TYPE_ID'] : $holdingsRow['ITEM_TYPE_ID'];
-            return in_array($location, $validTypes);
+            $type = $holdingsRow['TEMP_ITEM_TYPE_ID'] ? $holdingsRow['TEMP_ITEM_TYPE_ID'] : $holdingsRow['ITEM_TYPE_ID'];
+            return in_array($type, $validTypes);
         }
         return true;
     }
@@ -195,7 +195,8 @@ class VoyagerRestful extends Voyager
     {
         $sqlArray = parent::getHoldingItemsSQL($id);
         $sqlArray['expressions'][] = "ITEM.ITEM_TYPE_ID";
-
+        $sqlArray['expressions'][] = "ITEM.TEMP_ITEM_TYPE_ID";
+        
         return $sqlArray;
     }
 
@@ -232,6 +233,7 @@ class VoyagerRestful extends Voyager
         foreach ($holding as $i => $row) {
             $is_borrowable = $this->isBorrowable($row['_fullRow']['ITEM_TYPE_ID']);
             $is_holdable = $this->isHoldable($row['_fullRow']['STATUS_ARRAY']);
+            $isCallSlipAllowed = $this->isCallSlipAllowed($row);
             // If the item cannot be borrowed or if the item is not holdable,
             // set is_holdable to false
             if (!$is_borrowable || !$is_holdable) {
@@ -241,34 +243,42 @@ class VoyagerRestful extends Voyager
             // Only used for driver generated hold links
             $addLink = false;
             $addCallSlipLink = false;
+            $holdType = '';
+            $callslip = '';
 
             // Hold Type - If we have patron data, we can use it to dermine if a
             // hold link should be shown
-            if ($patron && $mode == "driver") {
-                // This limit is set as the api is slow to return results
-                if ($i < $this->holdCheckLimit && $this->holdCheckLimit != "0") {
-                    $holdType = $this->determineHoldType(
-                        $patron['id'], $row['id'], $row['item_id']
-                    );
-                    $addLink = $holdType ? $holdType : false;
+            if ($is_holdable) {
+                if ($patron && $mode == "driver") {
+                    // This limit is set as the api is slow to return results
+                    if ($i < $this->holdCheckLimit && $this->holdCheckLimit != "0") {
+                        $holdType = $this->determineHoldType(
+                            $patron['id'], $row['id'], $row['item_id']
+                        );
+                        $addLink = $holdType ? $holdType : false;
+                    } else {
+                        $holdType = "auto";
+                        $addLink = "check";
+                    }
                 } else {
                     $holdType = "auto";
-                    $addLink = "check";
                 }
-                if ($i < $this->callSlipCheckLimit && $this->callSlipCheckLimit != "0") {
-                    $callslip = false;
-                    if ($this->isCallSlipAllowed($row)) {
-                        $callslip = $this->checkItemRequests($patron['id'], 'callslip', $row['id'], $row['item_id']);
+            }
+            if ($isCallSlipAllowed) {
+                if ($patron && $mode == "driver") {
+                    if ($i < $this->callSlipCheckLimit && $this->callSlipCheckLimit != "0") {
+                        $callslip = false;
+                        if ($this->isCallSlipAllowed($row)) {
+                            $callslip = $this->checkItemRequests($patron['id'], 'callslip', $row['id'], $row['item_id']);
+                        }
+                    } else {
+                        $callslip = "auto";
+                        $addCallSlipLink = "check";
                     }
                 } else {
                     $callslip = "auto";
-                    $addCallSlipLink = "check";
                 }
-            } else {
-                $holdType = "auto";
-                $callslip = "auto";
             }
-
             $holding[$i] += array(
                 'is_holdable' => $is_holdable,
                 'holdtype' => $holdType,
@@ -543,6 +553,7 @@ class VoyagerRestful extends Voyager
         // Send Request and Retrieve Response
         $client->sendRequest();
         $xmlResponse = $client->getResponseBody();
+        error_log("VR: $mode request $urlParams, body:\n$xml\nResults:\n$xmlResponse");
         $oldLibXML = libxml_use_internal_errors();
         libxml_use_internal_errors(true);
         $simpleXML = simplexml_load_string($xmlResponse);
@@ -951,13 +962,20 @@ class VoyagerRestful extends Voyager
      */
     protected function determineHoldType($patronId, $bibId, $itemId = false)
     {
+        if ($itemId && isset($this->config['Holds']['enableItemHolds']) && !$this->config['Holds']['enableItemHolds']) {
+            return false;
+        }
+
         // Check for account Blocks
         if ($this->checkAccountBlocks($patronId)) {
             return "block";
         }
 
         // Check Recalls First
-        $recall = $this->checkItemRequests($patronId, "recall", $bibId, $itemId);
+        $recall = false;
+        if (!isset($this->config['Holds']['enableRecalls']) || $this->config['Holds']['enableRecalls']) {
+            $recall = $this->checkItemRequests($patronId, "recall", $bibId, $itemId);
+        }
         if ($recall) {
             return "recall";
         } else {
