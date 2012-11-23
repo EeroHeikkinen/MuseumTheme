@@ -42,6 +42,17 @@ require_once 'Action.php';
 class Autocomplete extends Action
 {
     /**
+     * Constructor.
+     *
+     * @access public
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $_SESSION['no_store'] = true; 
+    }
+    
+    /**
      * Process incoming parameters and display suggestions.
      *
      * @return void

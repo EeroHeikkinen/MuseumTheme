@@ -52,6 +52,7 @@ class JSON extends Action
     public function __construct()
     {
         parent::__construct();
+        $_SESSION['no_store'] = true; 
     }
 
     /**

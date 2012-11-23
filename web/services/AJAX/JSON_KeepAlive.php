@@ -46,6 +46,8 @@ class JSON_KeepAlive extends JSON
      */
     public function keepAlive()
     {
+        // Make this update the session
+        unset($_SESSION['no_store']);
         return $this->output(true, JSON::STATUS_OK);
     }
 }
