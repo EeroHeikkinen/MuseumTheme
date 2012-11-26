@@ -359,7 +359,7 @@
           <a href="{$url}/Search/Results?tag={$tag->tag|escape:"url"}">{$tag->tag|escape:"html"}</a> ({$tag->cnt}){if !$smarty.foreach.tagLoop.last}, {/if}
             {/foreach}
           {else}
-            {translate text='No Tags'}, {translate text='Be the first to tag this record'}!
+            {translate text='No Tags'}
           {/if}
         </div>
       </td>

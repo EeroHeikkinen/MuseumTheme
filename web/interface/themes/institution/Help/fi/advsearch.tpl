@@ -1,6 +1,6 @@
 <!-- START of: Help/fi/advsearch.tpl -->
 
-<h1>Tarkennetun haun opaste</h1>
+<h1>Tarkennetun haun ohje</h1>
 
 <ul class="HelpMenu">
   <li><a href="#Search Fields">Hakukentät</a></li>

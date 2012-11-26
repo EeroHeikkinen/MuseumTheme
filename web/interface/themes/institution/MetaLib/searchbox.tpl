@@ -22,7 +22,7 @@
         <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
       </div>
       <div class="advanced-link-wrapper clear">
-        <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small advancedLink">{translate text="Advanced"}</a>
+        <a href="{$path}/MetaLib/Advanced?set={$searchSet|escape}" class="small advancedLink">{translate text="Advanced Search"}</a>
         <a href="{$path}/" class="small last metalibLink">{translate text="Local search"}</a>
       </div>
       {js filename="dropdown.js"}
