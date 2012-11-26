@@ -103,6 +103,8 @@ class JSON extends Action
     {
         global $configArray;
 
+        unset($_SESSION['no_store']);
+        
         // Fetch Salt
         $salt = $this->_generateSalt();
 
@@ -123,7 +125,7 @@ class JSON extends Action
         if (PEAR::isError($user)) {
             return $this->output(translate($user->getMessage()), JSON::STATUS_ERROR);
         }
-
+        
         return $this->output(true, JSON::STATUS_OK);
     }
 
