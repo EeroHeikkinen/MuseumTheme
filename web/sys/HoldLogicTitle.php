@@ -131,6 +131,7 @@ class HoldLogicTitle
     {
         $any_available = false;
         $addlink = false;
+        $anyHoldable = false;
 
         $data = array(
             'id' => $id,
@@ -155,8 +156,17 @@ class HoldLogicTitle
                     }
                 }
                 $addlink = !$any_available;
-            }
+            } elseif ($type == "item_holdability") {
 
+                $holdings = $this->catalog->getHolding($id);
+                foreach ($holdings as $holding) {
+                    if ($holding['is_holdable']) {
+                        $anyHoldable = true;
+                    }
+                }
+                $addlink = $anyHoldable;
+            }
+                
             if ($addlink) {
                 if ($checkHolds['function'] == "getHoldLink") {
                     /* Return opac link */

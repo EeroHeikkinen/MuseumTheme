@@ -42,6 +42,17 @@ require_once 'sys/SearchObject/Solr.php';
 class AJAX_Description extends Action
 {
     /**
+     * Constructor.
+     *
+     * @access public
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $_SESSION['no_store'] = true; 
+    }
+    
+    /**
      * Get description and return html snippet
      * 
      * @return void

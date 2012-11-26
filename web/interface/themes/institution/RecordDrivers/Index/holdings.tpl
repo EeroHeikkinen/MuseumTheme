@@ -91,7 +91,7 @@
         {else}
         {* Begin Unavailable Items (Recalls) *}
           <div>
-          <span class="checkedout">{translate text=$row.status}</span>
+          <span class="checkedout">{translate text=$row.status prefix='status_'}</span>
           {if $row.returnDate} <span class="statusExtra">{$row.returnDate|escape}</span>{/if}
           {if $row.duedate}
           <span class="statusExtra">{translate text="Due"}: {$row.duedate|escape}</span>

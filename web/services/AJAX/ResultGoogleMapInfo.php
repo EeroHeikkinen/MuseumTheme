@@ -41,6 +41,17 @@ require_once 'RecordDrivers/Factory.php';
 class ResultGoogleMapInfo extends Action
 {
     /**
+     * Constructor.
+     *
+     * @access public
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $_SESSION['no_store'] = true; 
+    }
+    
+    /**
      * Process incoming parameters and display the page.
      *
      * @return void
