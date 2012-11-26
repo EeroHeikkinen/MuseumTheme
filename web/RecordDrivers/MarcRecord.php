@@ -1541,7 +1541,15 @@ class MarcRecord extends IndexRecord
      */
     protected function getISBNs()
     {
-        return $this->stripTrailingPunctuation($this->getFieldArray('020', array('a')));
+        $fields = array(
+            '020' => array('a'),
+            '773' => array('z'),
+        ); 
+        $isbn = array();
+        foreach ($fields as $field => $subfields) {
+            $isbn = array_merge($isbn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields)));
+        }
+        return array_values(array_unique($isbn));
     }
 
     /**
