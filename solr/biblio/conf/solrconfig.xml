@@ -271,7 +271,7 @@
       class="solr.FastLRUCache"
       size="300000"
       initialSize="300000"
-      autowarmCount="50000"/>
+      autowarmCount="5000"/>
 
    <!-- queryResultCache caches results of searches - ordered lists of
          document ids (DocList) based on a query, a sort, and the range
@@ -280,7 +280,7 @@
       class="solr.LRUCache"
       size="100000"
       initialSize="100000"
-      autowarmCount="50000"/>
+      autowarmCount="5000"/>
 
     <fieldValueCache
       class="solr.LRUCache"
@@ -294,7 +294,7 @@
       class="solr.LRUCache"
       size="50000"
       initialSize="50000"
-      autowarmCount="10000"/>
+      autowarmCount="1000"/>
 
     <!-- If true, stored fields that are not requested will be loaded lazily.
 
