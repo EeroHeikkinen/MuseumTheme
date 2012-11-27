@@ -1,4 +1,4 @@
-{* This file is used for at least alert emails. Note that the line feeds are important for nice text layout. *}
+{* This file is used for emails. Note that the line feeds are important for nice text layout. *}
 {translate text="Title"}: {if $summTitle}{$summTitle}{else}{translate text='Title not available'}{/if}
 {if $summAuthor}
 

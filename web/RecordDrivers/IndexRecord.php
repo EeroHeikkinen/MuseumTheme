@@ -593,17 +593,6 @@ class IndexRecord implements RecordInterface
         $ed = new ExternalExcerpts($this->getCleanISBN());
         return $ed->fetch();
     }
-    
-    /**
-     * Get the text to represent this record in the body of a feedback email.
-     *
-     * @return string Text for inclusion in email.
-     * @access public
-     */
-    public function getFeedback()
-    {
-        return "  " . $this->getTitle() . "\n";
-    }
 
     /**
      * Get any author notes associated with this record.  For details of

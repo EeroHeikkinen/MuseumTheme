@@ -97,7 +97,7 @@ class Email extends Record
         $subject = translate("Library Catalog Record") . ": " .
             $this->recordDriver->getBreadcrumb();
         $interface->assign('from', $from);
-        $interface->assign('emailDetails', $this->recordDriver->getEmail());
+        $interface->assign('emailDetails', $interface->fetch($this->recordDriver->getSearchResult('email')));
         $interface->assign('recordID', $this->recordDriver->getUniqueID());
         $interface->assign('message', $message);
         $body = $interface->fetch('Emails/catalog-record.tpl');
