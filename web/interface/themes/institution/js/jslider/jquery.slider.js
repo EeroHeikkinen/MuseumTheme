@@ -37,7 +37,7 @@
     return false;
   }
 
-	$.slider = function( node, settings ){
+	$.jslider = function( node, settings ){
 	  var jNode = $(node);
 	  if( !jNode.data( "jslider" ) )
 	    jNode.data( "jslider", new jSlider( node, settings ) );
@@ -45,7 +45,7 @@
 	  return jNode.data( "jslider" );
 	};
 	
-	$.fn.slider = function( action, opt_value ){
+	$.fn.jslider = function( action, opt_value ){
 	  var returnValue, args = arguments;
 	  
 	  function isDef( val ){
@@ -57,7 +57,7 @@
 	  };
 	  
 		this.each(function(){
-		  var self = $.slider( this, action );
+		  var self = $.jslider( this, action );
 		  
 		  // do actions
 		  if( typeof action == "string" ){
