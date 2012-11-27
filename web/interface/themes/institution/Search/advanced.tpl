@@ -155,12 +155,15 @@
               </div>
               <div id="zoomControlMinus" class="ui-state-default ui-corner-all ui-icon ui-icon-minus"></div>
             </div>
-            <div id="selectionMap">
-              <div id="selectionMapTools">
-                <input id="mapPan" type="radio" name="tool" value="pan" checked="checked"><label for="mapPan">{translate text='Move Map'}</label>
-                <input id="mapPolygon" type="radio" name="tool" value="drawPolygon"><label for="mapPolygon">{translate text='Select Polygon'}</label>
-                <input id="mapRectangle" type="radio" name="tool" value="dragBox"><label for="mapRectangle">{translate text='Select Rectangle'}</label>
-              </div>
+            <div id="selectionMapTools">
+              <input id="mapPan" type="radio" name="tool" value="pan" checked="checked"/>
+              <label for="mapPan">{translate text='Move Map'}</label>
+              <input id="mapPolygon" type="radio" name="tool" value="drawPolygon"/>
+              <label for="mapPolygon">{translate text='Select Polygon'}</label>
+              <input id="mapRectangle" type="radio" name="tool" value="dragBox"/>
+              <label for="mapRectangle">{translate text='Select Rectangle'}</label>
+            </div>
+            <div id="selectionMap">              
             </div>
           </div>
           <span id="selectionMapHelp">

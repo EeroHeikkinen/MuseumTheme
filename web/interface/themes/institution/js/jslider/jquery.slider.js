@@ -37,7 +37,7 @@
     return false;
   }
 
-	$.jslider = function( node, settings ){
+	$.slider = function( node, settings ){
 	  var jNode = $(node);
 	  if( !jNode.data( "jslider" ) )
 	    jNode.data( "jslider", new jSlider( node, settings ) );
@@ -45,7 +45,7 @@
 	  return jNode.data( "jslider" );
 	};
 	
-	$.fn.jslider = function( action, opt_value ){
+	$.fn.slider = function( action, opt_value ){
 	  var returnValue, args = arguments;
 	  
 	  function isDef( val ){
@@ -57,7 +57,7 @@
 	  };
 	  
 		this.each(function(){
-		  var self = $.jslider( this, action );
+		  var self = $.slider( this, action );
 		  
 		  // do actions
 		  if( typeof action == "string" ){
@@ -170,7 +170,7 @@
       '<span class="<%=className%>">' +
         '<table><tr><td>' +
           '<div class="<%=className%>-bg">' +
-            '<i class="l"></i><i class="r"></i>' +
+            '<i class="l"></i><i class="f"></i><i class="r"></i>' +
             '<i class="v"></i>' +
           '</div>' +
 
