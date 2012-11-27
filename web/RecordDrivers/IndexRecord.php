@@ -2127,7 +2127,7 @@ class IndexRecord implements RecordInterface
             }
 
             // No preferred field found, so try for a non-forbidden field:
-            if (is_array($this->fields['_highlighting'])) {
+            if (isset($this->fields['_highlighting']) && is_array($this->fields['_highlighting'])) {
                 foreach ($this->fields['_highlighting'] as $key => $value) {
                     if (!in_array($key, $this->forbiddenSnippetFields)) {
                         return array(
