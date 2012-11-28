@@ -1235,12 +1235,18 @@ class SearchObject_Solr extends SearchObject_Base
     private function _processSpelling()
     {
         global $configArray;
-
         // Do nothing if spelling is disabled
         if (!$configArray['Spelling']['enabled']) {
             return;
         }
-
+        
+        // Spellcheck only basic search
+        if (count($this->searchTerms) != 1
+            || $this->searchTerms[0]['index'] != 'AllFields'
+        ) {
+            return;    
+        }
+        
         // Do nothing if there are no suggestions
         $suggestions = isset($this->indexResult['spellcheck']['suggestions']) ?
             $this->indexResult['spellcheck']['suggestions'] : array();
@@ -1251,7 +1257,7 @@ class SearchObject_Solr extends SearchObject_Base
         // Loop through the array of search terms we have suggestions for
         $suggestionList = array();
         // More than one word use collation suggestions
-        $queryTerm = $this->getQuery();
+        $queryTerm = $this->_buildSpellingQuery();
         $useCollate = (str_word_count($queryTerm, 0) > 1);
         
         if ($useCollate) {
