@@ -214,7 +214,7 @@ class SearchObject_Solr extends SearchObject_Base
         }
         
         // Data source filters
-        if (isset($config['Records']['sources'])) {
+        if (isset($config['Records']['sources']) && $config['Records']['sources']) {
             $sources = array_map(
                 function($input) {
                     return '"' . addcslashes($input, '"') . '"'; 
