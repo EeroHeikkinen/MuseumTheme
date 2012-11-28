@@ -1029,6 +1029,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('summLCCN', $this->getLCCN());
         $interface->assign('summOCLC', $this->getOCLC());
         $interface->assign('summCallNo', $this->getCallNumber());
+        $interface->assign('summClassifications', $this->getClassifications());
         $interface->assign('summContainerTitle', $this->getContainerTitle());
         $interface->assign('summContainerReference', $this->getContainerReference());
         $interface->assign('summHierarchyParentId', $this->getHierarchyParentId());
