@@ -19,9 +19,6 @@
     {/if}
   </div>
   <div id="loginOptions"{if $user} class="hide"{/if}>
-  {if $mozillaPersona}
-    <a id="personaLogin" class="persona-login" href=""><span>{translate text="Sign in with your Email"}</span></a>
-  {/if}
   {if $authMethod == 'Shibboleth'}
     <a class="login" href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
     {*<br/><a class="" href="">{translate text="Create Account"}</a>*}

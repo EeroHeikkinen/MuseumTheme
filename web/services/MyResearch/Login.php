@@ -72,6 +72,8 @@ class Login extends Action
             die();
         }
 
+        
+        
         // Assign the followup task to come back to after they login -- note that
         //     we need to check for a pre-existing followup task in case we've
         //     looped back here due to an error (bad username/password, etc.).
@@ -131,9 +133,33 @@ class Login extends Action
             }
             $interface->assign('extraParams', $extraParams);
         }
+        
+        Login::setupLoginFormVars();
+        
         $interface->setPageTitle('Login');
         $interface->setTemplate('login.tpl');
         $interface->display('layout.tpl');
+    }
+
+    /**
+     * Set up required variables for the login form to display properly
+     * 
+     * @return void
+     */
+    static public function setupLoginFormVars()
+    {
+        global $configArray;
+        global $interface;
+        
+        if (isset($configArray['Catalog']['driver'])  && $configArray['Catalog']['driver'] == 'MultiBackend') {
+            $multiBackend = new MultiBackend();
+            $interface->assign('loginTargets', $multiBackend->getDrivers());
+            $interface->assign('defaultLoginTarget', $multiBackend->getDefaultDriver());
+        }
+        
+        if (isset($_REQUEST['lightbox'])) {
+            $interface->assign('lightbox', true);
+        }
     }
 }
 

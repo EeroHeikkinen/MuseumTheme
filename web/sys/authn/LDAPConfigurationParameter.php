@@ -25,7 +25,6 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_an_authentication_handler Wiki
  */
-require_once 'ConfigurationReader.php';
 
 /**
  * Configuration File Loader Class for LDAP module
@@ -76,9 +75,8 @@ class LDAPConfigurationParameter
      */
     private function _getFullSectionParameters()
     {
-        $configurationReader
-            = new ConfigurationReader($this->_configurationFilePath);
-        $this->_ldapParameter = $configurationReader->readConfiguration("LDAP");
+        global $configArray;
+        $this->_ldapParameter = $configArray['LDAP'];
     }
 
     /**

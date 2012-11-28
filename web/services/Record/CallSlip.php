@@ -31,6 +31,7 @@
 
 require_once 'Record.php';
 require_once 'Crypt/generateHMAC.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * CallSlip action for Record module
@@ -129,6 +130,7 @@ class CallSlip extends Record
             } else {
                 // User is not logged in
                 // Display Login Form
+                Login::setupLoginFormVars();
                 $interface->setTemplate('../MyResearch/login.tpl');
                 // Display Page
                 $interface->display('layout.tpl');

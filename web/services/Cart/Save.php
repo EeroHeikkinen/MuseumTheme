@@ -30,6 +30,7 @@
 require_once 'Bulk.php';
 require_once 'services/MyResearch/lib/Resource.php';
 require_once 'services/MyResearch/lib/User.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * Save action for Bulk module
@@ -187,6 +188,7 @@ class Save extends Bulk
         $interface->assign('message', 'You must be logged in first');
         $interface->assign('followup', true);
         $interface->assign('followupAction', 'Home');
+        Login::setupLoginFormVars();
         return $interface->fetch('AJAX/login.tpl');
     }
 
@@ -219,6 +221,7 @@ class Save extends Bulk
             $extraParams[] = array('name' => "ids[]", 'value' => $id);
         }
         $extraParams[] = array('name' => "saveCart", 'value' => 1);
+        Login::setupLoginFormVars();
         $interface->assign('extraParams', $extraParams);
         $interface->assign('followup', true);
         $interface->assign('followupModule', 'Cart');

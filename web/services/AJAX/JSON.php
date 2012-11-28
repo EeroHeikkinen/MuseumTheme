@@ -27,6 +27,7 @@
  */
 
 require_once 'Action.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * Common AJAX functions using JSON as output format.
@@ -818,6 +819,7 @@ class JSON extends Action
 
         // Use our version of login lightbox
         if ($module == 'AJAX' && $action=='Login') {
+            Login::setupLoginFormVars();
             $page = $interface->fetch('AJAX/login.tpl');
             $interface->assign('title', $_GET['message']);
             $interface->assign('page', $page);

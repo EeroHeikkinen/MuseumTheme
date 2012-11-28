@@ -137,6 +137,7 @@ class UserAccount
             if ($configArray['System']['debug']) {
                 echo "Exception: " . $e->getMessage();
             }
+            error_log("Authentication exception: " . $e->getMessage());
             $user = new PEAR_Error('authentication_error_technical');
         }
 

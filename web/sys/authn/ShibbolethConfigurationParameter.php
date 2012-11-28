@@ -25,7 +25,6 @@
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_an_authentication_handler Wiki
  */
-require_once 'ConfigurationReader.php';
 
 /**
  * Configuration File Loader Class for Shibboleth module
@@ -77,10 +76,9 @@ class ShibbolethConfigurationParameter
      */
     private function _getFullSectionParameters()
     {
-        $configurationReader
-            = new ConfigurationReader($this->_configurationFilePath);
-        $this->_userAttributes
-            = $configurationReader->readConfiguration("Shibboleth");
+        global $configArray;
+        
+        $this->_userAttributes = $configArray['Shibboleth'];
     }
 
     /**
