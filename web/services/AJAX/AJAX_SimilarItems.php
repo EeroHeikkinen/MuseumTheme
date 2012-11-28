@@ -40,6 +40,17 @@ require_once 'sys/SearchObject/Solr.php';
 class AJAX_SimilarItems extends Action
 {
     /**
+     * Constructor.
+     *
+     * @access public
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $_SESSION['no_store'] = true; 
+    }
+    
+    /**
      * Get similar items and return html snippet
      * 
      * @return void

@@ -489,7 +489,7 @@ div.truncateField {
 	  background-color: inherit;
 }
 div.moreLink, div.lessLink {
-    z-index: 1004;
+    z-index: 1000;
     height: 1.5em;
     background-color: inherit;
 }
@@ -1323,7 +1323,6 @@ ul.recordSet .addToFavLink a {
     margin: 0 0 1px 5px;
 }
 .checkedout {
-    display:none; /* Uncomment the line to the Not Available info */
     background-image:url(../images/silk/bullet_red.png);
     background-repeat:no-repeat;
     color:#cc0000;

@@ -247,8 +247,9 @@ class IndexRecord implements RecordInterface
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
-        // the way we display items on the search results list.
-        $hasOpenURL = ($this->openURLActive('record') && $this->getCleanISSN());
+        // the way we display items on the search results list. Actually,
+        // display OpenURL link for records with ISBNs too.
+        $hasOpenURL = ($this->openURLActive('record') && ($this->getCleanISSN() || $this->getCleanISBN()));
         if ($hasOpenURL) {
             $interface->assign('coreOpenURL', $this->getOpenURL());
         }
@@ -592,17 +593,6 @@ class IndexRecord implements RecordInterface
         $ed = new ExternalExcerpts($this->getCleanISBN());
         return $ed->fetch();
     }
-    
-    /**
-     * Get the text to represent this record in the body of a feedback email.
-     *
-     * @return string Text for inclusion in email.
-     * @access public
-     */
-    public function getFeedback()
-    {
-        return "  " . $this->getTitle() . "\n";
-    }
 
     /**
      * Get any author notes associated with this record.  For details of
@@ -723,8 +713,9 @@ class IndexRecord implements RecordInterface
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
-        // the way we display items on the search results list.
-        $hasOpenURL = ($this->openURLActive('holdings') && $this->getCleanISSN());
+        // the way we display items on the search results list. Actually,
+        // display OpenURL link for records with ISBNs too.
+        $hasOpenURL = ($this->openURLActive('holdings') && ($this->getCleanISSN() || $this->getCleanISBN()));
         if ($hasOpenURL) {
             $interface->assign('holdingsOpenURL', $this->getOpenURL());
         }
@@ -846,18 +837,22 @@ class IndexRecord implements RecordInterface
 
         // If we have multiple formats, Book, Journal and Article are most
         // important...
-        if (in_array('Book', $formats)) {
+        if (in_array('Book/BookSection', $formats)) {
+            $format = 'BookSection';
+        } else if (in_array('Book/eBookSection', $formats)) {
+            $format = 'eBookSection';
+        } else if (in_array('Book', $formats)) {
             $format = 'Book';
         } else if (in_array('eBook', $formats)) {
             $format = 'eBook';
-        } else if (in_array('Article', $formats)) {
+        } else if (in_array('Journal/Article', $formats)) {
             $format = 'Article';
-        } else if (in_array('eArticle', $formats)) {
+        } else if (in_array('Journal/eArticle', $formats)) {
             $format = 'eArticle';
         } else if (in_array('Journal', $formats)) {
             $format = 'Journal';
         } else {
-            $format = $formats[0];
+            $format = array_pop($formats);
         }
         switch($format) {
         case 'Book':
@@ -878,6 +873,30 @@ class IndexRecord implements RecordInterface
             }
             $params['rft.edition'] = $this->getEdition();
             $params['rft.isbn'] = $this->getCleanISBN();
+            break;
+        case 'BookSection':
+        case 'eBookSection':
+            $params['rft_val_fmt'] = 'info:ofi/fmt:kev:mtx:book';
+            $params['rft.genre'] = 'book';
+            $series = $this->getSeries();
+            if (count($series) > 0) {
+                // Handle both possible return formats of getSeries:
+                $params['rft.series'] = is_array($series[0]) ?
+                    $series[0]['name'] : $series[0];
+            }
+            $params['rft.au'] = $this->getPrimaryAuthor();
+            $publishers = $this->getPublishers();
+            if (count($publishers) > 0) {
+                $params['rft.pub'] = $publishers[0];
+            }
+            $params['rft.edition'] = $this->getEdition();
+            $params['rft.isbn'] = $this->getCleanISBN();
+            $params['rft.volume'] = $this->getContainerVolume();
+            $params['rft.issue'] = $this->getContainerIssue();
+            $params['rft.spage'] = $this->getContainerStartPage();
+            unset($params['rft.title']);
+            $params['rft.btitle'] = $this->getContainerTitle();
+            $params['rft.atitle'] = $this->getTitle();
             break;
         case 'Article':
         case 'eArticle':
@@ -1037,10 +1056,8 @@ class IndexRecord implements RecordInterface
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
         // the way we display items on the search results list. Actually,
-        // display OpenURL link for eBooks with ISBNs too.
-        $hasOpenURL = ($this->openURLActive('results') && $issn ||
-                       ($this->getCleanISBN() &&
-                        in_array('eBook', $this->getFormats())));
+        // display OpenURL link for records with ISBNs too.
+        $hasOpenURL = ($this->openURLActive('results') && ($issn || $this->getCleanISBN()));
         $openURL = $this->getOpenURL();
         $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
 
@@ -2111,7 +2128,7 @@ class IndexRecord implements RecordInterface
             }
 
             // No preferred field found, so try for a non-forbidden field:
-            if (is_array($this->fields['_highlighting'])) {
+            if (isset($this->fields['_highlighting']) && is_array($this->fields['_highlighting'])) {
                 foreach ($this->fields['_highlighting'] as $key => $value) {
                     if (!in_array($key, $this->forbiddenSnippetFields)) {
                         return array(

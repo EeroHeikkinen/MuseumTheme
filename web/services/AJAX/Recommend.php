@@ -40,6 +40,17 @@ require_once 'sys/Recommend/RecommendationFactory.php';
 class Recommend extends Action
 {
     /**
+     * Constructor.
+     *
+     * @access public
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $_SESSION['no_store'] = true; 
+    }
+    
+    /**
      * Process incoming parameters and display recommendations.
      *
      * @return void

@@ -62,6 +62,7 @@ class JSON_PersonaLogin extends JSON
             error_log('Persona login error: ' . $user->getMessage());
             return $this->output(false, JSON::STATUS_ERROR);
         }
+        unset($_SESSION['no_store']);
         UserAccount::updateSession($user);
         return $this->output(true, JSON::STATUS_OK);
     }
