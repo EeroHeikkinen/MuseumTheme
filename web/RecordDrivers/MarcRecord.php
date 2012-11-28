@@ -508,7 +508,7 @@ class MarcRecord extends IndexRecord
     {
         // These are the fields that may contain subject headings:
         $fields = array(
-            '600', '610', '611', '630', '648', '650', '651', '656'
+            '600', '610', '611', '630', '648', '650', '651', '653', '656'
         );
 
         // This is all the collected data:
