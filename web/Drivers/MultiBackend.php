@@ -61,6 +61,26 @@ class MultiBackend implements DriverInterface
         $this->defaultDriver = $configArray['General']['defaultDriver'];
         $this->drivers = $configArray['Drivers'];
     }
+    
+    /**
+     * Get the drivers (data source IDs) enabled in MultiBackend
+     * 
+     * @return string[]
+     */
+    public function getDrivers()
+    {
+        return array_keys($this->drivers);
+    }
+
+    /**
+     * Get the default driver (data source ID)
+     * 
+     * @return string
+     */
+    public function getDefaultDriver()
+    {
+        return $this->defaultDriver;
+    }
 
     /**
      * Get Status

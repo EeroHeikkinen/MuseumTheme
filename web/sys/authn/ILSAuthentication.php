@@ -50,7 +50,10 @@ class ILSAuthentication implements Authentication
         
         $username = $_POST['username'];
         $password = $_POST['password'];
-
+        $loginTarget = isset($_POST['login_target']) ? $_POST['login_target'] : false;
+        if ($loginTarget) {
+            $username = "$loginTarget.$username";
+        }
         if ($username == '' || $password == '') {
             $user = new PEAR_Error('authentication_error_blank');
         } else {

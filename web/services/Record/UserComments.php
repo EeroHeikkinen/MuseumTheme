@@ -30,6 +30,7 @@ require_once 'Record.php';
 
 require_once 'services/MyResearch/lib/Resource.php';
 require_once 'services/MyResearch/lib/Comments.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * UserComments action for Record module
@@ -75,6 +76,7 @@ class UserComments extends Record
                 $interface->assign('followupModule', 'Record');
                 $interface->assign('followupAction', 'UserComments');
                 $interface->setPageTitle('You must be logged in first');
+                Login::setupLoginFormVars();
                 $interface->assign('subTemplate', '../MyResearch/login.tpl');
                 $interface->setTemplate('view-alt.tpl');
                 $interface->display('layout.tpl', 'UserComments' . $_GET['id']);

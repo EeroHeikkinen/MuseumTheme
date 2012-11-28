@@ -705,6 +705,8 @@ fieldset.publishDateLimit .ui-slider {
     margin-left: 0;
 }
 
+/*** MyResearch ***/
+
 #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
     float: left;
     margin: 0 12px 0 0;
@@ -830,6 +832,70 @@ div.bulkActionButtons {
 }
 .myResearch .sessionHistory {
     margin-bottom: 1em;
+}
+.loginForm h3 {
+	  font-size: 1em;
+	  font-weight: normal;
+}
+.loginForm label {
+    font-size: 1em;
+    font-weight: normal;
+}
+.loginForm .button {
+    margin: 1.5em 0;
+    float: right;
+}
+.loginForm .description {
+	  padding: 1em;
+	  background-color: #f3f3f3;
+	  margin-top: 12px; 
+}
+.loginForm .descriptionTitle {
+	  font-weight: bold;
+}
+.loginForm .separator, .loginForm .separatorSmall {
+	  clear: left;
+	  float: left;
+	  margin: 24px 0 6px 0;
+	  padding: 0;
+	  border-top: 1px solid #dddddd;
+	  background: none;
+	  height: 1px;
+    width: 592px;
+}
+.loginForm .separatorSmall {
+    width: 544px;
+}
+.loginForm .separator .text, .loginForm .separatorSmall .text {
+    position: relative;
+	  left: 4em;
+	  top: -0.75em;
+	  padding: 0 1em 0 1em;
+	  background-color: #ffffff;
+}
+.loginForm .loginAction, .loginForm .loginTitle {
+	  clear: left;
+	  float: left;
+	  width: 240px;
+	  margin-right: 56px;
+}
+.loginForm .loginTitle {
+	  margin-bottom: 1em;
+}
+.loginForm .loginDescription {
+    float: left;
+    width: 296px;
+    margin-right: 12px;
+}
+.loginForm .loginDescriptionSmall {
+    float: left;
+    width: 248px;
+    margin-right: 12px;
+    font-size: .846em;
+}
+.loginForm input[type='text'], .loginForm input[type='password'], .loginForm select {
+	  width: 100%;
+	  -moz-box-sizing: border-box;
 }
 
 /*** Result List ***/

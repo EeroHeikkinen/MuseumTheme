@@ -31,6 +31,7 @@ require_once 'Action.php';
 require_once 'services/MyResearch/lib/User.php';
 require_once 'services/MyResearch/lib/Tags.php';
 require_once 'services/MyResearch/lib/Resource.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * AddTag action for Record module
@@ -77,10 +78,12 @@ class AddTag extends Action
             if (isset($_GET['lightbox'])) {
                 $interface->assign('title', $_GET['message']);
                 $interface->assign('message', 'You must be logged in first');
+                Login::setupLoginFormVars();
                 return $interface->fetch('AJAX/login.tpl');
             } else {
                 $interface->assign('followup', true);
                 $interface->setPageTitle('You must be logged in first');
+                Login::setupLoginFormVars();
                 $interface->assign('subTemplate', '../MyResearch/login.tpl');
                 $interface->setTemplate('view-alt.tpl');
                 $interface->display('layout.tpl', 'AddTag' . $_GET['id']);

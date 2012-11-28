@@ -30,6 +30,7 @@ require_once 'Action.php';
 
 require_once 'services/MyResearch/lib/User_list.php';
 require_once 'services/MyResearch/lib/User.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * ListEdit action for MyResearch module
@@ -82,6 +83,7 @@ class ListEdit extends Action
             if (isset($_GET['lightbox'])) {
                 $interface->assign('title', $_GET['message']);
                 $interface->assign('message', 'You must be logged in first');
+                Login::setupLoginFormVars();
                 return $interface->fetch('AJAX/login.tpl');
             } else {
                 include_once 'Login.php';

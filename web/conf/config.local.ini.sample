@@ -38,3 +38,6 @@ en-gb       = "English"
 
 [System]
 available = true
+
+[Shibboleth]
+;login = https://haka.funet.fi/shibboleth/WAYF
