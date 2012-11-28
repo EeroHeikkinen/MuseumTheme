@@ -1,6 +1,6 @@
 <!-- START of: Search/searchbox.tpl -->
 
-<div id="searchForm" class="searchform last">
+<div id="searchFormContainer" class="searchform last">
 
 {if $searchType == 'advanced'}
   <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
