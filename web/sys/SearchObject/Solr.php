@@ -212,6 +212,17 @@ class SearchObject_Solr extends SearchObject_Base
                 $filters[] = $rawFilter;
             }
         }
+        
+        // Data source filters
+        if (isset($config['Records']['sources'])) {
+            $sources = array_map(
+                function($input) {
+                    return '"' . addcslashes($input, '"') . '"'; 
+                },
+                explode(',', $config['Records']['sources'])
+            );
+            $filters[] = 'source_str_mv:(' . implode(' OR ', $sources) . ')';
+        }
 
         return $filters;
     }

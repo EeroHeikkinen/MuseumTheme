@@ -135,9 +135,9 @@ class Solr implements IndexEngine
     private $_mergedRecords = null;
 
     /**
-     * Comma-separated list of data source codes in order of priority (most desired first)
+     * Comma-separated list of data source codes to search in order of priority (most desired first)
      */
-    private $_mergeSourcePriority = '';
+    private $_recordSources = '';
     
     /**
      * Array of buildings in facet query, used to override configured merge priority
@@ -242,9 +242,9 @@ class Solr implements IndexEngine
         }
         
         // Merged records
-        if (isset($searchSettings['Merged_Records']['merged_records'])) {
-           	$this->_mergedRecords = $searchSettings['Merged_Records']['merged_records'];
-           	$this->_mergeSourcePriority = $searchSettings['Merged_Records']['merge_source_priority'];
+        if (isset($searchSettings['Records']['merged_records'])) {
+           	$this->_mergedRecords = $searchSettings['Records']['merged_records'];
+           	$this->_recordSources = $searchSettings['Records']['sources'];
         }
         
         // Hide component parts?
@@ -1483,7 +1483,7 @@ class Solr implements IndexEngine
                 }
             }
         }
-
+        
         // pass the shard parameter along to Solr if necessary; if the shard
         // count is 0, shards are disabled; if the count is 1, only one shard
         // is selected so the host has already been adjusted:
@@ -1599,7 +1599,7 @@ class Solr implements IndexEngine
         // Handle merged records (choose the local record by priority)
         if ($this->_mergedRecords && isset($result['response']['docs'])) {
             $datasourceConfig = getExtraConfigArray('datasources');
-            $sourcePriority = array_flip(explode(',', $this->_mergeSourcePriority));
+            $sourcePriority = array_flip(explode(',', $this->_recordSources));
             $buildingPriority = $this->_mergeBuildingPriority;
             array_unshift($buildingPriority, '');
             $buildingPriority = array_flip($buildingPriority);
