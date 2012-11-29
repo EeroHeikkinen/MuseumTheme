@@ -1,8 +1,7 @@
 <!-- START of: Content/organizations.fi.tpl -->
 
-{* Draft content *}
-
 <div class="mainContent">
+{* hide the temp content
 <h3 style="font-weight:normal;margin-bottom: 1.4em;">Finnassa on aineistoa seuraavilta tahoilta (täydentyy)</h1>
 
 <p style="margin-top: 1em;">
@@ -19,6 +18,7 @@ Vaski-kirjastot<br />
 </p>
 
 <p style="margin-top: 3em;"><a href="{$path}">Takaisin etusivulle</a></p>
+*}
 </div>
 
 <!-- END of: Content/organizations.fi.tpl -->

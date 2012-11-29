@@ -1,4 +1,7 @@
+<!-- START of: Content/about.sv.tpl -->
+
 <div class="mainContent">
+{* hide the temp content
 <h1 style="font-size: 2.6em;font-weight: normal;">
 Suomen kirjastojen, arkistojen ja museoiden aarteet yhdellä haulla</h1>
 
@@ -13,4 +16,7 @@ Suomen kirjastojen, arkistojen ja museoiden aarteet yhdellä haulla</h1>
 <p style="margin-top: 1em;">Lisätietoa Finnasta on osoitteessa <a href="http://www.kdk.fi/">www.kdk.fi</a>.</p>
 
 <p style="margin-top: 3em;"><a href="{$path}">Takaisin etusivulle</a></p>
+*}
 </div>
+
+<!-- END of: Content/about.sv.tpl -->
