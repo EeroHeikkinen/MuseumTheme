@@ -214,7 +214,7 @@ $(document).ready(function() {
 		</div>
 		{/if}
       
-        <div class="footer small clear">
+        <div class="footer clear">
           {include file="footer.tpl"}
         </div>
 
