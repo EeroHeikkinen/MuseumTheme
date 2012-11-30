@@ -400,7 +400,52 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 .searchbox .dropdown dd ul li a:hover {
     padding: 5px 0 5px 5px;
 }
-
+/* Search context help layer */
+.searchContextHelp {
+	position: absolute;
+	display: none;
+	z-index: 1;
+	width: 460px;
+	padding: 20px;
+	margin-top: 6px;
+	background: #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #999999;
+	-webkit-box-shadow: 0 3px 4px #dddddd;
+	-moz-box-shadow: 0 3px 4px #dddddd;
+	box-shadow: 0 3px 10px #cccccc;
+}
+.searchContextHelp p {
+    margin: 0 0 1em 0;
+}
+.searchContextHelp p.last {
+    margin: 0;
+}
+/* triangles */
+.searchContextHelp:before {
+    content: ' ';  
+    position: absolute;  
+    width: 0;  
+    height: 0;  
+    left: 98px;  
+    top: -20px;  
+    border: 25px solid;
+    border-width: 0 20px 20px;
+    border-color: #999999 transparent;  
+}
+.searchContextHelp:after {
+    content: ' ';  
+    position: absolute;  
+    width: 0;  
+    height: 0;  
+    left: 100px;  
+    top: -18px;  
+    border: 25px solid;
+    border-width: 0 18px 18px;
+    border-color: #ffffff transparent;  
+}
 
 
 #searchForm_searchButton {

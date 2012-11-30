@@ -39,11 +39,19 @@ $(document).ready(function(){
     */
 
     // attach click event to the advanced search help links
+    /*
     $('a.advsearchHelp').click(function(){
         window.open(path + '/Help/Home?topic=advsearch', 'Help', 'width=625, height=510');
         return false;
     });
-
+    */
+    
+    // assign click event to searchbox context help
+    $('.showSearchHelp').click(function() {
+      $('div.searchContextHelp').toggle();
+      return false;
+    });
+    
     // assign click event to "email search" links
     $('a.mailSearch').click(function() {
         var id = this.id.substr('mailSearch'.length);
