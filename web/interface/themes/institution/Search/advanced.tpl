@@ -195,9 +195,7 @@
       </div>
     {/if}
     <div class="sidegroup">
-      <h4>{translate text="Search Tips"}</h4>
-      <a href="{$url}/Help/Home?topic=searchadv" class="advsearchHelp">{translate text="Help with Advanced Search"}</a><br />
-      <a href="{$url}/Help/Home?topic=search" class="searchHelp">{translate text="Help with Search Operators"}</a>
+      <p><a href="{$url}/Content/searchhelp">{translate text="Search Tips"}</a></p>
     </div>
   </div>
 
