@@ -1205,6 +1205,35 @@ dl.narrowList a {
 .pagingDisabled {
     color: #ddd;
 }
+.module-Content dl.Content pre {
+    background-color: #ffffff;
+    border: 1px dashed #999999;
+    margin: 0 0 1em 0;
+    padding: 6px 10px;
+    width: 300px;
+}
+.HelpMenu {
+    float: left;
+    width: 180px;
+    margin: 2.4em 0 0 0;
+    line-height: 2em;
+}
+.module-Content dl.Content dt {
+    margin: 2em 0 1em 0;
+}
+.module-Content dl.Content dd {
+    margin: 0 0 4em 0;
+}
+.module-Content dl.Content dt a {
+    padding-top: 2em;
+}
+.module-Content dl.Content ul {
+    list-style-type: disc;
+}
+.module-Content dl.Content p {
+    margin-bottom: 1em;
+}
+
 
 
 /* Icon Classes */
@@ -2162,6 +2191,10 @@ p.citationText {
 .mapContainer {
     width: 728px;
 }
+#advSearchForm div.sidegroup {
+    border: none;
+}
+
 
 /* Profile / MyResearch */
 

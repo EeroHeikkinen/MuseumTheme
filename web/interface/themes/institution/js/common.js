@@ -31,10 +31,12 @@ $(document).ready(function(){
     $('#searchFormKeepFilters').change(function() { filterAll(this); });
 
     // attach click event to the search help links
+    /*
     $('a.searchHelp').click(function(){
         window.open(path + '/Help/Home?topic=search', 'Help', 'width=625, height=510');
         return false;
     });
+    */
 
     // attach click event to the advanced search help links
     $('a.advsearchHelp').click(function(){
