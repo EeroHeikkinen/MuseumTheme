@@ -168,7 +168,7 @@
   </dd>
 </dl>
 
-<p style="margin-top: 3em;"><a href="{$path}">&laquo; Etusivulle</a></p>
+<p style="margin-top: 3em;"><a href="{$path}">&laquo; Home</a></p>
 </div>
 
 <!-- END of: Content/searchhelp.fi.tpl -->
