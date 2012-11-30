@@ -4,8 +4,8 @@
 
     {* load jQuery flot *}
     <!--[if IE]>{js filename="flot/excanvas.min.js"}<![endif]--> 
-    {js filename="flot/jquery.flot.min.js"}
-    {js filename="flot/jquery.flot.selection.min.js"}
+    {js filename="flot/jquery.flot.js"}
+    {js filename="flot/jquery.flot.selection.js"}
     {js filename="pubdate_vis.js"}
 
     {foreach from=$visFacets item=facetRange key=facetField}
