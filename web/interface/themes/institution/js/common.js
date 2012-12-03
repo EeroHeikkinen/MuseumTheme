@@ -51,6 +51,11 @@ $(document).ready(function(){
       $('div.searchContextHelp').toggle();
       return false;
     });
+    // assign click event to searchbox context help close image
+    $('.hideSearchHelp a').click(function() {
+      $('div.searchContextHelp').hide();
+      return false;
+    });
     
     // assign click event to "email search" links
     $('a.mailSearch').click(function() {

@@ -429,10 +429,10 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     position: absolute;  
     width: 0;  
     height: 0;  
-    left: 98px;  
-    top: -20px;  
+    left: 99px;  
+    top: -21px;  
     border: 25px solid;
-    border-width: 0 20px 20px;
+    border-width: 0 21px 21px;
     border-color: #999999 transparent;  
 }
 .searchContextHelp:after {
@@ -441,10 +441,18 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     width: 0;  
     height: 0;  
     left: 100px;  
-    top: -18px;  
+    top: -20px;  
     border: 25px solid;
-    border-width: 0 18px 18px;
+    border-width: 0 20px 20px;
     border-color: #ffffff transparent;  
+}
+.hideSearchHelp {
+    float: right;
+    margin: -10px -10px 0 0.5em;
+}
+.hideSearchHelp a {
+    float: right;
+    padding: 5px 5px 1em 1em;
 }
 
 
