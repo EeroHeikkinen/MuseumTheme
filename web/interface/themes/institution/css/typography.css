@@ -5,7 +5,7 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 13px; /* See size table below */
-    line-height: 1.5;
+    line-height: 1.5em;
     font-weight: normal;
     font-style: normal;
     /* Stop Mobile Safari from auto-adjusting font-sizes: */
@@ -32,36 +32,36 @@ body {
 */
 .tiny {
 	font-size: .75em;
-	line-height: 1.4;
+	line-height: 1.4em;
 }
 h6, .small, small {
 	font-size: .846em;
-	line-height: 1.4;
+	line-height: 1.4em;
 	letter-spacing: .002em;
 }
 h5, .normal {
 	font-size: 1em;
-	line-height: 1.5;
+	line-height: 1.5em;
 }
 h4, .big, #searchForm_input, #searchForm_searchButton {
     font-size: 1.128em;
-    line-height: 1.4;
+    line-height: 1.4em;
 }
 h3, .hefty, .slogan, .title /* Result list title */ {
     font-size: 1.333em;
-    line-height: 1.2;
+    line-height: 1.2em;
 }
 h2, .large {
     font-size: 1.504em;
-    line-height: 1.2;
+    line-height: 1.2em;
 }
 h1, .grand {
     font-size: 1.777em;
-    line-height: 1.2;
+    line-height: 1.2em;
 }
 .overgrand {
     font-size: 2.004em;
-    line-height: 1.2;
+    line-height: 1.2em;
 }
 h1, h2, h3, h4, h5, h6 {
     color: inherit;
@@ -179,15 +179,15 @@ div.lang li {
     /*
 h4, .big, #searchForm_input, #searchForm_searchButton {
     font-size: 1.128em;
-    line-height: 1.4;
+    line-height: 1.4em;
 }
 h3, .hefty, .slogan, .title  {
     font-size: 1.333em;
-    line-height: 1.2;
+    line-height: 1.2em;
 }
 h2, .large {
     font-size: 1.504em;
-    line-height: 1.2;
+    line-height: 1.2em;
 }
 */
     margin: 2em 0 1em 0;
