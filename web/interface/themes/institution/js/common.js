@@ -21,6 +21,10 @@ $(document).ready(function(){
     // initialize autocomplete
     initAutocomplete();    
 
+    // initialize clearable fields (embedded clear button)
+    // Do this before setting focus
+    initClearable();
+    
     // put focus on the "mainFocus" element
     $('.mainFocus').each(function(){ $(this).focus(); } );
 
@@ -203,6 +207,17 @@ function initAutocomplete() {
                 .appendTo(ul);
     };
 
+}
+
+function initClearable(){
+    $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
+    // update value
+    valueContent = $(".clearable").attr("value");
+    if (valueContent == null) {
+      $(".clearable").val("").change();
+    };
+    // change width
+    $(".clearable").width("200px").change();
 }
 
 function htmlEncode(value){

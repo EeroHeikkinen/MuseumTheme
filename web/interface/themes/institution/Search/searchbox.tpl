@@ -13,7 +13,7 @@
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_input" type="text" name="lookfor" size="27" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable" placeholder="{translate text="Find"}&hellip;"/>
+      <input id="searchForm_input" type="text" name="lookfor" size="27" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" placeholder="{translate text="Find"}&hellip;"/>
   {if $prefilterList}
       <div class="styled_select">
         <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
@@ -84,24 +84,6 @@
   {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
 
   </form>
-  {literal}
-  <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
-  <script type="text/javascript">
-    $(function() {
-      // init plugin (with callback)
-      $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
-
-      // update value
-      valueContent = $(".clearable").attr("value");
-      if (valueContent == null) {
-        $(".clearable").val("").change();
-      };
-      
-      // change width
-      $(".clearable").width("200px").change();
-    });
-  </script>
-  {/literal}
   {js filename="dropdown.js"}
 {/if}
 
