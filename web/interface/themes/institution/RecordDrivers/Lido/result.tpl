@@ -33,7 +33,7 @@
           <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}">
         </a></div>
     {else}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" alt="No image" /></a></div>
     {/if}
     	
     </div>
