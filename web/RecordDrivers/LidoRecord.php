@@ -170,7 +170,7 @@ class LidoRecord extends IndexRecord
             $interface->assign('summUsePlace', $this->fields['event_use_displayplace_str']);
         }
         
-        return 'RecordDrivers/Lido/result.tpl';
+        return 'RecordDrivers/Lido/result-' . $view . '.tpl';
     }
     
     /**
