@@ -41,11 +41,11 @@ ul {
 }
 
 /*** Links ***/
-a {
+a, .ui-widget-content a {
     color: #0066cc;
     text-decoration: none;
 }
-a:focus, a:hover {
+a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
     color: #0099ff;
     text-decoration: underline;
 }
