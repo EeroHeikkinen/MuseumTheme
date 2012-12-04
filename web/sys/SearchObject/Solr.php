@@ -52,6 +52,9 @@ class SearchObject_Solr extends SearchObject_Base
     protected $facetPrefix = null;
     protected $facetSort = null;
     protected $facetExcludes = array();
+    protected $facetQueries = array();
+    protected $pseudoFacets = array();
+    protected $pseudoPrefix = "pseudofacet_";
     
     // Index
     protected $index = null;
@@ -1141,6 +1144,9 @@ class SearchObject_Solr extends SearchObject_Base
                 else 
                     $facetSet['field'][] = $facetField;
             }
+            foreach ($this->facetQueries as $facetQuery) {
+                $facetSet['query'][] = $facetQuery;
+            }
             if ($this->facetOffset != null) {
                 $facetSet['offset'] = $this->facetOffset;
             }
@@ -1151,7 +1157,6 @@ class SearchObject_Solr extends SearchObject_Base
                 $facetSet['sort'] = $this->facetSort;
             }
         }
-        
 
         // Build our spellcheck query
         if ($this->spellcheck) {
@@ -1446,7 +1451,9 @@ class SearchObject_Solr extends SearchObject_Base
 
         // If we have no facets to process, give up now
         if (!isset($this->indexResult['facet_counts']['facet_fields'])
-            || !is_array($this->indexResult['facet_counts']['facet_fields'])
+        	&& !isset($this->indexResult['facet_counts']['facet_queries'])
+            || (!is_array($this->indexResult['facet_counts']['facet_fields'])
+            && !is_array($this->indexResult['facet_counts']['facet_queries']))
         ) {
             return $list;
         }
@@ -1456,9 +1463,7 @@ class SearchObject_Solr extends SearchObject_Base
 
         // Loop through every field returned by the result set
         $validFields = array_keys($filter);
-        foreach (
-            $this->indexResult['facet_counts']['facet_fields'] as $field => $data
-        ) {
+        foreach ($this->indexResult['facet_counts']['facet_fields'] as $field => $data) {
             // Skip filtered fields and empty arrays:
             if (!in_array($field, $validFields) || count($data) < 1) {
                 continue;
@@ -1467,6 +1472,9 @@ class SearchObject_Solr extends SearchObject_Base
             $list[$field] = array();
             // Add the on-screen label
             $list[$field]['label'] = $filter[$field];
+            // This tells us whether there is a selection made in the facet group
+            // Useful so we will not have to loop through the list later on
+            $list[$field]['isApplied'] = false;
             // Build our array of values for this field
             $list[$field]['list']  = array();
             // Should we translate values for the current facet?
@@ -1480,8 +1488,18 @@ class SearchObject_Solr extends SearchObject_Base
                 $currentSettings['untranslated'] = $facet[0];
                 $currentSettings['count'] = $facet[1];
                 $currentSettings['isApplied'] = false;
-                $currentSettings['url']
-                    = $this->renderLinkWithFilter("$field:".$facet[0]);
+                
+                if($clearFilter == true) {
+	                $previousFilter = $this->filterList[$field];
+	                unset($this->filterList[$field]);
+	                $currentSettings['url']
+	                = $this->renderLinkWithFilter("$field:".$facet[0]);
+	                $this->filterList[$field] = $previousFilter;
+                }
+                else $currentSettings['url']
+	                = $this->renderLinkWithFilter("$field:".$facet[0]);
+                
+                
                 // If we want to have expanding links (all values matching the
                 // facet) in addition to limiting links (filter current search
                 // with facet), do some extra work:
@@ -1490,10 +1508,15 @@ class SearchObject_Solr extends SearchObject_Base
                         = $this->getExpandingFacetLink($field, $facet[0]);
                 }
                 // Is this field a current filter?
-                if (in_array($field, array_keys($this->filterList))) {
+                // preg_replace removes the filter exclude if any
+                $rawField = preg_replace('/{!ex=.+}/', '', $field);
+                if (in_array($rawField, array_keys($this->filterList))) {
+                	
                     // and is this value a selected filter?
-                    if (in_array($facet[0], $this->filterList[$field])) {
+                    if (in_array($facet[0], $this->filterList[$rawField])) {
                         $currentSettings['isApplied'] = true;
+                        $list[$field]['isApplied'] = true;
+
                     }
                 }
 
@@ -1501,6 +1524,60 @@ class SearchObject_Solr extends SearchObject_Base
                 $list[$field]['list'][] = $currentSettings;
             }
         }
+        
+        foreach ($this->indexResult['facet_counts']['facet_queries'] as $key => $count) {
+        	 // Check if it's one of our own
+        	list(, $key) = explode($this->pseudoPrefix, $key, 2);
+        	if(empty($key))
+        		// Nope, don't touch it
+        	continue;
+        	 
+        	list($field, $query) = explode(':', $key, 2);
+        	 
+        	if (!in_array($field, $validFields)) {
+        		continue;
+        	}
+        	 
+        	// Initialize the settings for the current field
+        	if (!isset($list[$field])) {
+        		$list[$field] = array();
+        		// Add the on-screen label
+        		$list[$field]['label'] = $this->pseudoFacets[$field];
+        		// Build our array of values for this field
+        		$list[$field]['list']  = array();
+        	}
+        
+        	// Initialize the array of data about the current facet:
+        	$currentSettings = array();
+        	$range = VuFindSolrUtils::parseRange($query);
+        	$currentSettings['value'] =
+        	$currentSettings['untranslated'] = $query;
+        	$currentSettings['count'] = $count;
+        	$currentSettings['isApplied'] = false;
+        	$filter = $this->buildDateRangeFilter($field, $range['from'], $range['to']);
+        	 
+        	$currentSettings['url']
+        	= $this->renderLinkWithFilter($filter);
+        	// If we want to have expanding links (all values matching the
+        	// facet) in addition to limiting links (filter current search
+        	// with facet), do some extra work:
+        	if ($expandingLinks) {
+        		$currentSettings['expandUrl']
+        		= $this->getExpandingFacetLink($field, $facet[0]);
+        	}
+        	// Is this field a current filter?
+        	if (in_array($field, array_keys($this->filterList))) {
+        		// and is this value a selected filter?
+        		if (in_array($facet[0], $this->filterList[$field])) {
+        			$currentSettings['isApplied'] = true;
+        		}
+        	}
+        
+        	// Store the collected values:
+        	$list[$field]['list'][] = $currentSettings;
+        
+        }
+        
         return $list;
     }
 
@@ -1741,7 +1818,40 @@ class SearchObject_Solr extends SearchObject_Base
         // Send back data:
         return $returnFacets;
     }
-
+    
+    /**
+     * Adds a facet query to the object.
+     *
+     * @param string $query
+     *
+     * @return void
+     * @access public
+     */
+    public function addFacetQuery($query)
+    {
+    	$this->facetQueries[] = $query;
+    }
+    
+    /**
+     * Adds a query which forms a value of a pseudo "facet".
+     * All queries associated with the same field are grouped
+     * together and returned as part of the main facet list.
+     *
+     * @param string $field Field name
+     * @param string $query The Solr query
+     *
+     * @return void
+     * @access public
+     */
+    public function addPseudoFacet($field, $alias, $queries)
+    {
+    	$this->pseudoFacets[$field] = $alias;
+    	foreach ($queries as $query) {
+    		// Add the label and a prefix to the query key
+    		// just in case there's other facet queries we don't want to mess with
+    		$this->addFacetQuery($field . ':' . $query);
+    	}
+    }  
 }
 
 /**
