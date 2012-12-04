@@ -78,11 +78,13 @@
       </dl>
 {literal}
 <script type="text/javascript">
+//<![CDATA[
 $(document).ready(function() {
 {/literal}
   enableDynatree('#facet_{$title}', '{$title}', '{$fullPath}');
 {literal}  
 });
+//]]>
 </script>
 {/literal}
       <div id="facet_{$title}" class="dynatree-facet">

@@ -89,4 +89,4 @@
 
 </div>
 
-<!-- END of: Search/searxhbox.tpl -->
+<!-- END of: Search/searchbox.tpl -->

@@ -18,7 +18,9 @@
       </div>
     {/foreach}
     <script type="text/javascript">
+      //<![CDATA[
       loadVis('{$facetFields|escape:'javascript'}', '{$searchParams|escape:'javascript'}', '{$url}', {$zooming}{if $collectionName}, '{$collectionID|urlencode}', '{$collectionAction}'{/if});
+      //]]>
     </script>
 
 {/if}
