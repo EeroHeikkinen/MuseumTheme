@@ -83,14 +83,13 @@
         {js filename="jquery.numberformatter-1.2.3.js"}
         {js filename="jquery.dependClass-0.1.js"}
         {js filename="draggable-0.1.js"}
-        {js filename="jslider/jquery.slider.js"}
-        {css media="screen, projection" filename="jslider/jslider.css"}     
+        {js filename="jslider/jquery.slider.js"}   
     <div class="span-10">
         <input type="hidden" name="daterange[]" value="main_date_str"/>
-          <legend id="pubDateLegend">{translate text='Main Year'}</legend>
+          <label for="publishDatefrom" id="pubDateLegend">{translate text='Main Year'}</label>
           <input type="text" size="4" maxlength="4" class="yearbox" name="main_date_strfrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" /> - 
           <input type="text" size="4" maxlength="4" class="yearbox" name="main_date_strto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
-        <br>
+        <br/>
         <div class="span-10" id="sliderContainer">
             <input id="publishDateSlider" class="dateSlider span-10" type="slider" name="sliderContainer" value="0000;2012" />
         </div>
@@ -100,9 +99,8 @@
     {if $facetList}
         {js filename="chosen/chosen.jquery.js"}
         {js filename="chosen_multiselects.js"}
-        {css media="screen, projection" filename="chosen/chosen.css"}
         {foreach from=$facetList item="list" key="label"}
-        <div id ="facetsContainer" class="span-4">
+        <div class="facetsContainer span-4">
           <label class="displayBlock" for="limit_{$label|replace:' ':''|escape}">{translate text=$label}:</label>
           <select class="chzn-select span-4" data-placeholder="{translate text="No Preference"}" id="limit_{$label|replace:' ':''|escape}" name="orfilter[]" multiple="multiple" size="10">
             {foreach from=$list item="value" key="display"}

@@ -5,7 +5,7 @@
 {* Display Title *}
 {literal}
   <script language="JavaScript" type="text/javascript">
-    // <!-- avoid HTML validation errors by including everything in a comment.
+    //<![CDATA[
     function subjectHighlightOn(subjNum, partNum)
     {
         // Create shortcut to YUI library for readability:
@@ -33,7 +33,7 @@
             }
         }
     }
-    // -->
+    //]]>
   </script>
 {/literal}
 
@@ -80,7 +80,7 @@ End Cover Image *}
     <th>{translate text='New Title'}: </th>
     <td>
       {foreach from=$coreNextTitles item=field name=loop}
-        <a href="{$url}/Search/Results?lookfor=%22{$field|escape:"url"}%22&amp;type=Title">{$field|escape}</a><br>
+        <a href="{$url}/Search/Results?lookfor=%22{$field|escape:"url"}%22&amp;type=Title">{$field|escape}</a><br/>
       {/foreach}
     </td>
   </tr>
@@ -91,7 +91,7 @@ End Cover Image *}
     <th>{translate text='Previous Title'}: </th>
     <td>
       {foreach from=$corePrevTitles item=field name=loop}
-        <a href="{$url}/Search/Results?lookfor=%22{$field|escape:"url"}%22&amp;type=Title">{$field|escape}</a><br>
+        <a href="{$url}/Search/Results?lookfor=%22{$field|escape:"url"}%22&amp;type=Title">{$field|escape}</a><br/>
       {/foreach}
     </td>
   </tr>
@@ -128,7 +128,7 @@ End Cover Image *}
     <th>{translate text='Main Year'}: </th>
     <td>
       {foreach from=$corePublications item=field name=loop}
-        {$field|escape}<br>
+        {$field|escape}<br/>
       {/foreach}
     </td>
   </tr>
@@ -139,7 +139,7 @@ End Cover Image *}
     <th>{translate text='Location'}: </th>
     <td>
       {foreach from=$coreInstitutions item=field name=loop}
-        {translate text=$field prefix='source_'}<br>
+        {translate text=$field prefix='source_'}<br/>
       {/foreach}
     </td>
   </tr>
@@ -150,7 +150,7 @@ End Cover Image *}
     <th>{translate text='Collection'}: </th>
     <td>
       {foreach from=$coreCollections item=field name=loop}
-        {$field|escape}<br>
+        {$field|escape}<br/>
       {/foreach}
     </td>
   </tr>
@@ -184,7 +184,7 @@ End Cover Image *}
   {if is_array($coreMeasurements)}
   <tr valign="top" class="recordMeasurements">
     <th>{translate text='Measurements'}: </th>
-    <td>{foreach from=$coreMeasurements item=measurement}{$measurement|escape}<br>{/foreach}</td>
+    <td>{foreach from=$coreMeasurements item=measurement}{$measurement|escape}<br/>{/foreach}</td>
   </tr>
   {/if}
 
@@ -215,7 +215,7 @@ End Cover Image *}
   {if !empty($recordLanguage)}
   <tr valign="top" class="recordLanguage">
     <th>{translate text='Language'}: </th>
-    <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br>{/foreach}</td>
+    <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br/>{/foreach}</td>
   </tr>
   {/if}
 
@@ -243,10 +243,10 @@ End Cover Image *}
             {if !empty($field.number)}
               {$field.number|escape}
             {/if}
-            <br>
+            <br/>
           {/if}
         {else}
-          <a href="{$url}/Search/Results?lookfor=%22{$field|escape:"url"}%22&amp;type=Series">{$field|escape}</a><br>
+          <a href="{$url}/Search/Results?lookfor=%22{$field|escape:"url"}%22&amp;type=Series">{$field|escape}</a><br/>
         {/if}
       {/foreach}
     </td>
@@ -272,7 +272,7 @@ End Cover Image *}
           onmouseover="subjectHighlightOn({$smarty.foreach.loop.index}, {$smarty.foreach.subloop.index});"
           onmouseout="subjectHighlightOff({$smarty.foreach.loop.index}, {$smarty.foreach.subloop.index});">{$subfield|escape}</a>
         {/foreach}
-        <br>
+        <br/>
       {/foreach}
       </div>
     </td>
@@ -313,8 +313,7 @@ End Cover Image *}
     <th>{translate text='Tags'}: </th>
     <td>
       <span style="float:right;">
-        <a href="{$url}/Record/{$id|escape:"url"}/AddTag" class="tool add"
-           onClick="getLightbox('Record', 'AddTag', '{$id|escape}', null, '{translate text="Add Tag"}'); return false;">{translate text="Add"}</a>
+         <a href="{$url}/Record/{$id|escape:"url"}/AddTag" class="tool add tagRecord" title="{translate text='Add Tag'}" id="tagRecord{$id|escape}">{translate text='Add Tag'}</a>
       </span>
       <div id="tagList">
         {if $tagList}

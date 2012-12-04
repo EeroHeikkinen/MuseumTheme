@@ -60,6 +60,12 @@
     {css media="screen, projection" filename="settings.css"}
     
     {css media="print" filename="print.css"}
+    {if $dateRangeLimit}
+      {css media="screen, projection" filename="jslider/jslider.css"}
+    {/if}
+    {if $facetList}
+      {css media="screen, projection" filename="chosen/chosen.css"}
+    {/if}
     <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
     <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
