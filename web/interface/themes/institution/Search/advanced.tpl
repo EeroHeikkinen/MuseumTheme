@@ -86,10 +86,10 @@
         {js filename="jslider/jquery.slider.js"}
         {css media="screen, projection" filename="jslider/jslider.css"}     
     <div class="span-10">
-        <input type="hidden" name="daterange[]" value="publishDate"/>
-          <legend id="pubDateLegend">{translate text='adv_search_year'}</legend>
-          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDatefrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" /> - 
-          <input type="text" size="4" maxlength="4" class="yearbox" name="publishDateto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
+        <input type="hidden" name="daterange[]" value="main_date_str"/>
+          <legend id="pubDateLegend">{translate text='Main Year'}</legend>
+          <input type="text" size="4" maxlength="4" class="yearbox" name="main_date_strfrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" /> - 
+          <input type="text" size="4" maxlength="4" class="yearbox" name="main_date_strto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
         <br>
         <div class="span-10" id="sliderContainer">
             <input id="publishDateSlider" class="dateSlider span-10" type="slider" name="sliderContainer" value="0000;2012" />
