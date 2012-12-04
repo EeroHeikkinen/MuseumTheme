@@ -28,7 +28,7 @@
 {/if}
 
 {if !empty($holdingURLs) || $holdingsOpenURL}
-  <h3>{translate text="Internet"}</h3>
+  <h5>{translate text="Internet"}</h5>
   {if !empty($holdingURLs)}
     {foreach from=$holdingURLs item=desc key=currentUrl name=loop}
       <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
@@ -39,7 +39,7 @@
   {/if}
 {/if}
 {foreach from=$holdings item=holding key=location}
-<h3>{$location|translate|escape}</h3>
+<h5>{$location|translate|escape}</h5>
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Holdings details from'} {translate text=$location}">
   {if $holding.0.callnumber}
   <tr>
@@ -113,7 +113,7 @@
 {/foreach}
 
 {if $history}
-<h3>{translate text="Most Recent Received Issues"}</h3>
+<h5>{translate text="Most Recent Received Issues"}</h5>
 <ul>
   {foreach from=$history item=row}
   <li>{$row.issue|escape}</li>
