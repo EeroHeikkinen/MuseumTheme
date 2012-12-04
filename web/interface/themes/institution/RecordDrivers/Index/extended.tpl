@@ -16,9 +16,9 @@
   {* BTJ description start *}
   <tr valign="top" class="extendedBTJDescription" id="btjdescription" style="display: none;">
     <th>{translate text='Description'}: </th>
-    <td id="btjdescription_text"><img src="{path filename="images/ajax_loading.gif"}" alt="{translate text='Loading'}..."/></td>  
-  </tr>
-  <script type="text/javascript">
+    <td id="btjdescription_text"><img src="{path filename="images/ajax_loading.gif"}" alt="{translate text='Loading'}..."/>
+      <script type="text/javascript">
+      //<![CDATA[
      var path = {$path|@json_encode};
      var id = {$id|@json_encode};
      {literal}
@@ -30,8 +30,11 @@
        }
        });
      });
+     //]]>
      {/literal}
-  </script>  
+      </script>  
+    </td>  
+  </tr>
   {* BTJ description end *}
 
   {if !empty($extendedDateSpan)}

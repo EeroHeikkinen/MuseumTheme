@@ -86,7 +86,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         {/if}
         
         {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
-        <span></span><img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}" style="padding:0">
+        <span></span><img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}" style="padding:0" />
         {if $coreThumbLarge}</a>{/if}
         
         {else}
@@ -107,7 +107,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <li><a href="{$url}/Record/{$id|escape:"url"}/Feedback" class="feedbackRecord mail" id="feedbackRecord{$id|escape}" title="{translate text="Send Feedback"}">{translate text="Send Feedback"}</a></li>
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
-          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6"}</a>
+          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6" alt=""}</a>
           <ul class="menu offscreen" id="exportMenu">
           {foreach from=$exportFormats item=exportFormat}
             <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
@@ -242,7 +242,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
 
   <div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
-    <span class="similarItems" id="similarItems{$id}"><div class="sidegroup">{image src="ajax_loading.gif"}</div></span>
+    <div class="similarItems" id="similarItems{$id}"><div class="sidegroup">{image src="ajax_loading.gif" width="16" height="16" alt="Loading..."}</div></div>
     
     {if $bXEnabled}
       {include file="Record/bx.tpl"}
