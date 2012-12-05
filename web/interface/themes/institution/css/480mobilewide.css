@@ -79,6 +79,12 @@ px      62    136    210    284    358    432   */
     .keepFilters {
         padding-bottom: .5em;
     }
+    .searchContextHelp {
+        width: 432px;
+    }
+    
+    
+    
 
     .homeNavigation ul li {
         display: block;

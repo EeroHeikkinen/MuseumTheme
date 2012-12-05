@@ -96,6 +96,9 @@ px      62    136    210    284    */
         display:block;
         padding: 1em 0;
     }
+    .searchContextHelp {
+        width: 192px;
+    }
     
     
     
@@ -227,12 +230,17 @@ px      62    136    210    284    */
         width: 225px;
     }
 
-    ul.recordSet .addToFavLink {
+    /*ul.recordSet .addToFavLink {
         clear: both;
         float: left;
         left: 20.7em;
         position: relative;
         top: .5em
+        margin-top: -2.2em;
+    }*/
+    ul.recordSet .addToFavLink a {
+
+        margin-top: -1.6em;
     }
 
     #sidebarFacets {
