@@ -14,15 +14,15 @@
     <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
     <li><a href="{$path}/AlphaBrowse/Home">{translate text='Browse Alphabetically'}</a></li>
     <li><a href="{$path}/Search/TagCloud">{translate text='Browse by Tag'}</a></li>
-    <li><a href="{$path}/Search/Reserves">{translate text='Course Reserves'}</a></li>
-    <li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li>
+    {* <li><a href="{$path}/Search/Reserves">{translate text='Course Reserves'}</a></li> not used
+    <li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li> not used *}
   </ul>
 </div>
 
 <div id="footerCol3">
   <h4>{translate text='Need Help?'}</h4>
   <ul>
-    <li><a href="{$url}/Help/Home?topic=search" class="searchHelp">{translate text='Search Tips'}</a></li>
+    <li><a href="{$url}/Content/searchhelp" class="searchHelp">{translate text='Search Tips'}</a></li>
     <li><a href="#">{translate text='Ask a Librarian'}</a></li>
     <li><a href="#">{translate text='FAQs'}</a></li>
   </ul>

@@ -41,11 +41,11 @@ ul {
 }
 
 /*** Links ***/
-a {
+a, .ui-widget-content a {
     color: #0066cc;
     text-decoration: none;
 }
-a:focus, a:hover {
+a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
     color: #0099ff;
     text-decoration: underline;
 }
@@ -279,7 +279,7 @@ a.clear_input {
     width: 15px;
 }
 a.clear_input:hover {
-    text-style: none;
+    text-decoration: none;
 } 
 div.styled_select { /* to get rid of the unstylable down-arrow */
 /*
@@ -353,7 +353,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     width: auto;
     min-width: 172px;
     list-style: none;
-    z-index: 1;
+    z-index: 10;
     box-shadow: 3px 3px 12px #555555;
     -moz-box-shadow: 3px 3px 12px #555555;
     -webkit-box-shadow: 3px 3px 12px #555555;
@@ -400,7 +400,60 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 .searchbox .dropdown dd ul li a:hover {
     padding: 5px 0 5px 5px;
 }
-
+/* Search context help layer */
+.searchContextHelp {
+	position: absolute;
+	display: none;
+	z-index: 1;
+	width: 460px;
+	padding: 20px;
+	margin-top: 6px;
+	background: #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	border: 1px solid #999999;
+	-webkit-box-shadow: 0 3px 4px #dddddd;
+	-moz-box-shadow: 0 3px 4px #dddddd;
+	box-shadow: 0 3px 10px #cccccc;
+}
+.searchContextHelp p {
+    margin: 0 0 1em 0;
+}
+.searchContextHelp p.last {
+    margin: 0;
+}
+/* triangles */
+.searchContextHelp:before {
+    content: ' ';  
+    position: absolute;  
+    width: 0;  
+    height: 0;  
+    left: 99px;  
+    top: -21px;  
+    border: 25px solid;
+    border-width: 0 21px 21px;
+    border-color: #999999 transparent;  
+}
+.searchContextHelp:after {
+    content: ' ';  
+    position: absolute;  
+    width: 0;  
+    height: 0;  
+    left: 100px;  
+    top: -20px;  
+    border: 25px solid;
+    border-width: 0 20px 20px;
+    border-color: #ffffff transparent;  
+}
+.hideSearchHelp {
+    float: right;
+    margin: -10px -10px 0 0.5em;
+}
+.hideSearchHelp a {
+    float: right;
+    padding: 5px 5px 1em 1em;
+}
 
 
 #searchForm_searchButton {
@@ -1205,6 +1258,35 @@ dl.narrowList a {
 .pagingDisabled {
     color: #ddd;
 }
+.module-Content dl.Content pre {
+    background-color: #ffffff;
+    border: 1px dashed #999999;
+    margin: 0 0 1em 0;
+    padding: 6px 10px;
+    width: 300px;
+}
+.HelpMenu {
+    float: left;
+    width: 180px;
+    margin: 2.4em 0 0 0;
+    line-height: 2em;
+}
+.module-Content dl.Content dt {
+    margin: 2em 0 1em 0;
+}
+.module-Content dl.Content dd {
+    margin: 0 0 4em 0;
+}
+.module-Content dl.Content dt a {
+    padding-top: 2em;
+}
+.module-Content dl.Content ul {
+    list-style-type: disc;
+}
+.module-Content dl.Content p {
+    margin-bottom: 1em;
+}
+
 
 
 /* Icon Classes */
@@ -1607,7 +1689,7 @@ div.record {
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
 
-    behavior: url(css/css3pie/PIE.php); /* for IE */
+    behavior: url(css/css3pie/PIE.php);
 }
 */
 .recordTitle {
@@ -1711,7 +1793,7 @@ a#thumbnail_link:hover span {
 }
 .call-slip-form .label {
 	  width: 70px;
-	  stext-align: right;
+	  text-align: right;
 	  float: left;
 	  margin-right: 12px;
 }
@@ -1787,7 +1869,7 @@ table.authors th {
 #tabnav li:hover {
     background: #dadada;
     border: 1px solid #cccccc;
-    color: 212121;
+    color: #212121;
 }
 #tabnav a {
     color: #555555;
@@ -1813,7 +1895,7 @@ table.authors th {
     background: url("images/ui-bg_glass_65_ffffff_1x400.png") repeat-x scroll 50% 50% #FFFFFF;
     border: 1px solid #cccccc;
     border-bottom: 1px solid #ffffff;
-    margin-bottom:-1px;
+    margin-bottom: -1px;
     padding-bottom: -1px;
 }
 #tabnav .active:hover {
@@ -1874,7 +1956,9 @@ table.authors th {
 #dyntabnav .ui-state-default, #dyntabnav .ui-widget-content .ui-state-default, #dyntabnav .ui-widget-header .ui-state-default { border: 1px solid #dadada; }
 #dyntabnav .ui-state-hover, #dyntabnav .ui-widget-content .ui-state-hover, #dyntabnav .ui-widget-header .ui-state-hover, #dyntabnav .ui-state-focus, .ui-widget-content .ui-state-focus, #dyntabnav .ui-widget-header .ui-state-focus { border: 1px solid #cccccc; background-color: #dadada }
 #dyntabnav .ui-state-active, #dyntabnav .ui-widget-content .ui-state-active, #dyntabnav .ui-widget-header .ui-state-active { border: 1px solid #cccccc; }
-
+#dyntabnav .citation th {
+    width: 16em;
+}
 
 /** Similar Items (record view) **/
 
@@ -2162,6 +2246,10 @@ p.citationText {
 .mapContainer {
     width: 728px;
 }
+#advSearchForm div.sidegroup {
+    border: none;
+}
+
 
 /* Profile / MyResearch */
 
@@ -2289,7 +2377,7 @@ div.unavailable, div.fatalError {
     width: 65%;
     border-radius: 5px;
     -moz-border-radius: 5px;
-    -webkit-border-radius: 5px
+    -webkit-border-radius: 5px;
 
     behavior: url(css/css3pie/PIE.php); /* for IE */
 }
@@ -2948,8 +3036,6 @@ div#closeContextHelp:active {
 ul.dynatree-container {
     border: none;
     margin: 0 0 0 -8px;
-    max-height: 500px;
-    overflow-y: auto; 
 }
 ul.dynatree-container a {
     margin: 0;
@@ -2999,7 +3085,7 @@ legend#pubDateLegend {
     margin-right: 10px;
 }
 
-div#facetsContainer {
+div.facetsContainer {
     margin-top: 40px;
     margin-bottom: 40px;
 }
@@ -3068,7 +3154,7 @@ span.mapMarker  {
     background-color: #eeeeee;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f3f3f3), color-stop(1, #cccccc) );
     background:-moz-linear-gradient( center top, #ffffff 5%, #eeeeee 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee');
     border: 1px solid #cccccc;
     -webkit-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
 	-moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
@@ -3083,7 +3169,7 @@ span.mapMarker  {
     color: #444444;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fffffff), color-stop(1, #f3f3f3) );
     background:-moz-linear-gradient( center top, #ffffff 5%, #f3f3f3 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f3f3f3');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f3f3f3');
     border: 1px solid #999999;
 }
 .button:active {
@@ -3091,7 +3177,7 @@ span.mapMarker  {
     top: 1px;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dddddd), color-stop(1, #ffffff) );
     background:-moz-linear-gradient( center top, #dddddd 5%, #ffffff 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff');
     -webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
@@ -3133,7 +3219,7 @@ span.mapMarker  {
     border:1px solid #84bbf3;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #80b5ea) );
     background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
     -webkit-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
 	-moz-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
 	box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
@@ -3142,12 +3228,12 @@ span.mapMarker  {
     border:1px solid #669fd8;
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #bddbfa) );
     background:-moz-linear-gradient( center top, #bddbfa 5%, #bddbfa 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#bddbfa');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#bddbfa');
 }
 .searchButton:active {
     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #80b5ea), color-stop(1, #bddbfa) );
     background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
 }
 
 /* Staff view xml styles */

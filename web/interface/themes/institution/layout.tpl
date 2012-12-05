@@ -55,11 +55,17 @@
     {css media="screen, projection" filename="breadcrumbs.css"}
     {css media="screen, projection" filename="footer.css"}
     {css media="screen, projection" filename="768tablet.css"}
-    {* css media="screen, projection" filename="320mobile.css" *}
     {css media="screen, projection" filename="480mobilewide.css"}
+    {css media="screen, projection" filename="320mobile.css"}
     {css media="screen, projection" filename="settings.css"}
     
     {css media="print" filename="print.css"}
+    {if $dateRangeLimit}
+      {css media="screen, projection" filename="jslider/jslider.css"}
+    {/if}
+    {if $facetList}
+      {css media="screen, projection" filename="chosen/chosen.css"}
+    {/if}
     <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
     <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
@@ -127,7 +133,7 @@ $(document).ready(function() {
     <![endif]-->
 
     {* For mobile devices *}
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+    <meta name="viewport" content="width=device-width, maximum-scale=2"/>
 
   </head>
   <body>
@@ -214,7 +220,7 @@ $(document).ready(function() {
 		</div>
 		{/if}
       
-        <div class="footer small clear">
+        <div class="footer clear">
           {include file="footer.tpl"}
         </div>
 

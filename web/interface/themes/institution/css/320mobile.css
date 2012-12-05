@@ -182,15 +182,12 @@ px      62    136    210    284    */
         margin: 0;
         padding: .4em 4px 1em;
     }
-
-    }
-
     #resultList {
     }
     ul.recordSet {
         padding: 0 4px;
     }
-/*
+
     ul.recordSet li.result {
         padding: 7px 1px 9px 9px;
     }
@@ -202,14 +199,14 @@ px      62    136    210    284    */
         width: 62px;
         margin-left: 0;
     }
-*/
+
     .coverDiv {
         padding-top: .3em;
     }
     .summcover {
         max-width: 62px;
     }
-/*
+
     .resultNoImage{
         height: 60px;
         width: 60px;
@@ -247,7 +244,7 @@ px      62    136    210    284    */
         border-left: none;
     }
     
-*/    
+    
     
     .backToResults {
         margin-left: 10px;

@@ -1703,7 +1703,7 @@ class IndexRecord implements RecordInterface
         global $configArray;
 
         if (isset($configArray['Content']['recordMap'])
-            && isset($this->fields['long_lat'])
+            && (isset($this->fields['long_lat']) || isset($this->fields['location_geo']))
         ) {
             return true;
         }
@@ -2731,33 +2731,32 @@ class IndexRecord implements RecordInterface
     protected function getGoogleMapMarker()
     {
         if (isset($this->fields['location_geo'])) {
-            $coordinates = explode(' ', $this->fields['location_geo'][0]);
-            if (count($coordinates) > 2) {
-                $polygon = array();
-                // Assume rectangle for now...
-                $lon = (float)$coordinates[0];
-                $lat = (float)$coordinates[1];
-                $lon2 = (float)$coordinates[2];
-                $lat2 = (float)$coordinates[3];
-                $polygon[] = array($lon, $lat);
-                $polygon[] = array($lon2, $lat);
-                $polygon[] = array($lon2, $lat2);
-                $polygon[] = array($lon, $lat2);
-                $polygon[] = array($lon, $lat);
-                $markers = array(
-                    array(
+            $markers = array();
+            foreach ($this->fields['location_geo'] as $location) {
+                $coordinates = explode(' ', $location);
+                if (count($coordinates) > 2) {
+                    $polygon = array();
+                    // Assume rectangle for now...
+                    $lon = (float)$coordinates[0];
+                    $lat = (float)$coordinates[1];
+                    $lon2 = (float)$coordinates[2];
+                    $lat2 = (float)$coordinates[3];
+                    $polygon[] = array($lon, $lat);
+                    $polygon[] = array($lon2, $lat);
+                    $polygon[] = array($lon2, $lat2);
+                    $polygon[] = array($lon, $lat2);
+                    $polygon[] = array($lon, $lat);
+                    $markers[] = array(
                         'title' => (string)$this->fields['title'],
                         'polygon' => $polygon
-                    )
-                );
-            } else {
-                $markers = array(
-                    array(
+                    );
+                } else {
+                    $markers[] = array(
                         'title' => (string)$this->fields['title'],
-                        'lon' => $coordinates[1],
-                        'lat' => $coordinates[0]
-                    )
-                );
+                        'lon' => $coordinates[0],
+                        'lat' => $coordinates[1]
+                    );
+                }
             }
         } else {
             $longLat = explode(',', is_array($this->fields['long_lat']) ? $this->fields['long_lat'][0] : $this->fields['long_lat']);

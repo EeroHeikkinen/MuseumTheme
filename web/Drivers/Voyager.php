@@ -153,6 +153,10 @@ class Voyager implements DriverInterface
                 $this->statusRankings[$row['ITEM_STATUS_DESC']]
                     = $row['ITEM_STATUS_TYPE'];
             }
+            
+            if ($this->config['StatusRankings']) {
+                $this->statusRankings = array_merge($this->statusRankings, $this->config['StatusRankings']);
+            }
         }
 
         // Pick the first entry by default, then see if we can find a better match:

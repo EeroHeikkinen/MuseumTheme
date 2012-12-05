@@ -737,7 +737,7 @@ class MultiBackend implements DriverInterface
         case 'Renewals':
             return Array();
         default:
-            error_log("MultiHandler: unhandled getConfig function: '$function'");
+            error_log("MultiBackend: unhandled getConfig function: '$function'");
         }
         return Array();
     }
