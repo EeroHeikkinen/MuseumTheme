@@ -3036,6 +3036,7 @@ div#closeContextHelp:active {
 ul.dynatree-container {
     border: none;
     margin: 0 0 0 -8px;
+    overflow: visible;
 }
 ul.dynatree-container a {
     margin: 0;
@@ -3053,6 +3054,13 @@ span.dynatree-node a {
     padding: 0.1em 0 0.1em 0.2em;
     color: #0066cc;
     border: none;
+}
+span.dynatree-node .facetTitle {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
 }
 span.dynatree-empty,
 span.dynatree-vline,
