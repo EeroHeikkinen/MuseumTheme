@@ -64,16 +64,16 @@ class SearchObjectFactoryTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test initialization of SearchObjects
+     * Test pseudo facets
      *
      * @return void
      * @access public
      */
     public function testPseudoFacets()
     {
-    	$queries = array("[-500000-01-01T00:00:00Z TO -400000-01-01T00:00:00Z]"); 
-    			//"[1000-01-01T00:00:00Z TO 1500-01-01T00:00:00Z]",
-    			//"[1500-01-01T00:00:00Z TO 2000-01-01T00:00:00Z]");
+    	$queries = array("[-500000-01-01T00:00:00Z TO 1000-01-01T00:00:00Z]", 
+    			"[1000-01-01T00:00:00Z TO 1500-01-01T00:00:00Z]",
+    			"[1500-01-01T00:00:00Z TO 2000-01-01T00:00:00Z]");
     	
     	$this->_searchObject->addPseudoFacet($this->field, "Date", $queries);
     	
