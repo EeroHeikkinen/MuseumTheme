@@ -3161,3 +3161,30 @@ span.mapMarker  {
 	  color: #330099;
 }
 
+/* Feedback form styles */
+
+form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select { 
+    margin-bottom: 1.2em;	
+}
+
+form#feedbackForm input[type=text] { 
+    width: 50%; 
+}
+
+form#feedbackForm input[type=submit] { 
+    margin-right: 50%; 
+}
+
+form#feedbackForm textarea { 
+    width: 75%; 
+    display: block;
+    margin-bottom: 0;
+}
+
+label#urlLabel {
+	margin-top: 1.2em;
+}
+
+form#feedbackForm input.invalid, form#feedbackForm textarea.invalid { 
+    border: 2px solid red;
+}
