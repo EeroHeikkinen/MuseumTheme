@@ -55,8 +55,8 @@
     {css media="screen, projection" filename="breadcrumbs.css"}
     {css media="screen, projection" filename="footer.css"}
     {css media="screen, projection" filename="768tablet.css"}
-    {* css media="screen, projection" filename="320mobile.css" *}
     {css media="screen, projection" filename="480mobilewide.css"}
+    {css media="screen, projection" filename="320mobile.css"}
     {css media="screen, projection" filename="settings.css"}
     
     {css media="print" filename="print.css"}
