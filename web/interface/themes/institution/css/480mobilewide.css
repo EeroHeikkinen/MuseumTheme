@@ -6,7 +6,7 @@
 cols    1     2      3      4      5      6
 px      62    136    210    284    358    432   */
 
-@media only screen and (min-width: 320px) and (max-width: 767px) {
+@media only screen and (min-width: 480px) and (max-width: 767px) {
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
