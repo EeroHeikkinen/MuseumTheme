@@ -274,7 +274,7 @@ px      62    136    210    284    */
         max-width: 210px;
     }
     .record .toolbar {
-        width: 284px;
+        width: 320px;
         float: left;
     }
     #qrcode {
@@ -291,13 +291,16 @@ px      62    136    210    284    */
     #recordMetadata {
         width: 284px;
         float: none;
+        padding-left: 12px;
     }
     #dyntabnav {
         width: 284px;
+        margin-left: 10px;
     }
 
     #resultSidebar {
-        width: 284px;
+        width: 300px;
+        margin-right: 10px;
     }
     #resultSidebar .sidegroup {
         border-top: 2px solid #dddddd;
