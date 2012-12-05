@@ -1724,10 +1724,10 @@ div.recordsubcontent {
     /* display: none; */
 }
 a#thumbnail_link:hover span {
-    background-position: 250px 0;
+    background-position: 400px 0;
 }
 .coverImageLinks a:hover span {
-    background-position: 250px 32px;
+    background-position: 400px 32px;
 }
 .coverImageLinks a:hover .coverImageLinks a {
     border: 1px solid #dddddd;

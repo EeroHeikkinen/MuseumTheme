@@ -44,16 +44,16 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {/if}
   {if $lastsearch}
     <div class="backToResults">
-        <a href="{$lastsearch|escape}#record{$id|escape:"url"}">&laquo; {translate text="Back to Search Results"}</a>
+        <a href="{$lastsearch|escape}#record{$id|escape:"url"}">&laquo;&nbsp;{translate text="Back to Search Results"}</a>
 	</div>
   {/if}
   {if $previousRecord || $nextRecord}
     <div class="resultscroller">
-    {if $previousRecord}<a href="{$url}/Record/{$previousRecord}" class="prevRecord">&laquo; {translate text="Prev"}</a>
-    {else}<span class="prevRecord inactive">&laquo; {translate text="Prev"}</span>{/if}
+    {if $previousRecord}<a href="{$url}/Record/{$previousRecord}" class="prevRecord">&laquo;<span class="resultNav">&nbsp;{translate text="Prev"}</span></a>
+    {else}<span class="prevRecord inactive">&laquo;<span class="resultNav">&nbsp;{translate text="Prev"}</span></span>{/if}
     {$currentRecordPosition} / {$resultTotal}
     {* #{$currentRecordPosition} {translate text='of'} {$resultTotal} *}
-    {if $nextRecord}<a href="{$url}/Record/{$nextRecord}" class="nextRecord">{translate text="Next"} &raquo;</a>
+    {if $nextRecord}<a href="{$url}/Record/{$nextRecord}" class="nextRecord"><span class="resultNav">{translate text="Next"}&nbsp;</span>&raquo;</a>
     {else}<span class="nextRecord inactive">{translate text="Next"} &raquo;</span>{/if}
 	</div>
 	{/if}
@@ -219,7 +219,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </li>
         {/if}
         <li{if $tab == 'Details'} class="active"{/if}>
-          <a id="detailstab" href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Staff View'}</a>
+          <a id="detailstab" href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{*translate text='Staff View'*}{image src="silk/cog.png" width="16" height="16" alt="Staff View"}</a>
         </li>
       </ul>
     {/if}

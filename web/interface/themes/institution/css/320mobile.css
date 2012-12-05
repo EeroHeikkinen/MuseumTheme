@@ -93,7 +93,7 @@ px      62    136    210    284    */
         display:none;
     }
     .metalibLink {
-        display:block;
+        display: inline-block;
         padding: 1em 0;
     }
     .searchContextHelp {
@@ -250,28 +250,41 @@ px      62    136    210    284    */
     }
     #sidebarFacets .sidegroup {
         border-left: none;
+        padding-right: 20px;
+    }
+    span.dynatree-node .facetTitle {
+        max-width: 240px;
     }
     
     
     
     .backToResults {
-        margin-left: 10px;
-        width: 180px;
+        margin: 0 1em 0 10px;
+        width: auto;
     }
     .resultscroller {
-        clear: both;
-        margin-left: 10px;
+        margin-left: 0px;
+    }
+    .resultscroller a {
+        padding: 6px 12px;
+    }
+    .resultscroller .nextRecord, .resultscroller .prevRecord  {
+        margin: 0;
+    }
+    .resultNav {
+        display: none;
     }
     #resultSide {
         width: 284px;
         margin-right: 0;
     }
     .coverImages {
-        width: 210px;
+        width: 300px;
+        margin-left: 10px;
         float: left;
     }
     .recordcover {
-        max-width: 210px;
+        max-width: 300px;
     }
     .record .toolbar {
         width: 320px;
@@ -286,18 +299,21 @@ px      62    136    210    284    */
         margin-right: 0;
     }
     #tagList {
-        width: 210px;
+        width: 62px;
     }
     #recordMetadata {
-        width: 284px;
+        width: 296px;
         float: none;
         padding-left: 12px;
     }
     #dyntabnav {
-        width: 284px;
+        width: 300px;
         margin-left: 10px;
     }
-
+    #dyntabnav .ui-tabs-nav li {
+        max-width: 28%;
+        overflow: hidden;
+    }
     #resultSidebar {
         width: 300px;
         margin-right: 10px;
@@ -308,8 +324,8 @@ px      62    136    210    284    */
         padding: 0;
     }
     #resultSidebar ul li {
-        width: 126px;
-        margin-right:0;
+        width: 130px;
+        margin-right: 10px;
         display: inline-block;
         vertical-align: top;
     }
