@@ -3036,8 +3036,6 @@ div#closeContextHelp:active {
 ul.dynatree-container {
     border: none;
     margin: 0 0 0 -8px;
-    max-height: 500px;
-    overflow-y: auto; 
 }
 ul.dynatree-container a {
     margin: 0;
