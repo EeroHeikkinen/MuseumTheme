@@ -1525,13 +1525,7 @@ class SearchObject_Solr extends SearchObject_Base
             }
         }
         
-        foreach ($this->indexResult['facet_counts']['facet_queries'] as $key => $count) {
-        	 // Check if it's one of our own
-        	list(, $key) = explode($this->pseudoPrefix, $key, 2);
-        	if(empty($key))
-        		// Nope, don't touch it
-        	continue;
-        	 
+    foreach ($this->indexResult['facet_counts']['facet_queries'] as $key => $count) {	 
         	list($field, $query) = explode(':', $key, 2);
         	 
         	if (!in_array($field, $validFields)) {
@@ -1837,18 +1831,18 @@ class SearchObject_Solr extends SearchObject_Base
      * All queries associated with the same field are grouped
      * together and returned as part of the main facet list.
      *
-     * @param string $field Field name
-     * @param string $query The Solr query
+     * @param string $field Field name in Solr index
+     * @param string $alias Display name for the field
+     * @param array $queries Array of the queries to form the facet with
      *
      * @return void
      * @access public
      */
     public function addPseudoFacet($field, $alias, $queries)
     {
+    	$this->addFacet($field, $alias);
     	$this->pseudoFacets[$field] = $alias;
     	foreach ($queries as $query) {
-    		// Add the label and a prefix to the query key
-    		// just in case there's other facet queries we don't want to mess with
     		$this->addFacetQuery($field . ':' . $query);
     	}
     }  
