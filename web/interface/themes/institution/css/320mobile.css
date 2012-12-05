@@ -265,11 +265,9 @@ px      62    136    210    284    */
     .resultscroller {
         margin-left: 0px;
     }
-    .resultscroller a {
-        padding: 6px 12px;
-    }
     .resultscroller .nextRecord, .resultscroller .prevRecord  {
         margin: 0;
+        padding: 6px 12px;
     }
     .resultNav {
         display: none;
