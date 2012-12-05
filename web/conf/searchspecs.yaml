@@ -191,6 +191,15 @@ Subject:
       - [and, 100]
       - [or, ~]
 
+SubjectExact:
+  DismaxFields:
+    - topic_unstemmed^150
+  QueryFields:
+    - topic_unstemmed:
+      - [onephrase, 350]
+      - [and, 150]
+      - [or, ~]
+
 # This field definition is a compromise that supports both journal-level and
 # article-level data.  The disadvantage is that hits in article titles will
 # be mixed in.  If you are building a purely article-oriented index, you should
@@ -234,7 +243,16 @@ JournalTitle:
     - series2:
       - [onephrase, 50]
       - [and , ~]
-  FilterQuery: "format:0/Journal OR format:0/Article"
+  FilterQuery: "format:0/Journal"
+
+JournalTitleExact:
+  DismaxFields:
+    - title_full_unstemmed^450
+  QueryFields:
+    - title_full_unstemmed:
+      - [onephrase, 450]
+      - [and, 400]
+  FilterQuery: "format:0/Journal"
 
 Title:
   DismaxFields:
@@ -270,6 +288,14 @@ Title:
     - series2:
       - [onephrase, 50]
       - [and , ~]
+
+TitleExact:
+  DismaxFields:
+    - title_full_unstemmed^450
+  QueryFields:
+    - title_full_unstemmed:
+      - [onephrase, 450]
+      - [and, 400]
 
 Series:
   DismaxFields:
@@ -363,6 +389,30 @@ AllFields:
       - [or, ~]
     fulltext:
       - [or, ~]
+    isbn:
+      - [onephrase, ~]
+    issn:
+      - [onephrase, ~]
+
+AllFieldsExact:
+  DismaxFields:
+    - title_full_unstemmed^8600
+    - topic_unstemmed^4200
+    - allfields_unstemmed^4010
+    - fulltext_unstemmed^4010
+    - isbn
+    - issn
+  QueryFields:
+    title_full_unstemmed:
+      - [onephrase, 8600]
+      - [and, 8500]
+    topic_unstemmed:
+      - [onephrase, 4250]
+      - [and, 4200]
+    allfields_unstemmed:
+      - [or, 4010]
+    fulltext_unstemmed:
+      - [or, 4010]
     isbn:
       - [onephrase, ~]
     issn:
