@@ -89,12 +89,27 @@ px      62    136    210    284    */
         -moz-border-radius: 0 6px 6px 0;
         -webkit-border-radius: 0 6px 6px 0;
     }
+    .dropdown dt a {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+    .searchbox .dropdown dd p {
+        font-size: 1em;
+        line-height: 1em;
+    }
+    .ui-autocomplete {
+        max-width: 228px;
+    }
     .advancedLink {
         display:none;
     }
     .metalibLink {
         display: inline-block;
         padding: 1em 0;
+    }
+    .showSearchHelp {
+        padding: 1em 1em 1em 0;
+        float: right;
     }
     .searchContextHelp {
         width: 192px;
@@ -146,17 +161,24 @@ px      62    136    210    284    */
         padding: .8em 1em;
     }
     #footerCol1, #footerCol2, #footerCol3 {
-        margin-left: 2em;
+        margin-left: 1.2em;
         padding: 0;
-        width: 120px;
+        width: 10em;
     }
     #footerCol4 {
         clear: left;
         float: none;
         margin: 0 auto;
         padding-top: 1em;
-        width: 260px;
-    }    
+        width: 280px;
+    }
+    .footer ul a, ul.similar a {
+        line-height: 1.25em;
+        padding: 0.5em 0;
+    }
+    .footer ul li, ul.similar li {
+        margin: 0.5em 0;
+    }
 
 
 
@@ -242,7 +264,9 @@ px      62    136    210    284    */
 
         margin-top: -1.6em;
     }
-
+    .recordPresenters a {
+        display: inline-block;
+    }
     #sidebarFacets {
         float:left;
         margin: 0;
@@ -257,13 +281,13 @@ px      62    136    210    284    */
     }
     
     
-    
     .backToResults {
         margin: 0 1em 0 10px;
         width: auto;
     }
     .resultscroller {
         margin-left: 0px;
+        float: right;
     }
     .resultscroller .nextRecord, .resultscroller .prevRecord  {
         margin: 0;
@@ -287,6 +311,7 @@ px      62    136    210    284    */
     .record .toolbar {
         width: 320px;
         float: left;
+        margin-bottom: 1em;
     }
     #qrcode {
         display: none;
@@ -312,6 +337,9 @@ px      62    136    210    284    */
         max-width: 28%;
         overflow: hidden;
     }
+    #dyntabnav .citation th {
+        width: 8em;
+    }
     #resultSidebar {
         width: 300px;
         margin-right: 10px;
@@ -319,7 +347,7 @@ px      62    136    210    284    */
     #resultSidebar .sidegroup {
         border-top: 2px solid #dddddd;
         border-left: none;
-        padding: 0;
+        padding: 10px 0 0 0;
     }
     #resultSidebar ul li {
         width: 130px;

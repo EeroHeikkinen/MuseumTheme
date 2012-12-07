@@ -1959,6 +1959,9 @@ table.authors th {
 #dyntabnav .citation th {
     width: 16em;
 }
+#dyntabnav a#detailstab {
+    height: 1.3em;
+}
 
 /** Similar Items (record view) **/
 

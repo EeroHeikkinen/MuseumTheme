@@ -72,6 +72,10 @@ px      62    136    210    284    358    432   */
         -moz-border-radius: 0 6px 6px 0;
         -webkit-border-radius: 0 6px 6px 0;
     }
+    .searchbox .dropdown dd p {
+        font-size: 1em;
+        line-height: 1em;
+    }
     .advanced-link-wrapper {
         margin-bottom: .6em;
     }
@@ -136,7 +140,14 @@ px      62    136    210    284    358    432   */
         margin: 0 auto;
         padding-top: 2em;
         width: 285px;
-    }    
+    }  
+    .footer ul a, ul.similar a {
+        line-height: 1.25em;
+        padding: 0.5em 0;
+    }
+    .footer ul li, ul.similar li {
+        margin: 0.5em 0;
+    }  
 
 
     #topPubDateVis {
@@ -149,17 +160,20 @@ px      62    136    210    284    358    432   */
         width: 456px;
         margin: 0 12px .6em;
     }
+    span.dynatree-node .facetTitle {
+        max-width: 450px;
+    }
     .pagination {
         margin: 0;
         padding: .5em 12px;
-        width: 275px;
+        width: 300px;
     }
     .paginationTop {
         padding: .5em 0;
     }
     .resultOptions {
         margin: 0;
-        padding: .1em 0;
+        padding: .5em 10px 0 0;
     }
     #sort_options_1 {
         width: 10em;
@@ -230,8 +244,9 @@ px      62    136    210    284    358    432   */
         margin-left: 0;
     }
     #resultSide {
-        width: 432px;
+        width: 460px;
         margin-right: 0;
+        margin-left: 10px
     }
     .coverImages {
         width: 210px;
@@ -263,11 +278,10 @@ px      62    136    210    284    358    432   */
     }
     #resultSidebar ul li {
         width: 136px;
-        margin-right:0;
+        margin-right: 0.5em;
         display: inline-block;
         vertical-align: top;
     }
-
     #hierarchyTree {
         overflow: auto;
         width: 441px;

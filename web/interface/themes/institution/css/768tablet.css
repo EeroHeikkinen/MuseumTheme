@@ -8,7 +8,7 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
 @media only screen and (min-width: 768px) and (max-width: 997px) {
 
-    body, .container, #resultMain, #topFacets, #dyntabnav, #resultSidebar,
+    body, .container, #resultMain, #topFacets, #resultSidebar,
     #headingHierarchyCollection {
         width: 768px;
     }
@@ -34,7 +34,6 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
 
     #logoHeader {
-        clear:both;
         margin: 0 0 0 10px;
     }
     #searchFormHeader {
@@ -70,27 +69,25 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
 
 
-    /*
     #topFacets {
-        width: 768px;
+        width: 758px;
     }
-    */
     #suggestedTopics {
         width: 744px;
         margin: 0 12px .4em;
     }
     #topPubDateVis {
-        width: 756px;
+        width: 744px;
     }
     .paginationTop {
         margin: .5em 0 0;
         padding: 0;
     }
     .pagination {
-        width: 272px;
+        width: 300px;
     }
     .resultOptions {
-        margin: .15em 0 0;
+        margin: .6em 0 0;
         padding: 0;
     }
     #sort_options_1 {
@@ -99,17 +96,28 @@ px      62    136    210    284    358    432    506    580    654    728   */
     #resultList {
         width: 536px;
     }
+    .sidegroup {
+        margin-right: 10px;
+    }
+    span.dynatree-node .facetTitle {
+        max-width: 140px;
+    }
+
+
+
+    #resultSide {
+        margin-left: 10px;
+    }
     ul.recordSet .resultColumn2 {
         width: 312px;
     }
     #recordMetadata {
-        width: 546px;
+        width: 526px;
     }
-    /*
     #dyntabnav {
-        width: 768px;
+        width: 748px;
+        margin-left: 10px;
     }
-    */
     #dyntabnav .ui-tabs-panel {
         padding: 1em .7em;
     }
@@ -120,6 +128,7 @@ px      62    136    210    284    358    432    506    580    654    728   */
         border-top: 2px solid #dddddd;
         border-left: none;
         padding: 1em;
+        margin-left: 10px;
     }
     #resultSidebar ul li {
         width: 210px;
