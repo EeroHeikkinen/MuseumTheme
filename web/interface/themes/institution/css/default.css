@@ -25,13 +25,19 @@ body {
 }
 
 /*** work-in-progress disclaimer ***/
-.w-i-p {
+.w-i-p, .ie {
     width: 100%;
     padding: .1em 0;
     text-align: center;
     background-color: #fffec6;
-    border-top: 1px solid #ffeb7c;
+    border-top: 2px solid #ffeb7c;
     border-bottom: 1px solid #ffeb7c;
+}
+
+.ie {
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #cccccc;
 }
 
 /****** General ******/
