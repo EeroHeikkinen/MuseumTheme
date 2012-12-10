@@ -8,6 +8,7 @@
   <li><a href="#Range Searches">Range Searches</a></li>
   <li><a href="#Boosting a Term">Boosting a Term</a></li>
   <li><a href="#Boolean operators">Boolean Operators</a></li>
+  <li><a href="#Phrase searches">Phrase searches</a></li>
   <li><h5>Advanced Searching Tips</h5></li>
   <li><a href="#Search Fields">Search Fields</a></li>
   <li><a href="#Search Groups">Search Groups</a></li>
@@ -116,6 +117,13 @@
         <p>The <Strong>-</strong> or prohibit operator excludes documents that contain the term after the "-" symbol.</p>
         <p>To search for documents that contain "economics" but not "Keynes" use the query: </p>
         <pre class="code">economics -Keynes</pre>
+      </dd>
+      <dt><a name="Phrase searches"></a>Phrase searches</dt>
+      <dd>
+        <p>Search term or terms enclosed in quotation marks will be used literally.</p>
+        <p>To search for records containing the words "ancient history" and not e.g. "history in the ancient times":</p>
+        <pre class="code">"ancient history"</pre>
+        <p>Also single words can be enclosed in quotation marks to use the term literally, ignoring different conjugations.</p>
       </dd>
     </dl>
   </dd>
