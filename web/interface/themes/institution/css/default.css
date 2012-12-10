@@ -1170,6 +1170,18 @@ li.result blockquote {
  .resultHierarchyLinks .hierarchyDesc {
     font-size: 0.75em;
 }
+.resultItemLine2, .resultItemLine3, .resultItemLine4 {
+    color: #777777;
+}
+.resultItemLine3 a, .resultItemLine4 a {
+    color: #777777;
+}
+.resultItemLine3 .highlight {
+    color: #666666;
+}
+.resultContentList a, a.openurl_more_full {
+    color: #0066cc;
+}
 
 /** Side facets */
 
@@ -1399,6 +1411,9 @@ ul.recordSet .addToFavLink a {
     background-image:url(../images/silk/email.png);
 }
 .fav {
+    background-image:url(../images/silk/heartbw.png);
+}
+.fav:hover {
     background-image:url(../images/silk/heart.png);
 }
 .addThis {
