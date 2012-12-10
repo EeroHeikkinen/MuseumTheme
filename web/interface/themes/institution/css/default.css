@@ -889,6 +889,9 @@ div.bulkActionButtons {
 	  font-size: 1em;
 	  font-weight: normal;
 }
+.main .loginForm {
+    margin: 0 12px;
+}
 .loginForm label {
     font-size: 1em;
     font-weight: normal;
@@ -938,6 +941,7 @@ div.bulkActionButtons {
     float: left;
     width: 296px;
     margin-right: 12px;
+    margin-bottom: 1em;
 }
 .loginForm .loginDescriptionSmall {
     float: left;
