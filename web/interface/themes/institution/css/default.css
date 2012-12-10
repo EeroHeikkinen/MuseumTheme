@@ -1179,7 +1179,7 @@ li.result blockquote {
 .resultItemLine3 .highlight {
     color: #666666;
 }
-.resultContentList a, a.openurl_more_full {
+.resultContentList a, a.openurl_more_full, .metalib_link a {
     color: #0066cc;
 }
 
@@ -1593,8 +1593,8 @@ ul.recordSet .addToFavLink a {
 .formatbookebook {background-image:url(../images/silk/world.png);}
 .formatcd        {background-image:url(../images/silk/cd.png);}
 .formatcdrom     {background-image:url(../images/silk/cd.png);}
-.formatdocument  {background-image:url(../images/silk/report.png);}
-.formatdvd       {background-image:url(../images/silk/dvd.png);}
+.formatdocument  {background-image:url(../images/silk/page_white_text.png);}
+/*.formatdvd       {background-image:url(../images/silk/dvd.png);}*/
 .formatimage     {background-image:url(../images/silk/photo.png);}
 .formatjournal   {background-image:url(../images/silk/newspaper.png);}
 .formatmusicalscore   {background-image:url(../images/silk/music.png);}
@@ -1603,9 +1603,12 @@ ul.recordSet .addToFavLink a {
 .formatserial    {background-image:url(../images/silk/report.png);}
 .formatsound     {background-image:url(../images/silk/sound.png);}
 .formatsoundrecording {background-image:url(../images/tango/audio-volume-high.png);}
-.formatvideo     {background-image:url(../images/tango/video.png);}
-.formatvideodvd  {background-image:url(../images/silk/dvd.png);}
-.formatworkofart {background-image:url(../images/silk/picture.png);}
+.formatvideo     {background-image:url(../images/silk/film.png);}
+/*.formatvideodvd  {background-image:url(../images/silk/dvd.png);} */
+.formatworkofart {background-image:url(../images/silk/script_palette.png);}
+.formatthesis    {background-image:url(../images/silk/report.png);}
+.formatdatabase  {background-image:url(../images/silk/server_database.png);}
+.formatphysicalobject {background-image:url(../images/silk/brick.png);}
 
 /* not used? */
 .electronic {background-image:url(../images/tango/www.png);}
