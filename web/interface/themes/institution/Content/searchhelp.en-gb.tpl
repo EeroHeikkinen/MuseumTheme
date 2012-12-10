@@ -1,7 +1,7 @@
 <!-- START of: Content/searchhelp.fi.tpl -->
 
-<h1 style="margin-left: 1em;">Search Tips</h1>
-<ul class="HelpMenu">
+<h1>Search Tips</h1>
+<ul class="helpMenu">
   <li><a href="#Wildcard Searches">Wildcard Searches</a></li>
   <li><a href="#Fuzzy Searches">Fuzzy Searches</a></li>
   <li><a href="#Proximity Searches">Proximity Searches</a></li>
