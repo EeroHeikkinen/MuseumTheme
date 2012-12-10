@@ -84,7 +84,7 @@
       {if $summInCollection}
         {foreach from=$summInCollection item=InCollection key=cKey}
           <div>
-            <b>{translate text="in_collection_label"}</b>
+            {translate text="in_collection_label"}
             <a class="collectionLinkText" href="{$path}/Collection/{$summInCollectionID[$cKey]|urlencode|escape:"url"}?recordID={$summId|urlencode|escape:"url"}">
                {$InCollection}
             </a>
@@ -93,7 +93,7 @@
       {else}
           {if !empty($summContainerTitle)}
           <div>
-            <b>{translate text='component_part_is_part_of'}:</b>
+            {translate text='component_part_is_part_of'}:
             {if $summHierarchyParentId}
               <a href="{$url}/Record/{$summHierarchyParentId.0|escape:"url"}">{$summContainerTitle|escape}</a>
             {else}
@@ -106,7 +106,8 @@
     </div>
 
     <div class="resultItemLine3">
-      {if !empty($summSnippetCaption)}<strong>{translate text=$summSnippetCaption}:</strong>{/if}
+      {if !empty($summSnippetCaption)}
+        {translate text=$summSnippetCaption}: {/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       {if $summDedupData}
         <span class="tiny">
@@ -123,7 +124,7 @@
         <strong>{translate text='Located'}:</strong> *} <span class="ajax_availability hide" id="location{$summId|escape}"> </span>
         <div class="hide" id="locationDetails{$summId|escape}"></div>
       {elseif !empty($summCallNo)}
-        <strong>{translate text='Call Number'}:</strong> {$summCallNo|escape}
+        {translate text='Call Number'}: {$summCallNo|escape}
       {/if}
       </div>
 
