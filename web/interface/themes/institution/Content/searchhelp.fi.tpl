@@ -1,7 +1,7 @@
 <!-- START of: Content/searchhelp.fi.tpl -->
 
-<h1 style="margin-left: 1em;">Hakuohje</h1>
-<ul class="HelpMenu">
+<h1>Hakuohje</h1>
+<ul class="helpMenu">
   <li><a href="#Wildcard Searches">Jokerimerkit</a></li>
   <li><a href="#Fuzzy Searches">Sumeat haut</a></li>
   <li><a href="#Proximity Searches">Etäisyyshaut</a></li>

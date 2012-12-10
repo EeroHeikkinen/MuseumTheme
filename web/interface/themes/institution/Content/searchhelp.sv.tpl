@@ -1,7 +1,7 @@
 <!-- START of: Content/searchhelp.sv.tpl -->
 
-<h1 style="margin-left: 1em;">Söktips</h1>
-<ul class="HelpMenu">
+<h1>Söktips</h1>
+<ul class="helpMenu">
   <li><a href="#Wildcard Searches">Jokertecken</a></li>
   <li><a href="#Fuzzy Searches">Suddig sökning</a></li>
   <li><a href="#Proximity Searches">Avståndssökning</a></li>
