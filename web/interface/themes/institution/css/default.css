@@ -123,10 +123,9 @@ div.sidegroup {
     border: 1px solid #dddddd;
 }
 .mainContent {
-    float: right;
+    float: left;
     width: 650px;
-    margin: 0 82px 3em 0;
-    
+    margin: 0 12px 3em 12px;
 }
 
 /*** Header ***/
@@ -763,7 +762,7 @@ fieldset.publishDateLimit .ui-slider {
 #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
     float: left;
     margin: 0 12px 0 0;
-    width: 220px;
+    width: 210px;
 }
 #sidebarFavoritesLists a.listAdd {
     /* float: right; */
@@ -1117,14 +1116,8 @@ ul.recordSet .resultItemLine2{
     margin: 0 .3em;
     padding: .4em .7em 0;
 }
-.resulthead, .myResearch .resultHead {
+.resulthead {
     padding: 0 0 0 .8em;
-/*
-    border-bottom: 1px #eee solid;
-*/
-/*
-    position: relative;
-*/
 }
 
 #authorList .resulthead {
@@ -1265,10 +1258,14 @@ dl.narrowList a {
     padding: 6px 10px;
     width: 300px;
 }
-.HelpMenu {
+.module-Content .main {
+    padding-left: 12px;
+}
+.module-Content .helpMenu {
     float: left;
-    width: 180px;
+    width: 210px;
     margin: 2.4em 0 0 0;
+    padding: 0;
     line-height: 2em;
 }
 .module-Content dl.Content dt {
@@ -2311,7 +2308,9 @@ p.citationText {
     padding: 0;
     margin-bottom: 1em;
 }
-
+.myResearch .noContentMessage {
+    margin-top: 1em;
+}
 
 /* Browse Lists */
 .browseNav {

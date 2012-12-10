@@ -155,6 +155,57 @@ px      62    136    210    284    */
         margin: 0.5em 0 0.5em 16px;
         width: 135px;
     }
+    .module-Content .mainContent {
+        width: 298px;
+        margin-left: 0;
+    }
+    .module-Content dl.Content pre {
+       width: 274px;
+    }
+    .module-Content .helpMenu {
+        margin-top: 1em;
+    }
+
+
+
+   .module-MyResearch .account,
+   .module-MyResearch .resultHead,
+   .module-MyResearch #sidebarFavoritesLists,
+   .module-MyResearch .myResearchTitle,
+   .module-MyResearch .paginationTop, 
+   .module-MyResearch .myResearchMenu,
+   .module-Search .myResearchMenu,
+   .module-MyResearch .finesList,
+   .module-MyResearch .profile,
+   .module-MyResearch .noContentMessage {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+    .favoritesList {
+        width: 320px;
+    }
+    .favoritesList .bulkActionButtons .floatright {
+        width: 280px;
+    }
+    .favoritesList .bulkActionButtons {
+        height: auto;
+    }
+    .module-MyResearch ul.recordSet .resultCheckbox {
+        margin-left: 0;
+    }
+    .module-MyResearch ul.recordSet .resultColumn2 {
+        width: 180px;
+    }
+    .module-MyResearch ul.recordSet .editItem {
+        display: none;
+    }
+    .myResearch .dueDate {
+        float: none;
+        clear: both;
+        margin: 0 0 0 106px;
+        width: 194px;
+    }
+
 
     .main-home .footer, .footer {
         font-size: 1em;
@@ -202,17 +253,10 @@ px      62    136    210    284    */
     .paginationTop {
         padding: .5em 0;
     }
-
     .resultOptions {
         margin: 0;
         padding: .4em 4px 1em;
     }
-    #resultList {
-    }
-    ul.recordSet {
-        padding: 0 4px;
-    }
-
     ul.recordSet li.result {
         padding: 7px 1px 9px 9px;
     }

@@ -64,9 +64,26 @@ px      62    136    210    284    358    432    506    580    654    728   */
         margin: 1em 0 1em 0;
     }
     .homeCustomContent .homeCustomCol2 ul li {
-    float: left;
-    margin: 0.5em 10px 0.5em 1em;
+        float: left;
+        margin: 0.5em 10px 0.5em 1em;
     }
+    .module-Content .mainContent {
+        width: 506px;
+    }
+    .module-MyResearch .main {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .favoritesList {
+        width: 520px;
+    }
+    .favoritesList .bulkActionButtons {
+        height: auto;
+    }  
+    .favoritesList .bulkActionButtons .floatright {
+        width: 480px;
+    }
+
 
 
     #topFacets {
@@ -94,7 +111,8 @@ px      62    136    210    284    358    432    506    580    654    728   */
         width: 150px;
     }
     #resultList {
-        width: 536px;
+        width: 524px;
+        margin-left: 12px;
     }
     .sidegroup {
         margin-right: 10px;
