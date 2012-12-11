@@ -22,8 +22,8 @@
     {if $cancelCallSlipResults.count > 0}
       <div class="holdsMessage"><p class="info">{$cancelCallSlipResults.count|escape} {translate text="call_slip_cancel_success_items"}</p></div>
     {/if}
+    <span class="hefty">{translate text='Holds and Recalls'}</span>
   </div>
-  <span class="hefty">{translate text='Holds and Recalls'}</span>
   <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
     {if $cancelForm && $recordList}
     <div class="bulkActionButtons">
@@ -179,13 +179,13 @@
     </form>
     {/if}
     {else}
-      <div style="clear:both;padding-top: 2em;">{translate text='You do not have any holds or recalls placed'}.</div>
+      <div class="noContentMessage">{translate text='You do not have any holds or recalls placed'}.</div>
     {/if}
 
     <div style="clear:both;padding-top: 2em;"></div>
 
   {* Call Slips *}
-  <span class="hefty">{translate text='Call Slips'}</span>
+  <span class="hefty myResearchTitle">{translate text='Call Slips'}</span>
   <form name="cancelCallSlipForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelCallSlip">
     {if is_array($callSlipList)}
 
@@ -334,7 +334,7 @@
     </ul>
     </form>
     {else}
-      <div style="clear:both;padding-top: 2em;">{translate text='You do not have any holds or recalls placed'}.</div>
+      <div class="noContentMessage">{translate text='You do not have any holds or recalls placed'}.</div>
     {/if}
   {else}
     {include file="MyResearch/catalog-login.tpl"}

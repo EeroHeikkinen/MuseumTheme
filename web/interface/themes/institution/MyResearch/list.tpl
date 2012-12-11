@@ -74,7 +74,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
   <div class="favoritesList last">
   {if $list && $list->id}
-    <span class="hefty">{$list->title|escape:"html"}</span><br/>
+    <span class="hefty myResearchTitle">{$list->title|escape:"html"}</span><br/>
     {if $list->description}<p class="favoritesDescription">{$list->description|escape}</p>{/if}
   {else}
     <span class="hefty">{translate text='Your Favorites'}</span><br/>
@@ -108,7 +108,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
     <div class="bulkActionButtons">
       <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
-      {* <span class="floatleft">|</span> *}
       <div class="floatright"><strong>{translate text="with_selected"}: </strong>
       {if $bookBag}
         <a id="updateCart" class="bookbagAdd offscreen" href="">{translate text='Add to Book Bag'}</a>
@@ -142,6 +141,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <input type="submit" class="print button" name="print" value="{translate text='Print'}" title="{translate text='print_selected'}"/>
         {if $listEditAllowed}<input id="delete_list_items_{if $list}{$list->id|escape}{/if}" type="submit" class="delete button" name="delete" value="{translate text='Delete'}" title="{translate text='delete_selected'}"/>{/if}
       </div>
+      <div class="clear"></div>
     </div> 
 
     <ul class="recordSet">
@@ -159,7 +159,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
     {include file="Search/paging.tpl"}
   {else}
-    <div style="padding-top: 2em;">{translate text='You do not have any saved resources'}</div>
+    <div class="noContentMessage">{translate text='You do not have any saved resources'}</div>
   </div>
   {/if}
 </div>

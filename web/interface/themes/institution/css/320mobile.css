@@ -89,12 +89,30 @@ px      62    136    210    284    */
         -moz-border-radius: 0 6px 6px 0;
         -webkit-border-radius: 0 6px 6px 0;
     }
+    .dropdown dt a {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+    .searchbox .dropdown dd p {
+        font-size: 1em;
+        line-height: 1em;
+    }
+    .ui-autocomplete {
+        max-width: 228px;
+    }
     .advancedLink {
         display:none;
     }
     .metalibLink {
-        display:block;
+        display: inline-block;
         padding: 1em 0;
+    }
+    .showSearchHelp {
+        padding: 1em 1em 1em 0;
+        float: right;
+    }
+    .searchContextHelp {
+        width: 192px;
     }
     
     
@@ -137,23 +155,81 @@ px      62    136    210    284    */
         margin: 0.5em 0 0.5em 16px;
         width: 135px;
     }
+    .module-Content .mainContent {
+        width: 298px;
+        margin-left: 0;
+    }
+    .module-Content dl.Content pre {
+       width: 274px;
+    }
+    .module-Content .helpMenu {
+        margin-top: 1em;
+    }
+
+
+
+   .module-MyResearch .account,
+   .module-MyResearch .resultHead,
+   .module-MyResearch #sidebarFavoritesLists,
+   .module-MyResearch .myResearchTitle,
+   .module-MyResearch .paginationTop, 
+   .module-MyResearch .myResearchMenu,
+   .module-Search .myResearchMenu,
+   .module-MyResearch .finesList,
+   .module-MyResearch .profile,
+   .module-MyResearch .noContentMessage {
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+    .favoritesList {
+        width: 320px;
+    }
+    .favoritesList .bulkActionButtons .floatright {
+        width: 280px;
+    }
+    .favoritesList .bulkActionButtons {
+        height: auto;
+    }
+    .module-MyResearch ul.recordSet .resultCheckbox {
+        margin-left: 0;
+    }
+    .module-MyResearch ul.recordSet .resultColumn2 {
+        width: 180px;
+    }
+    .module-MyResearch ul.recordSet .editItem {
+        display: none;
+    }
+    .myResearch .dueDate {
+        float: none;
+        clear: both;
+        margin: 0 0 0 106px;
+        width: 194px;
+    }
+
 
     .main-home .footer, .footer {
         font-size: 1em;
         padding: .8em 1em;
     }
     #footerCol1, #footerCol2, #footerCol3 {
-        margin-left: 2em;
+        margin-left: 1.2em;
         padding: 0;
-        width: 120px;
+        width: 10em;
     }
     #footerCol4 {
         clear: left;
         float: none;
         margin: 0 auto;
         padding-top: 1em;
-        width: 260px;
-    }    
+        width: 280px;
+    }
+    .footer ul a, ul.similar a {
+        line-height: 1.25em;
+        padding: 0.5em 0;
+    }
+    .footer ul li, ul.similar li {
+        margin: 0.5em 0;
+    }
 
 
 
@@ -177,17 +253,10 @@ px      62    136    210    284    */
     .paginationTop {
         padding: .5em 0;
     }
-
     .resultOptions {
         margin: 0;
         padding: .4em 4px 1em;
     }
-    #resultList {
-    }
-    ul.recordSet {
-        padding: 0 4px;
-    }
-
     ul.recordSet li.result {
         padding: 7px 1px 9px 9px;
     }
@@ -227,14 +296,21 @@ px      62    136    210    284    */
         width: 225px;
     }
 
-    ul.recordSet .addToFavLink {
+    /*ul.recordSet .addToFavLink {
         clear: both;
         float: left;
         left: 20.7em;
         position: relative;
         top: .5em
-    }
+        margin-top: -2.2em;
+    }*/
+    ul.recordSet .addToFavLink a {
 
+        margin-top: -1.6em;
+    }
+    .recordPresenters a {
+        display: inline-block;
+    }
     #sidebarFacets {
         float:left;
         margin: 0;
@@ -242,32 +318,44 @@ px      62    136    210    284    */
     }
     #sidebarFacets .sidegroup {
         border-left: none;
+        padding-right: 20px;
     }
-    
+    span.dynatree-node .facetTitle {
+        max-width: 240px;
+    }
     
     
     .backToResults {
-        margin-left: 10px;
-        width: 180px;
+        margin: 0 1em 0 10px;
+        width: auto;
     }
     .resultscroller {
-        clear: both;
-        margin-left: 10px;
+        margin-left: 0px;
+        float: right;
+    }
+    .resultscroller .nextRecord, .resultscroller .prevRecord  {
+        margin: 0;
+        padding: 6px 12px;
+    }
+    .resultNav {
+        display: none;
     }
     #resultSide {
         width: 284px;
         margin-right: 0;
     }
     .coverImages {
-        width: 210px;
+        width: 300px;
+        margin-left: 10px;
         float: left;
     }
     .recordcover {
-        max-width: 210px;
+        max-width: 300px;
     }
     .record .toolbar {
-        width: 284px;
+        width: 320px;
         float: left;
+        margin-bottom: 1em;
     }
     #qrcode {
         display: none;
@@ -278,27 +366,36 @@ px      62    136    210    284    */
         margin-right: 0;
     }
     #tagList {
-        width: 210px;
+        width: 62px;
     }
     #recordMetadata {
-        width: 284px;
+        width: 296px;
         float: none;
+        padding-left: 12px;
     }
     #dyntabnav {
-        width: 284px;
+        width: 300px;
+        margin-left: 10px;
     }
-
+    #dyntabnav .ui-tabs-nav li {
+        max-width: 28%;
+        overflow: hidden;
+    }
+    #dyntabnav .citation th {
+        width: 8em;
+    }
     #resultSidebar {
-        width: 284px;
+        width: 300px;
+        margin-right: 10px;
     }
     #resultSidebar .sidegroup {
         border-top: 2px solid #dddddd;
         border-left: none;
-        padding: 0;
+        padding: 10px 0 0 0;
     }
     #resultSidebar ul li {
-        width: 126px;
-        margin-right:0;
+        width: 130px;
+        margin-right: 10px;
         display: inline-block;
         vertical-align: top;
     }

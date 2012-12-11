@@ -32,10 +32,12 @@
   {if $metalibEnabled}
       <a href="{$path}/MetaLib/Home" class="small last metalibLink">{translate text="MetaLib Search"}</a>
   {/if}
-      <a href="#" class="small showSearchHelp">{translate text="Search Tips"}</a>
+      <a href="{$path}/Content/searchhelp" class="small showSearchHelp">{translate text="Search Tips"}</a>
     </div>
     <div class="searchContextHelp">
-    {include file="Content/searchboxhelp.$userLang.tpl"}
+    {if isset($userLang)}
+      {include file="Content/searchboxhelp.$userLang.tpl"}
+    {/if}
     </div>
     
   {* Do we have any checkbox filters? *}

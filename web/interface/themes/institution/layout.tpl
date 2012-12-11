@@ -134,7 +134,7 @@ $(document).ready(function() {
     <![endif]-->
 
     {* For mobile devices *}
-    <meta name="viewport" content="width=device-width, maximum-scale=2"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   </head>
   <body>
@@ -154,6 +154,10 @@ $(document).ready(function() {
     <div class="container module-{$module}">
       {* Work-In-Progress disclaimer, remove when appropriate *}
       <div class="w-i-p">{translate text="development_disclaimer"}</div>
+      <!--[If lt IE 8]>
+        <div class="ie">{translate text="ie_disclaimer"}</div>
+      <![endif]-->
+      
       
       <div class="breadcrumbs">
       {if $showBreadcrumbs}
@@ -177,7 +181,7 @@ $(document).ready(function() {
         </div>
       </div>
 
-      <div class="header{if !$showTopSearchBox}-home{/if}{if $module!='Search'}{$module}{/if} clear">
+      <div class="header{if !$showTopSearchBox}-home{/if} {if $module!='Search'}header{$module}{/if} clear">
         {include file="header.tpl"}
         <div class="clear"></div>
       </div>

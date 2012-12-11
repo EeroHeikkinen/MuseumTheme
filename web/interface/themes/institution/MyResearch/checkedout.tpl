@@ -10,7 +10,6 @@
     {if $infoMsg}<p class="info">{$infoMsg|translate}{if $showExport} <a class="save" target="_new" href="{$showExport|escape}">{translate text="export_save"}</a>{/if}</p>{/if}
     </div>
   {/if}
-  </div>
   {if $user->cat_username}
     <span class="hefty">{translate text='Your Checked Out Items'}</span>
     {if $blocks}
@@ -18,6 +17,7 @@
         <p class="info">{translate text=$block}</p>
       {/foreach}
     {/if}
+  </div>
     <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
     {if $transList}
 

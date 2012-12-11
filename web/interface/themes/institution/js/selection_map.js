@@ -18,9 +18,13 @@ $(document).ready(function() {
         }
         coordinates = 'POLYGON((' + coordinates + '))';
       } else {
-        var c1 = geo.coordinates[0][0];
-        var c2 = geo.coordinates[0][2];
-        coordinates = c1[0] + ' ' + c1[1] + ' ' + c2[0] + ' ' + c2[1];    
+        if (geo.type == 'Point') {
+          coordinates = geo.coordinates[0] + ' ' + geo.coordinates[1];  
+        } else {
+          var c1 = geo.coordinates[0][0];
+          var c2 = geo.coordinates[0][2];
+          coordinates = c1[0] + ' ' + c1[1] + ' ' + c2[0] + ' ' + c2[1];
+        }
       }
       $("#coordinates").attr("value", coordinates);
       $("#selectionMap").geomap("empty").geomap("append", geo);

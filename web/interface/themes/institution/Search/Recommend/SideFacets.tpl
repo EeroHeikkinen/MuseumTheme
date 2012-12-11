@@ -17,7 +17,7 @@
     <ul class="filters">
     {foreach from=$filterList item=filters key=field}
       {foreach from=$filters item=filter}
-        <li><a href="{$filter.removalUrl|escape}"><img src="{$path}/images/silk/delete.png" alt="Delete"/>{translate text=$field}: {$filter.display|escape}</a></li>
+        <li><a href="{$filter.removalUrl|escape}">{image src="silk/delete.png" alt="Delete" width="16" height="16"}{translate text=$field}: {$filter.display|escape}</a></li>
       {/foreach}
     {/foreach}
     </ul>

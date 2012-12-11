@@ -7,7 +7,7 @@
 {else}
   {assign var='showHomeLibForm' value=false}
 {/if}
-<div class="myResearch{if $sidebarOnLeft} last{/if}">
+<div class="myResearch profile{if $sidebarOnLeft} last{/if}">
   <span class="hefty">{translate text='Your Profile'}</span>
     <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
     <div class="profileInfo">

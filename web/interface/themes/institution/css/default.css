@@ -25,13 +25,19 @@ body {
 }
 
 /*** work-in-progress disclaimer ***/
-.w-i-p {
+.w-i-p, .ie {
     width: 100%;
     padding: .1em 0;
     text-align: center;
     background-color: #fffec6;
-    border-top: 1px solid #ffeb7c;
+    border-top: 2px solid #ffeb7c;
     border-bottom: 1px solid #ffeb7c;
+}
+
+.ie {
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #cccccc;
 }
 
 /****** General ******/
@@ -123,10 +129,9 @@ div.sidegroup {
     border: 1px solid #dddddd;
 }
 .mainContent {
-    float: right;
+    float: left;
     width: 650px;
-    margin: 0 82px 3em 0;
-    
+    margin: 0 12px 3em 12px;
 }
 
 /*** Header ***/
@@ -404,7 +409,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 .searchContextHelp {
 	position: absolute;
 	display: none;
-	z-index: 1;
+	z-index: 9;
 	width: 460px;
 	padding: 20px;
 	margin-top: 6px;
@@ -723,7 +728,7 @@ fieldset.publishDateLimit .ui-slider {
     margin-bottom: .6em;
     padding-bottom: .6em;
     padding-left: 10px;
-    width: 960px;
+    width: 950px;
 /*
     margin: 0;
     padding: 0 0 0.5em 0;
@@ -763,7 +768,7 @@ fieldset.publishDateLimit .ui-slider {
 #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
     float: left;
     margin: 0 12px 0 0;
-    width: 220px;
+    width: 210px;
 }
 #sidebarFavoritesLists a.listAdd {
     /* float: right; */
@@ -890,6 +895,9 @@ div.bulkActionButtons {
 	  font-size: 1em;
 	  font-weight: normal;
 }
+.main .loginForm {
+    margin: 0 12px;
+}
 .loginForm label {
     font-size: 1em;
     font-weight: normal;
@@ -939,6 +947,7 @@ div.bulkActionButtons {
     float: left;
     width: 296px;
     margin-right: 12px;
+    margin-bottom: 1em;
 }
 .loginForm .loginDescriptionSmall {
     float: left;
@@ -1117,14 +1126,8 @@ ul.recordSet .resultItemLine2{
     margin: 0 .3em;
     padding: .4em .7em 0;
 }
-.resulthead, .myResearch .resultHead {
+.resulthead {
     padding: 0 0 0 .8em;
-/*
-    border-bottom: 1px #eee solid;
-*/
-/*
-    position: relative;
-*/
 }
 
 #authorList .resulthead {
@@ -1172,6 +1175,18 @@ li.result blockquote {
 }
  .resultHierarchyLinks .hierarchyDesc {
     font-size: 0.75em;
+}
+.resultItemLine2, .resultItemLine3, .resultItemLine4 {
+    color: #777777;
+}
+.resultItemLine3 a, .resultItemLine4 a {
+    color: #777777;
+}
+.resultItemLine3 .highlight {
+    color: #666666;
+}
+.resultContentList a, a.openurl_more_full, .metalib_link a {
+    color: #0066cc;
 }
 
 /** Side facets */
@@ -1265,10 +1280,14 @@ dl.narrowList a {
     padding: 6px 10px;
     width: 300px;
 }
-.HelpMenu {
+.module-Content .main {
+    padding-left: 12px;
+}
+.module-Content .helpMenu {
     float: left;
-    width: 180px;
+    width: 210px;
     margin: 2.4em 0 0 0;
+    padding: 0;
     line-height: 2em;
 }
 .module-Content dl.Content dt {
@@ -1398,6 +1417,9 @@ ul.recordSet .addToFavLink a {
     background-image:url(../images/silk/email.png);
 }
 .fav {
+    background-image:url(../images/silk/heartbw.png);
+}
+.fav:hover {
     background-image:url(../images/silk/heart.png);
 }
 .addThis {
@@ -1577,8 +1599,8 @@ ul.recordSet .addToFavLink a {
 .formatbookebook {background-image:url(../images/silk/world.png);}
 .formatcd        {background-image:url(../images/silk/cd.png);}
 .formatcdrom     {background-image:url(../images/silk/cd.png);}
-.formatdocument  {background-image:url(../images/silk/report.png);}
-.formatdvd       {background-image:url(../images/silk/dvd.png);}
+.formatdocument  {background-image:url(../images/silk/page_white_text.png);}
+/*.formatdvd       {background-image:url(../images/silk/dvd.png);}*/
 .formatimage     {background-image:url(../images/silk/photo.png);}
 .formatjournal   {background-image:url(../images/silk/newspaper.png);}
 .formatmusicalscore   {background-image:url(../images/silk/music.png);}
@@ -1587,9 +1609,12 @@ ul.recordSet .addToFavLink a {
 .formatserial    {background-image:url(../images/silk/report.png);}
 .formatsound     {background-image:url(../images/silk/sound.png);}
 .formatsoundrecording {background-image:url(../images/tango/audio-volume-high.png);}
-.formatvideo     {background-image:url(../images/tango/video.png);}
-.formatvideodvd  {background-image:url(../images/silk/dvd.png);}
-.formatworkofart {background-image:url(../images/silk/picture.png);}
+.formatvideo     {background-image:url(../images/silk/film.png);}
+/*.formatvideodvd  {background-image:url(../images/silk/dvd.png);} */
+.formatworkofart {background-image:url(../images/silk/script_palette.png);}
+.formatthesis    {background-image:url(../images/silk/report.png);}
+.formatdatabase  {background-image:url(../images/silk/server_database.png);}
+.formatphysicalobject {background-image:url(../images/silk/brick.png);}
 
 /* not used? */
 .electronic {background-image:url(../images/tango/www.png);}
@@ -1724,10 +1749,10 @@ div.recordsubcontent {
     /* display: none; */
 }
 a#thumbnail_link:hover span {
-    background-position: 250px 0;
+    background-position: 400px 0;
 }
 .coverImageLinks a:hover span {
-    background-position: 250px 32px;
+    background-position: 400px 32px;
 }
 .coverImageLinks a:hover .coverImageLinks a {
     border: 1px solid #dddddd;
@@ -1958,6 +1983,9 @@ table.authors th {
 #dyntabnav .ui-state-active, #dyntabnav .ui-widget-content .ui-state-active, #dyntabnav .ui-widget-header .ui-state-active { border: 1px solid #cccccc; }
 #dyntabnav .citation th {
     width: 16em;
+}
+#dyntabnav a#detailstab {
+    height: 1.3em;
 }
 
 /** Similar Items (record view) **/
@@ -2308,7 +2336,9 @@ p.citationText {
     padding: 0;
     margin-bottom: 1em;
 }
-
+.myResearch .noContentMessage {
+    margin-top: 1em;
+}
 
 /* Browse Lists */
 .browseNav {
@@ -3036,6 +3066,7 @@ div#closeContextHelp:active {
 ul.dynatree-container {
     border: none;
     margin: 0 0 0 -8px;
+    overflow: visible;
 }
 ul.dynatree-container a {
     margin: 0;
@@ -3053,6 +3084,13 @@ span.dynatree-node a {
     padding: 0.1em 0 0.1em 0.2em;
     color: #0066cc;
     border: none;
+}
+span.dynatree-node .facetTitle {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: middle;
 }
 span.dynatree-empty,
 span.dynatree-vline,
