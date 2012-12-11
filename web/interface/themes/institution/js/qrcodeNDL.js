@@ -1,7 +1,7 @@
 var URL = location.href;
 
 $('#qrcode').qrcode({
-    render  : "canvas",    // use "table" for non-HTML5 compatibility
+    render  : "div",
     width   : 120,
     height  : 120,
     text    : URL

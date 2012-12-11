@@ -111,7 +111,7 @@ function processBookInfo(booksInfo, previewClass) {
     for (bibkey in booksInfo) {
         var bookInfo = booksInfo[bibkey];
         if (bookInfo) {
-          if (viewOptions.indexOf(bookInfo.preview)>= 0) {
+          if ($.inArray(bookInfo.preview), viewOptions >= 0) {
                 $link = $('.' + previewClass + '.' + bibkey);
                 $link.attr('href', bookInfo.preview_url).show();
             }
