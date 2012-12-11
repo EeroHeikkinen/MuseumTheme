@@ -10,7 +10,7 @@ px      62    136    210    284    358    432   */
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent, #resultList, #sidebarFacets, #resultMain, #authorList {
+    .homeCustomContent, #sidebarFacets, #resultMain, #authorList {
         width: 480px;
     }
 
@@ -18,10 +18,13 @@ px      62    136    210    284    358    432   */
         padding: 0 0 48px;
     }
 
-    .w-i-p {
-        font-size: 11px;
+    .w-i-p, #resultList {
         padding: 0 6px;
         width: 468px;
+    }
+
+    .w-i-p {
+        font-size: 11px;
     }
 
     .container {
@@ -106,23 +109,25 @@ px      62    136    210    284    358    432   */
     }
     .homeCustomContent .homeCustomCol1 {
         margin: 0;
-        padding: 0 12px;
-        width: 456px;
+        padding: 0 18px;
+        width: 444px;
     }
     .homeCustomContent .homeCustomCol2 {
         clear: left;
         float: none;
         margin: 0;
-        padding: 1em 12px;
-        width: 456px;
+        padding: 1em 18px;
+        width: 444px;
     }
     .homeCustomContent .homeCustomCol2 ul {
+/*
         margin: 0 auto;
         width: 360px;
+*/
     }
     .homeCustomContent .homeCustomCol2 ul li {
         float: left;
-        margin: 0.5em 0 0.5em 40px;
+        margin: 0.5em 0 0.5em 6px;
         width: 140px;
     }
     .module-Content .mainContent {
@@ -171,11 +176,11 @@ px      62    136    210    284    358    432   */
 
     .main-home .footer, .footer {
         font-size: 1em;
-        padding: .2em 0 0;
+        padding: .4em 0 0;
     }
     #footerCol1, #footerCol2, #footerCol3 {
-        padding: 0 12px;
-        width: 132px;
+        padding: 0 18px;
+        width: 124px;
     }
     #footerCol4 {
         clear: left;
@@ -209,14 +214,21 @@ px      62    136    210    284    358    432   */
     .pagination {
         margin: 0;
         padding: .5em 12px;
-        width: 300px;
+        width: 270px;
+    }
+    .pagination a {
+        margin-left: 0;
     }
     .paginationTop {
         padding: .5em 0;
     }
+    
+    .resulthead {
+        padding-left: 6px;
+    }
     .resultOptions {
         margin: 0;
-        padding: .5em 10px 0 0;
+        padding: .2em 0 0 0;
     }
     #sort_options_1 {
         width: 10em;
@@ -249,7 +261,7 @@ px      62    136    210    284    358    432   */
        width: auto;
     }
     ul.recordSet .resultColumn2 {
-        width: 346px;
+        width: 270px;
     }
     ul.recordSet .addToFavLink {
         clear: none;
@@ -263,7 +275,7 @@ px      62    136    210    284    358    432   */
 
     .searchtools {
         margin: 0;
-        padding: .4em 0 0 12px;
+        padding: .4em 0 0 6px;
     }
 
     #sidebarFacets {
@@ -337,4 +349,15 @@ px      62    136    210    284    358    432   */
         font-size: .9em;
     }
 
+    #advWrapper, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .mapContainer {
+        width: 468px;
+    }
 }

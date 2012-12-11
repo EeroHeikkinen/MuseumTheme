@@ -202,7 +202,7 @@ div.sidegroup {
     width: 100%;
     border-top: 1px solid #ddd;
     text-align: center;
-    margin-top: 2em;
+    padding: 1.5em 0 1em;
 }
 .navigationMenu-home {
     border-top: none;
@@ -1945,7 +1945,7 @@ table.authors th {
     float: left;
 }
 #dyntabnav, #dyntabnav .ui-tabs-nav {
-    padding: 0;
+    padding: 0 0 0 .3em;
 }
 #dyntabnav .ui-tabs-nav li {
     margin-right: 3px;
@@ -2270,6 +2270,9 @@ p.citationText {
 }
 .searchGroups .searchGroupDetails {
     float: right;
+}
+#sliderWrapper {
+    margin-bottom: 3em;
 }
 .mapContainer {
     width: 728px;
@@ -3124,8 +3127,8 @@ legend#pubDateLegend {
 }
 
 div.facetsContainer {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 0;
+    margin-bottom: 2em;
 }
 div#selectionMapContainer {
     position: relative;
