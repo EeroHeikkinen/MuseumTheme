@@ -148,7 +148,7 @@ px      62    136    210    284    358    432   */
         margin-bottom: 1em;
     }
     form#feedbackForm input[type="text"] {
-        width: 462px;
+        width: 456px;
     }
     form#feedbackForm input[type="submit"] {
         margin: 1.5em 43% 0 0;
