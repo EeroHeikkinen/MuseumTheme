@@ -1,4 +1,4 @@
-function mozillaPersonaSetup(currentUser)
+function mozillaPersonaSetup(currentUser, autoLogoutEnabled)
 {
     navigator.id.watch({
       loggedInUser: currentUser,
@@ -27,23 +27,10 @@ function mozillaPersonaSetup(currentUser)
         });
       },
       onlogout: function() {
-        if (!currentUser) {
+        if (!currentUser || !autoLogoutEnabled) {
           return;  
         }
-        $.ajax({
-          type: "GET",
-          dataType: "json",
-          url: path + "/AJAX/JSON_PersonaLogin?method=logout",
-          success: function(response, status, xhr) { 
-              if (window.location.href != path) { 
-                window.location = path;
-              } else  {
-                // No reload to avoid POST request problems
-                window.location = window.location.href;
-              }
-          },
-          error: function(xhr, status, err) { alert("logout failure: " + err); }
-        });
+        personaLogout();
       }
     });
     
@@ -53,6 +40,24 @@ function mozillaPersonaSetup(currentUser)
     }
     var signoutLink = document.getElementById('personaLogout');
     if (signoutLink) {
-      signoutLink.onclick = function() { navigator.id.logout(); return false; };
+      signoutLink.onclick = function() { navigator.id.logout(); personaLogout(); return false; };
     }    
+}
+
+function personaLogout()
+{
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: path + "/AJAX/JSON_PersonaLogin?method=logout",
+        success: function(response, status, xhr) { 
+            if (window.location.href != path) { 
+              window.location = path;
+            } else  {
+              // No reload to avoid POST request problems
+              window.location = window.location.href;
+            }
+        },
+        error: function(xhr, status, err) { alert("logout failure: " + err); }
+    });
 }
