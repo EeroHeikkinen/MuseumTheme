@@ -115,10 +115,9 @@ px      62    136    210    284    */
         width: 192px;
     }
     
-    
-    
-    
-    
+    .navigationMenu-home {
+        padding: 1em 0;
+    }    
     .homeNavigation ul li {
         display: block;
         margin: 0;
@@ -136,15 +135,15 @@ px      62    136    210    284    */
     .homeCustomContent .homeCustomCol1 {
         font-size: .846em;
         margin: 0;
-        padding: 0 8px;
-        width: 304px;
+        padding: 0 14px;
+        width: 292px;
     }
     .homeCustomContent .homeCustomCol2 {
         clear: left;
         float: none;
         margin: 0;
-        padding: 1em 8px;
-        width: 304px;
+        padding: 1em 14px;
+        width: 292px;
     }
     .homeCustomContent .homeCustomCol2 ul {
         margin: 0 auto;
@@ -152,8 +151,8 @@ px      62    136    210    284    */
     }
     .homeCustomContent .homeCustomCol2 ul li {
         float: left;
-        margin: 0.5em 0 0.5em 16px;
-        width: 135px;
+        margin: 0.5em 0 0.5em 10px;
+        width: 136px;
     }
     .module-Content .mainContent {
         width: 298px;
@@ -209,12 +208,12 @@ px      62    136    210    284    */
 
     .main-home .footer, .footer {
         font-size: 1em;
-        padding: .8em 1em;
+        padding: .4em 0;
     }
     #footerCol1, #footerCol2, #footerCol3 {
-        margin-left: 1.2em;
+        margin-left: 20px;
         padding: 0;
-        width: 10em;
+        width: 140px;
     }
     #footerCol4 {
         clear: left;
@@ -293,7 +292,7 @@ px      62    136    210    284    */
        overflow:hidden;
     }
     ul.recordSet .resultColumn2 {
-        width: 225px;
+        width: 204px;
     }
 
     /*ul.recordSet .addToFavLink {
@@ -305,8 +304,9 @@ px      62    136    210    284    */
         margin-top: -2.2em;
     }*/
     ul.recordSet .addToFavLink a {
-
+/*
         margin-top: -1.6em;
+*/
     }
     .recordPresenters a {
         display: inline-block;
