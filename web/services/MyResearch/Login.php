@@ -153,8 +153,8 @@ class Login extends Action
         
         if (isset($configArray['Catalog']['driver'])  && $configArray['Catalog']['driver'] == 'MultiBackend') {
             $multiBackend = new MultiBackend();
-            $interface->assign('loginTargets', $multiBackend->getDrivers());
-            $interface->assign('defaultLoginTarget', $multiBackend->getDefaultDriver());
+            $interface->assign('loginTargets', $multiBackend->getLoginDrivers());
+            $interface->assign('defaultLoginTarget', isset($_REQUEST['login_target']) ? $_REQUEST['login_target'] : $multiBackend->getDefaultLoginDriver());
         }
         
         if (isset($_REQUEST['lightbox'])) {

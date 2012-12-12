@@ -1,5 +1,17 @@
 [General]
+; Driver used by default if the source cannot be determined
 defaultDriver = lib1
+; Driver used by default in login
+defaultLoginDriver = lib2
 
-[Drivers]
-lib1 = 'VoyagerRestful'
+; Backends
+
+[lib1]
+; Driver class
+driver = 'VoyagerRestful'
+; Whether this backend can be used for user login 
+login = true
+
+[lib2]
+driver = 'VoyagerRestful'
+login = true
