@@ -64,7 +64,7 @@ class SessionInterface
             array(get_class($this),'destroy'), array(get_class($this),'gc')
         );
         if (isset($configArray['Session']['limit_session_path']) && $configArray['Session']['limit_session_path']) {
-            session_set_cookie_params(0, $configArray['Site']['path']);
+            session_set_cookie_params(0, $configArray['Site']['path'] ? $configArray['Site']['path'] : '/');
         } 
         session_start();
 
