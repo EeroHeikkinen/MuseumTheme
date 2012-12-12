@@ -18,7 +18,8 @@ px      62    136    210    284    358    432   */
         padding: 0 0 48px;
     }
 
-    .w-i-p, #resultList {
+    .w-i-p, #resultList, .mainContent {
+        margin: 0;
         padding: 0 6px;
         width: 468px;
     }
@@ -130,6 +131,10 @@ px      62    136    210    284    358    432   */
         margin: 0.5em 0 0.5em 6px;
         width: 140px;
     }
+    
+    .module-Content .main {
+        padding-left: 0;
+    }    
     .module-Content .mainContent {
         width: 456px;
         margin-left: 0;
@@ -139,6 +144,20 @@ px      62    136    210    284    358    432   */
     }
 
 
+    form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select {
+        margin-bottom: 1em;
+    }
+    form#feedbackForm input[type="text"] {
+        width: 462px;
+    }
+    form#feedbackForm input[type="submit"] {
+        margin: 1.5em 43% 0 0;
+    }
+    form#feedbackForm textarea {
+        display: block;
+        margin-bottom: 0;
+        width: 462px;
+    }
 
     .module-MyResearch .account,
     .module-MyResearch .resultHead,
@@ -150,8 +169,8 @@ px      62    136    210    284    358    432   */
     .module-MyResearch .finesList,
     .module-MyResearch .profile,
     .module-MyResearch .noContentMessage {
-        margin-left: 12px;
-        margin-right: 12px;
+        margin: 0 0 0 2px;
+        padding-top: 1em;
     }
     .favoritesList {
         width: 480px;
@@ -171,8 +190,13 @@ px      62    136    210    284    358    432   */
         margin: 0 0 0 106px;
         width: 346px;
     }
-
-
+    .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
+        margin: 0;
+    }
+    .finesList table tr td:first-child {
+        padding: 2px 0 2px 4px;
+        text-indent: 0;
+    }
 
     .main-home .footer, .footer {
         font-size: 1em;

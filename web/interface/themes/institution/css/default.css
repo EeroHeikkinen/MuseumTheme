@@ -3190,6 +3190,7 @@ span.mapMarker  {
 .button {
     text-shadow: none;
     color: #444444;
+    cursor: pointer;
     padding: 6px 6px 4px 6px;
     margin-top: 1em;
     display: inline-block;
