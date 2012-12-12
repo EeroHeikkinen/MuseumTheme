@@ -117,7 +117,7 @@ $(document).ready(function() {
   $('.truncateField').collapse({maxLength: 150, more: "{/literal}{translate text="more"}{literal}&nbsp;»", less: "«&nbsp;{/literal}{translate text="less"}{literal}"});
 {/literal}
 {if $mozillaPersona}
-    mozillaPersonaSetup({if $mozillaPersonaCurrentUser}"{$mozillaPersonaCurrentUser}"{else}null{/if});
+    mozillaPersonaSetup({if $mozillaPersonaCurrentUser}"{$mozillaPersonaCurrentUser}"{else}null{/if}, {if $mozillaPersonaAutoLogout}true{else}false{/if});
 {/if}
 {literal}
 });
@@ -152,8 +152,9 @@ $(document).ready(function() {
     {* End LightBox *}
 
     <div class="container module-{$module}">
-      {* Work-In-Progress disclaimer, remove when appropriate *}
+      {if $developmentSite}
       <div class="w-i-p">{translate text="development_disclaimer"}</div>
+      {/if}
       <!--[If lt IE 8]>
         <div class="ie">{translate text="ie_disclaimer"}</div>
       <![endif]-->
@@ -231,26 +232,6 @@ $(document).ready(function() {
 
       </div>
     </div> {* End doc *}
-{* Google Analytics, commented out - remove when/if not needed *}
-{*
-{literal}    
-<script type="text/javascript">
-  <!--//--><![CDATA[//><!--
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28376324-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-  //--><!]]>
-</script>
-{/literal}
-*}
 
 {include file="piwik.tpl"}
 {include file="AJAX/keepAlive.tpl"}
