@@ -4,7 +4,7 @@ $(document).ready(function() {
     // poll every 60 seconds
     var refreshTime = 60000;
     window.setInterval(function() {
-        $.get("{/literal}{$url}{literal}/AJAX/JSON_KeepAlive",
+        $.getJSON("{/literal}{$url}{literal}/AJAX/JSON_KeepAlive",
                {method: 'keepAlive'});
     }, refreshTime);
 });
