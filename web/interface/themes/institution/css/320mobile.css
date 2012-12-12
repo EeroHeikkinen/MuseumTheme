@@ -103,12 +103,15 @@ px      62    136    210    284    */
     .ui-autocomplete {
         max-width: 228px;
     }
-    .advancedLink {
-        display:none;
-    }
-    .metalibLink {
+    .advancedLink, .metalibLink {
         display: inline-block;
         padding: 1em 0;
+        width: 75px;
+    }
+    .advancedLink {
+        display:inline-block;
+        padding-top: .9em;
+        float: left;
     }
     .showSearchHelp {
         padding: 1em 1em 1em 0;
@@ -434,6 +437,35 @@ px      62    136    210    284    */
         margin-right: 10px;
         display: inline-block;
         vertical-align: top;
+    }
+    #hierarchyTree {
+        overflow: auto;
+        width: 294px;
+    }
+
+    .jstree ins {
+        display: none;
+    }
+    .jstree li {
+        font-size: .9em;
+    }
+
+    #advWrapper, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .groupSearchHolder .label, .groupSearchHolder .join {
+        text-align: left;
+    }
+    .mapContainer {
+        width: 302px;
+    }
+    #zoomSlider {
+        top: 50px;
     }
     
 }
