@@ -80,7 +80,7 @@
       </div>
     {/if}
     <div class="searchHomeLogo{if $module=='MetaLib'}MetaLib{else}{1|rand:5}{/if}">
-{* Slogan is not necessarily needed if it is integrated into the logo or not use at all *}
+{* Slogan is not necessarily needed if it is integrated into the logo or not used at all *}
 {*
       <h3 id="slogan">{translate text="searchbox_headline_text"}</h3>
 *}
