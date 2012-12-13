@@ -1,22 +1,40 @@
 <!-- START of: Content/about.fi.tpl -->
 
+<div class="helpMenu"></div>
+
 <div class="mainContent">
-{* hide the temp content
-<h1 style="font-size: 2.6em;font-weight: normal;">
-Suomen kirjastojen, arkistojen ja museoiden aarteet yhdellä haulla</h1>
 
-<h3 style="font-weight:normal;margin-bottom: 1.4em;">Keräsimme aineistotiedot useista Suomen arkistoista, kirjastoista ja museoista yhteen paikkaan. Yhdellä haulla saat tuloksia kaikista mukana olevista kokoelmista.</h3>
+<h1>Tietoa Finnasta</h1>
 
-<p>Kansallisen digitaalisen kirjaston (KDK) asiakaskäyttöliittymä Finna on arkistojen, kirjastojen ja museoiden yhteinen helppokäyttöinen verkkopalvelu, joka tarjoaa pääsyn muistiorganisaatioiden kaikkiin aineistoihin ja palveluihin. Kansalliskirjasto on verkkopalvelun ylläpitäjä ja vastaa sen kehittämisestä ja yhteistyöverkoston rakentamisesta.</p>
+<p><em>Suomen arkistojen, kirjastojen ja museoiden aarteet yhdellä haulla.</em></p>
 
-<p style="margin-top: 1em;">Finna on tarkoitettu kaikille tietoa tarvitseville ja elämyksiä etsiville. Verkkopalvelun avulla voi helposti hakea valitsemaansa aihetta koskevaa aineistoa, kuten kuvia, asiakirjoja, sanomalehtiä, tutkimuksia, videoita ja äänitallenteita. Finnalla pyritään korvaamaan nykyisiä käyttöliittymiä siten, että palvelun käyttäjä saavuttaa tarvitsemansa tiedon yhden käyttöliittymän kautta riippumatta siitä, mikä organisaatio on tiedon tuottanut.</p>
+<p>Finna on arkistojen, kirjastojen ja museoiden yhteinen helppokäyttöinen verkkopalvelu, joka tulee tarjoamaan pääsyn muistiorganisaatioiden kaikkiin aineistoihin ja palveluihin.</p>
 
-<p style="margin-top: 1em;">Asiakaskäyttöliittymä rakennetaan avoimen lähdekoodin ohjelmisto VuFindin pohjalta. Finna toteutetaan arkistojen, kirjastojen ja museoiden kanssa yhteistyössä tehtävinä kehittämiskierroksina.</p>
+<p>Finna on tarkoitettu kaikille tietoa tarvitseville ja elämyksiä etsiville. Verkkopalvelun avulla voi helposti hakea valitsemaansa aihetta koskevaa aineistoa, kuten kuvia, asiakirjoja, sanomalehtiä, tutkimuksia, videoita ja äänitallenteita. Samalla voi käyttää arkistojen, kirjastojen ja museoiden digitaalisia palveluita. Finnalla pyritään korvaamaan nykyisiä käyttöliittymiä siten, että palvelun käyttäjä saavuttaa tarvitsemansa tiedon yhden käyttöliittymän kautta riippumatta siitä, mikä organisaatio on tiedon tuottanut.</p>
 
-<p style="margin-top: 1em;">Lisätietoa Finnasta on osoitteessa <a href="http://www.kdk.fi/">www.kdk.fi</a>.</p>
+<p>Finnan testiversio julkaistiin joulukuussa 2012. Testiversiossa ovat mukana seuraavat organisaatiot aineistoineen ja palveluineen:<p>
 
-<p style="margin-top: 3em;"><a href="{$path}">Takaisin etusivulle</a></p>
-*}
+<p>
+	<ul>
+	  <li>Jyväskylän yliopiston kirjasto</li>
+	  <li>Kansallisarkisto</li>
+	  <li>Kansalliskirjasto</li>
+	  <li>Lusto-metsämuseo</li>
+	  <li>Oiva-kirjastot</li>
+	  <li>Suomen metsästysmuseo</li>
+	  <li>Tuusulan taidemuseo</li>
+	  <li>Valtion taidemuseo</li>
+	</ul>
+</p>
+
+<p>Finnan kehittämistyö jatkuu vuonna 2013, ja palveluun lisätään uusia toiminnallisuuksia. Uusia organisaatioita liittyy mukaan vaiheittain.</p>
+
+<p>Verkkopalvelua ylläpitää Kansalliskirjasto. Finna on toteutettu avoimen lähdekoodin ohjelmistolla yhteistyössä arkistojen, kirjastojen ja museoiden kanssa.</p>
+
+<p>Lisätietoa Finnasta on Kansallinen digitaalinen kirjasto -hankkeen verkkosivuilla osoitteessa <a href="http://www.kdk.fi">www.kdk.fi</a></p>
+
+<p style="margin-top: 3em;"><a href="{$path}">&laquo; Etusivulle</a></p>
+
 </div>
 
 <!-- END of: Content/about.fi.tpl -->
