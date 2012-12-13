@@ -121,7 +121,7 @@
       <dt><a name="Phrase searches"></a>Phrase searches</dt>
       <dd>
         <p>Search term or terms enclosed in quotation marks will be used literally.</p>
-        <p>To search for records containing the words "ancient history" and not e.g. "history in the ancient times":</p>
+        <p>To search for records containing the exact phrase "ancient history" and not e.g. "history in the ancient times":</p>
         <pre class="code">"ancient history"</pre>
         <p>Also single words can be enclosed in quotation marks to use the term literally, ignoring different conjugations.</p>
       </dd>
