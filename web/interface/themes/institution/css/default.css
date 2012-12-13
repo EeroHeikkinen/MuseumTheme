@@ -25,6 +25,18 @@ body {
     behavior: url(css/css3pie/PIE.php)*/; /* for IE */
 }
 
+#beta-wrapper {
+    position: absolute;
+}
+#beta-banner {
+    background: url('../images/beta-overlay.png') transparent;
+    height: 73px;
+    width: 80px;
+    position: absolute;
+    left: -6px;
+    top: 25px;
+}
+
 /*** work-in-progress disclaimer ***/
 .w-i-p, .ie {
     width: 100%;
