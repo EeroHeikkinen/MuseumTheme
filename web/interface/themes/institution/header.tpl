@@ -72,7 +72,7 @@
       <p><a href="mailto:{$supportEmail}">{$supportEmail}</a></p>
       </div>
     {/if}
-    <div class="searchHomeLogo{if $module=='MetaLib'}MetaLib{else}1{/if}"></div>
+    <div class="searchHomeLogo{if $module=='MetaLib'}MetaLib{/if}"></div>
     <div class="searchHomeForm">
       <div class="searchbox">
     {if $module=="Summon" || $module=="EBSCO" || $module=="PCI" || $module=="WorldCat" || $module=="Authority" || $module=="MetaLib"}
