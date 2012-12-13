@@ -44,7 +44,7 @@
 {else}
 {translate text="feedback_thankyou"}
 {/if}
-<p style="margin-top: 6em;"><a href="{$path}">{translate text="Back to Frontpage"}</a></p>
+<p style="margin-top: 6em;"><a href="{$path}">&laquo; {translate text="To Home"}</a></p>
 </div>
 
 <!-- END of: Feedback/feedback.tpl -->
