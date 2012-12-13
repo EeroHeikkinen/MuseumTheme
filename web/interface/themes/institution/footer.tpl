@@ -1,30 +1,37 @@
 <!-- START of: footer.tpl -->
 
 <div id="footerCol1">
-  <h4>{translate text='Search Options'}</h4>
+  <h4>{translate text='navigation_about'}</h4>
   <ul>
-    <li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
-    <li><a href="{$path}/Search/Advanced">{translate text='Advanced Search'}</a></li>
+    <li><a href="{$path}/Content/about">{translate text='navigation_about_finna'}</a></li>
+    <li><a href="{$path}/Content/terms_conditions">{translate text='navigation_terms_conditions'}</a></li>
+    <li><a href="{$path}/Content/register_details">{translate text='navigation_register_details'}</a></li>
+    {*<li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
+    <li><a href="{$path}/Search/Advanced">{translate text='Advanced Search'}</a></li>*}
   </ul>
 </div>
 
 <div id="footerCol2">
-  <h4>{translate text='Find More'}</h4>
+  <h4>{translate text='navigation_search'}</h4>
   <ul>
+    <li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
+    <li><a href="{$path}/Search/Advanced">{translate text='Advanced Search'}</a></li>
     <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
+    {* <li><a href="{$path}/Browse/Home">{translate text='Browse the Catalog'}</a></li>
     <li><a href="{$path}/AlphaBrowse/Home">{translate text='Browse Alphabetically'}</a></li>
     <li><a href="{$path}/Search/TagCloud">{translate text='Browse by Tag'}</a></li>
-    {* <li><a href="{$path}/Search/Reserves">{translate text='Course Reserves'}</a></li> not used
+    <li><a href="{$path}/Search/Reserves">{translate text='Course Reserves'}</a></li> not used
     <li><a href="{$path}/Search/NewItem">{translate text='New Items'}</a></li> not used *}
   </ul>
 </div>
 
 <div id="footerCol3">
-  <h4>{translate text='Need Help?'}</h4>
+  <h4>{translate text='navigation_help'}</h4>
   <ul>
-    <li><a href="{$url}/Content/searchhelp" class="searchHelp">{translate text='Search Tips'}</a></li>
-    <li><a href="#">{translate text='Ask a Librarian'}</a></li>
-    <li><a href="#">{translate text='FAQs'}</a></li>
+    <li><a href="{$path}/Content/searchhelp" class="searchHelp">{translate text='Search Tips'}</a></li>
+    <li><a href="{$path}/Content/feedback" class="searchHelp">{translate text='navigation_feedback'}</a></li>
+    {*<li><a href="#">{translate text='Ask a Librarian'}</a></li>
+    <li><a href="#">{translate text='FAQs'}</a></li>*}
   </ul>
 </div>
 

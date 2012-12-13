@@ -225,12 +225,12 @@ $(document).ready(function() {
 		  {include file="Search/navigation.tpl"} 
 		</div>
 		{/if}
+	  </div>
       
         <div class="footer clear">
           {include file="footer.tpl"}
         </div>
 
-      </div>
     </div> {* End doc *}
 
 {include file="piwik.tpl"}
