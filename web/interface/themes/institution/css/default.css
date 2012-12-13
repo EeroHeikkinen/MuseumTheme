@@ -12,6 +12,7 @@ body {
     padding: 0 24px 48px;
     background-color: #ffffff;
     color: #3c3c3c;
+    -webkit-text-size-adjust: 100%;
 }
 .container {
     width: 960px; /* make this match the body width above */
@@ -3189,6 +3190,7 @@ span.mapMarker  {
 .button {
     text-shadow: none;
     color: #444444;
+    cursor: pointer;
     padding: 6px 6px 4px 6px;
     margin-top: 1em;
     display: inline-block;

@@ -170,6 +170,7 @@ div.searchHomeForm div.searchform #searchForm {
 }
 .homeCustomContent .homeCustomCol2 .iconlabel {
     font-size: 0.9em;
+    margin-right: 0;
 }
 .homeCustomContent .homeCustomCol3 {
     width: 210px;

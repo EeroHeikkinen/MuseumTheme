@@ -24,12 +24,15 @@ px      62    136    210    284    */
         padding: 0 0 36px 0;
     }
 
-    .w-i-p {
-        font-size: 11px;
+    .w-i-p, .mainContent {
+        margin: 0;
         padding: 0 4px;
         width: 312px;
     }
 
+    .w-i-p {
+        font-size: 11px;
+    }
 
     .container {
         background: none repeat scroll 0 0 #FFFFFF;
@@ -100,12 +103,15 @@ px      62    136    210    284    */
     .ui-autocomplete {
         max-width: 228px;
     }
-    .advancedLink {
-        display:none;
-    }
-    .metalibLink {
+    .advancedLink, .metalibLink {
         display: inline-block;
         padding: 1em 0;
+        width: 75px;
+    }
+    .advancedLink {
+        display:inline-block;
+        padding-top: .9em;
+        float: left;
     }
     .showSearchHelp {
         padding: 1em 1em 1em 0;
@@ -154,6 +160,10 @@ px      62    136    210    284    */
         margin: 0.5em 0 0.5em 10px;
         width: 136px;
     }
+
+    .module-Content .main {
+        padding-left: 0;
+    }
     .module-Content .mainContent {
         width: 298px;
         margin-left: 0;
@@ -166,6 +176,21 @@ px      62    136    210    284    */
     }
 
 
+    form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select {
+        margin-bottom: 1em;
+    }
+    form#feedbackForm input[type="text"] {
+        width: 300px;
+    }
+    form#feedbackForm input[type="submit"] {
+        margin: 1em 43% 0 0;
+    }
+    form#feedbackForm textarea {
+        display: block;
+        margin-bottom: 0;
+        width: 306px;
+    }
+
 
    .module-MyResearch .account,
    .module-MyResearch .resultHead,
@@ -177,8 +202,8 @@ px      62    136    210    284    */
    .module-MyResearch .finesList,
    .module-MyResearch .profile,
    .module-MyResearch .noContentMessage {
-        margin-left: 12px;
-        margin-right: 12px;
+        margin: 0 4px;
+        padding-top: 1em;
     }
     .favoritesList {
         width: 320px;
@@ -204,8 +229,23 @@ px      62    136    210    284    */
         margin: 0 0 0 106px;
         width: 194px;
     }
-
-
+    .profileInfo {
+        line-height: 1em;
+        width: 312px;
+    }
+    .profileInfo span {
+        float: left;
+        margin-left: 12px;
+        width: 304px;
+    }
+    .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
+        margin: 0;
+    }
+    .finesList table tr td:first-child {
+        padding: 2px 0 2px 4px;
+        text-indent: 0;
+    }
+    
     .main-home .footer, .footer {
         font-size: 1em;
         padding: .4em 0;
@@ -378,7 +418,6 @@ px      62    136    210    284    */
         margin-left: 10px;
     }
     #dyntabnav .ui-tabs-nav li {
-        max-width: 28%;
         overflow: hidden;
     }
     #dyntabnav .citation th {
@@ -398,6 +437,35 @@ px      62    136    210    284    */
         margin-right: 10px;
         display: inline-block;
         vertical-align: top;
+    }
+    #hierarchyTree {
+        overflow: auto;
+        width: 294px;
+    }
+
+    .jstree ins {
+        display: none;
+    }
+    .jstree li {
+        font-size: .9em;
+    }
+
+    #advWrapper, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .groupSearchHolder .label, .groupSearchHolder .join {
+        text-align: left;
+    }
+    .mapContainer {
+        width: 302px;
+    }
+    #zoomSlider {
+        top: 50px;
     }
     
 }
