@@ -244,7 +244,7 @@ class Solr implements IndexEngine
         // Merged records
         if (isset($searchSettings['Records']['merged_records'])) {
            	$this->_mergedRecords = $searchSettings['Records']['merged_records'];
-           	$this->_recordSources = $searchSettings['Records']['sources'];
+           	$this->_recordSources = isset($searchSettings['Records']['sources']) ? $searchSettings['Records']['sources'] : '';
         }
         
         // Hide component parts?

@@ -352,9 +352,23 @@
     <listener event="newSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
         <lst>
-          <str name="q">science art business engineering history</str>
+          <str name="q">*:*</str>
           <str name="start">0</str>
           <str name="rows">10</str>
+          <str name="facet">true</str>
+          <str name="facet.mincount">1</str>
+          <str name="facet.field">building</str>
+          <str name="facet.field">collection</str>
+          <str name="facet.field">format</str>
+          <str name="facet.field">publishDate</str>
+          <str name="facet.field">callnumber-first</str>
+          <str name="facet.field">topic_facet</str>
+          <str name="facet.field">authorStr</str>
+          <str name="facet.field">language</str>
+          <str name="facet.field">genre_facet</str>
+          <str name="facet.field">era_facet</str>
+          <str name="facet.field">geographic_facet</str>
+          <str name="facet.field">main_date_str</str>
         </lst>
       </arr>
     </listener>
@@ -365,21 +379,23 @@
     <listener event="firstSearcher" class="solr.QuerySenderListener">
       <arr name="queries">
         <lst>
-          <str name="q">science art business engineering history</str>
+          <str name="q">*:*</str>
+          <str name="start">0</str>
+          <str name="rows">10</str>
+          <str name="facet">true</str>
+          <str name="facet.mincount">1</str>
+          <str name="facet.field">building</str>
+          <str name="facet.field">collection</str>
           <str name="facet.field">format</str>
-          <str name="fq">format:book</str>
-        </lst>
-        <lst>
-          <str name="q">markkinointi</str>
-        </lst>
-        <lst>
-          <str name="q">historia</str>
-        </lst>
-        <lst>
-          <str name="q">tieteellinen</str>
-        </lst>
-        <lst>
-          <str name="q">lehti</str>
+          <str name="facet.field">publishDate</str>
+          <str name="facet.field">callnumber-first</str>
+          <str name="facet.field">topic_facet</str>
+          <str name="facet.field">authorStr</str>
+          <str name="facet.field">language</str>
+          <str name="facet.field">genre_facet</str>
+          <str name="facet.field">era_facet</str>
+          <str name="facet.field">geographic_facet</str>
+          <str name="facet.field">main_date_str</str>
         </lst>
       </arr>
     </listener>
