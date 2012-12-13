@@ -105,7 +105,9 @@ img.alignleft {
 }
 .floatright {
     float: right;
+/*
     margin-top: -.6em;
+*/
 }
 /* class to make stuff "invisible" but still readable by screen readers */
 .offscreen {
@@ -1666,7 +1668,9 @@ ul.recordSet .addToFavLink a {
     border: 1px solid #fff;
 }
 .pagination a:hover {
+/*
     border: 1px solid #cccccc;
+*/
 }
 .pagination span {
     padding: .2em .5em;
@@ -1887,7 +1891,7 @@ table.authors th {
 #tabnav ul {
     float: left;
     margin:0;
-    padding:0px 5px 0 0;
+    padding:0px 5px 0;
     list-style:none;
     background: #ffffff;
     border-color: #dadada;
@@ -2552,7 +2556,9 @@ tr:nth-child(even) td.gridMouseOver {
 
 }
 .collectionDetails .pagination span {
+/*
     border: 1px solid #EEEEEE;
+*/
     padding-left: 4px;
     padding-right: 4px;
 }
@@ -2562,20 +2568,28 @@ tr:nth-child(even) td.gridMouseOver {
     padding: 7px 0;
     text-align: center;
 }
+/*
 .collectionDetails .paginationTop:hover {
     padding: 6px 0 7px;
 }
+*/
 .collectionDetails .paginationTop span {
+/*
     border: 1px solid #EEEEEE;
+*/
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 3px;
 }
+/*
 .collectionDetails .paginationTop a:hover {
     border: 1px solid #EEEEEE;
 }
+*/
 .collectionDetails .paginationTop a {
+/*
     border: 1px solid #FFF;
+*/
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 3px;
@@ -2894,13 +2908,13 @@ div#closeContextHelp:active {
 /*** Hierarchy Tree ***/
 
 #hierarchyTreeHolder, #hierarchyRecord {
-    width: 960px;
+    width: 958px;
 }
 
 #hierarchyTreeHolder {
     background-color: #FFF;
     border: 1px solid #DCDCDC;
-    padding: 0.5em;   
+    padding: 0.5em 0;   
 }
 
 .collectionDetailsTree #hierarchyTreeHolder {
@@ -2932,13 +2946,13 @@ div#closeContextHelp:active {
 #treeSearch #search {
     display:block;
     float:right;
-    margin-bottom: 0px;
+    margin: 0 .4em 0 0;
 }
 
 #treeSearch #treeSearchType {
     display:block;
     float:right;
-    margin:2px 4px 0px 4px;
+    margin: 0 4px;
 }
 
 #treeSearch #treeSearchNoResults {

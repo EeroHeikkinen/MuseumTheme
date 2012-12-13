@@ -10,7 +10,7 @@ px      62    136    210    284    358    432   */
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent, #sidebarFacets, #resultMain, #authorList {
+    .homeCustomContent, #sidebarFacets, #resultMain, #authorList, #resultsCollection, #headingHierarchyCollection, #hierarchyCollection {
         width: 480px;
     }
 
@@ -366,11 +366,24 @@ px      62    136    210    284    358    432   */
         display: inline-block;
         vertical-align: top;
     }
+    #hierarchyTreeHolder {
+        width: 478px;
+        padding-bottom: 0;
+    }
     #hierarchyTree {
         overflow: auto;
-        width: 441px;
+        width: 472px;
     }
-
+    #hierarchyRecord {
+        width: 456px;
+    }
+    #collectionItemsHeader {
+        display: none;
+    }
+    .collectionDetails .collectionSortSelector {
+        margin-top: .2em;
+    }
+    
     .jstree ins {
         display: none;
     }
@@ -378,7 +391,7 @@ px      62    136    210    284    358    432   */
         font-size: .9em;
     }
 
-    #advWrapper, #sliderContainer {
+    #advancedSearchWrapper, #sliderContainer {
         padding: 0 6px;
     }
 
