@@ -37,6 +37,16 @@ body {
     top: 25px;
 }
 
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+    #beta-banner {
+        background: url('../images/beta-overlay@2x.png');
+        background-size: 50%;
+    }
+}
+
 /*** work-in-progress disclaimer ***/
 .w-i-p, .ie {
     width: 100%;
