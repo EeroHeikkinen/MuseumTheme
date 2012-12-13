@@ -154,9 +154,6 @@ $(document).ready(function() {
     <div class="container module-{$module}">
 
       {* Start BETA BANNER - Remove/comment out when not in beta anymore ===> *}
-      <div id="beta-wrapper">
-          <a id="beta-banner" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" title="{translate text="Home"}"></a>
-      </div>
       {* <=== Remove/comment out when not in beta anymore - End BETA BANNER *}
       {if $developmentSite}
       <div class="w-i-p">{translate text="development_disclaimer"}</div>
@@ -165,6 +162,9 @@ $(document).ready(function() {
         <div class="ie">{translate text="ie_disclaimer"}</div>
       <![endif]-->
       
+      <div id="beta-wrapper">
+          <a id="beta-banner" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" title="{translate text="Home"}"></a>
+      </div>
       
       <div class="breadcrumbs">
       {if $showBreadcrumbs}
