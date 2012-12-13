@@ -1,6 +1,5 @@
 [Prefilters]
 -=Paikallinen aineisto
-summon=Summon
 local_books = Kirjat
 local_journal = Lehdet
 local_videos = Videot
@@ -14,10 +13,6 @@ local_archives = Arkistot
 [-]
 module=Search
 action=Results
-
-[summon]
-module=Summon
-action=Search
 
 [local_books]
 module=Search
