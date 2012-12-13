@@ -1306,6 +1306,9 @@ dl.narrowList a {
 .module-Content .main p {
     margin-bottom: 1em;
 }
+.module-Content .main ul {
+    list-style-type: disc;
+}
 
 
 
