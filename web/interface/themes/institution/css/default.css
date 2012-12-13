@@ -1296,7 +1296,7 @@ dl.narrowList a {
 .module-Content .main {
     padding-left: 12px;
 }
-.module-Content .helpMenu {
+.module-Content .pageMenu, .module-Feedback .pageMenu {
     float: left;
     width: 210px;
     margin: 2.4em 0 0 0;
