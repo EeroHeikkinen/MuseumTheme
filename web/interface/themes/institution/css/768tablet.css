@@ -39,7 +39,7 @@ px      62    136    210    284    358    432    506    580    654    728   */
     #searchFormHeader {
         width: 506px;
         margin: 0;
-        padding: 0;
+        padding: .5em 0 0 .9em;
     }
     .searchbox {
         margin: 0;
