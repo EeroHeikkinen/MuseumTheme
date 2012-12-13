@@ -193,11 +193,11 @@ $(document).ready(function() {
         <div class="clear"></div>
       </div>
       
-      {if !$showTopSearchBox}
+      {* if !$showTopSearchBox}
       <div class="navigationMenu navigationMenu-home">
       {include file="Search/navigation.tpl"} 
       </div>
-      {/if}
+      {/if *}
       
       <div class="main{if !$showTopSearchBox}-home{/if} clear">
         {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI || $useMetaLib}
@@ -226,17 +226,17 @@ $(document).ready(function() {
         {/if}
         {include file="$module/$pageTemplate"}
         
-		{if $showTopSearchBox}
+		{* if $showTopSearchBox}
 		<div class="navigationMenu">
 		  {include file="Search/navigation.tpl"} 
 		</div>
-		{/if}
+		{/if *}
+	  </div>
       
         <div class="footer clear">
           {include file="footer.tpl"}
         </div>
 
-      </div>
     </div> {* End doc *}
 
 {include file="piwik.tpl"}

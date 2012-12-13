@@ -29,7 +29,7 @@
     {* Cover image *}
         <div class="resultNoImage"><p>{translate text='No image'}</p></div>
     {if $img_count > 0}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}" id="thumbnail_link_{$summId|escape:"url"}">
           <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}" />
         </a></div>
     {else}
