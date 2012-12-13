@@ -29,7 +29,7 @@
   <h4>{translate text='navigation_help'}</h4>
   <ul>
     <li><a href="{$path}/Content/searchhelp" class="searchHelp">{translate text='Search Tips'}</a></li>
-    <li><a href="{$path}/Content/feedback" class="searchHelp">{translate text='navigation_feedback'}</a></li>
+    <li><a href="{$path}/Feedback/Home" class="searchHelp">{translate text='navigation_feedback'}</a></li>
     {*<li><a href="#">{translate text='Ask a Librarian'}</a></li>
     <li><a href="#">{translate text='FAQs'}</a></li>*}
   </ul>
