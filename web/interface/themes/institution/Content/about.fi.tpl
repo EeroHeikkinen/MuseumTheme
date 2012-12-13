@@ -29,7 +29,7 @@
 
 <p>Finnan kehittämistyö jatkuu vuonna 2013, ja palveluun lisätään uusia toiminnallisuuksia. Uusia organisaatioita liittyy mukaan vaiheittain.</p>
 
-<p>Verkkopalvelua ylläpitää Kansalliskirjasto. Finna on toteutettu avoimen lähdekoodin ohjelmistolla yhteistyössä arkistojen, kirjastojen ja museoiden kanssa.</p>
+<p>Verkkopalvelua ylläpitää Kansalliskirjasto. Finna on toteutettu avoimen lähdekoodin ohjelmisto VuFindin pohjalta yhteistyössä arkistojen, kirjastojen ja museoiden kanssa.</p>
 
 <p>Lisätietoa Finnasta on Kansallinen digitaalinen kirjasto -hankkeen verkkosivuilla osoitteessa <a href="http://www.kdk.fi">www.kdk.fi</a></p>
 
