@@ -134,12 +134,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           {/foreach}
         </select>
       {/if}  
-        <input type="submit" class="mail button" name="email" value="{translate text='Email this'}" title="{translate text='Email this'}"/>
+        <input type="submit" class="button" name="email" value="{translate text='Email this'}" title="{translate text='Email this'}"/>
         {if is_array($exportOptions) && count($exportOptions) > 0}
-        <input type="submit" class="export button" name="export" value="{translate text='export_expanding'}" title="{translate text='export_expanding'}"/>
+        <input type="submit" class="button" name="export" value="{translate text='export_expanding'}" title="{translate text='export_expanding'}"/>
         {/if}
-        <input type="submit" class="print button" name="print" value="{translate text='Print'}" title="{translate text='print_selected'}"/>
-        {if $listEditAllowed}<input id="delete_list_items_{if $list}{$list->id|escape}{/if}" type="submit" class="delete button" name="delete" value="{translate text='Delete'}" title="{translate text='delete_selected'}"/>{/if}
+        <input type="submit" class="button" name="print" value="{translate text='Print'}" title="{translate text='print_selected'}"/>
+        {if $listEditAllowed}<input id="delete_list_items_{if $list}{$list->id|escape}{/if}" type="submit" class="button" name="delete" value="{translate text='Delete'}" title="{translate text='delete_selected'}"/>{/if}
       </div>
       <div class="clear"></div>
     </div> 

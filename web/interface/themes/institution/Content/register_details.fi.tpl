@@ -1,6 +1,6 @@
 <!-- START of: Content/register_details.fi.tpl -->
 
-<div class="helpMenu"></div>
+<div class="pageMenu"></div>
 
 <div class="mainContent">
 

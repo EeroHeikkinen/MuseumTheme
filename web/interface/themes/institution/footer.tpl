@@ -1,6 +1,7 @@
 <!-- START of: footer.tpl -->
 
 <div id="footerCol1">
+  {if $userLang != 'sv'}
   <h4>{translate text='navigation_about'}</h4>
   <ul>
     <li><a href="{$path}/Content/about">{translate text='navigation_about_finna'}</a></li>
@@ -9,6 +10,7 @@
     {*<li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
     <li><a href="{$path}/Search/Advanced">{translate text='Advanced Search'}</a></li>*}
   </ul>
+  {/if}
 </div>
 
 <div id="footerCol2">
@@ -28,8 +30,10 @@
 <div id="footerCol3">
   <h4>{translate text='navigation_help'}</h4>
   <ul>
+    {if $userLang != 'sv'}
     <li><a href="{$path}/Content/searchhelp" class="searchHelp">{translate text='Search Tips'}</a></li>
-    <li><a href="{$path}/Content/feedback" class="searchHelp">{translate text='navigation_feedback'}</a></li>
+    {/if}
+    <li><a href="{$path}/Feedback/Home" class="searchHelp">{translate text='navigation_feedback'}</a></li>
     {*<li><a href="#">{translate text='Ask a Librarian'}</a></li>
     <li><a href="#">{translate text='FAQs'}</a></li>*}
   </ul>

@@ -1,5 +1,7 @@
 <!-- START of: Content/about.sv.tpl -->
 
+<div class="pageMenu"></div>
+
 <div class="mainContent">
 {* hide the temp content
 <h1 style="font-size: 2.6em;font-weight: normal;">

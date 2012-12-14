@@ -90,6 +90,10 @@ class UserAccount
                     } else {
                         $ips[1] = UserAccount::normalizeIp($ips[1], true);
                     }
+                    if ($ips[0] === false || $ips[1] === false) {
+                        error_log("Could not parse IP address/range: $range");
+                        continue;
+                    }
                     if ($remote >= $ips[0] && $remote <= $ips[1]) {
                         return true;
                     }
@@ -217,10 +221,12 @@ class UserAccount
     protected static function normalizeIp($ip, $end = false)
     {
         if (strpos($ip, ':') === false) {
-            while (substr_count($ip, '.') < 3) {
-                $ip .= $end ? '.255' : '.0';
+            $addr = explode('.', $ip);
+            while (count($addr) < 4) {
+                $addr[] = $end ? 255 : 0;
             }
-            $ip = "::$ip";
+             
+            $ip = '::' . implode('.', array_map('intval', $addr));
         } else {
             $ip = str_replace('::', ':' . str_repeat('0:', 8 - substr_count($ip, ':')), $ip);
             if ($ip[0] == ':') {

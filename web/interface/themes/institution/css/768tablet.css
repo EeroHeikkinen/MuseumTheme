@@ -39,7 +39,7 @@ px      62    136    210    284    358    432    506    580    654    728   */
     #searchFormHeader {
         width: 506px;
         margin: 0;
-        padding: 0;
+        padding: .5em 0 0 .9em;
     }
     .searchbox {
         margin: 0;
@@ -161,7 +161,23 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
 
     #hierarchyTreeHolder {
-        width: 743px;
+        width: 756px;
+    }
+
+    .collectionDetails .collectionSortSelector {
+        margin-top: .5em;
+    }
+
+    #advancedSearchWrapper, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .advSearchContent .searchButton {
+        margin: 1em 2em;    
     }
 
     .footer {
