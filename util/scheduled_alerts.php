@@ -122,7 +122,11 @@ class ScheduledAlerts
                 if (isset($datasourceConfig[$institution]['mainView'])) {
                     // Read institution's configuration
                     $this->msg("Switching to configuration of '$institution'");
-                    $configArray = readConfig('../' . $datasourceConfig[$institution]['mainView'] . '/conf');
+                    $configPath = $datasourceConfig[$institution]['mainView'] . '/conf';
+                    if (isRelativeFilePath($configPath)) {
+                        $configPath = "../$configPath";
+                    }
+                    $configArray = readConfig($configPath);
                 } else {
                     // Use default configuration
                     $this->msg("Switching to default configuration");
