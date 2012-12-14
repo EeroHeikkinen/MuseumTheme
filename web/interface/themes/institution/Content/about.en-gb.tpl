@@ -1,6 +1,6 @@
 <!-- START of: Content/about.en-gb.tpl -->
 
-<div class="helpMenu"></div>
+<div class="pageMenu"></div>
 
 <div class="mainContent">
 

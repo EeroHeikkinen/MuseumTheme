@@ -1,2 +1,5 @@
 /** Hacks for IE */
 
+#searchForm_input {
+	padding-top: 6px;
+}

@@ -10,7 +10,7 @@
   {/if}
   {include file="Search/paging.tpl" position="Top"}
 
-  {translate text='Items'}
+  <span id="collectionItemsHeader">{translate text='Items'}</span>
   <form class="collectionSortSelector" action="{$path}/Search/SortResults" method="post">
       <label for="sort_options_1">{translate text='Sort'}</label>
       <select id="sort_options_1" name="sort" class="jumpMenu">

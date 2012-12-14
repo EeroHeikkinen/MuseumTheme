@@ -9,7 +9,7 @@
     text-align: left;
 }
 /* Logo image */
-.searchHomeLogo1, .searchHomeLogo2, .searchHomeLogo3, .searchHomeLogo4, .searchHomeLogo5 {
+.searchHomeLogo {
     background: url("../images/finna-logo_cyan.png");
     background-repeat: no-repeat;
     background-position: center;
