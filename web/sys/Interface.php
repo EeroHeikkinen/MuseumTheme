@@ -217,11 +217,12 @@ class UInterface extends Smarty
             ? false : $configArray['Site']['sidebarOnLeft']
         );
         
-        $this->assign(
-            'piwikUrl', 
-            !isset($configArray['Piwik']['url'])
-            ? false : $configArray['Piwik']['url'] 
-        );
+        $piwikUrl = isset($configArray['Piwik']['url']) ? $configArray['Piwik']['url'] : false;
+        if ($piwikUrl && $_SERVER['HTTPS'] == 'on') {
+            $piwikUrl = preg_replace('/^http:/', 'https:', $piwikUrl);
+        }
+        $this->assign('piwikUrl', $piwikUrl);
+         
         $this->assign(
             'piwikSiteId', 
             !isset($configArray['Piwik']['site_id'])

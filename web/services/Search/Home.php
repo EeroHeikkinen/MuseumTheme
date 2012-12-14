@@ -52,7 +52,10 @@ class Home extends Action
         global $configArray;
 
         // Cache homepage
-        $interface->caching = 1; 
+        $homeFacets = isset($configArray['Site']['home_page_facets']) && $configArray['Site']['home_page_facets'];
+        if ($homeFacets) {
+            $interface->caching = 1;
+        } 
         $cacheId = 'homepage|' . $interface->lang . '|' .
             (UserAccount::isLoggedIn() ? '1' : '0') . '|' .
             (isset($_SESSION['lastUserLimit']) ? $_SESSION['lastUserLimit'] : '') .
@@ -63,30 +66,32 @@ class Home extends Action
             $interface->assign('searchTemplate', 'search.tpl');
             $interface->setTemplate('home.tpl');
 
-            // Create our search object
-            $searchObject = SearchObjectFactory::initSearchObject();
-            // TODO: The template looks for specific facets. Make it more flexible.
-            $searchObject->initHomePageFacets();
-            // We don't want this search in the search history
-            $searchObject->disableLogging();
-            // Go get the facets
-            $searchObject->processSearch();
-            $facetList = $searchObject->getFacetList();
-            // Shutdown the search object
-            $searchObject->close();
-
-            // Add a sorted version to the facet list:
-            if (count($facetList) > 0) {
-                $facets = array();
-                foreach ($facetList as $facet => $details) {
-                    $facetList[$facet]['sortedList'] = array();
-                    foreach ($details['list'] as $value) {
-                        $facetList[$facet]['sortedList'][$value['value']]
-                            = $value['url'];
+            if ($homeFacets) {
+                // Create our search object
+                $searchObject = SearchObjectFactory::initSearchObject();
+                // TODO: The template looks for specific facets. Make it more flexible.
+                $searchObject->initHomePageFacets();
+                // We don't want this search in the search history
+                $searchObject->disableLogging();
+                // Go get the facets
+                $searchObject->processSearch();
+                $facetList = $searchObject->getFacetList();
+                // Shutdown the search object
+                $searchObject->close();
+    
+                // Add a sorted version to the facet list:
+                if (count($facetList) > 0) {
+                    $facets = array();
+                    foreach ($facetList as $facet => $details) {
+                        $facetList[$facet]['sortedList'] = array();
+                        foreach ($details['list'] as $value) {
+                            $facetList[$facet]['sortedList'][$value['value']]
+                                = $value['url'];
+                        }
+                        natcasesort($facetList[$facet]['sortedList']);
                     }
-                    natcasesort($facetList[$facet]['sortedList']);
+                    $interface->assign('facetList', $facetList);
                 }
-                $interface->assign('facetList', $facetList);
             }
         }
         $interface->display('layout.tpl', $cacheId);
