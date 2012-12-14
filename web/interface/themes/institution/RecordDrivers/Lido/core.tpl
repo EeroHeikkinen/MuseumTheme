@@ -39,11 +39,7 @@
 
 
 {* Display Title *}
-<h1 class="recordTitle">{$coreShortTitle|escape}
-{if $coreSubtitle}{$coreSubtitle|escape}{/if}
-{if $coreTitleSection}{$coreTitleSection|escape}{/if}
-{* {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
-</h1>
+<h1 class="recordTitle">{$coreAllTitles|escape}</h1>
 {* End Title *}
 
 {* Display Cover Image, commented out since already in view.tpl

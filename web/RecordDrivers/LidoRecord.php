@@ -80,6 +80,7 @@ class LidoRecord extends IndexRecord
         if (in_array('Image', $this->getFormats()) && $this->getSubtitle() == '') {
             $interface->assign('coreSubtitle', $this->getDescription());
         }
+        $interface->assign('coreAllTitles', implode("; ", $this->getAllTitles()));
         $interface->assign('coreSubjectDate', $this->getSubjectDate());
         $interface->assign('coreSubjectPlace', $this->getSubjectPlace());
         $interface->assign('coreSubjectDetail', $this->getSubjectDetail());
@@ -328,4 +329,12 @@ class LidoRecord extends IndexRecord
             return null;
         return $results;
     }
+    
+    protected function getAllTitles() {
+        $results = array();
+        foreach ($this->xml->xpath("lido/descriptiveMetadata/objectIdentificationWrap/titleWrap/titleSet/appellationValue") as $node) {
+            $results[] = (string)$node;
+        }
+        return $results;
+    }  
 }
