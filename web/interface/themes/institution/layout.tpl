@@ -22,7 +22,7 @@
     {if $addHeader}{$addHeader}{/if}
 
     <title>{$pageTitle|truncate:64:"..."}</title>
-    <link rel="shortcut icon" href="{path filename="images/favicon_line.ico"}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{path filename="images/favicon.ico"}" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" href="{path filename="images/apple-touch-icon.png"}" />
 
     {if $module=='Record' && $hasRDF}
