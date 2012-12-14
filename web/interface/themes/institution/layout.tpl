@@ -22,7 +22,7 @@
     {if $addHeader}{$addHeader}{/if}
 
     <title>{$pageTitle|truncate:64:"..."}</title>
-    <link rel="shortcut icon" href="{path filename="images/favicon_line.ico"}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{path filename="images/favicon.ico"}" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" href="{path filename="images/apple-touch-icon.png"}" />
 
     {if $module=='Record' && $hasRDF}
@@ -66,7 +66,7 @@
     {if $facetList}
       {css media="screen, projection" filename="chosen/chosen.css"}
     {/if}
-    <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
+    <!--[if lt IE 9]>{css media="screen, projection" filename="ie.css"}<![endif]-->
     <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
     {* Set global javascript variables *}
