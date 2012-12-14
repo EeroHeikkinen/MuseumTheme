@@ -399,7 +399,11 @@ px      62    136    210    284    358    432   */
         width: 100%;
     }
 
+    .advSearchContent .searchButton {
+        margin-right: 2.5em;
+    }
+
     .mapContainer {
-        width: 468px;
+        width: 433px;
     }
 }
