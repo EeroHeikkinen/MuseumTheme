@@ -4,11 +4,11 @@
   <div class="homeCustomCol1">
     <h1>Arkivens, bibliotekens och museernas material tillgängligt i samma tjänst</h1>
     <p class="big">Tack vare kundgränssnittet utgör bibliotekens, arkivens och museernas material en överskådlig helhet. Du kan hitta inte enbart den information du söker, utan också annan information som anknyter till området.</p>
-    <p class="big"><a href="{$path}/Content/about">Läs mer</a> eller prova sökningen!</p>
+    <p class="big"><a href="http://kdk.fi/sv/kundgranssnitt">Läs mer</a> eller prova sökningen!</p>
   </div>
   
   <div class="homeCustomCol2">
-    <h4>Här du kan hitta:</h4>
+    <h4>Här kan du hitta:</h4>
     <ul>
       <li><span class="iconlabel formatimage"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>Bilder</a></span></li>
       <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>Böcker</a></span></li>
