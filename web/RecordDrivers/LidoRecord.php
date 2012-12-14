@@ -80,6 +80,10 @@ class LidoRecord extends IndexRecord
         if (in_array('Image', $this->getFormats()) && $this->getSubtitle() == '') {
             $interface->assign('coreSubtitle', $this->getDescription());
         }
+        $interface->assign('coreSubjectDate', $this->getSubjectDate());
+        $interface->assign('coreSubjectPlace', $this->getSubjectPlace());
+        $interface->assign('coreSubjectDetail', $this->getSubjectDetail());
+        
         if (isset($this->fields['measurements'])) {
             $interface->assign('coreMeasurements', $this->fields['measurements']);
         }
@@ -291,5 +295,37 @@ class LidoRecord extends IndexRecord
     protected function getIdentifier()
     {
         return isset($this->fields['identifier']) ? $this->fields['identifier'] : array();
+    }
+    
+    protected function getSubjectDate() {
+        $results = array();
+        foreach ($this->xml->xpath("lido/descriptiveMetadata /objectRelationWrap/"
+                . "subjectWrap/subjectSet/subject/subjectDate/displayDate") as $node) {
+            $results[] = (string)$node;
+        }
+        if (empty($results))
+            return null;
+        return $results;
+    }
+    
+    protected function getSubjectPlace() {
+        $results = array();
+        foreach ($this->xml->xpath("lido/descriptiveMetadata /objectRelationWrap/"
+                . "subjectWrap/subjectSet/subject/subjectPlace/displayPlace") as $node) {
+            $results[] = (string)$node;
+        }
+        if (empty($results))
+            return null;
+        return $results;	
+    }
+    
+    protected function getSubjectDetail() {
+        $results = array();
+        foreach ($this->xml->xpath("lido/descriptiveMetadata/objectIdentificationWrap/titleWrap/titleSet/appellationValue[@label='aiheen tarkenne']") as $node) {
+            $results[] = (string)$node;
+        }
+        if (empty($results))
+            return null;
+        return $results;
     }
 }

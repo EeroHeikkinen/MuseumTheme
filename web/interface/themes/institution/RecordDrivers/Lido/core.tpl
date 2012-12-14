@@ -96,6 +96,28 @@ End Cover Image *}
     </td>
   </tr>
   {/if}
+  
+  {if is_array($coreSubjectPlace)}
+  <tr valign="top">
+    <th>{translate text='Subject Place'}: </th>
+    <td>{foreach from=$coreSubjectPlace item=value}{$value|escape}<br>{/foreach}</td>
+  </tr>
+  {/if}
+  
+  {if is_array($coreSubjectDate)}
+  <tr valign="top">
+    <th>{translate text='Subject Date'}: </th>
+    <td>{foreach from=$coreSubjectDate item=value}{$value|escape}<br>{/foreach}</td>
+  </tr>
+  {/if}
+  
+  {if is_array($coreSubjectDetail)}
+  <tr valign="top">
+    <th>{translate text='Subject Detail'}: </th>
+    <td>{foreach from=$coreSubjectDetail item=value}{$value|escape}<br>{/foreach}</td>
+  </tr>
+  {/if}
+  
 
   {if $coreNonPresenterAuthors}
   <tr valign="top" class="recordAuthors">
