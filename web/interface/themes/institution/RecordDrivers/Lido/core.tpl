@@ -123,9 +123,12 @@ End Cover Image *}
   </tr>
   {/if}
 
-  {* If a generic date is to be placed here, 
-  it should be the display date of the Valmistus event.
+  {* Commenting out the Main Year field, because LIDO records don't have an
+  unambigious main year. If however a generic date is to be placed here, 
+  it should be the display date of the Valmistus event instead of publish date.
   (The publish date is a single number and doesn't jibe well with date ranges.) *}
+  
+  {*
   {if !empty($coreEvents.Valmistus.date)}
   <tr valign="top" class="recordPublications">
     <th>{translate text='Main Year'}: </th>
@@ -133,7 +136,7 @@ End Cover Image *}
         {$coreEvents.Valmistus.date|escape}<br/>
     </td>
   </tr>
-  {/if}
+  {/if*}
 
   {if !empty($coreInstitutions)}
   <tr valign="top" class="recordCollection">
