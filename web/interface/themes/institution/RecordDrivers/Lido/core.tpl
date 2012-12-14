@@ -123,13 +123,14 @@ End Cover Image *}
   </tr>
   {/if}
 
-  {if !empty($corePublications)}
+  {* If a generic date is to be placed here, 
+  it should be the display date of the Valmistus event.
+  (The publish date is a single number and doesn't jibe well with date ranges.) *}
+  {if !empty($coreEvents.Valmistus.date)}
   <tr valign="top" class="recordPublications">
     <th>{translate text='Main Year'}: </th>
     <td>
-      {foreach from=$corePublications item=field name=loop}
-        {$field|escape}<br/>
-      {/foreach}
+        {$coreEvents.Valmistus.date|escape}<br/>
     </td>
   </tr>
   {/if}
