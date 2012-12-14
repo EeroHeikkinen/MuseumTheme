@@ -398,5 +398,25 @@
     <auth-constraint/>
   </security-constraint>
   
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Solr Update</web-resource-name>
+      <url-pattern>/biblio/update</url-pattern>
+      <url-pattern>/biblio/update/json</url-pattern>
+      <url-pattern>/auth/update</url-pattern>
+      <url-pattern>/auth/update/json</url-pattern>
+      <url-pattern>/stats/update</url-pattern>
+      <url-pattern>/stats/update/json</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>content-administrator</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <login-config>
+    <auth-method>BASIC</auth-method>
+    <realm-name>Solr Update</realm-name>
+  </login-config>
+    
 </web-app>
 
