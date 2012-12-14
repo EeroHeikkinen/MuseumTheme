@@ -1,6 +1,8 @@
 /**
  * Initialize common functions and event handlers.
  */
+// prevent console.log errors in ie
+if (!window.console) console = {log: function() {}};
 // disable caching for all AJAX requests
 $.ajaxSetup({cache: false});
 
