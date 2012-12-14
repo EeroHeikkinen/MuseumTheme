@@ -59,7 +59,7 @@
       	<a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       	{/if}
 
-      	{if $summDate}<br/>{translate text='Main Year'}: {$summDate.0|escape}{/if}
+      	{*if $summDate}<br/>{translate text='Main Year'}: {$summDate.0|escape}{/if*}
       	{if $summImageDate}<br/>{translate text='Photo Taken:'} {$summImageDate|escape}{/if}
       	{if $summCreationDate}<br/>{translate text='Created:'} {$summCreationDate|escape}{/if}
       	{if $summUseDate}<br/>{translate text='Used:'} {$summUseDate|escape}{if $summUsePlace}, {$summUsePlace|escape}{/if}{/if}
@@ -84,7 +84,7 @@
       </div>
       {/if}
       <div class="resultItemLine4">
-      {if $summOpenUrl || !empty($summURLs)}
+      {*if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
           <br/>
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
@@ -103,6 +103,7 @@
         </div>
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
+        *}
       </div>
 
    <div class="savedLists info hide" id="savedLists{$summId|escape}">
