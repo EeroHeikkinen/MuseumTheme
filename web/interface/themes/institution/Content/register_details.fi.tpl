@@ -20,7 +20,7 @@ Kansalliskirjasto<br />
 PL 26 (Teollisuuskatu 23)<br />
 00014 Helsingin yliopisto<br />
 Puhelin: 09 1911<br />
-Sähköposti: <a href="mailto:aki.lassila@helsinki.fi">aki.lassila@helsinki.fi</a></p>
+Sähköposti: aki.lassila(at)helsinki.fi</p>
 
 <p><strong>Säännönmukaiset tietolähteet:</strong><br />
 Henkilötiedot saadaan asiakkaiden kotiorganisaatioiden asiakasrekistereistä. Personoitujen toimintojen tiedot tallentaa käyttäjä itse.</p>
@@ -64,6 +64,20 @@ Käyttäjän perustiedot:
     <li>Omiin lehtiin lisätyt lehtiviitteet</li>
   </ul>
 </p>
+
+<p><strong>Rekisterin suojausperiaatteet:</strong><br />
+Tietoja säilytetään ainoastaan sähköisessä muodossa. Tietoihin pääsevät käsiksi ainoastaan järjestelmän ylläpitäjät, jotka tunnistetaan käyttäjätunnuksella ja salasanalla.</p>
+
+<p><strong>Henkilötietojen säilytysaika:</strong><br />
+Henkilötietoja säilytetään palvelussa kunnes 12 kuukautta kuluu viimeisestä kirjautumisesta.</p>
+
+<p><strong>Rekisteröidyn tarkistusoikeus:</strong><br />
+Tarkistaaksesi, mitä henkilötietoja sinusta on kerätty palvelimeen, ota yhteys em. yhteyshenkilöön.</p>
+
+<p><strong>Virheellisten tietojen oikaisu:</strong><br />
+Ota yhteys kotiorganisaatioosi, jos kotiorganisaatiostasi noudettavissa henkilötiedoissa on virheitä. Tarvittaessa voit ottaa yhteyttä em. yhteyshenkilöön.</p>
+
+
 <p style="margin-top: 3em;"><a href="{$path}">&laquo; Etusivulle</a></p>
 </div>
 
