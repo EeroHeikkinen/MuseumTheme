@@ -93,6 +93,13 @@ End Cover Image *}
   </tr>
   {/if}
   
+  {if is_array($coreSubjectDetail)}
+  <tr valign="top">
+    <th>{translate text='Subject Detail'}: </th>
+    <td>{foreach from=$coreSubjectDetail item=value}{$value|escape}<br>{/foreach}</td>
+  </tr>
+  {/if}
+  
   {if is_array($coreSubjectPlace)}
   <tr valign="top">
     <th>{translate text='Subject Place'}: </th>
@@ -106,14 +113,6 @@ End Cover Image *}
     <td>{foreach from=$coreSubjectDate item=value}{$value|escape}<br>{/foreach}</td>
   </tr>
   {/if}
-  
-  {if is_array($coreSubjectDetail)}
-  <tr valign="top">
-    <th>{translate text='Subject Detail'}: </th>
-    <td>{foreach from=$coreSubjectDetail item=value}{$value|escape}<br>{/foreach}</td>
-  </tr>
-  {/if}
-  
 
   {if $coreNonPresenterAuthors}
   <tr valign="top" class="recordAuthors">
@@ -189,6 +188,13 @@ End Cover Image *}
   </tr>
   {/if}
 
+  {if is_array($coreMeasurements)}
+  <tr valign="top" class="recordMeasurements">
+    <th>{translate text='Measurements'}: </th>
+    <td>{foreach from=$coreMeasurements item=measurement}{$measurement|escape}<br/>{/foreach}</td>
+  </tr>
+  {/if}
+  
   <tr valign="top" class="recordFormat">
     <th>{translate text='Format'}: </th>
     <td>
@@ -202,13 +208,6 @@ End Cover Image *}
       <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
     </td>
   </tr>
-
-  {if is_array($coreMeasurements)}
-  <tr valign="top" class="recordMeasurements">
-    <th>{translate text='Measurements'}: </th>
-    <td>{foreach from=$coreMeasurements item=measurement}{$measurement|escape}<br/>{/foreach}</td>
-  </tr>
-  {/if}
 
   {if is_array($coreEvents)}
     {foreach from=$coreEvents key=eventType item=events}
