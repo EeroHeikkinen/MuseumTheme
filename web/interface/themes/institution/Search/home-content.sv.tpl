@@ -2,24 +2,24 @@
 
 <div class="homeCustomContent">
   <div class="homeCustomCol1">
-    <h1>The Treasures of Finnish archives, libraries and museums with a single search</h1>
-    <p class="big">We gathered the collections of several Finnish archives, libraries and museums into one place. With a single search you can get results from all of the included collections.</p>
-    <p class="big"><a href="{$path}/Content/about">Read more</a> or try the search!</p>
+    <h1>Arkivens, bibliotekens och museernas material tillgängligt i samma tjänst</h1>
+    <p class="big">Tack vare kundgränssnittet utgör bibliotekens, arkivens och museernas material en överskådlig helhet. Du kan hitta inte enbart den information du söker, utan också annan information som anknyter till området.</p>
+    <p class="big"><a href="{$path}/Content/about">Läs mer</a> eller prova sökningen!</p>
   </div>
   
   <div class="homeCustomCol2">
-    <h4>With the search you can find:</h4>
+    <h4>Här du kan hitta:</h4>
     <ul>
-      <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>Books</a></span></li>
-      <li><span class="iconlabel formatmusicalscore"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMusicalScore"'>Musical scores</a></span></li>
-      <li><span class="iconlabel formatserial"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>Journals&nbsp;and&nbsp;Articles</a></span></li>
-      <li><span class="iconlabel formatitem"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDocument"'>Documents</a></span></li>
-      <li><span class="iconlabel formatmap"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMap"'>Maps</a></span></li>
-      <li><span class="iconlabel formatslide"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>Images</a></span></li>
-      <li><span class="iconlabel formatkit"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FPhysicalObject"'>Physical Objects</a></span></li>
-      <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Sound Recordings</a></span></li>
-      <li><span class="iconlabel formatebook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Databases</a></span></li>
-      <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videos</a></span></li>
+      <li><span class="iconlabel formatimage"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>Bilder</a></span></li>
+      <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>Böcker</a></span></li>
+      <li><span class="iconlabel formatdocument"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDocument"'>Dokument</a></span></li>
+      <li><span class="iconlabel formatdatabase"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Databaser</a></span></li>
+      <li><span class="iconlabel formatphysicalobject"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FPhysicalObject"'>Föremål</a></span></li>
+      <li><span class="iconlabel formatmap"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMap"'>Kartor</a></span></li>
+      <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Ljudinspelningar</a></span></li>
+      <li><span class="iconlabel formatmusicalscore"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMusicalScore"'>Musikalier</a></span></li>
+      <li><span class="iconlabel formatjournal"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>Tidskrifter och artiklar</a></span></li>
+      <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videoklipp</a></span></li>
     </ul>
   </div>
   

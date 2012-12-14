@@ -1,6 +1,7 @@
 <!-- START of: footer.tpl -->
 
 <div id="footerCol1">
+  {if $userLang != 'sv'}
   <h4>{translate text='navigation_about'}</h4>
   <ul>
     <li><a href="{$path}/Content/about">{translate text='navigation_about_finna'}</a></li>
@@ -9,6 +10,7 @@
     {*<li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
     <li><a href="{$path}/Search/Advanced">{translate text='Advanced Search'}</a></li>*}
   </ul>
+  {/if}
 </div>
 
 <div id="footerCol2">
