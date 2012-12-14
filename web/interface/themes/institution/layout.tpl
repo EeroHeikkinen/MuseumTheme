@@ -66,7 +66,7 @@
     {if $facetList}
       {css media="screen, projection" filename="chosen/chosen.css"}
     {/if}
-    <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
+    <!--[if lt IE 9]>{css media="screen, projection" filename="ie.css"}<![endif]-->
     <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
     {* Set global javascript variables *}
