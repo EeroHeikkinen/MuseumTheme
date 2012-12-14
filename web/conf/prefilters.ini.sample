@@ -1,62 +1,121 @@
 [Prefilters]
--=Paikallinen aineisto
-local_books = Kirjat
-local_journal = Lehdet
-local_videos = Videot
-local_sound = Äänilevyt
-local_art = Taideteokset
-local_object = Esineet
-local_thesis = Opinnäytteet
-local_document = Asiakirjat
-local_archives = Arkistot
+-="Whole Local Index"
+archives = "Search In Archives"
+libraries = "Search In Libraries"
+museums = "Search In Museums"
+--=
+format_Document = format_Document
+format_PhysicalObject = format_PhysicalObject
+format_Map = format_Map
+format_Book = format_Book
+format_Image = format_Image
+format_Journal = format_Journal
+format_Other = format_Other
+format_Thesis = format_Thesis
+format_WorkOfArt = format_WorkOfArt
+format_Database = format_Database
+format_Video = format_Video
+format_Sound = format_Sound
+
 
 [-]
 module=Search
 action=Results
 
-[local_books]
+[archives]
+module=Search
+action=Results
+orfilter[]='building:"0/KA"'
+orfilter[]='building:"0/MMA"'
+orfilter[]='building:"0/TMA"'
+orfilter[]='building:"0/OMA"'
+orfilter[]='building:"0/HMA"'
+orfilter[]='building:"0/VMA"'
+orfilter[]='building:"0/JoMA"'
+orfilter[]='building:"0/JyMA"'
+
+[libraries]
+module=Search
+action=Results
+orfilter[]='building:"0/NLF"'
+orfilter[]='building:"0/JYU"'
+orfilter[]='building:"0/HelMet"'
+orfilter[]='building:"0/Vaski"'
+orfilter[]='building:"0/Oiva"'
+orfilter[]='building:"0/Kyyti"'
+orfilter[]='building:"0/ml_finelib"'
+orfilter[]='building:"0/ml_jyu"'
+
+[museums]
+module=Search
+action=Results
+orfilter[]='building:"0/Lusto"'
+orfilter[]='building:"0/Metsastysmuseo"'
+orfilter[]='building:"0/NurmeksenMuseo"'
+orfilter[]='building:"0/PielisenMuseo"'
+orfilter[]='building:"0/IlomantsinMuseosaatio"'
+orfilter[]='building:"0/Ateneum"'
+orfilter[]='building:"0/Tuusula"'
+orfilter[]='building:"0/Sinebrychoff"'
+orfilter[]='building:"0/LapinMetsamuseo"'
+orfilter[]='building:"0/Verla"'
+
+[format_Book]
 module=Search
 action=Results
 filter[]='format:"0/Book"'
 
-[local_journal]
-module = Search
-action = Results
-filter[] = 'format:"0/Journal"'
- 
-[local_videos]
-module = Search
-action = Results
-filter[] = 'format:"0/Video"'
- 
-[local_sound]
-module = Search
-action = Results
-filter[] = 'format:"0/Sound"'
- 
-[local_art]
-module = Search
-action = Results
-filter[] = 'format:"0/WorkOfArt"'
- 
-[local_object]
-module = Search
-action = Results
-filter[] = 'format:"0/PhysicalObject"'
- 
-[local_thesis]
-module = Search
-action = Results
-filter[] = 'format:"0/Thesis"'
- 
-[local_document]
-module = Search
-action = Results
-filter[] = 'format:"0/Document"'
- 
-[local_archives]
+[format_Database]
 module=Search
 action=Results
-orfilter[]='building:"0/TMA"'
-orfilter[]='building:"0/MMA"'
- 
+filter[]='format:"0/Database"'
+
+[format_Document]
+module=Search
+action=Results
+filter[]='format:"0/Document"'
+
+[format_Image]
+module=Search
+action=Results
+filter[]='format:"0/Image"'
+
+[format_Journal]
+module=Search
+action=Results
+filter[]='format:"0/Journal"'
+
+[format_Map]
+module=Search
+action=Results
+filter[]='format:"0/Map"'
+
+[format_Other]
+module=Search
+action=Results
+filter[]='format:"0/Other"'
+
+[format_PhysicalObject]
+module=Search
+action=Results
+filter[]='format:"0/PhysicalObject"'
+
+[format_Sound]
+module=Search
+action=Results
+filter[]='format:"0/Sound"'
+
+[format_Thesis]
+module=Search
+action=Results
+filter[]='format:"0/Thesis"'
+
+[format_Video]
+module=Search
+action=Results
+filter[]='format:"0/Video"'
+
+[format_WorkOfArt]
+module=Search
+action=Results
+filter[]='format:"0/WorkOfArt"'
