@@ -473,11 +473,15 @@ px      62    136    210    284    */
         width: 100%;
     }
 
+    .advSearchContent .searchButton {
+        margin-right: 1.2em;
+    }
+
     .groupSearchHolder .label, .groupSearchHolder .join {
         text-align: left;
     }
     .mapContainer {
-        width: 302px;
+        width: 290px;
     }
     #zoomSlider {
         top: 50px;
