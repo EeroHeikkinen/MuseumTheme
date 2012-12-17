@@ -261,9 +261,24 @@ div.sidegroup {
 .searchbox {
     margin: 0;
 }
-#searchForm input, #searchForm select, .styled_select { 
+
+#searchForm input, #searchForm select, .overLabelWrapper, .styled_select { 
     float:left;
 }
+
+.overLabelWrapper {
+    position: relative;
+}
+
+#searchFormLabel {
+    color: #999999;
+    text-indent: -10000em;
+    position: absolute;
+    top: 7px;
+    left: 9px;
+    z-index: 1;
+}
+
 #searchForm_input {
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
