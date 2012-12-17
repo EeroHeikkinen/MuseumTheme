@@ -46,6 +46,7 @@ px      62    136    210    284    */
     }
     #logoHeader {
         width: 320px;
+        margin: 0;
     }
     #logo {
         margin: 18px auto;
