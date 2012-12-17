@@ -45,6 +45,14 @@ require_once 'sys/VuFindDate.php';
  * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/
+ * 
+ * Takes two optional parameters on command line:
+ * 
+ * php scheduled_alerts.php [main directory] [domain base]
+ * 
+ *   main directory   The main VuFind directory. Each web directory must reside under this (default: ..)
+ *   domain base      Main domain name when using subdomains for different web directories. 
+ * 
  */
 class ScheduledAlerts
 {
@@ -53,7 +61,7 @@ class ScheduledAlerts
      *
      * @return void
      */
-    public function sendAlerts()
+    public function sendAlerts($mainDir, $domainModelBase)
     {
         global $configArray;
         global $interface;
@@ -65,6 +73,7 @@ class ScheduledAlerts
         
         $configArray = $mainConfig = readConfig();
         $datasourceConfig = getExtraConfigArray('datasources');
+        $siteLocal = $configArray['Site']['local'];
 
         // Set up time zone. N.B. Don't use msg() or other functions requiring date before this.
         date_default_timezone_set($configArray['Site']['timezone']);
@@ -116,24 +125,48 @@ class ScheduledAlerts
                 continue;
             }
             
-            $userInstitution = reset(explode('.', $user->username, 2));
+            $userInstitution = reset(explode(':', $user->username, 2));
             if (!$institution || $institution != $userInstitution) {
                 $institution = $userInstitution;
+                
+                if (!isset($datasourceConfig[$institution])) {
+                    foreach ($datasourceConfig as $code => $values) {
+                        if (isset($values['institution']) && strcasecmp($values['institution'], $institution) == 0) {
+                            $institution = $code;
+                            break;
+                        }
+                    }
+                }
+                if (!isset($datasourceConfig[$institution])) {
+                    $institution = 'default';
+                }
+                
                 if (isset($datasourceConfig[$institution]['mainView'])) {
                     // Read institution's configuration
                     $this->msg("Switching to configuration of '$institution'");
-                    $configPath = $datasourceConfig[$institution]['mainView'] . '/conf';
-                    if (isRelativeFilePath($configPath)) {
-                        $configPath = "../$configPath";
-                    }
+                    $configPath = "$mainDir/" . $datasourceConfig[$institution]['mainView'] . '/conf';
                     $configArray = readConfig($configPath);
                 } else {
                     // Use default configuration
                     $this->msg("Switching to default configuration");
                     $configArray = $mainConfig;
                 }
+                
+                // Setup url if necessary
+                if ($configArray['Site']['url'] == 'http://localhost' || $configArray['Site']['url'] == 'https://localhost') {
+                    if ($domainModelBase) {
+                        $parts = explode('/', $datasourceConfig[$institution]['mainView']);
+                        if (end($parts) == 'default') {
+                            array_pop($parts);
+                        }
+                        $configArray['Site']['url'] = 'http://' . implode('.', array_reverse($parts)) . ".$domainModelBase";
+                    } elseif ($s->schedule_base_url) {
+                        $configArray['Site']['url'] = $s->schedule_base_url;
+                    }
+                }
+                
                 // Start Interface
-                $interface = new UInterface();
+                $interface = new UInterface($siteLocal);
                 $validLanguages = array_keys($configArray['Languages']);
                 $dateFormat = new VuFindDate();
             }
@@ -229,105 +262,7 @@ class ScheduledAlerts
     {
         echo date('Y-m-d H:i:s') . ' [' . getmypid() . "] $msg\n"; 
     }
-        
-    /**
-     * Send email
-     * 
-     * @param string $sender    Sender's email address
-     * @param string $recipient Recipient's email address
-     * @param string $subject   Message subject
-     * @param string $message   Message body
-     * 
-     * @return bool Success
-     */
-    protected function sendEmail($sender, $recipient, $subject, $message)
-    {
-        mb_internal_encoding('UTF-8');
-        
-        // Note: According to https://bugs.php.net/bug.php?id=15841 the PHP documentation is wrong, 
-        // and CRLF should not be used except on Windows. PHP_EOL should work.
-        
-        $headers = array(
-            'Date' => date('r'),
-            'From' => $sender,
-            'Mime-Version' => '1.0',
-            'Content-Type' => "text/plain; charset=UTF-8; format=flowed",
-            'Content-Transfer-Encoding' => '8bit',
-            'X-Mailer' => 'VuFind',
-        );
-        
-        $messageBody = $this->getFlowedBody($message) . PHP_EOL;
-        
-        return mail($this->mimeEncodeAddress($recipient), $this->mimeEncodeHeaderValue($subject), $messageBody, $this->headersToStr($headers), '-f ' . $this->extractAddress($sender));
-    }
-    
-    /**
-     * Convert headers to a string
-     * 
-     * @param array &$headers Message headers
-     * 
-     * @return string Headers
-     */
-    protected function headersToStr(&$headers)
-    {
-        $result = '';
-        foreach ($headers as $header => $value) {
-            if (!$value) {
-                continue;
-            }
-            if (in_array($header, array("From", "To", "Cc", "Bcc"))) {
-                $result .= "$header: " . $this->mimeEncodeAddress($value) . PHP_EOL;
-            } else {
-                $result .= "$header: $value" . PHP_EOL;
-            }
-        }
-        return $result;
-    }
-    
-    /**
-     * Extract email address from string
-     * 
-     * @param string $address Email address with or without quoted name part
-     * 
-     * @return string Email address
-     */
-    protected function extractAddress($address)
-    {
-        if (preg_match("/<(.+)>/", $address, $matches) == 1) {
-            return $matches[1];
-        }
-        return $address;
-    }
-    
-    /**
-     * MIME encode an email address
-     * 
-     * @param string $address Email address
-     * 
-     * @return string Encoded address
-     */
-    protected function mimeEncodeAddress($address)
-    {
-        if (preg_match("/(.+) (<.+>)/", $address, $matches) == 1) {
-            $address = $this->mimeEncodeHeaderValue($matches[1]) . ' ' . $matches[2];
-        } elseif (preg_match("/(.+)(<.+>)/", $address, $matches) == 1) {
-            $address = $this->mimeEncodeHeaderValue($matches[1]) . $matches[2];
-        }
-        return $address;
-    }
-    
-    /**
-     * MIME encode a header value
-     * 
-     * @param string $value Header value
-     * 
-     * @return string Encoded value
-     */
-    protected function mimeEncodeHeaderValue($value)
-    {
-        return mb_encode_mimeheader($value, 'UTF-8', 'Q');
-    }
 }
 
 $alerts = new ScheduledAlerts();
-$alerts->sendAlerts();
+$alerts->sendAlerts(isset($argv[1]) ? $argv[1] : '../', isset($argv[2]) ? $argv[2] : false);

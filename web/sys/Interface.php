@@ -45,14 +45,18 @@ class UInterface extends Smarty
 
     /**
      * Constructor
+     * 
+     * @param string $local Local directory for cache and compile  
      *
      * @access public
      */
-    public function UInterface()
+    public function UInterface($local = '')
     {
         global $configArray;
 
-        $local = $configArray['Site']['local'];
+        if (!$local) {
+            $local = $configArray['Site']['local'];
+        }
         $this->_vufindTheme = $configArray['Site']['theme'];
 
         // Use mobile theme for mobile devices (if enabled in config.ini)
@@ -218,7 +222,7 @@ class UInterface extends Smarty
         );
         
         $piwikUrl = isset($configArray['Piwik']['url']) ? $configArray['Piwik']['url'] : false;
-        if ($piwikUrl && $_SERVER['HTTPS'] == 'on') {
+        if ($piwikUrl && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
             $piwikUrl = preg_replace('/^http:/', 'https:', $piwikUrl);
         }
         $this->assign('piwikUrl', $piwikUrl);
@@ -384,7 +388,15 @@ class UInterface extends Smarty
         if (isset($configArray['Authentication']['mozillaPersona']) && $configArray['Authentication']['mozillaPersona']) {
             $this->assign('mozillaPersona', true);
             if (isset($_SESSION['authMethod']) && $_SESSION['authMethod'] == 'MozillaPersona') {
-                $this->assign('mozillaPersonaCurrentUser', PEAR::isError($user) ? null : $user->username);
+                if (PEAR::isError($user)) {
+                    $this->assign('mozillaPersonaCurrentUser', null);
+                } else {
+                    $username = $user->username;
+                    if (isset($configArray['Site']['institution']) && strncmp($configArray['Site']['institution'] . ':', $username, strlen($configArray['Site']['institution']) + 1) == 0) {
+                        $username = substr($username, strlen($configArray['Site']['institution']) + 1);
+                    }
+                    $this->assign('mozillaPersonaCurrentUser', $username);
+                }
             }
             if (!isset($configArray['Authentication']['mozillaPersonaAutoLogout']) || $configArray['Authentication']['mozillaPersonaAutoLogout']) {
                 $this->assign('mozillaPersonaAutoLogout', true);

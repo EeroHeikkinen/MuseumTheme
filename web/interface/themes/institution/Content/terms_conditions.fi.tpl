@@ -9,10 +9,10 @@
 <p>Finnan käyttäjät voivat hakea tietoa arkistojen, kirjastojen ja museoiden aineistoista. Finnassa on: </p>
 
 <p>
-  <ol>
+  <ul>
   	<li>haettavissa ja selattavissa aineistoja kuvailevaa tekstimuotoista metatietoa</li>
 	<li>mikäli metatietoon liittyvä sisältö on digitaalisena verkossa, Finnassa on linkki sisältöä hallinnoivan organisaation sivustolle</li>
-  </ol>
+  </ul>
 </p>
 
 <p>Finnassa hakutulosten yhteydessä näytettävää metatietoa voivat kaikki käyttää vapaasti. Vuoden 2013 aikana metatiedolle ja sen käytölle valitaan lisenssi.</p>
