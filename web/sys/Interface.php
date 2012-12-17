@@ -45,14 +45,18 @@ class UInterface extends Smarty
 
     /**
      * Constructor
+     * 
+     * @param string $local Local directory for cache and compile  
      *
      * @access public
      */
-    public function UInterface()
+    public function UInterface($local = '')
     {
         global $configArray;
 
-        $local = $configArray['Site']['local'];
+        if (!$local) {
+            $local = $configArray['Site']['local'];
+        }
         $this->_vufindTheme = $configArray['Site']['theme'];
 
         // Use mobile theme for mobile devices (if enabled in config.ini)
