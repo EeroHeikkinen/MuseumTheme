@@ -14,7 +14,7 @@
     <div>
       <div class="overLabelWrapper">
         <label for="searchForm_input" id="searchFormLabel" class="labelOver normal">{translate text="Find"}&hellip;</label>
-        <input id="searchForm_input" type="text" name="lookfor" size="27" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" title='{translate text="Find"}&hellip;' />
+        <input id="searchForm_input" type="text" name="lookfor" size="22" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" title='{translate text="Find"}&hellip;' />
       </div>
   {if $prefilterList}
       <div class="styled_select">

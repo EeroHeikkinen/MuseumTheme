@@ -165,7 +165,7 @@ class HoldLogicTitle
                         break;
                     }
                 }
-                $addlink = $allHoldable;
+                $addlink = $holdings && $allHoldable;
             }
                 
             if ($addlink) {

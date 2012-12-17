@@ -73,6 +73,7 @@ class ScheduledAlerts
         
         $configArray = $mainConfig = readConfig();
         $datasourceConfig = getExtraConfigArray('datasources');
+        $siteLocal = $configArray['Site']['local'];
 
         // Set up time zone. N.B. Don't use msg() or other functions requiring date before this.
         date_default_timezone_set($configArray['Site']['timezone']);
@@ -130,7 +131,7 @@ class ScheduledAlerts
                 
                 if (!isset($datasourceConfig[$institution])) {
                     foreach ($datasourceConfig as $code => $values) {
-                        if (strcasecmp($values['institution'], $institution) == 0) {
+                        if (isset($values['institution']) && strcasecmp($values['institution'], $institution) == 0) {
                             $institution = $code;
                             break;
                         }
@@ -150,6 +151,7 @@ class ScheduledAlerts
                     $this->msg("Switching to default configuration");
                     $configArray = $mainConfig;
                 }
+                
                 // Setup url if necessary
                 if ($configArray['Site']['url'] == 'http://localhost' || $configArray['Site']['url'] == 'https://localhost') {
                     if ($domainModelBase) {
@@ -158,14 +160,13 @@ class ScheduledAlerts
                             array_pop($parts);
                         }
                         $configArray['Site']['url'] = 'http://' . implode('.', array_reverse($parts)) . ".$domainModelBase";
-                    } elseif ($user->schedule_base_url) {
-                        $configArray['Site']['url'] = $user->schedule_base_url;
+                    } elseif ($s->schedule_base_url) {
+                        $configArray['Site']['url'] = $s->schedule_base_url;
                     }
                 }
-                echo "Upd url $domainModelBase: " . $configArray['Site']['url'] . "*\n";
                 
                 // Start Interface
-                $interface = new UInterface();
+                $interface = new UInterface($siteLocal);
                 $validLanguages = array_keys($configArray['Languages']);
                 $dateFormat = new VuFindDate();
             }
