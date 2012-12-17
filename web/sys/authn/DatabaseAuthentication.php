@@ -53,7 +53,7 @@ class DatabaseAuthentication implements Authentication
             $user = new PEAR_Error('authentication_error_blank');
         } else {
             $user = new User();
-            $user->username = $username;
+            $user->username = (isset($configArray['Site']['institution']) ? $configArray['Site']['institution'] . ':' : '') . $username;
             $user->password = $password;
             $user->authMethod = 'Database';
             if (!$user->find(true)) {

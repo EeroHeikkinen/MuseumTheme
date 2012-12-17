@@ -138,7 +138,7 @@ class SIPAuthentication implements Authentication
 
         $user = new User();
         $user->authMethod = 'SIP';
-        $user->username = $info['variable']['AA'][0];
+        $user->username = (isset($configArray['Site']['institution']) ? $configArray['Site']['institution'] . ':' : '') . $info['variable']['AA'][0];
         if ($user->find(true)) {
             $insert = false;
         } else {

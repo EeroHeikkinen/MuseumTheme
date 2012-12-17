@@ -51,7 +51,7 @@ class User extends DB_DataObject
 
     public $__table = 'user';                // table name
     public $id;                              // int(11)  not_null primary_key auto_increment
-    public $username;                        // string(30)  not_null unique_key
+    public $username;                        // string(255)  not_null unique_key
     public $password;                        // string(32)  not_null
     public $firstname;                       // string(50)  not_null
     public $lastname;                        // string(50)  not_null
@@ -63,7 +63,7 @@ class User extends DB_DataObject
     public $major;                           // string(100)  not_null
     public $created;                         // datetime(19)  not_null binary
     public $language;                        // string(30)  not_null
-
+    
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User',$k,$v); }
 
