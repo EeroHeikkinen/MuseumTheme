@@ -81,7 +81,7 @@ class ShibbolethAuthentication implements Authentication
 
         $user = new User();
         $user->authMethod = 'Shibboleth';
-        $user->username = $_SERVER[$this->_userAttributes['username']];
+        $user->username = (isset($configArray['Site']['institution']) ? $configArray['Site']['institution'] . ':' : '') . $_SERVER[$this->_userAttributes['username']];
         $userIsInVufindDatabase = $this->_isUserInVufindDatabase($user);
 
         // Has the user configured attributes to use for populating the user table?

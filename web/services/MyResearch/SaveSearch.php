@@ -102,11 +102,13 @@ class SaveSearch extends MyResearch
     private function _addSearch($search)
     {
         if ($search->saved != 1 || isset($_REQUEST['schedule']) && $_REQUEST['schedule'] != $search->schedule) {
+            global $configArray;
             global $user;
             $search->user_id = $user->id;
             $search->saved = 1;
             if (isset($_REQUEST['schedule'])) {
                 $search->schedule = intval($_REQUEST['schedule']);
+                $search->schedule_base_url = $configArray['Site']['url'];
             }
             $search->update();
         }

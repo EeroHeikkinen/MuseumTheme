@@ -53,7 +53,8 @@ class SearchEntry extends DB_DataObject
     public $session_id;                      // varchar(128)
     public $schedule;                        // int(1) not_null default 0
     public $last_executed;                   // datetime(19) not_null binary
-
+    public $schedule_base_url;               // string(255)
+    
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Search',$k,$v); }
 
