@@ -4,7 +4,7 @@
     
     # Note: this will be replaced by the admin panel as new views
     # are created. The value should point to the view specific URL-path
-    RewriteBase %REWRITEBASE%
+    RewriteBase /
 
     # Note: The following RewriteRule directives include the [B] flag to escape
     # backreferences.  This prevents encoding problems caused by special characters
