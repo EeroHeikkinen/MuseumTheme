@@ -12,7 +12,7 @@
 
 <p>Finna on tarkoitettu kaikille tietoa tarvitseville ja elämyksiä etsiville. Verkkopalvelun avulla voi helposti hakea valitsemaansa aihetta koskevaa aineistoa, kuten kuvia, asiakirjoja, sanomalehtiä, tutkimuksia, videoita ja äänitallenteita. Samalla voi käyttää arkistojen, kirjastojen ja museoiden digitaalisia palveluita. Finnalla pyritään korvaamaan nykyisiä käyttöliittymiä siten, että palvelun käyttäjä saavuttaa tarvitsemansa tiedon yhden käyttöliittymän kautta riippumatta siitä, mikä organisaatio on tiedon tuottanut.</p>
 
-<p>Finnan testiversio julkaistiin joulukuussa 2012. Testiversiossa ovat mukana seuraavat organisaatiot aineistoineen ja palveluineen:<p>
+<p>Finnan testiversio julkaistiin joulukuussa 2012. Testiversiossa ovat mukana seuraavat organisaatiot aineistoineen ja palveluineen:</p>
 
 <p>
 	<ul>
