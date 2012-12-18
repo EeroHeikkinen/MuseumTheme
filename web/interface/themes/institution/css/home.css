@@ -12,6 +12,10 @@
     border-bottom: 1px solid #ddd;
 }
 
+.main-home {              // Fix for bleeding white background on some mobile
+    overflow-x: hidden;   // platforms apparently due to homeFacers.
+}
+
 /*** Logo ***/
 
 .searchHomeLogo {
