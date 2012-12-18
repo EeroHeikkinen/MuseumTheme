@@ -13,5 +13,7 @@
     RewriteRule   ^(MyResearch)/([^/]+)/(.+)$   index.php?module=$1&action=$2&id=$3   [B,L,QSA]
     RewriteRule   ^(Record)/([^/]+)/(.+)$       index.php?module=$1&id=$2&action=$3   [B,L,QSA]
     RewriteRule   ^(Record)/(.+)$               index.php?module=$1&id=$2             [B,L,QSA]
+    RewriteRule   ^(Collection)/([^/]+)/(.+)$   index.php?module=$1&collection=$2&action=$3   [B,L,QSA]
+    RewriteRule   ^(Collection)/(.+)$           index.php?module=$1&collection=$2             [B,L,QSA]
     RewriteRule   ^([^/]+)/(.+)$                index.php?module=$1&action=$2         [B,L,QSA]
   </IfModule>
