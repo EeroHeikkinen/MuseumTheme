@@ -447,20 +447,20 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 }
 /* Search context help layer */
 .searchContextHelp {
-	position: absolute;
-	display: none;
-	z-index: 9;
-	width: 460px;
-	padding: 20px;
-	margin-top: 6px;
-	background: #ffffff;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	border: 1px solid #999999;
-	-webkit-box-shadow: 0 3px 4px #dddddd;
-	-moz-box-shadow: 0 3px 4px #dddddd;
-	box-shadow: 0 3px 10px #cccccc;
+    position: absolute;
+    display: none;
+    z-index: 9;
+    width: 460px;
+    padding: 20px;
+    margin-top: 6px;
+    background: #ffffff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #999999;
+    -webkit-box-shadow: 0 3px 4px #dddddd;
+    -moz-box-shadow: 0 3px 4px #dddddd;
+    box-shadow: 0 3px 10px #cccccc;
 }
 .searchContextHelp p {
     margin: 0 0 1em 0;
@@ -584,7 +584,7 @@ p.listDescription {
 }
 
 div.truncateField {
-	  background-color: inherit;
+    background-color: inherit;
 }
 div.moreLink, div.lessLink {
     z-index: 1000;
@@ -856,18 +856,18 @@ div.bulkActionButtons {
     margin: 0;
 }
 .listentry .summcover, .checkedoutList .summcover, .holdsList .summcover {
-	max-width: 62px;
+    max-width: 62px;
 }
 .listentry .resultNoImage, .checkedoutList .resultNoImage, .holdsList .resultNoImage {
-	height: 60px;
-	width: 60px;
+    height: 60px;
+    width: 60px;
 }
 .listentry .resultImage, .checkedoutList .resultImage, .holdsList .resultImage {
-	margin: -62px 0 0 0;
-	width: 62px;
+    margin: -62px 0 0 0;
+    width: 62px;
 }
 .listentry .result .imagelinks, .checkedoutList .result .imagelinks, .holdsList .result .imagelinks {
-	padding: 5px 0 0 5px;
+    padding: 5px 0 0 5px;
 }
 
 /* MyResearch/checkedout */
@@ -932,8 +932,8 @@ div.bulkActionButtons {
     margin-bottom: 1em;
 }
 .loginForm h3 {
-	  font-size: 1em;
-	  font-weight: normal;
+    font-size: 1em;
+    font-weight: normal;
 }
 .main .loginForm {
     margin: 0 12px;
@@ -947,21 +947,21 @@ div.bulkActionButtons {
     float: right;
 }
 .loginForm .description {
-	  padding: 1em;
-	  background-color: #f3f3f3;
-	  margin-top: 12px; 
+    padding: 1em;
+    background-color: #f3f3f3;
+    margin-top: 12px; 
 }
 .loginForm .descriptionTitle {
-	  font-weight: bold;
+    font-weight: bold;
 }
 .loginForm .separator, .loginForm .separatorSmall {
-	  clear: left;
-	  float: left;
-	  margin: 24px 0 6px 0;
-	  padding: 0;
-	  border-top: 1px solid #dddddd;
-	  background: none;
-	  height: 1px;
+    clear: left;
+    float: left;
+    margin: 24px 0 6px 0;
+    padding: 0;
+    border-top: 1px solid #dddddd;
+    background: none;
+    height: 1px;
     width: 592px;
 }
 .loginForm .separatorSmall {
@@ -969,19 +969,19 @@ div.bulkActionButtons {
 }
 .loginForm .separator .text, .loginForm .separatorSmall .text {
     position: relative;
-	  left: 4em;
-	  top: -0.75em;
-	  padding: 0 1em 0 1em;
-	  background-color: #ffffff;
+    left: 4em;
+    top: -0.75em;
+    padding: 0 1em 0 1em;
+    background-color: #ffffff;
 }
 .loginForm .loginAction, .loginForm .loginTitle {
-	  clear: left;
-	  float: left;
-	  width: 240px;
-	  margin-right: 56px;
+    clear: left;
+    float: left;
+    width: 240px;
+    margin-right: 56px;
 }
 .loginForm .loginTitle {
-	  margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 .loginForm .loginDescription {
     float: left;
@@ -996,8 +996,8 @@ div.bulkActionButtons {
     font-size: .846em;
 }
 .loginForm input[type='text'], .loginForm input[type='password'], .loginForm select {
-	  width: 100%;
-	  -moz-box-sizing: border-box;
+    width: 100%;
+    -moz-box-sizing: border-box;
 }
 
 /*** Result List ***/
@@ -1746,7 +1746,7 @@ div.record {
     background-color: white;
 }
 #recordMetadata tr, .citation tr {
-	  background-color: white;
+    background-color: white;
 }
 /*
 #recordMetadata tr:hover {
@@ -1838,7 +1838,7 @@ a#thumbnail_link:hover span {
     padding: 6px 0;
 }
 #recordMetadata .recordHierarchyLinks {
-	  margin: -6px 0 12px 0;
+    margin: -6px 0 12px 0;
 }
 
 /* hack to hide redundant titles introduced by syndetics plus */
@@ -1849,7 +1849,7 @@ a#thumbnail_link:hover span {
 #syn_video_clip .syn_title {
     display:none;
 }
-/* Browser specific (not valid) styles to make preformatted text wrap */		
+/* Browser specific (not valid) styles to make preformatted text wrap */
 .record pre.xml {
     white-space: pre-wrap;       /* css-3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
@@ -1859,13 +1859,13 @@ a#thumbnail_link:hover span {
 }
 
 .call-slip-form .reference {
-	  margin-left: 24px;
+    margin-left: 24px;
 }
 .call-slip-form .label {
-	  width: 70px;
-	  text-align: right;
-	  float: left;
-	  margin-right: 12px;
+    width: 70px;
+    text-align: right;
+    float: left;
+    margin-right: 12px;
 }
 
 /***** Citation Table *****/
@@ -2337,7 +2337,7 @@ p.citationText {
 }
 .myResearch .resultHead {
 /*
-	  width: 716px;
+    width: 716px;
     border-bottom: 1px solid #dddddd;
     padding: 0 12px 0.2em 0;
 */
@@ -3216,22 +3216,22 @@ span.mapMarker  {
     z-index: 1000;
 }
 #zoomSlider { 
-	  position: absolute;
-	  left: 10px;
-	  top: 30px;
-	  width: 28px;
-	  height: 203px;
-	  z-index: 1004;
+    position: absolute;
+    left: 10px;
+    top: 30px;
+    width: 28px;
+    height: 203px;
+    z-index: 1004;
 }
 #zoomSlider #zoomControlMinus { 
-	  height: 16px;
-	  width: 16px;
-	  cursor: pointer;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
 }
 #zoomSlider #zoomControlPlus {
-	  height: 16px;
-	  width: 16px;
-	  cursor: pointer;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
 }
 #zoomSlider #zoomPath 
 {
@@ -3254,8 +3254,8 @@ span.mapMarker  {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee');
     border: 1px solid #cccccc;
     -webkit-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
-	-moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
-	box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
+    -moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
+    box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
     border-radius:6px;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
@@ -3276,8 +3276,8 @@ span.mapMarker  {
     background:-moz-linear-gradient( center top, #dddddd 5%, #ffffff 100% );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff');
     -webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
 /*
 .button {
@@ -3318,8 +3318,8 @@ span.mapMarker  {
     background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
     -webkit-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
-	-moz-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
-	box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
+    -moz-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
+    box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
 }
 .searchButton:hover {
     border:1px solid #669fd8;
@@ -3338,16 +3338,16 @@ span.mapMarker  {
     color: #990000;
 }
 .xml .re1 {
-	  color: #990099;
+    color: #990099;
 }
 .xml .st0 {
-	  color: #330099;
+    color: #330099;
 }
 
 /* Feedback form styles */
 
 form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select { 
-    margin-bottom: 1.2em;	
+    margin-bottom: 1.2em;
 }
 
 form#feedbackForm input[type=text] { 
@@ -3365,7 +3365,7 @@ form#feedbackForm textarea {
 }
 
 label#urlLabel {
-	margin-top: 1.2em;
+    margin-top: 1.2em;
 }
 
 form#feedbackForm input.invalid, form#feedbackForm textarea.invalid { 

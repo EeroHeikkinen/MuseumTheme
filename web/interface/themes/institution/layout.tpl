@@ -239,12 +239,12 @@ $(document).ready(function() {
         {/if}
         {include file="$module/$pageTemplate"}
         
-		{* if $showTopSearchBox}
-		<div class="navigationMenu">
-		  {include file="Search/navigation.tpl"} 
-		</div>
-		{/if *}
-	  </div>
+        {* if $showTopSearchBox}
+        <div class="navigationMenu">
+          {include file="Search/navigation.tpl"} 
+        </div>
+        {/if *}
+      </div>
       
         <div class="footer clear">
           {include file="footer.tpl"}
