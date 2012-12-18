@@ -83,7 +83,7 @@
     {js filename="jquery.metadata.js"}
     {js filename="jquery.validate.min.js"}
     {js filename="jquery.qrcode.js"}
-    {js filename="qrcode.js"}
+    {js filename="jquery.labelOver.js"}
     {js filename="jquery.dataTables.js"}   
     {js filename="jquery.clearsearch.js"}
     {js filename="jquery.collapse.js"}
@@ -101,6 +101,9 @@
     {* Load common javascript functions *}
     {js filename="common.js"}
     
+    {* Load QRCodes *}
+    {js filename="qrcode.js"} 
+
     {* Load dropdown menu modification *}
     {* js filename="dropdown.js" *}
 
@@ -122,7 +125,17 @@ $(document).ready(function() {
 {literal}
 });
 {/literal}
-    </script>    
+    </script>
+
+    {* Apply labelOver placeholder for input fields *}
+    <script type="text/javascript">
+    {literal}
+        $(function(){
+            $('label').labelOver('labelOver')
+            $('.mainFocus').focus();
+        });
+    {/literal}
+    </script>
     
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
