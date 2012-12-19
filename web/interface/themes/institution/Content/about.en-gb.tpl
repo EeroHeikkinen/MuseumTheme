@@ -19,8 +19,7 @@
 	  <li>Jyväskylä University Library</li>
 	  <li>The National Archives of Finland</li>
 	  <li>The National Library of Finland</li>
-	  <li>Lusto The Finnish Forest Museum</li>
-	  <li>The Hunting Museum of Finland</li>
+	  <li>Lusto The Finnish Forest Museum and other Kantapuu Museums</li>
 	  <li>Tuusula Art Museum</li>
 	  <li>Finnish National Gallery</li>
 	</ul>
