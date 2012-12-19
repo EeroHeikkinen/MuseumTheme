@@ -11,19 +11,29 @@
 	padding-right: 12px;
 	width: 198px;
 }
+
+.footer ul {
+    padding-left: 0;
+}
+
 #footerCol4 {
 	float:left;
 	width: 282px;
 }
-.footer ul {
-    padding-left: 0;
-}
-a.footerLogo {
+#footerCol4 a {
     display: block;
     margin-top: 1em;
 }
-a.footerLogo img {
-    margin: 0 .8em 0 0;
-    vertical-align: middle;
-}
 
+.footer .KDK-logo {
+    background: url('../images/kdk-logo_small.png') no-repeat left center;
+    height: 31px;
+    line-height: 29px;
+    padding-left: 5.4em;
+}
+.footer .vufind-logo {
+    background: url('../images/vufind-logo_small.png')no-repeat left center;
+    height: 33px;
+    line-height: 30px;
+    padding-left: 7.5em;
+}

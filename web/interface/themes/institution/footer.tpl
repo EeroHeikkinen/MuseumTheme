@@ -49,10 +49,10 @@
   <a href="http://www.kdk.fi/sv" class="footerLogo">{image src="kdk_logo_small.png" alt="logo"}{translate text='National Digital Library'}</a>
 {/if}
 {if $userLang=='fi'}
-	<a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_small.png" alt="KDK-logo"}{translate text='National Digital Library'}</a>
+	<a href="http://www.kdk.fi" class="KDK-logo">{translate text='National Digital Library'}</a>
 {/if}
 
-	<a href="http://www.vufind.org" class="footerLogo">{image src="vufind_logo_small.png" alt="vufind-logo"}www.vufind.org</a>
+	<a href="http://www.vufind.org" class="vufind-logo">www.vufind.org</a>
 
     {* Comply with Serials Solutions terms of service -- this is intentionally left untranslated. *}
     {if $module == "Summon"}
