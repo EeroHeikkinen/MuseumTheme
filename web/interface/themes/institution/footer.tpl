@@ -43,10 +43,10 @@
 <div id="footerCol4" class="last">
 
 {if $userLang=='en-gb'}
-  <a href="http://www.kdk.fi/en" class="footerLogo">{image src="kdk_logo_small.png" alt="NDL-logo"}{translate text='National Digital Library'}</a>
+  <a href="http://www.kdk.fi/en" class="KDK-logo">{translate text='National Digital Library'}</a>
 {/if}
 {if $userLang=='sv'}
-  <a href="http://www.kdk.fi/sv" class="footerLogo">{image src="kdk_logo_small.png" alt="logo"}{translate text='National Digital Library'}</a>
+  <a href="http://www.kdk.fi/sv" class="KDK-logo">{translate text='National Digital Library'}</a>
 {/if}
 {if $userLang=='fi'}
 	<a href="http://www.kdk.fi" class="KDK-logo">{translate text='National Digital Library'}</a>
