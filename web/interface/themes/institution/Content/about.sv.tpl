@@ -19,9 +19,7 @@
 	  <li>Universitetsbiblioteket i Jyväskylä</li>
 	  <li>Riksarkivet</li>
 	  <li>Nationalbiblioteket</li>
-	  <li>Lusto skogsmuseum</li>
-	  <li>Biblioteket Oiva</li>
-	  <li>Finlands Jaktmuseum</li>
+	  <li>Lusto – Finlands skogsmuseum och andra Kantapuu museer</li>
 	  <li>Tusby Konstmuseum</li>
 	  <li>Statens Konstmuseum</li>
 	</ul>
