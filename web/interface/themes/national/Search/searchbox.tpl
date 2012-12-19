@@ -1,29 +1,47 @@
-<div class="searchform span-7 last">
+<!-- START of: Search/searchbox.tpl -->
+
+<div id="searchFormContainer" class="searchform last">
 
 {if $searchType == 'advanced'}
   <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
   <a href="{$path}/Search/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
   <a href="{$path}/" class="small">{translate text="Start a new Basic Search"}</a>
-  <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}</span>"
-
+  <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}
+  {foreach from=$orFilters item=values key=filter}
+    AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"</span>
 {else}
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
-      <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if}"/>
-      <label for="searchForm_type" class="offscreen">{translate text="Search Type"}</label>
+      <div class="overLabelWrapper">
+        <label for="searchForm_input" id="searchFormLabel" class="labelOver normal">{translate text="Find"}&hellip;</label>
+        <input id="searchForm_input" type="text" name="lookfor" size="22" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" title='{translate text="Find"}&hellip;' />
+      </div>
+  {if $prefilterList}
       <div class="styled_select">
-        <select id="searchForm_type" name="type">
-  {foreach from=$basicSearchTypes item=searchDesc key=searchVal}
-          <option value="{$searchVal}"{if $searchIndex == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
-  {/foreach}
+        <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
+    {foreach from=$prefilterList item=searchDesc key=searchVal}    
+          <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter || ($activePrefilter == null && $searchVal == "-") } selected="selected"{/if}>{$searchDesc|translate}</option>
+    {/foreach}
         </select>
       </div>
-      <input id="searchForm_searchButton" type="submit" name="submit" value="{translate text="Find"}"/>
+
+  {/if}
+      <input id="searchForm_searchButton" type="submit" name="SearchForm_submit" value="{translate text="Find"}"/>
+      <div class="clear"></div>
     </div>
     <div class="advanced-link-wrapper clear">
-      <a href="{$path}/Search/Advanced" class="small span-2 last">{translate text="Advanced"}</a>
+      <a href="{$path}/Search/Advanced" class="small advancedLink">{translate text="Advanced Search"}</a>
+  {if $metalibEnabled}
+      <a href="{$path}/MetaLib/Home" class="small last metalibLink">{translate text="MetaLib Search"}</a>
+  {/if}
+      <a href="{$path}/Content/searchhelp" class="small showSearchHelp">{translate text="Search Tips"}</a>
     </div>
+    <div class="searchContextHelp">
+    {if isset($userLang)}
+      {include file="Content/searchboxhelp.$userLang.tpl"}
+    {/if}
+    </div>
+    
   {* Do we have any checkbox filters? *}
   {assign var="hasCheckboxFilters" value="0"}
   {if isset($checkboxFilters) && count($checkboxFilters) > 0}
@@ -70,6 +88,9 @@
   {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
 
   </form>
-  <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
+  {js filename="dropdown.js"}
 {/if}
+
 </div>
+
+<!-- END of: Search/searchbox.tpl -->

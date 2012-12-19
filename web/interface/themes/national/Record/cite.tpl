@@ -1,3 +1,5 @@
+<!-- START of: Record/cite.tpl -->
+
 {if $citationCount < 1}
   {translate text="No citations are available for this record"}.
 {else}
@@ -15,3 +17,5 @@
   {/if}
   <div class="note">{translate text="Warning: These citations may not always be 100% accurate"}.</div>
 {/if}
+
+<!-- END of: Record/cite.tpl -->

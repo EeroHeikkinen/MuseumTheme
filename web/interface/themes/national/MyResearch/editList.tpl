@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/editList.tpl -->
+
 <h1>{translate text="edit_list"}</h1>
 {if $infoMsg || $errorMsg}
   <div class="messages">
@@ -22,3 +24,5 @@
     <input class="button" type="submit" name="submit" value="{translate text="Save"}"/>
   </form>
 {/if}
+
+<!-- END of: MyResearch/editList.tpl -->

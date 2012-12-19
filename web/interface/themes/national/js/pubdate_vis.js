@@ -1,4 +1,9 @@
-function loadVis(facetFields, searchParams, baseURL, zooming) {
+function loadVis(facetFields, searchParams, baseURL, zooming, collection, collectionAction) {
+
+    // get current year so we can set that as a limit when drawing the graph
+    var d = new Date();
+    var currentYear = d.getFullYear();
+    
     // options for the graph, TODO: make configurable
     var options = {
         series: {
@@ -6,21 +11,31 @@ function loadVis(facetFields, searchParams, baseURL, zooming) {
                 show: true,
                 align: "center",
                 fill: true,
-                fillColor: "rgb(0,0,0)"
+                fillColor: "rgb(124,180,124)"
             }
         },
-        colors: ["rgba(255,0,0,255)"],
+        colors: ["rgba(151,200,151,255)"],
         legend: { noColumns: 2 },
-        xaxis: { tickDecimals: 0 },
+        xaxis: { max: currentYear + 1, tickDecimals: 0 },
         yaxis: { min: 0, ticks: [] },
         selection: {mode: "x"},
         grid: { backgroundColor: null /*"#ffffff"*/ }
     };
 
+    var url = baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams;
+    if (typeof collection != 'undefined'){
+    	url+= '&collection=' + collection + '&collectionAction='+ collectionAction;
+    }
     // AJAX call
-    $.getJSON(baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams, function (data) {
+    $.getJSON(url, function (data) {
         if (data.status == 'OK') {
             $.each(data['data'], function(key, val) {
+            	//check if there is data to display, if there isn't hide the box
+            	if(val['data'].length == 0){
+            		$("#datevis" + key + "xWrapper").hide();
+            		return;
+            	}
+            	
                 // plot graph
                 var placeholder = $("#datevis" + key + "x");
 
@@ -94,17 +109,15 @@ function loadVis(facetFields, searchParams, baseURL, zooming) {
 
 function PadDigits(n, totalDigits) 
 { 
-    if (n <= 0){
-        n= 1;
-    }
-    n = n.toString(); 
-    var pd = ''; 
-    if (totalDigits > n.length) 
-    { 
-        for (i=0; i < (totalDigits-n.length); i++) 
-        { 
-            pd += '0'; 
-        } 
-    } 
-    return pd + n; 
+	var neg = false
+	if (n < 0) {
+		neg = true;
+		n = n.toString().substr(1); 
+	} else {
+		n = n.toString();
+	}
+	while (n.length < totalDigits) {
+		n = '0' + n;
+	}
+    return (neg ? '-' : '') + n; 
 }

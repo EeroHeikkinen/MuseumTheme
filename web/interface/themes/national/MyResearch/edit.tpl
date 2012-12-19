@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/edit.tpl -->
+
 <div class="record">
   <h1>{$record.title|escape:"html"}</h1>
 
@@ -24,3 +26,5 @@
   {/if}
   </form>
 </div>
+
+<!-- EDIT of: MyResearch/edit.tpl -->

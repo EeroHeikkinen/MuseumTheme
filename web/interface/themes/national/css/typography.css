@@ -1,71 +1,443 @@
-/** Typography presets **/
+/** Typography presets **/
+/** Areas beyond these settings: breadcrumbs, footer, .citation (more?) **/
+
 
 body {
-    font-size: 13px;
-    line-height: 1.5em;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px; /* See size table below */
+    line-height: 1.5em;
     font-weight: normal;
     font-style: normal;
+    /* Stop Mobile Safari from auto-adjusting font-sizes: */
+    -webkit-text-size-adjust: 100%;
+}
+ 
+/* Font sizes */
+/*
+ * ===========================
+ * reference: modularscale.com
+ * 3:4 - perfect fourth
+ * ===========================
+ *  px      em      %
+ * ----    -----   -------
+ * 26.055  2.004   200.423
+ * 23.100  1.777   177.692
+ * 19.546  1.504   150.354
+ * 17.329  1.333   133.300
+ * 14.663  1.128   112.792
+ * 13.000  1.000   100.000
+ * 11.000  0.846    84.615
+ *  9.752  0.75     75.015
+ * ===========================
+*/
+.tiny {
+    font-size: .75em;
+    line-height: 1.4em;
+}
+h6, .small, small {
+    font-size: .846em;
+    line-height: 1.4em;
+    letter-spacing: .002em;
+}
+h5, .normal {
+    font-size: 1em;
+    line-height: 1.5em;
+}
+h4, .big, #searchFormLabel, #searchForm_input, #searchForm_searchButton {
+    font-size: 1.128em;
+    line-height: 1.4em;
+}
+h3, .hefty, .slogan, .title /* Result list title */ {
+    font-size: 1.333em;
+    line-height: 1.2em;
+}
+h2, .large {
+    font-size: 1.504em;
+    line-height: 1.2em;
+}
+h1, .grand {
+    font-size: 1.777em;
+    line-height: 1.2em;
+}
+.overgrand {
+    font-size: 2.004em;
+    line-height: 1.2em;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+    font-weight: bold;
+    margin: .75em 0 .5em;
+    text-transform: none;
+}
+.tiny, .small, small, .big, .hefty, .large, .grand, .overgrand {
+    margin: 0;
 }
 
-/* Font sizes */
-.small, small {
-	font-size: 11px;
-	line-height: 1.4;
+
+/* Is this needed? Would it be better to change h3 to h5 / use class normal? */
+div.recordsubcontent h3 {
+    font-size:1em;
+    margin:0;
 }
-.big, h4 {
-	font-size: 18px;
-	line-height: 30px;
-}
-/* .title could be fitted into some existing size.
-   How about re-thinking all sizes in em based on some default size, say 16px?
-   That way only body font-size would be in px, others in em... possible exeptions in %.
- */
-.title /* Result list title */ {
-	font-size: 1.25em;
-	line-height: 1.25em;
-}
-.bigger, h3, .slogan {
-	font-size: 24px/*1.25em*/;
-	line-height: 32px/*1.25em*/;
-}
-.large, h2 {
-	font-size: 42px;
-	line-height: 48px;
-}
-.huge {
-	font-size: 68px;
-	line-height: 72px;
-	letter-spacing: -1px;
-}
-.gigantic {
-	font-size: 110px;
-	line-height: 120px;
-	letter-spacing: -2px;
-}
+
 
 /* Bold & italic */
-/* For BOLD it is better to use class. Strong tag should be left for screen readers,
-   even though on screen there is no visible difference between class and tag.
-*/
+/**
+ * For BOLD it is better to use class e.g _.strong_. The <strong> tag should be
+ * left for screen readers, regardless of no visible difference between class
+ * and tag on screen.
+ **/
 .strong, strong {
     font-weight: bold;
 }
-.emph {
+.emph, em {
     font-style: italic;
 }
 .highlight {
     font-weight: bold;
-    background: none;
+    background: none;   /* could maybe be changed to some highlight color? */
+}
+.subjectLine .highlight {
+    font-weight: normal;
+    text-decoration: underline;
 }
 .normal {
     font-weight: normal;
 }
 
-/* Selection colours (easy to forget) */
-::selection 	 	{ background: #ffff9e; }
-::-moz-selection 	{ background: #ffff9e; }
-img::selection 		{ background: transparent; }
-img::-moz-selection	{ background: transparent; }
-body { -webkit-tap-highlight-color: #ffff9e; }
+/* Colors */
+body {
+    color: #333333;
+}
+.inactive {
+    color: #cccccc;
+}
 
+/* Selection colors (easy to forget). The values might need a go-through... */
+::selection         { background: #bbddff; }
+::-moz-selection    { background: #bbddff; }
+img::selection      { background: transparent; }
+img::-moz-selection { background: transparent; }
+body { -webkit-tap-highlight-color: #bbddff; }
+
+
+/**** OTHERS ****/
+
+/* jQuery-ui modification */
+.ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Top right language selection */
+div.lang {
+    line-height: 30px;
+}
+div.lang li, div.lang a {
+    font-style: normal;
+}
+div.lang li {
+    font-size: 90%;
+}
+
+/* select custom dropdown */
+.dropdown dd, .dropdown dt, .dropdown ul {
+    font-weight: normal;
+}
+.dropdown dd ul li a {
+    font-weight: normal;
+    line-height: 1em;
+}
+.dropdown dt a p {
+    font-size: .846em;
+}
+
+/* Search Box */
+#searchForm input, #searchForm select, .styled_select { 
+    font-family: inherit;
+}
+/* Search Box dropdown */
+.searchbox .dropdown dt a {
+    line-height: 1em;
+}
+.searchbox .dropdown dd p {
+    line-height: 0.8em;
+    font-size: 90%;
+    margin: 0;
+}
+
+
+
+/* Content */
+.module-Content h1 {
+    font-weight: normal;
+}
+.module-Content dl.Content dt {
+    font-size: 1.333em;
+    line-height: 1.2;
+
+    /*
+h4, .big, #searchForm_input, #searchForm_searchButton {
+    font-size: 1.128em;
+    line-height: 1.4em;
+}
+h3, .hefty, .slogan, .title  {
+    font-size: 1.333em;
+    line-height: 1.2em;
+}
+h2, .large {
+    font-size: 1.504em;
+    line-height: 1.2em;
+}
+*/
+    margin: 2em 0 1em 0;
+}
+
+.helpTerm {
+    font-size: 1.2em;
+    text-align: left;
+    margin: 0 0.2em 0 0em;
+}
+
+
+/* Misc styles */
+label.invalid {
+    font-weight: bold;
+}
+
+
+.mobileViewLink {
+    font-size:24px;
+}
+
+.correction p, .correctionTerms {
+    line-height: 1.3em;
+}
+div.bulkActionButtons input.button {
+    font-size: 0.9em;
+    font-weight: normal;
+}
+.finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
+    line-height: 1.2em;
+    vertical-align: text-top;
+}
+
+/* Alphabetic browse */
+.alphaBrowseHeader {
+    font-weight: bold;
+}
+.alphaBrowseHeading {
+    line-height: 1.31em;
+}
+.alphaBrowsePageLinks {
+    font-weight: bold;
+}
+.alphaBrowseRelatedHeading .title {
+    font-weight: bold;
+    font-size: 90%;
+}
+
+/* Publication Year facet */
+fieldset.publishDateLimit .yearbox {
+    font-size: 13px;
+}
+#suggestedTopics {
+    line-height: 1.4em;
+}
+
+/* Links (misc) */
+.result .imagelinks a {
+    font-size: .8em;
+}
+.coverImageLinks a {
+    font-size: 1em;
+}
+
+a.subjectHeading:hover {
+    font-weight: normal;
+} 
+
+/* Side facets */
+.navmenu dt {
+    font-weight: bold;
+}
+.facetCount, .favoritesCount, .favoritesDescription {
+    font-size: .8em;
+}
+
+
+/* Resource types */
+.iconlabel { /* Common for all */
+    line-height: 16px;
+    font-size: 8pt;
+    font-weight: normal;
+}
+
+/* Pagination */
+.pagination {
+    font-size: 90%;
+}
+.pagination span {
+    font-weight: bold;
+}
+
+/* Record Page */
+.recordTitle {
+    font-weight: normal;
+}
+h1.recordTitle {
+    margin-top: 0;
+}
+.record pre.xml {
+    font-family: inherit;
+}
+
+
+/* Citation Table */
+.citation {
+    font-size: 90%;
+}
+table.authors th {
+    font-size: 120%;
+}
+
+/* Tabs (Record Page) */
+#tabnav {
+    font-size: 1em;
+}
+#tabnav a {
+    font-weight: normal;
+}
+
+/* Dynamic Tabs */
+#dyntabnav, #dyntabnav .ui-widget, #dyntabnav li {
+    font-family: inherit;
+    font-size: 1em;
+}
+
+/* Similar Items (record view) */
+h5.recordTabHeader {
+    font-weight: normal;
+}
+
+/* Comments */
+ul.commentList li div.posted {
+    font-size: 80%;
+}
+
+/* Forms */
+label.displayBlock {
+    font-weight:bold;
+}
+
+/* Tag cloud */
+.cloud1 {
+    font-size: .8em;
+}
+.cloud2 {
+    font-size: 1em;
+}
+.cloud3 {
+    font-size: 1.2em;
+}
+.cloud4 {
+    font-size: 1.4em;
+}
+.cloud5 {
+    font-size: 1.6em;
+}
+
+/* New advanced search screen stuff */
+.searchGroups {
+    font-size: 125%;
+}
+
+/* Browse Lists */
+.browseNav {
+    font-size: 90%;
+}
+.browseNav a.viewRecords {
+    font-size: 80%;
+}
+
+/* system unavailable and other fatal error pages */
+div.unavailable, div.fatalError {
+    font-size: 125%;
+}
+div.debug code {
+    font-size: x-small;
+}
+
+/* Grid View */
+.gridTitleBox {
+    font-size: 86%;
+}
+.gridTitle {
+    line-height: 1.2em;
+}
+
+/* COLLECTIONS PAGE */
+.disambiguationDiv h1 {
+    font-size: 2em;
+}
+.collectionDetails .paginationTop span {
+    font-weight: bold;
+}
+
+/* RSS Recommendations */
+.submenuSuggestion h4 {
+    font-family: Georgia,"Times New Roman",Serif;
+}
+.suggestionWhatsThis {
+    font-family: Georgia,"Times New Roman",Serif;
+    font-size: 10px;
+}
+
+/* Google map */
+.mapSeeAllDiv{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/* table for displaying full status in result list */
+table.summHoldings {
+    font-size: smaller;
+}
+a.summHoldings {
+    font-size: smaller;
+}
+
+/* contextHelp */
+table#contextHelp td.body h2 {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+table#contextHelp a {
+    font-weight: bold;
+}
+table#contextHelp p {
+    font-size: .9em;
+    font-weight: bold;
+}
+
+/* Hierarchy Tree */
+#hierarchyTree #treeList li.currentHierarchy > a, #hierarchyTree #treeList li.currentRecord > a {
+    font-weight: bold;   
+}
+.jstree-highlight {
+    font-weight: bold;
+}
+
+/* Dynatree */
+ul.dynatree-container {
+    font-size: 100%;
+}
+span.dynatree-node {
+    font-size: 100%;
+}
+
+/* Button styles for advanced search. May be added later to all buttons. */
+.button {
+    font-family: arial;
+    font-size: 14px;
+}

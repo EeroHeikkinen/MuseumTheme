@@ -1,6 +1,8 @@
+<!-- START of: Summon/record.tpl -->
+
 {js filename="record.js"}
 {js filename="openurl.js"}
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-10{if $sidebarOnLeft} push-3 last{/if}">
   <div class="toolbar">
     <ul>
       {* TODO: citations <li><a href="{$url}/Summon/Cite?id={$id|escape:"url"}" class="citeRecord summonRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
@@ -29,11 +31,25 @@
   </div>
 
   <div class="record recordId" id="record{$id|escape}">
+
+    {* Display Title *}
+    <h1>{$record.Title.0|escape}{if $record.Subtitle} {$record.Subtitle.0|escape}{/if}</h1>
+    {* End Title *}
+
+    {* Display Cover Image *}
+    <div class="alignleft">
+      <img alt="{translate text='Cover Image'}" src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}"/>
+    </div>
+    {* End Cover Image *}
+    
+    <div><span class="{$record.ContentType.0|replace:" ":""|escape}">{$record.ContentType.0|escape}</span></div>
+
+
     {* Display link to content -- if a URL is provided, only use it if no 
        OpenURL setting exists or if the OpenURL won't lead to full text --
        these URI values aren't always very useful, so they should be linked
        as a last resort only. *}
-    <div class="button alignright">
+    <div class="button" style="margin:1em 0">
     {if $record.url && (!$openUrlBase || !$record.hasFullText)}
       {foreach from=$record.url.0 item="value"}
         <a href="{$value|escape}">{translate text='Get full text'}</a><br/>
@@ -43,18 +59,7 @@
     {/if}
     </div>
 
-    <div class="alignright"><span class="{$record.ContentType.0|replace:" ":""|escape}">{$record.ContentType.0|escape}</span></div>
 
-    {* Display Title *}
-    <h1>{$record.Title.0|escape}</h1>
-    {* End Title *}
-
-    {* Display Cover Image *}
-    <div class="alignleft">
-      <img alt="{translate text='Cover Image'}" src="{$path}/bookcover.php?size=small{if $record.ISBN.0}&amp;isn={$record.ISBN.0|@formatISBN}{/if}{if $record.ContentType.0}&amp;contenttype={$record.ContentType.0|escape:"url"}{/if}"/>
-    </div>
-    {* End Cover Image *}
-    
     {* Display Abstract/Snippet *}
     {if $record.Abstract}
       <p class="snippet">{$record.Abstract.0|escape}</p>
@@ -197,7 +202,9 @@
   <span class="Z3988" title="{$record.openUrl|escape}"></span>
 </div>
 
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: Summon/record.tpl -->

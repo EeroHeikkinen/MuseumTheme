@@ -1,3 +1,5 @@
+<!-- START of: Search/browse.tpl -->
+
 <div class="searchHomeBrowse">
 {assign var=columns value=0}
 {foreach from=$facetList item=details key=field}
@@ -46,3 +48,4 @@
 
 </div>
 
+<!-- END of: Search/browse.tpl -->

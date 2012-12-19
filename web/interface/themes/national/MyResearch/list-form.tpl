@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/list-form.tpl -->
+
 {if $listError}<p class="error">{$listError|translate}</p>{/if}
 <form method="post" action="{$url}/MyResearch/ListEdit" name="listEdit" id="listEdit">
   <label class="displayBlock" for="list_title">{translate text="List"}:</label>
@@ -22,3 +24,5 @@
     {/foreach}
   {/if}
 </form>
+
+<!-- END of: MyResearch/list-form.tpl -->

@@ -1,0 +1,35 @@
+/* Background of the logo image */
+.header-home {
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #ddd;
+}
+.searchHomeContent {
+    margin: 0 auto;
+    padding: 3em 0 3em 0;
+    text-align: left;
+}
+/* Logo image */
+.searchHomeLogo {
+    background: url("../images/finna-logo_cyan.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    height: 165px;
+    margin: 0 auto 3em auto;
+    text-align: center;
+}
+/* Alternating home logo image 2 */
+.searchHomeLogo2 {
+    background-image: url("../images/finna-logo_purple.png");
+}
+/* Alternating home logo image 3 */
+.searchHomeLogo3 {
+    background-image: url("../images/finna-logo_violet.png");
+}
+/* Alternating home logo image 4 */
+.searchHomeLogo4 {
+    background-image: url("../images/finna-logo_black.png");
+}
+.searchHomeLogo5 {
+    background-image: url("../images/finna-logo_cyan-inverse.png");
+}

@@ -8,10 +8,197 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
 @media only screen and (min-width: 768px) and (max-width: 997px) {
 
-    body {
-        width: 728px;
-        padding: 0 20px 40px;
+    body, .container, #resultMain, #topFacets, #resultSidebar,
+    #headingHierarchyCollection {
+        width: 768px;
     }
 
-}
+    body {
+    /*
+        width: 768px;
+    */    
+        padding: 0 0px 40px;
+    }
 
+    .container {
+    /*
+        width: 768px;
+    */
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: none/*1px solid #dddddd;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px*/;
+    }
+
+
+
+    #logoHeader {
+        margin: 0 0 0 10px;
+    }
+    #searchFormHeader {
+        width: 506px;
+        margin: 0;
+        padding: .5em 0 0 .9em;
+    }
+    .searchbox {
+        margin: 0;
+    }
+    /*
+    #resultMain {
+        width: 768px;
+    }
+    */
+    .homeNavigation ul li {
+        display: inline-block;
+        margin: 0;
+        padding: 0 0.5em;
+        border-bottom: none;
+    }
+    .homeCustomContent .homeCustomCol1 {
+        width: 338px;
+        margin: 1em 0 1em;
+    }
+    .homeCustomContent .homeCustomCol2 {
+        width: 338px;
+        margin: 1em 0 1em 40px;
+    }
+    .homeCustomContent .homeCustomCol2 ul li {
+        float: left;
+        margin: 0.5em 10px 0.5em 1em;
+    }
+    .module-Content .mainContent {
+        width: 506px;
+    }
+    .module-MyResearch .main {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .favoritesList {
+        width: 520px;
+    }
+    .favoritesList .bulkActionButtons {
+        height: auto;
+    }  
+    .favoritesList .bulkActionButtons .floatright {
+        width: 480px;
+    }
+
+
+
+    #topFacets {
+        width: 758px;
+    }
+    #suggestedTopics {
+        width: 744px;
+        margin: 0 12px .4em;
+    }
+    #topPubDateVis {
+        width: 744px;
+    }
+    .paginationTop {
+        margin: .5em 0 0;
+        padding: 0;
+    }
+    .pagination {
+        width: 300px;
+    }
+    .resultOptions {
+        margin: .6em 0 0;
+        padding: 0;
+    }
+    #sort_options_1 {
+        width: 150px;
+    }
+    #resultList {
+        width: 524px;
+        margin-left: 12px;
+    }
+    .sidegroup {
+        margin-right: 10px;
+    }
+    span.dynatree-node .facetTitle {
+        max-width: 140px;
+    }
+
+
+
+    #resultSide {
+        margin-left: 10px;
+    }
+    ul.recordSet .resultColumn2 {
+        width: 312px;
+    }
+    #recordMetadata {
+        width: 526px;
+    }
+    #dyntabnav {
+        width: 748px;
+        margin-left: 10px;
+    }
+    #dyntabnav .ui-tabs-panel {
+        padding: 1em .7em;
+    }
+    #resultSidebar {
+        width: 768px;
+    }
+    #resultSidebar .sidegroup {
+        border-top: 2px solid #dddddd;
+        border-left: none;
+        padding: 1em;
+        margin-left: 10px;
+    }
+    #resultSidebar ul li {
+        width: 210px;
+        margin-right: 12px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    #resultsCollection, #hierarchyCollection, #hierarchyRecord {
+        padding: 0 0 .4em 4px;
+        width: 758px;
+    }
+
+    #hierarchyTreeHolder {
+        width: 756px;
+    }
+
+    .collectionDetails .collectionSortSelector {
+        margin-top: .5em;
+    }
+
+    #advancedSearchWrapper, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .advSearchContent .searchButton {
+        margin: 1em 3.5em;    
+    }
+
+    .mapContainer {
+        width: 708px;
+    }
+
+    .footer {
+        font-size: 1.0em;
+        padding: .8em 12px 0;
+    }
+    #footerCol1, #footerCol2, #footerCol3 {
+        float:left;
+        width: 136px;
+    }
+    #footerCol4 {
+        float:left;
+        margin-left: 10px;
+        width: 290px;
+    }
+   .main-home #footerCol4 {
+        width: 266px;       /* accomodates wider footer margin on homepage */
+    }
+    
+}

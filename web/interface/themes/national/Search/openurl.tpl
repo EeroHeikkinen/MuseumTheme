@@ -1,4 +1,9 @@
+<!-- START of: Search/openurl.tpl -->
+
 {if $openUrlEmbed}{assign var="openUrlId" value=$openUrlCounter->increment()}{/if}
+
+<span class="rsi"></span>
+
 <a href="{$openUrlBase|escape}?{$openUrl|escape}" 
 {if $openUrlEmbed} 
 class="fulltext openUrlEmbed openurl_id:{$openUrlId}"
@@ -17,3 +22,5 @@ class="fulltext openUrlWindow window_settings:{$openUrlWindow|escape}"
 {if $openUrlEmbed}
   <div id="openUrlEmbed{$openUrlId}" class="resolver hide">{translate text='Loading...'}</div>
 {/if}
+
+<!-- END of: Search/openurl.tpl -->

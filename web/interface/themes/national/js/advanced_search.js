@@ -6,35 +6,12 @@ function addSearch(group, term, field)
     if (term  == undefined) {term  = '';}
     if (field == undefined) {field = '';}
 
-    var newSearch = '<div class="advRow">';
-
-    // Label
-    newSearch += '<div class="label"><label ';
-    if (groupSearches[group] > 0) {
-        newSearch += 'class="hide"';
-    }
-    newSearch += ' for="search_lookfor' + group + '_' + groupSearches[group] + '">' + searchLabel + ':</label>&nbsp;</div>';
-
-    // Terms
-    newSearch += '<div class="terms"><input type="text" id="search_lookfor' + group + '_' + groupSearches[group] + '" name="lookfor' + group + '[]" size="50" value="' + jsEntityEncode(term) + '"/></div>';
-
-    // Field
-    newSearch += '<div class="field"><label for="search_type' + group + '_' + groupSearches[group] + '">' + searchFieldLabel + '</label> ';
-    newSearch += '<select id="search_type' + group + '_' + groupSearches[group] + '" name="type' + group + '[]">';
-    for (key in searchFields) {
-        newSearch += '<option value="' + key + '"';
-        if (key == field) {
-            newSearch += ' selected="selected"';
-        }
-        newSearch += ">" + searchFields[key] + "</option>";
-    }
-    newSearch += '</select>';
-    newSearch += '</div>';
-
-    // Handle floating nonsense
-    newSearch += '<span class="clearer"></span>';
-    newSearch += '</div>';
-
+    var newSearch = tmpl("new_search_tmpl", 
+    						{ group: group,
+    						  term: term,
+    						  field: field,
+    						  groupSearches: groupSearches
+      						});
     // Done
     $("#group" + group + "SearchHolder").append(newSearch);
 
@@ -48,33 +25,15 @@ function addGroup(firstTerm, firstField, join)
     if (firstField == undefined) {firstField = '';}
     if (join       == undefined) {join       = '';}
 
-    var newGroup = '<div id="group' + nextGroupNumber + '" class="group group' + (nextGroupNumber % 2) + '">';
-    newGroup += '<div class="groupSearchDetails">';
-
-    // Boolean operator drop-down
-    newGroup += '<div class="join"><label for="search_bool' + nextGroupNumber + '">' + searchMatch + ':</label> ';
-    newGroup += '<select id="search_bool' + nextGroupNumber + '" name="bool' + nextGroupNumber + '[]">';
-    for (key in searchJoins) {
-        newGroup += '<option value="' + key + '"';
-        if (key == join) {
-            newGroup += ' selected="selected"';
-        }
-        newGroup += '>' + searchJoins[key] + '</option>';
-    }
-    newGroup += '</select>';
-    newGroup += '</div>';
-
-    // Delete link
-    newGroup += '<a href="#" class="delete" id="delete_link_' + nextGroupNumber + '" onclick="deleteGroupJS(this); return false;">' + deleteSearchGroupString + '</a>';
-    newGroup += '</div>';
-
-    // Holder for all the search fields
-    newGroup += '<div id="group' + nextGroupNumber + 'SearchHolder" class="groupSearchHolder"></div>';
-
-    // Add search term link
-    newGroup += '<div class="addSearch"><a href="#" class="add" id="add_search_link_' + nextGroupNumber + '" onclick="addSearchJS(this); return false;">' + addSearchString + '</a></div>';
-
-    newGroup += '</div>';
+    var newGroup = tmpl("new_group_tmpl", 
+			{ firstTerm: firstTerm,
+			  firstField: firstField,
+			  join: join,
+			  nextGroupNumber: nextGroupNumber,
+			  searchJoins: searchJoins,
+			  deleteSearchGroupString: deleteSearchGroupString,
+			  addSearchString: addSearchString
+			});
 
     // Set to 0 so adding searches knows
     //   which one is first.

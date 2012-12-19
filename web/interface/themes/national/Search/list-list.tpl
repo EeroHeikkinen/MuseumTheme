@@ -1,12 +1,20 @@
+<!-- START of: Search/list-list.tpl -->
+
 {js filename="check_item_statuses.js"}
 {js filename="check_save_statuses.js"}
+{if $showContext}
+{js filename="search_hierarchyTree.js"}
+{/if}
 {js filename="openurl.js"}
 {if $showPreviews}
 {js filename="preview.js"}
 {/if}
+{js filename="metalib_links.js"}
+{include file="Search/rsi.tpl"}
+{include file="Search/openurl_autocheck.tpl"}
 
 {if $bookBag}
-<script>
+<script type="text/javascript">
 vufindString.bulk_noitems_advice = "{translate text="bulk_noitems_advice"}";
 vufindString.confirmEmpty = "{translate text="bookbag_confirm_empty"}";
 vufindString.viewBookBag = "{translate text="View Book Bag"}";
@@ -55,3 +63,5 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
 </form>
 {/if}
+
+<!-- END of: Search/list-list.tpl -->

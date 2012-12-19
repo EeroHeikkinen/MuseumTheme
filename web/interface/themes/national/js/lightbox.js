@@ -23,8 +23,19 @@ function getLightbox(module, action, id, lookfor, message, followupModule, follo
 
     // create a new modal dialog
     $dialog = $('<div id="modalDialog"><div class="dialogLoading">&nbsp;</div></div>')
-        .load(path + '/AJAX/JSON?' + $.param(params), postParams)
-            .dialog({
+        .load(path + '/AJAX/JSON?' + $.param(params), postParams, function(responseText) {
+            if (module == 'Record' && action == 'Save' && responseText == '') {
+                // Update user save statuses if the current context calls for it:
+                if (typeof(checkSaveStatuses) == 'function') {
+                    checkSaveStatuses();
+                }
+                // Update tag list if appropriate:
+                if (typeof(refreshTagList) == 'function') {
+                    refreshTagList(id);
+                }
+                $dialog.dialog('close');
+            } 
+        }).dialog({
                 modal: true,
                 autoOpen: false,
                 closeOnEscape: true,
@@ -98,6 +109,7 @@ function lightboxDocumentReady() {
     registerAjaxSaveRecord();
     registerAjaxListEdit();
     registerAjaxEmailRecord();
+    registerAjaxFeedbackRecord();
     registerAjaxSMSRecord();
     registerAjaxTagRecord();
     registerAjaxEmailSearch();
@@ -131,9 +143,10 @@ function registerAjaxLogin() {
 
                     // login via ajax
                     $.ajax({
+                        type: 'POST',
                         url: path + '/AJAX/JSON?method=login',
                         dataType: 'json',
-                        data: {username:username, password:password},
+                        data: {ajax_username:username, ajax_password:password},
                         success: function(response) {
                             if (response.status == 'OK') {
                                 // Hide "log in" options and show "log out" options:
@@ -194,7 +207,7 @@ function registerAjaxCart() {
             var selected = $("input[name='ids[]']:checked", $form);
             var postParams = [];
             $.each(selected, function(i) {
-                postParams[i] = encodeURIComponent(this.value);           
+                postParams[i] = encodeURIComponent(this.value);
             });
             hideLightbox();
             var $dialog = getLightbox('Cart', 'Home', null, null, this.title, 'Cart', 'Home', '', {email: 1, ids: postParams});
@@ -205,7 +218,7 @@ function registerAjaxCart() {
             var selected = $("#modalDialog input[name='ids[]']:checked");
             var ids = [];
             $.each(selected, function(i) {
-                ids[i] = encodeURIComponent(this.value);           
+                ids[i] = encodeURIComponent(this.value);
             });
             var printing = printIDs(ids);
             if(!printing) {
@@ -216,11 +229,11 @@ function registerAjaxCart() {
             }
             return false;
         });
-        $("input[name='empty']", $form).unbind('click').click(function(){    
+        $("input[name='empty']", $form).unbind('click').click(function(){
             if (confirm(vufindString.confirmEmpty)) {
                 showLoadingGraphic($form);
                  hideLightbox();
-                 // This always assumes the Empty command was successful as no indication of success or failure is given 
+                 // This always assumes the Empty command was successful as no indication of success or failure is given
                  var $dialog = getLightbox('Cart', 'Home', null, null, vufindString.viewBookBag, '', '', '', {"empty":1});
                  redrawCartStatus();
                  removeRecordState();
@@ -233,7 +246,7 @@ function registerAjaxCart() {
             var selected = $("input[name='ids[]']:checked", $form);
             var postParams = [];
             $.each(selected, function(i) {
-                postParams[i] = encodeURIComponent(this.value);           
+                postParams[i] = encodeURIComponent(this.value);
             });
             hideLightbox();
             var $dialog = getLightbox('Cart', 'Home', null, null, this.title, 'Cart', 'Home', '', {"export": "1", ids: postParams});
@@ -254,7 +267,7 @@ function registerAjaxCart() {
                     }
                     var $dialog = getLightbox('Cart', 'Home', null, null, vufindString.viewBookBag, '', '', '', {viewCart:"1"});
                 }
-            });       
+            });
             return false;
         });
         $("input[name='saveCart']", $form).unbind('click').click(function(){
@@ -263,14 +276,14 @@ function registerAjaxCart() {
             var selected = $("input[name='ids[]']:checked", $form);
             var postParams = [];
             $.each(selected, function(i) {
-                postParams[i] = encodeURIComponent(this.value);           
+                postParams[i] = encodeURIComponent(this.value);
             });
             hideLightbox();
             var $dialog = getLightbox('Cart', 'Home', null, null, this.title, 'Cart', 'Home', '', {saveCart: 1, ids: postParams});
             return false;
         });
     }
-    
+
     // assign action to the "select all checkboxes" class
     $('input[type="checkbox"].selectAllCheckboxes').change(function(){
         $(this.form).find('input[type="checkbox"]').attr('checked', $(this).attr('checked'));
@@ -348,6 +361,31 @@ function registerAjaxEmailRecord() {
         showLoadingGraphic($(this));
         $(this).hide();
         var url = path + '/AJAX/JSON?' + $.param({method:'emailRecord',id:this.id.value});
+        $(this).ajaxSubmit({
+            url: url,
+            dataType: 'json',
+            success: function(response, statusText, xhr, $form) {
+                hideLoadingGraphic($form);
+                if (response.status == 'OK') {
+                    displayFormInfo($form, response.data);
+                    // close the dialog
+                    setTimeout(function() { hideLightbox(); }, 2000);
+                } else {
+                    $form.show();
+                    displayFormError($form, response.data);
+                }
+            }
+        });
+        return false;
+    });
+}
+
+function registerAjaxFeedbackRecord() {
+    $('#modalDialog > form[name="feedbackRecord"]').unbind('submit').submit(function(){
+        if (!$(this).valid()) { return false; }
+        showLoadingGraphic($(this));
+        $(this).hide();
+        var url = path + '/AJAX/JSON?' + $.param({method:'feedbackRecord',id:this.id.value});
         $(this).ajaxSubmit({
             url: url,
             dataType: 'json',
@@ -502,7 +540,7 @@ function registerAjaxBulkExport() {
             }
         });
         return false;
-    });    
+    });
 }
 
 function registerAjaxCartExport() {
@@ -521,41 +559,44 @@ function registerAjaxCartExport() {
             }
         });
         return false;
-    });    
+    });
 }
 
 function registerAjaxBulkSave() {
-    $('#modalDialog form[name="bulkSave"]').unbind('submit').submit(function(){
-        if (!$(this).valid()) { return false; }
-        var url = path + '/AJAX/JSON?' + $.param({method:'bulkSave'});
-        $(this).ajaxSubmit({
-            url: url,
-            dataType: 'json',
-            success: function(response, statusText, xhr, $form) {
-                if (response.status == 'OK') {
-                    displayLightboxFeedback($form, response.data.info, 'info');
-                    var url =  path + '/MyResearch/MyList/' + response.data.result.list;
-                    setTimeout(function() { hideLightbox(); window.location = url; }, 2000);
-                } else {
-                    displayFormError($form, response.data.info);
+    var bulkSave = $('#modalDialog form[name="bulkSave"]');
+    if (bulkSave.length > 0) {
+        bulkSave.unbind('submit').submit(function(){
+            if (!$(this).valid()) { return false; }
+            var url = path + '/AJAX/JSON?' + $.param({method:'bulkSave'});
+            $(this).ajaxSubmit({
+                url: url,
+                dataType: 'json',
+                success: function(response, statusText, xhr, $form) {
+                    if (response.status == 'OK') {
+                        displayLightboxFeedback($form, response.data.info, 'info');
+                        var url =  path + '/MyResearch/MyList/' + response.data.result.list;
+                        setTimeout(function() { hideLightbox(); window.location = url; }, 2000);
+                    } else {
+                        displayFormError($form, response.data.info);
+                    }
                 }
-            }
+            });
+            return false;
         });
-        return false;
-    });
-    
-    $('a.listEdit').unbind('click').click(function(){
-        var $form = $('#modalDialog > form[name="bulkSave"]');
-        var id = this.id.substr('listEdit'.length);
-        var ids = $("input[name='ids[]']", $form);
-        var postParams = [];
-        $.each(ids, function(i) {
-            postParams[i] = encodeURIComponent(this.value);           
+
+        $('a.listEdit').unbind('click').click(function(){
+            var $form = $('#modalDialog > form[name="bulkSave"]');
+            var id = this.id.substr('listEdit'.length);
+            var ids = $("input[name='ids[]']", $form);
+            var postParams = [];
+            $.each(ids, function(i) {
+                postParams[i] = encodeURIComponent(this.value);
+            });
+            hideLightbox();
+            var $dialog = getLightbox('MyResearch', 'ListEdit', id, null, this.title, 'Cart', 'Save', '', {save: 1, ids: postParams});
+            return false;
         });
-        hideLightbox();
-        var $dialog = getLightbox('MyResearch', 'ListEdit', id, null, this.title, 'Cart', 'Home', '', {save: 1, ids: postParams});
-        return false;
-    });
+    }
 }
 
 function registerAjaxBulkDelete() {

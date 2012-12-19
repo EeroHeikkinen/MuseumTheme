@@ -9,8 +9,8 @@ div.breadcrumbinner a, div.breadcrumbinner em, div.breadcrumbinner span, div.bre
     color: #ffffff;
     height: 30px;
     padding: 0 8px;
+    font-size: .9em;
     font-style: normal;
-    font-size: 90%;
 }
 
 div.breadcrumbs {
@@ -28,9 +28,12 @@ div.breadcrumbs span {
     overflow: hidden;
     padding: 0;
     width: 10px;
-    font-size: 0pt;
-    line-height: 0px;
-
+    /* To hide &gt; in breadscumbs. Could it be removed otherway? */
+    color: transparent;
+/*    
+    font-size: 0;
+    line-height: 0;
+*/
     filter: alpha(opacity=40);
     opacity: 0.4;
 }

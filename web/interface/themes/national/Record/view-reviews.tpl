@@ -1,3 +1,5 @@
+<!-- START of: Record/view-reviews.tpl -->
+
 {foreach from=$reviews item=providerList key=provider}
   {foreach from=$providerList item=review}
     {if $review.Summary}
@@ -21,3 +23,5 @@
 {foreachelse}
 {translate text="No reviews were found for this record"}.
 {/foreach}
+
+<!-- END of: Record/view-reviews.tpl -->
