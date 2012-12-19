@@ -20,7 +20,6 @@
 	  <li>The National Archives of Finland</li>
 	  <li>The National Library of Finland</li>
 	  <li>Lusto The Finnish Forest Museum</li>
-	  <li>Oiva Libraries</li>
 	  <li>The Hunting Museum of Finland</li>
 	  <li>Tuusula Art Museum</li>
 	  <li>Finnish National Gallery</li>
