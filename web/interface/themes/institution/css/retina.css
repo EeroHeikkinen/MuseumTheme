@@ -15,11 +15,11 @@ only screen and (min-device-pixel-ratio: 1.5) {
         background-size: 190px 60px;
     }
     .footer .KDK-logo {
-        background: url('../images/kdk-logo_small@2x.png');
+        background: url('../images/kdk-logo_small@2x.png') no-repeat left center;
         background-size: 60px 31px;
     }
     .footer .vufind-logo {
-        background: url('../images/vufind-logo_small@2x.png');
+        background: url('../images/vufind-logo_small@2x.png') no-repeat left center;
         background-size: 88px 33px;    
     }
 }
