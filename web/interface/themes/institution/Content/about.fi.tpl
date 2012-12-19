@@ -20,7 +20,6 @@
 	  <li>Kansallisarkisto</li>
 	  <li>Kansalliskirjasto</li>
 	  <li>Lusto-metsämuseo</li>
-	  <li>Oiva-kirjastot</li>
 	  <li>Suomen metsästysmuseo</li>
 	  <li>Tuusulan taidemuseo</li>
 	  <li>Valtion taidemuseo</li>
