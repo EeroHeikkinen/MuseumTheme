@@ -25,6 +25,8 @@ body {
     behavior: url(css/css3pie/PIE.php)*/; /* for IE */
 }
 
+/*** Beta banner ***/
+
 #beta-wrapper {
     position: absolute;
 }
@@ -37,17 +39,8 @@ body {
     top: 25px;
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-only screen and (moz--min-device-pixel-ratio: 1.5),
-only screen and (-o-min-device-pixel-ratio: 3/2),
-only screen and (min-device-pixel-ratio: 1.5) {
-    #beta-banner {
-        background: url('../images/beta-overlay@2x.png');
-        background-size: 80px 73px;
-    }
-}
+/*** Work-In-Progress + IE 6,7 disclaimers (DO NOT REMOVE IE BANNER) ***/
 
-/*** work-in-progress disclaimer ***/
 .w-i-p, .ie {
     width: 100%;
     padding: .1em 0;

@@ -58,6 +58,8 @@
     {css media="screen, projection" filename="480mobilewide.css"}
     {css media="screen, projection" filename="320mobile.css"}
     {css media="screen, projection" filename="settings.css"}
+    {* Load retina style sheet last *}
+    {css media="screen, projection" filename="retina.css"}
     
     {css media="print" filename="print.css"}
     {if $dateRangeLimit}
