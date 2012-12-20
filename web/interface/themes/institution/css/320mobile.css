@@ -24,14 +24,11 @@ px      62    136    210    284    */
         padding: 0 0 36px 0;
     }
 
-    .w-i-p, .mainContent {
+    .w-i-p {
+       font-size: 11px;
         margin: 0;
         padding: 0 4px;
         width: 312px;
-    }
-
-    .w-i-p {
-        font-size: 11px;
     }
 
     .container {
@@ -49,10 +46,10 @@ px      62    136    210    284    */
         margin: 0;
     }
     #logo {
-        margin: 18px auto;
+        margin: 0 auto;
     }
     #searchFormHeader {
-        padding-top: 1em;
+        padding-top: 1.3em;
         width: 320px;
     }
     div.searchHomeForm div.searchform,
@@ -136,21 +133,25 @@ px      62    136    210    284    */
     .navigationMenu ul li a {
         padding: 8px 0 0;
     }
+    .mainContent {
+        margin: 0 24px;
+        width: 272px;
+    }
     .homeCustomContent {
         padding: 0 0 2em;
     }
     .homeCustomContent .homeCustomCol1 {
         font-size: .846em;
         margin: 0;
-        padding: 0 14px;
-        width: 292px;
+        padding: 0 16px 1em 20px;
+        width: 284px;
     }
     .homeCustomContent .homeCustomCol2 {
         clear: left;
         float: none;
         margin: 0;
-        padding: 1em 14px;
-        width: 292px;
+        padding: 1em 16px 1em 20px;
+        width: 284px;
     }
     .homeCustomContent .homeCustomCol2 ul {
         margin: 0 auto;
@@ -158,16 +159,21 @@ px      62    136    210    284    */
     }
     .homeCustomContent .homeCustomCol2 ul li {
         float: left;
-        margin: 0.5em 0 0.5em 10px;
+        margin: 0.5em 6px 0.5em 0;
         width: 136px;
     }
 
     .module-Content .main {
         padding-left: 0;
     }
+/*
     .module-Content .mainContent {
         width: 298px;
         margin-left: 0;
+    }
+*/
+    .module-Content .pageMenu, .module-Feedback .pageMenu {
+        margin: 0;
     }
     .module-Content dl.Content pre {
        width: 274px;
