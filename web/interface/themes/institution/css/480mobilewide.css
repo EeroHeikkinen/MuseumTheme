@@ -18,7 +18,7 @@ px      62    136    210    284    358    432   */
         padding: 0 0 48px;
     }
 
-    .w-i-p, #resultList, .mainContent {
+    .w-i-p, #resultList {
         margin: 0;
         padding: 0 6px;
         width: 468px;
@@ -40,16 +40,13 @@ px      62    136    210    284    358    432   */
         padding: 0;
     }
     div.searchHomeContent {
-        padding: 3em 0 0;
+        padding: 2em 0 0;
     }
-/*
-    div.searchHomeLogo img {
-        width:70%;
-        margin: 0 auto;
+    .searchHomeLogo {
+        margin: 0 auto 2em;
     }
-*/
     #logo {
-        margin: 5px 143px 19px;
+        margin: 0 143px 21px;
     }
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm {
         margin: 0 auto;
@@ -86,7 +83,7 @@ px      62    136    210    284    358    432   */
         line-height: 1em;
     }
     .advanced-link-wrapper {
-        margin-bottom: .6em;
+        margin: .2em 0 .6em;
     }
 
     .keepFilters {
@@ -109,6 +106,10 @@ px      62    136    210    284    358    432   */
     }
     .navigationMenu ul li a {
         padding: 6px 0 0;
+    }
+    .mainContent {
+        margin: 0 18px;
+        width: 444px;
     }
     .homeCustomContent {
         padding: 0 0 2em;
@@ -140,9 +141,14 @@ px      62    136    210    284    358    432   */
     .module-Content .main {
         padding-left: 0;
     }    
+/*
     .module-Content .mainContent {
         width: 456px;
         margin-left: 0;
+    }
+*/
+    .module-Content .pageMenu, .module-Feedback .pageMenu {
+        margin: 0;
     }
     .module-Content .helpMenu {
         margin-top: 1em;
