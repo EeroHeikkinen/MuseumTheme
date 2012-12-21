@@ -78,6 +78,11 @@ px      62    136    210    284    358    432   */
         -moz-border-radius: 0 6px 6px 0;
         -webkit-border-radius: 0 6px 6px 0;
     }
+    #searchForm_searchButton:hover {
+        background: url("../images/searchbox.png") no-repeat scroll -260px -38px transparent;
+        color: #333333;
+}
+
     .searchbox .dropdown dd p {
         font-size: 1em;
         line-height: 1em;
