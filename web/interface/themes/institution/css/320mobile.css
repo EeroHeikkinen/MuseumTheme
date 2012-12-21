@@ -39,7 +39,10 @@ px      62    136    210    284    */
         border-radius: 5px 5px 5px 5px*/;
     }
     div.searchHomeContent {
-        padding: 3em 0 0 0;
+        padding: 2.5em 0 0;
+    }
+    .searchHomeLogo {
+        margin-bottom: 1.5em;
     }
     #logoHeader {
         width: 320px;
