@@ -43,6 +43,8 @@ px      62    136    210    284    358    432   */
         padding: 2em 0 0;
     }
     .searchHomeLogo {
+        background: url("../images/finna-logo_cyan-80percent.png") no-repeat scroll center center transparent;
+        height: 132px;
         margin: 0 auto 2em;
     }
     #logo {
@@ -402,7 +404,7 @@ px      62    136    210    284    358    432   */
         font-size: .9em;
     }
 
-    #advancedSearchWrapper, #sliderContainer {
+    .main, #sliderContainer {
         padding: 0 6px;
     }
 

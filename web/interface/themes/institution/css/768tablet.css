@@ -180,7 +180,7 @@ px      62    136    210    284    358    432    506    580    654    728   */
         margin-top: .5em;
     }
 
-    #advancedSearchWrapper, #sliderContainer {
+    .main, #sliderContainer {
         padding: 0 6px;
     }
 
