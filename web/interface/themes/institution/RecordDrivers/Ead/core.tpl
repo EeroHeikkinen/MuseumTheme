@@ -131,6 +131,36 @@
     {/foreach}    
     {/if}
 
+    {if $coreNonPresenterAuthors}
+    <tr valign="top" class="recordAuthors">
+      <th>{translate text='Authors'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$coreNonPresenterAuthors item=field name=loop}
+          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if $corePresenters.presenters or $corePresenters.details}
+    <tr valign="top" class="recordPresenters">
+      <th>{translate text='Presenters'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$corePresenters.presenters item=field name=loop}
+          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+      {foreach from=$corePresenters.details item=detail name=loop}
+          <br />
+          {$detail|escape}
+      {/foreach}        
+        </div>
+      </td>
+    </tr>
+    {/if}
+
     {if !empty($coreAlternativeTitles)}
     <tr valign="top" class="recordAltTitles">
       <th>{translate text='Other Titles'}: </th>
@@ -226,6 +256,31 @@
       </td>
     </tr>
     {/if}
+
+    {if !empty($coreGeographicSubjects)}
+    <tr valign="top" class="recordGeographicSubjects">
+      <th>{translate text='Geographic Subjects'}: </th>
+      <td>
+        <div class="truncateField">
+        {foreach from=$coreGeographicSubjects item=field name=loop}
+        <div class="subjectLine">
+          {assign var=subject value=""}
+          {foreach from=$field item=subfield name=subloop}
+            {if !$smarty.foreach.subloop.first} &gt; {/if}
+            {if $subject}
+              {assign var=subject value="$subject $subfield"}
+            {else}
+              {assign var=subject value="$subfield"}
+            {/if}
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Geographic" class="subjectHeading">{$subfield|escape}</a>
+          {/foreach}
+        </div>
+        {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
     {if !empty($corePhysicalLocation)}
     <tr valign="top" class="recordPhysicalLocation">
       <th>{translate text='Location'}: </th>
