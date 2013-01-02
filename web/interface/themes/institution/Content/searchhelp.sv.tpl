@@ -166,7 +166,7 @@
     <p><i>Kombinera sökgrupper med <strong>Alla grupper (AND)</strong>.</i></p>
   </dd>
 </dl>
-<p style="margin-top: 3em;"><a href="#" onClick="history.go(-1);return false;">&laquo; Hem</a></p>
+<p style="margin-top: 3em;"><a href="{$path}">&laquo; Hem</a></p>
 </div>
 
 <!-- END of: Content/searchhelp.sv.tpl -->

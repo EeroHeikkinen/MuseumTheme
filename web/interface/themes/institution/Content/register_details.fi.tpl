@@ -78,7 +78,7 @@ Tarkistaaksesi, mitä henkilötietoja sinusta on kerätty palvelimeen, ota yhtey
 Ota yhteys kotiorganisaatioosi, jos kotiorganisaatiostasi noudettavissa henkilötiedoissa on virheitä. Tarvittaessa voit ottaa yhteyttä em. yhteyshenkilöön.</p>
 
 
-<p style="margin-top: 3em;"><a href="#" onClick="history.go(-1);return false;">&laquo; Etusivulle</a></p>
+<p style="margin-top: 3em;"><a href="{$path}">&laquo; Etusivulle</a></p>
 </div>
 
 <!-- END of: Content/register_details.fi.tpl -->

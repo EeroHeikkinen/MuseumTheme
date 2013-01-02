@@ -17,7 +17,7 @@ Valtion taidemuseo<br />
 Vaski-kirjastot<br />
 </p>
 
-<p style="margin-top: 3em;"><a href="#" onClick="history.go(-1);return false;">Takaisin etusivulle</a></p>
+<p style="margin-top: 3em;"><a href="{$path}">Takaisin etusivulle</a></p>
 *}
 </div>
 

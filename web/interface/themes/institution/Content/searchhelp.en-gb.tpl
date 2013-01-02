@@ -1,4 +1,4 @@
-<!-- START of: Content/searchhelp.en-gb.tpl -->
+<!-- START of: Content/searchhelp.fi.tpl -->
 
 <h1>Search Tips</h1>
 <ul class="pageMenu">
@@ -176,7 +176,7 @@
   </dd>
 </dl>
 
-<p style="margin-top: 3em;"><a href="#" onClick="history.go(-1);return false;">&laquo; Home</a></p>
+<p style="margin-top: 3em;"><a href="{$path}">&laquo; Home</a></p>
 </div>
 
-<!-- END of: Content/searchhelp.en-gb.tpl -->
+<!-- END of: Content/searchhelp.fi.tpl -->
