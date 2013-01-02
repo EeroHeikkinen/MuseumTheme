@@ -7,7 +7,7 @@
 <p style="margin-top: 1em;">
 </p>
 
-<p style="margin-top: 3em;"><a href="{$path}">Takaisin etusivulle</a></p>
+<p style="margin-top: 3em;"><a href="{$path}/">{translate text="To Home"}</a></p>
 *}
 </div>
 

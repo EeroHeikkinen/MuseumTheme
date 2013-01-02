@@ -22,7 +22,7 @@
 <p>Joidenkin hakutulosten kohdalla Finnassa esitetään metatietoihin liittyvän digitaalisen sisällön kuva, esimerkiksi kuva museoesineestä, taideteoksesta, valokuvasta tai kirjan kannesta. Näihin ns. esikatselukuviin voi liittyä käytön rajoituksia samalla tavalla kuin muilla sivustoilla oleviin sisältöihin.</p>
 
 
-<p style="margin-top: 3em;"><a href="{$path}">&laquo; Etusivulle</a></p>
+<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 
 </div>
 

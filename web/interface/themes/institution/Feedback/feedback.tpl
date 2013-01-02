@@ -47,7 +47,7 @@
 {else}
 {translate text="feedback_thankyou"}
 {/if}
-<p style="margin-top: 6em;"><a href="{$path}">&laquo; {translate text="To Home"}</a></p>
+<p style="margin-top: 6em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 </div>
 
 <!-- END of: Feedback/feedback.tpl -->

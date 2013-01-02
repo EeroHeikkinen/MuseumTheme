@@ -31,7 +31,7 @@
 
 <p>Lisätietoa Finnasta on Kansallinen digitaalinen kirjasto -hankkeen verkkosivuilla osoitteessa <a href="http://www.kdk.fi">www.kdk.fi</a></p>
 
-<p style="margin-top: 3em;"><a href="{$path}">&laquo; Etusivulle</a></p>
+<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 
 </div>
 
