@@ -62,7 +62,7 @@ class NewItem extends Action
         // Read in search-specific configurations:
         $searchSettings = getExtraConfigArray('searches');
 
-        if (count($_GET) > 2) {
+        if (isset($_GET['range'])) {
             // Initialise from the current search globals
             $searchObject = SearchObjectFactory::initSearchObject();
             $searchObject->init();
