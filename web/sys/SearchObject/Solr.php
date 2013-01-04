@@ -373,6 +373,10 @@ class SearchObject_Solr extends SearchObject_Base
                 // Only get what's needed:
                 $this->fields = array('id, title, author, format, issn' );
             }
+            // or a facet query for new items
+            if ($action == 'JSON_FacetsNewItem') {
+                $this->searchType = 'newitem';
+            }
         }
 
         // If a query override has been specified, log it here
