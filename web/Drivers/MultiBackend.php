@@ -737,6 +737,7 @@ class MultiBackend implements DriverInterface
                 'HMACKeys' => 'id'
             );
         case 'Renewals':
+        case 'CallSlips':
             return Array();
         default:
             error_log("MultiBackend: unhandled getConfig function: '$function'");
