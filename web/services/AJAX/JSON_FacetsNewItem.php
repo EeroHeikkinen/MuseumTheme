@@ -39,23 +39,5 @@ require_once 'JSON_Facets.php';
 
 class JSON_FacetsNewItem extends JSON_Facets
 {
-    /**
-     * Initialise search object
-     *  
-     * @return object Search Object
-     */
-    protected function initSearchObject()
-    {
-        // Initialize from the current search globals
-        $searchObject = SearchObjectFactory::initSearchObject();
-        $searchObject->init();
-        
-        // Set query from the range parameter
-        $days = $_GET['range'];
-        $query = 'last_indexed:[' . gmdate('Y-m-d\TH:i:s\Z', strtotime("-$days day 00:00:00")) . ' TO *]';
-        $searchObject->setBasicQuery($query);
-        
-        return $searchObject;
-    }
-
+    // This class only exists so that we can have a separate action for new item facets
 }

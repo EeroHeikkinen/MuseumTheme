@@ -47,7 +47,9 @@ class JSON_Facets extends JSON
      */
     public function getFacets()
     {
-        $searchObject = $this->initSearchObject();
+        // Initialize from the current search globals
+        $searchObject = SearchObjectFactory::initSearchObject();
+        $searchObject->init();
         
         $prefix = explode('/', isset($_REQUEST['facetPrefix']) ? $_REQUEST['facetPrefix'] : '', 2);
         $prefix = isset($prefix[1]) ? $prefix[1] : $prefix[0];
@@ -96,18 +98,5 @@ class JSON_Facets extends JSON
         }
         
         $this->output($facets, JSON::STATUS_OK);
-    }
-
-    /**
-     * Initialise search object
-     *  
-     * @return object Search Object
-     */
-    protected function initSearchObject()
-    {
-        // Initialize from the current search globals
-        $searchObject = SearchObjectFactory::initSearchObject();
-        $searchObject->init();
-        return $searchObject;
     }
 }

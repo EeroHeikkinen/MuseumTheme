@@ -112,10 +112,6 @@ class NewItem extends Action
                 $resultPages = 10;
             }
             if (isset($configArray['Site']['indexBasedNewItems']) && $configArray['Site']['indexBasedNewItems']) {
-                $days = $_GET['range'];
-                $query = 'last_indexed:[' . gmdate('Y-m-d\TH:i:s\Z', strtotime("-$days day 00:00:00")) . ' TO *]';
-                $searchObject->setBasicQuery($query);
-
                 // Build RSS Feed for Results (if requested)
                 if ($searchObject->getView() == 'rss') {
                     // Throw the XML to screen
