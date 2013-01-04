@@ -80,6 +80,10 @@ class LidoRecord extends IndexRecord
         if (in_array('Image', $this->getFormats()) && $this->getSubtitle() == '') {
             $interface->assign('coreSubtitle', $this->getDescription());
         }
+        $interface->assign('coreSubjectDates', $this->getSubjectDates());
+        $interface->assign('coreSubjectPlaces', $this->getSubjectPlaces());
+        $interface->assign('coreSubjectDetails', $this->getSubjectDetails());
+        
         if (isset($this->fields['measurements'])) {
             $interface->assign('coreMeasurements', $this->fields['measurements']);
         }
@@ -155,6 +159,9 @@ class LidoRecord extends IndexRecord
             $mainFormat = $mainFormat[0];
         } else {
             $mainFormat = '';
+        }
+        if (isset($this->fields['main_date_str'])) {
+            $interface->assign('summDate', array($this->fields['main_date_str']));
         }
         if (isset($this->fields['event_creation_displaydate_str'])) {
             if ($mainFormat == 'Image') {
@@ -291,5 +298,50 @@ class LidoRecord extends IndexRecord
     protected function getIdentifier()
     {
         return isset($this->fields['identifier']) ? $this->fields['identifier'] : array();
+    }
+    
+    /**
+     * Get subject dates
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getSubjectDates() 
+    {
+        $results = array();
+        foreach ($this->xml->xpath('lido/descriptiveMetadata/objectRelationWrap/subjectWrap/subjectSet/subject/subjectDate/displayDate') as $node) {
+            $results[] = (string)$node;
+        }
+        return $results;
+    }
+    
+    /**
+     * Get subject places
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getSubjectPlaces()
+    {
+        $results = array();
+        foreach ($this->xml->xpath('lido/descriptiveMetadata/objectRelationWrap/subjectWrap/subjectSet/subject/subjectPlace/displayPlace') as $node) {
+            $results[] = (string)$node;
+        }
+        return $results;	
+    }
+    
+    /**
+     * Get subject details
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getSubjectDetails() 
+    {
+        $results = array();
+        foreach ($this->xml->xpath("lido/descriptiveMetadata/objectIdentificationWrap/titleWrap/titleSet/appellationValue[@label='aiheen tarkenne']") as $node) {
+            $results[] = (string)$node;
+        }
+        return $results;
     }
 }

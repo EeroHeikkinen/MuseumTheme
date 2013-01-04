@@ -84,25 +84,6 @@
       </div>
       {/if}
       <div class="resultItemLine4">
-      {if $summOpenUrl || !empty($summURLs)}
-        {if $summOpenUrl}
-          <br/>
-          {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
-        {/if}
-        {foreach from=$summURLs key=recordurl item=urldesc name="urlLoop"}
-          {if $smarty.foreach.urlLoop.iteration <= 10}
-          <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
-          {/if}
-        {/foreach}
-        {if count($summURLs) > 10}
-          <br/><a href="{$url}/Record/{$summId|escape:"url"}">{math equation="x - 10" x=$summURLs|@count} {translate text='more'} ...</a>
-        {/if}
-      {elseif $summAjaxStatus}
-        <div class="status" id="status{$summId|escape}">
-          <span class="unknown" style="font-size: 8pt;">{translate text='Loading'}...</span>
-        </div>
-      {/if}
-        <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
 
    <div class="savedLists info hide" id="savedLists{$summId|escape}">
