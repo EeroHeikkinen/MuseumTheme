@@ -265,4 +265,4 @@ class ScheduledAlerts
 }
 
 $alerts = new ScheduledAlerts();
-$alerts->sendAlerts(isset($argv[1]) ? $argv[1] : '../', isset($argv[2]) ? $argv[2] : false);
+$alerts->sendAlerts(isset($argv[1]) ? $argv[1] : '..', isset($argv[2]) ? $argv[2] : false);
