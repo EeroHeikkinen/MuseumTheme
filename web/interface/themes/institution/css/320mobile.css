@@ -394,6 +394,7 @@ px      62    136    210    284    */
     #resultSide {
         width: 284px;
         margin-right: 0;
+        float: none;
     }
     .coverImages {
         width: 300px;
