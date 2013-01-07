@@ -1348,13 +1348,23 @@ dl.narrowList a {
 
 /* common styles */
 
-.toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch, .accountFavorites h3 {
+ul.recordSet .addToFavLink a, .searchtools a.mailSearch, .accountFavorites h3 {
     display:block;
     text-align:left;
     background-repeat:no-repeat;
     background-position:5px;
     padding:.5em .5em .5em 25px;
 }
+
+.toolbar li a {
+    display:block;
+    text-align:left;
+    line-height: 1.3em;
+    background-repeat:no-repeat;
+    background-position:5px 7px;
+    padding:.5em .5em .5em 27px;
+}
+
 ul.recordSet .addToFavLink a {
     background-position:5px 3px;
     padding:.1em .5em .5em 25px;
