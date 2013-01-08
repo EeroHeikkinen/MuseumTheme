@@ -1629,7 +1629,8 @@ class Voyager implements DriverInterface
     {
         $sql = "SELECT PATRON.LAST_NAME, PATRON.FIRST_NAME, " .
                "PATRON.HISTORICAL_CHARGES, PATRON_ADDRESS.ADDRESS_LINE1, " .
-               "PATRON_ADDRESS.ADDRESS_LINE2, PATRON_ADDRESS.ZIP_POSTAL, ".
+               "PATRON_ADDRESS.ADDRESS_LINE2, PATRON_ADDRESS.ZIP_POSTAL, " .
+               "PATRON_ADDRESS.CITY, PATRON_ADDRESS.COUNTRY, " .
                "PATRON_PHONE.PHONE_NUMBER, PATRON_GROUP.PATRON_GROUP_NAME " .
                "FROM $this->dbName.PATRON, $this->dbName.PATRON_ADDRESS, ".
                "$this->dbName.PATRON_PHONE, $this->dbName.PATRON_BARCODE, " .
@@ -1668,8 +1669,18 @@ class Voyager implements DriverInterface
                     if (!empty($row['ADDRESS_LINE2'])) {
                         $patron['address2'] = utf8_encode($row['ADDRESS_LINE2']);
                     }
-                    if (!empty($row['ZIP_POSTAL'])) {
-                        $patron['zip'] = utf8_encode($row['ZIP_POSTAL']);
+                    $patron['zip'] = !empty($row['ZIP_POSTAL']) ? utf8_encode($row['ZIP_POSTAL']) : '';
+                    if (!empty($row['CITY'])) {
+                        if ($patron['zip']) {
+                            $patron['zip'] .= ' ';
+                        }
+                        $patron['zip'] .= utf8_encode($row['CITY']);
+                    }
+                    if (!empty($row['COUNTRY'])) {
+                        if ($patron['zip']) {
+                            $patron['zip'] .= ', ';
+                        }
+                        $patron['zip'] .= utf8_encode($row['COUNTRY']);
                     }
                 }
             }
