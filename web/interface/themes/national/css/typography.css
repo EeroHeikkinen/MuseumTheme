@@ -3,7 +3,7 @@
 
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Helvetica neue", Arial, Helvetica, sans-serif;
     font-size: 13px; /* See size table below */
     line-height: 1.5em;
     font-weight: normal;
@@ -123,21 +123,28 @@ body { -webkit-tap-highlight-color: #bbddff; }
 
 /**** OTHERS ****/
 
+/* Header */
+#header, #header a {
+    color:#fff;
+}
+#headerMenu {
+    font-size:16px;
+}
+#header .lang {
+    font-size:12px;
+}
+.headerHomeContent h2 {
+    font-size:30px;
+    line-height:36px;
+}
+.headerHomeContent h3 {
+    font-size:20px;
+    line-height:36px;
+}
 /* jQuery-ui modification */
 .ui-widget {
     font-family: inherit;
     font-size: inherit;
-}
-
-/* Top right language selection */
-div.lang {
-    line-height: 30px;
-}
-div.lang li, div.lang a {
-    font-style: normal;
-}
-div.lang li {
-    font-size: 90%;
 }
 
 /* select custom dropdown */
@@ -440,4 +447,12 @@ span.dynatree-node {
 .button {
     font-family: arial;
     font-size: 14px;
+}
+
+/* Color classes */
+.color-turquoise {
+    color:rgb(173, 233, 219);
+}
+.color-finnaBlue {
+    color:rgb(0,163,181);
 }

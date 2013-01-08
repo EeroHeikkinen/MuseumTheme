@@ -8,12 +8,13 @@
     text-align: left;
 }
 .header-home {
-    background-color: #f3f3f3;
-    border-bottom: 1px solid #ddd;
+    background: url("../images/header_home_1.jpg") 50% 0 no-repeat;
+    width:1196px;
+    margin:0 auto;
 }
 
-.main-home {              // Fix for bleeding white background on some mobile
-    overflow-x: hidden;   // platforms apparently due to homeFacers.
+.main-home {              /* Fix for bleeding white background on some mobile */
+    overflow-x: hidden;   /* platforms apparently due to homeFacers.*/
 }
 
 /*** Logo ***/

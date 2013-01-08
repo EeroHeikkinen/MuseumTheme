@@ -101,6 +101,9 @@
     {* Load common javascript functions *}
     {js filename="common.js"}
     
+    {* Load national theme functions *}
+    {js filename="national.js"}
+    
     {* Load QRCodes *}
     {js filename="qrcode.js"} 
 
@@ -174,86 +177,28 @@ $(document).ready(function() {
       <!--[If lt IE 8]>
         <div class="ie">{translate text="ie_disclaimer"}</div>
       <![endif]-->
-      
+      <!--
       <div id="beta-wrapper">
           <a id="beta-banner" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" title="{translate text="Home"}"></a>
       </div>
-      
-      <div class="breadcrumbs">
-      {if $showBreadcrumbs}
-        <div class="breadcrumbinner">
-          <a href="{$url}">{translate text="Home"}</a> <span></span>
-          {include file="$module/breadcrumbs.tpl"}
-        </div>
-      {/if}
-        <div class="lang right">
-          {if is_array($allLangs) && count($allLangs) > 1}
-              <ul>
-              {foreach from=$allLangs key=langCode item=langName}
-                {if $userLang == $langCode}
-                <li class="strong">{translate text=$langName}</li>
-                {else}
-                <li><a href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"|encodeAmpersands}">{translate text=$langName}</a></li>
-                {/if}
-              {/foreach}
-              </ul>
-          {/if}
-        </div>
+      -->
+
+      <div id="header" class="header{if !$showTopSearchBox}-home{/if} {if $module!='Search'}header{$module}{/if} clear">
+        <div class="content">{include file="header.tpl"}</div>
       </div>
 
-      <div class="header{if !$showTopSearchBox}-home{/if} {if $module!='Search'}header{$module}{/if} clear">
-        {include file="header.tpl"}
-        <div class="clear"></div>
-      </div>
-      
-      {* if !$showTopSearchBox}
-      <div class="navigationMenu navigationMenu-home">
-      {include file="Search/navigation.tpl"} 
-      </div>
-      {/if *}
-      
-      <div class="main{if !$showTopSearchBox}-home{/if} clear">
-        {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI || $useMetaLib}
-        <div id="toptab">
-          <ul>
-            {if $useSolr}
-            <li{if $module != "WorldCat" && $module != "Summon" && $module != "EBSCO" && $module != "PCI" && $module != "MetaLib"} class="active"{/if}><a href="{$url}/Search/Results?lookfor={$lookfor|escape:"url"}">{translate text="University Library"}</a></li>
-            {/if}
-            {if $useWorldcat}
-            <li{if $module == "WorldCat"} class="active"{/if}><a href="{$url}/WorldCat/Search?lookfor={$lookfor|escape:"url"}">{translate text="Other Libraries"}</a></li>
-            {/if}
-            {if $useSummon}
-            <li{if $module == "Summon"} class="active"{/if}><a href="{$url}/Summon/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
-            {/if}
-            {if $useEBSCO}
-            <li{if $module == "EBSCO"} class="active"{/if}><a href="{$url}/EBSCO/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
-            {/if}
-            {if $usePCI}
-            <li{if $module == "PCI"} class="active"{/if}><a href="{$url}/PCI/Search?lookfor={$lookfor|escape:"url"}">{translate text="Journal Articles"}</a></li>
-            {/if}
-            {if $useMetaLib}
-            <li{if $module == "MetaLib"} class="active"{/if}><a href="{$url}/MetaLib/Search?lookfor={$lookfor|escape:"url"}">{translate text="MetaLib Databases"}</a></li>
-            {/if}
-          </ul>
-        </div>
-        {/if}
+      <div id="main" class="main{if !$showTopSearchBox}-home{/if} clear">
         {include file="$module/$pageTemplate"}
-        
-        {* if $showTopSearchBox}
-        <div class="navigationMenu">
-          {include file="Search/navigation.tpl"} 
-        </div>
-        {/if *}
       </div>
-      
-        <div class="footer clear">
-          {include file="footer.tpl"}
-        </div>
+
+      <div id="footer" class= "clear">
+        <div class="content"> append{include file="footer.tpl"}</div>
+      </div>
 
     </div> {* End doc *}
 
-{include file="piwik.tpl"}
-{include file="AJAX/keepAlive.tpl"}
+    {include file="piwik.tpl"}
+    {include file="AJAX/keepAlive.tpl"}
   </body>
 </html>
 {/if}

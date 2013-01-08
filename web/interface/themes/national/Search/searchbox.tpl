@@ -11,7 +11,7 @@
     AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"</span>
 {else}
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
-    <div>
+    <div class="searchFormWrapper">
       <div class="overLabelWrapper">
         <label for="searchForm_input" id="searchFormLabel" class="labelOver normal">{translate text="Find"}&hellip;</label>
         <input id="searchForm_input" type="text" name="lookfor" size="22" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" title='{translate text="Find"}&hellip;' />

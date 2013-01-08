@@ -15,10 +15,9 @@ div.breadcrumbinner a, div.breadcrumbinner em, div.breadcrumbinner span, div.bre
 
 div.breadcrumbs {
     overflow: hidden;
-    padding: 0;
+    padding: 0 0 12px;
     height: 30px;
     line-height: 30px;
-    background-color: #636363;
 }
 div.breadcrumbs a, div.breadcrumbs li {
     color: #ffffff;

@@ -7,22 +7,21 @@ cols    1    2     3     4     5     6     7     8     9     10     11     12   
 px      62   136   210   284   358   432   506   580   654   728    802    876    950  */
  
 body {
-    margin: 0 auto;
-    width: 960px;
-    padding: 0 24px 48px;
-    background-color: #ffffff;
-    color: #3c3c3c;
+    margin:0;
+    padding: 0;
+    background-color: #000;
+    color: rgb(70,70,70);
     -webkit-text-size-adjust: 100%;
 }
 .container {
-    width: 960px; /* make this match the body width above */
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: none/*1px solid #dddddd;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-
-    behavior: url(css/css3pie/PIE.php)*/; /* for IE */
+    width:100%;
+    margin:0;
+}
+.content {
+    width:950px;
+    overflow:auto;
+    position:relative;
+    margin:0 auto;
 }
 
 #beta-wrapper {
@@ -80,6 +79,9 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
 }
 
 /*** Languages ***/
+div.lang {
+    float:right;
+}
 div.lang ul {
     margin: 0 .4em;
 }
@@ -107,6 +109,7 @@ img.alignleft {
 .clear {
     clear: both;
 }
+
 .clearer {
     clear: both;
 }
@@ -115,9 +118,6 @@ img.alignleft {
 }
 .floatright {
     float: right;
-/*
-    margin-top: -.6em;
-*/
 }
 /* class to make stuff "invisible" but still readable by screen readers */
 .offscreen {
@@ -138,15 +138,6 @@ div.sidegroup {
     padding-bottom: 1em;
     padding-left: 20px;
 }
-.main {
-    padding-top: .6em;
-}
-.footer {
-    border-top: 1px solid #dddddd;
-}
-.breadcrumbs {
-    padding: .8em 0;
-}
 
 .openurlIframe {
     width: 100%;
@@ -159,15 +150,71 @@ div.sidegroup {
     margin: 0 12px 3em 12px;
 }
 
-/*** Header ***/
+/*** Sections ***/
 
-#logo {
-    background: url("../images/finna_logo_small.png") no-repeat scroll center center transparent;
-    height: 60px;
-    width: 190px;
-    margin: 20px;
-    display: block;
+.home-section.first {
+    background:rgb(216,244,237);
 }
+
+/*** Header ***/
+#header {
+    border:none;
+    background-color:#000;
+}
+#header .content {
+    background: -moz-linear-gradient(left, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,.7) 100%), -moz-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 90px);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,.7)), color-stop(10%,rgba(0,0,0,0)), color-stop(90%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,.7))), -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.4)), color-stop(90px,rgba(0,0,0,0)));
+    background: -webkit-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -webkit-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
+    background: -o-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -o-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
+    background: -ms-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -ms-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
+    background: linear-gradient(to right, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0px, transparent 90px) repeat-x scroll 0 0 transparent;
+    padding:0 123px;
+}
+#headerTop {
+    height:95px;
+    border-bottom:6px solid #fff;
+}
+#header #logo {
+    background: url("../images/finna_logos_white.png") repeat scroll -20px -20px transparent;
+    display: block;
+    height: 59px;
+    margin: 20px 50px 0 0;
+    float:left;
+    width: 248px;
+}
+#headerMenu {
+    float:left;
+}
+#headerMenu li {
+    float:left;
+    display:block;
+    margin-right:20px;
+}
+#headerMenu li span {
+    cursor:pointer;
+}
+#headerMenu {
+    padding:0;
+    margin:40px 0 0;
+}
+#headerMenu ul {
+    display:none;
+    position:absolute;
+    left:123px;
+    padding:35px 0 0;
+    width:950px;
+}
+
+#header .lang {
+    margin-top:42px;
+}
+.headerHomeContent h2,
+.headerHomeContent h3 {
+    margin:0;
+    padding:0;
+    width:500px;
+}
+
 #logoMetaLib {
     background: url("../images/finna-ml-logo_small.png") no-repeat scroll center center transparent;
     height: 71px;
@@ -184,10 +231,14 @@ div.sidegroup {
     margin: 20px 20px 10px;
 }
 #searchFormHeader {
-    float: left;
-    padding: 2.5em 0 .5em;
-    width: 506px;
+    padding:40px 0;
+    width:630px;
 }
+
+.header-home #searchFormHeader {
+    padding-top:170px;
+}
+
 .header, .headerRecord, .headerCollection, .headerContent, .headerAuthor {
     background-color: #f3f3f3;
     border-bottom: 1px solid #dddddd;
@@ -197,9 +248,6 @@ div.sidegroup {
 }
 .slogan {
     margin: 0 0 5px;
-/*
-    color: #4499cc;
-*/
 }
 .color_arc {
     color: #619bdd;
@@ -262,12 +310,19 @@ div.sidegroup {
     margin: 0;
 }
 
+.searchFormWrapper {
+    background:#fff;
+    border-radius:16px;
+}
+
 #searchForm input, #searchForm select, .overLabelWrapper, .styled_select { 
     float:left;
 }
 
 .overLabelWrapper {
+    left: 10px;
     position: relative;
+    top: 2px;
 }
 
 #searchFormLabel {
@@ -275,44 +330,19 @@ div.sidegroup {
     text-indent: -10000em;
     position: absolute;
     top: 7px;
-    left: 9px;
     z-index: 1;
 }
 
 #searchForm_input {
-    background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
-    color: initial;
     height: 33px;
-/*
-    width: 220px;
-*/
-    padding: 1px 24px 0 8px;
-/*
-    background-color: #ffffff;
-    color: #333333;
-    height: 14px;
-    width: 220px;
-    padding: 10px 4px 8px 8px;
-    border: 1px solid #999999;
-    border-right: 0;
-*/
-    border-radius: 6px 0 0 6px;
-    -moz-border-radius: 6px 0 0 6px;
-    -webkit-border-radius: 6px 0 0 6px;
-
+    margin: 0;
+    padding: 0;
+    background:transparent;
     behavior: url(css/css3pie/PIE.php); /* for IE */
 
 }
 
-#searchForm_input:focus {
-
-    box-shadow: 0px 0px 6px #9a9a9a;
-/*
-    -moz-box-shadow: 3px 3px 12px #555555;
-    -webkit-box-shadow: 3px 3px 12px #555555;   
-*/
-}
 
 a.clear_input {
     background: url("../images/searchbox.png") no-repeat scroll -194px -47px transparent;

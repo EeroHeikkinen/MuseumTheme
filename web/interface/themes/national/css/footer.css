@@ -1,29 +1,5 @@
 /****** Footer ******/
-
-.footer {
-    padding: .8em 12px 0;
-}
-.main-home .footer {
-    padding: .8em 24px 0;
-}
-#footerCol1, #footerCol2, #footerCol3 {
-	float:left;
-	padding-right: 12px;
-	width: 198px;
-}
-#footerCol4 {
-	float:left;
-	width: 282px;
-}
-.footer ul {
-    padding-left: 0;
-}
-a.footerLogo {
-    display: block;
-    margin-top: 1em;
-}
-a.footerLogo img {
-    margin: 0 .8em 0 0;
-    vertical-align: middle;
+#footer {
+    background:rgb(77,77,77);
 }
 
