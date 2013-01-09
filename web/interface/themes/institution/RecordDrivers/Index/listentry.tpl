@@ -38,7 +38,7 @@
     <div class="resultColumn2">
       <a href="{$url}/Record/{$listId|escape:"url"}" class="title">{$listTitle|escape}</a><br/>
       {if $listAuthor}
-        {translate text='by'}: <a href="{$url}/Author/Home?author={$listAuthor|escape:"url"}">{$listAuthor|escape}</a><br/>
+        {translate text='by'}: <a href="{$url}/Search/Results?lookfor={$listAuthor|escape:"url"}&amp;type=Author">{$listAuthor|escape}</a><br/>
       {/if}
       {if $listTags}
         <strong>{translate text='Your Tags'}:</strong>

@@ -5,14 +5,14 @@
   {if !empty($collMainAuthor)}
   <tr valign="top">
     <th>{translate text='Main Author'}: </th>
-    <td><a href="{$url}/Author/Home?author={$collMainAuthor|escape:"url"}">{$collMainAuthor|escape}</a></td>
+    <td><a href="{$url}/Search/Results?lookfor={$collMainAuthor|escape:"url"}&amp;type=Author">{$collMainAuthor|escape}</a></td>
   </tr>
   {/if}
 
   {if !empty($collCorporateAuthor)}
   <tr valign="top">
     <th>{translate text='Corporate Author'}: </th>
-    <td><a href="{$url}/Author/Home?author={$collCorporateAuthor|escape:"url"}">{$collCorporateAuthor|escape}</a></td>
+    <td><a href="{$url}/Search/Results?lookfor={$collCorporateAuthor|escape:"url"}&amp;type=Author">{$collCorporateAuthor|escape}</a></td>
   </tr>
   {/if}
 
@@ -21,7 +21,7 @@
     <th>{translate text='Other Authors'}: </th>
     <td>
       {foreach from=$collContributors item=field name=loop}
-        <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+        <a href="{$url}/Search/Results?lookfor={$field|escape:"url"}&amp;type=Author">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
       {/foreach}
     </td>
   </tr>
@@ -39,7 +39,7 @@
         <dl class="" id="narrowGroupHidden_Contributors">
           {/if}
             <dd>
-        	<a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>
+        	<a href="{$url}/Search/Results?lookfor={$field|escape:"url"}&amp;type=Author">{$field|escape}</a>
           	</dd>
         {/foreach}
         {if $smarty.foreach.loop.total > 3}<dd id="lessContributors" style="display:none;"><a href="#" onClick="lessFacets('Contributors'); return false;">{translate text='less'} ...</a></dd>{/if}

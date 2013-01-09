@@ -56,7 +56,7 @@
       <div class="resultItemLine2">
       	{if !empty($summAuthor)}
       	{translate text='by'}:
-      	<a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
+      	<a href="{$url}/Search/Results?lookfor={$summAuthor|escape:"url"}&amp;type=Author">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       	{/if}
 
       	{if $summDate}<br/>{translate text='Main Year'}: {$summDate.0|escape}{/if}

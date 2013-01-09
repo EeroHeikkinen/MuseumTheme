@@ -111,7 +111,7 @@
             {/if}
             <br/>
             {if $resource.author}
-              {translate text='by'}: <a href="{$url}/Author/Home?author={$resource.author|escape:"url"}">{$resource.author|escape}</a><br/>
+              {translate text='by'}: <a href="{$url}/Search/Results?lookfor={$resource.author|escape:"url"}&amp;type=Author">{$resource.author|escape}</a><br/>
             {/if}
             {if $resource.tags}
               {translate text='Your Tags'}:

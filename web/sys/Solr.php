@@ -1686,6 +1686,9 @@ class Solr implements IndexEngine
             }
             foreach ($result['response']['docs'] as &$doc) {
                 if (!isset($doc['dedup_data'])) {
+                    if (!isset($doc['id'])) {
+                        continue;
+                    }
                     $source = explode('.', $doc['id'], 2);
                     $source = $source[0];
                     $doc['dedup_data'] = array($source => array('id' => $doc['id']));
@@ -1696,7 +1699,7 @@ class Solr implements IndexEngine
         // Inject highlighting details into results if necessary:
         if (isset($result['highlighting'])) {
             foreach ($result['response']['docs'] as $key => $current) {
-                if (isset($result['highlighting'][$current['id']])) {
+                if (isset($current['id']) && isset($result['highlighting'][$current['id']])) {
                     $result['response']['docs'][$key]['_highlighting']
                         = $result['highlighting'][$current['id']];
                 }
