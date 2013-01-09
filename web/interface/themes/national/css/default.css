@@ -19,7 +19,6 @@ body {
 }
 .content {
     width:950px;
-    overflow:auto;
     position:relative;
     margin:0 auto;
 }
@@ -151,9 +150,12 @@ div.sidegroup {
 }
 
 /*** Sections ***/
-
 .home-section.first {
     background:rgb(216,244,237);
+    overflow:auto;
+}
+.home-section.second {
+    background:#808080;
 }
 
 /*** Header ***/
@@ -169,6 +171,7 @@ div.sidegroup {
     background: -ms-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -ms-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
     background: linear-gradient(to right, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0px, transparent 90px) repeat-x scroll 0 0 transparent;
     padding:0 123px;
+    overflow:auto;
 }
 #headerTop {
     height:95px;

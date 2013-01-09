@@ -101,6 +101,9 @@
     {* Load common javascript functions *}
     {js filename="common.js"}
     
+    {* Load SlidesJS *}
+    {js filename="slides.min.jquery.js"}
+    
     {* Load national theme functions *}
     {js filename="national.js"}
     
@@ -188,7 +191,9 @@ $(document).ready(function() {
       </div>
 
       <div id="main" class="main{if !$showTopSearchBox}-home{/if} clear">
+        {if $showTopSearchBox}<div class="content">{/if}
         {include file="$module/$pageTemplate"}
+        {if $showTopSearchBox}</div>{/if}
       </div>
 
       <div id="footer" class= "clear">

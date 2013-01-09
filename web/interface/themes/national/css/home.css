@@ -7,7 +7,7 @@
     margin: 0 auto;
     text-align: left;
 }
-.header-home {
+#header {
     background: url("../images/header_home_1.jpg") 50% 0 no-repeat;
     width:1196px;
     margin:0 auto;
@@ -129,6 +129,142 @@ div.searchHomeForm div.searchform #searchForm {
 */
 }
 
+/*** Carousel ***/
+
+#carousel {
+    position:relative;
+    text-align:center;
+    padding:15px 0;
+}
+#carousel .ribbon {
+    background: #4D4D4D;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    color: #FFFFFF;
+    float: left;
+    margin: 14px 0 0 -5px;
+    overflow:hidden;
+    padding: 6px 9px;
+    position: absolute;
+    white-space:nowrap;
+    z-index: 100;
+}
+#carousel .slides_container {
+    text-align:left;
+    width:100%;
+    height:313px;
+    overflow:hidden;
+}
+#carousel .slide ul {
+    margin:0;
+    padding:0;
+}
+#carousel .slide li {
+    position:relative;
+    float:left;
+    height:313px;
+    overflow:hidden;
+    width:230px;
+    margin-left:10px;
+}
+#carousel .slide li:first-child {
+    margin-left:0;
+}
+#carousel .slide img {
+    background:url(../images/beta-overlay.png) no-repeat 0 0 rgba(0,0,0,.1); /* Remove in production */
+    display: block;
+    height: 313px;
+    position:absolute;
+    width: 230px;
+}
+#carousel .slide .pickup-content {
+    background:url(../images/black_75.png) repeat;
+    position:relative;
+    z-index:101;
+    top:253px;
+}
+#carousel .slide .pickup-header {
+    height:60px;
+    font-weight:bold;
+}
+#carousel .slide .pickup-header span {
+    padding: 10px 12px;
+    display:block;
+}
+#carousel .slide .pickup-text {
+    padding:0 12px 10px;
+    color:#fff;
+    font-size:12px;
+}
+#carousel .slide * {
+    color:#fff;
+}
+#carousel .slide a {
+    white-space:nowrap;
+    text-decoration:underline;
+    font-weight:bold;
+}
+#carousel .slide a:hover {
+    text-decoration:none;
+}
+
+#carousel .slides_container ~ a {
+    background-image:url(../images/carousel_arrows.png);
+    height:24px;
+    width:12px;
+    display:block;
+    z-index:100;
+}
+#carousel a.prev {
+    background-position:0 0;
+    position:absolute;
+    left:-22px;
+    top:143px;
+}
+#carousel a.prev:hover {
+    background-position:0 -24px;
+}
+#carousel a.next {
+    background-position:-12px 0;
+    right:-22px;
+    top:143px;
+    position:absolute;
+}
+#carousel a.next:hover {
+    background-position:-12px -24px;
+}
+#carousel .pagination {
+    display: inline-block;
+    margin: 14px 0 0;
+    padding: 0;
+    text-align: center;
+    width: auto;
+}
+#carousel .pagination ul,
+#carousel .pagination li {
+    padding:0;
+    margin:0;
+    height:6px;
+    width:6px;
+    float:left;
+}
+    
+#carousel .pagination li {
+    margin-right:6px;
+}
+#carousel .pagination a {
+    background-image: url("../images/carousel_arrows.png");
+    background-position:8px 8px;
+    border: 0 none;
+    display: block;
+    height: 6px;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    width: 6px;
+}
+#carousel .pagination .current a {
+    background-position: -2px 8px;
+}
 
 /*** Custom content ***/
 

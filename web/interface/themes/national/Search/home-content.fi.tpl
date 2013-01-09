@@ -26,7 +26,141 @@
   </div>
 </div>
 <div class="home-section second clear">
-  <div class="content"><div></div>
+  <div class="content">
+    <div id="carousel">
+      <h2 class="ribbon">Tärppejä kokoelmista</h2>
+      <div class="slides_container">
+        <div class="slide">
+          <ul>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>De Finibus Bonorum et Malorum magni dolores, sit aspernatus.</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">» Lue lisää</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>At vero eos et accusamus et iusto odio etat ad explicabo.</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">» Lue lisää</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>Nam libero tempore, cum soluta nobis est eligendi optio cumque</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">» Lue lisää</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>Lorem ipsum</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">»Lue lisää</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="slide">
+          <ul>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>De Finibus Bonorum et Malorum magni dolores, sit aspernatus.</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">» Lue lisää</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>At vero eos et accusamus et iusto odio etat ad explicabo.</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">» Lue lisää</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>Nam libero tempore, cum soluta nobis est eligendi optio cumque</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">» Lue lisää</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <img src="">
+              <div class="pickup-content">
+                <div class="pickup-header"><span>Lorem ipsum</span></div>
+                <div class="pickup-text">
+                  Sed ut perspiciatis unde omnis iste natus error sit
+                  voluptatem accusantium doloremque laudantium, totam 
+                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
+                  et quasi architecto beatae vitae dicta sunt explicabo. 
+                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
+                  aut odit aut fugit, sed quia consequuntur magni dolores.
+                  <a href="/">»Lue lisää</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    <a class="prev" href="#"></a>
+    <a class="next" href="#"></a>
   </div>
 </div>
 <!-- END of: Search/home-content.fi.tpl -->
