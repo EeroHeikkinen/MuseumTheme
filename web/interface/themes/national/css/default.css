@@ -69,11 +69,11 @@ ul {
 
 /*** Links ***/
 a, .ui-widget-content a {
-    color: #0066cc;
+    color: #00a3b5;
     text-decoration: none;
 }
 a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
-    color: #0099ff;
+    color: #00a3b5;
     text-decoration: underline;
 }
 
@@ -147,15 +147,6 @@ div.sidegroup {
     float: left;
     width: 650px;
     margin: 0 12px 3em 12px;
-}
-
-/*** Sections ***/
-.home-section.first {
-    background:rgb(216,244,237);
-    overflow:auto;
-}
-.home-section.second {
-    background:#808080;
 }
 
 /*** Header ***/
@@ -1661,7 +1652,7 @@ ul.recordSet .addToFavLink a {
 .iconlabel { /* Common for all */
     background-repeat:no-repeat;
     background-position: left top;
-    padding:2px .5em .5em 20px;
+    padding:2px .5em .5em 21px;
     margin-right:1em;
 }
 .icon { /* If using icon only */

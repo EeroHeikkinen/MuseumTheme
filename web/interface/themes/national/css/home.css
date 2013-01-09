@@ -141,9 +141,9 @@ div.searchHomeForm div.searchform #searchForm {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
     color: #FFFFFF;
     float: left;
-    margin: 14px 0 0 -5px;
+    margin: 15px 0 0 -5px;
     overflow:hidden;
-    padding: 6px 9px;
+    padding: 5px 7px;
     position: absolute;
     white-space:nowrap;
     z-index: 100;
@@ -267,6 +267,40 @@ div.searchHomeForm div.searchform #searchForm {
 }
 
 /*** Custom content ***/
+.home-section p {
+    margin-bottom:20px;
+}
+.home-section.first {
+    background:rgb(216,244,237);
+    overflow:auto;
+}
+.home-section.first .content {
+    background: #FFFFFF;
+    overflow: auto;
+}
+.home-section.first .content > div:first-child {
+    background:rgb(216,244,237);
+    float:left;
+    width:520px;
+    padding:10px 40px 30px 0;
+}
+.home-section.first .content > div {
+    background:#fff;
+    float:right;
+    width:310px;
+    padding:10px 40px 30px;
+}
+.home-section.first ul {
+    padding:0;
+    float:left;
+    margin:0;
+}
+.home-section.first ul li {
+    padding-bottom:3px;
+}
+.home-section.second {
+    background:#808080;
+}
 
 .homeCustomContent {
     background-color: #f3f3f3;

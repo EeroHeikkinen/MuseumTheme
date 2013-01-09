@@ -41,13 +41,13 @@ function initCarousel() {
         pickupHeight = $(this).children('.pickup-content').height();
         $(this).children('.pickup-content').stop().animate({top:313-pickupHeight}, 300);
         if ($(this).index() == 0) $('#carousel h2.ribbon').stop()
-            .animate({height:0,padding:'0 9px',opacity:0}, 400);
+            .animate({height:0,padding:'0 7px',opacity:0}, 400);
     }
 
     function slideOut() {
         $(this).children('.pickup-content').stop().animate({top:253}, 300);
         if ($(this).index() == 0) $('#carousel h2.ribbon').stop()
-            .animate({height:ribbonH,padding:'6px 9px',opacity:1}, 100);
+            .animate({height:ribbonH,padding:'5px 7px',opacity:1}, 100);
     }
 
     $('#carousel li').hover(slideOver, slideOut);

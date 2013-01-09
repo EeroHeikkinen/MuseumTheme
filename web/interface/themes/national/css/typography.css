@@ -52,7 +52,7 @@ h3, .hefty, .slogan, .title /* Result list title */ {
     line-height: 1.2em;
 }
 h2, .large {
-    font-size: 1.504em;
+    font-size: 1.777em;
     line-height: 1.2em;
 }
 h1, .grand {
@@ -66,7 +66,7 @@ h1, .grand {
 h1, h2, h3, h4, h5, h6 {
     color: inherit;
     font-weight: bold;
-    margin: .75em 0 .5em;
+    margin: .75em 0 .75em;
     text-transform: none;
 }
 .tiny, .small, small, .big, .hefty, .large, .grand, .overgrand {
@@ -134,8 +134,8 @@ body { -webkit-tap-highlight-color: #bbddff; }
     font-size:12px;
 }
 .headerHomeContent h2 {
-    font-size:30px;
-    line-height:36px;
+    font-size:2.33em;
+    line-height:1.2em;
 }
 .headerHomeContent h3 {
     font-size:20px;
@@ -206,6 +206,11 @@ h2, .large {
     margin: 0 0.2em 0 0em;
 }
 
+.home-section .big {
+    font-size: 1.24em;
+    font-weight: bold;
+    line-height: 1.6em;
+}
 
 /* Misc styles */
 label.invalid {
@@ -275,9 +280,9 @@ a.subjectHeading:hover {
 
 /* Resource types */
 .iconlabel { /* Common for all */
-    line-height: 16px;
-    font-size: 8pt;
-    font-weight: normal;
+    line-height: 1.2em;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 /* Pagination */
@@ -451,8 +456,12 @@ span.dynatree-node {
 
 /* Color classes */
 .color-turquoise {
-    color:rgb(173, 233, 219);
+    color: #addfdb;
 }
 .color-finnaBlue {
-    color:rgb(0,163,181);
+    color: #00a3b5;
+}
+.color-violet,
+.color-violet:hover {
+    color:#9b26b6;
 }
