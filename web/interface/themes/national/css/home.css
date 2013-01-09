@@ -129,6 +129,20 @@ div.searchHomeForm div.searchform #searchForm {
 */
 }
 
+/*** Header text content ***/
+
+.headerHomeContent {
+    margin:0;
+    padding:0;
+    width:500px;
+}
+.headerHomeContent h2, 
+.headerHomeContent h3 {
+    display:inline;
+    background:#4d4d4d;
+    box-shadow:0 2px 7px rgba(0, 0, 0, 0.3);
+}
+
 /*** Carousel ***/
 
 #carousel {

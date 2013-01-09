@@ -219,7 +219,7 @@ function initClearable(){
       $(".clearable").val("").change();
     };
     // change width
-    $(".clearable").width("200px").change();
+    //$(".clearable").width("200px").change();
 }
 
 function htmlEncode(value){

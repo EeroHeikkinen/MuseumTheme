@@ -162,7 +162,6 @@ div.sidegroup {
     background: -ms-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -ms-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
     background: linear-gradient(to right, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0px, transparent 90px) repeat-x scroll 0 0 transparent;
     padding:0 123px;
-    overflow:auto;
 }
 #headerTop {
     height:95px;
@@ -201,12 +200,6 @@ div.sidegroup {
 
 #header .lang {
     margin-top:42px;
-}
-.headerHomeContent h2,
-.headerHomeContent h3 {
-    margin:0;
-    padding:0;
-    width:500px;
 }
 
 #logoMetaLib {
@@ -305,18 +298,21 @@ div.sidegroup {
 }
 
 .searchFormWrapper {
-    background:#fff;
-    border-radius:16px;
+    background: url("../images/search_buttons.png") no-repeat scroll 530px 5px #FFFFFF;
+    border-radius: 16px 16px 16px 16px;
+    height: 46px;
+    position:relative;
+    width: 636px;
 }
 
-#searchForm input, #searchForm select, .overLabelWrapper, .styled_select { 
+#searchForm select, .overLabelWrapper, .styled_select { 
     float:left;
 }
 
 .overLabelWrapper {
-    left: 10px;
+    left: 12px;
     position: relative;
-    top: 2px;
+    top: 6px;
 }
 
 #searchFormLabel {
@@ -330,11 +326,11 @@ div.sidegroup {
 #searchForm_input {
     border: none;
     height: 33px;
+    width:400px;
     margin: 0;
     padding: 0;
     background:transparent;
     behavior: url(css/css3pie/PIE.php); /* for IE */
-
 }
 
 
@@ -346,29 +342,15 @@ a.clear_input {
     position: absolute;
     height: 16px;
     width: 15px;
+    text-indent:-9999px;
 }
 a.clear_input:hover {
     text-decoration: none;
 } 
-div.styled_select { /* to get rid of the unstylable down-arrow */
-/*
-    border-right: 1px solid #969696;
-    width: 145px;
-    height: 34px;
-    overflow: hidden;
-    background: none no-repeat right transparent;
-*/
-}
-.searchForm_select {
-/*
-    background: url("../images/searchselect_bg.png") transparent no-repeat;
-    border: none;
-    color: #555555;
-    cursor: pointer;
-    height: 34px;
-    width: 169px;
-    padding: 8px 9px;
-    -webkit-border-radius: 0;*/ /* to fix round left corners on mac webkit-browsers */
+
+.searchbox .styled_select {
+    position: absolute;
+    right: 82px;
 }
 
 /** Dropdown **/
@@ -422,7 +404,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     width: auto;
     min-width: 172px;
     list-style: none;
-    z-index: 10;
+    z-index: 104;
     box-shadow: 3px 3px 12px #555555;
     -moz-box-shadow: 3px 3px 12px #555555;
     -webkit-box-shadow: 3px 3px 12px #555555;
@@ -460,8 +442,11 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     width: auto;
 }
 .searchbox .dropdown dt a {
+    background: transparent;
+    border: medium none;
     height: 16px;
-    padding: 8px 3px 8px 7px;
+    padding: 15px 0;
+    width: 135px;
 }
 .searchbox .dropdown dd ul li a {
     padding: 6px 5px 6px 7px;
@@ -469,6 +454,7 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 .searchbox .dropdown dd ul li a:hover {
     padding: 5px 0 5px 5px;
 }
+
 /* Search context help layer */
 .searchContextHelp {
     position: absolute;
@@ -526,29 +512,18 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 
 
 #searchForm_searchButton {
-    background: url("../images/searchbox.png") no-repeat scroll -240px -3px transparent;
-    border: none;
+    background: transparent;
+    border: medium none;
     color: #555555;
     cursor: pointer;
-    height: 34px;
-    width: 89px;
-    margin-left: 5px;
-    padding: .5em 0;
+    float: right;
+    height: 36px;
+    margin: 5px 5px 0 0;
+    padding: 0;
+    text-indent: -9999px;
+    width: 70px;
+}
 
-/*
-    background: url("../images/searchbutton_bg.png") transparent;
-    border: none;
-    color: #555555;
-    cursor: pointer;
-    height: 34px;
-    width: 89px;
-    margin-left: 5px;
-*/
-}
-#searchForm_searchButton:hover {
-    background: url("../images/searchbox.png") no-repeat scroll -240px -38px transparent;
-    color: #333333;
-}
 
 .advancedLink, .metalibLink {
     width: 136px;
