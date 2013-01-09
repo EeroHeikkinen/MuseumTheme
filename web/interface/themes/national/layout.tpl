@@ -197,7 +197,7 @@ $(document).ready(function() {
       </div>
 
       <div id="footer" class= "clear">
-        <div class="content"> append{include file="footer.tpl"}</div>
+        <div class="content"> {include file="footer.tpl"}</div>
       </div>
 
     </div> {* End doc *}

@@ -211,6 +211,13 @@ px      62    136    210    284    358    432   */
         padding: 0 18px;
         width: 124px;
     }
+    
+    #footerCol4, #footerCol5, #footerCol6 {
+        padding: 0 18px;
+        width: 124px;
+    }
+    
+    /*
     #footerCol4 {
         clear: left;
         float: none;
@@ -218,6 +225,8 @@ px      62    136    210    284    358    432   */
         padding-top: 2em;
         width: 285px;
     }  
+   */
+   
     .footer ul a, ul.similar a {
         line-height: 1.25em;
         padding: 0.5em 0;

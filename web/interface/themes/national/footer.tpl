@@ -1,7 +1,7 @@
 <!-- START of: footer.tpl -->
 
+<div class="footerWrapper">
 <div id="footerCol1">
-
   <h4>{translate text='navigation_about'}</h4>
   <ul>
     <li><a href="{$path}/Content/about">{translate text='navigation_about_finna'}</a></li>
@@ -39,20 +39,28 @@
     <li><a href="#">{translate text='FAQs'}</a></li>*}
   </ul>
 </div>
+  <div class="clear"></div>
+</div>
+  
+<div class="footerWrapper">
+<div id="footerCol4">
 
-<div id="footerCol4" class="last">
+	<a href="{$url}" class="footerLogo">{image src="finna_logo_small.png" alt="{translate text="Home"}</a>
+</div>
 
+<div id="footerCol5">
 {if $userLang=='en-gb'}
-  <a href="http://www.kdk.fi/en" class="footerLogo">{image src="kdk_logo_small.png" alt="NDL-logo"}{translate text='National Digital Library'}</a>
+  <a href="http://www.kdk.fi/en" class="footerLogo">{image src="kdk_logo_en.png" alt="NDL-logo"}</a>
 {/if}
 {if $userLang=='sv'}
-  <a href="http://www.kdk.fi/sv" class="footerLogo">{image src="kdk_logo_small.png" alt="logo"}{translate text='National Digital Library'}</a>
+  <a href="http://www.kdk.fi/sv" class="footerLogo">{image src="kdk_logo_sv.png" alt="logo"}</a>
 {/if}
 {if $userLang=='fi'}
-	<a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_small.png" alt="KDK-logo"}{translate text='National Digital Library'}</a>
+	<a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_fi.png" alt="KDK-logo"}</a>
 {/if}
-
-	<a href="http://www.vufind.org" class="footerLogo">{image src="vufind_logo_small.png" alt="vufind-logo"}www.vufind.org</a>
+</div>
+<div id="footerCol6">
+        <a href="http://www.vufind.org" class="footerLogo">{image src="vufind_logo_small.png" alt="vufind-logo"}</a>
 
     {* Comply with Serials Solutions terms of service -- this is intentionally left untranslated. *}
     {if $module == "Summon"}
@@ -61,6 +69,9 @@
     {/if}
 </div>
 <div class="clear"></div>
+</div>
+
+
 
 {literal}
 <script type="text/javascript">   

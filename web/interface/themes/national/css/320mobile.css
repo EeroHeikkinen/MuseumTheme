@@ -251,18 +251,41 @@ px      62    136    210    284    */
         font-size: 1em;
         padding: .4em 0;
     }
-    #footerCol1, #footerCol2, #footerCol3 {
+    #footerCol1 {
         margin-left: 20px;
         padding: 0;
         width: 140px;
     }
-    #footerCol4 {
+    
+    #footerCol2 {
+        margin-left: 20px;
+        padding: 0;
+        width: 140px;
+    }
+    
+    #footerCol3 {
+        clear: left;
+        margin-left: 20px;
+        padding: 0;
+        width: 140px;
+    }
+    
+    #footerCol4, #footerCol5, #footerCol6 {
+        clear: left;
+        margin-left: 20px;
+        padding: 0 0 20px 0;
+        width: 140px;
+    }
+    
+    /*#footerCol4 {
         clear: left;
         float: none;
         margin: 0 auto;
         padding-top: 1em;
         width: 280px;
-    }
+    }*/
+    
+       
     .footer ul a, ul.similar a {
         line-height: 1.25em;
         padding: 0.5em 0;
