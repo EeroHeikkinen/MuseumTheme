@@ -297,7 +297,13 @@ class UInterface extends Smarty
      */
     public function setPageTitle($title)
     {
-        $this->assign('pageTitle', translate($title));
+        global $configArray;
+        if (isset($configArray['Site']['title']) && $configArray['Site']['title']) {
+            $fullTitle = $configArray['Site']['title'] . ' - ' . translate($title);
+        } else {
+            $fullTitle = translate($title);
+        }
+        $this->assign('pageTitle', $fullTitle);
     }
 
     /**
