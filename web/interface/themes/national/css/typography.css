@@ -144,7 +144,7 @@ body { -webkit-tap-highlight-color: #bbddff; }
 }
 .headerHomeContent h3 {
     font-size:1.4em;
-    line-height: 1.4;
+    line-height: 1.5;
     margin: 0;
     padding: 0 0 2px;
 }
@@ -176,7 +176,7 @@ body { -webkit-tap-highlight-color: #bbddff; }
 }
 .searchbox .dropdown dt a p {
     color:#888; 
-    line-height: 1em;
+    line-height: 1.2em;
     font-size: 0.9em;
 }
 .searchbox .dropdown dd p {

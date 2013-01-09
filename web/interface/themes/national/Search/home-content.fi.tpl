@@ -35,7 +35,7 @@
         <div class="slide">
           <ul>
             <li>
-              <img src="valskari.jpg">
+              {image src="valskari.jpg"}
               <div class="pickup-content">
                 <div class="pickup-header"><span>Zacharias Topelius: Välskärin kertomuksia </span></div>
                 <div class="pickup-text">
@@ -47,7 +47,7 @@
               </div>
             </li>
             <li>
-              <img src="moottorisaha.jpg">
+              {image src="moottorisaha.jpg"}
               <div class="pickup-content">
                 <div class="pickup-header"><span>Moottorisaha Valmet-Stihl-BLK/105</span></div>
                 <div class="pickup-text">
@@ -60,7 +60,7 @@
               </div>
             </li>
             <li>
-              <img src="kamera.jpg">
+              {image src="kamera.jpg"}
               <div class="pickup-content">
                 <div class="pickup-header"><span>A. K. Cajanderin kamera</span></div>
                 <div class="pickup-text">
@@ -70,85 +70,21 @@
               </div>
             </li>
             <li>
-              <img src="constantinus.jpg">
+              {image src="constantinus.jpg"}
               <div class="pickup-content">
                 <div class="pickup-header"><span>Constantinus Africanus: Theorica Pantegni</span></div>
                 <div class="pickup-text">
                   Keskiaikainen latinankielinen lääketieteen oppi- ja käsikirja Theorica Pantegni on Suomen vanhin sidottu käsikirjoitus ja yksi Kansalliskirjaston 
                   kokoelman helmistä. Tämä ensimmäinen kattava latinankielinen lääketieteen yleisesitys on digitoitu ja transkriboitu eli kirjoitettu modernein kirjaimin latinaksi. 
-                  <a href="http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list ">»Hakutulokseen</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="slide">
-          <ul>
-            <li>
-              <img src="">
-              <div class="pickup-content">
-                <div class="pickup-header"><span>De Finibus Bonorum et Malorum magni dolores, sit aspernatus.</span></div>
-                <div class="pickup-text">
-                  Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam 
-                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
-                  et quasi architecto beatae vitae dicta sunt explicabo. 
-                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
-                  aut odit aut fugit, sed quia consequuntur magni dolores.
-                  <a href="/">» Lue lisää</a>
-                </div>
-              </div>
-            </li>
-            <li>
-              <img src="">
-              <div class="pickup-content">
-                <div class="pickup-header"><span>At vero eos et accusamus et iusto odio etat ad explicabo.</span></div>
-                <div class="pickup-text">
-                  Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam 
-                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
-                  et quasi architecto beatae vitae dicta sunt explicabo. 
-                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
-                  aut odit aut fugit, sed quia consequuntur magni dolores.
-                  <a href="/">» Lue lisää</a>
-                </div>
-              </div>
-            </li>
-            <li>
-              <img src="">
-              <div class="pickup-content">
-                <div class="pickup-header"><span>Nam libero tempore, cum soluta nobis est eligendi optio cumque</span></div>
-                <div class="pickup-text">
-                  Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam 
-                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
-                  et quasi architecto beatae vitae dicta sunt explicabo. 
-                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
-                  aut odit aut fugit, sed quia consequuntur magni dolores.
-                  <a href="/">» Lue lisää</a>
-                </div>
-              </div>
-            </li>
-            <li>
-              <img src="">
-              <div class="pickup-content">
-                <div class="pickup-header"><span>Lorem ipsum</span></div>
-                <div class="pickup-text">
-                  Sed ut perspiciatis unde omnis iste natus error sit
-                  voluptatem accusantium doloremque laudantium, totam 
-                  rem aperiam, eaque ipsa quae ab illo inventore veritatis
-                  et quasi architecto beatae vitae dicta sunt explicabo. 
-                  Nemo enim ipsam voluptatem quia voluptas sit aspernatur 
-                  aut odit aut fugit, sed quia consequuntur magni dolores.
-                  <a href="/">»Lue lisää</a>
+                  <a href="http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list ">» Hakutulokseen</a>
                 </div>
               </div>
             </li>
           </ul>
         </div>
       </div>
-    <a class="prev" href="#"></a>
-    <a class="next" href="#"></a>
+    <a class="prev disabled" href="#"></a>
+    <a class="next disabled" href="#"></a>
   </div>
 </div>
 <!-- END of: Search/home-content.fi.tpl -->

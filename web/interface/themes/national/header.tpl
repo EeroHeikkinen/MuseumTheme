@@ -85,7 +85,7 @@
   </div>
   {if !$showTopSearchBox}
     <div class="headerHomeContent">
-      <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">yhdellä haulla</span></h2>
+      <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">yhdellä haulla</span></h2><br>
       <h3>Yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
     </div>
   {/if}

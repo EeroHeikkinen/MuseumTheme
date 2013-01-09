@@ -29,13 +29,16 @@ function initMenu() {
 }
 
 // Front page content carousel
+// NOTE : Carousel effect disabled for now 
 function initCarousel() {
     var ribbonH = $('#carousel h2.ribbon').height();
-    $("#carousel").slides({
+    /*$("#carousel").slides({
          play: 5000,
          pause: 2500,
          hoverPause: true
     });
+    $("#carousel a.prev, #carousel a.next").removeClass('disabled');
+    */
    
     function slideOver() {
         pickupHeight = $(this).children('.pickup-content').height();

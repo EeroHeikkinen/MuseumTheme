@@ -134,6 +134,7 @@ div.searchHomeForm div.searchform #searchForm {
 .headerHomeContent {
     margin:0;
     padding:0;
+    line-height: 1.4;
     width:500px;
 }
 .headerHomeContent h2, 
@@ -227,6 +228,9 @@ div.searchHomeForm div.searchform #searchForm {
     width:12px;
     display:block;
     z-index:100;
+}
+#carousel .slides_container ~ a.disabled {
+    display:none;
 }
 #carousel a.prev {
     background-position:0 0;
