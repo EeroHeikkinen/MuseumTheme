@@ -1670,9 +1670,6 @@ ul.recordSet .addToFavLink a {
 .manuscript {background-image:url(../images/silk/report_edit.png);}
 .software {background-image:url(../images/silk/disk_multiple.png);}
 
-
-
-
 /***** Pagination *****/
 
 .pagination {
@@ -3237,100 +3234,39 @@ span.mapMarker  {
     margin: 8px 0 8px 3px;
 }
 
-/* Button styles for advanced search. May be added later to all buttons. */
-/* Edited for all buttons, search button styles are below */
+/* National theme Buttons */
 
 .button {
-    text-shadow: none;
-    color: #444444;
-    cursor: pointer;
-    padding: 6px 6px 4px 6px;
-    margin-top: 1em;
+    background: #FFFFFF;
+    border:none;
+    border-radius: 10px 10px 10px 10px;
+    color: #444;
+    cursor:pointer;
     display: inline-block;
-    background-color: #eeeeee;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f3f3f3), color-stop(1, #cccccc) );
-    background:-moz-linear-gradient( center top, #ffffff 5%, #eeeeee 100% );
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee');
-    border: 1px solid #cccccc;
-    -webkit-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
-    -moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
-    box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
-    border-radius:6px;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 6px 13px;
+    text-align: center;
     behavior: url(css/css3pie/PIE.php); /* for IE */
 }
-.button:hover {
-    text-shadow: none;
-    color: #444444;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fffffff), color-stop(1, #f3f3f3) );
-    background:-moz-linear-gradient( center top, #ffffff 5%, #f3f3f3 100% );
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f3f3f3');
-    border: 1px solid #999999;
-}
-.button:active {
-    position: relative;
-    top: 1px;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dddddd), color-stop(1, #ffffff) );
-    background:-moz-linear-gradient( center top, #dddddd 5%, #ffffff 100% );
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff');
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-}
-/*
-.button {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #80b5ea) );
-    background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
-    background-color:#bddbfa;
-    border:1px solid #84bbf3;
-    display:inline-block;
-    color:#ffffff;
-    padding:6px 24px;
-    text-decoration:none;
-    text-shadow:1px 1px 0px #528ecc;
-    border-radius:6px;
-    -moz-border-radius:6px;
-    -webkit-border-radius:6px;
-    box-shadow:inset 0px 1px 0px 0px #dcecfb;
-    -moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
 
-    behavior: url(css/css3pie/PIE.php); /* for IE */
-/*}*/
-/*
 .button:hover {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #80b5ea), color-stop(1, #bddbfa) );
-    background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
-    background-color:#80b5ea;
-}.button:active {
-    position:relative;
-    top:1px;
+    text-decoration:underline;
+    color:#444;
 }
-*/
-.searchButton {
-    padding: 0.6em 1em 0.4em 1em;
-    border:1px solid #84bbf3;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #80b5ea) );
-    background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
-    -webkit-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
-    -moz-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
-    box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
+.buttonTurquoise {
+    background: #00a3b5;
 }
-.searchButton:hover {
-    border:1px solid #669fd8;
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #bddbfa), color-stop(1, #bddbfa) );
-    background:-moz-linear-gradient( center top, #bddbfa 5%, #bddbfa 100% );
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#bddbfa');
+.buttonGrey {
+    background:#c1c1c1;
 }
-.searchButton:active {
-    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #80b5ea), color-stop(1, #bddbfa) );
-    background:-moz-linear-gradient( center top, #80b5ea 5%, #bddbfa 100% );
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80b5ea', endColorstr='#bddbfa');
+.buttonTurquoise,
+.buttonGrey,
+.button.buttonTurquoise:hover,
+.button.buttonGrey:hover {
+    color:#fff;
 }
+
 
 /* Staff view xml styles */
 .xml .re0 {

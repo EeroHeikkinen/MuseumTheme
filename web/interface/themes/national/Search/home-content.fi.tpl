@@ -116,4 +116,11 @@
     </div>
   </div>
 </div>
+<div class="home-section fourth clear">
+  <div class="content">
+    <h2 class="ribbon">Kokeile karttahakua!</h2>
+    <p class="big">Voit rajata hakuasi kartalla. Ficaecatio idit quodic te num natus et que vit in rerspernatem quiam, nonse voluptint adic. Voit rajata hakuasi kartalla. Ficaecatio idit quodic te num natus et que vit in rerspernatem quiam, nonse voluptint adic.</p>
+    <a class="button" href="">Karttahakuun</a>
+  </div>
+</div>
 <!-- END of: Search/home-content.fi.tpl -->
