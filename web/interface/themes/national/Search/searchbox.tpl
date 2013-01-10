@@ -9,7 +9,18 @@
   <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}
   {foreach from=$orFilters item=values key=filter}
     AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"</span>
+
 {else}
+  {* Load labelOver placeholder for input field *}
+  {js filename="jquery.labelOver.js"}
+  <script type="text/javascript">
+  {literal}
+      $(function(){
+          $('label').labelOver('labelOver')
+          $('.mainFocus').focus();
+      });
+  {/literal}
+  </script>
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div class="searchFormWrapper">
       <div class="overLabelWrapper">

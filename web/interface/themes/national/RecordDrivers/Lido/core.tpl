@@ -96,6 +96,27 @@ End Cover Image *}
     </td>
   </tr>
   {/if}
+  
+  {if $coreSubjectDetails}
+  <tr valign="top">
+    <th>{translate text='Subject Detail'}: </th>
+    <td>{foreach from=$coreSubjectDetails item=value}{$value|escape}<br>{/foreach}</td>
+  </tr>
+  {/if}
+  
+  {if $coreSubjectPlaces}
+  <tr valign="top">
+    <th>{translate text='Subject Place'}: </th>
+    <td>{foreach from=$coreSubjectPlaces item=value}{$value|escape}<br>{/foreach}</td>
+  </tr>
+  {/if}
+  
+  {if $coreSubjectDates}
+  <tr valign="top">
+    <th>{translate text='Subject Date'}: </th>
+    <td>{foreach from=$coreSubjectDates item=value}{$value|escape}<br>{/foreach}</td>
+  </tr>
+  {/if}
 
   {if $coreNonPresenterAuthors}
   <tr valign="top" class="recordAuthors">
@@ -103,7 +124,7 @@ End Cover Image *}
     <td>
       <div class="truncateField">
     {foreach from=$coreNonPresenterAuthors item=field name=loop}
-        <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+        <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
     {/foreach}
       </div>
     </td>
@@ -116,20 +137,9 @@ End Cover Image *}
     <td>
       <div class="truncateField">
     {foreach from=$corePresenters item=field name=loop}
-        <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+        <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
     {/foreach}
       </div>
-    </td>
-  </tr>
-  {/if}
-
-  {if !empty($corePublications)}
-  <tr valign="top" class="recordPublications">
-    <th>{translate text='Main Year'}: </th>
-    <td>
-      {foreach from=$corePublications item=field name=loop}
-        {$field|escape}<br/>
-      {/foreach}
     </td>
   </tr>
   {/if}
@@ -167,6 +177,13 @@ End Cover Image *}
   </tr>
   {/if}
 
+  {if is_array($coreMeasurements)}
+  <tr valign="top" class="recordMeasurements">
+    <th>{translate text='Measurements'}: </th>
+    <td>{foreach from=$coreMeasurements item=measurement}{$measurement|escape}<br/>{/foreach}</td>
+  </tr>
+  {/if}
+  
   <tr valign="top" class="recordFormat">
     <th>{translate text='Format'}: </th>
     <td>
@@ -180,13 +197,6 @@ End Cover Image *}
       <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
     </td>
   </tr>
-
-  {if is_array($coreMeasurements)}
-  <tr valign="top" class="recordMeasurements">
-    <th>{translate text='Measurements'}: </th>
-    <td>{foreach from=$coreMeasurements item=measurement}{$measurement|escape}<br/>{/foreach}</td>
-  </tr>
-  {/if}
 
   {if is_array($coreEvents)}
     {foreach from=$coreEvents key=eventType item=events}

@@ -31,7 +31,7 @@
 
 <p>More information on Finna is available on the website of The National Digital Library project at  <a href="http://www.kdk.fi/en">www.kdk.fi/en</a></p>
 
-<p style="margin-top: 3em;"><a href="{$path}">&laquo; Home</a></p>
+<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 
 </div>
 

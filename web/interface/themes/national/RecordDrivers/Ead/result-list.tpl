@@ -52,7 +52,7 @@
     <div class="resultHierarchyLinks">
         <span class="hierarchyDesc">{translate text='Archive Repository:'} </span>{foreach from=$summInstitutions name=loop item=institution}{translate text=$institution prefix='source_'}{if !$smarty.foreach.loop.last}, {/if}{/foreach}
         {if !empty($summOrigination)}
-          <br/><span class="hierarchyDesc">{translate text='Archive Origination:'} </span><a href="{$url}/Author/Home?author={$summOrigination|escape:"url"}">{$summOrigination|escape}</a>
+          <br/><span class="hierarchyDesc">{translate text='Archive Origination:'} </span><a href="{$url}/Search/Results?lookfor={$summOrigination|escape:"url"}&amp;type=Author">{$summOrigination|escape}</a>
         {/if}
         {if $displayFormat != 'Document/ArchiveFonds'} 
             <br/><span class="hierarchyDesc">{translate text='Archive:'} </span>{foreach from=$summHierarchyTopId name=loop key=topKey item=topId}<a href="{$url}/Collection/{$topId|escape:"url"}">{$summHierarchyTopTitle.$topKey|truncate:180:"..."|escape}</a>{if !$smarty.foreach.loop.last}, {/if}{/foreach}
