@@ -53,9 +53,7 @@ class MultiBackend implements DriverInterface
     public function __construct()
     {
         // Load Configuration for this Module
-        $this->config = parse_ini_file(
-            dirname(__FILE__) . '/../conf/MultiBackend.ini', true
-        );
+        $this->config = getExtraConfigArray('MultiBackend');
     }
     
     /**
