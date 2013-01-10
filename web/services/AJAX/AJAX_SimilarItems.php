@@ -59,6 +59,10 @@ class AJAX_SimilarItems extends Action
     {
         global $interface;
         
+        if (!isset($_REQUEST['id'])) {
+            return;
+        }
+        
         $this->db = ConnectionManager::connectToIndex();
         
         // Retrieve the record from the index
@@ -88,5 +92,3 @@ class AJAX_SimilarItems extends Action
         $interface->display('Record/similar-items.tpl');
     }
 }
-
-?>

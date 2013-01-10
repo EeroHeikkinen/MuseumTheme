@@ -154,16 +154,16 @@ class Voyager implements DriverInterface
                     = $row['ITEM_STATUS_TYPE'];
             }
             
-            if ($this->config['StatusRankings']) {
+            if (isset($this->config['StatusRankings']) && $this->config['StatusRankings']) {
                 $this->statusRankings = array_merge($this->statusRankings, $this->config['StatusRankings']);
             }
         }
 
         // Pick the first entry by default, then see if we can find a better match:
         $status = $statusArray[0];
-        $rank = $this->statusRankings[$status];
+        $rank = isset($this->statusRankings[$status]) ? $this->statusRankings[$status] : 99;
         for ($x = 1; $x < count($statusArray); $x++) {
-            if ($this->statusRankings[$statusArray[$x]] < $rank) {
+            if (isset($this->statusRankings[$statusArray[$x]]) && $this->statusRankings[$statusArray[$x]] < $rank) {
                 $status = $statusArray[$x];
             }
         }
@@ -533,12 +533,14 @@ class Voyager implements DriverInterface
     protected function getHoldingNoItemsSQL($id)
     {
         // Expressions
-        $sqlExpressions = array("null as ITEM_BARCODE", "null as ITEM_ID",
+        $sqlExpressions = array("BIB_MFHD.BIB_ID", "null as ITEM_BARCODE", "null as ITEM_ID",
                                 "MFHD_DATA.RECORD_SEGMENT", "null as ITEM_ENUM",
                                 "'N' as ON_RESERVE", "1 as ITEM_SEQUENCE_NUMBER",
                                 "'No information available' as status",
                                 "NVL(LOCATION.LOCATION_DISPLAY_NAME, " .
                                     "LOCATION.LOCATION_NAME) as location",
+                                "null as TEMP_LOCATION",
+                                "null as PERM_LOCATION",
                                 "MFHD_MASTER.DISPLAY_CALL_NO as callnumber",
                                 "MFHD_MASTER.MFHD_ID",
                                 "null as duedate"

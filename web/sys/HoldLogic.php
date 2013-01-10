@@ -199,7 +199,7 @@ class HoldLogic
                 if ($show) {
                     if ($checkHolds != false) {
                         // Is this copy holdable / linkable
-                        if ($copy['addLink']) {
+                        if (isset($copy['addLink']) && $copy['addLink']) {
                             // If the hold is blocked, link to an error page
                             // instead of the hold form:
                             $copy['link'] = (strcmp($copy['addLink'], 'block') == 0)

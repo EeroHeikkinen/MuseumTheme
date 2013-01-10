@@ -160,7 +160,7 @@ class HoldLogicTitle
                 $holdings = $this->catalog->getHolding($id);
                 $allHoldable = true;
                 foreach ($holdings as $holding) {
-                    if (!$holding['is_holdable']) {
+                    if (!isset($holding['is_holdable']) || !$holding['is_holdable']) {
                         $allHoldable = false;
                         break;
                     }
