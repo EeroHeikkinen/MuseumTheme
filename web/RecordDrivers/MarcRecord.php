@@ -1600,13 +1600,16 @@ class MarcRecord extends IndexRecord
                         break;
                     default:    
                         $classification = $this->getSubfieldArray($field, array('2'));
-                        if (empty($classification)) {
-                            continue;
+                        if (!empty($classification)) {
+                            $classification = $classification[0];
                         }
-                        $classification = $classification[0];
                         break;
                     }
-                
+                    // continue doesn't work inside the switch statement
+                    if (empty($classification)) {
+                        continue;
+                    }
+                    
                     $subfields = $this->getSubfieldArray($field, array('a', 'b'));
                     if (!empty($subfields)) {
                         $result[$classification][] = $subfields[0];
