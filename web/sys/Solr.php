@@ -387,7 +387,11 @@ class Solr implements IndexEngine
                 $options['fq'] = $filters;
             }
         }
+        // TODO: make this nicer, such as an argument to _select
+        $saveMerged = $this->_mergedRecords;
+        $this->_mergedRecords = false;
         $result = $this->_select('GET', $options);
+        $this->_mergedRecords = $saveMerged;
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
         }
@@ -419,7 +423,11 @@ class Solr implements IndexEngine
             'q' => 'id:(' . implode(' OR ', $ids) . ')',
             'rows' => count($ids)
         );
+        // TODO: make this nicer, such as an argument to _select
+        $saveMerged = $this->_mergedRecords;
+        $this->_mergedRecords = false;
         $result = $this->_select('GET', $options);
+        $this->_mergedRecords = $saveMerged;
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
         }
