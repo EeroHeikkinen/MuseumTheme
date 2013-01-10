@@ -314,6 +314,12 @@ div.searchHomeForm div.searchform #searchForm {
 .home-section.second {
     background:#808080;
 }
+.home-section.third {
+    background:#e1eff4;
+}
+.home-section.columns.third .content > div:first-child {
+    background:#e1eff4;
+}
 .home-section.third ul:first-child {
     margin-left:0;
 }
