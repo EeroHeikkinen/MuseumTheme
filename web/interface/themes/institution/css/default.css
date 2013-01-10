@@ -17,12 +17,7 @@ body {
 .container {
     width: 960px; /* make this match the body width above */
     background: none repeat scroll 0 0 #FFFFFF;
-    border: none/*1px solid #dddddd;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-
-    behavior: url(css/css3pie/PIE.php)*/; /* for IE */
+    border: none;
 }
 
 /*** Beta banner ***/
@@ -294,8 +289,6 @@ div.sidegroup {
     -moz-border-radius: 6px 0 0 6px;
     -webkit-border-radius: 6px 0 0 6px;
 
-    behavior: url(css/css3pie/PIE.php); /* for IE */
-
 }
 
 #searchForm_input:focus {
@@ -415,8 +408,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .dropdown dd ul li a img {
     color: #333333;
@@ -1026,8 +1017,6 @@ ul.recordSet li.result:hover {
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 ul.recordSet li.alt {
@@ -1761,8 +1750,6 @@ div.record {
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
-
-    behavior: url(css/css3pie/PIE.php);
 }
 */
 .recordTitle {
@@ -2459,8 +2446,6 @@ div.unavailable, div.fatalError {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 /** Open Library Subjects **/
@@ -3107,8 +3092,6 @@ div#closeContextHelp:active {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 .mobileViewLink {
@@ -3262,7 +3245,6 @@ span.mapMarker  {
     border-radius:6px;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .button:hover {
     text-shadow: none;
@@ -3300,8 +3282,6 @@ span.mapMarker  {
     box-shadow:inset 0px 1px 0px 0px #dcecfb;
     -moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
     -webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 /*}*/
 /*
 .button:hover {
