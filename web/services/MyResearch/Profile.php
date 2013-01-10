@@ -27,6 +27,7 @@
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
 require_once 'services/MyResearch/MyResearch.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * Profile action for MyResearch module
@@ -80,6 +81,8 @@ class Profile extends MyResearch
                 $interface->assign('pickup', $libs);
                 $interface->assign('profile', $result);
             }
+        } else {
+            Login::setupLoginFormVars();
         }
 
         $interface->setTemplate('profile.tpl');
