@@ -61,7 +61,7 @@
     {if !empty($coreOrigination)}
     <tr valign="top" class="recordHierarchyLinks">
       <th>{translate text='Archive Origination:'}</th>
-      <td><a href="{$url}/Author/Home?author={$coreOrigination|escape:"url"}">{$coreOrigination|escape}</a></td>
+      <td><a href="{$url}/Search/Results?lookfor={$coreOrigination|escape:"url"}&amp;type=Author">{$coreOrigination|escape}</a></td>
     </tr>
     {/if}
     {if $displayFormat != 'Document/ArchiveFonds'} 
@@ -129,6 +129,36 @@
       </td>
     </tr>
     {/foreach}    
+    {/if}
+
+    {if $coreNonPresenterAuthors}
+    <tr valign="top" class="recordAuthors">
+      <th>{translate text='Authors'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$coreNonPresenterAuthors item=field name=loop}
+          <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if $corePresenters.presenters or $corePresenters.details}
+    <tr valign="top" class="recordPresenters">
+      <th>{translate text='Presenters'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$corePresenters.presenters item=field name=loop}
+          <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+      {foreach from=$corePresenters.details item=detail name=loop}
+          <br />
+          {$detail|escape}
+      {/foreach}        
+        </div>
+      </td>
+    </tr>
     {/if}
 
     {if !empty($coreAlternativeTitles)}
@@ -226,6 +256,31 @@
       </td>
     </tr>
     {/if}
+
+    {if !empty($coreGeographicSubjects)}
+    <tr valign="top" class="recordGeographicSubjects">
+      <th>{translate text='Geographic Subjects'}: </th>
+      <td>
+        <div class="truncateField">
+        {foreach from=$coreGeographicSubjects item=field name=loop}
+        <div class="subjectLine">
+          {assign var=subject value=""}
+          {foreach from=$field item=subfield name=subloop}
+            {if !$smarty.foreach.subloop.first} &gt; {/if}
+            {if $subject}
+              {assign var=subject value="$subject $subfield"}
+            {else}
+              {assign var=subject value="$subfield"}
+            {/if}
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Geographic" class="subjectHeading">{$subfield|escape}</a>
+          {/foreach}
+        </div>
+        {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
     {if !empty($corePhysicalLocation)}
     <tr valign="top" class="recordPhysicalLocation">
       <th>{translate text='Location'}: </th>

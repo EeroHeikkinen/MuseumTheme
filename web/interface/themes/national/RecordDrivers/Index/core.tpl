@@ -95,7 +95,7 @@
       <td>
         <div class="truncateField">
       {foreach from=$coreNonPresenterAuthors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+          <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
       {/foreach}
         </div>
       </td>
@@ -108,7 +108,7 @@
       <td>
         <div class="truncateField">
       {foreach from=$corePresenters.presenters item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field.name|escape:"url"}">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+          <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
       {/foreach}
       {foreach from=$corePresenters.details item=detail name=loop}
           <br />

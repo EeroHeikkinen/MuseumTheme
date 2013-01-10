@@ -288,38 +288,71 @@ div.searchHomeForm div.searchform #searchForm {
 .home-section p {
     margin-bottom:20px;
 }
-.home-section.first {
+.home-section.columns {
     background:rgb(216,244,237);
     overflow:auto;
 }
-.home-section.first .content {
+.home-section.columns .content {
     background: #FFFFFF;
     overflow: auto;
 }
-.home-section.first .content > div:first-child {
+.home-section.columns .content > div:first-child {
     background:rgb(216,244,237);
     float:left;
     width:520px;
     padding:10px 40px 30px 0;
 }
-.home-section.first .content > div {
+.home-section.columns .content > div {
     background:#fff;
     float:right;
     width:310px;
     padding:10px 40px 30px;
 }
-.home-section.first ul {
+.home-section.columns ul {
     padding:0;
     float:left;
     margin:0;
 }
-.home-section.first ul li {
+.home-section.columns ul li {
     padding-bottom:3px;
 }
 .home-section.second {
     background:#808080;
 }
-
+.home-section.third ul:first-child {
+    margin-left:0;
+}
+.home-section.third ul {
+    width:230px;
+    margin-left:10px;
+    font-size: 1.1em;
+}
+.home-section.third li span {
+    padding:8px 0;
+    display:block;
+}
+.home-section.third li span:first-child {
+    background:#00a3b5;
+    display:block;
+    height:30px;
+    width:30px;
+    padding:0;
+    margin-right:6px;
+    float:left;
+    color:#fff;
+    text-align:center;
+    line-height:30px;
+    font-weight:bold;
+    border-radius:30px;
+    -webkit-border-radius:30px;
+    -moz-border-radius:30px;
+}
+.home-section.third li {
+    display:block;
+    clear:both;
+    margin-bottom:5px;
+    line-height:15px;
+}
 .homeCustomContent {
     background-color: #f3f3f3;
     padding: 0 24px 4em;

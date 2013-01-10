@@ -42,7 +42,7 @@ function initCarousel() {
    
     function slideOver() {
         pickupHeight = $(this).children('.pickup-content').height();
-        $(this).children('.pickup-content').stop().animate({top:313-pickupHeight}, 300);
+        $(this).children('.pickup-content').stop().animate({top:314-pickupHeight}, 300);
         if ($(this).index() == 0) $('#carousel h2.ribbon').stop()
             .animate({height:0,padding:'0 7px',opacity:0}, 400);
     }

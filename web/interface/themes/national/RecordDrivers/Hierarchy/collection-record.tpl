@@ -35,14 +35,14 @@
   {if !empty($collRecordMainAuthor)}
   <tr valign="top">
     <th>{translate text='Main Author'}: </th>
-    <td><a href="{$url}/Author/Home?author={$collRecordMainAuthor|escape:"url"}">{$collRecordMainAuthor|escape}</a></td>
+    <td><a href="{$url}/Search/Results?lookfor={$collRecordMainAuthor|escape:"url"}&type=Author">{$collRecordMainAuthor|escape}</a></td>
   </tr>
   {/if}
 
   {if !empty($collRecordCorporateAuthor)}
   <tr valign="top">
     <th>{translate text='Corporate Author'}: </th>
-    <td><a href="{$url}/Author/Home?author={$collRecordCorporateAuthor|escape:"url"}">{$collRecordCorporateAuthor|escape}</a></td>
+    <td><a href="{$url}/Search/Results?lookfor={$collRecordCorporateAuthor|escape:"url"}&type=Author">{$collRecordCorporateAuthor|escape}</a></td>
   </tr>
   {/if}
 
