@@ -347,16 +347,16 @@
       <td>
         <div class="truncateField">
           {if $displayFormat == 'Document/ArchiveItem' && !$coreDigitizedMaterial}
-            <a href="{eval var=$coreDocumentOrderLinkTemplate}">{translate text='Document Order'}<br/>            
+            <a href="{eval var=$coreDocumentOrderLinkTemplate}" target="_blank">{translate text='Document Order'}<br/>            
           {/if}
           {if $extendedAccess}
-            <a href="{eval var=$coreUsagePermissionRequestLinkTemplate}">{translate text='Usage Permission Request'}<br/>            
+            <a href="{eval var=$coreUsagePermissionRequestLinkTemplate}" target="_blank">{translate text='Usage Permission Request'}<br/>            
           {/if}
           <span class="vakkaLink">
-            <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}">{translate text="view_in_vakka"}</a><br/>
+            <a href="http://www.narc.fi:8080/VakkaWWW/Selaus.action?kuvailuTaso=AM&avain={$coreOriginationId|regex_replace:'/^.*?\-/':''|escape}" target="_blank">{translate text="view_in_vakka"}</a><br/>
           </span>
           {foreach from=$coreURLs item=desc key=currentUrl name=loop}
-            <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|translate_prefix:'link_'|escape}</a><br/>
+            <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}" target="_blank">{$desc|translate_prefix:'link_'|escape}</a><br/>
           {/foreach}
           {if $coreOpenURL}
             {include file="Search/openurl.tpl" openUrl=$coreOpenURL}
