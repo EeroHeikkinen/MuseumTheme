@@ -17,7 +17,7 @@
 
 {translate text="Link to full results"}: {$info.url}
 
-{translate text="Search Results"} {$summary.startRecord} - {$summary.endRecord} / {$info.hits}:
+{$info.recordCount} {translate text="Newest Results"}:
 
 {foreach from=$recordSet item=record name="recordLoop"}
 {$record}
