@@ -3,7 +3,7 @@
 {if $id|substr:0:7 == 'helmet.'}
   <br/>
   <span class="native_link">
-    <a href="http://haku.helmet.fi/iii/encore/record/C|R{$id|substr:7|escape}">{translate text='Holdings details from'} HelMet</a><br/>
+    <a href="http://haku.helmet.fi/iii/encore/record/C|R{$id|substr:7|escape}" target="_blank">{translate text='Holdings details from'} HelMet</a><br/>
   </span>
 {/if}
 
