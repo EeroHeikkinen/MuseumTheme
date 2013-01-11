@@ -202,7 +202,6 @@ px      62    136    210    284    358    432   */
     .module-MyResearch .profile,
     .module-MyResearch .noContentMessage {
         margin: 0 2px;
-        padding-top: 1em;
     }
     .favoritesList {
         width: 468px;
