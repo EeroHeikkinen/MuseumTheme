@@ -137,6 +137,16 @@ class MetaLib
     }
 
     /**
+     * Check if MetaLib is configured and available
+     * 
+     * @return bool Whether MetaLib is available
+     */
+    public function available()
+    {
+        return isset($this->config['General']);
+    }
+    
+    /**
      * Retrieves a document specified by the ID.
      *
      * @param string $id The document to retrieve from the MetaLib API/cache

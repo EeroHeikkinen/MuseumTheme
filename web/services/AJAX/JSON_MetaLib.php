@@ -51,7 +51,11 @@ class JSON_MetaLib extends JSON
     public function getSearchLinkStatuses()
     {
         $metalib = new MetaLib();
-
+        if (!$metalib->available()) {
+            // MetaLib not enabled
+            return $this->output(array(), JSON::STATUS_OK);
+        }
+        
         // Cache values and status in an array
         $results = array();
         $authorized = UserAccount::isAuthorized();
