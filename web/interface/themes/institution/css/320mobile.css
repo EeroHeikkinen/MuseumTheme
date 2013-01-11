@@ -7,17 +7,22 @@ cols    1     2      3      4
 px      62    136    210    284    */
 
 @media only screen and (max-width: 479px) {
-/*
-    body, .container, div.searchFormHome,
-    .homeCustomContent .homeCustomCol1, .homeCustomContent .homeCustomCol2,
-    #topFacets, #resultList, #sidebarFacets {
-        width: 320px;
-    }
-*/    
+
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent, #resultList, #sidebarFacets, #resultMain, #authorList, #resultsCollection, #headingHierarchyCollection, #hierarchyCollection {
+    .homeCustomContent, #resultMain, #authorList {
         width: 320px;
+    }
+
+    .resultHead, #resultList, ul.recordSet, .loginForm .separator,
+    .loginForm .separatorSmall, .loginForm .loginDescription, #sidebarFacets,
+    #resultsCollection, .collectionDetails .paginationTop,
+    #headingHierarchyCollection, #hierarchyCollection {
+        width: 308px;
+    }
+
+    #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection {
+        width: 296px;
     }
 
     body {
@@ -202,28 +207,36 @@ px      62    136    210    284    */
         width: 306px;
     }
 
-
-   .module-MyResearch .account,
-   .module-MyResearch .resultHead,
-   .module-MyResearch #sidebarFavoritesLists,
-   .module-MyResearch .myResearchTitle,
-   .module-MyResearch .paginationTop, 
-   .module-MyResearch .myResearchMenu,
-   .module-Search .myResearchMenu,
-   .module-MyResearch .finesList,
-   .module-MyResearch .profile,
-   .module-MyResearch .noContentMessage {
-        margin: 0 4px;
+    .myResearch {
+        margin-top: 1em;
+    }
+    .module-MyResearch .account,
+    .module-MyResearch .resultHead,
+    .module-MyResearch #sidebarFavoritesLists,
+    .module-MyResearch .myResearchTitle,
+    .module-MyResearch .paginationTop, 
+    .module-MyResearch .myResearchMenu,
+    .module-Search .myResearchMenu,
+    .module-MyResearch .finesList,
+    .module-MyResearch .profile,
+    .module-MyResearch .noContentMessage {
+        margin: 0 2px;
         padding-top: 1em;
     }
+    .module-MyResearch .finesList {
+        margin-bottom: 1.5em;
+    }
     .favoritesList {
-        width: 320px;
+        width: 308px;
     }
     .favoritesList .bulkActionButtons .floatright {
         width: 280px;
     }
     .favoritesList .bulkActionButtons {
         height: auto;
+    }
+    .main .loginForm, .loginForm .loginDescription {
+        margin: 0;
     }
     .module-MyResearch ul.recordSet .resultCheckbox {
         margin-left: 0;
@@ -242,15 +255,18 @@ px      62    136    210    284    */
     }
     .profileInfo {
         line-height: 1em;
-        width: 312px;
+        width: 304px;
     }
     .profileInfo span {
         float: left;
         margin-left: 12px;
-        width: 304px;
+        width: 292px;
     }
     .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
         margin: 0;
+    }
+    div.bulkActionButtons div.floatright {
+        margin-top: -.7em;
     }
     .finesList table tr td:first-child {
         padding: 2px 0 2px 4px;
@@ -281,31 +297,32 @@ px      62    136    210    284    */
         margin: 0.5em 0;
     }
 
-
-
+    .resulthead {
+        padding-left: 4px;
+    }
     #topPubDateVis {
-        width: 296px;
+        width: 300px;
     }
     #topFacets {
-        width: 310px;
+        margin-top: .6em;
+        padding: 0;
+        width: 308px;
     }
     #suggestedTopics {
-        width: 296px;
-        margin: 0 12px .5em;
+        width: 292px;
+        margin: 0 0 .5em;
     }
-    .pagination {
+    .pagination, .searchtools {
         margin: 0;
-/*
-        padding: .5em 12px;
-        width: 275px;
-*/
+        padding: 13px 8px;
+        width: 292px;
     }
     .paginationTop {
         padding: .5em 0;
     }
     .resultOptions {
         margin: 0;
-        padding: .4em 4px 1em;
+        padding: .4em 0 1em;
     }
     ul.recordSet li.result {
         padding: 7px 1px 9px 9px;
@@ -343,7 +360,7 @@ px      62    136    210    284    */
        overflow:hidden;
     }
     ul.recordSet .resultColumn2 {
-        width: 204px;
+        width: 192px;
     }
 
     /*ul.recordSet .addToFavLink {
@@ -367,21 +384,28 @@ px      62    136    210    284    */
         margin: 0;
         border-top: 1px solid #dddddd;
     }
-    #sidebarFacets .sidegroup {
+    div.sidegroup {
         border-left: none;
-        padding-right: 20px;
+        padding: 0 0 0 10px;
     }
+    #sidebarCollection div.sidegroup{
+        margin: 0 0 1em;
+        padding-left: 12px;
+    }
+    
     span.dynatree-node .facetTitle {
         max-width: 240px;
     }
     
-    
+    .resultLinks {
+        margin-top: .5em;
+    }
     .backToResults {
         margin: 0 1em 0 10px;
         width: auto;
     }
     .resultscroller {
-        margin-left: 0px;
+        margin: 0;
         float: right;
     }
     .resultscroller .nextRecord, .resultscroller .prevRecord  {
@@ -405,7 +429,7 @@ px      62    136    210    284    */
         max-width: 300px;
     }
     .record .toolbar {
-        width: 320px;
+        width: 308px;
         float: left;
         margin-bottom: 1em;
     }
@@ -414,20 +438,20 @@ px      62    136    210    284    */
     }
     
     #resultMain {
-        width: 284px;
-        margin-right: 0;
+        width: 308px;
+        margin: 0;
     }
     #tagList {
         width: 62px;
     }
     #recordMetadata {
-        width: 296px;
+        width: 304px;
         float: none;
-        padding-left: 12px;
+        padding-left: 4px;
     }
     #dyntabnav {
-        width: 300px;
-        margin-left: 10px;
+        width: 302px;
+        margin-left: 0px;
     }
     #dyntabnav .ui-tabs-nav li {
         overflow: hidden;
@@ -436,8 +460,8 @@ px      62    136    210    284    */
         width: 8em;
     }
     #resultSidebar {
+        padding: 0 4px;
         width: 300px;
-        margin-right: 10px;
     }
     #resultSidebar .sidegroup {
         border-top: 2px solid #dddddd;
@@ -455,16 +479,31 @@ px      62    136    210    284    */
         float: right;
         margin: .2em .4em 0 0;
     }
+
+    #resultsCollection div.record, #headingHierarchyCollection div.record {
+        margin: 0;
+    }
+
+    .hierarchyTreeLink {
+        display: none;
+    }
     #hierarchyTreeHolder {
-        width: 318px;
+        width: 306px;
         padding-bottom: 0;
     }
     #hierarchyTree {
         overflow: auto;
-        width: 312px;
+        width: 299px;
     }
     #hierarchyRecord {
         width: 296px;
+    }
+    #toggleTree {
+        background-position: .5em .25em;
+        padding: .25em 0 0 2em;
+    }
+    #treeSearch {
+        margin-top: .4em;
     }
     #collectionItemsHeader {
         display: none;

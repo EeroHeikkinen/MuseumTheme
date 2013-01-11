@@ -8,22 +8,20 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
 @media only screen and (min-width: 768px) and (max-width: 997px) {
 
-    body, .container, #resultMain, #topFacets, #resultSidebar,
+    body, .container, #topFacets, #resultSidebar,
     #headingHierarchyCollection {
         width: 768px;
     }
 
+    #resultMain {
+        width: 756px;
+    }
+
     body {
-    /*
-        width: 768px;
-    */    
         padding: 0 0px 40px;
     }
 
     .container {
-    /*
-        width: 768px;
-    */
         background: none repeat scroll 0 0 #FFFFFF;
         border: none/*1px solid #dddddd;
         -moz-border-radius: 5px 5px 5px 5px;
@@ -97,16 +95,17 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
 
 
-
     #topFacets {
-        width: 758px;
+        margin-top: .6em;
+        padding: 0;
+        width: 756px;
     }
     #suggestedTopics {
-        width: 744px;
-        margin: 0 12px .4em;
+        width: 740px;
+        margin: 0 0 .4em;
     }
     #topPubDateVis {
-        width: 744px;
+        width: 750px;
     }
     .paginationTop {
         margin: .5em 0 0;
@@ -124,19 +123,14 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
     #resultList {
         width: 524px;
-        margin-left: 12px;
-    }
-    .sidegroup {
-        margin-right: 10px;
     }
     span.dynatree-node .facetTitle {
         max-width: 140px;
     }
 
 
-
-    #resultSide {
-        margin-left: 10px;
+    .resultLinks {
+        margin-top: .5em;
     }
     ul.recordSet .resultColumn2 {
         width: 312px;
@@ -146,7 +140,6 @@ px      62    136    210    284    358    432    506    580    654    728   */
     }
     #dyntabnav {
         width: 748px;
-        margin-left: 10px;
     }
     #dyntabnav .ui-tabs-panel {
         padding: 1em .7em;
@@ -178,6 +171,10 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
     .collectionDetails .collectionSortSelector {
         margin-top: .5em;
+    }
+
+    div.bulkActionButtons div.floatright {
+        margin-top: -.7em;
     }
 
     .main, #sliderContainer {
