@@ -10,15 +10,26 @@ px      62    136    210    284    358    432   */
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent, #sidebarFacets, #resultMain, #authorList, #resultsCollection, #headingHierarchyCollection, #hierarchyCollection {
+    .homeCustomContent, #authorList {
         width: 480px;
+    }
+
+    #resultList, #resultMain, ul.recordSet, .loginForm .separator,
+    .loginForm .separatorSmall, .loginForm .loginDescription, #sidebarFacets,
+    #resultsCollection, .collectionDetails .paginationTop, 
+    #headingHierarchyCollection, #hierarchyCollection {
+        width: 468px;
+    }
+
+    .resultHead, #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection {
+        width: 468px;
     }
 
     body {
         padding: 0 0 48px;
     }
 
-    .w-i-p, #resultList {
+    .w-i-p {
         margin: 0;
         padding: 0 6px;
         width: 468px;
@@ -177,6 +188,9 @@ px      62    136    210    284    358    432   */
         width: 462px;
     }
 
+    .myResearch {
+        margin-top: 1em;
+    }
     .module-MyResearch .account,
     .module-MyResearch .resultHead,
     .module-MyResearch #sidebarFavoritesLists,
@@ -187,17 +201,19 @@ px      62    136    210    284    358    432   */
     .module-MyResearch .finesList,
     .module-MyResearch .profile,
     .module-MyResearch .noContentMessage {
-        margin: 0 0 0 2px;
-        padding-top: 1em;
+        margin: 0 2px;
     }
     .favoritesList {
-        width: 480px;
+        width: 468px;
     }
-    .favoritesList .bulkActionButtons .floatright {
+    .account, .favoritesList .bulkActionButtons .floatright {
         width: 440px;
     }
     .favoritesList .bulkActionButtons {
         height: auto;
+    }
+    .main .loginForm, .loginForm .loginDescription {
+        margin: 0;
     }
     .myResearch ul.recordSet .resultCheckbox {
         margin-left: 0;
@@ -208,8 +224,21 @@ px      62    136    210    284    358    432   */
         margin: 0 0 0 106px;
         width: 346px;
     }
-    .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
-        margin: 0;
+    .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons,
+    .profileInfo {
+        margin: 0 0 1.5em;
+    }
+    .finesList table.fines {
+        margin: 0 0 1.5em -8px;
+    }
+    .profileInfo {
+        width: 444px;
+    }
+    input#addFormCheckboxSelectAll {
+        margin-left: 25px;
+    }
+    div.bulkActionButtons div.floatright {
+        margin-top: -.7em;
     }
     .finesList table tr td:first-child {
         padding: 2px 0 2px 4px;
@@ -230,7 +259,11 @@ px      62    136    210    284    358    432   */
         margin: 0 auto;
         padding-top: 2em;
         width: 285px;
-    }  
+    }
+    
+    ul.similar {
+        padding-right: 0;
+    }
     .footer ul a, ul.similar a {
         line-height: 1.25em;
         padding: 0.5em 0;
@@ -239,23 +272,27 @@ px      62    136    210    284    358    432   */
         margin: 0.5em 0;
     }  
 
-
+    .resulthead {
+        padding-left: 4px;
+    }
     #topPubDateVis {
-        width: 450px;
+        width: 456px;
     }
     #topFacets {
-        width: 470px;
+        margin-top: .6em;
+        padding: 0;
+        width: 468px;
     }
     #suggestedTopics {
-        width: 456px;
-        margin: 0 12px .6em;
+        width: 452px;
+        margin: 0 0 .6em;
     }
     span.dynatree-node .facetTitle {
         max-width: 450px;
     }
-    .pagination {
+    .pagination, searchtools {
         margin: 0;
-        padding: .5em 12px;
+        padding: 13px 8px;
         width: 270px;
     }
     .pagination a {
@@ -303,7 +340,7 @@ px      62    136    210    284    358    432   */
        width: auto;
     }
     ul.recordSet .resultColumn2 {
-        width: 270px;
+        width: 274px;
     }
     ul.recordSet .addToFavLink {
         clear: none;
@@ -325,13 +362,16 @@ px      62    136    210    284    358    432   */
         margin: 0;
         border-top: 1px solid #dddddd;
     }
-    #sidebarFacets .sidegroup {
+    div.sidegroup {
         border-left: none;
-        padding-left: 12px;
+        padding: 0 8px 0 10px;
     }
-
-
-
+    #sidebarCollection div.sidegroup{
+        margin: 0 0 1em;
+    }
+    .resultLinks {
+        margin-top: .5em;
+    }
     .backToResults {
         margin-left: 10px;
         width: 180px;
@@ -364,8 +404,8 @@ px      62    136    210    284    358    432   */
         margin-right: 0;
     }
     #recordMetadata, #dyntabnav, #resultSidebar {
-        width: 456px;
-        padding: 0 12px;
+        width: 462px;
+        padding: 0 4px;
     }
 
     #resultSidebar .sidegroup {
@@ -375,18 +415,34 @@ px      62    136    210    284    358    432   */
     }
     #resultSidebar ul li {
         width: 136px;
-        margin-right: 0.5em;
+        margin: 0 .5em;
         display: inline-block;
         vertical-align: top;
     }
+
+    #resultsCollection div.record, #headingHierarchyCollection div.record {
+        margin: 0;
+    }
+
+    .hierarchyTreeLink {
+        display: none;
+    }
     #hierarchyTreeHolder {
-        width: 478px;
+        width: 466px;
         padding-bottom: 0;
     }
     #hierarchyTree {
         overflow: auto;
-        width: 472px;
+        width: 459px;
     }
+    #toggleTree {
+        background-position: .5em .25em;
+        padding: .25em 0 0 2em;
+    }
+    #treeSearch {
+        margin-top: .4em;
+    }
+
     #hierarchyRecord {
         width: 456px;
     }
