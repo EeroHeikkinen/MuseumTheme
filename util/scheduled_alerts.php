@@ -59,6 +59,9 @@ class ScheduledAlerts
     /**
      * Send scheduled alerts
      *
+     * @param string $mainDir         The main VuFind directory. Each web directory must reside under this (default: ..)
+     * @param string $domainModelBase Main domain name when using subdomains for different web directories.
+     *
      * @return void
      */
     public function sendAlerts($mainDir, $domainModelBase)
@@ -185,6 +188,7 @@ class ScheduledAlerts
             
             $minSO = unserialize($s->search_object);
             $searchObject = SearchObjectFactory::deminify($minSO);
+            $searchObject->setSort('last_indexed desc');
             $searchTime = time();
             $searchDate = gmdate($iso8601, time());
             $searchObject->setLimit(50);
@@ -204,6 +208,21 @@ class ScheduledAlerts
             } else {
                 $this->msg('New results for search ' . $s->id . ": $newestRecordDate >= $lastExecutionDate");
                 
+                $interface->assign('summary', $searchObject->getResultSummary());
+                $interface->assign('searchDate', $dateFormat->convertToDisplayDate("U", floor($searchTime)));
+                $interface->assign('lastSearchDate', $dateFormat->convertToDisplayDate("U", floor($lastTime->getTimestamp())));
+        
+                $records = array();
+                foreach ($results['response']['docs'] as &$doc) {
+                    $docDate = date($iso8601, strtotime($doc['last_indexed']));
+                    if ($docDate < $lastExecutionDate) {
+                        break;
+                    }
+                    $record = RecordDriverFactory::initRecordDriver($doc);
+                    $records[] = $interface->fetch($record->getSearchResult('email'));
+                }
+                $interface->assign('recordSet', $records);
+
                 $interface->assign(
                     'info', 
                     array(
@@ -215,20 +234,12 @@ class ScheduledAlerts
                         'hits' => $searchObject->getResultTotal(),
                         'speed' => round($searchObject->getQuerySpeed(), 2)."s",
                         'schedule' => $s->schedule,
-                        'last_executed' => $s->last_executed
+                        'last_executed' => $s->last_executed,
+                        'recordCount' => count($records) 
                     )
                 );
-                $interface->assign('summary', $searchObject->getResultSummary());
-                $interface->assign('searchDate', $dateFormat->convertToDisplayDate("U", floor($searchTime)));
-                $interface->assign('lastSearchDate', $dateFormat->convertToDisplayDate("U", floor($lastTime->getTimestamp())));
-        
-                $records = array();
-                foreach ($results['response']['docs'] as &$doc) {
-                    $record = RecordDriverFactory::initRecordDriver($doc);
-                    $records[] = $interface->fetch($record->getSearchResult('email'));
-                }
-                $interface->assign('recordSet', $records);
-        
+                
+                
                 $searchObject->close();
                 
                 // Load template

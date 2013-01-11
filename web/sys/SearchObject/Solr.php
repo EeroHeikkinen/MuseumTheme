@@ -1292,6 +1292,7 @@ class SearchObject_Solr extends SearchObject_Base
                 if ($suggestion[0] != "collation") {
                     continue;
                 }
+                $suggestionList[$queryTerm]['freq'] = 0;
                 $suggestionList[$queryTerm]['suggestions'][$suggestion[1]] = 0;
             }
             $count = isset($suggestionList[$queryTerm]['suggestions']) ? count($suggestionList[$queryTerm]['suggestions']) : 0;

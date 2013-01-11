@@ -199,6 +199,23 @@ class VoyagerRestful extends Voyager
         
         return $sqlArray;
     }
+    
+    /**
+     * Protected support method for getHolding.
+     *
+     * @param array $id A Bibliographic id
+     *
+     * @return array Keyed data for use in an sql query
+     * @access protected
+     */
+    protected function getHoldingNoItemsSQL($id)
+    {
+        $sqlArray = parent::getHoldingItemsSQL($id);
+        $sqlArray['expressions'][] = "null as ITEM_TYPE_ID";
+        $sqlArray['expressions'][] = "null as ITEM.TEMP_ITEM_TYPE_ID";
+        
+        return $sqlArray;        
+    }    
 
     /**
      * Protected support method for getHolding.

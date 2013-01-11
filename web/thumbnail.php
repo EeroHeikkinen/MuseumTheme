@@ -77,7 +77,7 @@ if (!sanitizeParameters()) {
 function sanitizeParameters()
 {
     $validSizes = array('small', 'medium', 'large');
-    if (!count($_GET) || !in_array($_GET['size'], $validSizes)) {
+    if (!count($_GET) || !isset($_GET['size']) || !in_array($_GET['size'], $validSizes)) {
         return false;
     }
     if (isset($_GET['index']) && !ctype_digit($_GET['index'])) {
