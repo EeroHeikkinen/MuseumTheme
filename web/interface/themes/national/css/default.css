@@ -77,18 +77,49 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
     text-decoration: underline;
 }
 
+.menuAbout a, .menuFeedback a, .menuHelp a, .menuSearch a, .menuLogin a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.menuAbout a:hover, .menuFeedback a:hover, .menuHelp a:hover, .menuSearch a:hover, 
+.menuLogin a:hover, .menuAbout a:focus, .menuFeedback a:focus, .menuHelp a:focus, 
+.menuSearch a:focus, .menuLogin a:focus {
+    color: #fdf07f;
+    text-decoration: none;
+}
+
+li a:hover .submenuText, li a:focus .submenuText {
+    color: #fff;
+    text-decoration: none;
+}
+
+
+
 /*** Languages ***/
 div.lang {
     float:right;
+    line-height: 1em;
 }
 div.lang ul {
-    margin: 0 .4em;
+    margin: 5px .4em 0;
 }
 div.lang li, div.lang a {
     float: left;
     overflow: hidden;
-    height: 30px;
+    /*height: 30px;*/
 }
+
+.lang a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.lang a:focus, .lang a:hover {
+    color: #fdf07f;
+    text-decoration: none;
+}
+
 div.lang li {
     padding: 0 6px;
 }
@@ -198,8 +229,41 @@ div.sidegroup {
     width:950px;
 }
 
+.menuLogin {
+    padding-left: 17px;
+    border-left: 2px solid #eee;
+}
+
+ul.subMenu li {
+    float: left;
+    width: 25%;
+    min-height: 65px;
+    margin: 10px 0 0 0;
+    padding: 0 0 7px 15px;
+    border-left: 2px solid #eee;
+}
+
+ul.subMenu li:first-child {
+    margin: 10px 0 0 0;
+    padding: 0 0 7px;
+    border: none;
+}
+
 #header .lang {
-    margin-top:42px;
+    margin: 42px 0 0;
+    padding: 0;
+}
+
+#header .lang li {
+    margin: 0;
+    padding: 0 0 0 7px;
+    border-left: 2px solid #eee;
+}
+
+#header .lang li:first-child {
+    margin: 0;
+    padding: 0 7px 0 0;
+    border: none;
 }
 
 #logoMetaLib {
@@ -252,7 +316,7 @@ div.sidegroup {
 }
 
 #loginOptions a, #logoutOptions a {
-    margin: 0 .5em .5em .5em;
+    margin: 0 .5em .5em .5em
 }
 
 /*** Page navigation links ***/
