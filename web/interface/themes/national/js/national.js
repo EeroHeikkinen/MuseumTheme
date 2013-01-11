@@ -5,6 +5,7 @@
 $(document).ready(function() {
     initMenu();
     initCarousel();
+    initInfoBox();
 });
 
 // Header menu
@@ -54,5 +55,29 @@ function initCarousel() {
     }
 
     $('#carousel li').hover(slideOver, slideOut);
+}
 
+// Home page header info box
+function initInfoBox() {
+    
+    $('.toggleBox').click(function() {
+        toggleInfoBox();
+    });
+}
+
+function toggleInfoBox() {
+    var box = $('.headerInfoBox');
+    box.toggleClass('visible');
+    var boxWidth = box.hasClass('visible') ? 395 : 25;
+    var boxHeight = box.hasClass('visible') ? $('.infoBoxText').height() +30 : 25;
+    $('.openInfoBox, .closeInfoBox, .infoBoxText').stop(true, true).toggle();
+    box.stop(true, true).animate({ width: boxWidth, height: boxHeight}, 200);
+    $('.infoBoxText').stop(true, true).vToggle().fadeToggle(300);
+};
+
+// Helper function: visibility toggler
+jQuery.fn.vToggle = function() {
+    return this.css('visibility', function(i, visibility) {
+        return (visibility == 'visible') ? 'hidden' : 'visible';
+    });
 }

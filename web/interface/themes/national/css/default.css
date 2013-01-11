@@ -35,6 +35,14 @@ body {
     top: 25px;
 }
 
+#main {
+    padding-top: 30px;
+    background:#fff;
+}
+#main.main-home {
+    padding:0;
+    background:#000;
+}
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
 only screen and (moz--min-device-pixel-ratio: 1.5),
 only screen and (-o-min-device-pixel-ratio: 3/2),
@@ -197,6 +205,9 @@ div.sidegroup {
 #headerTop {
     height:95px;
     border-bottom:6px solid #fff;
+}
+#headerBottom {
+    position:relative;
 }
 #header #logo {
     background: url("../images/finna_logos_white.png") repeat scroll -20px -20px transparent;

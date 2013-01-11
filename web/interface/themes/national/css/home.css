@@ -129,10 +129,91 @@ div.searchHomeForm div.searchform #searchForm {
 */
 }
 
+/*** Header info button ***/
+
+.headerInfoBox {
+    width:25px;
+    height:25px;
+    border-radius:13px;
+    margin-top:-10px;
+    float:right;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position:relative;
+    transition:background-color .2s, box-shadow .2s;
+    -moz-transition:background-color .2s, box-shadow .2s;
+    -webkit-transition:background-color .2s, box-shadow .2s;
+}
+.headerInfoBox.visible {
+    background-color:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.1);
+}
+.toggleBox {
+    background:#fff;
+    border-radius:13px;
+    position:absolute;
+    right:3px;
+    cursor:pointer;
+    text-align:center;
+    height:25px;
+    color:#555;
+    font-weight:bold;
+    line-height:25px;
+    width:25px;
+    top:3px;
+}
+.closeInfoBox,
+.infoBoxText .moreButton {
+    display:none;
+    background: #00a3b5;
+    border-radius: 13px 13px 13px 13px;
+    color: #FFFFFF;
+    font-size:1.1em;
+    font-variant: small-caps;
+    line-height: 24px;
+    padding-left:1px;
+
+    width:24px;
+}
+.infoBoxText {
+    color: #333333;
+    position: absolute;
+    right: 50px;
+    margin: 14px 0 18px;
+    visibility: hidden;
+    width: 325px;
+}
+.infoBoxText .strong {
+    clear:both;
+    margin-bottom:10px;
+    display:block;
+}
+#header .infoBoxText a.more {
+    background:none;
+    padding:0;
+    clear:both;
+    color:#333;
+    margin-top:8px;
+    display:block;
+}
+.infoBoxText .moreButton {
+    display: inline-block;
+    font-size: 0.8em;
+    padding: 0;
+    text-align: center;
+    width: 25px;
+}
+#header .infoBoxText a.more:hover {
+    text-decoration:none;
+}
 /*** Header text content ***/
 
 .headerHomeContent {
-    margin:0;
+    margin:30px 0 0;
     padding:0;
     line-height: 1.4;
     width:500px;
