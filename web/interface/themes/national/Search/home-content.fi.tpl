@@ -53,7 +53,7 @@
                 <div class="pickup-text">
                   Suomen Metsämuseo Luston kokoelmiin kuuluva yhdenmiehen vaihteistovetoinen moottorisaha kaksitahtisella 
                   bensiinikäyttöisellä polttomoottorilla ja käännettävällä teräosalla. Metsurin työväline, jota on käytetty 
-                  Puumalassa vuosina 1959 &ndash; 1963. Kuva Timo Kilpeläinen/Lusto
+                  Puumalassa vuosina 1959 &ndash; 1963. <span class="caption">Kuva Timo Kilpeläinen/Lusto</span>
 
                   <a href="http://www.finna.fi/Record/lusto.M011-124885">» Hakutulokseen</a>
                 </div>
@@ -64,7 +64,7 @@
               <div class="pickup-content">
                 <div class="pickup-header"><span>A. K. Cajanderin kamera</span></div>
                 <div class="pickup-text">
-                  Suomen Metsämuseo Luston kokoelmiin kuuluva metsätieteilijä ja poliitikko A. K. Cajanderin käyttämä kamera. Kuva Agata Teperek/Lusto
+                  Suomen Metsämuseo Luston kokoelmiin kuuluva metsätieteilijä ja poliitikko A. K. Cajanderin käyttämä kamera. <span class="caption">Kuva Agata Teperek/Lusto</span>
                   <a href="http://www.finna.fi/Record/lusto.M011-332446">» Hakutulokseen</a>
                 </div>
               </div>
