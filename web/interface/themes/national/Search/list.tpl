@@ -1,25 +1,27 @@
 <!-- START of: Search/list.tpl -->
 
 {* Main Listing *}
-<div id="topFacets" class="authorbox">
-  {* Recommendations *}
-  {if $topRecommendations}
-    {foreach from=$topRecommendations item="recommendations"}
-      {include file=$recommendations}
-    {/foreach}
-  {/if}
- <div class="clear"></div>
-</div>
-
-<div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
   {* Listing Options *}
   <div class="resulthead">
-    {if $recordCount}
+    {if $searchType == 'advanced'}
+      <div class="advancedOptions">
+        <a href="{$path}/Search/Advanced?edit={$searchId}">{translate text="Edit this Advanced Search"}</a> |
+        <a href="{$path}/Search/Advanced">{translate text="Start a new Advanced Search"}</a> |
+        <a href="{$path}/">{translate text="Start a new Basic Search"}</a>
+      </div>
+    {/if}
+    <h3 class="searchTerms">
       {if $lookfor == ''}
-        <h3 style="margin:0;">{translate text="history_empty_search"}</h3>
+        {translate text="history_empty_search"}
       {else}
-        <h3 style="margin:0;">{if $searchType == 'basic'}{$lookfor|escape:"html"}{/if}</h3>
+        {if $searchType == 'basic'}{$lookfor|escape:"html"}
+        {else}
+        {if $searchType == 'advanced'}{translate text="Your search terms"} : "{$lookfor|escape:"html"}
+          {foreach from=$orFilters item=values key=filter}
+            AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"
+        {/if}
       {/if}
+    </h3>
     <div class="floatleft">
       {if $searchType != 'advanced' && $orFilters}
         {foreach from=$orFilters item=values key=filter}
@@ -73,6 +75,17 @@
   </div>
   {* End Listing Options *}
 
+<div id="topFacets" class="authorbox">
+  {* Recommendations *}
+  {if $topRecommendations}
+    {foreach from=$topRecommendations item="recommendations"}
+      {include file=$recommendations}
+    {/foreach}
+  {/if}
+ <div class="clear"></div>
+</div>
+
+<div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
   {if $subpage}
     {include file=$subpage}
   {else}

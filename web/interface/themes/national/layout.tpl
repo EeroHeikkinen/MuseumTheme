@@ -157,6 +157,7 @@ $(document).ready(function() {
 
   </head>
   <body>
+    <a class="feedbackButton" href="{$path}/Feedback/Home">{translate text='navigation_feedback'}</a>
     {* mobile device button*}
     {if $mobileViewLink}
         <div class="mobileViewLink"><a href="{$mobileViewLink|escape}">{translate text="mobile_link"}</a></div>
@@ -191,9 +192,7 @@ $(document).ready(function() {
       </div>
 
       <div id="main" class="main{if !$showTopSearchBox}-home{/if} clear">
-        {if $showTopSearchBox}<div class="content">{/if}
         {include file="$module/$pageTemplate"}
-        {if $showTopSearchBox}</div>{/if}
       </div>
 
       <div id="footer" class= "clear">

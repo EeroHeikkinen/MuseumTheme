@@ -9,7 +9,7 @@
   <a id="logo" href="{$url}" title="{translate text="Home"}"></a>
   
   <ul id="headerMenu">
-    <li class="menuAbout"><a href="javascript: void(0)"><span>{translate text='navigation_about'}</span></a>
+    <li class="menuAbout"><a href="#"><span>{translate text='navigation_about'}</span></a>
       <ul class="subMenu">
         <li>
           <a href="{$path}/Content/about">  
@@ -32,7 +32,7 @@
       </ul>
     </li>
     
-    <li class="menuSearch"><a href="javascript: void(0)"><span>{translate text='navigation_search'}</span></a>
+    <li class="menuSearch"><a href="#"><span>{translate text='navigation_search'}</span></a>
       <ul class="subMenu">
         <li>
           <a href="{$path}/Search/History">  
@@ -55,7 +55,7 @@
       </ul>
     </li>
     
-    <li class="menuHelp"><a href="javascript: void(0)"><span>{translate text='navigation_help'}</span></a>
+    <li class="menuHelp"><a href="#"><span>{translate text='navigation_help'}</span></a>
       <ul class="subMenu">
         <li>
           <a href="{$path}/Content/register_details">  
@@ -66,7 +66,7 @@
       </ul> 
     </li>
     
-    <li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a></li>
+    <li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a><ul></ul></li>
     
     {if !$hideLogin}
       <li class="menuLogin"><a href="{$path}/MyResearch/Home""><span>{if $user}{translate text="Your Account"}{else}{translate text="Login"}{/if}</span></a>

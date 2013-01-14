@@ -38,6 +38,7 @@ body {
 #main {
     padding-top: 30px;
     background:#fff;
+    overflow: auto;
 }
 #main.main-home {
     padding:0;
@@ -114,8 +115,6 @@ div.lang ul {
 }
 div.lang li, div.lang a {
     float: left;
-    overflow: hidden;
-    /*height: 30px;*/
 }
 
 .lang a {
@@ -294,7 +293,7 @@ ul.subMenu li:first-child {
 }
 #searchFormHeader {
     padding:40px 0;
-    width:630px;
+    height: 50px;
 }
 
 .header-home #searchFormHeader {
@@ -330,6 +329,20 @@ ul.subMenu li:first-child {
     margin: 0 .5em .5em .5em
 }
 
+.feedbackButton {
+    background: #00A3B5;
+    border-radius: 0 0 0 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    color: #FFFFFF;
+    padding: 4px 12px 7px 14px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+.feedbackButton:hover {
+    color:#fff;
+}
 /*** Page navigation links ***/
 
 .navigationMenu {
@@ -375,6 +388,7 @@ ul.subMenu li:first-child {
 .searchFormWrapper {
     background: url("../images/search_buttons.png") no-repeat scroll 530px 5px #FFFFFF;
     border-radius: 16px 16px 16px 16px;
+    float:left;
     height: 46px;
     position:relative;
     width: 636px;
@@ -598,13 +612,26 @@ a.clear_input:hover {
     text-indent: -9999px;
     width: 70px;
 }
-
-
-.advancedLink, .metalibLink {
-    width: 136px;
-    display: inline-block;
-    margin-left: .4em;
-    padding-top: .2em;
+.advancedLink {
+    background: url("../images/search_buttons.png") no-repeat 104px -45px;
+    color: #FFFFFF;
+    display: block;
+    font-size: .923em;
+    font-weight:bold;
+    height: 22px;
+    line-height: 22px;
+    margin: 10px 0 0 30px;
+    padding-right: 40px;
+}
+.advancedLink:hover {
+    color:#fff;
+}
+.metalibLink, .showSearchHelp {
+    display:none; /* Hide links in the national theme */
+}
+.advanced-link-wrapper  {
+    float:left;
+    clear:none;
 }
 
 .keepFilters {
