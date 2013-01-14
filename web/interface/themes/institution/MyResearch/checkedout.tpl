@@ -18,34 +18,25 @@
       {/foreach}
     {/if}
   </div>
-    <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
     {if $transList}
 
       {if $renewForm}
+    <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
       
     <div class="bulkActionButtons">
-        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
+        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes" name="selectAll" id="addFormCheckboxSelectAll" /></div>
         <div class="floatright">
           <input type="submit" class="button renew" name="renewSelected" value="{translate text="renew_selected"}" />
           <input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" />
         </div>
-     </div>       
-      {*
-      <div class="floatright">
-      <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
-        <div class="toolbar">
-          <ul>
-            <li><input type="submit" class="button renew" name="renewSelected" value="{translate text="renew_selected"}" /></li>
-            <li><input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" /></li>
-          </ul>
-        </div>
-    </div>*}
+        <div class="clear"></div>
+    </div>       
       {/if}
 
       {if $errorMsg}
-        <p class="error">{translate text=$errorMsg}</p>
+      <p class="error">{translate text=$errorMsg}</p>
       {/if}
-      <div class="clear"></div>
+    <div class="clear"></div>
   
 
     <ul class="recordSet">
@@ -75,7 +66,7 @@
 				{if $img_count > 0}
 					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img id="thumbnail_{$summId|escape:"url"} src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
 				{else}
-					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" alt="{translate text='No Cover Image'}"/></a></div>
 				{/if}
 			
 			{* Multiple images *}
@@ -190,9 +181,7 @@
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
 </div>
-</div>
 
 <div class="clear"></div>
-</div>
 
 <!-- END of: MyResearch/checkedout.tpl -->

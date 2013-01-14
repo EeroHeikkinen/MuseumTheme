@@ -217,8 +217,6 @@ px      62    136    210    284    */
     .module-MyResearch .paginationTop, 
     .module-MyResearch .myResearchMenu,
     .module-Search .myResearchMenu,
-    .module-MyResearch .finesList,
-    .module-MyResearch .profile,
     .module-MyResearch .noContentMessage {
         margin: 0 2px;
     }
@@ -229,16 +227,13 @@ px      62    136    210    284    */
         width: 308px;
     }
     .favoritesList .bulkActionButtons .floatright {
-        width: 280px;
-    }
-    .favoritesList .bulkActionButtons {
-        height: auto;
+        width: 260px;
     }
     .main .loginForm, .loginForm .loginDescription {
         margin: 0;
     }
     .module-MyResearch ul.recordSet .resultCheckbox {
-        margin-left: 0;
+        margin-left: 1px;
     }
     .module-MyResearch ul.recordSet .resultColumn2 {
         width: 180px;
@@ -263,9 +258,6 @@ px      62    136    210    284    */
     }
     .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
         margin: 0;
-    }
-    div.bulkActionButtons div.floatright {
-        margin-top: -.7em;
     }
     .finesList table tr td:first-child {
         padding: 2px 0 2px 4px;

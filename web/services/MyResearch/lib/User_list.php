@@ -214,8 +214,9 @@ class User_list extends DB_DataObject
 
         // Get Resource Ids
         $sql = 'SELECT "id" FROM "resource" WHERE ("record_id" = ' .
-            implode($sqlIDS, ' OR "record_id" = ') . ") " .
-            'AND "source" = ' . "'" . $this->escape($source) . "'";
+            implode(' OR "record_id" = ', $sqlIDS) . ") ";
+            // Don't use source here, MetaLib records would fail
+            // . 'AND "source" = ' . "'" . $this->escape($source) . "'";
 
         $resources = new Resource();
         $resources->query($sql);
@@ -231,7 +232,7 @@ class User_list extends DB_DataObject
             "WHERE \"user_id\" = '" . $this->escape($this->user_id) . "' " .
             "AND \"list_id\" = '" . $this->escape($this->id) . "' " .
             'AND ("resource_id" =' .
-            implode($resourceList, ' OR "resource_id" =') . ")";
+            implode(' OR "resource_id" =', $resourceList) . ")";
 
         $removeResource = new User_resource();
         $removeResource->query($sql);
@@ -241,7 +242,7 @@ class User_list extends DB_DataObject
             "WHERE \"user_id\" = '" . $this->escape($this->user_id) ."' " .
             "AND \"list_id\" = '" . $this->escape($this->id) . "' " .
             'AND ("resource_id" =' .
-            implode($resourceList, ' OR "resource_id" =') . ")";
+            implode(' OR "resource_id" =', $resourceList) . ")";
 
         $removeTags = new Resource_tags();
         $removeTags->query($sql);

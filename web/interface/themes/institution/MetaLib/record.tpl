@@ -18,7 +18,7 @@
       </li>
       {/if}
       *}
-      <li id="saveLink"><a href="{$url}/MetaLib/Save?id={$id|escape:"url"}" class="saveRecord metalibRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
+      <li id="saveLink"><a href="{$url}/MetaLib/Save?id={$id|escape:"url"}" class="saveMetaLibRecord metalibRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
     </ul>
     <div class="clear"></div>
   </div>
