@@ -34,8 +34,7 @@ $(document).ready(function() {
         source.find('option').removeAttr('selected');
         source.find('option[value="'+$(this).find("span.value").text()+'"]').attr('selected', 'selected').change();
         return false;
-    });
-});      
+    });    
 
 // Function for creating dropdowns
 function createDropDowns(){
@@ -62,4 +61,3 @@ function createDropDowns(){
             }
         });
     })
-}

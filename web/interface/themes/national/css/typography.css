@@ -46,9 +46,14 @@ h5, .normal {
     font-size: 1em;
     line-height: 1.5em;
 }
-h4, .big, #searchFormLabel, #searchForm_input, #searchForm_searchButton {
+h4, .big {
     font-size: 1.128em;
     line-height: 1.4em;
+}
+#searchFormLabel, #searchForm_input, #searchForm_searchButton {
+    font-size: 1.128em;
+    line-height: 1.4em;
+    color: #666;
 }
 h3, .hefty, .slogan, .title /* Result list title */ {
     font-size: 1.333em;
@@ -187,13 +192,17 @@ body { -webkit-tap-highlight-color: #bbddff; }
 }
 /* Search Box dropdown */
 .searchbox .dropdown dt a {
-    color:#888; 
+    margin: 0;
+    padding: 1px 0 0 0;
+    color: #888; 
     line-height: 1.2em;
     font-size: 0.9em;
+    font-weight: bold;
 }
 .searchbox .dropdown dd {
     line-height: 0.8em;
     margin: 0;
+    padding: 0 3px;
 }
 
 
