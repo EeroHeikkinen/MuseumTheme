@@ -451,16 +451,16 @@ a.clear_input:hover {
     position: relative;
 }
 .dropdown a, .dropdown a:visited {
-    color: #212121;
+    color: #444;
     outline: none;
     text-decoration: none;
 }
 .dropdown a:hover {
-    color: #212121;
+    color: #444;
 }
 .dropdown dt a:hover {
     border: 1px solid #bcbcbc;
-    color:#101010;
+    color:#444;
 }
 .dropdown dt a {
     background: url("../images/dropdown_bg.png") no-repeat center right #dadada;
@@ -471,7 +471,7 @@ a.clear_input:hover {
     width: 162px;
 }
 .dropdown dt a p {
-    color: #333333;
+    color: #444;
     cursor: pointer;
     display: block;
     float: left;
@@ -480,26 +480,28 @@ a.clear_input:hover {
     overflow: hidden;
 }
 .dropdown dt a img {
-    color: #333333;
+    color: #444;
     float: right;    
 }
 .dropdown dd ul {
     background: #ffffff none repeat scroll 0 0;
-    border: 1px solid #bcbcbc;
-    color: #C5C0B0;
+    border: 1px solid #ddd;
+    border-radius: 0 0 13px 13px;
+    -moz-border-radius: 0 0 13px 13px;
+    -webkit-border-radius: 0 0 13px 13px;
     display: none;
-    padding: 2px 0px;
-    position: absolute; top: 0px; left: 0px;
+    padding: 4px 0px;
+    position: absolute; top: 0px; left: -5px;
     width: auto;
-    min-width: 172px;
+    min-width: 153px;
     list-style: none;
     z-index: 104;
-    box-shadow: 3px 3px 12px #555555;
-    -moz-box-shadow: 3px 3px 12px #555555;
-    -webkit-box-shadow: 3px 3px 12px #555555;
+    box-shadow: 0px 8px 12px #777;
+    -moz-box-shadow: 0px 8px 12px #777;
+    -webkit-box-shadow: 0px 8px 12px #777;
 }
 .dropdown dd ul:hover {
-    border: 1px solid #999999;
+    /*border: 1px solid #999999;*/
 } 
 .dropdown span.value {
     display: none;
@@ -508,20 +510,27 @@ a.clear_input:hover {
     padding: 5px;
     display: block;
 }
-.dropdown dd ul li a:hover {
-    background: url("../images/ui-bg_glass_75_dadada_1x400.png") repeat-x scroll 50% 50% #dadada;    
-    border: 1px solid #ababab;
-    color: #101010;
-    margin: 0 1px;
-    padding: 4px 3px;
-    border-radius: 4px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-
+.dropdown dd ul li a:hover { 
+    background-color: #ddd; 
+    border: none;
+    color: #444;
+    margin: 0;
+    padding: 5px;
+    behavior: url(css/css3pie/PIE.php); /* for IE */
+}
+.dropdown dd ul li:last-child a:hover {   
+    background-color: #ddd; 
+    border: none;
+    color: #444;
+    margin: 0;
+    padding: 5px;
+    border-radius:  0 0 9px 9px;
+    -moz-border-radius: 0 0 9px 9px;
+    -webkit-border-radius: 0 0 9px 9px;
     behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .dropdown dd ul li a img {
-    color: #333333;
+    color: #444;
     display: none;
     float: right;    
 }
@@ -535,13 +544,13 @@ a.clear_input:hover {
     border: medium none;
     height: 16px;
     padding: 15px 0;
-    width: 135px;
+    width: 140px;
 }
 .searchbox .dropdown dd ul li a {
     padding: 6px 5px 6px 7px;
 }
 .searchbox .dropdown dd ul li a:hover {
-    padding: 5px 0 5px 5px;
+    padding: 6px 5px 6px 7px;
 }
 
 /* Search context help layer */

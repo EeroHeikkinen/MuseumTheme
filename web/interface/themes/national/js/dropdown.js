@@ -45,7 +45,7 @@ function createDropDown(){
 
     options.each(function(){
         if ($(this).text()) {
-            $("#target dd ul").append('<li><a href="#" class="big"><p>' + 
+            $("#target dd ul").append('<li><a href="#"><p>' + 
                 $(this).text() + '</p><span class="value">' + 
                 $(this).val() + '</span></a></li>');
         } else {
