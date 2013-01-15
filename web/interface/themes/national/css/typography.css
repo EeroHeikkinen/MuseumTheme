@@ -177,7 +177,7 @@ body { -webkit-tap-highlight-color: #bbddff; }
     font-weight: normal;
     line-height: 1em;
 }
-.dropdown dt a p {
+.dropdown dt a {
     font-size: .846em;
 }
 
@@ -186,15 +186,12 @@ body { -webkit-tap-highlight-color: #bbddff; }
     font-family: inherit;
 }
 /* Search Box dropdown */
-.searchbox .dropdown dt a.hefty {
-    font-size:1em;
-}
-.searchbox .dropdown dt a p {
+.searchbox .dropdown dt a {
     color:#888; 
     line-height: 1.2em;
     font-size: 0.9em;
 }
-.searchbox .dropdown dd p {
+.searchbox .dropdown dd {
     line-height: 0.8em;
     margin: 0;
 }

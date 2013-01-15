@@ -456,10 +456,7 @@ a.clear_input:hover {
 .dropdown a:hover {
     color: #212121;
 }
-.dropdown dt a:hover {
-    border: 1px solid #bcbcbc;
-    color:#101010;
-}
+
 .dropdown dt a {
     background: url("../images/dropdown_bg.png") no-repeat center right #dadada;
     border: 1px solid #999999;
@@ -468,7 +465,7 @@ a.clear_input:hover {
     padding: 5px;
     width: 162px;
 }
-.dropdown dt a p {
+.dropdown dt a {
     color: #333333;
     cursor: pointer;
     display: block;
