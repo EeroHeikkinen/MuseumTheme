@@ -9,17 +9,29 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
         series: {
             bars: {
                 show: true,
-                align: "center",
                 fill: true,
-                fillColor: "rgb(124,180,124)"
+                lineWidth:0,
+                fillColor: "#cccccc"
             }
         },
         colors: ["rgba(151,200,151,255)"],
         legend: { noColumns: 2 },
-        xaxis: { max: currentYear + 1, tickDecimals: 0 },
+        xaxis: { 
+            max: currentYear + 1, 
+            tickDecimals: 0, 
+            font :{
+                size: 12,
+                family: "'helvetica neue', helvetica,arial,sans-serif"
+            }                   
+        },
         yaxis: { min: 0, ticks: [] },
-        selection: {mode: "x"},
-        grid: { backgroundColor: null /*"#ffffff"*/ }
+        selection: {mode: "x", color:'#d9f1f4'},
+        grid: { 
+            backgroundColor: null, 
+            borderWidth:0,
+            axisMargin:0,
+            margin:0
+        }
     };
 
     var url = baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams;

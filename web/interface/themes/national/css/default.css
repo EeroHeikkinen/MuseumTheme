@@ -36,7 +36,6 @@ body {
 }
 
 #main {
-    padding-top: 30px;
     background:#fff;
     overflow: auto;
 }
@@ -171,7 +170,6 @@ img.alignleft {
     display: none;
 }
 div.sidegroup {
-    border-left: 2px solid #ddd;
     padding-bottom: 1em;
     padding-left: 20px;
 }
@@ -884,18 +882,10 @@ fieldset.publishDateLimit .ui-slider {
     padding: 0 0 0.5em 0;
 */
 }
-#topPubDateVis {
-    float: left;
-    border: none;
-    width: 718px;
-}
-#topPubDateVis strong {
-    padding-left: .2em;
-}
+
 #sidebarFacets {
     float: right;
-    margin-left: 12px;
-    width: 220px;
+    width: 240px;
 /*
     width: 210px;
 */
@@ -1113,7 +1103,7 @@ div.bulkActionButtons {
 /*** Result List ***/
 
 #resultList, #authorList, #resultsCollection {
-    width: 728px;
+    width: 670px;
     float: left;
     margin: 0;
     padding-bottom: .4em;
@@ -1276,9 +1266,6 @@ ul.recordSet .resultItemLine2{
     margin: 0 .3em;
     padding: .4em .7em 0;
 }
-.resulthead {
-    padding: 0 0 0 .8em;
-}
 
 #authorList .resulthead {
     margin-top: 1.2em;
@@ -1292,16 +1279,6 @@ ul.recordSet .resultItemLine2{
 .savedLists ul { margin-top: 0; }
 .savedLists ul li { padding:0; }
 
-.correction {
-    margin-bottom: .6em;
-    padding-top: .5em;
-}
-.correction p, .correctionTerms {
-    margin: 0;
-}
-.correction a img {
-    vertical-align: text-top;
-}
 
 li.result blockquote {
     margin:0;
@@ -1781,6 +1758,85 @@ ul.recordSet .addToFavLink a {
 .manuscript {background-image:url(../images/silk/report_edit.png);}
 .software {background-image:url(../images/silk/disk_multiple.png);}
 
+/***** Results header ****/
+.resultHeader > div {
+    overflow:auto;
+}
+.resultTerms {
+    background:#b3e3e9;
+}
+.resultViewOptions {
+    background:#e6e6e6;
+}
+.resultDates {
+    background:#f2f2f2;
+}
+
+/* Result terms */
+.resultTerms {
+    padding:20px 0;
+}
+.searchTerms {
+    float: left;
+    font-size: 1.777em;
+    margin: 0 30px 0 0;
+    max-width: 400px;
+}
+
+.correction {
+    display: block;
+    font-weight:bold;
+    float: left;
+    margin: 4px 0 0;
+}
+.correction .expandSearch {
+    background: url("../images/expand.png") no-repeat scroll 0 0 transparent;
+    display: inline-block;
+    height: 16px;
+    margin-top: 0;
+    position: relative;
+    top: 3px;
+    width: 17px;
+}
+
+/* Result numbers */
+.resultNumbers {
+    float:left;
+    font-size:1.230em;
+    max-width:520px;
+}
+.resultNumbers .currentPage {
+    font-weight:bold;
+}
+.resultNumbers .currentPage a {
+    display:none;
+}
+
+/* Result options */
+
+.resultOptions {
+    float: right;
+}
+
+.resultOptionSort {
+    float: left;
+}
+.resultOptionLimit {
+    float:right;
+}
+/***** Date Range Visualizer *****/
+
+.dateVis {
+    box-shadow:0 1px 10px rgba(0,0,0,.15) inset;
+    margin:0;
+    padding:0;
+    width:auto;
+    height:110px;
+    cursor:crosshair;
+    position:relative;
+    left:5px;
+}
+
 /***** Pagination *****/
 
 .pagination {
@@ -1809,13 +1865,10 @@ ul.recordSet .addToFavLink a {
     margin-left: .8em;
 }
 
-/*** Result Options (sorting etc.) ***/
-.resultOptions {
-    margin: 1.5em 0;
-    padding: 13px .7em 13px;
-    float: right;
-    
+#suggestedTopics {
+    display:none;
 }
+
 
 
 /*** Record Page ***/
