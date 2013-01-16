@@ -1,6 +1,6 @@
 <?php
 /**
- * SearchObject Factory Test Class
+ * Solr Pseudo Facets Test Class
  *
  * PHP version 5
  *
@@ -21,7 +21,7 @@
  *
  * @category VuFind
  * @package  Tests
- * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Eero Heikkinen <eero.heikkinen@nba.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/unit_tests Wiki
  */
@@ -30,11 +30,11 @@ require_once 'sys/SearchObject/Factory.php';
 require_once 'MockRequest.php';
 
 /**
- * SearchObject Factory Test Class
+ * Solr Pseudo Facets Test Class
  *
  * @category VuFind
  * @package  Tests
- * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Eero Heikkinen <eero.heikkinen@nba.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/unit_tests Wiki
  */
