@@ -3,23 +3,22 @@
 //
 // Modifications by NDL
 
-
-
 $(document).ready(function() {
-    
-    createDropDowns();
+    createDropdowns();
+    initDropdowns();
+});
 
-    $(".dropdown dt a").bind('click', function() {
-        var dropdown = $(this).closest('dl.dropdown');
-        dropdown.find('dd ul').fadeIn(100);
-        return false;
-    });
+function initDropdowns() {
     
     // Hide dropdown when clicking outside
     $(document).bind('click', function(e) {
-        var clicked = $(e.target);
-        if (! clicked.parents().hasClass("dropdown"))
-            $(".dropdown dd ul").hide();
+        $(".dropdown dd ul").hide();
+    });
+    
+    $(".dropdown dt a").bind('click', function() {
+        var dropdown = $(this).closest('dl.dropdown');
+        dropdown.find('dd ul').fadeToggle(100);
+        return false;
     });
 
     $(".dropdown dd ul li a").bind('click', function() {
@@ -35,11 +34,11 @@ $(document).ready(function() {
         source.find('option[value="'+$(this).find("span.value").text()+'"]').attr('selected', 'selected').change();
         return false;
     });    
-});
+};
 
 // Function for creating dropdowns
-function createDropDowns(){
-    $('.styledDropdowns, .searchForm_styled, .jumpMenu').each(function() { 
+function createDropdowns(){
+    $('.styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select').each(function() { 
         var source = $(this);
         var selected = source.find("option[selected]");
         var options = $("option", source);

@@ -1757,14 +1757,15 @@ ul.recordSet .addToFavLink a {
 .software {background-image:url(../images/silk/disk_multiple.png);}
 
 /***** Results header ****/
-.resultHeader > div {
-    overflow:auto;
+.styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select {
+    visibility:hidden;
 }
 .resultTerms {
     background:#b3e3e9;
 }
 .resultViewOptions {
     background:#e6e6e6;
+    height:75px;
 }
 .resultDates {
     background:#f2f2f2;
@@ -1774,8 +1775,12 @@ ul.recordSet .addToFavLink a {
 .resultTerms {
     padding:20px 0;
 }
+.resultTerms .content {
+    overflow:auto;
+}
 .searchTerms {
     float: left;
+    display: block;
     font-size: 1.777em;
     margin: 0 30px 0 0;
     max-width: 400px;
@@ -1800,6 +1805,7 @@ ul.recordSet .addToFavLink a {
 /* Result numbers */
 .resultNumbers {
     float:left;
+    margin: 28px 0;
     font-size:1.230em;
     max-width:520px;
 }
@@ -1814,14 +1820,54 @@ ul.recordSet .addToFavLink a {
 
 .resultOptions {
     float: right;
+    height: 35px;
+    margin:20px 0 0;
 }
 
 .resultOptionSort {
     float: left;
 }
+.resultOptionSort label,
+.resultOptionLimit label {
+    float:left;
+    display:block;
+    text-indent:0 !important;
+        font-size:1em;
+    line-height:1em;
+    padding: 10px 8px 12px 15px;
+}
+.resultOptionSort .dropdown,
+.resultOptionLimit .dropdown {
+    float:left;
+    display:block;
+}
+
+.resultOptionSort .dropdown dt a,
+.resultOptionLimit .dropdown dt a {
+    display:block;
+    background: #00a3b5;
+    border: none;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFFFFF;
+    height: auto;
+    font-size:1em;
+    line-height:1em;
+    padding: 10px 12px 10px 15px;
+    width:auto;
+}
+.resultOptionSort .dropdown dt a:after,
+.resultOptionLimit .dropdown dt a:after {
+    content:'▼';
+    padding-left:8px;
+}
+
 .resultOptionLimit {
     float:right;
 }
+
+
+
+
 /***** Date Range Visualizer *****/
 
 .dateVis {

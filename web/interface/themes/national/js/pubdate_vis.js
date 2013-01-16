@@ -11,13 +11,13 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
                 show: true,
                 fill: true,
                 lineWidth:0,
-                fillColor: "#cccccc"
+                fillColor: "#00a3b5"
             }
         },
         colors: ["rgba(151,200,151,255)"],
         legend: { noColumns: 2 },
         xaxis: { 
-            max: currentYear + 1, 
+            max: currentYear, 
             tickDecimals: 0, 
             font :{
                 size: 12,
