@@ -13,11 +13,10 @@
       {/foreach}
   {/if}
   {if $filterList}
-    <strong>{translate text='Remove Filters'}</strong>
     <ul class="filters">
     {foreach from=$filterList item=filters key=field}
       {foreach from=$filters item=filter}
-        <li><a href="{$filter.removalUrl|escape}">{image src="silk/delete.png" alt="Delete" width="16" height="16"}{translate text=$field}: {$filter.display|escape}</a></li>
+        <li><a class="roundButton deleteButton" href="{$filter.removalUrl|escape}">X</a><span>{translate text=$field}: {$filter.display|escape}</span></li>
       {/foreach}
     {/foreach}
     </ul>

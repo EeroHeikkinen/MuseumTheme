@@ -1315,21 +1315,41 @@ li.result blockquote {
 }
 
 /** Side facets */
-
+.sidegroup ul,
+.sidegroup dl {
+    background:#f2f2f2;
+    margin:5px 0 0;
+}
+.sidegroup dl {
+    padding-bottom:8px;
+}
+.sidegroup dt {
+    background:#4c4c4c;
+    padding:10px 10px 12px;
+    font-size:1.230em;
+    color:#fff;
+}
+.sidegroup dd {
+    padding:0 10px;
+}
+.sidegroup dt + dd {
+    padding-top:7px;
+}
+.sidegroup ul.dynatree-container {
+    padding:7px 10px 8px 10px;
+}
 ul.filters {
-    list-style-type:none;
-    margin:0;
-    padding:0;
+    list-style-type: none;
+    margin: 0;
+    padding: 20px 10px 15px;
 }
 ul.filters li {
-    margin: 0 0 3px 0;
-    padding: 2px 2px 2px 22px;
-    color: #ffffff;
-    background-color: #ffa500;
+    clear: both;
+    display: block;
+    margin: 0;
+    padding: 0 0 12px;
 }
-ul.filters li:hover {
-    background-color: #ff8c00;
-}
+
 ul.filters img {
     vertical-align: -4px;
     margin-left: -20px;
@@ -1337,15 +1357,24 @@ ul.filters img {
 }
 ul.filters a {
     display: block;
+    position: absolute;
     color: white;
     text-decoration: none;
+}
+ul.filters span {
+    margin-left:30px;
+    margin-top:3px;
+    display:inline-block;
 }
 #sidebarRecommend div.sidegroup {
     margin-top: 1.2em;
 }
 div.sidegroup h4 {
-    margin:0 0 0.5em 0;
-    padding:0 0 0.5em 0;
+    background:#00a3b5;
+    color: #FFFFFF;
+    font-size: 1.777em;
+    margin: 0;
+    padding: 12px 10px 14px;
 }
 div.sidegroup h4.account, div.sidegroup h4.list {
     padding:0 0 0 1.3em;
@@ -1375,11 +1404,6 @@ dl.narrowList a {
     list-style-type: none;
     /* border-bottom: 1px solid #e3e3e3; */
     margin:0;
-}
-.navmenu dt {
-    margin-top:.75em;
-    padding:0.2em 0.4em;
-    background-color: #eee;
 }
 .suggestedTopics {
     float: left;
@@ -3369,7 +3393,7 @@ div#closeContextHelp:active {
 /* Dynatree */
 ul.dynatree-container {
     border: none;
-    margin: 0 0 0 -8px;
+    margin: 0;
     overflow: visible;
 }
 ul.dynatree-container a {
@@ -3515,6 +3539,22 @@ span.mapMarker  {
 .button.buttonTurquoise:hover,
 .button.buttonGrey:hover {
     color:#fff;
+}
+
+.roundButton {
+    border-radius:13px;
+    display:inline-block;
+    cursor:pointer;
+    text-align:center;
+    height:25px;
+    float:left;
+    font-weight:bold;
+    line-height:24px;
+    width:25px;
+}
+.deleteButton {
+    color:#fff;
+    background:#ff461e;
 }
 
 
