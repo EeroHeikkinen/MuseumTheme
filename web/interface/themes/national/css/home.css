@@ -534,3 +534,15 @@ div.searchHomeForm div.searchform #searchForm {
     padding:0;
 }
 
+/*** Popular searches ***/
+
+#popularSearches a {
+    color: #00a3b5;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#popularSearches a:hover, #popularSearches a:focus {
+    text-decoration: underline;
+}
+
