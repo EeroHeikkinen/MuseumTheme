@@ -157,7 +157,7 @@ $(document).ready(function() {
 
   </head>
   <body>
-    <a class="feedbackButton" href="{$path}/Feedback/Home">{translate text='navigation_feedback'}</a>
+    <a class="feedbackButton" href="{$path}/Feedback/Home">{translate text='Give feedback'}</a>
     {* mobile device button*}
     {if $mobileViewLink}
         <div class="mobileViewLink"><a href="{$mobileViewLink|escape}">{translate text="mobile_link"}</a></div>
