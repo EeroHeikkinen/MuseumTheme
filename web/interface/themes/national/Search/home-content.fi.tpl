@@ -91,23 +91,9 @@
 <div class="home-section third columns clear">
   <div class="content">
     <div>
-      <h2 class="color-finnaBlue">10 uusinta hakua</h2>
-      <div class="recent-searches">
-        <ul>
-          <li><span>1</span><span>Maatila</span></li>
-          <li><span>2</span><span>2d molecular</span></li>
-          <li><span>3</span><span>Kissa</span></li>
-          <li><span>4</span><span>talvisota</span></li>
-          <li><span>5</span><span>Tutki ja kirjoita</span></li>
-        </ul>
-        <ul>
-          <li><span>6</span><span>Suomi</span></li>
-          <li><span>7</span><span>Uppo nalle</span></li>
-          <li><span>8</span><span>Alfons Åberg</span></li>
-          <li><span>9</span><span>Hopealusikka</span></li>
-          <li><span>10</span><span>Porphyry allegory</span></li>
-        </ul>
-      </div>
+      <h2 class="color-finnaBlue">10 suosituinta hakua</h2>
+      <div id="popularSearches" class="recent-searches">Ladataan...</div>
+      {include file="AJAX/loadPopularSearches.tpl"}
     </div>
     <div>
       <h2>Kirjautumalla voit...</h2>
