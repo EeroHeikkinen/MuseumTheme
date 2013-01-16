@@ -19,7 +19,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 <script src="{$syndetics_plus_js}" type="text/javascript"></script>
 {/if}
 {if !empty($addThis)}
-<!-- <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script> -->
+<script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pub={$addThis|escape:"url"}"></script>
 {/if}
 
 {js filename="record.js"}
@@ -70,20 +70,25 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {* Display Cover Image *}
     <div class="coverImages">
     {if $coreThumbMedium}
-        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
-        <img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}">
-        {if $coreThumbLarge}</a>{/if}
+
         <div class="clear"></div>
         {assign var=img_count value=$coreImages|@count}
         {if $img_count > 1}
           <div class="coverImageLinks">
         {foreach from=$coreImages item=desc name=imgLoop}
-            <a href="{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onclick="document.getElementById('thumbnail').src='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=medium'; document.getElementById('thumbnail_link').href='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
-              {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
+            <a href="{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onclick="document.getElementById('thumbnail').src='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=medium'; document.getElementById('thumbnail_link').href='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;" style="background-image:url('{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small');"><span></span>
+              {*if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if
+              <img src="{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small" />
+              *}
             </a>
           {/foreach}
           </div>
         {/if}
+        
+        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
+        <span></span><img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}" style="padding:0" />
+        {if $coreThumbLarge}</a>{/if}
+        
         {else}
         {* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}
     {/if}
@@ -102,7 +107,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <li><a href="{$url}/Record/{$id|escape:"url"}/Feedback" class="feedbackRecord mail" id="feedbackRecord{$id|escape}" title="{translate text="Send Feedback"}">{translate text="Send Feedback"}</a></li>
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
-          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6"}</a>
+          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6" alt=""}</a>
           <ul class="menu offscreen" id="exportMenu">
           {foreach from=$exportFormats item=exportFormat}
             <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
@@ -118,10 +123,23 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         {/if}
         {* Citation commented out for now
         <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
-        {* Bookmark commented out for now
+        {* AddThis-Bookmark commented out
         {if !empty($addThis)}
         <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text="Bookmark"}</a></li>
         {/if} *}
+        {* AddThis for social sharing START *}
+		{if !empty($addThis)}
+		<li id="addThis">
+        <div class="truncateField">
+		 	<div class="addthis_toolbox addthis_default_style ">
+				<a class="addthis_button_facebook"></a>
+				<a class="addthis_button_twitter"></a>
+				<a class="addthis_button_google_plusone_share"></a>
+			</div>
+		</div>
+		</li>
+        {/if}
+        {* Addthis for social sharing END *}
         {if $bookBag}
         <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text="Add to Book Bag"}</a></li>
         {/if}
@@ -152,11 +170,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
    {include file=$coreMetadata}
   
+  <a name="tabnav"></a>
     <div id="{if $dynamicTabs}dyn{/if}tabnav">
-    {if !$dynamicTabs || $tab != 'Hold'}
+    {if !$dynamicTabs || ($tab != 'Hold' && $tab != 'CallSlip')}
       <ul>
         {if $hasHoldings}
-        <li{if $tab == 'Holdings' || $tab == 'Hold'} class="active"{/if}>
+        <li{if $tab == 'Holdings' || $tab == 'Hold' || $tab == 'CallSlip'} class="active"{/if}>
           <a id="holdingstab" href="{$url}/Record/{$id|escape:"url"}/Holdings{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Holdings'}</a>
         </li>
         {/if}
@@ -207,7 +226,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       <div class="clear"></div>
     </div>
   
-    {if $dynamicTabs && $tab != 'Hold'}
+    {if $dynamicTabs && $tab != 'Hold' && $tab != 'CallSlip'}
     <div class="recordsubcontent">
           {include file="Record/view-dynamic-tabs.tpl"}
     </div>
@@ -221,59 +240,13 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <span class="Z3988" title="{$openURL|escape}"></span>
   </div>
   
-
-
-<div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
-  <div class="sidegroup">
-    <h4>{translate text="Similar Items"}</h4>
-    {if is_array($similarRecords)}
-    <ul class="similar">
-      {foreach from=$similarRecords item=similar}
-      <li>
-        {*{if is_array($similar.format)}
-        <span class="icon format{$similar.format[0]|lower|regex_replace:"/[^a-z]/":""}">
-        {else}
-        <span class="icon format{$similar.format|lower|regex_replace:"/[^a-z]/":""}">
-        {/if}*}
-          <a href="{$url}/Record/{$similar.id|escape:"url"}">{$similar.title|escape}</a>
-        {*</span>*}
-        <br/>
-        {if $similar.author}{$similar.author|escape}{/if}
-        {if $similar.publishDate} {$similar.publishDate.0|escape}{/if}
-      </li>
-      {/foreach}
-    </ul>
-    {else}
-      <p>{translate text='Cannot find similar records'}</p>
+  <div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
+    <div class="similarItems" id="similarItems{$id}"><div class="sidegroup">{image src="ajax_loading.gif" width="16" height="16" alt="Loading..."}</div></div>
+    
+    {if $bXEnabled}
+      {include file="Record/bx.tpl"}
     {/if}
   </div>
-
-  {if is_array($editions)}
-  <div class="sidegroup">
-    <h4>{translate text="Other Editions"}</h4>
-    <ul class="similar">
-      {foreach from=$editions item=edition}
-      <li>
-        {*{if is_array($edition.format)}
-          <span class="{$edition.format[0]|lower|regex_replace:"/[^a-z0-9]/":""}">
-        {else}
-          <span class="{$edition.format|lower|regex_replace:"/[^a-z0-9]/":""}">
-        {/if}*}
-        <a href="{$url}/Record/{$edition.id|escape:"url"}">{$edition.title|escape}</a>
-        {*</span>*}
-        <br/>
-        {$edition.edition|escape}
-        {if $edition.publishDate}{$edition.publishDate.0|escape}{/if}
-      </li>
-      {/foreach}
-    </ul>
-  </div>
-  {/if}
-  
-  {if $bXEnabled}
-    {include file="Record/bx.tpl"}
-  {/if}
-</div>
   <div class="clear"></div>
 </div>
 

@@ -17,6 +17,7 @@
       if (!lineHeight)
         return;
       lineHeight = lineHeight.replace('px', '');
+      lineHeight = lineHeight.replace('pt', '');
       
       var node = $(this);
 

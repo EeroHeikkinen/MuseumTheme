@@ -216,6 +216,17 @@ class SearchObject_Solr extends SearchObject_Base
                 $filters[] = $rawFilter;
             }
         }
+        
+        // Data source filters
+        if (isset($config['Records']['sources']) && $config['Records']['sources']) {
+            $sources = array_map(
+                function($input) {
+                    return '"' . addcslashes($input, '"') . '"'; 
+                },
+                explode(',', $config['Records']['sources'])
+            );
+            $filters[] = 'source_str_mv:(' . implode(' OR ', $sources) . ')';
+        }
 
         return $filters;
     }
@@ -1262,12 +1273,18 @@ class SearchObject_Solr extends SearchObject_Base
     private function _processSpelling()
     {
         global $configArray;
-
         // Do nothing if spelling is disabled
         if (!$configArray['Spelling']['enabled']) {
             return;
         }
-
+        
+        // Spellcheck only basic search
+        if (count($this->searchTerms) != 1
+            || $this->searchTerms[0]['index'] != 'AllFields'
+        ) {
+            return;    
+        }
+        
         // Do nothing if there are no suggestions
         $suggestions = isset($this->indexResult['spellcheck']['suggestions']) ?
             $this->indexResult['spellcheck']['suggestions'] : array();
@@ -1278,7 +1295,7 @@ class SearchObject_Solr extends SearchObject_Base
         // Loop through the array of search terms we have suggestions for
         $suggestionList = array();
         // More than one word use collation suggestions
-        $queryTerm = $this->getQuery();
+        $queryTerm = $this->_buildSpellingQuery();
         $useCollate = (str_word_count($queryTerm, 0) > 1);
         
         if ($useCollate) {
@@ -1484,7 +1501,7 @@ class SearchObject_Solr extends SearchObject_Base
                 // Initialize the array of data about the current facet:
                 $currentSettings = array();
                 $currentSettings['value']
-                    = $translate ? translate($translationPrefix . $facet[0]) : $facet[0];
+                    = $translate ? translate(array('prefix' => $translationPrefix, 'text' => $facet[0])) : $facet[0];
                 $currentSettings['untranslated'] = $facet[0];
                 $currentSettings['count'] = $facet[1];
                 $currentSettings['isApplied'] = false;

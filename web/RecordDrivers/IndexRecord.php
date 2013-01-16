@@ -221,6 +221,7 @@ class IndexRecord implements RecordInterface
 
         // These variables are only used by the core template, and they are prefixed
         // with "core" to prevent conflicts with other variable names.
+        $interface->assign('coreTitle', $this->getTitle());
         $interface->assign('coreShortTitle', $this->getShortTitle());
         $interface->assign('coreSubtitle', $this->getSubtitle());
         $interface->assign('coreTitleStatement', $this->getTitleStatement());
@@ -229,6 +230,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('corePrevTitles', $this->getPreviousTitles());
         $interface->assign('coreAlternativeTitles', $this->getAlternativeTitles());
         $interface->assign('corePublications', $this->getPublicationDetails());
+        $interface->assign('coreProjectedPublicationDate', $this->getProjectedPublicationDate());
         $interface->assign('coreEdition', $this->getEdition());
         $interface->assign('coreSeries', $this->getSeries());
         $interface->assign('coreSubjects', $this->getAllSubjectHeadings());
@@ -239,12 +241,15 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreContainerReference', $this->getContainerReference());
         $interface->assign('coreInstitutions', $this->getInstitutions());
         $interface->assign('coreHierarchyParentId', $this->getHierarchyParentId());
-        
+        $interface->assign('coreClassifications', $this->getClassifications());
+        $interface->assign('coreDissertationNote', $this->getDissertationNote());
+                
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
-        // the way we display items on the search results list.
-        $hasOpenURL = ($this->openURLActive('record') && $this->getCleanISSN());
+        // the way we display items on the search results list. Actually,
+        // display OpenURL link for records with ISBNs too.
+        $hasOpenURL = ($this->openURLActive('record') && ($this->getCleanISSN() || $this->getCleanISBN()));
         if ($hasOpenURL) {
             $interface->assign('coreOpenURL', $this->getOpenURL());
         }
@@ -276,6 +281,11 @@ class IndexRecord implements RecordInterface
         $interface->assign('coreCorporateAuthor', $corpAuthor);
         $interface->assign('coreContributors', $secondaryAuthors);
 
+        // All but presenters
+        $interface->assign('coreNonPresenterAuthors', $this->getNonPresenterAuthors());
+        // and presenters
+        $interface->assign('corePresenters', $this->getPresenters());
+        
         // Assign only the first piece of summary data for the core; we'll get the
         // rest as part of the extended data.
         $summary = $this->getSummary();
@@ -292,6 +302,18 @@ class IndexRecord implements RecordInterface
 
         // Genres in their own field
         $interface->assign('coreGenres', isset($this->fields['genre']) ? $this->fields['genre'] : array());
+        
+        // Manufacturer
+        $interface->assign('coreManufacturer', $this->getManufacturer());
+        
+        // Hierarchy
+        $interface->assign('coreHierarchyParentId', $this->getHierarchyParentId());
+        $interface->assign('coreHierarchyParentTitle', $this->getHierarchyParentTitle());
+        $interface->assign('coreHierarchyTopId', $this->getHierarchyTopId());
+        $interface->assign('coreHierarchyTopTitle', $this->getHierarchyTopTitle());
+        
+        // Collections
+        $interface->assign('coreCollections', $this->getCollections());
         
         // Send back the template name:
         return 'RecordDrivers/Index/core.tpl';
@@ -411,6 +433,7 @@ class IndexRecord implements RecordInterface
         $interface->assign('collCredits', $this->getProductionCredits());
         $interface->assign('collBibliography', $this->getBibliographyNotes());
         $interface->assign('collFindingAids', $this->getFindingAids());
+        $interface->assign('collTitle', $this->getTitle());
         $interface->assign('collShortTitle', $this->getShortTitle());
         $interface->assign('collSubtitle', $this->getSubtitle());
         $interface->assign('collTitleStatement', $this->getTitleStatement());
@@ -435,7 +458,7 @@ class IndexRecord implements RecordInterface
         // Only load URLs if we have no OpenURL or we are configured to allow
         // URLs and OpenURLs to coexist:
         if (!isset($configArray['OpenURL']['replace_other_urls'])
-                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+            || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
         ) {
             //$interface->assign('collURLs', $this->getURLs());
         }
@@ -531,7 +554,7 @@ class IndexRecord implements RecordInterface
         // Only load URLs if we have no OpenURL or we are configured to allow
         // URLs and OpenURLs to coexist:
         if (!isset($configArray['OpenURL']['replace_other_urls'])
-                || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
+            || !$configArray['OpenURL']['replace_other_urls'] || !$hasOpenURL
         ) {
             //$interface->assign('collRecordURLs', $this->getURLs());
         }
@@ -569,17 +592,6 @@ class IndexRecord implements RecordInterface
 
         $ed = new ExternalExcerpts($this->getCleanISBN());
         return $ed->fetch();
-    }
-    
-    /**
-     * Get the text to represent this record in the body of a feedback email.
-     *
-     * @return string Text for inclusion in email.
-     * @access public
-     */
-    public function getFeedback()
-    {
-        return "  " . $this->getTitle() . "\n";
     }
 
     /**
@@ -701,8 +713,9 @@ class IndexRecord implements RecordInterface
         // Only display OpenURL link if the option is turned on and we have
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
-        // the way we display items on the search results list.
-        $hasOpenURL = ($this->openURLActive('holdings') && $this->getCleanISSN());
+        // the way we display items on the search results list. Actually,
+        // display OpenURL link for records with ISBNs too.
+        $hasOpenURL = ($this->openURLActive('holdings') && ($this->getCleanISSN() || $this->getCleanISBN()));
         if ($hasOpenURL) {
             $interface->assign('holdingsOpenURL', $this->getOpenURL());
         }
@@ -824,18 +837,22 @@ class IndexRecord implements RecordInterface
 
         // If we have multiple formats, Book, Journal and Article are most
         // important...
-        if (in_array('Book', $formats)) {
+        if (in_array('Book/BookSection', $formats)) {
+            $format = 'BookSection';
+        } else if (in_array('Book/eBookSection', $formats)) {
+            $format = 'eBookSection';
+        } else if (in_array('Book', $formats)) {
             $format = 'Book';
         } else if (in_array('eBook', $formats)) {
             $format = 'eBook';
-        } else if (in_array('Article', $formats)) {
+        } else if (in_array('Journal/Article', $formats)) {
             $format = 'Article';
-        } else if (in_array('eArticle', $formats)) {
+        } else if (in_array('Journal/eArticle', $formats)) {
             $format = 'eArticle';
         } else if (in_array('Journal', $formats)) {
             $format = 'Journal';
         } else {
-            $format = $formats[0];
+            $format = array_pop($formats);
         }
         switch($format) {
         case 'Book':
@@ -856,6 +873,30 @@ class IndexRecord implements RecordInterface
             }
             $params['rft.edition'] = $this->getEdition();
             $params['rft.isbn'] = $this->getCleanISBN();
+            break;
+        case 'BookSection':
+        case 'eBookSection':
+            $params['rft_val_fmt'] = 'info:ofi/fmt:kev:mtx:book';
+            $params['rft.genre'] = 'book';
+            $series = $this->getSeries();
+            if (count($series) > 0) {
+                // Handle both possible return formats of getSeries:
+                $params['rft.series'] = is_array($series[0]) ?
+                    $series[0]['name'] : $series[0];
+            }
+            $params['rft.au'] = $this->getPrimaryAuthor();
+            $publishers = $this->getPublishers();
+            if (count($publishers) > 0) {
+                $params['rft.pub'] = $publishers[0];
+            }
+            $params['rft.edition'] = $this->getEdition();
+            $params['rft.isbn'] = $this->getCleanISBN();
+            $params['rft.volume'] = $this->getContainerVolume();
+            $params['rft.issue'] = $this->getContainerIssue();
+            $params['rft.spage'] = $this->getContainerStartPage();
+            unset($params['rft.title']);
+            $params['rft.btitle'] = $this->getContainerTitle();
+            $params['rft.atitle'] = $this->getTitle();
             break;
         case 'Article':
         case 'eArticle':
@@ -988,10 +1029,15 @@ class IndexRecord implements RecordInterface
         $interface->assign('summLCCN', $this->getLCCN());
         $interface->assign('summOCLC', $this->getOCLC());
         $interface->assign('summCallNo', $this->getCallNumber());
+        $interface->assign('summClassifications', $this->getClassifications());
         $interface->assign('summContainerTitle', $this->getContainerTitle());
         $interface->assign('summContainerReference', $this->getContainerReference());
         $interface->assign('summHierarchyParentId', $this->getHierarchyParentId());
-
+        $interface->assign('summHierarchyParentTitle', $this->getHierarchyParentTitle());
+        $interface->assign('summHierarchyTopId', $this->getHierarchyTopId());
+        $interface->assign('summHierarchyTopTitle', $this->getHierarchyTopTitle());
+        $interface->assign('summInstitutions', $this->getInstitutions());
+        
         //collection module only
         if (isset($configArray['Collections']['collections'])
             && $configArray['Collections']['collections'] == true
@@ -1010,10 +1056,8 @@ class IndexRecord implements RecordInterface
         // an ISSN.  We may eventually want to make this rule more flexible,
         // but for now the ISSN restriction is designed to be consistent with
         // the way we display items on the search results list. Actually,
-        // display OpenURL link for eBooks with ISBNs too.
-        $hasOpenURL = ($this->openURLActive('results') && $issn ||
-                       ($this->getCleanISBN() &&
-                        in_array('eBook', $this->getFormats())));
+        // display OpenURL link for records with ISBNs too.
+        $hasOpenURL = ($this->openURLActive('results') && ($issn || $this->getCleanISBN()));
         $openURL = $this->getOpenURL();
         $interface->assign('summOpenUrl', $hasOpenURL ? $openURL : false);
 
@@ -1126,7 +1170,7 @@ class IndexRecord implements RecordInterface
     
         //check config setting for what constitutes a collection
         $collectionIdentifier = $hierarchyDriver->getCollectionIdentifier();
-    
+
         if ($collectionIdentifier == "All Containers") {
             $isCollection = (isset($this->fields['is_hierarchy_id']));
             $interface->assign('summCollection', $isCollection);
@@ -1280,28 +1324,53 @@ class IndexRecord implements RecordInterface
     }    
     
     /**
-     * Get the hierarchy_top_id associated with this item (empty string if none).
+     * Get the hierarchy_top_id associated with this item (empty array if none).
      *
-     * @return string
+     * @return array
      * @access protected
      */
     public function getHierarchyTopID()
     {
         return isset($this->fields['hierarchy_top_id']) ?
-        $this->fields['hierarchy_top_id'] : array();
+            $this->fields['hierarchy_top_id'] : array();
     }
     
     /**
      * Get the absolute parent title associated with this item
-     * (empty string if none).
+     * (empty array if none).
      *
-     * @return string
+     * @return array
      * @access protected
      */
     public function getHierarchyTopTitle()
     {
         return isset($this->fields['hierarchy_top_title']) ?
-        $this->fields['hierarchy_top_title'] : array();
+            $this->fields['hierarchy_top_title'] : array();
+    }
+
+    /**
+     * Get the hierarchy_parent_id associated with this item (empty array if none).
+     *
+     * @return array
+     * @access protected
+     */
+    public function getHierarchyParentID()
+    {
+        return isset($this->fields['hierarchy_parent_id']) ?
+            $this->fields['hierarchy_parent_id'] : array();
+    }
+    
+    /**
+     * Get the parent title associated with this item
+     * (empty array if none).
+     *
+     * @return array
+     * @access protected
+     */
+    public function getHierarchyParentTitle()
+    {
+        return isset($this->fields['hierarchy_parent_title']) ?
+            $this->fields['hierarchy_parent_title'] : array();
     }
     
     /**
@@ -1350,8 +1419,8 @@ class IndexRecord implements RecordInterface
             $isCollection = (isset($this->fields['is_hierarchy_title']) &&
                     isset($this->fields['is_hierarchy_id']) &&
                     in_array(
-                            $this->fields['is_hierarchy_id'],
-                            $this->fields['hierarchy_top_id']
+                        $this->fields['is_hierarchy_id'],
+                        $this->fields['hierarchy_top_id']
                     )
             );
         }
@@ -1425,8 +1494,8 @@ class IndexRecord implements RecordInterface
      * @access public
      */
     public function getHierarchyTree($hierarchyDriver = false,
-            $context = false, $mode = false, $hierarchyID = false,
-            $currentRecordID = false
+        $context = false, $mode = false, $hierarchyID = false,
+        $currentRecordID = false
     ) {
         global $configArray;
     
@@ -1448,7 +1517,7 @@ class IndexRecord implements RecordInterface
                 include_once 'sys/hierarchy/' . $generator . '.php';
                 $hierarchyTree = new $generator($this);
                 return $hierarchyTree->getHierarchyTree(
-                        $source, $context, $mode, $hierarchyID, $currentRecordID
+                    $source, $context, $mode, $hierarchyID, $currentRecordID
                 );
             }
         }
@@ -1634,7 +1703,7 @@ class IndexRecord implements RecordInterface
         global $configArray;
 
         if (isset($configArray['Content']['recordMap'])
-            && isset($this->fields['long_lat'])
+            && (isset($this->fields['long_lat']) || isset($this->fields['location_geo']))
         ) {
             return true;
         }
@@ -2059,7 +2128,7 @@ class IndexRecord implements RecordInterface
             }
 
             // No preferred field found, so try for a non-forbidden field:
-            if (is_array($this->fields['_highlighting'])) {
+            if (isset($this->fields['_highlighting']) && is_array($this->fields['_highlighting'])) {
                 foreach ($this->fields['_highlighting'] as $key => $value) {
                     if (!in_array($key, $this->forbiddenSnippetFields)) {
                         return array(
@@ -2117,6 +2186,18 @@ class IndexRecord implements RecordInterface
     {
         return isset($this->fields['institution']) ?
         $this->fields['institution'] : array();
+    }
+
+    /**
+     * Get the collections of the current record.
+     *
+     * @return string
+     * @access protected
+     */
+    protected function getCollections()
+    {
+        return isset($this->fields['collection']) ?
+        $this->fields['collection'] : array();
     }
     
     /**
@@ -2297,14 +2378,26 @@ class IndexRecord implements RecordInterface
                 str_replace(
                     '  ', ' ',
                     ((isset($places[$i]) ? $places[$i] . ' ' : '') .
-                    (isset($names[$i]) ? $names[$i] . ' ' : '') .
-                    (isset($dates[$i]) ? $dates[$i] : ''))
+                    (isset($names[$i]) ? $names[$i] : '') .
+                    (isset($dates[$i]) ? (isset($places[$i]) || isset($names[$i]) ? ', ' : '') . $dates[$i] : ''))
                 )
             );
             $i++;
         }
-
         return $retval;
+    }
+
+    
+    /**
+     * Get the estimated publication dates of the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getProjectedPublicationDate()
+    {
+        // Not currently stored in the Solr index
+        array();
     }
 
     /**
@@ -2638,33 +2731,32 @@ class IndexRecord implements RecordInterface
     protected function getGoogleMapMarker()
     {
         if (isset($this->fields['location_geo'])) {
-            $coordinates = explode(' ', $this->fields['location_geo'][0]);
-            if (count($coordinates) > 2) {
-                $polygon = array();
-                // Assume rectangle for now...
-                $lon = (float)$coordinates[0];
-                $lat = (float)$coordinates[1];
-                $lon2 = (float)$coordinates[2];
-                $lat2 = (float)$coordinates[3];
-                $polygon[] = array($lon, $lat);
-                $polygon[] = array($lon2, $lat);
-                $polygon[] = array($lon2, $lat2);
-                $polygon[] = array($lon, $lat2);
-                $polygon[] = array($lon, $lat);
-                $markers = array(
-                    array(
+            $markers = array();
+            foreach ($this->fields['location_geo'] as $location) {
+                $coordinates = explode(' ', $location);
+                if (count($coordinates) > 2) {
+                    $polygon = array();
+                    // Assume rectangle for now...
+                    $lon = (float)$coordinates[0];
+                    $lat = (float)$coordinates[1];
+                    $lon2 = (float)$coordinates[2];
+                    $lat2 = (float)$coordinates[3];
+                    $polygon[] = array($lon, $lat);
+                    $polygon[] = array($lon2, $lat);
+                    $polygon[] = array($lon2, $lat2);
+                    $polygon[] = array($lon, $lat2);
+                    $polygon[] = array($lon, $lat);
+                    $markers[] = array(
                         'title' => (string)$this->fields['title'],
                         'polygon' => $polygon
-                    )
-                );
-            } else {
-                $markers = array(
-                    array(
+                    );
+                } else {
+                    $markers[] = array(
                         'title' => (string)$this->fields['title'],
-                        'lon' => $coordinates[1],
-                        'lat' => $coordinates[0]
-                    )
-                );
+                        'lon' => $coordinates[0],
+                        'lat' => $coordinates[1]
+                    );
+                }
             }
         } else {
             $longLat = explode(',', is_array($this->fields['long_lat']) ? $this->fields['long_lat'][0] : $this->fields['long_lat']);
@@ -2772,19 +2864,6 @@ class IndexRecord implements RecordInterface
     }
     
     /**
-     * Returns an id of hierarchy parent record if any
-     *
-     * @access protected
-     * @return array
-     *
-     */
-    protected function getHierarchyParentId() 
-    {
-        return isset($this->fields['hierarchy_parent_id']) 
-            ? $this->fields['hierarchy_parent_id'] : '';
-    }
-
-    /**
     * Get an array of all the dedup data associated with the record.
     *
     * @return array
@@ -2829,6 +2908,68 @@ class IndexRecord implements RecordInterface
         return array();
     }
 
+    /**
+     * Get an array of classifications for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getClassifications()
+    {
+        return array();
+    }
+
+    /**
+     * Get all authors apart from presenters
+     * 
+     * @return array
+     */
+    protected function getNonPresenterAuthors()
+    {
+        $authors = array();
+        if ($author = $this->getPrimaryAuthor()) {
+            $authors[] = array('name' => $author);
+        }
+        if ($author = $this->getCorporateAuthor()) {
+            $authors[] = array('name' => $author);
+        }
+        foreach ($this->getSecondaryAuthors() as $author) {
+            $authors[] = array('name' => $author);
+        }
+        return $authors;
+    }
+
+    /**
+     * Get presenters
+     * 
+     * @return array
+     */
+    protected function getPresenters()
+    {
+        // IndexRecord knows nothing about roles, so just return empty array
+        return array();
+    }
+
+    /**
+     * Get manufacturer
+     * 
+     * @return string
+     */
+    protected function getManufacturer()
+    {
+        return '';
+    }
+    
+    /**
+     * Get dissertation note for the record.
+     *
+     * @return string dissertation notes
+     * @access protected
+     */
+    protected function getDissertationNote()
+    {
+        return '';
+    }    
 }
 
 ?>

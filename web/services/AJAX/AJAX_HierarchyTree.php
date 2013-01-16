@@ -48,6 +48,7 @@ class AJAX_HierarchyTree extends Action
         parent::__construct();
         // Setup Search Engine Connection
         $this->db = ConnectionManager::connectToIndex();
+        $_SESSION['no_store'] = true; 
     }
 
     /**

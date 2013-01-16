@@ -135,9 +135,9 @@ class Solr implements IndexEngine
     private $_mergedRecords = null;
 
     /**
-     * Comma-separated list of data source codes in order of priority (most desired first)
+     * Comma-separated list of data source codes to search in order of priority (most desired first)
      */
-    private $_mergeSourcePriority = '';
+    private $_recordSources = '';
     
     /**
      * Array of buildings in facet query, used to override configured merge priority
@@ -199,7 +199,7 @@ class Solr implements IndexEngine
             $this->_caseSensitiveRanges
                 = $searchSettings['General']['case_sensitive_ranges'];
         }
-
+        
         // Turn on highlighting if the user has requested highlighting or snippet
         // functionality:
         $highlight = !isset($searchSettings['General']['highlighting'])
@@ -242,9 +242,9 @@ class Solr implements IndexEngine
         }
         
         // Merged records
-        if (isset($searchSettings['Merged_Records']['merged_records'])) {
-           	$this->_mergedRecords = $searchSettings['Merged_Records']['merged_records'];
-           	$this->_mergeSourcePriority = $searchSettings['Merged_Records']['merge_source_priority'];
+        if (isset($searchSettings['Records']['merged_records'])) {
+           	$this->_mergedRecords = $searchSettings['Records']['merged_records'];
+           	$this->_recordSources = $searchSettings['Records']['sources'];
         }
         
         // Hide component parts?
@@ -320,12 +320,13 @@ class Solr implements IndexEngine
      *
      * @param string $handler The named search to provide information about (set
      * to null to get all search specifications)
+     * @param string $query   The query string
      *
      * @return mixed Search specifications array if available, false if an invalid
      * search is specified.
      * @access  private
      */
-    private function _getSearchSpecs($handler = null)
+    private function _getSearchSpecs($handler = null, $query = null)
     {
         // Only load specs once:
         if ($this->_searchSpecs === false) {
@@ -337,6 +338,13 @@ class Solr implements IndexEngine
             return $this->_searchSpecs;
         }
 
+        // Check for phrase search and exact search spec version
+        if (isset($query) && substr(trim($query), 0, 1) == '"' && substr(trim($query), -1, 1) == '"') {
+            if (isset($this->_searchSpecs["{$handler}Exact"])) {
+                return $this->_searchSpecs["{$handler}Exact"];
+            }
+        }
+        
         // Return specs on the named search if found (easiest, most common case).
         if (isset($this->_searchSpecs[$handler])) {
             return $this->_searchSpecs[$handler];
@@ -703,7 +711,7 @@ class Solr implements IndexEngine
     private function _buildQueryComponent($field, $lookfor, $basic = true)
     {
         // Load the YAML search specifications:
-        $ss = $this->_getSearchSpecs($field);
+        $ss = $this->_getSearchSpecs($field, $lookfor);
 
         // If we received a field spec that wasn't defined in the YAML file,
         // let's try simply passing it along to Solr.
@@ -759,7 +767,7 @@ class Solr implements IndexEngine
         $query = $this->_buildAdvancedInnerQuery($handler, $query);
 
         // Apply boost query/boost function, if any:
-        $ss = $this->_getSearchSpecs($handler);
+        $ss = $this->_getSearchSpecs($handler, $query);
         $bq = array();
         if (isset($ss['DismaxParams']) && is_array($ss['DismaxParams'])) {
             foreach ($ss['DismaxParams'] as $current) {
@@ -1010,7 +1018,7 @@ class Solr implements IndexEngine
 
         // Determine which handler to use
         if (!$this->isAdvanced($query)) {
-            $ss = is_null($handler) ? null : $this->_getSearchSpecs($handler);
+            $ss = is_null($handler) ? null : $this->_getSearchSpecs($handler, $query);
             // Is this a Dismax search?
             if (isset($ss['DismaxFields'])) {
                 // Specify the fields to do a Dismax search on:
@@ -1487,7 +1495,7 @@ class Solr implements IndexEngine
                 }
             }
         }
-
+        
         // pass the shard parameter along to Solr if necessary; if the shard
         // count is 0, shards are disabled; if the count is 1, only one shard
         // is selected so the host has already been adjusted:
@@ -1603,7 +1611,7 @@ class Solr implements IndexEngine
         // Handle merged records (choose the local record by priority)
         if ($this->_mergedRecords && isset($result['response']['docs'])) {
             $datasourceConfig = getExtraConfigArray('datasources');
-            $sourcePriority = array_flip(explode(',', $this->_mergeSourcePriority));
+            $sourcePriority = array_flip(explode(',', $this->_recordSources));
             $buildingPriority = $this->_mergeBuildingPriority;
             array_unshift($buildingPriority, '');
             $buildingPriority = array_flip($buildingPriority);

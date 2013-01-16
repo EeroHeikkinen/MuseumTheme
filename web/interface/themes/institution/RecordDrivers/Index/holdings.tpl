@@ -8,7 +8,7 @@
 {/if}
 
 {if !$hideLogin && $offlineMode != "ils-offline"}
-  {if ($driverMode && !empty($holdings)) || $titleDriverMode}
+  {if ($driverMode || $titleDriverMode) && !empty($holdings)}
     {if $showLoginMsg || $showTitleLoginMsg}
       <div class="userMsg">
         <a href="{$path}/MyResearch/Home?followup=true&followupModule=Record&followupAction={$id}">{translate text="Login"}</a> {translate text="hold_login"}
@@ -28,7 +28,7 @@
 {/if}
 
 {if !empty($holdingURLs) || $holdingsOpenURL}
-  <h3>{translate text="Internet"}</h3>
+  <h5>{translate text="Internet"}</h5>
   {if !empty($holdingURLs)}
     {foreach from=$holdingURLs item=desc key=currentUrl name=loop}
       <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
@@ -39,7 +39,7 @@
   {/if}
 {/if}
 {foreach from=$holdings item=holding key=location}
-<h3>{$location|translate|escape}</h3>
+<h5>{$location|translate|escape}</h5>
 <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Holdings details from'} {translate text=$location}">
   {if $holding.0.callnumber}
   <tr>
@@ -84,11 +84,14 @@
           {if $row.link}
             <a class="holdPlace{if $row.check} checkRequest{/if}" href="{$row.link|escape}"><span>{if !$row.check}{translate text="Place a Hold"}{else}{translate text="Check Hold"}{/if}</span></a>
           {/if}
+          {if $row.callSlipLink}
+            <a class="callSlipPlace{if $row.checkCallSlip} checkCallSlipRequest{/if}" href="{$row.callSlipLink|escape}"><span>{if !$row.checkCallSlip}{translate text="Call Slip Request"}{else}{translate text="Check Call Slip Request"}{/if}</span></a>
+          {/if}
           </div>
         {else}
         {* Begin Unavailable Items (Recalls) *}
           <div>
-          <span class="checkedout">{translate text=$row.status}</span>
+          <span class="checkedout">{translate text=$row.status prefix='status_'}</span>
           {if $row.returnDate} <span class="statusExtra">{$row.returnDate|escape}</span>{/if}
           {if $row.duedate}
           <span class="statusExtra">{translate text="Due"}: {$row.duedate|escape}</span>
@@ -110,7 +113,7 @@
 {/foreach}
 
 {if $history}
-<h3>{translate text="Most Recent Received Issues"}</h3>
+<h5>{translate text="Most Recent Received Issues"}</h5>
 <ul>
   {foreach from=$history item=row}
   <li>{$row.issue|escape}</li>

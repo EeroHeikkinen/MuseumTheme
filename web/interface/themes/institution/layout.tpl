@@ -22,8 +22,8 @@
     {if $addHeader}{$addHeader}{/if}
 
     <title>{$pageTitle|truncate:64:"..."}</title>
-    <link rel="shortcut icon" href="{$url}/interface/themes/institution/images/favicon_line.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon-precomposed" href="{$url}/interface/themes/institution/images/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="{path filename="images/favicon_line.ico"}" type="image/x-icon" />
+    <link rel="apple-touch-icon-precomposed" href="{path filename="images/apple-touch-icon.png"}" />
 
     {if $module=='Record' && $hasRDF}
     <link rel="alternate" type="application/rdf+xml" title="RDF Representation" href="{$url}/Record/{$id|escape}/RDF"/>    
@@ -49,17 +49,23 @@
         License: http://opensource.org/licenses/mit-license.php  *}
     {css media="screen, projection" filename="typography.css"}
     {css media="screen, projection" filename="default.css"}
-    {css media="screen, projection" filename="breadcrumbs.css"}
+    {css media="screen, projection" filename="default_custom.css"}
     {css media="screen, projection" filename="home.css"}
+    {css media="screen, projection" filename="home_custom.css"}
+    {css media="screen, projection" filename="breadcrumbs.css"}
     {css media="screen, projection" filename="footer.css"}
     {css media="screen, projection" filename="768tablet.css"}
-    {css media="screen, projection" filename="320mobile.css"}
     {css media="screen, projection" filename="480mobilewide.css"}
-    {css media="screen, projection" filename="default_custom.css"}
-    {css media="screen, projection" filename="home_custom.css"}
+    {css media="screen, projection" filename="320mobile.css"}
     {css media="screen, projection" filename="settings.css"}
     
     {css media="print" filename="print.css"}
+    {if $dateRangeLimit}
+      {css media="screen, projection" filename="jslider/jslider.css"}
+    {/if}
+    {if $facetList}
+      {css media="screen, projection" filename="chosen/chosen.css"}
+    {/if}
     <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
     <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
@@ -99,7 +105,7 @@
 
     {* Load Mozilla Persona support *}
     {if $mozillaPersona}
-    <script src="https://login.persona.org/include.js"></script>
+    <script type="text/javascript" src="https://login.persona.org/include.js"></script>
     {js filename="persona.js"}
     {/if}
 
@@ -127,8 +133,7 @@ $(document).ready(function() {
     <![endif]-->
 
     {* For mobile devices *}
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <!-- Adding "maximum-scale=1" fixes the Mobile Safari auto-zoom bug: http://filamentgroup.com/examples/iosScaleBug/ -->
+    <meta name="viewport" content="width=device-width, maximum-scale=2"/>
 
   </head>
   <body>
@@ -145,7 +150,7 @@ $(document).ready(function() {
     <div id="popupbox" class="popupBox"><b class="btop"><b></b></b></div>
     {* End LightBox *}
 
-    <div class="container">
+    <div class="container module-{$module}">
       {* Work-In-Progress disclaimer, remove when appropriate *}
       <div class="w-i-p">{translate text="development_disclaimer"}</div>
       
@@ -176,6 +181,12 @@ $(document).ready(function() {
         <div class="clear"></div>
       </div>
       
+      {if !$showTopSearchBox}
+      <div class="navigationMenu navigationMenu-home">
+      {include file="Search/navigation.tpl"} 
+      </div>
+      {/if}
+      
       <div class="main{if !$showTopSearchBox}-home{/if} clear">
         {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI || $useMetaLib}
         <div id="toptab">
@@ -202,7 +213,14 @@ $(document).ready(function() {
         </div>
         {/if}
         {include file="$module/$pageTemplate"}
-        <div class="footer small clear">
+        
+		{if $showTopSearchBox}
+		<div class="navigationMenu">
+		  {include file="Search/navigation.tpl"} 
+		</div>
+		{/if}
+      
+        <div class="footer clear">
           {include file="footer.tpl"}
         </div>
 

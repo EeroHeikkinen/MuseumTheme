@@ -1,6 +1,6 @@
 <!-- START of: Search/searchbox.tpl -->
 
-<div id="searchForm" class="searchform last">
+<div id="searchFormContainer" class="searchform last">
 
 {if $searchType == 'advanced'}
   <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
@@ -8,31 +8,17 @@
   <a href="{$path}/" class="small">{translate text="Start a new Basic Search"}</a>
   <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}
   {foreach from=$orFilters item=values key=filter}
-    AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=facet_$value}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"</span>
+    AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"</span>
 {else}
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
       <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_input" type="text" name="lookfor" size="40" value="{$lookfor|escape}" class="span-4 last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable" placeholder="{translate text="Find"}&hellip;"/>
+      <input id="searchForm_input" type="text" name="lookfor" size="27" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" placeholder="{translate text="Find"}&hellip;"/>
   {if $prefilterList}
-{* DELETE THIS
-  <div class="styled_select">
-      <select id="source" class="">
-        <option selected="selected" value="BR">Brasil</option>
-        <option value="FR">France</option>
-        <option value="DE">Germany</option>
-        <option value="IN">India</option>
-        <option value="JP">Japan</option>
-        <option value="RS">Serbia</option>
-        <option value="UK">United Kingdom</option>
-        <option value="US">United States</option>
-      </select>
-  </div>
-*}
       <div class="styled_select">
         <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
     {foreach from=$prefilterList item=searchDesc key=searchVal}    
-          <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter || ($activePrefilter == null && $searchVal == "-") } selected="selected"{/if}>{translate text=$searchDesc}</option>
+          <option value="{$searchVal|escape}"{if $searchVal == $activePrefilter || ($activePrefilter == null && $searchVal == "-") } selected="selected"{/if}>{$searchDesc|translate}</option>
     {/foreach}
         </select>
       </div>
@@ -46,7 +32,12 @@
   {if $metalibEnabled}
       <a href="{$path}/MetaLib/Home" class="small last metalibLink">{translate text="MetaLib Search"}</a>
   {/if}
+      <a href="#" class="small showSearchHelp">{translate text="Search Tips"}</a>
     </div>
+    <div class="searchContextHelp">
+    {include file="Content/searchboxhelp.$userLang.tpl"}
+    </div>
+    
   {* Do we have any checkbox filters? *}
   {assign var="hasCheckboxFilters" value="0"}
   {if isset($checkboxFilters) && count($checkboxFilters) > 0}
@@ -93,27 +84,9 @@
   {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
 
   </form>
-  {literal}
-  <script type="text/javascript">$("#searchForm_lookfor").focus()</script>
-  <script type="text/javascript">
-    $(function() {
-      // init plugin (with callback)
-      $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
-
-      // update value
-      valueContent = $(".clearable").attr("value");
-      if (valueContent == null) {
-        $(".clearable").val("").change();
-      };
-      
-      // change width
-      $(".clearable").width("200px").change();
-    });
-  </script>
-  {/literal}
   {js filename="dropdown.js"}
 {/if}
 
 </div>
 
-<!-- END of: Search/searxhbox.tpl -->
+<!-- END of: Search/searchbox.tpl -->

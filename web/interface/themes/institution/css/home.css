@@ -125,34 +125,6 @@ div.searchHomeForm div.searchform #searchForm {
 }
 
 
-/*** Navigation ***/
-
-.homeNavigation {
-  width: 100%;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-}
-.homeNavigation ul {
-  margin: 0;
-  padding: 0;
-}
-.homeNavigation ul li {
-  display: inline;
-  margin: 0 1em;
-}
-.homeNavigation ul li a {
-  display: inline-block;
-  padding: 12px 0 12px 0;
-  font-size: 1.2em;
-}
-.homeNavigation ul li a:link,.homeNavigation ul li a:visited {
-  color: #666;
-}
-.homeNavigation ul li a:hover {
-  color: #999;
-  text-decoration: none;
-}
-
 /*** Custom content ***/
 
 .homeCustomContent {

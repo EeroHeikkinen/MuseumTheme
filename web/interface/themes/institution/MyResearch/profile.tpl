@@ -9,6 +9,40 @@
 {/if}
 <div class="myResearch{if $sidebarOnLeft} last{/if}">
   <span class="hefty">{translate text='Your Profile'}</span>
+    <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
+    <div class="profileInfo">
+      <div class="profileGroup">
+      <h4>{translate text='Local Settings'}</h4>
+      </div>
+      <div class="profileGroup">
+        <span>{translate text='Email'}:</span><span><input type="text" name="email" value="{$email|escape}"></input></span><br class="clear"/>
+      {if $showHomeLibForm}
+      </div>
+      <div class="profileGroup">
+        <span><label for="home_library">{translate text="Preferred Library"}:</label></span>
+        {if count($pickup) > 1}
+          {if $profile.home_library != ""}
+            {assign var='selected' value=$profile.home_library}
+          {else}
+            {assign var='selected' value=$defaultPickUpLocation}
+          {/if}
+            <span><select id="home_library" name="home_library">
+          {foreach from=$pickup item=lib name=loop}
+            <option value="{$lib.locationID|escape}" {if $selected == $lib.locationID}selected="selected"{/if}>{$lib.locationDisplay|escape}</option>
+          {/foreach}
+        </select></span>
+        {else}
+          {$pickup.0.locationDisplay}
+        {/if}
+        </div>
+      {/if}
+      <div class="profileGroup">
+        <input class="button" type="submit" value="{translate text='Save'}" />
+      </div>
+    </div>
+    </form>
+    <div class="clear"></div>
+    
     {if $user->cat_username}
     <div class="resultHead">
     {if $userMsg}
@@ -19,7 +53,7 @@
       <div class="profileGroup">
         <h4>{translate text='Source of information'}:
           {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
-          {translate text="source_$source"}
+          {translate text=$source prefix='source_'}
         </h4>
       </div>
       
@@ -54,34 +88,9 @@
       {/foreach}
       </div>
       
-      <div class="profileGroup">
-        <h4>{translate text='Local Settings'}</h4>
-        <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
-        {if $showHomeLibForm}
-          <span>{translate text='Email'}:</span><span><input type="text" name="email" value="{$email|escape}"></input></span><br class="clear"/>
-          <span><label for="home_library">{translate text="Preferred Library"}:</label></span>
-          {if count($pickup) > 1}
-            {if $profile.home_library != ""}
-              {assign var='selected' value=$profile.home_library}
-            {else}
-              {assign var='selected' value=$defaultPickUpLocation}
-            {/if}
-              <span><select id="home_library" name="home_library">
-            {foreach from=$pickup item=lib name=loop}
-              <option value="{$lib.locationID|escape}" {if $selected == $lib.locationID}selected="selected"{/if}>{$lib.locationDisplay|escape}</option>
-            {/foreach}
-          </select></span>
-          {else}
-            {$pickup.0.locationDisplay}
-          {/if}
-          <br class="clear"/>
-        {/if}
-          <input class="button" type="submit" value="{translate text='Save'}" />
-        </form>
       {else}
         {include file="MyResearch/catalog-login.tpl"}
       {/if}
-      </div>
     </div>
   </div>
   <div class="clear"></div>

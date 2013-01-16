@@ -31,6 +31,7 @@ require_once 'Action.php';
 require_once 'services/MyResearch/lib/Resource.php';
 require_once 'services/MyResearch/lib/User.php';
 require_once 'services/MyResearch/lib/User_list.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * Save action (user list management) for Record module
@@ -79,12 +80,14 @@ class Save extends Action
                 $interface->assign('followup', true);
                 $interface->assign('followupModule', 'Record');
                 $interface->assign('followupAction', 'Save');
+                Login::setupLoginFormVars();
                 return $interface->fetch('AJAX/login.tpl');
             } else {
                 $interface->assign('followup', true);
                 $interface->assign('followupModule', 'Record');
                 $interface->assign('followupAction', 'Save');
                 $interface->setPageTitle('You must be logged in first');
+                Login::setupLoginFormVars();
                 $interface->assign('subTemplate', '../MyResearch/login.tpl');
                 $interface->setTemplate('view-alt.tpl');
                 $interface->display('layout.tpl', 'RecordSave' . $_GET['id']);

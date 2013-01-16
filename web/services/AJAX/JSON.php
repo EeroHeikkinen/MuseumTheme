@@ -27,6 +27,7 @@
  */
 
 require_once 'Action.php';
+require_once 'services/MyResearch/Login.php';
 
 /**
  * Common AJAX functions using JSON as output format.
@@ -52,6 +53,7 @@ class JSON extends Action
     public function __construct()
     {
         parent::__construct();
+        $_SESSION['no_store'] = true; 
     }
 
     /**
@@ -102,6 +104,8 @@ class JSON extends Action
     {
         global $configArray;
 
+        unset($_SESSION['no_store']);
+        
         // Fetch Salt
         $salt = $this->_generateSalt();
 
@@ -122,7 +126,7 @@ class JSON extends Action
         if (PEAR::isError($user)) {
             return $this->output(translate($user->getMessage()), JSON::STATUS_ERROR);
         }
-
+        
         return $this->output(true, JSON::STATUS_OK);
     }
 
@@ -815,6 +819,7 @@ class JSON extends Action
 
         // Use our version of login lightbox
         if ($module == 'AJAX' && $action=='Login') {
+            Login::setupLoginFormVars();
             $page = $interface->fetch('AJAX/login.tpl');
             $interface->assign('title', $_GET['message']);
             $interface->assign('page', $page);

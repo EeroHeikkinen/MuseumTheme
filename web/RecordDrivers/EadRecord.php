@@ -30,6 +30,7 @@
  */
 require_once 'RecordDrivers/IndexRecord.php';
 require_once 'Drivers/Hierarchy/HierarchyFactory.php';
+require_once 'modules/geshi.php';
 
 /**
  * EAD Record Driver
@@ -48,6 +49,24 @@ require_once 'Drivers/Hierarchy/HierarchyFactory.php';
  */
 class EadRecord extends IndexRecord
 {
+    /**
+     * Constructor.  We build the object using all the data retrieved
+     * from the (Solr) index (which also happens to include the
+     * 'fullrecord' field containing raw metadata).  Since we have to
+     * make a search call to find out which record driver to construct,
+     * we will already have this data available, so we might as well
+     * just pass it into the constructor.
+     *
+     * @param array $indexFields All fields retrieved from the index.
+     *
+     * @access public
+     */
+    public function __construct($indexFields)
+    {
+        parent::__construct($indexFields);
+        
+        $this->record = simplexml_load_string($this->fields['fullrecord']);
+    }
     
     /**
      * Assign necessary Smarty variables and return a template name to
@@ -59,13 +78,24 @@ class EadRecord extends IndexRecord
      */
     public function getCoreMetadata()
     {
+        global $configArray;
         global $interface;
         
         $template = parent::getCoreMetadata();
         
-        $interface->assign('coreSubtitle', $this->getYearRange());
+        $interface->assign('coreYearRange', $this->getYearRange());
+        $interface->assign('coreOrigination', $this->getOrigination());
+        $interface->assign('coreOriginationId', $this->getOriginationID());
+        $interface->assign('corePhysicalLocation', $this->getPhysicalLocation());
+        if ($this->record->did->daogrp) {
+            $interface->assign('coreDigitizedMaterial', true);
+        }
+        $interface->assign('coreIdentifier', $this->getIdentifier());
         
-        return $template;
+        $interface->assign('coreDocumentOrderLinkTemplate', $configArray['Record']['ead_document_order_link_template']);
+        $interface->assign('coreUsagePermissionRequestLinkTemplate', $configArray['Record']['ead_usage_permission_request_link_template']);
+        
+        return 'RecordDrivers/Ead/core.tpl';
     }
     
     /**
@@ -84,17 +114,32 @@ class EadRecord extends IndexRecord
         
         $template = parent::getSearchResult($view);
         
-        $title = $this->getTitle();
-        $years = $this->getYearRange();
-        if ($years) {
-            $title .= " $years";
-        }
-        $interface->assign('summTitle', $title);
+        $interface->assign('summYearRange', $this->getYearRange());
+        $interface->assign('summOrigination', $this->getOrigination());
+        $interface->assign('summOriginationId', $this->getOriginationID());
+        $interface->assign('summPhysicalLocation', $this->getPhysicalLocation());
         
-        return $template;
+        return 'RecordDrivers/Ead/result-' . $view . '.tpl';
     }
         
-    
+    /**
+     * Get the collection data to display.
+     *
+     * @return void
+     * @access public
+     */
+    public function getCollectionMetadata()
+    {
+        global $interface;
+
+        parent::getCollectionMetadata();
+        
+        $interface->assign('collYearRange', $this->getYearRange());
+        
+        // Send back the template name:
+        return 'RecordDrivers/Hierarchy/collection-info.tpl';
+    }
+        
     /**
     * Return an associative array of URLs associated with this record (key = URL,
     * value = description).
@@ -104,10 +149,9 @@ class EadRecord extends IndexRecord
     */
     protected function getURLs()
     {
-        $record = simplexml_load_string($this->fields['fullrecord']);
         $urls = array();
         $url = '';
-        foreach ($record->xpath('//daoloc') as $node) {
+        foreach ($this->record->xpath('//daoloc') as $node) {
             $url = (string)$node->attributes()->href;
             if ($node->daodesc) {
                 if ($node->daodesc->p) {
@@ -119,6 +163,13 @@ class EadRecord extends IndexRecord
                 $urls[$url] = $url;
             }
         }
+        
+        // Portti links parsed from bibliography
+        foreach ($this->record->xpath('//bibliography') as $node) {
+            if (preg_match('/(.+) (http:\/\/wiki\.narc\.fi\/portti.*)/', (string)$node->p, $matches)) {
+                $urls[$matches[2]] = $matches[1];
+            }
+        } 
         return $urls;
     }
     
@@ -238,21 +289,6 @@ class EadRecord extends IndexRecord
      * @return void
      * @access public
      */
-    public function getCollectionMetadata()
-    {
-        global $interface;
-        parent::getCollectionMetadata();
-    
-        // Send back the template name:
-        return 'RecordDrivers/Hierarchy/collection-info.tpl';
-    }
-    
-    /**
-     * Get the collection data to display.
-     *
-     * @return void
-     * @access public
-     */
     public function getCollectionRecord()
     {
         global $interface;
@@ -295,14 +331,130 @@ class EadRecord extends IndexRecord
      */
     protected function getDedupData()
     {
-        $institution = is_array($this->fields['institution']) ? $this->fields['institution'][0] : $this->fields['institution'];
-        return array(
-            $institution => array(
-                'id' => $this->fields['id']
-            )
-        );
+        return array();
+    }
+    
+    /**
+     * Get origination
+     * 
+     * @return string
+     */
+    protected function getOrigination()
+    {
+        return isset($this->record->did->origination) ? (string)$this->record->did->origination->corpname : '';
     }
         
-}
+    /**
+     * Get origination Id
+     * 
+     * @return string
+     */
+    protected function getOriginationId()
+    {
+        return isset($this->record->did->origination) ? (string)$this->record->did->origination->corpname->attributes()->authfilenumber : '';
+    }
 
-?>
+    /**
+     * Check if an item has holdings in order to show or hide the holdings tab
+     *
+     * @return bool
+     * @access public
+     */
+    public function hasHoldings()
+    {
+        return false;
+    }
+
+    /**
+     * Assign necessary Smarty variables and return a template name to
+     * load in order to display the full record information on the Staff
+     * View tab of the record view page.
+     *
+     * @return string Name of Smarty template file to display.
+     * @access public
+     */
+    public function getStaffView()
+    {
+        global $interface;
+
+        // Get Record as XML
+        $xml = trim($this->fields['fullrecord']);
+
+        // Prettify XML
+        $doc = new DOMDocument;
+        $doc->preserveWhiteSpace = false;
+        if ($doc->loadXML($xml)) {
+            $doc->formatOutput = true;
+            $geshi = new GeSHi($doc->saveXML(), 'xml');
+            $geshi->enable_classes(); 
+            $interface->assign('record', $geshi->parse_code());
+        }
+        $interface->assign('details', $this->fields);
+        
+        return 'RecordDrivers/Ead/staff.tpl';
+    }
+
+    /**
+     * Get access restriction notes for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getAccessRestrictions()
+    {
+        return isset($this->record->accessrestrict->p) ? $this->record->accessrestrict->p : array();
+    }
+
+    /**
+     * Get notes on bibliography content.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getBibliographyNotes()
+    {
+        $bibliography = array();
+        foreach ($this->record->xpath('//bibliography') as $node) {
+            // Filter out Portti links, they're displayed in links
+            if (!preg_match('/(.+) (http:\/\/wiki\.narc\.fi\/portti.*)/', (string)$node->p)) {
+                $bibliography[] = (string)$node->p;
+            }
+        } 
+        return $bibliography;
+    }
+
+    /**
+     * Get physical location related to the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getPhysicalLocation()
+    {
+        return isset($this->record->did->physloc) ? $this->record->did->physloc : array();
+    }
+
+    /**
+     * Get notes on finding aids related to the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getFindingAids()
+    {
+        return isset($this->record->otherfindaid->p) ? $this->record->otherfindaid->p : array();
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getIdentifier()
+    {
+        return isset($this->record->did->unitid->attributes()->{'identifier'}) 
+            ? (string)$this->record->did->unitid->attributes()->{'identifier'}
+            : (string)$this->record->did->unitid;
+    }
+}

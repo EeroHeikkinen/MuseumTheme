@@ -109,12 +109,13 @@ function iniMerge($config_ini, $custom_ini)
  * custom local settings if applicable.
  *
  * @param string $basePath Optional base path to config files.
+ * @param string $filename Optional config file name override.
  *
  * @return array The desired config.ini settings in array format.
  */
-function readConfig($basePath = 'conf')
+function readConfig($basePath = 'conf', $filename = '')
 {
-    $mainArray = parse_ini_file($basePath . '/config.ini', true);
+    $mainArray = parse_ini_file($filename ? $filename : ($basePath . '/config.ini'), true);
     if (isset($mainArray['Extra_Config'])
         && isset($mainArray['Extra_Config']['local_overrides'])
     ) {

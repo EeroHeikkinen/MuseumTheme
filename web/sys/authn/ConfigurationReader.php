@@ -111,7 +111,7 @@ class ConfigurationReader
         $this->_sectionName = $sectionName;
         try {
             $this->_configurationFileContent
-                = parse_ini_file($this->_pathToConfigurationFile, true);
+                = readConfig();
         } catch (Exception $exception) {
             throw new FileParseException(
                 "Error during parsing file '{$this->_pathToConfigurationFile}'", 2

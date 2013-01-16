@@ -19,9 +19,6 @@
     {/if}
   </div>
   <div id="loginOptions"{if $user} class="hide"{/if}>
-  {if $mozillaPersona}
-    <a id="personaLogin" class="persona-login" href=""><span>{translate text="Sign in with your Email"}</span></a>
-  {/if}
   {if $authMethod == 'Shibboleth'}
     <a class="login" href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
     {*<br/><a class="" href="">{translate text="Create Account"}</a>*}
@@ -55,7 +52,7 @@
 
 {* This is a temporary solution: assign specific id for MetaLib, all others can use the default logo *}
 <div id="logoHeader{if $module=='MetaLib'}MetaLib{/if}">
-  <a id="logo{if $module=='MetaLib'}MetaLib{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" alt="Logo" title="{translate text="Home"}"></a>
+  <a id="logo{if $module=='MetaLib'}MetaLib{/if}" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" title="{translate text="Home"}"></a>
 </div>
 <div id="searchFormHeader">
   <div class="searchbox">

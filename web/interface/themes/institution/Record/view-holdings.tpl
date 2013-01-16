@@ -11,4 +11,9 @@
 
 {include file=$holdingsMetadata}
 
+<script type="text/javascript">
+    setUpCheckRequest();
+    setUpCheckCallSlipRequest();
+</script>
+
 <!-- END of: Record/view-holdings.tpl -->

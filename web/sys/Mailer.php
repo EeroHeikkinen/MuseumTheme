@@ -38,6 +38,7 @@ require_once 'Mail/RFC822.php';
  * @category VuFind
  * @package  Support_Classes
  * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Ere Maijala <ere.maijala@helsinki.fi>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/system_classes Wiki
  */
@@ -101,10 +102,18 @@ class VuFindMailer
             return $mail;
         }
 
+        $body = $this->getFlowedBody($body);
+        
         // Send message
-        $headers = array('From' => $from, 'To' => $to, 'Subject' => $subject,
+        $headers = array(
+            'From' => $this->mimeEncodeAddress($from),
+            'To' => $this->mimeEncodeAddress($to),
+            'Subject' => $this->mimeEncodeHeaderValue($subject),
             'Date' => date('D, d M Y H:i:s O'),
-            'Content-Type' => 'text/plain; charset="UTF-8"');
+            'Content-Type' => 'text/plain; charset="UTF-8"; format=flowed',
+            'Content-Transfer-Encoding' => '8bit',
+            'X-Mailer' => 'VuFind'
+        );
         $result = $mail->send($to, $headers, $body);
 
         return $result;
@@ -121,6 +130,76 @@ class VuFindMailer
     public function getSettings()
     { 
         return $this->settings;
+    }
+
+    /**
+     * Create message body in flowed format
+     * 
+     * @param string $body Message body
+     * 
+     * @return string Flowed body 
+     */
+    protected function getFlowedBody($body)
+    {
+        $lines = array();
+        foreach (explode(PHP_EOL, $body) as $paragraph) {
+            $line = '';
+            foreach (explode(' ', $paragraph) as $word) {
+                if (strlen($line) + strlen($word) > 66) {
+                    $lines[] = "$line ";
+                    $line = '';
+                }
+                if ($line) {
+                    $line .= " $word";
+                } elseif ($word) {
+                    $line = $word;
+                } else {
+                    $line = ' ';
+                }
+            }
+            $line = rtrim($line);
+            $line = preg_replace('/\s+' . PHP_EOL . '$/', PHP_EOL, $line);
+            $lines[] = rtrim($line, ' ');
+        }
+        $result = '';
+        foreach ($lines as $line) {
+            $result .= chunk_split($line, 998, PHP_EOL);
+        }
+        return $result;
+    }
+    
+    /**
+     * MIME encode an email address
+     * 
+     * @param string $address Email address
+     * 
+     * @return string Encoded address
+     */
+    protected function mimeEncodeAddress($address)
+    {
+        if (preg_match("/(.+) (<.+>)/", $address, $matches) == 1) {
+            $address = $this->mimeEncodeHeaderValue($matches[1]) . ' ' . $matches[2];
+        } elseif (preg_match("/(.+)(<.+>)/", $address, $matches) == 1) {
+            $address = $this->mimeEncodeHeaderValue($matches[1]) . $matches[2];
+        }
+        return $address;
+    }
+    
+    /**
+     * MIME encode a header value
+     * 
+     * @param string $value Header value
+     * 
+     * @return string Encoded value
+     */
+    protected function mimeEncodeHeaderValue($value)
+    {
+        $saveEncoding = mb_internal_encoding();
+        mb_internal_encoding('UTF-8');
+        $value = mb_encode_mimeheader($value, 'UTF-8', 'Q');
+        mb_internal_encoding($saveEncoding);
+        
+        return $value;
     }
 }
 

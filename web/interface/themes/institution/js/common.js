@@ -21,6 +21,10 @@ $(document).ready(function(){
     // initialize autocomplete
     initAutocomplete();    
 
+    // initialize clearable fields (embedded clear button)
+    // Do this before setting focus
+    initClearable();
+    
     // put focus on the "mainFocus" element
     $('.mainFocus').each(function(){ $(this).focus(); } );
 
@@ -31,17 +35,32 @@ $(document).ready(function(){
     $('#searchFormKeepFilters').change(function() { filterAll(this); });
 
     // attach click event to the search help links
+    /*
     $('a.searchHelp').click(function(){
         window.open(path + '/Help/Home?topic=search', 'Help', 'width=625, height=510');
         return false;
     });
+    */
 
     // attach click event to the advanced search help links
+    /*
     $('a.advsearchHelp').click(function(){
         window.open(path + '/Help/Home?topic=advsearch', 'Help', 'width=625, height=510');
         return false;
     });
-
+    */
+    
+    // assign click event to searchbox context help
+    $('.showSearchHelp').click(function() {
+      $('div.searchContextHelp').toggle();
+      return false;
+    });
+    // assign click event to searchbox context help close image
+    $('.hideSearchHelp a').click(function() {
+      $('div.searchContextHelp').hide();
+      return false;
+    });
+    
     // assign click event to "email search" links
     $('a.mailSearch').click(function() {
         var id = this.id.substr('mailSearch'.length);
@@ -188,6 +207,17 @@ function initAutocomplete() {
                 .appendTo(ul);
     };
 
+}
+
+function initClearable(){
+    $('.clearable').clearSearch({ callback: function() { console.log("cleared"); } } );
+    // update value
+    valueContent = $(".clearable").attr("value");
+    if (valueContent == null) {
+      $(".clearable").val("").change();
+    };
+    // change width
+    $(".clearable").width("200px").change();
 }
 
 function htmlEncode(value){

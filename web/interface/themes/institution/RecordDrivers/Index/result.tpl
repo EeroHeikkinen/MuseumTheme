@@ -10,25 +10,28 @@
   {/if}
 </div>
 
-{assign var=img_count value=$summImages|@count}
-<div class="coverDiv">
-  <div class="resultNoImage"><p>{translate text='No image'}</p></div>
-    {if $img_count > 0}
-        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
-    {else}
-        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
-    {/if}
-
-{* Multiple images *}
-{if $img_count > 1}
-  <div class="imagelinks">
-{foreach from=$summImages item=desc name=imgLoop}
-	<a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+  {assign var=img_count value=$summImages|@count}
+  <div class="coverDiv">
+  
+  {* Multiple images *}
+  {if $img_count > 1}
+    <div class="imagelinks">
+  {foreach from=$summImages item=desc name=imgLoop}
+	  <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;" />
 	  {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
-	</a>
-{/foreach}
-  </div>
-{/if}
+	  </a>
+  {/foreach}
+    </div>
+  {/if}
+  
+  {* Cover image *}
+    <div class="resultNoImage"><p>{translate text='No image'}</p></div>
+  {if $img_count > 0}
+      <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}" /></a></div>
+  {else}
+      <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" alt="No image" /></a></div>
+  {/if}
+
 </div>
   
   {if is_array($summFormats)}
@@ -38,7 +41,7 @@
     {assign var=mainFormat value=$summFormats} 
     {assign var=displayFormat value=$summFormats} 
   {/if}
-  <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span></div>
+  <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span></div>
 </div>
     
   <div class="resultColumn2">
@@ -50,7 +53,7 @@
     {if !empty($coreOtherLinks)}
         {foreach from=$coreOtherLinks item=coreOtherLink}
     <div class="resultOtherLinks">
-        {translate text=$coreOtherLink.heading}: 
+        {translate text=$coreOtherLink.heading prefix='link_'}: 
         {if $coreOtherLinks.isn}
         <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
             {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
@@ -71,6 +74,13 @@
       {/if}
       {if $summDate}{translate text='Published'}: {$summDate.0|escape}{/if}
       {if $summPublicationEndDate} - {if $summPublicationEndDate != 9999}{$summPublicationEndDate}{/if}{/if}
+      {if !empty($summClassifications)}
+        <div class="resultClassification">
+            {* This is a single-line mess due to Smarty otherwise adding spaces *}
+            {translate text='Classification'}:
+            {foreach from=$summClassifications key=class item=field name=loop}{if !$smarty.foreach.loop.first}, {/if}{foreach from=$field item=subfield name=subloop}{if !$smarty.foreach.subloop.first}, {/if}{$class|escape} {$subfield|escape}{/foreach}{/foreach}
+        </div>
+      {/if}
       {if $summInCollection}
         {foreach from=$summInCollection item=InCollection key=cKey}
           <div>
@@ -100,7 +110,7 @@
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       {if $summDedupData}
         <span class="tiny">
-        {foreach from=$summDedupData key=source item=dedupData name=loop}{if $smarty.foreach.loop.index == 1} ({translate text="Other:"} {/if}{if $smarty.foreach.loop.index > 1}, {/if}<a href="{$url}/Record/{$dedupData.id|escape:"url"}" class="title">{translate text="source_$source"}</a>{if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}{/foreach}
+        {foreach from=$summDedupData key=source item=dedupData name=loop}{if $smarty.foreach.loop.index == 1} ({translate text="Other:"} {/if}{if $smarty.foreach.loop.index > 1}, {/if}<a href="{$url}/Record/{$dedupData.id|escape:"url"}" class="title">{translate text=$source prefix='source_'}</a>{if $smarty.foreach.loop.last and !$smarty.foreach.loop.first}){/if}{/foreach}
         <br/>
         </span>
       {/if}
@@ -125,9 +135,9 @@
         {if $summURLs}
         <div>
           {if $summURLs|@count > 2}
-          <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></a></p>
+          <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{path filename="images/down.png"}" width="11" height="6" /></a></p>
           {else}
-          <p class="resultContentToggle">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></p>
+          <p class="resultContentToggle">{translate text='Contents'}<img src="{path filename="images/down.png"}" width="11" height="6" /></p>
           {/if}
           <div class="resultContentList">
           {foreach from=$summURLs key=recordurl item=urldesc}

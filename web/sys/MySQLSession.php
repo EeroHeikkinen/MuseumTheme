@@ -84,6 +84,9 @@ class MySQLSession extends SessionInterface
      */
     static public function write($sess_id, $data)
     {
+        if (isset($_SESSION['no_store'])) {
+            return true;
+        }
         $s = new Session();
         $s->session_id = $sess_id;
         if ($s->find(true)) {

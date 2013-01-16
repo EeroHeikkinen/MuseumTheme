@@ -2,6 +2,7 @@
 
 {literal}
 <script type="text/javascript">
+//<![CDATA[
 $(document).ready(function() {
     $('#dyntabnav').append('<span id="dyntabnav_spinner" class="ajax_availability"></span>');
     tabNo = $('#dyntabnav li.active').prevAll().size();
@@ -29,6 +30,7 @@ $(document).ready(function() {
       this.href = this.href.replace(/#.*/, "") + window.location.hash; 
     });
 });
+//]]>
 </script>
 {/literal}
 

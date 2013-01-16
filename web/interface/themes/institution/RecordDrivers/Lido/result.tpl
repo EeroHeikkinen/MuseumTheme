@@ -14,26 +14,28 @@
   
     {assign var=img_count value=$summImages|@count}
     <div class="coverDiv">
-        <div class="resultNoImage"><p>{translate text='No image'}</p></div>
-    	{if $img_count > 0}
-        {* large image link: <a id="thumbnail_link_{$summId|escape:"url"}" href="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=large"> *}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
-          <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}">
-        </a></div>
-    	{else}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
-    	{/if}
-    	
+
     {* Multiple images *}
     {if $img_count > 1}
       <div class="imagelinks">
     {foreach from=$summImages item=desc name=imgLoop}
-        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+        <a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;" />
           {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
         </a>
     {/foreach}
       </div>
     {/if}
+    
+    {* Cover image *}
+        <div class="resultNoImage"><p>{translate text='No image'}</p></div>
+    {if $img_count > 0}
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
+          <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}" />
+        </a></div>
+    {else}
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" alt="No image" /></a></div>
+    {/if}
+    	
     </div>
     
   {if is_array($summFormats)}
@@ -43,7 +45,7 @@
     {assign var=mainFormat value=$summFormats} 
     {assign var=displayFormat value=$summFormats} 
   {/if}
-  <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span></div>
+  <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span></div>
 </div>
 
  <div class="resultColumn2">
@@ -53,23 +55,23 @@
 
       <div class="resultItemLine2">
       	{if !empty($summAuthor)}
-      	{translate text='by'}
+      	{translate text='by'}:
       	<a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       	{/if}
 
-      	{if $summDate}{translate text='Published'} {$summDate.0|escape}<br>{/if}
-      	{if $summImageDate}{translate text='Photo Taken:'} {$summImageDate|escape}<br>{/if}
-      	{if $summCreationDate}{translate text='Created:'} {$summCreationDate|escape}<br>{/if}
-      	{if $summUseDate}{translate text='Used:'} {$summUseDate|escape}{if $summUsePlace}, {$summUsePlace|escape}{/if}<br>{/if}
+      	{*if $summDate}<br/>{translate text='Main Year'}: {$summDate.0|escape}{/if*}
+      	{if $summImageDate}<br/>{translate text='Photo Taken:'} {$summImageDate|escape}{/if}
+      	{if $summCreationDate}<br/>{translate text='Created:'} {$summCreationDate|escape}{/if}
+      	{if $summUseDate}<br/>{translate text='Used:'} {$summUseDate|escape}{if $summUsePlace}, {$summUsePlace|escape}{/if}{/if}
       
       </div>
 
       <div class="resultItemLine3">
       {if !empty($summSnippetCaption)}<b>{translate text=$summSnippetCaption}:</b>{/if}
-      {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br>{/if}
+      {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       <div id="callnumAndLocation{$summId|escape}">
       {if $summAjaxStatus}
-      <b>{translate text='Call Number'}:</b> <span id="callnumber{$summId|escape}">{translate text='Loading'}</span><br>
+      <b>{translate text='Call Number'}:</b> <span id="callnumber{$summId|escape}">{translate text='Loading'}</span><br/>
       <b>{translate text='Located'}:</b> <span id="location{$summId|escape}">{translate text='Loading'}</span>
       {elseif !empty($summCallNo)}
       <b>{translate text='Call Number'}:</b> {$summCallNo|escape}
@@ -82,18 +84,18 @@
       </div>
       {/if}
       <div class="resultItemLine4">
-      {if $summOpenUrl || !empty($summURLs)}
+      {*if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
-          <br>
+          <br/>
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
         {/if}
         {foreach from=$summURLs key=recordurl item=urldesc name="urlLoop"}
           {if $smarty.foreach.urlLoop.iteration <= 10}
-          <br><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
+          <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
           {/if}
         {/foreach}
         {if count($summURLs) > 10}
-          <br><a href="{$url}/Record/{$summId|escape:"url"}">{math equation="x - 10" x=$summURLs|@count} {translate text='more'} ...</a>
+          <br/><a href="{$url}/Record/{$summId|escape:"url"}">{math equation="x - 10" x=$summURLs|@count} {translate text='more'} ...</a>
         {/if}
       {elseif $summAjaxStatus}
         <div class="status" id="status{$summId|escape}">
@@ -101,13 +103,11 @@
         </div>
       {/if}
         <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
+        *}
       </div>
 
    <div class="savedLists info hide" id="savedLists{$summId|escape}">
       <ul id="lists{$summId|escape}"></ul>
-      <script language="JavaScript" type="text/javascript">
-        getSaveStatuses('{$summId|escape:"javascript"}');
-      </script>
     </div>
     {if $showPreviews}
       {if (!empty($summLCCN) || !empty($summISBN) || !empty($summOCLC))}

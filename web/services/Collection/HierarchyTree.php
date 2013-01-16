@@ -75,11 +75,10 @@ class HierarchyTree extends Collection
             $interface->assign('id', $recordID);
         }
 
-        if (isset($configArray['Hierarchy']['search'])?
-        	$configArray['Hierarchy']['search']:true){
-        	$interface->assign('showTreeSearch', true);
-        	$interface->assign('treeSearchLimit', $configArray["Hierarchy"]["treeSearchLimit"]);
-        	$interface->assign('treeSearchFullURL', $configArray["Site"]["url"] . "/Search/Results");
+        if (isset($configArray['Hierarchy']['search']) ? $configArray['Hierarchy']['search'] : true) {
+            $interface->assign('showTreeSearch', true);
+            $interface->assign('treeSearchLimit', $configArray["Hierarchy"]["treeSearchLimit"]);
+            $interface->assign('treeSearchFullURL', $configArray["Site"]["url"] . "/Search/Results");
         }
         $interface->setPageTitle(
             translate('hierarchy_tree') . ': ' .

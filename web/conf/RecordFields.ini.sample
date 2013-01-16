@@ -1,0 +1,29 @@
+; !!! DO NOT EDIT !!!
+; This file is used by the Admin Interface and it does not currently have an
+; effect on VuFind by itself. Admin Interface uses this information in determing
+; which record fields are displayed and which are hidden on the record page.
+
+[FieldConfiguration]
+RF_CONTAINER_REF = true
+RF_NEXT_TITLES = true
+RF_PREV_TITLES = true
+RF_OTHER_LINK = true
+RF_AUTHORS = true
+RF_PRESENTERS = true
+RF_ALT_TITLES = true
+RF_FORMAT = true
+RF_LANG = true
+RF_PUBLICATIONS = true
+RF_PUBLICATIONS_DATE = true
+RF_DISSERTATION_NOTE = true
+RF_MANUFACTURER = true
+RF_EDITION = true
+RF_SERIES = true
+RF_SUBJECTS = true
+RF_GENRES = true
+RF_CLASSIFICATIONS = true
+RF_COMPONENT_PARTS = true
+RF_URLS = true
+RF_LINKS = true
+RF_TOC = true
+RF_TAGS = true

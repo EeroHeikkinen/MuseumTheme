@@ -7,6 +7,9 @@ vufindString.showTree = "{translate text="hierarchy_show_tree"}";
 vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
 </script>
 {js filename="jsTree/jquery.jstree.js"}
+<script type="text/javascript">
+{literal}$.jstree._themes = "{/literal}{path filename="js/jsTree/themes/"}";
+</script>
 {js filename="hierarchyTree_JSTree.js"}
 
 <div>

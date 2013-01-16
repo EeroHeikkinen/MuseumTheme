@@ -3,8 +3,8 @@
 {if $userLang=='en-gb'}
 <div class="homeCustomContent">
   <div class="homeCustomCol1">
-    <h1>The Treasures of Finnish libraries, archives and museums with a single search</h1>
-    <p class="big">We gathered the collections of several Finnish libraries, archives and museums into one place. With a single search you can get results from all of the included collections.</p>
+    <h1>The Treasures of Finnish archives, libraries and museums with a single search</h1>
+    <p class="big">We gathered the collections of several Finnish archives, libraries and museums into one place. With a single search you can get results from all of the included collections.</p>
     <p class="big"><a href="about.html">Read more</a> or try the search!</p>
   </div>
   
@@ -21,6 +21,7 @@
       <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Sound Recordings</a></span></li>
       <li><span class="iconlabel formatebook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Databases</a></span></li>
       <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videos</a></span></li>
+    </ul>
   </div>
   
   <div class="homeCustomCol3">
@@ -31,8 +32,8 @@
 {else}
 <div class="homeCustomContent">
   <div class="homeCustomCol1">
-    <h1>Suomen kirjastojen, arkistojen ja museoiden aarteet yhdellä haulla</h1>
-    <p class="big">Keräsimme aineistotiedot useista Suomen kirjastoista, arkistoista ja museoista yhteen paikkaan. Yhdellä haulla saat tuloksia kaikista mukana olevista kokoelmista.</p>
+    <h1>Suomen arkistojen, kirjastojen ja museoiden aarteet yhdellä haulla</h1>
+    <p class="big">Keräsimme aineistotiedot useista Suomen arkistoista, kirjastoista ja museoista yhteen paikkaan. Yhdellä haulla saat tuloksia kaikista mukana olevista kokoelmista.</p>
     <p class="big"><a href="about.html">Lue lisää</a> tai kokeile hakua!</p>
   </div>
   
@@ -49,6 +50,7 @@
       <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Äänitteitä</a></span></li>
       <li><span class="iconlabel formatebook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Tietokantoja</a></span></li>
       <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videoita</a></span></li>
+    </ul>
   </div>
   
   <div class="homeCustomCol3">

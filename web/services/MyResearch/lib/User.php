@@ -410,9 +410,11 @@ class User extends DB_DataObject
         // Make sure at least "My Favorites" always exists
         $list = new User_list();
         $list->user_id = $this->id;
-        $list->title = translate("My Favorites");
         if (!$list->find(true)) {
-            $list->insert();
+            $list->title = translate("My Favorites");
+            if (!$list->find(true)) {
+                $list->insert();
+            }
         }
         
         $sql = 'SELECT "user_list".*, COUNT("user_resource"."id") AS cnt ' .

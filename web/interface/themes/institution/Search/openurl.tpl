@@ -19,7 +19,6 @@ class="fulltext openUrlWindow window_settings:{$openUrlWindow|escape}"
     {translate text='Get full text'}
   {/if}
 </a>
-<br/>
 {if $openUrlEmbed}
   <div id="openUrlEmbed{$openUrlId}" class="resolver hide">{translate text='Loading...'}</div>
 {/if}

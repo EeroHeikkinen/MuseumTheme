@@ -52,17 +52,21 @@ class Profile extends MyResearch
         global $interface;
         global $user;
 
+        if (UserAccount::isLoggedIn()) {
+            if (isset($_POST['email'])) {
+                if ($user->changeEmailAddress($_POST['email'])) {
+                    $interface->assign('userMsg', 'profile_update');
+                }
+            }
+            $interface->assign('email', $user->email);
+        }
+        
         // Get My Profile
         if ($patron = UserAccount::catalogLogin()) {
             if (isset($_POST['home_library']) &&  $_POST['home_library'] != "") {
                 $home_library = $_POST['home_library'];
                 $updateProfile = $user->changeHomeLibrary($home_library);
                 if ($updateProfile == true) {
-                    $interface->assign('userMsg', 'profile_update');
-                }
-            }
-            if (isset($_POST['email'])) {
-                if ($user->changeEmailAddress($_POST['email'])) {
                     $interface->assign('userMsg', 'profile_update');
                 }
             }
@@ -75,7 +79,6 @@ class Profile extends MyResearch
                 $interface->assign('defaultPickUpLocation', $defaultPickUpLocation);
                 $interface->assign('pickup', $libs);
                 $interface->assign('profile', $result);
-                $interface->assign('email', $user->email);
             }
         }
 

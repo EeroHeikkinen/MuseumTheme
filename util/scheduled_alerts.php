@@ -32,6 +32,7 @@ require_once 'services/MyResearch/lib/Search.php';
 require_once 'services/MyResearch/lib/User.php';
 require_once 'sys/ConfigArray.php';
 require_once 'sys/Interface.php';
+require_once 'sys/Mailer.php';
 require_once 'sys/SearchObject/Factory.php';
 require_once 'sys/Translator.php';
 require_once 'sys/VuFindDate.php';
@@ -72,6 +73,9 @@ class ScheduledAlerts
         
         // Setup Local Database Connection
         ConnectionManager::connectToDatabase();
+        
+        // Initialize Mailer
+        $mailer = new VuFindMailer();
         
         // Find all scheduled alerts
         $sql = 'SELECT * FROM "search" WHERE "schedule" > 0 ORDER BY user_id';
@@ -146,10 +150,8 @@ class ScheduledAlerts
             $searchObject = SearchObjectFactory::deminify($minSO);
             $searchTime = time();
             $searchDate = gmdate($iso8601, time());
-            $oldLimit = $searchObject->getLimit();
             $searchObject->setLimit(50);
             $results = $searchObject->processSearch();
-            $searchObject->setLimit($oldLimit);
             if (PEAR::isError($results)) {
                 $this->msg('Search ' . $s->id . ' failed: ' . $results->getMessage());
                 continue;
@@ -198,7 +200,11 @@ class ScheduledAlerts
                     $this->msg("Message template processing failed: $message");
                     continue;
                 }
-                $this->sendEmail($configArray['Site']['email'], $user->email, translate('Scheduled Alert Results'), $message);
+                $result = $mailer->send($user->email, $configArray['Site']['email'], translate('Scheduled Alert Results'), $message);
+                if (PEAR::isError($result)) {
+                    $this->msg("Failed to send message to {$user->email}: " . $result->getMessage());
+                    continue;
+                }
             }
             
             // Update search date
@@ -249,42 +255,6 @@ class ScheduledAlerts
         $messageBody = $this->getFlowedBody($message) . PHP_EOL;
         
         return mail($this->mimeEncodeAddress($recipient), $this->mimeEncodeHeaderValue($subject), $messageBody, $this->headersToStr($headers), '-f ' . $this->extractAddress($sender));
-    }
-    
-    /**
-     * Create message body in flowed format
-     * 
-     * @param string $body Message body
-     * 
-     * @return string Flowed body 
-     */
-    protected function getFlowedBody($body)
-    {
-        $lines = array();
-        foreach (explode(PHP_EOL, $body) as $paragraph) {
-            $line = '';
-            foreach (explode(' ', $paragraph) as $word) {
-                if (strlen($line) + strlen($word) > 66) {
-                    $lines[] = "$line ";
-                    $line = '';
-                }
-                if ($line) {
-                    $line .= " $word";
-                } elseif ($word) {
-                    $line = $word;
-                } else {
-                    $line = ' ';
-                }
-            }
-            $line = rtrim($line);
-            $line = preg_replace('/\s+' . PHP_EOL . '$/', PHP_EOL, $line);
-            $lines[] = rtrim($line, ' ');
-        }
-        $result = '';
-        foreach ($lines as $line) {
-            $result .= chunk_split($line, 998, PHP_EOL);
-        }
-        return $result;
     }
     
     /**

@@ -4,6 +4,7 @@
 {js filename="rsi.js"}
 {literal}
 <script type="text/javascript">
+//<![CDATA[
 $(document).ready(function() {
 {/literal}
   checkRSI("{$module}", {if $openUrlAutoCheck}true{else}false{/if},
@@ -17,6 +18,7 @@ $(document).ready(function() {
     {literal}
   });
 });
+//]]>
 </script>
 {/literal}
 {/if}

@@ -189,28 +189,6 @@ class Record extends Action
             'lastsearchdisplayquery',
             isset($_SESSION['lastSearchDisplayQuery']) ? $_SESSION['lastSearchDisplayQuery'] : false
         );
-        
-        $this->cacheId = 'Record|' . $_REQUEST['id'] . '|' . get_class($this);
-        if (!$interface->is_cached($this->cacheId)) {
-            // Find Similar Records
-            include_once 'sys/SearchObject/Solr.php';
-            $similar = $this->db->getMoreLikeThis(
-                $_REQUEST['id'],
-                array('fq' => SearchObject_Solr::getDefaultHiddenFilters())
-            );
-
-            // Send the similar items to the template; if there is only one, we need
-            // to force it to be an array or things will not display correctly.
-            if (count($similar['response']['docs']) > 0) {
-                $interface->assign('similarRecords', $similar['response']['docs']);
-            }
-
-            // Find Other Editions
-            $editions = $this->recordDriver->getEditions();
-            if (!PEAR::isError($editions)) {
-                $interface->assign('editions', $editions);
-            }
-        }
 
         // Send down text for inclusion in breadcrumbs
         $interface->assign('breadcrumbText', $this->recordDriver->getBreadcrumb());

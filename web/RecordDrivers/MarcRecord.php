@@ -508,7 +508,7 @@ class MarcRecord extends IndexRecord
     {
         // These are the fields that may contain subject headings:
         $fields = array(
-            '600', '610', '611', '630', '648', '650', '651', '656'
+            '600', '610', '611', '630', '648', '650', '651', '653', '656'
         );
 
         // This is all the collected data:
@@ -688,7 +688,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getGeneralNotes()
     {
-        return $this->getFieldArray('500');
+        return $this->getFieldArray('500', '504', '508', '518', '534', '550', '580', '586');
     }
 
     /**
@@ -925,7 +925,7 @@ class MarcRecord extends IndexRecord
         $primaryFields = array(
             '440' => array('a', 'p'),
             '800' => array('a', 'b', 'c', 'd', 'f', 'p', 'q', 't'),
-            '830' => array('a', 'p'));
+            '830' => array('a', 'p', 'x'));
         $matches = $this->getSeriesFromMARC($primaryFields);
         if (!empty($matches)) {
             return $matches;
@@ -1404,7 +1404,8 @@ class MarcRecord extends IndexRecord
     }
 
     /**
-     * Overload the IndexRecord method to include other references from MARC field 787. 
+     * Overload the IndexRecord method to include other references from MARC field 787.
+     *  
      * @return string Name of Smarty template file to display.
      * @access public
      */
@@ -1497,18 +1498,19 @@ class MarcRecord extends IndexRecord
     /**
      * Strip trailing spaces and punctuation characters from a string
      *
-     * @param string|string[] $input String to strip
+     * @param string|string[] $input      String to strip
+     * @param string          $additional Additional punctuation characters
      * 
      * @return string
      */
-    public function stripTrailingPunctuation($input)
+    public function stripTrailingPunctuation($input, $additional = '')
     {
         $array = is_array($input);
         if (!$array) {
             $input = array($input);
         }
         foreach ($input as &$str) {
-            $str = preg_replace('/[\s\/:;\,=\(]+$/', '', $str);
+            $str = preg_replace("/[\s\/:;\,=\($additional]+\$/", '', $str);
             // Don't replace an initial letter (e.g. string "Smith, A.") followed by period
             $thirdLast = substr($str, -3, 1);
             if (substr($str, -1) == '.' && $thirdLast != ' '  && $thirdLast != ' ') {
@@ -1528,7 +1530,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getAlternativeTitles()
     {
-        return $this->getFieldArray('246', array('a', 'b', 'f'));
+        return $this->stripTrailingPunctuation($this->getFieldArray('246', array('a', 'b', 'f')));
     }
 
     /**
@@ -1539,7 +1541,15 @@ class MarcRecord extends IndexRecord
      */
     protected function getISBNs()
     {
-        return $this->getFieldArray('020', array('a'));
+        $fields = array(
+            '020' => array('a'),
+            '773' => array('z'),
+        ); 
+        $isbn = array();
+        foreach ($fields as $field => $subfields) {
+            $isbn = array_merge($isbn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields)));
+        }
+        return array_values(array_unique($isbn));
     }
 
     /**
@@ -1562,11 +1572,163 @@ class MarcRecord extends IndexRecord
         ); 
         $issn = array();
         foreach ($fields as $field => $subfields) {
-            $issn = array_merge($issn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields)));
+            $issn = array_merge($issn, $this->stripTrailingPunctuation($this->getFieldArray($field, $subfields), '-'));
         }
         return array_values(array_unique($issn));
     }
+
+    /**
+     * Get an array of classifications for the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getClassifications()
+    {
+        $result = array();
+        
+        foreach (array('050', '080', '084') as $fieldCode) {
+            $fields = $this->marcRecord->getFields($fieldCode);
+            if (is_array($fields)) {
+                foreach ($fields as $field) {
+                    switch ($fieldCode) {
+                    case '050': 
+                        $classification = 'dlc';
+                        break;
+                    case '080':
+                        $classification = 'udk';
+                        break;
+                    default:    
+                        $classification = $this->getSubfieldArray($field, array('2'));
+                        if (empty($classification)) {
+                            continue;
+                        }
+                        $classification = $classification[0];
+                        break;
+                    }
+                
+                    $subfields = $this->getSubfieldArray($field, array('a', 'b'));
+                    if (!empty($subfields)) {
+                        $result[$classification][] = $subfields[0];
+                    }
+                }
+            }
+        }        
+        return $result;        
+    }
+
+    /**
+     * Get all authors apart from presenters
+     * 
+     * @return array
+     */
+    protected function getNonPresenterAuthors()
+    {
+        global $configArray;
+        $result = array();
+        
+        foreach (array('100', '110', '700', '710') as $fieldCode) {
+            $fields = $this->marcRecord->getFields($fieldCode);
+            if (is_array($fields)) {
+                foreach ($fields as $field) {
+                    $role = $this->getSubfieldArray($field, array('e'));
+                    $role = empty($role) ? '' : mb_strtolower($role[0]);
+                    if ($role && in_array($role, $configArray['Record']['presenter_roles'])) {
+                        continue;
+                    }
+                    $subfields = $this->getSubfieldArray($field, array('a', 'b', 'c', 'd'));
+                    if (!empty($subfields)) {
+                        $result[] = array(
+                            'name' => $this->stripTrailingPunctuation($subfields[0]),
+                            'role' => $role
+                        );
+                    }
+                }
+            }
+        }
+        return $result;        
+    }
     
+    /**
+     * Get presenters
+     * 
+     * @return array
+     */
+    protected function getPresenters()
+    {
+        global $configArray;
+        $result = array('presenters' => array(), 'details' => array());
+        
+        foreach (array('100', '110', '700', '710') as $fieldCode) {
+            $fields = $this->marcRecord->getFields($fieldCode);
+            if (is_array($fields)) {
+                foreach ($fields as $field) {
+                    $role = $this->getSubfieldArray($field, array('e'));
+                    $role = empty($role) ? '' : mb_strtolower($role[0]);
+                    if (!$role || !in_array($role, $configArray['Record']['presenter_roles'])) {
+                        continue;
+                    }
+                    $subfields = $this->getSubfieldArray($field, array('a', 'b', 'c', 'd'));
+                    if (!empty($subfields)) {
+                        $result['presenters'][] = array(
+                            'name' => $this->stripTrailingPunctuation($subfields[0]),
+                            'role' => $role
+                        );
+                    }
+                }
+            }
+        }
+        $result['details'] = $this->stripTrailingPunctuation($this->getFieldArray('511', array('a')));
+        return $result;        
+    }
+    
+    /**
+     * Get manufacturer
+     * 
+     * @return string
+     */
+    protected function getManufacturer()
+    {
+        return $this->getFirstFieldValue('260', array('e', 'f', 'g'));
+    }
+    
+    /**
+     * Get the estimated publication date of the record.
+     *
+     * @return array
+     * @access protected
+     */
+    protected function getProjectedPublicationDate()
+    {
+        $dateString = $this->getFirstFieldValue('263', array('a'));
+        if (strlen($dateString) === 8) {
+            $year = intval(substr($dateString, 0, 4));
+            $month = intval(substr($dateString, 4, 2));
+            $day = intval(substr($dateString, 6, 2));
+            return implode('.', array($day, $month, $year));
+        } else if (strlen($dateString) === 6) {
+            $year = intval(substr($dateString, 0, 4));
+            $month = intval(substr($dateString, 4, 2));
+            return implode('/', array($month, $year));
+        }
+        return $dateString;
+    }
+    
+    /**
+     * Get dissertation note for the record.
+     * Use field 502 if available. If not use local field 509
+     * 
+     * @return string dissertation notes 
+     * @access protected
+     */
+    protected function getDissertationNote()
+    {
+        $notes = $this->getFirstFieldValue('502', array('a', 'b', 'c'));
+        if (!$notes) {
+            $notes = $this->getFirstFieldValue('509', array('a', 'b', 'c'));
+        }
+        return $notes;
+    }
 }
 
 ?>

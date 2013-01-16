@@ -70,7 +70,7 @@
           {assign var=mainFormat value=$recordFormat} 
           {assign var=displayFormat value=$recordFormat} 
         {/if}
-        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=format_$displayFormat}</span>
+        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
       </td>
     </tr>
 
@@ -133,7 +133,11 @@
           {assign var=subject value=""}
           {foreach from=$field item=subfield name=subloop}
             {if !$smarty.foreach.subloop.first} &gt; {/if}
-            {assign var=subject value="$subject $subfield"}
+            {if $subject}
+              {assign var=subject value="$subject $subfield"}
+            {else}
+              {assign var=subject value="$subfield"}
+            {/if}
             <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|escape}</a>
           {/foreach}
         </div>

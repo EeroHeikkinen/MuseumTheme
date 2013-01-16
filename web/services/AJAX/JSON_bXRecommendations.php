@@ -28,16 +28,6 @@
 require_once 'JSON.php';
 require_once 'RecordDrivers/Factory.php';
 
-/**
- * JSON bX Recommendations action
- *
- * @category VuFind
- * @package  Controller_Record
- * @author   Ere Maijala <ere.maijala@helsinki.fi>
- * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
- * @link     http://vufind.org/wiki/building_a_module Wiki
- */
-
 // TODO: This should probably be a recommendation subclass, but those are geared
 // towards search results, so we'll keep this separate for now
 

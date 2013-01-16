@@ -2,7 +2,8 @@
 
 {literal}
 <script type="text/javascript">
-var openurl_resolver = "{/literal}{$openUrlBase}{literal}"; 
+  //<![CDATA[
+  var openurl_resolver = "{/literal}{$openUrlBase}{literal}"; 
 
     var url = path + "/AJAX/JSON_bXRecommendations?method=getbXRecommendations"+
         "&id="+"{/literal}{$id|escape}{literal}&source={/literal}{$module|escape}{literal}";
@@ -36,13 +37,14 @@ var openurl_resolver = "{/literal}{$openUrlBase}{literal}";
     .error(function() {
         $('#bXRecommendations').removeClass("hide").text("Request for bX recommendations failed.");
     });              
-
+  //]]>
 </script>
 {/literal}
 
 <div id="bXRecommendations" class="bXRecommendations sidegroup hide">
   <h4>{translate text="bX Recommendations"}</h4>
   <ul class="similar">
+    <li> </li>
   </ul>
 </div>
 

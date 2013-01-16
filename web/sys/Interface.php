@@ -181,7 +181,10 @@ class UInterface extends Smarty
 
         $this->assign('authMethod', $configArray['Authentication']['method']);
 
-        if ($configArray['Authentication']['method'] == 'Shibboleth') {
+        if ($configArray['Authentication']['method'] == 'Shibboleth'
+            || ($configArray['Authentication']['method'] == 'MultiAuth' 
+            && in_array('Shibboleth', explode(',', $configArray['MultiAuth']['method_order'])))
+        ) {
             if (!isset($configArray['Shibboleth']['login'])) {
                 throw new Exception(
                     'Missing parameter in the config.ini. Check if ' .
@@ -196,8 +199,9 @@ class UInterface extends Smarty
                     ? $configArray['Site']['defaultLoggedInModule'] : 'MyResearch';
                 $shibTarget = $configArray['Site']['url'] . '/' . $myRes . '/Home';
             }
-            $sessionInitiator = $configArray['Shibboleth']['login'] .
-                '?target=' . urlencode($shibTarget);
+            $sessionInitiator = $configArray['Shibboleth']['login'];
+            $sessionInitiator .= (strpos($sessionInitiator, '?') === false) ? '?' : '&';
+            $sessionInitiator .= 'target=' . urlencode($shibTarget);
 
             if (isset($configArray['Shibboleth']['provider_id'])) {
                 $sessionInitiator = $sessionInitiator . '&providerId=' .
@@ -226,10 +230,11 @@ class UInterface extends Smarty
 
         // Create prefilter list
         $prefilters = getExtraConfigArray('prefilters');
+
         if (isset($prefilters['Prefilters'])) {
             $filters = array();
             foreach ($prefilters['Prefilters'] as $key => $filter) {
-                $filters[$key] = translate($filter);
+                $filters[$key] = $filter;
             }
             $this->assign('prefilterList', $filters);
         }
@@ -504,7 +509,7 @@ function translate($params)
         );
     }
     if (is_array($params)) {
-        return $translator->translate($params['text']);
+        return $translator->translate($params['text'], isset($params['prefix']) ? $params['prefix'] : '');
     } else {
         return $translator->translate($params);
     }

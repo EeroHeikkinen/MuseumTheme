@@ -1,6 +1,6 @@
 <!-- START of: Search/home.tpl -->
 
-{include file="Search/home-navigation.tpl"} 
+{* include file="Search/home-navigation.tpl" *} 
 
 {include file="Search/home-content.tpl"}
 

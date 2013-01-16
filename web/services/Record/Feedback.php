@@ -105,7 +105,7 @@ class Feedback extends Record
         $subject = translate('Feedback on Record') . ': ' .
             $this->recordDriver->getBreadcrumb();
         $interface->assign('from', $from);
-        $interface->assign('feedbackDetails', $this->recordDriver->getFeedback());
+        $interface->assign('emailDetails', $interface->fetch($this->recordDriver->getSearchResult('email')));
         $interface->assign('recordID', $this->recordDriver->getUniqueID());
         $interface->assign('message', $message);
         $body = $interface->fetch('Emails/catalog-record.tpl');

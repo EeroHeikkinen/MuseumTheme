@@ -11,7 +11,7 @@
  <div class="clear"></div>
 </div>
 
-<div id="resultList" class="{if $sidebarOnLeft} push-3 last{/if}">
+<div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
   {* Listing Options *}
   <div class="resulthead">
     {if $recordCount}
@@ -23,7 +23,7 @@
     <div class="floatleft">
       {if $searchType != 'advanced' && $orFilters}
         {foreach from=$orFilters item=values key=filter}
-    AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=facet_$value}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}
+    AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}
       {/if}
     {/if}
     {if $spellingSuggestions}

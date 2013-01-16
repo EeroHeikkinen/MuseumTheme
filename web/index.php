@@ -34,6 +34,21 @@ mb_internal_encoding("UTF-8");
 require_once 'sys/ConfigArray.php';
 $configArray = readConfig();
 
+// Force HTTPS if configured to use SSL.
+if (isset($configArray['Site']['useHttps']) && $configArray['Site']['useHttps']) {
+    $port = isset($configArray['Site']['httpsPort']) ? ':' . $configArray['Site']['httpsPort'] : '';
+    if ($_SERVER['HTTPS'] != 'on') {
+        $url = 'https://' . $_SERVER['SERVER_NAME'] . $port . $_SERVER['REQUEST_URI'];
+        header("Location: $url");
+        exit;
+    } else {
+        $url = parse_url($configArray['Site']['url']);
+        $host = isset($url['host']) ? $url['host'] : '';
+        $path = isset($url['path']) ? $url['path'] : '';
+        $configArray['Site']['url'] = 'https://' . $host . $port . $path;
+    }    
+}
+
 // Try to set the locale to UTF-8, but fail back to the exact string from the config
 // file if this doesn't work -- different systems may vary in their behavior here.
 setlocale(
@@ -138,6 +153,11 @@ $module = preg_replace('/[^\w]/', '', $module);
 $action = (isset($_GET['action'])) ? $_GET['action'] : 'Home';
 $action = preg_replace('/[^\w]/', '', $action);
 
+// Special case: Always use the Home action for Content.
+if ($module == 'Content') {
+    $action = 'Home';
+}
+
 // Process prefilter redirection
 if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO', 'PCI')) 
     && isset($_REQUEST['prefilter'])
@@ -149,8 +169,8 @@ if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO'
             || $prefilter['module'] != $module || $prefilter['action'] != $action
         ) {
             $params = explode('&', parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY));
-            foreach ($params as &$value) {
-                $value = preg_replace('/^prefilter=/', 'prefiltered=', $value);
+            foreach ($params as &$paramValue) {
+                $paramValue = preg_replace('/^prefilter=/', 'prefiltered=', $paramValue);
             }
             foreach ($prefilter as $key => $value) {
                 if ($key == 'module' || $key == 'action') {

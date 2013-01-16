@@ -61,6 +61,26 @@ class MultiBackend implements DriverInterface
         $this->defaultDriver = $configArray['General']['defaultDriver'];
         $this->drivers = $configArray['Drivers'];
     }
+    
+    /**
+     * Get the drivers (data source IDs) enabled in MultiBackend
+     * 
+     * @return string[]
+     */
+    public function getDrivers()
+    {
+        return array_keys($this->drivers);
+    }
+
+    /**
+     * Get the default driver (data source ID)
+     * 
+     * @return string
+     */
+    public function getDefaultDriver()
+    {
+        return $this->defaultDriver;
+    }
 
     /**
      * Get Status
@@ -367,6 +387,31 @@ class MultiBackend implements DriverInterface
     }
 
     /**
+     * Get Patron Call Slips
+     *
+     * This is responsible for retrieving all call slips by a specific patron.
+     *
+     * @param array $user The patron array from patronLogin
+     *
+     * @return mixed      Array of the patron's holds on success, PEAR_Error
+     * otherwise.
+     * @access public
+     */
+    public function getMyCallSlips($user)
+    {
+        $source = $this->getSource($user['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            if (method_exists($driver, 'getMyCallSlips')) {
+                $holds = $driver->getMyCallSlips($this->stripIdPrefixes($user, $source));
+                return $this->addIdPrefixes($holds, $source);
+            }
+            return array();
+        }
+        return new PEAR_Error('No suitable backend driver found');
+    }
+    
+    /**
      * checkRequestIsValid
      *
      * This is responsible for determining if an item is requestable
@@ -387,6 +432,34 @@ class MultiBackend implements DriverInterface
                 return false;
             }
             return $driver->checkRequestIsValid(
+                $this->stripIdPrefixes($id, $source),
+                $this->stripIdPrefixes($data, $source), $this->stripIdPrefixes($patron, $source)
+            );
+        }
+        return false;
+    }
+
+    /**
+     * checkCallSlipRequestIsValid
+     *
+     * This is responsible for determining if an item is requestable
+     *
+     * @param string $id     The Bib ID
+     * @param array  $data   An Array of item data
+     * @param patron $patron An array of patron data
+     *
+     * @return string True if request is valid, false if not
+     * @access public
+     */
+    public function checkCallSlipRequestIsValid($id, $data, $patron)
+    {
+        $source = $this->getSource($patron['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            if ($this->getSource($id) != $source) {
+                return false;
+            }
+            return $driver->checkCallSlipRequestIsValid(
                 $this->stripIdPrefixes($id, $source),
                 $this->stripIdPrefixes($data, $source), $this->stripIdPrefixes($patron, $source)
             );
@@ -544,6 +617,82 @@ class MultiBackend implements DriverInterface
     }
     
     /**
+     * Place Call Slip Request
+     *
+     * Attempts to place a call slip request on a particular item and returns
+     * an array with result details or a PEAR error on failure of support classes
+     *
+     * @param array $details An array of item and patron data
+     *
+     * @return mixed An array of data on the request including
+     * whether or not it was successful and a system message (if available) or a
+     * PEAR error on failure of support classes
+     * @access public
+     */
+    public function placeCallSlipRequest($details)
+    {
+        $source = $this->getSource($details['patron']['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            if ($this->getSource($details['id']) != $source) {
+                return array(
+                    "success" => false,
+                    "sysMessage" => 'hold_wrong_user_institution'
+                );                   
+            }
+            $details = $this->stripIdPrefixes($details, $source);
+            return $driver->placeCallSlipRequest($details);
+        }
+        return new PEAR_Error('No suitable backend driver found');
+    }
+    
+    /**
+     * Cancel Call Slips
+     *
+     * Attempts to Cancel a call slip on a particular item. The
+     * data in $cancelDetails['details'] is determined by getCancelCallSlipDetails().
+     *
+     * @param array $cancelDetails An array of item and patron data
+     *
+     * @return array               An array of data on each request including
+     * whether or not it was successful and a system message (if available)
+     * @access public
+     */
+    public function cancelCallSlips($cancelDetails)
+    {
+        $source = $this->getSource($cancelDetails['patron']['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            return $driver->cancelCallSlips($this->stripIdPrefixes($cancelDetails, $source));
+        }
+        return new PEAR_Error('No suitable backend driver found');
+    }
+    
+    /**
+     * Get Cancel Call Slip Details
+     *
+     * In order to cancel a call slip, the ILS requires some information on it.
+     * This function returns the required information, which is then submitted 
+     * as form data in CallSlip.php. This value is then extracted by the CancelCallSlips
+     * function.
+     *
+     * @param array $details An array of item data
+     *
+     * @return string Data for use in a form field
+     * @access public
+     */
+    public function getCancelCallSlipDetails($details)
+    {
+        $source = $this->getSource($details['id']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $details = $this->stripIdPrefixes($details, $source);
+            return $driver->getCancelCallSlipDetails($details);
+        }
+        return new PEAR_Error('No suitable backend driver found');
+    }
+    
+    /**
      * Function which specifies renew, hold and cancel settings.
      *
      * @param string $function The name of the feature to be checked
@@ -588,11 +737,11 @@ class MultiBackend implements DriverInterface
         case 'Renewals':
             return Array();
         default:
-            error_log("MultiHandler: unhandled getConfig function: '$function'");
+            error_log("MultiBackend: unhandled getConfig function: '$function'");
         }
         return Array();
     }
-    
+        
     /**
      * Extract local ID from the given prefixed ID
      * 
@@ -715,5 +864,6 @@ class MultiBackend implements DriverInterface
         }
         return is_array($data) ? $array : $array[0];
     }
+
 }
     
