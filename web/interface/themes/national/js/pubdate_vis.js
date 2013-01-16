@@ -11,10 +11,11 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
                 show: true,
                 fill: true,
                 lineWidth:0,
-                fillColor: "#00a3b5"
+                fillColor: "#00a3b5",
+                shadow:0
             }
         },
-        colors: ["rgba(151,200,151,255)"],
+        colors: ["#00a3b5"],
         legend: { noColumns: 2 },
         xaxis: { 
             max: currentYear, 
@@ -110,7 +111,7 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
                     var newdiv = document.createElement('div');
                     var text = document.getElementById("clearButtonText").innerHTML;
                     newdiv.setAttribute('id', 'clearButton' + key);
-                    newdiv.innerHTML = '<a href="' + val['removalURL'] + '">' + text + '</a>';
+                    newdiv.innerHTML = '<a href="' + val['removalURL'] + '">x</a>';
                     newdiv.className += "dateVisClear";
                     placeholder.append(newdiv);
                 }

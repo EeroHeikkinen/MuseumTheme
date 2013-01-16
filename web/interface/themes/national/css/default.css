@@ -1770,6 +1770,9 @@ ul.recordSet .addToFavLink a {
 .resultDates {
     background:#f2f2f2;
 }
+.resultDatesHeader {
+    background:#4d4d4d;
+}
 
 /* Result terms */
 .resultTerms {
@@ -1874,13 +1877,62 @@ ul.recordSet .addToFavLink a {
     box-shadow:0 1px 10px rgba(0,0,0,.15) inset;
     margin:0;
     padding:0;
-    width:auto;
+    width:950px;
     height:110px;
     cursor:crosshair;
     position:relative;
-    left:5px;
+    left:0;
 }
-
+.dateVisClear a {
+    background-color: #00A3B5;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    color: #FFFFFF;
+    font-size: 1.3em;
+    line-height: 1.3em;
+    padding: 1px 8px 3px;
+    position: absolute;
+    right: 6px;
+    text-decoration:none;
+    top: 6px;
+}
+.dateVisHandle { 
+    cursor:pointer;
+}
+span.dateVisHandle {
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 1.23em;
+    font-weight: bold;
+    height: 35px;
+    line-height: 35px;
+}
+div.dateVisHandle {
+    display: none;
+    height: 24px;
+    left: 50%;
+    position: absolute;
+    top: 26px;
+    width: 70px;
+    z-index: 10;
+}
+div.dateVisOpen {
+    background:url(../images/datevis_handle_open.png) no-repeat;
+}
+div.dateVisClose {
+    background:url(../images/datevis_handle_close.png) no-repeat;
+}
+div.dateVisHandle.visible {
+    display:block;
+}
+.resultDates {
+    width:100%;
+    height: 0;
+    overflow: hidden;
+}
+.resultDates.expanded {
+    height:110px;
+}
 /***** Pagination *****/
 
 .pagination {
@@ -2661,7 +2713,7 @@ div.unavailable, div.fatalError {
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
 
-    behavior: url(css/css3pie/PIE.php); /* for IE */
+    behavior: url(css3pie/PIE.php); /* for IE */
 }
 
 /** Open Library Subjects **/
@@ -2971,16 +3023,6 @@ ul.suggestion li{
 .mapInfoResultThumbImg {
     height: 32px;
     width: 32px;
-}
-/************pubdate_vis timeline**********/
-.dateVisClear {
-    background-color: #FFF;
-    border: 2px solid #545454;
-    position: absolute;
-    left: 6px; top: 6px;
-    height: 20px;
-    padding-left: 5px;
-    padding-right: 5px;
 }
 
 /* table for displaying full status in result list */

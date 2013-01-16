@@ -76,7 +76,7 @@
       </div>
       </div>
     </div>
-    <div class="resultDates">
+    <div class="resultDates {if !empty($visFacets.main_date_str[0])}expanded{/if}">
       <div class="content">
       {* Recommendations *}
       {if $topRecommendations}
@@ -86,9 +86,17 @@
       {/if}
       </div>
     </div>
+    <div class="resultDatesHeader {if !empty($visFacets.main_date_str[0])}expanded{/if}">
+      <div class="content">
+        <span class="dateVisHandle">Tulokset aikajanalla</span>
+        <div class="dateVisHandle dateVisOpen {if empty($visFacets.main_date_str[0])}visible{/if}"></div>
+        <div class="dateVisHandle dateVisClose {if !empty($visFacets.main_date_str[0])}visible{/if}"></div>
+      </div>
+    </div>
   </div>
 {* End Listing Options *}
 {* Main Listing *}
+
   <div class="content">
     <div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
       {if $subpage}

@@ -10,9 +10,8 @@
 
     {foreach from=$visFacets item=facetRange key=facetField}
       <div id="topPubDateVis" class="{if $facetRange.label == "adv_search_year"}span-10{if $sidebarOnLeft} last{/if}{/if}">
-        {* space the flot visualisation *}     
-        <div class="dateVis" id="datevis{$facetField}x"></div>
-        <div id="clearButtonText" style="display: none">{translate text="Clear"}</div>  
+          <div class="dateVis" id="datevis{$facetField}x"></div>
+          <div id="clearButtonText" style="display: none">x</div>  
       </div>
     {/foreach}
     <script type="text/javascript">

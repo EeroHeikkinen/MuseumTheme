@@ -6,6 +6,7 @@ $(document).ready(function() {
     initMenu();
     initCarousel();
     initInfoBox();
+    initDateVisHandle();
 });
 
 // Header menu
@@ -83,4 +84,25 @@ jQuery.fn.vToggle = function() {
     return this.css('visibility', function(i, visibility) {
         return (visibility == 'visible') ? 'hidden' : 'visible';
     });
+}
+
+function initDateVisHandle() {
+    $('.dateVisHandle').click(function() {
+        showDateVis();
+    });
+    
+    function showDateVis() {
+        var dateVis = $('.resultDates');
+        
+        var dateVisHeight = !dateVis.hasClass('expanded') ? 110 : 0;
+       dateVis.stop(true, true).animate({ height: dateVisHeight}, 200, function() {
+           dateVis.toggleClass('expanded');
+           
+       });
+       $('.resultDatesHeader').toggleClass('expanded');
+           $('div.dateVisHandle').not('.visible').fadeIn(300, function() {
+               $('div.dateVisHandle.visible').fadeOut(300);
+               $('div.dateVisHandle').toggleClass('visible');
+           });
+    }
 }
