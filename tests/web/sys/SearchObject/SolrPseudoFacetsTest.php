@@ -38,7 +38,7 @@ require_once 'MockRequest.php';
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/unit_tests Wiki
  */
-class SearchObjectFactoryTest extends PHPUnit_Framework_TestCase
+class SolrPseudoFacetsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Standard setup method.
