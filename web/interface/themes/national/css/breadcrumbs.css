@@ -1,20 +1,22 @@
 /****** Breadcrumbs ******/
 
 div.breadcrumbinner {
-    margin: 0 .4em;
+    /*margin: 0 .4em;*/
 }
 div.breadcrumbinner a, div.breadcrumbinner em, div.breadcrumbinner span, div.breadcrumbinner form {
     float: left;
     overflow: hidden;
     color: #ffffff;
     height: 30px;
-    padding: 0 8px;
+    padding: 0 8px 0 0;
     font-size: .9em;
+    font-weight: bold;
     font-style: normal;
 }
 
 div.breadcrumbs {
     overflow: hidden;
+    margin: 12px 0 0 0;
     padding: 0 0 12px;
     height: 30px;
     line-height: 30px;
@@ -25,15 +27,14 @@ div.breadcrumbs a, div.breadcrumbs li {
 div.breadcrumbs span {
     background: url("../images/bg_breadcrumb.png") no-repeat left center;
     overflow: hidden;
-    padding: 0;
-    width: 10px;
+    padding: 0 6px 0 0;
+    width: 7px;
     /* To hide &gt; in breadscumbs. Could it be removed otherway? */
-    color: transparent;
+    color: transparent; 
 /*    
     font-size: 0;
     line-height: 0;
-*/
     filter: alpha(opacity=40);
-    opacity: 0.4;
+    opacity: 0.4;*/
 }
 
