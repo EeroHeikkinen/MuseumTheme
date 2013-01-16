@@ -27,7 +27,7 @@
  */
 require_once dirname(__FILE__) . '/../../prepend.inc.php';
 require_once 'sys/SearchObject/Factory.php';
-require_once 'HTTP/Request2/Adapter/Mock.php';
+require_once 'MockRequest.php';
 
 /**
  * SearchObject Factory Test Class
@@ -77,27 +77,40 @@ class SearchObjectFactoryTest extends PHPUnit_Framework_TestCase
     	
     	$this->_searchObject->addPseudoFacet($this->field, "Date", $queries);
     	
+    	$mock = new MockRequest();
+    	$realdir = dirname(__FILE__);
+    	$cannedResponse = file_get_contents($realdir . '/mockResponse.json');
+    	$mock->setResponse($cannedResponse);
+    	
+    	$indexEngine = $this->_searchObject->getIndexEngine();
+    	$indexEngine->client=$mock;
+    	
     	$result = $this->_searchObject->processSearch(true, true);
     	if (PEAR::isError($result)) {
-    		$this->markTestSkipped(
-              'Index not available for testing.'
-            );
-    		return;
+    		$this->fail("PEAR error");
     	}
     	
+    	// Verify that the sent query was correct
+    	$query = $mock->getLastQuery();
+    	$this->assertRegExp('/facet.query='. $this->field .'%3A%5B-500000-01-01T00%3A00%3A00Z+.?TO.?+1000-01-01T00%3A00%3A00Z%5D/', $query);
+    	$this->assertRegExp('/facet.query='. $this->field .'%3A%5B1000-01-01T00%3A00%3A00Z+.?TO.?+1500-01-01T00%3A00%3A00Z%5D/', $query);
+    	$this->assertRegExp('/facet.query='. $this->field .'%3A%5B1500-01-01T00%3A00%3A00Z+.?TO.?+2000-01-01T00%3A00%3A00Z%5D/', $query);
+
+    	// Get and analyze the returned facet
     	$facets = $this->_searchObject->getFacetList(array($this->field));
-    	$this->assertCount(1, $facets);
     	$this->assertArrayHasKey($this->field, $facets);
-    	
     	$facet = $facets[$this->field];
-    	$this->assertEquals("Date", $facet['label']);
-    	foreach($facet['list'] as $i => $value) {
-    		$this->assertEquals($value['untranslated'], $queries[$i]);
-    		$this->assertArrayHasKey('count', $value);
-    		$this->assertArrayHasKey('isApplied', $value);
-    		$this->assertArrayHasKey('url', $value);
-    	}
     	
+    	$this->assertEquals("Date", $facet['label']);
+    	
+    	$this->assertEquals(1201, $facet['list'][0]['count']);
+    	$this->assertEquals("[-500000-01-01T00:00:00Z TO 1000-01-01T00:00:00Z]", $facet['list'][0]['untranslated']);
+    	
+    	$this->assertEquals(1330, $facet['list'][1]['count']);
+    	$this->assertEquals("[1000-01-01T00:00:00Z TO 1500-01-01T00:00:00Z]", $facet['list'][1]['untranslated']);
+    	
+    	$this->assertEquals(1997970, $facet['list'][2]['count']);
+    	$this->assertEquals("[1500-01-01T00:00:00Z TO 2000-01-01T00:00:00Z]", $facet['list'][2]['untranslated']);
     }
 
     /**
