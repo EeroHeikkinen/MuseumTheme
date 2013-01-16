@@ -198,7 +198,7 @@
       {foreach from=$summHierarchy key=hierarchyID item=hierarchyTitle}
       <div class="hierarchyTreeLink">
         <input type="hidden" value="{$hierarchyID|escape}" class="hiddenHierarchyId" />
-        <a id="hierarchyTree{$summId|escape}" class="hierarchyTreeLinkText" href="{$path}/Record/{$summId|escape:"url"}/HierarchyTree?hierarchy={$hierarchyID}#tabnav" title="{if $coreShortTitle}{$coreShortTitle|truncate:150:"&nbsp;..."|urlencode}{else}{translate text="hierarchy_tree"}{/if}">
+        <a id="hierarchyTree{$summId|escape}" class="hierarchyTreeLinkText" href="{$url}/Record/{$summId|escape:"url"}/HierarchyTree?hierarchy={$hierarchyID}#tabnav" title="{if $coreShortTitle}{$coreShortTitle|truncate:150:"&nbsp;..."|urlencode}{else}{translate text="hierarchy_tree"}{/if}">
           {if count($summHierarchy) == 1}
             {translate text="hierarchy_view_context"}
           {else}

@@ -67,7 +67,7 @@
         </div>
       
         <div class="span-3 last addToFavLink">
-          <a id="saveRecord{$record.ID.0|escape}" href="{$url}/MetaLib/Save?id={$record.ID.0|escape:"url"}" class="fav tool saveRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
+          <a id="saveRecord{$record.ID.0|escape}" href="{$url}/MetaLib/Save?id={$record.ID.0|escape:"url"}" class="fav tool saveMetaLibRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
       
           {* Display the lists that this record is saved to *}
           <div class="savedLists info hide" id="savedLists{$record.ID.0|escape}">

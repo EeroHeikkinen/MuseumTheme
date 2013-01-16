@@ -87,13 +87,9 @@ px      62    136    210    284    358    432    506    580    654    728   */
     .favoritesList {
         width: 520px;
     }
-    .favoritesList .bulkActionButtons {
-        height: auto;
-    }  
     .favoritesList .bulkActionButtons .floatright {
         width: 480px;
     }
-
 
     #topFacets {
         margin-top: .6em;
@@ -171,10 +167,6 @@ px      62    136    210    284    358    432    506    580    654    728   */
 
     .collectionDetails .collectionSortSelector {
         margin-top: .5em;
-    }
-
-    div.bulkActionButtons div.floatright {
-        margin-top: -.7em;
     }
 
     .main, #sliderContainer {

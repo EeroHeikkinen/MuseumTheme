@@ -38,8 +38,8 @@ try { {/literal}
     {elseif ($module eq "Search" or $module eq "MetaLib")}
       {if $filterList}
       
-  piwikTracker.setCustomVariable(1, 'Facets', '{foreach from=$filterList item=filters}{foreach from=$filters item=filter}{$filter.field|escape:"html"}|{$filter.display|escape:"html"};{/foreach}{/foreach}', 'page');
-  piwikTracker.setCustomVariable(2, 'FacetTypes', '{foreach from=$filterList item=filters}{foreach from=$filters item=filter}{$filter.field|escape:"html"};{/foreach}{/foreach}', 'page');
+  piwikTracker.setCustomVariable(1, 'Facets', '{foreach from=$filterList item=filters}{foreach from=$filters item=filter}{$filter.field|escape:"html"}|{$filter.display|escape:"html"}\t{/foreach}{/foreach}', 'page');
+  piwikTracker.setCustomVariable(2, 'FacetTypes', '{foreach from=$filterList item=filters}{foreach from=$filters item=filter}{$filter.field|escape:"html"}\t{/foreach}{/foreach}', 'page');
       {/if}
       {if $searchType}
 

@@ -58,8 +58,9 @@ class Favorites extends MyResearch
             $resource = new Resource();
             $resource->record_id = $_GET['delete'];
             unset($resource->source);
-            $resource->find(true);
-            $user->removeResource($resource);
+            if ($resource->find(true)) {
+                $user->removeResource($resource);
+            }
         }
 
         // Get My Lists

@@ -12,6 +12,8 @@
       <h2>{translate text="List"}: {$list->title|escape}</h2>
     {/if}
     
+      {translate text="delete_selected_favorites"}
+      <br />
       {foreach from=$deleteList item=favorite}
         <strong>{translate text='Title'}:</strong>
         {$favorite.title|escape}<br />

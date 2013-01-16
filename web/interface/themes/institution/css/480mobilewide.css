@@ -198,8 +198,6 @@ px      62    136    210    284    358    432   */
     .module-MyResearch .paginationTop, 
     .module-MyResearch .myResearchMenu,
     .module-Search .myResearchMenu,
-    .module-MyResearch .finesList,
-    .module-MyResearch .profile,
     .module-MyResearch .noContentMessage {
         margin: 0 2px;
     }
@@ -207,16 +205,10 @@ px      62    136    210    284    358    432   */
         width: 468px;
     }
     .account, .favoritesList .bulkActionButtons .floatright {
-        width: 440px;
-    }
-    .favoritesList .bulkActionButtons {
-        height: auto;
+        width: 400px;
     }
     .main .loginForm, .loginForm .loginDescription {
         margin: 0;
-    }
-    .myResearch ul.recordSet .resultCheckbox {
-        margin-left: 0;
     }
     .myResearch .dueDate {
         float: none;
@@ -233,12 +225,6 @@ px      62    136    210    284    358    432   */
     }
     .profileInfo {
         width: 444px;
-    }
-    input#addFormCheckboxSelectAll {
-        margin-left: 25px;
-    }
-    div.bulkActionButtons div.floatright {
-        margin-top: -.7em;
     }
     .finesList table tr td:first-child {
         padding: 2px 0 2px 4px;
@@ -314,12 +300,6 @@ px      62    136    210    284    358    432   */
     }
     ul.recordSet {
         padding: 0;
-    }
-    ul.recordSet li.result {
-        padding: 13px 1px 13px 13px;
-    }
-    ul.recordSet li.result:hover {
-        padding: 12px 0 12px 12px;
     }
     ul.recordSet .resultColumn1 {
         width: 136px;

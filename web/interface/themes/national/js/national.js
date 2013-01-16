@@ -26,7 +26,10 @@ function initMenu() {
          subMenu.stop().fadeOut(50);
     };
 
-    $("#headerMenu > li").hover(headerOver, headerOut);
+    $('#headerMenu > li').hover(headerOver, headerOut);
+    $('#headerMenu > li > a[href="#"]').click(function() {
+        return false;
+    })
 }
 
 // Front page content carousel

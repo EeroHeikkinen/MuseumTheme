@@ -2,15 +2,7 @@
 
 <div id="searchFormContainer" class="searchform last">
 
-{if $searchType == 'advanced'}
-  <a href="{$path}/Search/Advanced?edit={$searchId}" class="small">{translate text="Edit this Advanced Search"}</a> |
-  <a href="{$path}/Search/Advanced" class="small">{translate text="Start a new Advanced Search"}</a> |
-  <a href="{$path}/" class="small">{translate text="Start a new Basic Search"}</a>
-  <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}
-  {foreach from=$orFilters item=values key=filter}
-    AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"</span>
-
-{else}
+{if $searchType != 'advanced'}
   {* Load labelOver placeholder for input field *}
   {js filename="jquery.labelOver.js"}
   <script type="text/javascript">
