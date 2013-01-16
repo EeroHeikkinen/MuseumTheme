@@ -62,13 +62,11 @@
           {if $limitList|@count gt 1}
             <form action="{$path}/Search/LimitResults" method="post">
               <label for="limit">{translate text='Results per page'}</label>
-              <div class="styled_select">
-              <select id="limit" name="limit" onChange="document.location.href = this.options[this.selectedIndex].value;">
+              <select class="jumpMenu" id="limit" name="limit">
                 {foreach from=$limitList item=limitData key=limitLabel}
                   <option value="{$limitData.limitUrl|escape}"{if $limitData.selected} selected="selected"{/if}>{$limitData.desc|escape}</option>
                 {/foreach}
               </select>
-              </div>
               <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
             </form>
           {/if}
