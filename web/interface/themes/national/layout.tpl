@@ -137,7 +137,7 @@ $(document).ready(function() {
     <script type="text/javascript">
     {literal}
         $(function(){
-            $('label').labelOver('labelOver')
+            $('#searchFormLabel').labelOver('labelOver')
             $('.mainFocus').focus();
         });
     {/literal}

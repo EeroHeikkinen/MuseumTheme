@@ -1,9 +1,16 @@
 <!-- START of: Search/advanced.tpl -->
 
+{js filename="dropdown.js"}
+
 <div id="advancedSearchWrapper">
 <form method="get" action="{$url}/Search/Results" id="advSearchForm" name="searchForm" class="search">
   <div class="{*span-10*}">
-    <h3>{translate text='Advanced Search'}</h3>
+  <div class="advSearchHeader">
+      <div class="content">
+        <h3>{translate text='Advanced Search'}</h3>
+      </div>
+  </div>
+  <div class="content">
     <div class="advSearchContent">
       {if $editErr}
       {assign var=error value="advSearchError_$editErr"}
@@ -13,7 +20,7 @@
       <div id="groupJoin" class="searchGroups">
         <div class="searchGroupDetails">
           <label for="groupJoinOptions">{translate text="search_match"}:</label>
-          <select id="groupJoinOptions" name="join">
+          <select id="groupJoinOptions" class="styledDropdowns" name="join">
             <option value="AND">{translate text="group_AND"}</option>
             <option value="OR"{if $searchDetails and $searchDetails.0.join == 'OR'} selected="selected"{/if}>{translate text="group_OR"}</option>
           </select>
@@ -35,7 +42,7 @@
             <div class="groupSearchDetails">
               <div class="join">
                 <label for="search_bool{$groupIndex}">{translate text="search_match"}:</label>
-                <select id="search_bool{$groupIndex}" name="bool{$groupIndex}[]">
+                <select id="search_bool{$groupIndex}" class="styledDropdowns" name="bool{$groupIndex}[]">
                   <option value="AND"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'AND'} selected="selected"{/if}>{translate text="search_AND"}</option>
                   <option value="OR"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'OR'} selected="selected"{/if}>{translate text="search_OR"}</option>
                   <option value="NOT"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'NOT'} selected="selected"{/if}>{translate text="search_NOT"}</option>
@@ -59,7 +66,7 @@
                 </div>
                 <div class="field">
                   <label for="search_type{$groupIndex}_{$rowIndex}">{translate text="in"}</label>
-                  <select id="search_type{$groupIndex}_{$rowIndex}" name="type{$groupIndex}[]">
+                  <select id="search_type{$groupIndex}_{$rowIndex}" class="styledDropdowns" name="type{$groupIndex}[]">
                   {foreach from=$advSearchTypes item=searchDesc key=searchVal}
                     <option value="{$searchVal}"{if $currRow and $currRow.field == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
                   {/foreach}
@@ -126,7 +133,7 @@
       {if $limitList|@count gt 1}
         <fieldset class="span-4">
           <legend>{translate text='Results per page'}</legend>
-          <select id="limit" name="limit">
+          <select id="limit" class="styledDropdowns" name="limit">
             {foreach from=$limitList item=limitData key=limitLabel}
               {* If a previous limit was used, make that the default; otherwise, use the "default default" *}
               {if $lastLimit}
@@ -173,7 +180,7 @@
         </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
       <div class="clear"></div>
-      <input type="submit" class="button searchButton right" name="submit" value="{translate text="Find"}"/>
+      <input type="submit" class="button buttonTurquoise searchButton right" name="submit" value="{translate text="Find"}"/>
     </div>
   </div>
 
@@ -211,7 +218,7 @@
     </div>
     <div class="field">
         <label for="search_type<%=group%>_<%=groupSearches[group]%>"><%=searchFieldLabel%></label>
-        <select id="search_type<%=group%>_<%=groupSearches[group]%>" name="type<%=group%>[]">
+        <select id="search_type<%=group%>_<%=groupSearches[group]%>" class="styledDropdowns" name="type<%=group%>[]">
         <% for ( key in searchFields ) { %>
             <option value="<%=key%>"<%=key == field ? ' selected="selected"' : ""%>"><%=searchFields[key]%></option>
         <% } %>
@@ -225,7 +232,7 @@
         <div class="groupSearchDetails">
             <div class="join">
                 <label for="search_bool<%=nextGroupNumber%>"><%=searchMatch%>:</label>
-                <select id="search_bool<%=nextGroupNumber%>" name="bool<%=nextGroupNumber%>[]">
+                <select id="search_bool<%=nextGroupNumber%>" class="styledDropdowns" name="bool<%=nextGroupNumber%>[]">
                     <% for ( key in searchJoins ) { %>
                         <option value="<%=key%>"<%=key == join ? ' selected="selected"' : ""%>"><%=searchJoins[key]%></option>
                     <% } %>

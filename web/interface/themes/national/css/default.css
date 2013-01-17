@@ -1104,7 +1104,7 @@ div.bulkActionButtons {
 
 /*** Result List ***/
 
-#resultList, #authorList, #resultsCollection,  #bottomPagination, .searchtools {
+.advSearchContent, #resultList, #authorList, #resultsCollection,  #bottomPagination, .searchtools {
     width: 670px;
     float: left;
     margin: 0;
@@ -1795,8 +1795,10 @@ ul.recordSet .addToFavLink a {
     background:#e6e6e6;
 }
 /* Result terms */
+.advSearchHeader,
 .resultTerms {
     padding:20px 0;
+    background:#b3e3e9;
 }
 .resultTerms .content {
     overflow:auto;
@@ -1856,6 +1858,9 @@ ul.recordSet .addToFavLink a {
 .resultOptionSort {
     float: left;
 }
+.advRow label,
+.searchGroupDetails label,
+.groupSearchDetails label,
 .resultOptionSort label,
 .resultOptionLimit label {
     float:left;
@@ -1865,14 +1870,16 @@ ul.recordSet .addToFavLink a {
     line-height:1em;
     padding: 10px 8px 12px 15px;
 }
-.resultOptionSort .dropdown,
-.resultOptionLimit .dropdown {
+.dropdown {
     float:left;
     display:block;
 }
-
-.resultOptionSort .dropdown dt a,
-.resultOptionLimit .dropdown dt a {
+.searchGroupDetails .dropdown,
+.groupSearchDetails .dropdown,
+.advRow .dropdown {
+    float:right;
+}
+.dropdown dt a {
     display:block;
     background: #00a3b5;
     border: none;
@@ -1884,8 +1891,7 @@ ul.recordSet .addToFavLink a {
     padding: 10px 12px 10px 15px;
     width:auto;
 }
-.resultOptionSort .dropdown dt a:after,
-.resultOptionLimit .dropdown dt a:after {
+.dropdown dt a:after {
     content:'▼';
     padding-left:8px;
 }
@@ -2612,7 +2618,6 @@ p.citationText {
 }
 .groupSearchHolder .advRow div {
     float: left;
-    padding: 0px 5px;
 }
 .groupSearchHolder span.clearer {
     display: block;
@@ -2630,6 +2635,7 @@ p.citationText {
     padding: 0px 0px 4px 165px;
 }
 .groupSearchHolder .terms {
+    padding-top: 7px;
     width: 250px;
 }
 .groupSearchHolder .terms input {
@@ -2652,20 +2658,23 @@ p.citationText {
 }
 #searchHolder .group0 {
     border-top : 1px solid #D8D7D8;
-    background: #f2f2f2;
+    background: #fff;
 }
 #searchHolder .group1 {
     border-top : 1px solid #D8D7D8;
-    background: #e0e0e0;
+    background: #eee;
 }
 #searchHolder .group {
     margin-bottom: 10px;
 }
 .searchGroups {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 .searchGroups .searchGroupDetails {
     float: right;
+}
+#groupJoin {
+    margin-top: 20px;
 }
 #sliderWrapper {
     margin-bottom: 3em;
