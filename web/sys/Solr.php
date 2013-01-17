@@ -479,6 +479,17 @@ class Solr implements IndexEngine
             }
             $filter[] = '-hidden_component_boolean:TRUE';
         }
+
+        // Data source filters
+        if ($this->_recordSources) {
+            $sources = array_map(
+                function($input) {
+                    return '"' . addcslashes($input, '"') . '"'; 
+                },
+                explode(',', $this->_recordSources)
+            );
+            $filter[] = 'source_str_mv:(' . implode(' OR ', $sources) . ')';
+        }
         
         if (isset($filter)) {
             $options['fq'] = $filter;
