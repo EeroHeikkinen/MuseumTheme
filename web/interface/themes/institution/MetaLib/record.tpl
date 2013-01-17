@@ -149,7 +149,7 @@
       {foreach from=$record.url key=recordurl item=urldesc}
       <tr valign="top">
         <th></th>
-        <td><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank">{$urldesc|escape}</a></td>
+        <td><a href="{$recordurl|proxify|escape}" class="fulltext" target="_blank">{$urldesc|escape}</a></td>
       </tr>
       {/foreach}
       {if $openUrlBase && $record.openUrl}

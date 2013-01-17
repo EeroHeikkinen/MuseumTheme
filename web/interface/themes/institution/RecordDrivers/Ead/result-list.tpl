@@ -120,7 +120,7 @@
           {/if}
           <div class="resultContentList">
           {foreach from=$summURLs key=recordurl item=urldesc}
-          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank" title="{$recordurl|escape}">{if $recordurl == $urldesc}{$recordurl|truncate_url|escape}{else}{$urldesc|escape}{/if}</a>
+          <a href="{$recordurl|proxify|escape}" class="fulltext" target="_blank" title="{$recordurl|escape}">{if $recordurl == $urldesc}{$recordurl|truncate_url|escape}{else}{$urldesc|escape}{/if}</a>
           {/foreach}
           </div>
         </div>
