@@ -1104,7 +1104,7 @@ div.bulkActionButtons {
 
 /*** Result List ***/
 
-#resultList, #authorList, #resultsCollection,  #bottomPagination {
+#resultList, #authorList, #resultsCollection,  #bottomPagination, .searchtools {
     width: 670px;
     float: left;
     margin: 0;
@@ -1787,6 +1787,9 @@ ul.recordSet .addToFavLink a {
     clear: both;
     background:#ebd4f0;
 }
+.resultSearchTools .content {
+    overflow: auto;
+}
 .resultPagination {
     clear:both;
     background:#e6e6e6;
@@ -1820,6 +1823,12 @@ ul.recordSet .addToFavLink a {
     position: relative;
     top: 3px;
     width: 17px;
+}
+
+/* Suggested Topics (hidden) */
+
+#suggestedTopics {
+    display:none;
 }
 
 /* Result numbers */
@@ -1948,7 +1957,7 @@ div.dateVisHandle.visible {
 .resultDates.expanded {
     height:110px;
 }
-/***** Pagination *****/
+/* Pagination */
 #bottomPagination {
     position:relative;
     text-align:center;
@@ -1974,6 +1983,7 @@ div.dateVisHandle.visible {
     display: inline-block;
     font-size: 0.8em;
     padding: 0;
+    top: 27px;
     text-align: center;
     width: 25px;
     background: #ccc;
@@ -1991,7 +2001,7 @@ div.dateVisHandle.visible {
 }
 .paginationMove span {
     font-size: 0.7em;
-    left: 6px;
+    left: 5px;
     position: absolute;
     top: 4px;
     z-index: 1;
@@ -2016,7 +2026,45 @@ div.dateVisHandle.visible {
     right:0;
 }
 
+/* Search Tools */
+.searchtools {
+    overflow:auto;
+    padding: 25px 0;
+}
+.searchtools > h2 {
+    margin-bottom:25px;
+}
+.searchtools > ul,
+.searchtools > ul li {
+    margin:0;
+    padding:0;
+}
 
+.searchtools > ul li {
+    display: block;
+    float: left;
+    margin-left: 40px;
+}
+.searchtools > ul li:first-child {
+    margin:0;
+}
+.searchtools .searchtoolsHeader {
+    display:block;
+    font-weight:bold;
+    clear:both;
+    font-size:1.1em;
+}
+.searchtools .searchtoolsHeader a {
+    color:#333;
+}
+.searchtools .searchtoolsText {
+    font-size:0.923em;
+}
+.searchtools a.mail {
+    background:none;
+    padding:0;
+    margin:0;
+}
 /*** Record Page ***/
 
 div.resultLinks {
