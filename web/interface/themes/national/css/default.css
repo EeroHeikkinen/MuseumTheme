@@ -101,6 +101,10 @@ li a:hover .submenuText, li a:focus .submenuText {
     color: #fff;
     text-decoration: none;
 }
+/*** Hide styled select elements ****/
+.styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select {
+    visibility:hidden;
+}
 
 
 
@@ -1100,11 +1104,10 @@ div.bulkActionButtons {
 
 /*** Result List ***/
 
-#resultList, #authorList, #resultsCollection {
+#resultList, #authorList, #resultsCollection,  #bottomPagination {
     width: 670px;
     float: left;
     margin: 0;
-    padding-bottom: .4em;
 /*
     margin: .6em 0 0 0;
 */
@@ -1246,12 +1249,7 @@ ul.recordSet .resultItemLine2{
     margin-top: 1em;
     margin-bottom: .4em;
 }
-.searchtools {
-    /*background-color: #f5f5f5;*/
-    border-top: 1px solid #eeeeee;
-    margin: 0 .3em;
-    padding: .4em .7em 0;
-}
+
 
 #authorList .resulthead {
     margin-top: 1.2em;
@@ -1770,10 +1768,8 @@ ul.recordSet .addToFavLink a {
 .manuscript {background-image:url(../images/silk/report_edit.png);}
 .software {background-image:url(../images/silk/disk_multiple.png);}
 
-/***** Results header ****/
-.styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select {
-    visibility:hidden;
-}
+/***** Results page blocks ****/
+
 .resultTerms {
     background:#b3e3e9;
 }
@@ -1787,7 +1783,14 @@ ul.recordSet .addToFavLink a {
 .resultDatesHeader {
     background:#4d4d4d;
 }
-
+.resultSearchTools {
+    clear: both;
+    background:#ebd4f0;
+}
+.resultPagination {
+    clear:both;
+    background:#e6e6e6;
+}
 /* Result terms */
 .resultTerms {
     padding:20px 0;
@@ -1883,9 +1886,7 @@ ul.recordSet .addToFavLink a {
 }
 
 
-
-
-/***** Date Range Visualizer *****/
+/*Date Range Visualizer */
 
 .dateVis {
     box-shadow:0 1px 10px rgba(0,0,0,.15) inset;
@@ -1948,37 +1949,72 @@ div.dateVisHandle.visible {
     height:110px;
 }
 /***** Pagination *****/
+#bottomPagination {
+    position:relative;
+    text-align:center;
+    float:none;
+    font-size:1.230em;
+    line-height:1em;
+    padding: 30px 0;
+}
+.paginationPages a {
+    color:#777;
+    padding:0 6px;
+}
+.paginationPages a:hover {
+    color:#333;
+    text-decoration:none;
+    
+}
+.paginationPages span {
+    padding:0 6px;
+    font-weight:bold;
+}
+.paginationMove {
+    display: inline-block;
+    font-size: 0.8em;
+    padding: 0;
+    text-align: center;
+    width: 25px;
+    background: #ccc;
+    border-radius: 13px 13px 13px 13px;
+    color: #FFFFFF;
+    font-size: 1.1em;
+    font-variant: small-caps;
+    height:25px;
+    width: 24px;
+    position:absolute;
+   
+}
+.paginationMove.visible {
+    background: #00A3B5;
+}
+.paginationMove span {
+    font-size: 0.7em;
+    left: 6px;
+    position: absolute;
+    top: 4px;
+    z-index: 1;
+}
+.paginationNext span {
+    left:8px;
+    top:5px;
+}
+.paginationMove a {
+    display: block;
+    height: 100%;
+    position: absolute;
+    text-indent: -9999px;
+    width: 100%;
+    z-index: 2;
+}
 
-.pagination {
-    margin: 0 .3em;
-    padding: 13px .7em 13px;
-    clear: left;
-    width: 300px;
+.paginationBack {
+    left:0;
 }
-.paginationTop {
-    margin: 1.5em 0;
-    padding-left: 0;
-    float: left;
+.paginationNext {
+    right:0;
 }
-.pagination a {
-    padding: .2em .5em;
-    margin-left: .8em;
-    border: 1px solid #fff;
-}
-.pagination a:hover {
-/*
-    border: 1px solid #cccccc;
-*/
-}
-.pagination span {
-    padding: .2em .5em;
-    margin-left: .8em;
-}
-
-#suggestedTopics {
-    display:none;
-}
-
 
 
 /*** Record Page ***/

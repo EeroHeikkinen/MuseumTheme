@@ -94,7 +94,7 @@
   </div>
 {* End Listing Options *}
 {* Main Listing *}
-
+<div class="resultListContainer">
   <div class="content">
     <div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
       {if $subpage}
@@ -102,18 +102,7 @@
       {else}
         {$pageContent}
       {/if}
-    
-      {include file="Search/paging.tpl"}
-  
-      <div class="searchtools">
-        <strong>{translate text='Search Tools'}:</strong>
-        <a href="{$rssLink|escape}" class="feed">{translate text="Get RSS Feed"}</a>
-        <a href="{$url}/Search/Email" class="mailSearch mail" id="mailSearch{$searchId|escape}" title="{translate text='Email this Search'}">{translate text="Email this Search"}</a>
-        {if $savedSearch}<a href="{$url}/MyResearch/SaveSearch?delete={$searchId}" class="delete">{translate text='save_search_remove'}</a>{else}<a href="{$url}/MyResearch/SaveSearch?save={$searchId}" class="add">{translate text="save_search"}</a>{/if}
-      </div>
     </div>
-  {* End Main Listing *}
-  {* Narrow Search Options *}
     <div id="sidebarFacets" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
       {if $sideRecommendations}
         {foreach from=$sideRecommendations item="recommendations"}
@@ -122,6 +111,31 @@
       {/if}
     </div>
   </div>
+</div>
+{if !empty($pageLinks.pages)} 
+  <div class="resultPagination">
+    <div class="content">
+      <div id="bottomPagination">
+        <span class="paginationMove paginationBack {if !empty($pageLinks.back)}visible{/if}">{$pageLinks.back}<span>◄</span></span>
+        <span class="paginationPages">{$pageLinks.pages}</span>
+        <span class="paginationMove paginationNext {if !empty($pageLinks.next)}visible{/if}">{$pageLinks.next}<span>▶</span></span>
+      </div>
+    </div>
+  </div>
+{/if}
+<div class="resultSearchTools">
+  <div class="content">
+      <div class="searchtools">
+        <strong>{translate text='Search Tools'}:</strong>
+        <a href="{$rssLink|escape}" class="feed">{translate text="Get RSS Feed"}</a>
+        <a href="{$url}/Search/Email" class="mailSearch mail" id="mailSearch{$searchId|escape}" title="{translate text='Email this Search'}">{translate text="Email this Search"}</a>
+        {if $savedSearch}<a href="{$url}/MyResearch/SaveSearch?delete={$searchId}" class="delete">{translate text='save_search_remove'}</a>{else}<a href="{$url}/MyResearch/SaveSearch?save={$searchId}" class="add">{translate text="save_search"}</a>{/if}
+      </div>
+    </div>
+  </div>
+</div>
+  {* End Main Listing *}
+  {* Narrow Search Options *}
   {* End Narrow Search Options *}
   
 <div class="clear"></div>
