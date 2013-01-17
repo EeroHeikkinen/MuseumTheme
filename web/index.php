@@ -196,9 +196,12 @@ if (in_array($module, array('Search', 'Summon', 'MetaLib', 'Collection', 'EBSCO'
 }
 
 // Process Authentication
-if ($user && $configArray['Authentication']['method'] == 'Shibboleth'
+$shibbolethEnabled = isset($configArray['Authentication']['shibboleth']) && $configArray['Authentication']['shibboleth'];
+if ($user && $shibbolethEnabled
     && empty($_SERVER[$configArray['Shibboleth']['username']])
     && isset($configArray['Shibboleth']['logout'])
+    && isset($configArray['Shibboleth']['autologout'])
+    && $configArray['Shibboleth']['autologout']
 ) {
     // Special case: Process single log-out for Shibboleth
     include_once 'services/MyResearch/Logout.php';
@@ -206,14 +209,23 @@ if ($user && $configArray['Authentication']['method'] == 'Shibboleth'
     $user = false;
 } else if (!$user) {
     // Special case for Shibboleth:
-    $shibLoginNeeded = ($configArray['Authentication']['method'] == 'Shibboleth'
-        && $module == 'MyResearch');
+    $shibLoginNeeded = $shibbolethEnabled 
+        && ($module == 'MyResearch' 
+        || (isset($configArray['Shibboleth']['required_attribute']) && getenv($configArray['Shibboleth']['required_attribute']) !== false));
     // Default case for all other authentication methods:
     $standardLoginNeeded = (isset($_POST['username']) && isset($_POST['password'])
         && $action != 'Account');
 
     // Perform a login if necessary:
-    if ($shibLoginNeeded || $standardLoginNeeded) {
+    if ($shibLoginNeeded) {
+        $user = UserAccount::login('Shibboleth');
+        // If we authenticated, store the user in the session:
+        if (PEAR::isError($user)) {
+            error_log("Shibboleth login failed: " . $user->getMessage());
+            $user = false;
+        }
+    }
+    if (!$user && $standardLoginNeeded) {
         $user = UserAccount::login();
         if (PEAR::isError($user)) {
             $interface->initGlobals();

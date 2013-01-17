@@ -79,6 +79,19 @@ class ShibbolethAuthentication implements Authentication
             }
         }
 
+        // Store logout url for HAKA logout
+        if (isset($configArray['Shibboleth']['logout_attribute']) 
+            && isset($_SERVER[$configArray['Shibboleth']['logout_attribute']])
+        ) {
+            $logoutUrl = $_SERVER[$configArray['Shibboleth']['logout_attribute']];
+            if (isset($configArray['Shibboleth']['logout'])) {
+                $logoutUrl = $configArray['Shibboleth']['logout'] . '?return=' . urlencode($logoutUrl);
+            }            
+            $_SESSION['logoutUrl'] = $logoutUrl;
+        } elseif (isset($configArray['Shibboleth']['logout'])) {
+            $logoutUrl = $configArray['Shibboleth']['logout'];
+            $_SESSION['logoutUrl'] = $logoutUrl;
+        }
         $user = new User();
         $user->authMethod = 'Shibboleth';
         $user->username = (isset($configArray['Site']['institution']) ? $configArray['Site']['institution'] . ':' : '') . $_SERVER[$this->_userAttributes['username']];

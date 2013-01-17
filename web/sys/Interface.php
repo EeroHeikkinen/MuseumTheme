@@ -185,10 +185,7 @@ class UInterface extends Smarty
 
         $this->assign('authMethod', $configArray['Authentication']['method']);
 
-        if ($configArray['Authentication']['method'] == 'Shibboleth'
-            || ($configArray['Authentication']['method'] == 'MultiAuth' 
-            && in_array('Shibboleth', explode(',', $configArray['MultiAuth']['method_order'])))
-        ) {
+        if (isset($configArray['Authentication']['shibboleth']) && $configArray['Authentication']['shibboleth']) {
             if (!isset($configArray['Shibboleth']['login'])) {
                 throw new Exception(
                     'Missing parameter in the config.ini. Check if ' .

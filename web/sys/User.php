@@ -124,17 +124,19 @@ class UserAccount
      * Try to log in the user using current query parameters; return User object
      * on success, PEAR error on failure.
      *
+     * @param string $method Optional method to override configuration
+     *
      * @return object
      * @access public
      */
-    public static function login()
+    public static function login($method = '')
     {
         global $configArray;
 
         // Perform authentication:
         try {
             $authN = AuthenticationFactory::initAuthentication(
-                $configArray['Authentication']['method']
+                $method ? $method : $configArray['Authentication']['method']
             );
             $user = $authN->authenticate();
         } catch (Exception $e) {
