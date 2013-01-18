@@ -1,10 +1,7 @@
 <!-- START of: Content/about.fi.tpl -->
 
-<div class="pageMenu"></div>
-
-<div class="mainContent">
-
-<h1>Finnan aineistojen käyttö</h1>
+{assign var="title" value="Finnan aineistojen käyttö"}
+{capture append="sections"}{literal}
 
 <p>Finnan käyttäjät voivat hakea tietoa arkistojen, kirjastojen ja museoiden aineistoista. Finnassa on: </p>
 
@@ -21,9 +18,6 @@
 
 <p>Joidenkin hakutulosten kohdalla Finnassa esitetään metatietoihin liittyvän digitaalisen sisällön kuva, esimerkiksi kuva museoesineestä, taideteoksesta, valokuvasta tai kirjan kannesta. Näihin ns. esikatselukuviin voi liittyä käytön rajoituksia samalla tavalla kuin muilla sivustoilla oleviin sisältöihin.</p>
 
-
-<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
-
-</div>
-
+{/literal}{/capture}
+{include file="$module/content.tpl" title=$title sections=$sections}
 <!-- END of: Content/about.fi.tpl -->

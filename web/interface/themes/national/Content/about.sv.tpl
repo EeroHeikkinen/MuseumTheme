@@ -1,12 +1,8 @@
 <!-- START of: Content/about.sv.tpl -->
 
-<div class="pageMenu"></div>
-
-<div class="mainContent">
-
-<h1>Om Finna</h1>
-
-<p><em>Sök i skatter i finska arkiv, bibliotek och museer!</em></p>
+{assign var="title" value="About Finna"}
+{capture append="sections"}
+<h2>Sök i skatter i finska arkiv, bibliotek och museer!</h2>
 
 <p>Finna är en gemensam online-tjänst för arkiv, bibliotek och museer. Den är lätt att använda och ger tillgång till allt material och alla tjänster av minnesorganisationer.</p>
 
@@ -30,9 +26,7 @@
 <p>Onlinetjänsten upprätthålls av Nationalbiblioteket. Finna har skapats på basen av programvaran VuFind med öppen källkod i samarbete med arkiv, bibliotek och museer.</p>
 
 <p>För mer information om Finna: Nationella digitala bibliotekets webbsida, <a href="http://www.kdk.fi">www.kdk.fi</a></p>
-
-<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
-
-</div>
+{/capture}
+{include file="$module/content.tpl" title=$title sections=$sections}
 
 <!-- END of: Content/about.sv.tpl -->

@@ -1,12 +1,8 @@
 <!-- START of: Content/about.fi.tpl -->
 
-<div class="pageMenu"></div>
-
-<div class="mainContent">
-
-<h1>Tietoa Finnasta</h1>
-
-<p><em>Suomen arkistojen, kirjastojen ja museoiden aarteet yhdellä haulla.</em></p>
+{assign var="title" value="Tietoa Finnasta"}
+{capture append="sections"}
+<h2>Suomen arkistojen, kirjastojen ja museoiden aarteet yhdellä haulla.</h2>
 
 <p>Finna on arkistojen, kirjastojen ja museoiden yhteinen helppokäyttöinen verkkopalvelu, joka tulee tarjoamaan pääsyn muistiorganisaatioiden kaikkiin aineistoihin ja palveluihin.</p>
 
@@ -30,9 +26,7 @@
 <p>Verkkopalvelua ylläpitää Kansalliskirjasto. Finna on toteutettu avoimen lähdekoodin ohjelmisto VuFindin pohjalta yhteistyössä arkistojen, kirjastojen ja museoiden kanssa.</p>
 
 <p>Lisätietoa Finnasta on Kansallinen digitaalinen kirjasto -hankkeen verkkosivuilla osoitteessa <a href="http://www.kdk.fi">www.kdk.fi</a></p>
-
-<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
-
-</div>
+{/capture}
+{include file="$module/content.tpl" title=$title sections=$sections}
 
 <!-- END of: Content/about.fi.tpl -->

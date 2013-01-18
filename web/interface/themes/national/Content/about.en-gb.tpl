@@ -1,12 +1,8 @@
 <!-- START of: Content/about.en-gb.tpl -->
 
-<div class="pageMenu"></div>
-
-<div class="mainContent">
-
-<h1>About Finna</h1>
-
-<p><em>The treasures of Finland’s archives, libraries and museums with a single search.</em></p>
+{assign var="title" value="About Finna"}
+{capture append="sections"}
+<h2>The treasures of Finland’s archives, libraries and museums with a single search.</h2>
 
 <p>Finna is an easy to use online service that will merge together and make available the content and services of several memory organisations such as archives, libraries and museums.</p>
 
@@ -30,10 +26,7 @@
 <p>Finna is maintained by The National Library of Finland. The online service is based on open source software VuFind and developed in collaboration with archives, libraries and museums. </p>
 
 <p>More information on Finna is available on the website of The National Digital Library project at  <a href="http://www.kdk.fi/en">www.kdk.fi/en</a></p>
-
-<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
-
-</div>
-
+{/capture}
+{include file="$module/content.tpl" title=$title sections=$sections}
 
 <!-- END of: Content/about.en-gb.tpl -->

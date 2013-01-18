@@ -1,10 +1,7 @@
 <!-- START of: Content/register_details.fi.tpl -->
 
-<div class="pageMenu"></div>
-
-<div class="mainContent">
-
-<h1>Finna-tiedonhakuportaalin asiakasrekisterin seloste</h1>
+{assign var="title" value="Finna-tiedonhakuportaalin asiakasrekisterin seloste"}
+{capture append="sections"}{literal}
 
 <p><strong>Rekisterin ylläpitäjä:</strong><br />
 Kirjastoverkkopalvelut<br />
@@ -78,7 +75,6 @@ Tarkistaaksesi, mitä henkilötietoja sinusta on kerätty palvelimeen, ota yhtey
 Ota yhteys kotiorganisaatioosi, jos kotiorganisaatiostasi noudettavissa henkilötiedoissa on virheitä. Tarvittaessa voit ottaa yhteyttä em. yhteyshenkilöön.</p>
 
 
-<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
-</div>
-
+{/literal}{/capture}
+{include file="$module/content.tpl" title=$title sections=$sections}
 <!-- END of: Content/register_details.fi.tpl -->
