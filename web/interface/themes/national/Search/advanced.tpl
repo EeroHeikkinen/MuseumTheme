@@ -7,10 +7,13 @@
   <div class="{*span-10*}">
   <div class="advSearchHeader">
       <div class="content">
-        <h3>{translate text='Advanced Search'}</h3>
+        <h1>{translate text='Advanced Search'}</h1>
       </div>
   </div>
   <div class="content">
+    <div class="sidegroup">
+      <p><a href="{$url}/Content/searchhelp">{translate text="Search Tips"}</a></p>
+    </div>  
     <div class="advSearchContent">
       {if $editErr}
       {assign var=error value="advSearchError_$editErr"}

@@ -1803,9 +1803,13 @@ ul.recordSet .addToFavLink a {
     background:#e6e6e6;
 }
 /* Result terms */
+#advSearchForm h1 {
+    margin: 0;
+    padding: 0;
+}
 .advSearchHeader,
 .resultTerms {
-    padding:20px 0;
+    padding: 22px 0 24px;
     background:#b3e3e9;
 }
 .resultTerms .content {
