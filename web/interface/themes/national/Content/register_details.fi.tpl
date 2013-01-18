@@ -1,11 +1,10 @@
 <!-- START of: Content/register_details.fi.tpl -->
 
-<div class="pageMenu"></div>
+{assign var="title" value="Rekisteriseloste"}
+{capture append="sections"}{literal}
 
-<div class="mainContent">
-
-<h1>Finna-tiedonhakuportaalin asiakasrekisterin seloste</h1>
-
+<h2>Finna-tiedonhakuportaalin asiakasrekisterin seloste</h2>
+        
 <p><strong>Rekisterin ylläpitäjä:</strong><br />
 Kirjastoverkkopalvelut<br />
 Kansalliskirjasto<br />
@@ -78,7 +77,6 @@ Tarkistaaksesi, mitä henkilötietoja sinusta on kerätty palvelimeen, ota yhtey
 Ota yhteys kotiorganisaatioosi, jos kotiorganisaatiostasi noudettavissa henkilötiedoissa on virheitä. Tarvittaessa voit ottaa yhteyttä em. yhteyshenkilöön.</p>
 
 
-<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
-</div>
-
+{/literal}{/capture}
+{include file="$module/content.tpl" title=$title sections=$sections}
 <!-- END of: Content/register_details.fi.tpl -->
