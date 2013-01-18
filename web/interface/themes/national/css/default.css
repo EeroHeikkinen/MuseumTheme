@@ -1426,7 +1426,6 @@ dl.narrowList a {
     line-height: 2em;
 }
 
-
 .module-Content .main p,
 .module-Content .main ul {
     margin-bottom: 1em;
@@ -1451,7 +1450,7 @@ dl.narrowList a {
     background:#f2f2f2;
 }
 .module-Content .main {
-    padding-bottom:10px;
+    padding-bottom:24px;
 }
 .module-Content #main .contentHeader + .contentSection .content:first-child h2:first-child {
     margin-top:0;

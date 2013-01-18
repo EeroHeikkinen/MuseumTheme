@@ -4,7 +4,7 @@
 {capture append="sections"}
 <h2>The treasures of Finland’s archives, libraries and museums with a single search.</h2>
 
-<p>Finna is an easy to use online service that will merge together and make available the content and services of several memory organisations such as archives, libraries and museums.</p>
+<p class="ingress">Finna is an easy to use online service that will merge together and make available the content and services of several memory organisations such as archives, libraries and museums.</p>
 
 <p>Finna offers information and new insights to everyone. You can use the service to search for content such as images, documents, newspapers, research papers, videos and sound recordings on the subject of your interest. In addition you can use the digital services of archives, libraries and museums. Finna’s mission is to replace current user interfaces in such a way that users will find the information they search for through a single interface regardless of the producing organisation.</p>
 

@@ -4,7 +4,7 @@
 {capture append="sections"}
 <h2>Sök i skatter i finska arkiv, bibliotek och museer!</h2>
 
-<p>Finna är en gemensam online-tjänst för arkiv, bibliotek och museer. Den är lätt att använda och ger tillgång till allt material och alla tjänster av minnesorganisationer.</p>
+<p class="ingress">Finna är en gemensam online-tjänst för arkiv, bibliotek och museer. Den är lätt att använda och ger tillgång till allt material och alla tjänster av minnesorganisationer.</p>
 
 <p>Finna är avsedd för alla som behöver information och som är ute efter spännande upplevelser. Med hjälp av denna webbtjänst är det lätt att söka olika typer av material, t.ex. bilder, dokument, tidningar, forskarrapporter, videor och ljudinspelningar. Samtidigt kan man använda digitala tjänster av arkiv, bibliotek och museer. Finna har skapats för att ersätta en stor del av dagens användargränssnitt så att användaren kan få den information han behöver via ett enda gränssnitt oberoende av vilken organisation som producerat informationen.</p>
 

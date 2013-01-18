@@ -1,8 +1,10 @@
 <!-- START of: Content/register_details.fi.tpl -->
 
-{assign var="title" value="Finna-tiedonhakuportaalin asiakasrekisterin seloste"}
+{assign var="title" value="Rekisteriseloste"}
 {capture append="sections"}{literal}
 
+<h2>Finna-tiedonhakuportaalin asiakasrekisterin seloste</h2>
+        
 <p><strong>Rekisterin ylläpitäjä:</strong><br />
 Kirjastoverkkopalvelut<br />
 Kansalliskirjasto<br />

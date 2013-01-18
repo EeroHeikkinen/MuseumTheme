@@ -1,7 +1,9 @@
 <!-- START of: Content/about.fi.tpl -->
 
-{assign var="title" value="Finnan aineistojen käyttö"}
+{assign var="title" value="Käyttöehdot"}
 {capture append="sections"}{literal}
+
+<h2>Finnan aineistojen käyttö</h2>
 
 <p>Finnan käyttäjät voivat hakea tietoa arkistojen, kirjastojen ja museoiden aineistoista. Finnassa on: </p>
 
