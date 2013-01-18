@@ -26,8 +26,8 @@
  * @link     http://vufind.org/wiki/unit_tests Wiki
  */
 require_once dirname(__FILE__) . '/../../prepend.inc.php';
+require_once dirname(__FILE__) . '/../../AbstractMockIndexTest.php';
 require_once 'sys/SearchObject/Factory.php';
-require_once 'MockRequest.php';
 
 /**
  * Solr Pseudo Facets Test Class
@@ -38,7 +38,7 @@ require_once 'MockRequest.php';
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/unit_tests Wiki
  */
-class SolrPseudoFacetsTest extends PHPUnit_Framework_TestCase
+class SolrPseudoFacetsTest extends AbstractMockIndexTest
 {
     /**
      * Standard setup method.
@@ -77,13 +77,8 @@ class SolrPseudoFacetsTest extends PHPUnit_Framework_TestCase
     	
     	$this->_searchObject->addPseudoFacet($this->field, "Date", $queries);
     	
-    	$mock = new MockRequest();
-    	$realdir = dirname(__FILE__);
-    	$cannedResponse = file_get_contents($realdir . '/mockResponse.json');
-    	$mock->setResponse($cannedResponse);
-    	
-    	$indexEngine = $this->_searchObject->getIndexEngine();
-    	$indexEngine->client=$mock;
+        $indexEngine = $this->_searchObject->getIndexEngine();
+    	$this->mockIndexEngineWithSampleResponse($indexEngine, 'mockResponse.json');
     	
     	$result = $this->_searchObject->processSearch(true, true);
     	if (PEAR::isError($result)) {
@@ -91,10 +86,10 @@ class SolrPseudoFacetsTest extends PHPUnit_Framework_TestCase
     	}
     	
     	// Verify that the sent query was correct
-    	$query = $mock->getLastQuery();
-    	$this->assertRegExp('/facet.query='. $this->field .'%3A%5B-500000-01-01T00%3A00%3A00Z+.?TO.?+1000-01-01T00%3A00%3A00Z%5D/', $query);
-    	$this->assertRegExp('/facet.query='. $this->field .'%3A%5B1000-01-01T00%3A00%3A00Z+.?TO.?+1500-01-01T00%3A00%3A00Z%5D/', $query);
-    	$this->assertRegExp('/facet.query='. $this->field .'%3A%5B1500-01-01T00%3A00%3A00Z+.?TO.?+2000-01-01T00%3A00%3A00Z%5D/', $query);
+    	$query = $this->getLastQuery();
+    	$this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B-500000-01-01T00%3A00%3A00Z+.?TO.?+1000-01-01T00%3A00%3A00Z%5D/', $query);
+    	$this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B1000-01-01T00%3A00%3A00Z+.?TO.?+1500-01-01T00%3A00%3A00Z%5D/', $query);
+    	$this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B1500-01-01T00%3A00%3A00Z+.?TO.?+2000-01-01T00%3A00%3A00Z%5D/', $query);
 
     	// Get and analyze the returned facet
     	$facets = $this->_searchObject->getFacetList(array($this->field));
