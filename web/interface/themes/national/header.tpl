@@ -12,21 +12,21 @@
     <li class="menuAbout"><a href="#"><span>{translate text='navigation_about'}</span></a>
       <ul class="subMenu">
         <li>
-          <a href="{$path}/Content/about">  
-          <div class="submenuHeader">Tietoa Finnasta</div>
-          <div class="submenuText">Perustietoa Finnasta ja mukana olevat organisaatiot</div>
+          <a href="{$path}/Content/about">
+            <span class="submenuHeader">Tietoa Finnasta</span>
+            <span class="submenuText">Perustietoa Finnasta ja mukana olevat organisaatiot</span>
           </a>
         </li>
         <li>
-          <a href="{$path}/Content/terms_conditions">  
-          <div class="submenuHeader">Käyttöehdot</div>
-          <div class="submenuText">Finnan aineistojen käyttöehdot</div>
+          <a href="{$path}/Content/terms_conditions">
+            <span class="submenuHeader">Käyttöehdot</span>
+            <span class="submenuText">Finnan aineistojen käyttöehdot</span>
           </a>
         </li>
         <li>
           <a href="{$path}/Content/register_details">  
-          <div class="submenuHeader">Rekisteriseloste</div>
-          <div class="submenuText">Finna-tiedonhakuportaalin asiakasrekisterin seloste</div>
+            <span class="submenuHeader">Rekisteriseloste</span>
+            <span class="submenuText">Finna-tiedonhakuportaalin asiakasrekisterin seloste</span>
           </a>
         </li>
       </ul>
@@ -35,21 +35,21 @@
     <li class="menuSearch"><a href="#"><span>{translate text='navigation_search'}</span></a>
       <ul class="subMenu">
         <li>
-          <a href="{$path}/Search/History">  
-          <div class="submenuHeader">Hakuhistoria</div>
-          <div class="submenuText">Istuntokohtainen hakuhistoriasi. Kirjautumalla voit tallentaa hakusi.</div>
+          <a href="{$path}/Search/History">
+           <span class="submenuHeader">Hakuhistoria</span>
+           <span class="submenuText">Istuntokohtainen hakuhistoriasi. Kirjautumalla voit tallentaa hakusi.</span>
           </a>    
           </li>
         <li>
-          <a href="{$path}/Search/Advanced">  
-          <div class="submenuHeader">Tarkennettu haku</div>
-          <div class="submenuText">Tarkemmat hakuehdot ja karttahaku</div>
+          <a href="{$path}/Search/Advanced">
+            <span class="submenuHeader">Tarkennettu haku</span>
+            <span class="submenuText">Tarkemmat hakuehdot ja karttahaku</span>
           </a>
         </li>
         <li>
-          <a href="{$path}/Content/searchhelp">  
-          <div class="submenuHeader">Selaa luetteloa</div>
-          <div class="submenuText">Selaa tagien, tekijän, aiheen, genren, alueen tai aikakauden mukaan.</div>
+          <a href="{$path}/Content/searchhelp">
+            <span class="submenuHeader">Selaa luetteloa</span>
+            <span class="submenuText">Selaa tagien, tekijän, aiheen, genren, alueen tai aikakauden mukaan.</span>
           </a>
         </li>
       </ul>
@@ -58,20 +58,20 @@
     <li class="menuHelp"><a href="#"><span>{translate text='navigation_help'}</span></a>
       <ul class="subMenu">
         <li>
-          <a href="{$path}/Content/register_details">  
-          <div class="submenuHeader">Hakuohje</div>
-          <div class="submenuText">Yksityiskohtaiset ohjeet hakuun.</div>
+          <a href="{$path}/Content/register_details">
+            <span class="submenuHeader">Hakuohje</span>
+            <span class="submenuText">Yksityiskohtaiset ohjeet hakuun.</span>
           </a>
         </li>
       </ul> 
     </li>
     
-    <li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a><ul></ul></li>
+    <li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a></li>
     
     {if !$hideLogin}
-      <li class="menuLogin"><a href="{$path}/MyResearch/Home""><span>{if $user}{translate text="Your Account"}{else}{translate text="Login"}{/if}</span></a>
-      <ul>
-      <li>
+      <li class="menuLogin"><a href="{$path}/MyResearch/Home"><span>{if $user}{translate text="Your Account"}{else}{translate text="Login"}{/if}</span></a>
+        <ul>
+        <li>
       {if !$hideLogin}
         {if $user}
           <div id="logoutOptions">
@@ -81,22 +81,22 @@
                   {else}
                   <a class="logout" href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
                   {/if}
-              </div>
-              {else}
-              <div id="loginOptions">
-                  {if $authMethod == 'Shibboleth'}
-                  <a class="login" href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
-                  {else}
-                  <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
-                  {/if}
-              </div>
-              {/if}
+          </div>
+        {else}
+          <div id="loginOptions">
+          {if $authMethod == 'Shibboleth'}
+            <a class="login" href="{$sessionInitiator}">{translate text="Institutional Login"}</a>
+          {else}
+            <a href="{$path}/MyResearch/Home">{translate text="Login"}</a>
           {/if}
-    </li>
-    </ul>
+          </div>
+        {/if}
+      {/if}
+        </li>
+        </ul>
       </li>
     {/if}
-    </li>
+    <!-- /li -->
   </ul>
   <div class="lang">
     {if is_array($allLangs) && count($allLangs) > 1}
@@ -136,7 +136,7 @@
       </div>
     </div>
     <div class="headerHomeContent">
-      <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">yhdellä haulla</span></h2><br>
+      <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">yhdellä haulla</span></h2><br />
       <h3>Yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
     </div>
   {/if}
