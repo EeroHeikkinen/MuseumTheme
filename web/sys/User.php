@@ -75,32 +75,51 @@ class UserAccount
             }
         }
         
-        if (isset($configArray['Authorization']['ip']) && $configArray['Authorization']['ip'] && isset($configArray['IP_Addresses'])) {
-            foreach ($configArray['IP_Addresses'] as $rangeDef) {
-                $remote = UserAccount::normalizeIp($_SERVER['REMOTE_ADDR']);
-                $ranges = explode(',', $rangeDef);
-                foreach ($ranges as $range) {
-                    $ips = explode('-', $range);
-                    if (!isset($ips[0])) {
-                        continue;
-                    }
-                    $ips[0] = UserAccount::normalizeIp($ips[0]);
-                    if (!isset($ips[1])) {
-                        $ips[1] = $ips[0];
-                    } else {
-                        $ips[1] = UserAccount::normalizeIp($ips[1], true);
-                    }
-                    if ($ips[0] === false || $ips[1] === false) {
-                        error_log("Could not parse IP address/range: $range");
-                        continue;
-                    }
-                    if ($remote >= $ips[0] && $remote <= $ips[1]) {
-                        return true;
-                    }
-                }
+        if (isset($configArray['Authorization']['ip']) && $configArray['Authorization']['ip']) {
+            if (UserAccount::isInIpRange()) {
+                return true;
             }
         }
         
+        return false;
+    }
+
+    /**
+     * Check if user's IP address is in the known IP addresses
+     * 
+     * @return boolean Whether the IP address is known
+     */
+    public static function isInIpRange()
+    {
+        global $configArray;
+        
+        if (!isset($configArray['IP_Addresses'])) {
+            return false;
+        }
+
+        foreach ($configArray['IP_Addresses'] as $rangeDef) {
+            $remote = UserAccount::normalizeIp($_SERVER['REMOTE_ADDR']);
+            $ranges = explode(',', $rangeDef);
+            foreach ($ranges as $range) {
+                $ips = explode('-', $range);
+                if (!isset($ips[0])) {
+                    continue;
+                }
+                $ips[0] = UserAccount::normalizeIp($ips[0]);
+                if (!isset($ips[1])) {
+                    $ips[1] = $ips[0];
+                } else {
+                    $ips[1] = UserAccount::normalizeIp($ips[1], true);
+                }
+                if ($ips[0] === false || $ips[1] === false) {
+                    error_log("Could not parse IP address/range: $range");
+                    continue;
+                }
+                if ($remote >= $ips[0] && $remote <= $ips[1]) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
     

@@ -46,6 +46,13 @@ function smarty_modifier_proxify($str)
         return $str;
     }
 
+    if (isset($configArray['EZproxy']['proxy_known_ip_addresses'])
+        && !$configArray['EZproxy']['proxy_known_ip_addresses']
+        && UserAccount::isInIpRange()
+    ) {
+        return $str; 
+    }
+    
     if (isset($configArray['EZproxy']['include_url']) || isset($configArray['EZproxy']['include_url_re'])) {
         if (isset($configArray['EZproxy']['include_url'])) {
             $pass = false;
