@@ -1,4 +1,4 @@
-<!-- START of: Search/home-headertexts.tpl -->
+<!-- START of: Content/headertexts.tpl -->
 <div id="headerTexts">
     <div>
         Ensimmäinen kuva, kieli suomi
@@ -9,6 +9,5 @@
     <div>
         Kolmas kuva, kieli suomi
     </div>
-
 </div>
-<!-- END of: Search/home-headertexts.tpl -->
+<!-- END of: Content/headertexts.tpl -->
