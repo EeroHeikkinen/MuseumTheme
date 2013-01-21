@@ -1451,7 +1451,7 @@ dl.narrowList a {
 .module-Content .main {
     padding-bottom:24px;
 }
-.module-Content #main .contentHeader + .contentSection .content:first-child h2:first-child {
+.module-Content #main .contentSection:first-child h2:first-child {
     margin-top:0;
 }
 
