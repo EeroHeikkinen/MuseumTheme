@@ -131,5 +131,5 @@
         "ALL Groups."</li>
   </ul>
 {/literal}{/capture}
-{include file="$module/content.tpl" title=$title sections=$sections}
+{include file="$module/content.tpl" title=$title sections=$sections menu=true}
 <!-- END of: Content/searchhelp.fi.tpl -->

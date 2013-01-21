@@ -40,7 +40,7 @@ function initDropdowns() {
 function createDropdowns(){
     $('.styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select').each(function() { 
         var source = $(this);
-        var selected = source.find("option[selected]");
+        var selected = source.find("option:selected");
         var options = $("option", source);
         var idName = $(this).attr("id");
         var target = 'styled_'+idName;

@@ -3,14 +3,15 @@
  */
 
 $(document).ready(function() {
-    initMenu();
+    initHeaderMenu();
+    initContentMenu();
     initCarousel();
     initInfoBox();
     initDateVisHandle();
 });
 
 // Header menu
-function initMenu() {
+function initHeaderMenu() {
    
     function headerOver() {
         var subMenu = $(this).children('ul');
@@ -86,6 +87,7 @@ jQuery.fn.vToggle = function() {
     });
 }
 
+// Date range selector 
 function initDateVisHandle() {
     $('.dateVisHandle').click(function() {
         showDateVis();
@@ -104,5 +106,23 @@ function initDateVisHandle() {
                $('div.dateVisHandle.visible').fadeOut(300);
                $('div.dateVisHandle').toggleClass('visible');
            });
+    }
+}
+
+// Content pages menu 
+function initContentMenu() {
+    if ( $(".module-Content .main .menu").length > 0 ) {
+        var menu = '<div class="content"><ul>';
+        $('.module-Content .main h2').each(function() {
+            var text = $(this).text(); 
+            menu += '<li>'+text+'</li>';
+        })
+        menu += '</ul></div>';
+        $('.module-Content .main .menu').append(menu);
+        $('.module-Content .main .menu li').click(function(event){		
+            $('html,body').animate({
+                scrollTop:$('h2:contains('+$(this).text()+')').offset().top - 10
+            }, 500);
+        });
     }
 }

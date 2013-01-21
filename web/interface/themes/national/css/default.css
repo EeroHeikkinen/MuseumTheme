@@ -1456,6 +1456,36 @@ dl.narrowList a {
     margin-top:0;
 }
 
+.module-Content .main .menu ul {
+    position:absolute;
+    left:0;
+    margin:0;
+    padding:0;
+    top:0;
+    display:block;
+    width:230px;
+    z-index:2;
+}
+.module-Content .main .menu ul li {
+    list-style:none;
+    display:block;
+    margin:0 0 6px 0;
+    padding:10px 14px;
+    font-size:1.230em;
+    color:#fff;
+    background:#4d4d4d;
+    cursor:pointer;
+    transition:background .1s;
+    -moz-transition:background .1s;
+    -webkit-transition:background .1s;
+}
+.module-Content .main .menu ul li:hover {
+    background:#6c6c6c;
+}
+.module-Content .main .menu + .sections .content > * {
+    margin-left:280px;
+}
+
 /* Icon Classes */
 
 /* common styles */

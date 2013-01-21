@@ -122,5 +122,5 @@
   <p><i>Kombinera sökgrupper med <strong>Alla grupper (AND)</strong>.</i></p>
   
 {/literal}{/capture}
-{include file="$module/content.tpl" title=$title sections=$sections}
+{include file="$module/content.tpl" title=$title sections=$sections menu=true}
 <!-- END of: Content/searchhelp.sv.tpl -->
