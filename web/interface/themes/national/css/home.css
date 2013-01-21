@@ -7,11 +7,6 @@
     margin: 0 auto;
     text-align: left;
 }
-#header {
-    background: url("../images/header_home_1.jpg") 50% 0 no-repeat;
-    width:1196px;
-    margin:0 auto;
-}
 
 .main-home {              /* Fix for bleeding white background on some mobile */
     overflow-x: hidden;   /* platforms apparently due to homeFacers.*/

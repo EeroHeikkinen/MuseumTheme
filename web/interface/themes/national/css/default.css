@@ -12,10 +12,19 @@ body {
     background-color: #000;
     color: rgb(70,70,70);
     -webkit-text-size-adjust: 100%;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
 }
 .container {
     width:100%;
     margin:0;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 300px);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.6)), color-stop(300px,rgba(0,0,0,0)));
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0)300px);
+    background: -o-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
+    background: -ms-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
 }
 .content {
     width:950px;
@@ -189,19 +198,16 @@ div.sidegroup {
 }
 
 /*** Header ***/
-#header {
+#header, #header.header-home {
     border:none;
-    background-color:#000;
+    background: -moz-linear-gradient(bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 150px);
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,rgba(0,0,0,0.3)), color-stop(150px,rgba(0,0,0,0)));
+    background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
+    background: -o-linear-gradient(bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
+    background: -ms-linear-gradient(bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
+    background: linear-gradient(to top, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
 }
-#header .content {
-    background: -moz-linear-gradient(left, rgba(0,0,0,.7) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,.7) 100%), -moz-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 90px);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,.7)), color-stop(10%,rgba(0,0,0,0)), color-stop(90%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,.7))), -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.4)), color-stop(90px,rgba(0,0,0,0)));
-    background: -webkit-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -webkit-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
-    background: -o-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -o-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
-    background: -ms-linear-gradient(left, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), -ms-linear-gradient(top, rgba(0,0,0,0.4) 0%,rgba(0,0,0,0) 90px);
-    background: linear-gradient(to right, rgba(0,0,0,.7) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,.7) 100%), linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0px, transparent 90px) repeat-x scroll 0 0 transparent;
-    padding:0 123px;
-}
+
 #headerTop {
     height:95px;
     border-bottom:6px solid #fff;
