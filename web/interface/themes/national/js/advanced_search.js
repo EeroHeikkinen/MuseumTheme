@@ -45,7 +45,9 @@ function addGroup(firstTerm, firstField, join)
     addSearch(nextGroupNumber, firstTerm, firstField);
     // Keep the page in order
     reSortGroups();
-
+    // Add styled dropdowns
+    createDropdowns();
+    
     // Pass back the number of this group
     return nextGroupNumber - 1;
 }
@@ -71,6 +73,8 @@ function addSearchJS(group)
 {
     var groupNum = group.id.replace("add_search_link_", "");
     addSearch(groupNum);
+    // Add styled dropdowns
+    createDropdowns();
     return false;
 }
 

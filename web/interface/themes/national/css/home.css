@@ -405,8 +405,16 @@ div.searchHomeForm div.searchform #searchForm {
 .home-section.third {
     background:#e1eff4;
 }
+.home-section.third .content {
+    background:#E1EFF4;
+    overflow:hidden;
+}
 .home-section.columns.third .content > div:first-child {
     background:#e1eff4;
+}
+.home-section.columns.third .content > div {
+    padding-bottom: 500px; /* Make floated divs seem equally long */
+    margin-bottom: -500px; /* Note: parent element must be overflow:hidden */
 }
 .home-section.third ul:first-child {
     margin-left:0;
