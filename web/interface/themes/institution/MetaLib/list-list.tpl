@@ -55,7 +55,7 @@
 
           <div class="resultItemLine4">
             {foreach from=$record.url key=recordurl item=urldesc}
-              <br/><a href="{$recordurl|proxify|escape}" class="fulltext" target="_blank" title="{$recordurl}">{if $recordurl == $urldesc}{$recordurl|truncate_url}{else}{$urldesc|escape}{/if}</a>
+              <br/><a href="{if $record.proxy}{$recordurl|proxify|escape}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank" title="{$recordurl}">{if $recordurl == $urldesc}{$recordurl|truncate_url}{else}{$urldesc|escape}{/if}</a>
             {/foreach}
             {if $openUrlBase && $record.openUrl}
               {if $record.url}<br/>{/if}
