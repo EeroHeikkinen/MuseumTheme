@@ -304,7 +304,7 @@ End Cover Image *}
   {/if}
 
   {if $coreComponentPartCount > 0}
-  <tr valign="top" class="recordComponentParts>
+  <tr valign="top" class="recordComponentParts">
     <th>{translate text='component_part_count_label'}</th>
     <td><a href="{$url}/Search/Results?lookfor=host_id:{$id|escape:"url"}">{translate text='component_part_count_prefix'}{$coreComponentPartCount} {translate text='component_part_count_suffix'}</a></td>
   </tr>

@@ -1303,7 +1303,6 @@ li.result blockquote {
 /** Side facets */
 .sidegroup ul,
 .sidegroup dl {
-    background:#f2f2f2;
     margin:5px 0 0;
 }
 .sidegroup dl {
@@ -1358,11 +1357,11 @@ ul.filters span {
     margin-top: 1.2em;
 }
 div.sidegroup h4 {
-    background:#00a3b5;
-    color: #FFFFFF;
-    font-size: 1.777em;
+    background-color: #4D4D4D;
+    color: #fff;
+    font-size: 1.2em;
     margin: 0;
-    padding: 16px 10px 17px;
+    padding: 6px 10px;
 }
 div.sidegroup h4.account, div.sidegroup h4.list {
     padding:0 0 0 1.3em;
@@ -1494,7 +1493,7 @@ dl.narrowList a {
     display:block;
     text-align:left;
     background-repeat:no-repeat;
-    background-position:5px;
+    background-position:4px 8px;
     padding:.5em .5em .5em 25px;
 }
 ul.recordSet .addToFavLink a {
@@ -1833,10 +1832,12 @@ ul.recordSet .addToFavLink a {
     background:#e6e6e6;
 }
 /* Result terms */
+.resultLinks,
 #advSearchForm h1 {
     margin: 0;
     padding: 0;
 }
+.resultLinks,
 .advSearchHeader,
 .resultTerms {
     padding: 22px 0 24px;
@@ -2116,11 +2117,15 @@ div.dateVisHandle.visible {
 /*** Record Page ***/
 
 div.resultLinks {
-    border-bottom: 1px solid #dddddd;
+    background-color: #E6E6E6;
+}
+div.resultLinks a {
+    font-weight: bold;
+    color: #4D4D4D;
 }
 div.record {
     padding: 0;
-    margin: 5px 0 1em 0;
+    margin: 40px 0 1em 0;
 }
 #resultsCollection div.record, #headingHierarchyCollection div.record {
     margin: -1em 0 0 .5em;
@@ -2133,14 +2138,14 @@ div.record {
 #resultSide {
     width: 210px;
     float: left;
-    margin-right: 12px;
+    margin-right: 27px;
 }
 .coverImageLinks {
     /* margin-bottom: 20px; */
 }
 /* Note: background colors required here for field truncation */
 #recordMetadata {
-    width: 506px;
+    width: 491px;
     float: left;
     background-color: white;
 }
@@ -2161,6 +2166,9 @@ div.record {
     behavior: url(css/css3pie/PIE.php);
 }
 */
+.recordAuthors td {
+    font-weight: bold;
+}
 .recordTitle {
     margin-top:0;
 }
@@ -2271,16 +2279,14 @@ a#thumbnail_link:hover span {
 .citation th {
     text-align:left;
     color:#666;
-    padding:.3em 0 .3em 0;
-    border-bottom: 1px solid #f3f3f3;
+    padding: 0.5em 0;
     vertical-align: top;
 }
 .citation tr {
     border-collapse: collapse;
 }
 .citation td {
-    padding:.3em 0 .3em 1em;
-    border-bottom: 1px solid #f3f3f3;
+    padding:.5em 0 .5em 1em;
 }
 .citation tr, .citation td {
     vertical-align:top;
@@ -2384,8 +2390,8 @@ table.authors th {
 
 #dyntabnav {
     border: none;
-    width: 728px;
-    clear: left;
+    width: 100%;
+    clear: both;
     float: left;
 }
 #dyntabnav, #dyntabnav .ui-tabs-nav {
@@ -2439,14 +2445,15 @@ table.authors th {
     float: right;
 }
 ul.similar {
+    background-color: #E6E6E6;
     list-style: none;
-    padding: 0 13px 0 0;
+    padding: 10px;
     margin: 0px;
     text-align:left;
 }
 
 ul.similar li {
-    padding-bottom:10px;
+    padding-bottom: 15px;
 }
 
 h5.recordTabHeader {
@@ -2462,7 +2469,7 @@ h5.recordTabHeader {
     float: right;
     padding: 10px 0 10px 0;
     margin: 0 0 40px 0;
-    background-color:#eef4ff;
+    background-color:#fff;
 }
 .toolbar ul {
     list-style-type:none;
@@ -2505,7 +2512,7 @@ h5.recordTabHeader {
 .backToResults {
     float: left;
     margin-left: 1.6em;
-    width: 200px;
+    width: 600px;
 }
 .resultscroller {
     /* border-bottom: 1px solid #dddddd; */
@@ -2707,7 +2714,6 @@ p.citationText {
     background: #eee;
 }
 #searchHolder .group {
-    margin-bottom: 10px;
 }
 .searchGroups {
     margin-bottom: 30px;

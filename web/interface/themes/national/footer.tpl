@@ -45,7 +45,7 @@
 <div class="footerWrapper">
 <div id="footerCol4">
 
-	<a href="{$url}" class="footerLogo">{image src="finna_logo_small.png" alt="{translate text="Home"}</a>
+	<a href="{$url}" class="footerLogo">{image src="finna_logo_small.png" alt="{translate text='Home'}"</a>
 </div>
 
 <div id="footerCol5">

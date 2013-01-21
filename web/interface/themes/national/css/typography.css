@@ -159,6 +159,7 @@ body { -webkit-tap-highlight-color: #bbddff; }
     padding: 0 0 2px;
 }
 .submenuHeader {
+    display: block;
     margin: 0;
     padding: 0 0 7px;
 }
@@ -320,9 +321,8 @@ a.subjectHeading:hover {
 
 /* Resource types */
 .iconlabel { /* Common for all */
-    line-height: 1.2em;
-    font-size: 1em;
-    font-weight: bold;
+    /*line-height: 1.2em;
+    font-size: 1em;*/
 }
 
 /* Pagination */
@@ -335,10 +335,11 @@ a.subjectHeading:hover {
 
 /* Record Page */
 .recordTitle {
-    font-weight: normal;
+    font-weight: bold;
 }
 h1.recordTitle {
     margin-top: 0;
+    color: #00A3B5;
 }
 .record pre.xml {
     font-family: inherit;

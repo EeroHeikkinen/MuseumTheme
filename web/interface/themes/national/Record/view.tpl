@@ -36,6 +36,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 {if $errorMsg || $infoMsg || $lastsearch || $previousRecord || $nextRecord}
 <div class="resultLinks">
+  <div class="content">
   {if $errorMsg || $infoMsg}
   <div class="messages">
     {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
@@ -45,7 +46,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {if $lastsearch}
     <div class="backToResults">
         <a href="{$lastsearch|escape}#record{$id|escape:"url"}">&laquo;&nbsp;{translate text="Back to Search Results"}</a>
-	</div>
+    </div>
   {/if}
   {if $previousRecord || $nextRecord}
     <div class="resultscroller">
@@ -57,12 +58,15 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {else}<span class="nextRecord inactive">{translate text="Next"} &raquo;</span>{/if}
 	</div>
 	{/if}
+  </div>
 <div class="clear"></div>
 </div>
 {/if}
 
-<div class="record recordId" style="padding: 0" id="record{$id|escape}">
+<div class="record recordId" id="record{$id|escape}">
 
+  <div class="content">
+    
   <div id="resultMain">
   
   <div id="resultSide">
@@ -170,8 +174,20 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
    {include file=$coreMetadata}
   
+  </div>
+   
+  <div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
+    <div class="similarItems" id="similarItems{$id}"><div class="sidegroup">{image src="ajax_loading.gif" width="16" height="16" alt="Loading..."}</div></div>
+    
+    {if $bXEnabled}
+      {include file="Record/bx.tpl"}
+    {/if}
+  </div>
+
+   
   <a name="tabnav"></a>
     <div id="{if $dynamicTabs}dyn{/if}tabnav">
+      <div class="content">
     {if !$dynamicTabs || ($tab != 'Hold' && $tab != 'CallSlip')}
       <ul>
         {if $hasHoldings}
@@ -224,6 +240,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       </ul>
     {/if}
       <div class="clear"></div>
+      </div>
     </div>
   
     {if $dynamicTabs && $tab != 'Hold' && $tab != 'CallSlip'}
@@ -238,16 +255,9 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
     {* Add COINS *}
     <span class="Z3988" title="{$openURL|escape}"></span>
+  
   </div>
   
-
-  <div id="resultSidebar" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
-    <div class="similarItems" id="similarItems{$id}"><div class="sidegroup">{image src="ajax_loading.gif" width="16" height="16" alt="Loading..."}</div></div>
-    
-    {if $bXEnabled}
-      {include file="Record/bx.tpl"}
-    {/if}
-  </div>
   <div class="clear"></div>
 </div>
 
