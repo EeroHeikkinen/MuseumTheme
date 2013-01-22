@@ -138,7 +138,7 @@ function initHeaderBackground() {
             var content = texts.eq(randomNumber).html();
             
             // Set body background image
-            $('body').css('background-image', 
+            $('.container').css('background-image', 
                 'url(/interface/themes/national/images/header_background_'
                 +(randomNumber + 1)+'.jpg')
             $('#header .infoBoxText').html(content);

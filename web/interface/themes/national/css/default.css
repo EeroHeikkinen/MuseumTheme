@@ -8,17 +8,28 @@ px      62   136   210   284   358   432   506   580   654   728    802    876  
  
 body {
     margin:0;
+    background: #4D4D4D;
     padding: 0;
-    background-color: #000;
     color: rgb(70,70,70);
     -webkit-text-size-adjust: 100%;
+    width:100%;
+}
+.container {
+    background-color: #000;
     background-position: center 0;
     background-repeat: no-repeat;
     background-size: 100% auto;
-}
-.container {
     width:100%;
-    margin:0;
+
+}
+.content {
+    width:950px;
+    position:relative;
+    margin:0 auto;
+}
+
+#header .content {
+    width:100%;
     background: -moz-linear-gradient(top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 300px);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.6)), color-stop(300px,rgba(0,0,0,0)));
     background: -webkit-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0)300px);
@@ -26,9 +37,8 @@ body {
     background: -ms-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
     background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
 }
-.content {
+#header .content > div {
     width:950px;
-    position:relative;
     margin:0 auto;
 }
 
@@ -241,8 +251,9 @@ div.sidegroup {
 #headerMenu ul {
     display:none;
     position:absolute;
-    left:123px;
+    margin-left:-475px;
     padding:35px 0 0;
+    left:50%;
     width:950px;
 }
 
