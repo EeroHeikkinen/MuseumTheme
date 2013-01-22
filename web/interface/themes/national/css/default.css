@@ -246,7 +246,7 @@ div.sidegroup {
 #headerMenu li {
     float:left;
     display:block;
-    margin-right:20px;
+    padding-right:20px;
 }
 #headerMenu li span {
     cursor:pointer;

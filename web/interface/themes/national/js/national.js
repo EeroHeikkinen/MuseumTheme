@@ -20,13 +20,13 @@ function initHeaderMenu() {
         $('#headerTop').stop().animate({height: subMenuHeight + 105 // header + bottom padding
         }, 300);
         
-        subMenu.delay(150).stop().fadeIn();
+        subMenu.stop(true,true).delay(50).fadeIn(50);
     };
    
     function headerOut() {
        var subMenu = $(this).children('ul');
          $('#headerTop').stop().animate({height: 95}, 300);
-         subMenu.stop().fadeOut(50);
+         subMenu.stop(true,true).fadeOut(50);
     };
 
     $('#headerMenu > li').hover(headerOver, headerOut);
