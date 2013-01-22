@@ -66,7 +66,9 @@
       </ul> 
     </li>
     
-    <li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a></li>
+    <li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a>
+    <ul class="subMenu"></ul>
+    </li>
     
     {if !$hideLogin}
       <li class="menuLogin"><a href="{$path}/MyResearch/Home"><span>{if $user}{translate text="Your Account"}{else}{translate text="Login"}{/if}</span></a>

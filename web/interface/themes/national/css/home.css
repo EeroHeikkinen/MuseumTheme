@@ -408,6 +408,7 @@ div.searchHomeForm div.searchform #searchForm {
 .home-section.columns.third .content > div:first-child {
     background:#e1eff4;
     height:auto;
+    width:auto;
 }
 .home-section.columns.third .content > div {
     padding-bottom: 500px; /* Make floated divs seem equally long */
