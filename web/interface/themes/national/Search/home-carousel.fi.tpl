@@ -12,7 +12,7 @@
             Topeliuksen suosittu romaanisarja kertoo Suomen ja Ruotsin historiasta Kustaa II Aadolfin ajoista Kustaa 
             III:n aikoihin asti. Vaiherikkaissa tarinoissa suuret historialliset tapahtumat ja aikakaudet elävöyityvät 
             yksilöiden elämänkohtaloiden kautta. Suomen osuus Ruotsin valtakunnan historiassa nousee tärkeään asemaan. 
-            <a href="http://www.finna.fi/Search/Results?lookfor=v%C3%A4lsk%C3%A4rin+kertomuksia+digitoitu+julkaisu&type=AllFields&filter[]=building%3A%220%2FNLF%22&view=list ">» Hakutulokseen</a>
+            <a href="{"http://www.finna.fi/Search/Results?lookfor=v%C3%A4lsk%C3%A4rin+kertomuksia+digitoitu+julkaisu&type=AllFields&filter[]=building%3A%220%2FNLF%22&view=list"|escape:'url'}">» Hakutulokseen</a>
           </div>
         </div>
       </li>
@@ -46,7 +46,7 @@
           <div class="pickup-text">
             Keskiaikainen latinankielinen lääketieteen oppi- ja käsikirja Theorica Pantegni on Suomen vanhin sidottu käsikirjoitus ja yksi Kansalliskirjaston 
             kokoelman helmistä. Tämä ensimmäinen kattava latinankielinen lääketieteen yleisesitys on digitoitu ja transkriboitu eli kirjoitettu modernein kirjaimin latinaksi. 
-            <a href="http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list ">» Hakutulokseen</a>
+            <a href="{"http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list"|escape:'url'}">» Hakutulokseen</a>
           </div>
         </div>
       </li>
@@ -62,7 +62,7 @@
             Topeliuksen suosittu romaanisarja kertoo Suomen ja Ruotsin historiasta Kustaa II Aadolfin ajoista Kustaa 
             III:n aikoihin asti. Vaiherikkaissa tarinoissa suuret historialliset tapahtumat ja aikakaudet elävöyityvät 
             yksilöiden elämänkohtaloiden kautta. Suomen osuus Ruotsin valtakunnan historiassa nousee tärkeään asemaan. 
-            <a href="http://www.finna.fi/Search/Results?lookfor=v%C3%A4lsk%C3%A4rin+kertomuksia+digitoitu+julkaisu&type=AllFields&filter[]=building%3A%220%2FNLF%22&view=list ">» Hakutulokseen</a>
+            <a href="{"http://www.finna.fi/Search/Results?lookfor=v%C3%A4lsk%C3%A4rin+kertomuksia+digitoitu+julkaisu&type=AllFields&filter[]=building%3A%220%2FNLF%22&view=list"|escape:'url'}">» Hakutulokseen</a>
           </div>
         </div>
       </li>
@@ -96,7 +96,7 @@
           <div class="pickup-text">
             Keskiaikainen latinankielinen lääketieteen oppi- ja käsikirja Theorica Pantegni on Suomen vanhin sidottu käsikirjoitus ja yksi Kansalliskirjaston 
             kokoelman helmistä. Tämä ensimmäinen kattava latinankielinen lääketieteen yleisesitys on digitoitu ja transkriboitu eli kirjoitettu modernein kirjaimin latinaksi. 
-            <a href="http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list ">» Hakutulokseen</a>
+            <a href="{"http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list"|escape:'url'}">» Hakutulokseen</a>
           </div>
         </div>
       </li>
@@ -106,4 +106,4 @@
 <a class="prev disabled" href="#"></a>
 <a class="next disabled" href="#"></a>
 
-<!-- START of: Search/home-carousel.fi.tpl -->
+<!-- END of: Search/home-carousel.fi.tpl -->
