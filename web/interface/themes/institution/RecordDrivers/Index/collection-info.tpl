@@ -197,7 +197,7 @@
     <th>{translate text='Online Access'}: </th>
     <td>
       {foreach from=$collURLs item=desc key=currentUrl name=loop}
-        <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|escape}</a><br/>
+        <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|translate_prefix:'link_'|escape}</a><br/>
       {/foreach}
       {if $collOpenURL}
         {include file="Search/openurl.tpl" openUrl=$collOpenURL}<br/>
