@@ -131,7 +131,7 @@ function initContentMenu() {
 // Load random header background and related info text
 function initHeaderBackground() {
     
-    $.get('/Content/headertexts', function(data) {
+    $.get(path+'/Content/headertexts', function(data) {
         texts = $(data).find('#headerTexts > div');
         if (texts.length > 0) {
             var randomNumber =  Math.floor((Math.random()*texts.length)); 
@@ -139,7 +139,7 @@ function initHeaderBackground() {
             
             // Set body background image
             $('.container').css('background-image', 
-                'url(/interface/themes/national/images/header_background_'
+                'url('+path+'/interface/themes/national/images/header_background_'
                 +(randomNumber + 1)+'.jpg')
             $('#header .infoBoxText').html(content);
         }
