@@ -21,7 +21,7 @@
           {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
         {/if}
         {foreach from=$summURLs key=recordurl item=urldesc}
-          <a href="{$recordurl|proxify|escape}" class="fulltext" target="_blank">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a><br/>
+          <a href="{$recordurl|proxify|escape}" class="fulltext" target="_blank">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|translate_prefix:'link_'|escape}{/if}</a><br/>
         {/foreach}
       {elseif $summAjaxStatus}
         <div class="status">

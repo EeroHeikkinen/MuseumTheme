@@ -37,7 +37,7 @@
   <h5>{translate text="Internet"}</h5>
   {if !empty($holdingURLs)}
     {foreach from=$holdingURLs item=desc key=currentUrl name=loop}
-      <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|escape}</a><br/>
+      <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|translate_prefix:'link_'|escape}</a><br/>
     {/foreach}
   {/if}
   {if $holdingsOpenURL}
