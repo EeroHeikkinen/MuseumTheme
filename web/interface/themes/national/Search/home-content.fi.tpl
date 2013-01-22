@@ -3,8 +3,8 @@
   <div class="content">
     <div>
       <h2 class="color-finnaBlue">Tietoa tarvitseville ja elämyksiä etsiville</h2>
-      <p class="big">Keräsimme aineistotiedot useista Suomen arkistoista, kirjastoista ja museoista yhteen paikkaan. Yhdellä haulla saat tuloksia kaikista mukana olevista kokoelmista.</p>
-      <p class="big"><a class="color-violet" href="{$path}/Content/about">Lue lisää</a> tai <a href="/">kokeile hakua!</a></p>
+      <p class="big">Finna on uudenlainen tiedonhakupalvelu kaikille arkistojen, kirjastojen ja museoiden palveluiden käyttäjille.</p>
+      <p class="big">Finna on nyt testikäytössä, kokeile hakua, <a href="{$path}/Feedback/Home">anna palautetta</a> tai <a class="color-violet" href="{$path}/Content/about">lue lisää</a> palvelusta!</p>
     </div>
     <div>
       <h2>Haulla löydät...</h2>
@@ -46,7 +46,7 @@
       {if $user}
         <div class="mapSearchHome">
           <h2>Kokeile karttahakua</h2>
-          <p>Voit rajata hakuasi myös kartalla. Tällä hetkellä karttarajauksen piirissä on noin 7200 aineistotietoa. Karttoja sen sijaan on noin 58 000.</p>
+          <p>Voit rajata hakuasi myös kartalla. Karttarajauksen piirissä on tällä hetkellä noin 7200 aineistotietoa.</p>
           <a class="button" href="">Karttahakuun</a>
             
         </div>

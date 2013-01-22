@@ -128,18 +128,11 @@
     <div class="headerInfoBox">
       <div class="openInfoBox toggleBox">i</div>
       <div class="closeInfoBox toggleBox">x</div>
-      <div class="infoBoxText">
-        <span class="strong">Hakunila horisontissa 1970-luvun puolivälissä.</span>
-          Helsingin seudulle suuntautui 1960-luvun alussa muuttoaalto. Pääkaupunki 
-          ei kyennyt asuttamaan suurta muuttajamäärää, mutta Espoossa ja Helsingin 
-          maalaiskunnassa maata oli riittävästi. Rakennusliikkeiden kanssa solmittujen 
-          aluerakentamissopimusten johdosta pystyttiin rakentamaan paljon ja nopeasti.
-        <a href="/" class="more">Lue lisää <span class="moreButton">▶</span></a>
-      </div>
+      <div class="infoBoxText"></div>
     </div>
     <div class="headerHomeContent">
-      <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">yhdellä haulla</span></h2><br />
-      <h3>Yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
+      <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">samalla haulla</span></h2><br />
+      <h3>Jo yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
     </div>
   {/if}
   <div id="searchFormHeader">
