@@ -701,10 +701,34 @@ p.listDescription {
 div.truncateField {
     background-color: inherit;
 }
-div.moreLink, div.lessLink {
+.truncateField .moreLink,
+.truncateField .lessLink {
     z-index: 1000;
     height: 1.5em;
     background-color: inherit;
+}
+.recordSummary.truncateField .moreLink,
+.recordSummary.truncateField .lessLink {
+    display: block;
+    height: 40px;
+    clear: both;
+    background-position: center center;
+    background-repeat: repeat-x;
+    background-image: url("../images/ruler-horizontal.png");
+}
+.recordSummary.truncateField .moreLink a,
+.recordSummary.truncateField .lessLink a {
+    display: block;
+    width: 100%;
+    height: 40px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+.recordSummary.truncateField .lessLink a {
+    background-image: url("../images/datevis_handle_close.png");
+}
+.recordSummary.truncateField .moreLink a {
+    background-image: url("../images/datevis_handle_open.png");
 }
 div.moreLink {
     position: absolute;
@@ -2151,7 +2175,8 @@ div.record {
 }
 /* Note: background colors required here for field truncation */
 #recordMetadata {
-    width: 491px;
+    width: 476px;
+    padding-right: 15px;
     float: left;
     background-color: white;
 }
@@ -2285,7 +2310,7 @@ a#thumbnail_link:hover span {
 .citation th {
     text-align:left;
     color:#666;
-    padding: 0.5em 0;
+    padding: 0.5em 15px 0 0;
     vertical-align: top;
 }
 .citation tr {
