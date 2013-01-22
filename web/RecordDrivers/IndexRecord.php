@@ -734,6 +734,9 @@ class IndexRecord implements RecordInterface
         $interface->assign('holdings', $this->getRealTimeHoldings($patron));
         $interface->assign('history', $this->getRealTimeHistory());
 
+        // Source ID
+        $interface->assign('source', $this->getSourceID());
+
         return 'RecordDrivers/Index/holdings.tpl';
     }
 
@@ -2969,7 +2972,20 @@ class IndexRecord implements RecordInterface
     protected function getDissertationNote()
     {
         return '';
-    }    
+    }
+
+    /**
+     * Get record source ID
+     * 
+     * @return string Source ID
+     */
+    protected function getSourceID()
+    {
+        if (isset($this->fields['source_str_mv'])) {
+            return reset($this->fields['source_str_mv']);
+        }
+        return '';
+    }
 }
 
 ?>

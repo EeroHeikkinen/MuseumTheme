@@ -7,6 +7,10 @@
   </span>
 {/if}
 
+{if !empty($holdings)}
+<h3>{translate text=$source prefix='source_'}</h3>
+{/if}
+
 {if !$hideLogin && $offlineMode != "ils-offline"}
   {if ($driverMode || $titleDriverMode) && !empty($holdings)}
     {if $showLoginMsg || $showTitleLoginMsg}
@@ -15,7 +19,9 @@
       </div>
     {/if}
     {if $user && !$user->cat_username}
-      {include file="MyResearch/catalog-login.tpl"}
+      <div class="userMsg">
+        <a href="{$path}/MyResearch/Profile">{translate text="Add an account to place holds"}</a>
+      </div>
     {/if}
   {/if}
 {/if}
