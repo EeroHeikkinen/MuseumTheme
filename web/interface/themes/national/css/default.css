@@ -32,6 +32,7 @@ body {
     width:950px;
     position:relative;
     margin:0 auto;
+    display: block;
 }
 
 #header .content {
@@ -956,37 +957,55 @@ fieldset.publishDateLimit .ui-slider {
 
 #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
     float: left;
-    margin: 0 12px 0 0;
+    margin: 0 30px 0 0;
     width: 210px;
 }
 #sidebarFavoritesLists a.listAdd {
-    /* float: right; */
-    margin-left: 1em;
+    margin: 0;
+    display: block;
+    background-color: #4D4D4D;
+    color: #fff;
+    font-weight: bold;
 }
 #sidebarFavoritesLists .hefty {
+    display: block;
+    color: #fff;
+    background-color: #00A3B5;
+    padding: 20px 10px;
 }
 #sidebarFavoritesLists ul {
     margin: 1em 0 0 0;
-    width: 202px;
     padding: 0;
 }
+#sidebarFavoritesLists .listItem,
 #sidebarFavoritesLists .editList {
-    margin-bottom: 1em;
+    background-color: #E6E6E6;
+    margin-bottom: 5px;
 }
+#sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists .editList a {
     display: block;
     padding: 0.2em 0.2em 0.2em 22px;
 }
+#sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists ul li div {
     padding: 6px 8px;
 }
+#sidebarFavoritesLists .selected,
+#sidebarFavoritesLists .listItem a {
+    font-weight: bold;
+    color: #fff;
+}
 #sidebarFavoritesLists .selected {
-    background-color: #eeeeee;
+    background-color: #00A3B5;
+}
+#sidebarFavoritesLists .listItem {
+    background-color: #4D4D4D;
 }
 
 .favoritesList {
     float: left;
-    width: 728px;
+    width: 710px;
 }
 .favoritesList .paginationTop, .favoritesList .resultOptions {
     margin: 0.4em 0 0 0;
@@ -1451,7 +1470,7 @@ dl.narrowList a {
     margin-right:0.4em;
 }
 .facetCount, .favoritesCount, .favoritesDescription {
-    color: #999;
+    color: #fff;
 }
 .pagingDisabled {
     color: #ddd;
@@ -1857,8 +1876,11 @@ ul.recordSet .addToFavLink a {
 .resultTerms {
     background:#b3e3e9;
 }
+.myResearchMenu,
 .resultViewOptions {
     background:#e6e6e6;
+}
+.resultViewOptions {
     height:75px;
 }
 .resultDates {
@@ -1880,10 +1902,12 @@ ul.recordSet .addToFavLink a {
 }
 /* Result terms */
 .resultLinks,
+.module-MyResearch .account,
 #advSearchForm h1 {
     margin: 0;
     padding: 0;
 }
+.module-MyResearch .account,
 .resultLinks,
 .advSearchHeader,
 .resultTerms {
@@ -1948,6 +1972,7 @@ ul.recordSet .addToFavLink a {
 .resultOptionSort {
     float: left;
 }
+.resultOptions label,
 .advRow label,
 .searchGroupDetails label,
 .groupSearchDetails label,
@@ -1964,6 +1989,7 @@ ul.recordSet .addToFavLink a {
     float:left;
     display:block;
 }
+.resultOptions .dropdown,
 .searchGroupDetails .dropdown,
 .groupSearchDetails .dropdown,
 .advRow .dropdown {
@@ -2836,9 +2862,23 @@ p.citationText {
 }
 .myResearchMenu {
     border-bottom: 1px solid #ddd;
-    margin-top: .6em;
+    margin-top: 0;
     padding: 0;
+    padding-top: 50px;
     margin-bottom: 1em;
+}
+.myResearchMenu .ui-state-default {
+    background-color: #808080;
+    font-weight: bold;
+}
+.myResearchMenu .ui-state-default a {
+    color: #fff;
+}
+.myResearchMenu .ui-tabs-selected {
+    background-color: #fff;
+}
+.myResearchMenu .ui-tabs-selected a {
+    color: #808080;
 }
 .myResearch .noContentMessage {
     margin-top: 1em;

@@ -19,6 +19,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 {include file="MyResearch/menu.tpl"}
 
 <div class="myResearch">
+  <div class="content">
   <div class="resultHead">
   {if $errorMsg || $infoMsg}
     <div class="messages">
@@ -29,7 +30,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
   <div id="sidebarFavoritesLists">
   {if $listList}
-    <span class="hefty">{translate text='Your Lists'}</span> <a href="{$url}/MyResearch/ListEdit" class="listAdd add" id="listAdd" title="{translate text='Create a List'}">{translate text='Create a List'}</a>
+    <span class="hefty">{translate text='Your Lists'}</span>
     
     <ul>
       {foreach from=$listList item=listItem}
@@ -49,6 +50,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       </li>
      {/foreach}
     </ul>
+    <a href="{$url}/MyResearch/ListEdit" class="listAdd add" id="listAdd" title="{translate text='Create a List'}">{translate text='Create a List'}</a>
   {/if}
   {if $tagList}
     <div>
@@ -162,6 +164,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     <div class="noContentMessage">{translate text='You do not have any saved resources'}</div>
   </div>
   {/if}
+  </div>
 </div>
 
 <div class="clear"></div>
