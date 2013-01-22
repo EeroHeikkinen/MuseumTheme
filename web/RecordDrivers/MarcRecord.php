@@ -359,43 +359,34 @@ class MarcRecord extends IndexRecord
         } else {
             $partOrderCounter = 0;                
             foreach ($fields as $field) {
-                $partAuthor = '';
-                $partAdditionalAuthors = '';
-                $partAuthors = '';
+                $partOrderCounter++;
+                $partAuthors = array();
                 $subfields = $field->getSubfields();
                 foreach ($subfields as $subfield) {
                     $subfieldCode = $subfield->getCode();
                     switch ($subfieldCode) {
                     case 'a':
-                        $partOrderCounter++;
                         $partCode = $subfield->getData();
                         break;
                     case 'b':
                         $partTitle = $subfield->getData();
                         break;
                     case 'c':
-                        if ($partAuthor) {
-                            $partAuthor .= '; ';
-                        }    
-                        $partAuthor .= $subfield->getData();
+                        $partAuthors[] = $subfield->getData();
                         break;
                     case 'd':
-                        if ($partAdditionalAuthors) {
-                            $partAdditionalAuthors .= '; ';
-                        } 
-                        $partAdditionalAuthors .= $subfield->getData();
+                        $partAuthors[] = $subfield->getData();
                         break;          
                     }              
                 }
-                if ($partAuthor && $partAdditionalAuthors) {
-                    $partAuthors = $partAuthor . '; ';
-                }
-                $partAuthors .= $partAdditionalAuthors;  
+                // Filter out any empty fields
+                $partAuthors = array_filter($partAuthors);
                 $componentparts[] = array(
-                                        'number' => $partOrderCounter,
-                                        'title' => $partTitle,
-                                        'link' => $baseURI . '/Record/' . $partCode,
-                                        'author' => $partAuthors
+                    'number' => $partOrderCounter,
+                    'title' => $partTitle,
+                    'link' => $baseURI . '/Record/' . $partCode,
+                    'author' => implode('; ', $partAuthors), // For backward compatibility
+                    'authors' => $partAuthors
                 );
             }
             
