@@ -45,7 +45,7 @@
 <div class="footerWrapper">
 <div id="footerCol4">
 
-	<a href="{$url}" class="footerLogo">{image src="finna_logo_small.png" alt="{translate text='Home'}"</a>
+    <a href="{$url}" class="footerLogo">{image src="finna_logo_small.png" alt="Home"}</a>
 </div>
 
 <div id="footerCol5">
@@ -56,7 +56,7 @@
   <a href="http://www.kdk.fi/sv" class="footerLogo">{image src="kdk_logo_sv.png" alt="logo"}</a>
 {/if}
 {if $userLang=='fi'}
-	<a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_fi.png" alt="KDK-logo"}</a>
+    <a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_fi.png" alt="KDK-logo"}</a>
 {/if}
 </div>
 <div id="footerCol6">
@@ -77,10 +77,10 @@
 <script type="text/javascript">   
   $(document).ready(function(){
     $('.toggleHeader').parent().next().hide();
-	$('.toggleHeader').click(function(){
-	  $(this).parent().next().toggle('fast');
-	  return false;
-	});
+    $('.toggleHeader').click(function(){
+      $(this).parent().next().toggle('fast');
+      return false;
+    });
   });
 </script>
 {/literal}
