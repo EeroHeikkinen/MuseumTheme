@@ -14,13 +14,19 @@ body {
     -webkit-text-size-adjust: 100%;
     width:100%;
 }
-.container {
-    background-color: #000;
+.backgroundContainer {
+    background-color: #4D4D4D;
     background-position: center 0;
     background-repeat: no-repeat;
     background-size: 100% auto;
     width:100%;
-
+    height:100%;
+    position:absolute;
+    display:none;
+}
+.container {
+    position:absolute;
+    width:100%;
 }
 .content {
     width:950px;

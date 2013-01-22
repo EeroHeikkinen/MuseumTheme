@@ -36,16 +36,16 @@ function initHeaderMenu() {
 }
 
 // Front page content carousel
-// NOTE : Carousel effect disabled for now 
 function initCarousel() {
     var ribbonH = $('#carousel h2.ribbon').height();
-    /*$("#carousel").slides({
+    $("#carousel").slides({
          play: 5000,
          pause: 2500,
          hoverPause: true
     });
+    if ($("#carousel .slide").length > 1)
     $("#carousel a.prev, #carousel a.next").removeClass('disabled');
-    */
+    
    
     function slideOver() {
         pickupHeight = $(this).children('.pickup-content').height();
@@ -55,8 +55,8 @@ function initCarousel() {
     }
 
     function slideOut() {
-        $(this).children('.pickup-content').stop().animate({top:253}, 300);
-        if ($(this).index() == 0) $('#carousel h2.ribbon').stop()
+        $(this).children('.pickup-content').stop().delay(100).animate({top:253}, 300);
+        if ($(this).index() == 0) $('#carousel h2.ribbon').stop().delay(100)
             .animate({height:ribbonH,padding:'5px 7px',opacity:1}, 100);
     }
 
@@ -138,9 +138,9 @@ function initHeaderBackground() {
             var content = texts.eq(randomNumber).html();
             
             // Set body background image
-            $('.container').css('background-image', 
+            $('.backgroundContainer').css('background-image', 
                 'url('+path+'/interface/themes/national/images/header_background_'
-                +(randomNumber + 1)+'.jpg')
+                +(randomNumber + 1)+'.jpg').fadeIn(1000);
             $('#header .infoBoxText').html(content);
         }
     });

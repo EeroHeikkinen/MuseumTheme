@@ -171,7 +171,7 @@ $(document).ready(function() {
     <div id="lightbox" onclick="hideLightbox(); return false;"></div>
     <div id="popupbox" class="popupBox"><b class="btop"><b></b></b></div>
     {* End LightBox *}
-
+    <div class="backgroundContainer"></div>
     <div class="container module-{$module}">
 
       {* Start BETA BANNER - Remove/comment out when not in beta anymore ===> *}

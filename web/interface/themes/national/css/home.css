@@ -217,6 +217,7 @@ div.searchHomeForm div.searchform #searchForm {
 .headerHomeContent h3 {
     display:inline;
     background:#4d4d4d;
+    background:rgba(77, 77, 77, .8);
     box-shadow:0 2px 7px rgba(0, 0, 0, 0.3);
 }
 
@@ -406,6 +407,7 @@ div.searchHomeForm div.searchform #searchForm {
 }
 .home-section.columns.third .content > div:first-child {
     background:#e1eff4;
+    height:auto;
 }
 .home-section.columns.third .content > div {
     padding-bottom: 500px; /* Make floated divs seem equally long */
@@ -444,6 +446,22 @@ div.searchHomeForm div.searchform #searchForm {
     clear:both;
     margin-bottom:5px;
     line-height:15px;
+}
+.home-section.columns.third .content > div {
+    height:294px;
+    padding: 0 0px 500px;
+    width:390px;
+}
+.home-section.third .mapSearchHome {
+    background:url(../images/map_search_bg.jpg) no-repeat;
+    padding:10px 40px 30px;
+    height:254px;
+    color:#fff;
+    font-size:1.1em;
+    font-weight:bold;
+}
+.home-section.third .mapSearchHome .button {
+    margin-top:15px;
 }
 .home-section.fourth {
     width:1280px;
