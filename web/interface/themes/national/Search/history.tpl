@@ -3,6 +3,7 @@
 {include file="MyResearch/menu.tpl"}
 
 <div class="myResearch">
+  <div class="content">
     {if !$noHistory}
       {if $saved}
         <span class="hefty">{translate text="history_saved_searches"}</span>
@@ -89,6 +90,7 @@
       <div class="resultHead"></div>
       <br />{translate text="history_no_searches"}
     {/if}
+  </div>
 <div class="clear"></div>
 </div>
 
