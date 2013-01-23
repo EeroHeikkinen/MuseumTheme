@@ -988,9 +988,26 @@ fieldset.publishDateLimit .ui-slider {
     padding: 0;
 }
 #sidebarFavoritesLists .listItem,
+#sidebarFavoritesLists .tags,
 #sidebarFavoritesLists .editList {
     background-color: #E6E6E6;
     margin-bottom: 5px;
+}
+#sidebarFavoritesLists .tags {
+    margin-bottom: 1px;
+}
+#sidebarFavoritesLists .tags div {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+#sidebarFavoritesLists .tags .button {
+    margin: 0px 1px 5px 0px;
+    padding: 2px 8px;
+    font-weight: normal;
+}
+#sidebarFavoritesLists .tags .button a {
+    font-weight: normal;
 }
 #sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists .editList a {
@@ -1010,10 +1027,6 @@ fieldset.publishDateLimit .ui-slider {
 }
 #sidebarFavoritesLists .listItem {
     background-color: #4D4D4D;
-}
-#sidebarFavoritesLists .button {
-    margin: 0px 1px 5px 0px;
-    padding: 2px 8px;
 }
 
 .favoritesList {
