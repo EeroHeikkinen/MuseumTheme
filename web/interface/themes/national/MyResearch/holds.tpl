@@ -3,6 +3,7 @@
 {include file="MyResearch/menu.tpl"}
 
 <div class="myResearch holdsList{if $sidebarOnLeft} last{/if}">
+  <div class="content">
   {if $user->cat_username}
   <div class="resultHead">
     {if $holdResults.success}
@@ -339,6 +340,7 @@
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
+  </div>
 </div>
 
 <div class="clear"></div>

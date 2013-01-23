@@ -458,13 +458,19 @@ div.searchHomeForm div.searchform #searchForm {
     padding: 0 0px 500px;
     width:390px;
 }
+.home-section.columns.third .content .popularSearchesWrap{
+    padding-top: 10px;
+}
 .home-section.third .mapSearchHome {
     background:url(../images/map_search_bg.jpg) no-repeat;
     padding:10px 40px 30px;
     height:254px;
     color:#fff;
+}
+.home-section.third .mapSearchHome p {
     font-size:1.1em;
     font-weight:bold;
+    line-height: 1.5em;
 }
 .home-section.third .mapSearchHome .button {
     margin-top:15px;

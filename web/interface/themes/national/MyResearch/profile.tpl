@@ -8,6 +8,7 @@
   {assign var='showHomeLibForm' value=false}
 {/if}
 <div class="myResearch profile{if $sidebarOnLeft} last{/if}">
+  <div class="content">
   <span class="hefty">{translate text='Your Profile'}</span>
     <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
     <div class="profileInfo">
@@ -93,6 +94,7 @@
       {/if}
     </div>
   </div>
-  <div class="clear"></div>
+</div>
+<div class="clear"></div>
 
 <!-- END of: MyResearch/profile.tpl -->

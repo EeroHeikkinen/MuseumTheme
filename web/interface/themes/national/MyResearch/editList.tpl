@@ -1,6 +1,7 @@
 <!-- START of: MyResearch/editList.tpl -->
 
-<h1>{translate text="edit_list"}</h1>
+<h1><span class="content">{translate text="edit_list"}</span></h1>
+<div class="content">
 {if $infoMsg || $errorMsg}
   <div class="messages">
     {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
@@ -21,8 +22,10 @@
       <input id="list_public_1" type="radio" name="public" value="1" {if $list->public == 1}checked="checked"{/if}/> <label for="list_public_1">{translate text="Public"}</label>
       <input id="list_public_0" type="radio" name="public" value="0" {if $list->public == 0}checked="checked"{/if}/> <label for="list_public_0">{translate text="Private"}</label> 
     </fieldset>
-    <input class="button" type="submit" name="submit" value="{translate text="Save"}"/>
+    <input class="button buttonTurquoise" type="submit" name="submit" value="{translate text="Save"}"/>
   </form>
 {/if}
+
+</div>
 
 <!-- END of: MyResearch/editList.tpl -->

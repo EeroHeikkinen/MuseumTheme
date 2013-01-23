@@ -315,7 +315,7 @@ ul.subMenu li:first-child {
     margin: 20px 20px 10px;
 }
 #searchFormHeader {
-    padding:40px 0;
+    padding:10px 0 40px;
     height: 50px;
 }
 
@@ -800,7 +800,6 @@ div.bulkActionButtons select {
     padding: 2px;
 }
 
-
 /** Cart **/
 .cartSummary {
     float:right;
@@ -961,27 +960,54 @@ fieldset.publishDateLimit .ui-slider {
     margin: 0 30px 0 0;
     width: 210px;
 }
+
+#sidebarFavoritesLists a.listAdd,
+#sidebarFavoritesLists .selected,
+#sidebarFavoritesLists .listItem a,
+#sidebarFavoritesLists .hefty,
+#sidebarFavoritesLists .button a {
+    color: #fff;
+}
+   
 #sidebarFavoritesLists a.listAdd {
     margin: 0;
     display: block;
     background-color: #4D4D4D;
-    color: #fff;
     font-weight: bold;
 }
 #sidebarFavoritesLists .hefty {
     display: block;
-    color: #fff;
     background-color: #00A3B5;
     padding: 20px 10px;
+}
+#sidebarFavoritesLists div .hefty {
+    margin-top: 40px;
 }
 #sidebarFavoritesLists ul {
     margin: 1em 0 0 0;
     padding: 0;
 }
 #sidebarFavoritesLists .listItem,
+#sidebarFavoritesLists .tags,
 #sidebarFavoritesLists .editList {
     background-color: #E6E6E6;
     margin-bottom: 5px;
+}
+#sidebarFavoritesLists .tags {
+    margin-bottom: 1px;
+}
+#sidebarFavoritesLists .tags div {
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+#sidebarFavoritesLists .tags .button {
+    margin: 0px 1px 5px 0px;
+    padding: 2px 8px;
+    font-weight: normal;
+}
+#sidebarFavoritesLists .tags .button a {
+    font-weight: normal;
 }
 #sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists .editList a {
@@ -995,7 +1021,6 @@ fieldset.publishDateLimit .ui-slider {
 #sidebarFavoritesLists .selected,
 #sidebarFavoritesLists .listItem a {
     font-weight: bold;
-    color: #fff;
 }
 #sidebarFavoritesLists .selected {
     background-color: #00A3B5;
@@ -1227,7 +1252,7 @@ ul.recordSet .resultColumn1 {
     width: 126px;
 }
 ul.recordSet .resultColumn2 {
-    float: right;
+    float: left;
     width: 534px;
 }
 ul.recordSet .resultCheckbox {
@@ -1499,12 +1524,12 @@ dl.narrowList a {
 .module-Content .main ul {
     list-style-type: disc;
 }
-.module-Content .contentHeader {
+.main .contentHeader {
     background:#f3ec7a;
     padding: 22px 0 24px;
     margin-bottom: 40px;
 }
-.module-Content .contentHeader h1 {
+.main .contentHeader h1 {
     margin:0;
     padding:0;
 }
@@ -1901,14 +1926,18 @@ ul.recordSet .addToFavLink a {
     clear:both;
     background:#e6e6e6;
 }
-/* Result terms */
+/* page titles */
 .resultLinks,
+.module-Search .account,
 .module-MyResearch .account,
+.module-MyResearch h1,
 #advSearchForm h1 {
     margin: 0;
     padding: 0;
 }
+.module-Search .account,
 .module-MyResearch .account,
+.module-MyResearch h1,
 .resultLinks,
 .advSearchHeader,
 .resultTerms {
@@ -2199,7 +2228,10 @@ div.resultLinks a {
 }
 div.record {
     padding: 0;
-    margin: 40px 0 1em 0;
+    margin: 0 0 1em 0;
+}
+.module-MyResearch .record form {
+    padding-top: 20px;
 }
 #resultsCollection div.record, #headingHierarchyCollection div.record {
     margin: -1em 0 0 .5em;
@@ -2832,7 +2864,6 @@ p.citationText {
     display: block;
     text-align: left;
     margin: 0;
-    float: left;
 }
 .myResearch .resultHead h3.fav {
     background-repeat: no-repeat;
@@ -3787,7 +3818,10 @@ span.mapMarker  {
 }
 
 /* Feedback form styles */
-
+form#feedbackForm {
+    overflow:auto;
+    margin-bottom:30px;
+}
 form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select { 
     margin-bottom: 1.2em;
 }
@@ -3797,7 +3831,7 @@ form#feedbackForm input[type=text] {
 }
 
 form#feedbackForm input[type=submit] { 
-    margin-right: 50%; 
+    margin-right:25%;
 }
 
 form#feedbackForm textarea { 
@@ -3812,4 +3846,10 @@ label#urlLabel {
 
 form#feedbackForm input.invalid, form#feedbackForm textarea.invalid { 
     border: 2px solid red;
+}
+
+form#feedbackForm label {
+    display:block;
+    clear:both;
+    text-indent:0;
 }
