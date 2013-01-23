@@ -5,45 +5,47 @@
   {assign var=bookBagItems value=$bookBag->getItems()}
 {/if}
 <div id="headerTop">
+
   <a id="logo" href="{$url}" title="{translate text="Home"}"></a>
-  
   <ul id="headerMenu">
     {include file="header-menu.$userLang.tpl"}
   </ul>
   <div class="lang">
     {if is_array($allLangs) && count($allLangs) > 1}
-      <ul>
-        {foreach from=$allLangs key=langCode item=langName}
-          {if $userLang != $langCode}
-            <li><a href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"|encodeAmpersands}">
-              {translate text=$langName}</a>
-            </li>
-          {/if}
-        {/foreach}
-      </ul>
+    <ul>
+      {foreach from=$allLangs key=langCode item=langName}
+        {if $userLang != $langCode}
+          <li><a href="{$fullPath|removeURLParam:'lng'|addURLParams:"lng=$langCode"|encodeAmpersands}">
+            {translate text=$langName}</a>
+          </li>
+        {/if}
+      {/foreach}
+    </ul>
     {/if}
   </div>
 
 </div>
+
 <div id="headerBottom">
+
   {if $showBreadcrumbs}
-    <div class="breadcrumbs">
-      <div class="breadcrumbinner">
-        <a href="{$url}">{translate text="Home"}</a><span></span>
-        {include file="$module/breadcrumbs.tpl"}
-      </div>
+  <div class="breadcrumbs">
+    <div class="breadcrumbinner">
+      <a href="{$url}">{translate text="Home"}</a><span></span>
+      {include file="$module/breadcrumbs.tpl"}
     </div>
+  </div>
   {/if}
   {if !$showTopSearchBox}
-    <div class="headerInfoBox">
-      <div class="openInfoBox toggleBox">i</div>
-      <div class="closeInfoBox toggleBox">x</div>
-      <div class="infoBoxText"></div>
-    </div>
-    <div class="headerHomeContent">
-      <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">samalla haulla</span></h2><br />
-      <h3>Jo yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
-    </div>
+  <div class="headerInfoBox">
+    <div class="openInfoBox toggleBox">i</div>
+    <div class="closeInfoBox toggleBox">x</div>
+    <div class="infoBoxText"></div>
+  </div>
+  <div class="headerHomeContent">
+    <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">samalla haulla</span></h2><br />
+    <h3>Jo yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
+  </div>
   {/if}
   <div id="searchFormHeader">
     <div class="searchbox">
@@ -57,6 +59,7 @@
       {/if}
     </div>
   </div>
+
 </div>
     
 <!-- END of: header.tpl -->

@@ -2009,7 +2009,7 @@ ul.recordSet .addToFavLink a {
     width:auto;
 }
 .dropdown dt a:after {
-    content:'▼';
+    content:"\25bc";
     padding-left:8px;
 }
 

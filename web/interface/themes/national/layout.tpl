@@ -192,7 +192,9 @@ $(document).ready(function() {
       -->
 
       <div id="header" class="header{if !$showTopSearchBox}-home{/if} {if $module!='Search'}header{$module}{/if} clear">
-        <div class="content">{include file="header.tpl"}</div>
+        <div class="content">
+          {include file="header.tpl"}
+        </div>
       </div>
 
       <div id="main" class="main{if !$showTopSearchBox}-home{/if} clear">
@@ -200,7 +202,9 @@ $(document).ready(function() {
       </div>
 
       <div id="footer" class= "clear">
-        <div class="content"> {include file="footer.tpl"}</div>
+        <div class="content">
+          {include file="footer.tpl"}
+        </div>
       </div>
 
     </div> {* End doc *}
