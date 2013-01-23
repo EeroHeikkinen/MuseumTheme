@@ -3,12 +3,9 @@
 <div id="searchFormContainer" class="searchform last">
 
 {if $searchType != 'advanced'}
-  {* Load labelOver placeholder for input field *}
-  {js filename="jquery.labelOver.js"}
   <script type="text/javascript">
   {literal}
       $(function(){
-          $('label').labelOver('labelOver')
           $('.mainFocus').focus();
       });
   {/literal}

@@ -1,6 +1,8 @@
 /****** Footer ******/
 #footer {
     background: #4d4d4d;
+    position:relative;
+    z-index:100;
 }
 
 #footer h4 {

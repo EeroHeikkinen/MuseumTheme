@@ -1511,12 +1511,12 @@ dl.narrowList a {
 .module-Content .main ul {
     list-style-type: disc;
 }
-.module-Content .contentHeader {
+.main .contentHeader {
     background:#f3ec7a;
     padding: 22px 0 24px;
     margin-bottom: 40px;
 }
-.module-Content .contentHeader h1 {
+.main .contentHeader h1 {
     margin:0;
     padding:0;
 }
@@ -3805,7 +3805,10 @@ span.mapMarker  {
 }
 
 /* Feedback form styles */
-
+form#feedbackForm {
+    overflow:auto;
+    margin-bottom:30px;
+}
 form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select { 
     margin-bottom: 1.2em;
 }
@@ -3815,7 +3818,7 @@ form#feedbackForm input[type=text] {
 }
 
 form#feedbackForm input[type=submit] { 
-    margin-right: 50%; 
+    margin-right:25%;
 }
 
 form#feedbackForm textarea { 
@@ -3830,4 +3833,10 @@ label#urlLabel {
 
 form#feedbackForm input.invalid, form#feedbackForm textarea.invalid { 
     border: 2px solid red;
+}
+
+form#feedbackForm label {
+    display:block;
+    clear:both;
+    text-indent:0;
 }
