@@ -26,13 +26,13 @@ vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
     	  {if $showTreeSearch}
             <div id="treeSearch" >
               <span id="treeSearchNoResults">{translate text="No results"}</span>
-              <input id="search" type="button" value="search">
+              <input id="search" type="button" value="search" />
               <select id="treeSearchType" name="type" >
                 <option value="AllFields">{translate text="All Fields"}</option>
                 <option value="Title">{translate text="Title"}</option>
               </select>
-              <input id="treeSearchText" type="text" value="">
-              <span id="treeSearchLoadingImg"><img src="{$path}/images/loading.gif"/></span>
+              <input id="treeSearchText" type="text" value="" />
+              <span id="treeSearchLoadingImg"><img src="{$path}/images/loading.gif" alt="" /></span>
     	    </div>
     	    <div id="treeSearchLimitReached">{translate text="Your search returned too many results to display in the tree. Showing only the first"} <b>{$treeSearchLimit}</b> {translate text="items. For a full search click"} <a id="fullSearchLink" href="{$treeSearchFullURL}" target="_blank">{translate text="here"}.</a></div>
     	  {/if}
@@ -42,7 +42,9 @@ vufindString.hideTree = "{translate text="hierarchy_hide_tree"}";
               <input type="hidden" value="{$hierarchyID|escape}" class="hiddenHierarchyId" />
               <input type="hidden" value="{$context|escape}" class="hiddenContext" />
             <noscript>
-            {$hierarchyTree}
+              <!--//--><![CDATA[//><!--
+                {$hierarchyTree}
+              //--><!]]>
             </noscript>
           </div>
         </div>

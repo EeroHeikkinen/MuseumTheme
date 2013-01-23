@@ -18,7 +18,7 @@
     {if $img_count > 0}
         <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
     {else}
-        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
+        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" alt="" /></a></div>
     {/if}
 
 {* Multiple images *}
