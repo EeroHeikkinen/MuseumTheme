@@ -267,7 +267,7 @@
             {else}
               {assign var=subject value="$subfield"}
             {/if}
-            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|escape}</a>
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|translate|escape}</a>
           {/foreach}
         </div>
         {/foreach}
