@@ -7,18 +7,13 @@
 
 <p>Finnan käyttäjät voivat hakea tietoa arkistojen, kirjastojen ja museoiden aineistoista. Finnassa on: </p>
 
-<p>
-  <ul>
-  	<li>haettavissa ja selattavissa aineistoja kuvailevaa tekstimuotoista metatietoa</li>
-	<li>mikäli metatietoon liittyvä sisältö on digitaalisena verkossa, Finnassa on linkki sisältöä hallinnoivan organisaation sivustolle</li>
-  </ul>
-</p>
+<p>Haettavissa ja selattavissa aineistoja kuvailevaa tekstimuotoista metatietoa eli kuvailutietoa. Tätä hakutulosten yhteydessä esitettävää metatietoa voivat kaikki käyttää vapaasti.</p>
 
-<p>Finnassa hakutulosten yhteydessä näytettävää metatietoa voivat kaikki käyttää vapaasti. Vuoden 2013 aikana metatiedolle ja sen käytölle valitaan lisenssi.</p>
+<p>Mikäli metatietoon liittyvä aineisto on digitaalisena verkossa, Finnassa on linkki aineistoa hallinnoivan organisaation sivustolle. Näillä sivustoilla oleviin aineistoihin voi liittyä 
+    lakiin tai sopimuksiin liittyviä oikeuksia tai rajoituksia. Oikeuksista ja rajoituksista kerrotaan sisältöjä hallinnoivien organisaatioiden sivustoilla. </p>
 
-<p>Finnasta pääsee linkkien kautta muille sivustoille, joilla oleviin sisältöihin voi liittyä lakiin tai sopimuksiin liittyviä oikeuksia tai rajoituksia. Näistä kerrotaan sisältöjä hallinnoivien organisaatioiden sivustoilla. </p>
-
-<p>Joidenkin hakutulosten kohdalla Finnassa esitetään metatietoihin liittyvän digitaalisen sisällön kuva, esimerkiksi kuva museoesineestä, taideteoksesta, valokuvasta tai kirjan kannesta. Näihin ns. esikatselukuviin voi liittyä käytön rajoituksia samalla tavalla kuin muilla sivustoilla oleviin sisältöihin.</p>
+<p>Joidenkin hakutulosten kohdalla Finnassa näytetään metatietoihin liittyvän digitaalisen aineiston kuva, esimerkiksi kuva museoesineestä, taideteoksesta, valokuvasta tai kirjan kannesta. 
+    Näihin ns. esikatselukuviin voi liittyä käytön rajoituksia samalla tavalla kuin aineistoja hallinnoivien organisaatioiden sivustoilla oleviin aineistoihin.</p>
 
 {/literal}{/capture}
 {include file="$module/content.tpl" title=$title sections=$sections}

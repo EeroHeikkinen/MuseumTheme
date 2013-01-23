@@ -6,8 +6,8 @@
 <h2>Finna-tiedonhakuportaalin asiakasrekisterin seloste</h2>
         
 <p><strong>Rekisterin ylläpitäjä:</strong><br />
-Kirjastoverkkopalvelut<br />
 Kansalliskirjasto<br />
+Kirjastoverkkopalvelut<br />
 PL 26 (Teollisuuskatu 23)<br />
 00014 Helsingin yliopisto<br />
 Puhelin: 09 1911</p>
@@ -48,7 +48,7 @@ Käyttäjän perustiedot:
   </ul>
 </p>
 
-<p><strong>Personoituja toimintoja (Finna) varten kerättävät tiedot:</strong><br />
+<p><strong>Personoituja toimintoja varten kerättävät tiedot:</strong><br />
   <ul>
     <li>Käyttäjän henkilökohtaiset asetukset</li>
     <li>Suosikit</li>
@@ -68,13 +68,14 @@ Käyttäjän perustiedot:
 Tietoja säilytetään ainoastaan sähköisessä muodossa. Tietoihin pääsevät käsiksi ainoastaan järjestelmän ylläpitäjät, jotka tunnistetaan käyttäjätunnuksella ja salasanalla.</p>
 
 <p><strong>Henkilötietojen säilytysaika:</strong><br />
-Henkilötietoja säilytetään palvelussa kunnes 12 kuukautta kuluu viimeisestä kirjautumisesta.</p>
+Henkilötietoja säilytetään palvelussa, kunnes viimeisestä kirjautumisesta on kulunut 12 kuukautta.</p>
 
 <p><strong>Rekisteröidyn tarkistusoikeus:</strong><br />
-Tarkistaaksesi, mitä henkilötietoja sinusta on kerätty palvelimeen, ota yhteys em. yhteyshenkilöön.</p>
+Tarkistaaksesi, mitä henkilötietoja käyttäjästä on kerätty palvelimeen, käyttäjän tulee ottaa yhteys rekisteriasioita hoitavaan henkilöön.</p>
 
 <p><strong>Virheellisten tietojen oikaisu:</strong><br />
-Ota yhteys kotiorganisaatioosi, jos kotiorganisaatiostasi noudettavissa henkilötiedoissa on virheitä. Tarvittaessa voit ottaa yhteyttä em. yhteyshenkilöön.</p>
+Mikäli käyttäjän kotiorganisaatiosta noudettavissa henkilötiedoissa on virheita, käyttäjän tulee ottaa yhteys kotiorganisaatioonsa. 
+Tarvittaessa käyttäjä voi ottaa yhteyttä rekisteriasioita hoitavaan henkilöön.</p>
 
 
 {/literal}{/capture}
