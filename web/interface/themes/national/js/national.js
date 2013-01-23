@@ -3,7 +3,6 @@
  */
 
 $(document).ready(function() {
-    initHeaderBackground();
     initHeaderMenu();
     initContentMenu();
     initCarousel();
@@ -128,20 +127,3 @@ function initContentMenu() {
     }
 }
 
-// Load random header background and related info text
-function initHeaderBackground() {
-    
-    $.get(path+'/Content/headertexts', function(data) {
-        texts = $(data).find('#headerTexts > div');
-        if (texts.length > 0) {
-            var randomNumber =  Math.floor((Math.random()*texts.length)); 
-            var content = texts.eq(randomNumber).html();
-            
-            // Set body background image
-            $('.backgroundContainer').css('background-image', 
-                'url('+path+'/interface/themes/national/images/header_background_'
-                +(randomNumber + 1)+'.jpg').fadeIn(1000);
-            $('#header .infoBoxText').html(content);
-        }
-    });
-}

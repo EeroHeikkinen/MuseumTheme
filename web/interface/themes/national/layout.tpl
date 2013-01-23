@@ -75,10 +75,10 @@
       var path = '{$url}';
     //--><!]]>
     </script>
-
     {* Load jQuery framework and plugins *}
     {js filename="jquery-1.8.0.min.js"}
     {js filename="jquery-ui-1.8.23.custom/js/jquery-ui-1.8.23.custom.min.js"}
+    {js filename="jquery.cookie.js"}
     {js filename="jquery.form.js"}
     {js filename="jquery.metadata.js"}
     {js filename="jquery.validate.min.js"}
@@ -89,6 +89,9 @@
     {js filename="jquery.collapse.js"}
     {js filename="jquery.dynatree-1.2.2-mod.js"}
 
+    {* Load backgrond switcher *}
+    {js filename="bg_switcher.js"}
+    
     {* Load dynamic facets *}
     {js filename="facets.js"}
 

@@ -1,6 +1,5 @@
 <!-- START of: header.tpl -->
 
-{js filename="jquery.cookie.js"}
 {if $bookBag}
   {js filename="cart.js"}
   {assign var=bookBagItems value=$bookBag->getItems()}
