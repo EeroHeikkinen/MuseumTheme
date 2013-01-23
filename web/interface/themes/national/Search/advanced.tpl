@@ -131,6 +131,7 @@
             <label for="illustrated_{$current.value|escape}">{translate text=$current.text}</label><br/>
           {/foreach}
         </fieldset>
+        <div class="clear"></div>
       {/if}
       
       {if $limitList|@count gt 1}
@@ -147,6 +148,7 @@
             {/foreach}
           </select>
         </fieldset>
+        <div class="clear"></div>
       {/if}
         <div class="mapContainer">
           {js filename="jquery.geo.min.js"}
@@ -203,9 +205,7 @@
         {/foreach}
       </div>
     {/if}
-    <div class="sidegroup">
-      <p><a href="{$url}/Content/searchhelp">{translate text="Search Tips"}</a></p>
-    </div>
+    
   </div>
 
   <div class="clear"></div>
