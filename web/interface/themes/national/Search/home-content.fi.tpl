@@ -36,7 +36,7 @@
 </div>
 <div class="home-section third columns clear">
   <div class="content">
-    <div>
+    <div class="popularSearchesWrap">
       <h2 class="color-finnaBlue">10 suosituinta hakua</h2>
       <div id="popularSearches" class="recent-searches">Ladataan...</div>
       {include file="AJAX/loadPopularSearches.tpl"}
