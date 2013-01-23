@@ -156,6 +156,12 @@ class Login extends Action
             $interface->assign('loginTargets', $multiBackend->getLoginDrivers());
             $interface->assign('defaultLoginTarget', isset($_REQUEST['login_target']) ? $_REQUEST['login_target'] : $multiBackend->getDefaultLoginDriver());
         }
+
+        if (isset($configArray['Authentication']['libraryCard'])  && !$configArray['Authentication']['libraryCard']) {
+            $interface->assign('libraryCard', false);
+        } else {
+            $interface->assign('libraryCard', true);
+        }
         
         if (isset($_REQUEST['lightbox'])) {
             $interface->assign('lightbox', true);
