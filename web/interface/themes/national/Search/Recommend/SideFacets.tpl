@@ -73,7 +73,7 @@
           <input type="submit" value="{translate text='Set'}" id="{$title|escape}goButton"/>
         </fieldset>
       </form>
-    {elseif in_array($title, $hierarchicalFacets)}
+      {elseif is_array($hierarchicalFacets) && in_array($title, $hierarchicalFacets)}
       <dl class="narrowList navmenu">
         <dt>{translate text=$cluster.label}</dt>
       </dl>

@@ -839,9 +839,14 @@ div.moreLink {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
+    border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     padding: 1em 0;
-}
+    border-left: 1px solid transparent;
+    padding: 0.5em 0;
+    height: auto;
+ }
+
 div.bulkActionButtons input, div.bulkActionButtons label, div.bulkActionButtons span {
      margin-right: 10px;
 }
@@ -879,6 +884,7 @@ div.bulkActionButtons input.checkbox {
 }
 div.bulkActionButtons select {
     padding: 2px;
+    margin: 2px;
 }
 
 /** Cart **/
@@ -1117,13 +1123,6 @@ fieldset.publishDateLimit .ui-slider {
 .favoritesList .paginationTop, .favoritesList .resultOptions {
     margin: 0.4em 0 0 0;
 }
-.selectAllCheckboxes {
-    margin:  -2px 0 0 14px;
-}
-div.bulkActionButtons {
-    border-top: 1px solid #eeeeee;
-    height: 10px;
-}
 .favoritesList .bulkActionButtons select {
     max-width: 160px;
 }
@@ -1144,6 +1143,10 @@ div.bulkActionButtons {
 .listentry .result .imagelinks, .checkedoutList .result .imagelinks, .holdsList .result .imagelinks {
     padding: 5px 0 0 5px;
 }
+.allCheckboxBackground {
+    margin: 3px 0 0 9px;
+    float: left;
+} 
 
 /* MyResearch/checkedout */
 #resultList.checkedoutList {

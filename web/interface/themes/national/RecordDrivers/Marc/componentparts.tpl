@@ -14,7 +14,7 @@
         <tr valign="top">
             <td>{$componentpart.number|escape}</td>
             <td><a href="{$componentpart.link|escape}">{$componentpart.title|escape}</a></td>
-            <td>{$componentpart.author|escape}</td>
+            <td>{foreach from=$componentpart.authors item=author name=authorloop}{if $smarty.foreach.authorloop.iteration < 4}{if $smarty.foreach.authorloop.iteration > 1} ; {/if}{$author|escape}{/if}{if $smarty.foreach.authorloop.iteration == 4} ...{/if}{/foreach}</td>
         </tr>
         {/foreach}
         {/if}	
