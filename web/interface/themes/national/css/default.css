@@ -3938,6 +3938,12 @@ form#feedbackForm textarea {
     margin-bottom: 0;
 }
 
+form#feedbackForm p { 
+    max-width: 470px;
+    margin-top: 1em;
+    line-height: 1.5em;
+}
+
 label#urlLabel {
     margin-top: 1.2em;
 }

@@ -18,12 +18,12 @@
     <textarea cols="48" rows="10" id="message" name="message" class="{jquery_validation required='This field is required'}">{$message}</textarea>
     <label id="urlLabel" for="url">{translate text='feedback_url'}:</label>
     <input type="text" id="url" name="feedback_url" value="{$feedback_url}" />
-    <p style="margin-top: 1em;">{translate text='feedback_info'}</p>
+    <p>{translate text='feedback_info'}</p>
     <label for="name">{translate text='feedback_name'}:</label>
     <input type="text" id="name" name="name" value="{$name}" />
     <label for="email">{translate text='Email'}:</label>
     <input type="text" id="email" name="email" class="{jquery_validation email='Email address is invalid'}" value="{$from}" />
-    <p style="margin-top: 1em;">{translate text='feedback_info_captcha'}</p>
+    <p>{translate text='feedback_info_captcha'}</p>
     <label for="question">{translate text='feedback_captcha_question'}:</label>
     <input type="text" id="question" name="question" class="{jquery_validation required='This field is required'}" value="" />
     <br />
