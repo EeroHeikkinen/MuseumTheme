@@ -3,8 +3,12 @@
 {if $id|substr:0:7 == 'helmet.'}
   <br/>
   <span class="native_link">
-    <a href="http://haku.helmet.fi/iii/encore/record/C|R{$id|substr:7|escape}">{translate text='Holdings details from'} HelMet</a><br/>
+    <a href="http://haku.helmet.fi/iii/encore/record/C|R{$id|substr:7|escape}" target="_blank">{translate text='Holdings details from'} HelMet</a><br/>
   </span>
+{/if}
+
+{if !empty($holdings)}
+<h3>{translate text=$source prefix='source_'}</h3>
 {/if}
 
 {if !$hideLogin && $offlineMode != "ils-offline"}
@@ -15,7 +19,9 @@
       </div>
     {/if}
     {if $user && !$user->cat_username}
-      {include file="MyResearch/catalog-login.tpl"}
+      <div class="userMsg">
+        <a href="{$path}/MyResearch/Profile">{translate text="Add an account to place holds"}</a>
+      </div>
     {/if}
   {/if}
 {/if}
@@ -31,7 +37,7 @@
   <h5>{translate text="Internet"}</h5>
   {if !empty($holdingURLs)}
     {foreach from=$holdingURLs item=desc key=currentUrl name=loop}
-      <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
+      <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|translate_prefix:'link_'|escape}</a><br/>
     {/foreach}
   {/if}
   {if $holdingsOpenURL}

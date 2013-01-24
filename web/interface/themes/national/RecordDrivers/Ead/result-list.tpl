@@ -18,7 +18,7 @@
     {if $img_count > 0}
         <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
     {else}
-        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" alt="" /></a></div>
+        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
     {/if}
 
 {* Multiple images *}
@@ -120,7 +120,7 @@
           {/if}
           <div class="resultContentList">
           {foreach from=$summURLs key=recordurl item=urldesc}
-          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank" title="{$recordurl|escape}">{if $recordurl == $urldesc}{$recordurl|truncate_url|escape}{else}{$urldesc|escape}{/if}</a>
+          <a href="{$recordurl|proxify|escape}" class="fulltext" target="_blank" title="{$recordurl|escape}">{if $recordurl == $urldesc}{$recordurl|truncate_url|escape}{else}{$urldesc|translate_prefix:'link_'|escape}{/if}</a>
           {/foreach}
           </div>
         </div>
@@ -176,7 +176,7 @@
       {foreach from=$summHierarchy key=hierarchyID item=hierarchyTitle}
       <div class="hierarchyTreeLink">
         <input type="hidden" value="{$hierarchyID|escape}" class="hiddenHierarchyId" />
-        <a id="hierarchyTree{$summId|escape}" class="hierarchyTreeLinkText" href="{$path}/Record/{$summId|escape:"url"}/HierarchyTree?hierarchy={$hierarchyID}#tabnav" title="{if $coreShortTitle}{$coreShortTitle|truncate:150:"&nbsp;..."|urlencode}{else}{translate text="hierarchy_tree"}{/if}">
+        <a id="hierarchyTree{$summId|escape}" class="hierarchyTreeLinkText" href="{$url}/Record/{$summId|escape:"url"}/HierarchyTree?hierarchy={$hierarchyID}#tabnav" title="{if $coreShortTitle}{$coreShortTitle|truncate:150:"&nbsp;..."|urlencode}{else}{translate text="hierarchy_tree"}{/if}">
           {if count($summHierarchy) == 1}
             {translate text="hierarchy_view_context"}
           {else}

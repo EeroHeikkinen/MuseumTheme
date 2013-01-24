@@ -110,7 +110,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {/if}
 
     <div class="bulkActionButtons">
-      <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
+      <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes" name="selectAll" id="addFormCheckboxSelectAll" /></div>
       <div class="floatright"><strong>{translate text="with_selected"}: </strong>
       {if $bookBag}
         <a id="updateCart" class="bookbagAdd offscreen" href="">{translate text='Add to Book Bag'}</a>
@@ -130,7 +130,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <select name="copy">
           <option value="">{translate text="copy_to_list"}</option>
           {foreach from=$listList item=listItem}
-            {$listItem->id} != {$list->id}
             {if !$list || $listItem->id != $list->id}
           <option value="{$listItem->id|escape}">{$listItem->title|escape:"html"}</option>
             {/if}
@@ -141,7 +140,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         {if is_array($exportOptions) && count($exportOptions) > 0}
         <input type="submit" class="button" name="export" value="{translate text='export_expanding'}" title="{translate text='export_expanding'}"/>
         {/if}
-        <input type="submit" class="button" name="print" value="{translate text='Print'}" title="{translate text='print_selected'}"/>
         {if $listEditAllowed}<input id="delete_list_items_{if $list}{$list->id|escape}{/if}" type="submit" class="button" name="delete" value="{translate text='Delete'}" title="{translate text='delete_selected'}"/>{/if}
       </div>
       <div class="clear"></div>

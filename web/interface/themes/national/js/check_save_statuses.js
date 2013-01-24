@@ -6,6 +6,11 @@ $(document).ready(function() {
         var $dialog = getLightbox('Record', 'Save', id, null, this.title, 'Record', 'Save', id);
         return false;
     });    
+    $('a.saveMetaLibRecord').click(function() {
+        var id = this.id.substr('saveRecord'.length);
+        var $dialog = getLightbox('MetaLib', 'Save', id, null, this.title, 'MetaLib', 'Save', id);
+        return false;
+    });    
 });
 
 function checkSaveStatuses() {

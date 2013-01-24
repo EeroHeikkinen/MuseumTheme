@@ -55,7 +55,7 @@
 
           <div class="resultItemLine4">
             {foreach from=$record.url key=recordurl item=urldesc}
-              <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank" title="{$recordurl}">{if $recordurl == $urldesc}{$recordurl|truncate_url}{else}{$urldesc|escape}{/if}</a>
+              <br/><a href="{if $record.proxy}{$recordurl|proxify|escape}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank" title="{$recordurl}">{if $recordurl == $urldesc}{$recordurl|truncate_url}{else}{$urldesc|translate_prefix:'link_'|escape}{/if}</a>
             {/foreach}
             {if $openUrlBase && $record.openUrl}
               {if $record.url}<br/>{/if}
@@ -67,7 +67,7 @@
         </div>
       
         <div class="span-3 last addToFavLink">
-          <a id="saveRecord{$record.ID.0|escape}" href="{$url}/MetaLib/Save?id={$record.ID.0|escape:"url"}" class="fav tool saveRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
+          <a id="saveRecord{$record.ID.0|escape}" href="{$url}/MetaLib/Save?id={$record.ID.0|escape:"url"}" class="fav tool saveMetaLibRecord" title="{translate text='Add to favorites'}">{translate text='Add to favorites'}</a>
       
           {* Display the lists that this record is saved to *}
           <div class="savedLists info hide" id="savedLists{$record.ID.0|escape}">

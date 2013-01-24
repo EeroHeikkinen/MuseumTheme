@@ -267,7 +267,7 @@
             {else}
               {assign var=subject value="$subfield"}
             {/if}
-            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|escape}</a>
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|translate|escape}</a>
           {/foreach}
         </div>
         {/foreach}
@@ -306,7 +306,7 @@
       <th>{translate text='Online Access'}: </th>
       <td>
         {foreach from=$coreURLs item=desc key=currentUrl name=loop}
-          <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
+          <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|translate_prefix:'link_'|escape}</a><br/>
         {/foreach}
         {if $coreOpenURL}
           {include file="Search/openurl.tpl" openUrl=$coreOpenURL}

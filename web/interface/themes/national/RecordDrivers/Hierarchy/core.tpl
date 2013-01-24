@@ -151,7 +151,7 @@
       <th>{translate text='Online Access'}: </th>
       <td>
         {foreach from=$coreURLs item=desc key=currentUrl name=loop}
-          <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
+          <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|translate_prefix:'link_'|escape}</a><br/>
         {/foreach}
         {if $coreOpenURL}
           {include file="Search/openurl.tpl" openUrl=$coreOpenURL}<br/>

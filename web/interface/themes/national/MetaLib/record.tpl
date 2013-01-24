@@ -18,7 +18,7 @@
       </li>
       {/if}
       *}
-      <li id="saveLink"><a href="{$url}/MetaLib/Save?id={$id|escape:"url"}" class="saveRecord metalibRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
+      <li id="saveLink"><a href="{$url}/MetaLib/Save?id={$id|escape:"url"}" class="saveMetaLibRecord metalibRecord fav" id="saveRecord{$id|escape}" title="{translate text="Add to favorites"}">{translate text="Add to favorites"}</a></li>
     </ul>
     <div class="clear"></div>
   </div>
@@ -149,7 +149,7 @@
       {foreach from=$record.url key=recordurl item=urldesc}
       <tr valign="top">
         <th></th>
-        <td><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{$urldesc|escape}</a></td>
+        <td><a href="{if $record.proxy}{$recordurl|proxify|escape}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank">{$urldesc|translate_prefix:'link_'|escape}</a></td>
       </tr>
       {/foreach}
       {if $openUrlBase && $record.openUrl}

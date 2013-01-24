@@ -7,7 +7,10 @@
 {if $showPreviews}
 {js filename="preview.js"}
 {/if}
+{if $metalibEnabled}
 {js filename="metalib_links.js"}
+{/if}
+
 {include file="Search/rsi.tpl"}
 {include file="Search/openurl_autocheck.tpl"}
 

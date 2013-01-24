@@ -18,7 +18,7 @@
 {assign var=loginNumber value=0}
 
   <div class="contentHeader loginContentHeader"><div class="content"><h1>{translate text='Login'}</h1></div></div>
-  <div class="content">
+  <div class="content loginForm">
   {if $message}<div class="error" id="errormessage">{$message|translate}</div>{/if}
   <div class="loginTitle">
     {translate text='login_choices'}
@@ -64,7 +64,7 @@ $(document).ready(function() {
   </div>
   {/if}
 
-  {if $authMethod != 'Shibboleth'}
+    {if $libraryCard && $authMethod != 'Shibboleth'}
     {assign var=loginNumber value=$loginNumber+1}
     {if $mozillaPersona || $sessionInitiator}
   <div class="separator{$lbSmall}"><span class="text">{translate text="login_separator"}</span></div>

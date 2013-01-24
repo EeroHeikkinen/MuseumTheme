@@ -3,7 +3,7 @@
 {assign var="title" value="Rekisteriseloste"}
 {capture append="sections"}{literal}
 
-<h2>Finna-tiedonhakuportaalin asiakasrekisterin seloste</h2>
+<h2>Finnan asiakasrekisterin seloste</h2>
         
 <p><strong>Rekisterin ylläpitäjä:</strong><br />
 Kansalliskirjasto<br />

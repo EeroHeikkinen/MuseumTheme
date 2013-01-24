@@ -14,12 +14,21 @@
   {/if}
   <p>{translate text='cat_establish_account'}</p>
   <form method="post" action="">
+    {if $loginTargets}
+      <select id="login_target" name="login_target">
+      {foreach from=$loginTargets item=target}
+        <option value="{$target}"{if $target == $defaultLoginTarget} selected="selected"{/if}>{translate text=$target prefix='source_'}</option>
+      {/foreach}
+      </select>
+      <br class="clear"/>
+    {/if}
+  
     <label class="displayBlock" for="profile_cat_username">{translate text='Library Catalog Username'}:</label>
     <input id="profile_cat_username" type="text" name="cat_username" value="" size="25"/>
     <label class="displayBlock" for="profile_cat_password">{translate text='Library Catalog Password'}:</label>
     <input id="profile_cat_password" type="text" name="cat_password" value="" size="25"/>
     <br/>
-    <input type="submit" name="submit" value="{translate text="Save"}"/>
+    <input type="submit" class="button buttonTurquoise" name="submit" value="{translate text="Save"}"/>
 
     {if $followup}
       <input type="hidden" name="followup" value="{$followup|escape}"/>
