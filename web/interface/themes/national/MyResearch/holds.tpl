@@ -30,8 +30,8 @@
     <div class="bulkActionButtons">
         <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
         <div class="floatright">
-          <input type="submit" class="button holdCancel" name="cancelSelected" value="{translate text="hold_cancel_selected"}" onClick="return confirm('{translate text="confirm_hold_cancel_selected_text}')" />
-          <input type="submit" class="button holdCancelAll" name="cancelAll" value="{translate text='hold_cancel_all'}" onClick="return confirm('{translate text="confirm_hold_cancel_all_text}')" />
+          <input type="submit" class="button holdCancel" name="cancelSelected" value="{translate text="hold_cancel_selected"}" onclick="return confirm('{translate text="confirm_hold_cancel_selected_text}')" />
+          <input type="submit" class="button holdCancelAll" name="cancelAll" value="{translate text='hold_cancel_all'}" onclick="return confirm('{translate text="confirm_hold_cancel_all_text}')" />
         </div>
       </div>
     {/if}
@@ -58,7 +58,7 @@
 				{if $img_count > 0}
 					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
 				{else}
-					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" alt="" /></a></div>
 				{/if}
 			
 			{* Multiple images *}
@@ -219,7 +219,7 @@
         {if $img_count > 0}
           <div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
         {else}
-          <div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
+          <div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" alt="" /></a></div>
         {/if}
       
       {* Multiple images *}
@@ -336,6 +336,7 @@
     </form>
     {else}
       <div class="noContentMessage">{translate text='You do not have any holds or recalls placed'}.</div>
+      </form>
     {/if}
   {else}
     {include file="MyResearch/catalog-login.tpl"}
@@ -344,6 +345,6 @@
 </div>
 
 <div class="clear"></div>
-</div>
+<!--/div -->
 
 <!-- END of: MyResearch/holds.tpl -->

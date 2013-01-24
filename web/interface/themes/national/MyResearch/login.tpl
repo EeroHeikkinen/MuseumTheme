@@ -100,7 +100,7 @@ $(document).ready(function() {
       {/if}
       <div class="clear"></div>
     </form>
-    <script>
+    <script type="text/javascript">
       {literal}
       $(document).ready(function() {
         $("#loginForm").validate();      
