@@ -1214,7 +1214,8 @@ fieldset.publishDateLimit .ui-slider {
     font-weight: normal;
 }
 .main .loginForm {
-    margin: 0 12px;
+    padding-bottom:20px;
+    overflow:auto;
 }
 .loginForm label {
     font-size: 1em;

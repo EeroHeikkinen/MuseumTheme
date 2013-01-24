@@ -18,7 +18,7 @@
 {assign var=loginNumber value=0}
 
   <div class="contentHeader loginContentHeader"><div class="content"><h1>{translate text='Login'}</h1></div></div>
-  <div class="content">
+  <div class="content loginForm">
   {if $message}<div class="error" id="errormessage">{$message|translate}</div>{/if}
   <div class="loginTitle">
     {translate text='login_choices'}
