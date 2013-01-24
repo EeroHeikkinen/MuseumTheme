@@ -5,7 +5,7 @@
     <li>
       <a href="{$path}/Content/about">
         <span>Tietoa Finnasta</span>
-        <span>Perustietoa Finnasta ja mukana olevat organisaatiot</span>
+        <span>Perustietoa Finnasta ja sen sisällöistä</span>
       </a>
     </li>
     <li>
@@ -17,7 +17,7 @@
     <li>
       <a href="{$path}/Content/register_details">  
         <span>Rekisteriseloste</span>
-        <span>Finna-tiedonhakuportaalin asiakasrekisterin seloste</span>
+        <span>Finnan asiakasrekisterin seloste</span>
       </a>
     </li>
   </ul>
