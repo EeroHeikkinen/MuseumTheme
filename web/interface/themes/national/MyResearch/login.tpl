@@ -16,8 +16,9 @@
   {assign var=lbSmall value='Small'}
 {/if}
 {assign var=loginNumber value=0}
-<div class="loginForm">
-  <h2>{translate text='Login'}</h2>
+
+  <div class="contentHeader loginContentHeader"><div class="content"><h1>{translate text='Login'}</h1></div></div>
+  <div class="content">
   {if $message}<div class="error" id="errormessage">{$message|translate}</div>{/if}
   <div class="loginTitle">
     {translate text='login_choices'}
@@ -87,7 +88,7 @@ $(document).ready(function() {
       <br class="clear"/>
       <input id="login_password" type="password" name="password" class="{jquery_validation required='This field is required'}"/>
       <br class="clear"/>
-      <input class="button" type="submit" name="submit" value="{translate text='Login'}"/>
+      <input class="button buttonTurquoise" type="submit" name="submit" value="{translate text='Login'}"/>
       {if $followup}<input type="hidden" name="followup" value="{$followup}"/>{/if}
       {if $followupModule}<input type="hidden" name="followupModule" value="{$followupModule}"/>{/if}
       {if $followupAction}<input type="hidden" name="followupAction" value="{$followupAction}"/>{/if}

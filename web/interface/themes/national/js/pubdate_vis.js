@@ -21,8 +21,10 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
             max: currentYear, 
             tickDecimals: 0, 
             font :{
-                size: 12,
-                family: "'helvetica neue', helvetica,arial,sans-serif"
+                size: 13,
+                family: "'helvetica neue', helvetica,arial,sans-serif",
+                color:'#000',
+                weight:'bold'
             }                   
         },
         yaxis: { min: 0, ticks: [] },

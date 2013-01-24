@@ -27,7 +27,7 @@
     <label for="question">{translate text='feedback_captcha_question'}:</label>
     <input type="text" id="question" name="question" class="{jquery_validation required='This field is required'}" value="" />
     <br />
-    <input type="submit" id="submit" name="submit" class="button buttonTurquoise right" value="{translate text='Send'}" />
+    <input type="submit" id="submit" name="submit" class="button buttonTurquoise" value="{translate text='Send'}" />
 </form>
 <script>
   {literal}

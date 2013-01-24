@@ -1,6 +1,5 @@
 <!-- START of: MyResearch/account.tpl -->
-
-<h2>{translate text="User Account"}</h2>
+<div class="contentHeader"><div class="content"><h1>{translate text="User Account"}</h1></div></div>
 
 {if $message}<div class="error">{$message|translate}</div>{/if}
 
