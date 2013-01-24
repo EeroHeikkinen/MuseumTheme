@@ -28,7 +28,7 @@
     <label class="displayBlock" for="profile_cat_password">{translate text='Library Catalog Password'}:</label>
     <input id="profile_cat_password" type="text" name="cat_password" value="" size="25"/>
     <br/>
-    <input type="submit" name="submit" value="{translate text="Save"}"/>
+    <input type="submit" class="button buttonTurquoise" name="submit" value="{translate text="Save"}"/>
 
     {if $followup}
       <input type="hidden" name="followup" value="{$followup|escape}"/>

@@ -42,7 +42,7 @@
             {/foreach}{/foreach}</td>
             <td style="text-align:right">{$info.hits}</td>
             <td>
-              <select name="schedule" onchange="javascript:window.location='{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history&amp;schedule=' + $(this).attr('value'); return false;">
+              <select id="{$info.searchId|escape:"html"}" class="styledDropdowns" name="schedule" onchange="javascript:window.location='{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history&amp;schedule=' + $(this).attr('value'); return false;">
                 <option value="0"{if $info.schedule == 0} selected="selected"{/if}>{translate text="schedule_none"}</option>
                 <option value="1"{if $info.schedule == 1} selected="selected"{/if}>{translate text="schedule_daily"}</option>
                 <option value="2"{if $info.schedule == 2} selected="selected"{/if}>{translate text="schedule_weekly"}</option>

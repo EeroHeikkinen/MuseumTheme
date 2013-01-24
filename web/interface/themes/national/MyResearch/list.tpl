@@ -19,6 +19,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 {include file="MyResearch/menu.tpl"}
 
 <div class="myResearch">
+  <div class="content">
   <div class="resultHead">
   {if $errorMsg || $infoMsg}
     <div class="messages">
@@ -29,13 +30,34 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   </div>
   <div id="sidebarFavoritesLists">
   {if $listList}
-    <span class="hefty">{translate text='Your Lists'}</span> <a href="{$url}/MyResearch/ListEdit" class="listAdd add" id="listAdd" title="{translate text='Create a List'}">{translate text='Create a List'}</a>
+    <span class="hefty">{translate text='Your Lists'}</span>
     
     <ul>
       {foreach from=$listList item=listItem}
       <li>
         {if $list && $listItem->id == $list->id}
         <div class="selected">{$listItem->title|escape:"html"}&nbsp;<span class="favoritesCount">({$listItem->cnt})</span></div>
+        {if $tagList}
+            <div class="tags">
+              <div>{if $list}{translate text='Tags'}{else}{translate text='Your Tags'}{/if}</div>
+              {if $tags}
+              <ul>
+                {foreach from=$tags item=tag}
+                <li>{translate text='Tag'}: {$tag|escape:"html"}
+                  <a href="{$url}/MyResearch/{if $list}MyList/{$list->id}{else}Favorites{/if}?{foreach from=$tags item=mytag}{if $tag != $mytag}tag[]={$mytag|escape:"url"}&amp;{/if}{/foreach}">X</a>
+                </li>
+                {/foreach}
+              </ul>
+              {/if}
+
+              <ul>
+              {foreach from=$tagList item=tag}
+                <li class="button buttonTurquoise"><a href="{$url}/MyResearch/{if $list}MyList/{$list->id}{else}Favorites{/if}?tag[]={$tag->tag|escape:"url"}{foreach from=$tags item=mytag}&amp;tag[]={$mytag|escape:"url"}{/foreach}">{$tag->tag|escape:"html"}</a> ({$tag->cnt})</li>
+                {/foreach}
+              </ul>
+            </div>
+        {/if}
+
           {if $listEditAllowed}
         
         <div class="editList">
@@ -49,26 +71,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
       </li>
      {/foreach}
     </ul>
-  {/if}
-  {if $tagList}
-    <div>
-      <span class="hefty">{if $list}{translate text='Tags'}: {$list->title|escape:"html"}{else}{translate text='Your Tags'}{/if}</span>
-      {if $tags}
-      <ul>
-        {foreach from=$tags item=tag}
-        <li>{translate text='Tag'}: {$tag|escape:"html"}
-          <a href="{$url}/MyResearch/{if $list}MyList/{$list->id}{else}Favorites{/if}?{foreach from=$tags item=mytag}{if $tag != $mytag}tag[]={$mytag|escape:"url"}&amp;{/if}{/foreach}">X</a>
-        </li>
-        {/foreach}
-      </ul>
-      {/if}
-            
-      <ul>
-      {foreach from=$tagList item=tag}
-        <li><a href="{$url}/MyResearch/{if $list}MyList/{$list->id}{else}Favorites{/if}?tag[]={$tag->tag|escape:"url"}{foreach from=$tags item=mytag}&amp;tag[]={$mytag|escape:"url"}{/foreach}">{$tag->tag|escape:"html"}</a> ({$tag->cnt})</li>
-        {/foreach}
-      </ul>
-    </div>
+    <a href="{$url}/MyResearch/ListEdit" class="listAdd add" id="listAdd" title="{translate text='Create a List'}">{translate text='Create a List'}</a>
   {/if}
   </div>
 
@@ -158,6 +161,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {include file="Search/paging.tpl"}
   {else}
     <div class="noContentMessage">{translate text='You do not have any saved resources'}</div>
+  </div>
   {/if}
   </div>
 </div>

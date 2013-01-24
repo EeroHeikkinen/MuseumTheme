@@ -3,6 +3,7 @@
 {include file="MyResearch/menu.tpl"}
 
 <div class="myResearch finesList{if $sidebarOnLeft} last{/if}">
+  <div class="content">
   <span class="hefty">{translate text='Your Fines'}</span>
   {if $user->cat_username}
   <div class="resultHead"></div>
@@ -49,6 +50,7 @@
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
+  </div>
 </div>
 <div class="clear"></div>
 

@@ -38,7 +38,7 @@
         </div>
       {/if}
       <div class="profileGroup">
-        <input class="button" type="submit" value="{translate text='Save'}" />
+        <input class="button buttonTurquoise" type="submit" value="{translate text='Save'}" />
       </div>
     </div>
     </form>
