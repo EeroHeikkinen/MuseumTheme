@@ -1211,7 +1211,7 @@ fieldset.publishDateLimit .ui-slider {
 }
 .loginForm h3 {
     font-size: 1em;
-    font-weight: normal;
+    font-weight: bold;
 }
 .main .loginForm {
     padding-bottom:20px;
@@ -1236,7 +1236,7 @@ fieldset.publishDateLimit .ui-slider {
 .loginForm .separator, .loginForm .separatorSmall {
     clear: left;
     float: left;
-    margin: 24px 0 6px 0;
+    margin: 18px 0;
     padding: 0;
     border-top: 1px solid #dddddd;
     background: none;
@@ -1261,6 +1261,10 @@ fieldset.publishDateLimit .ui-slider {
 }
 .loginForm .loginTitle {
     margin-bottom: 1em;
+}
+.loginTitle {
+    font-weight: bold;
+    font-size: 1.230em;
 }
 .loginForm .loginDescription {
     float: left;
