@@ -114,14 +114,13 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
     text-decoration: none;
 }
 
-.menuAbout a:hover, .menuFeedback a:hover, .menuHelp a:hover, .menuSearch a:hover, 
-.menuLogin a:hover, .menuAbout a:focus, .menuFeedback a:focus, .menuHelp a:focus, 
-.menuSearch a:focus, .menuLogin a:focus {
+#headerMenu li a:hover span:first-child,
+#headerMenu li a:focus span:first-child{
     color: #fdf07f;
     text-decoration: none;
 }
 
-li a:hover .submenuText, li a:focus .submenuText {
+#headerMenu li a:hover span, #headerMenu li a:focus span {
     color: #fff;
     text-decoration: none;
 }
