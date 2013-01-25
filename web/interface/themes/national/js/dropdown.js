@@ -43,7 +43,8 @@ function createDropdowns(){
         var selected = source.find("option:selected");
         var options = $("option", source);
         var idName = $(this).attr("id");
-        var target = 'styled_'+idName;
+        var nameName = $(this).attr("name");
+        var target = 'styled_'+idName+nameName;
 
         $(this).hide().addClass('stylingDone').before('<dl id="'+target+'" class="dropdown ' + idName + '"></dl>');
         $('#'+target).append('<dt><a href="#">' + selected.text() + 
