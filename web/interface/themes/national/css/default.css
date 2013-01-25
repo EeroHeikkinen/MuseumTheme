@@ -20,7 +20,7 @@ body {
     background-size: 100% auto;
     width:100%;
     position:absolute;
-    max-height: 550px;
+    max-height: 600px;
     height:100%;
     overflow: hidden;
 }
@@ -1634,6 +1634,9 @@ dl.narrowList a {
 .main .contentHeader.loginContentHeader h1 {
     background: #D8F4ED;
 }
+.main .contentHeader.noResultHeader {
+    background: #B3E3E9;
+}
 .module-Content .contentSection {
     overflow:auto;
     padding-bottom:10px;
@@ -3107,14 +3110,7 @@ div.fieldValue {
 
 /** system unavailable and other fatal error pages */
 div.unavailable, div.fatalError {
-    margin:5em auto 5em auto;
-    padding: 2em 5em;
-    width: 65%;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-
-    behavior: url(css3pie/PIE.php); /* for IE */
+    margin-bottom:40px;
 }
 
 /** Open Library Subjects **/

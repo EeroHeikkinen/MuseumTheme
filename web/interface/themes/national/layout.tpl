@@ -198,7 +198,9 @@ $(document).ready(function() {
       </div>
 
       <div id="main" class="main{if !$showTopSearchBox}-home{/if} clear">
+        {if $errorPage}{$errorContent}{else}
         {include file="$module/$pageTemplate"}
+        {/if}
       </div>
 
       <div id="footer" class= "clear">
