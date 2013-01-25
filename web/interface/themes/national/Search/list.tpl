@@ -96,7 +96,7 @@
 
   <div class="resultDatesHeader {if !empty($visFacets.main_date_str[0])}expanded{/if}">
     <div class="content">
-      <span class="dateVisHandle">Tulokset aikajanalla</span>
+      <span class="dateVisHandle">Tulokset aikajanalla<span class="dateVisHelp {if !empty($visFacets.main_date_str[0])}visible{/if}"><span class="infoIndicator">i</span>maalaa hiirellä haluamasi vuosirajaus.</span></span>
       <div class="dateVisHandle dateVisOpen {if empty($visFacets.main_date_str[0])}visible{/if}"></div>
       <div class="dateVisHandle dateVisClose {if !empty($visFacets.main_date_str[0])}visible{/if}"></div>
     </div>

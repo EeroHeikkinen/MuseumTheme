@@ -105,6 +105,7 @@ function initDateVisHandle() {
            $('div.dateVisHandle').not('.visible').fadeIn(300, function() {
                $('div.dateVisHandle.visible').fadeOut(300);
                $('div.dateVisHandle').toggleClass('visible');
+               $('.dateVisHelp').fadeToggle(200);
            });
     }
 }
