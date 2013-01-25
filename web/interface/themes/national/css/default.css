@@ -115,7 +115,7 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
 }
 
 #headerMenu li a:hover span:first-child,
-#headerMenu li a:focus span:first-child{
+#headerMenu li a:focus span:first-child {
     color: #fdf07f;
     text-decoration: none;
 }
@@ -748,7 +748,9 @@ body > .ui-widget .button {
 }
 
 .keepFilters {
-    padding-top: .5em;
+    clear: both;
+    position: relative;
+    top: 8px;
 }
 .keepFilters input {
     margin-top: .15em;
