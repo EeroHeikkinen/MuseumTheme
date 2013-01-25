@@ -343,9 +343,9 @@ The plugin allso adds the following methods to the plot object:
 
                 var c = $.color.parse(o.selection.color);
 
-                ctx.strokeStyle = c.scale('a', 0.8).toString();
-                ctx.lineWidth = 1;
-                ctx.lineJoin = "round";
+                ctx.strokeStyle = c.scale('a', 1).toString();
+                ctx.lineWidth = 2;
+                ctx.lineJoin = "miter";
                 ctx.fillStyle = c.scale('a', 0.4).toString();
 
                 var x = Math.min(selection.first.x, selection.second.x),

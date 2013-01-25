@@ -11,7 +11,7 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
                 show: true,
                 fill: true,
                 lineWidth:0,
-                fillColor: "#00a3b5",
+                fillColor: "#aaaaaa",
                 shadow:0
             }
         },
@@ -28,7 +28,7 @@ function loadVis(facetFields, searchParams, baseURL, zooming, collection, collec
             }                   
         },
         yaxis: { min: 0, ticks: [] },
-        selection: {mode: "x", color:'#d9f1f4'},
+        selection: {mode: "x", color:'#00a3b5;'},
         grid: { 
             backgroundColor: null, 
             borderWidth:0,
