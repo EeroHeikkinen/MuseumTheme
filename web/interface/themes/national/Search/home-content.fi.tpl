@@ -1,4 +1,5 @@
 <!-- START of: Search/home-content.fi.tpl -->
+
 <div class="home-section first columns clear">
   <div class="content">
     <div>
@@ -42,7 +43,6 @@
       {include file="AJAX/loadPopularSearches.tpl"}
     </div>
     <div>
-      {assign var="user" value="true"}
       {if $user}
         <div class="mapSearchHome">
           <h2>Kokeile karttahakua</h2>
@@ -58,4 +58,5 @@
     </div>
   </div>
 </div>
+    
 <!-- END of: Search/home-content.fi.tpl -->
