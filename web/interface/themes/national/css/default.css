@@ -2106,6 +2106,7 @@ ul.recordSet .addToFavLink a {
 }
 .resultOptions label,
 .advRow label,
+.advSearchFooter label,
 .searchGroupDetails label,
 .groupSearchDetails label,
 .resultOptionSort label,
@@ -2115,6 +2116,12 @@ ul.recordSet .addToFavLink a {
     text-indent:0 !important;
         font-size:1em;
     line-height:1em;
+    padding: 2px 8px 12px 15px;
+}
+.resultOptions label,
+.advSearchFooter label,
+.resultOptionSort label,
+.resultOptionLimit label {
     padding: 10px 8px 12px 15px;
 }
 .dropdown {
@@ -2895,12 +2902,24 @@ p.citationText {
     width: 96%;
 }
 .groupSearchHolder {
-    clear: both;
-    padding: 10px 10px 5px;
+    width: 65%;
+    padding: 10px 0px 5px;
 }
 .groupSearchHolder .advRow {
     padding: 1px 0px;
-    clear:both;
+    background-image: url("../images/multiple_search_fields_left.png");
+    background-position: 100% -1px;;
+    background-repeat: no-repeat;
+
+}
+.groupSearchHolder .advRow:first-child {
+    background-position: 100% 10px;
+}
+.groupSearchHolder .advRow.last {
+    background-position: 100% -88px;
+}
+.groupSearchHolder .advRow.last:first-child {
+    background-image: none;
 }
 .groupSearchHolder .advRow div {
     float: left;
@@ -2914,14 +2933,19 @@ p.citationText {
     float: left;
 }
 .groupSearchHolder .label, .groupSearchHolder .join {
-    width: 140px;
     text-align: right;
 }
 .addSearch {
-    padding: 0px 0px 4px 165px;
+    padding: 0px 0px 4px 100px;
+    width:50%;
+    float:left;
+}
+.deleteSearchGroup {
+    float:right;
+    width: 30%;
+    text-align: right;
 }
 .groupSearchHolder .terms {
-    padding-top: 7px;
     width: 250px;
 }
 .groupSearchHolder .terms input {
@@ -2933,24 +2957,32 @@ p.citationText {
     float: right;
     text-align: right;
     padding: 3px 5px;
+    margin: 0;
+    position: absolute;
+    left: 65%;
+    top: 50%;
+    margin-top: -16px;
+    background-image: url("../images/multiple_search_fields_right.png");
+    padding-left: 15px;
+    background-position: 0px 13px;
+    background-repeat: no-repeat;
 }
 .group0 .groupSearchDetails {
-    border: 1px solid #D8D7D8;
-    border-top: 0px;
 }
 .group1 .groupSearchDetails {
-    border: 1px solid #D8D7D8;
-    border-top: 0px;
 }
 #searchHolder .group0 {
-    border-top : 1px solid #D8D7D8;
-    background: #fff;
 }
 #searchHolder .group1 {
-    border-top : 1px solid #D8D7D8;
-    background: #eee;
 }
 #searchHolder .group {
+    clear: both;
+    overflow: hidden;
+    background: #eee;
+    margin-bottom: 1em;
+}
+.group .searchRelated {
+    position: relative;
 }
 .searchGroups {
     margin-bottom: 30px;
@@ -2969,8 +3001,16 @@ p.citationText {
 }
 #advSearchForm div.sidegroup {
     border: none;
+    padding: 1em 0;
+    text-align: right;
 }
 
+.advSearchFooter {
+    padding: 25px 35%;
+    background-color: #B3E3E9;
+    overflow: hidden;
+    margin: 40px 0;
+}
 
 /* Profile / MyResearch */
 

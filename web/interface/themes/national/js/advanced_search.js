@@ -13,6 +13,7 @@ function addSearch(group, term, field)
     						  groupSearches: groupSearches
       						});
     // Done
+    $("#group" + group + "SearchHolder .advRow").removeClass("last");
     $("#group" + group + "SearchHolder").append(newSearch);
 
     // Actual value doesn't matter once it's not zero.

@@ -23,7 +23,7 @@
       <div id="groupJoin" class="searchGroups">
         <div class="searchGroupDetails">
           <label for="groupJoinOptions">{translate text="search_match"}:</label>
-          <select id="groupJoinOptions" class="styledDropdowns" name="join">
+          <select id="groupJoinOptions" name="join">
             <option value="AND">{translate text="group_AND"}</option>
             <option value="OR"{if $searchDetails and $searchDetails.0.join == 'OR'} selected="selected"{/if}>{translate text="group_OR"}</option>
           </select>
@@ -42,16 +42,18 @@
         {section name=groups loop=$numGroups}
           {assign var=groupIndex value=$smarty.section.groups.index}
           <div class="group group{$groupIndex%2}" id="group{$groupIndex}">
-            <div class="groupSearchDetails">
-              <div class="join">
-                <label for="search_bool{$groupIndex}">{translate text="search_match"}:</label>
-                <select id="search_bool{$groupIndex}" class="styledDropdowns" name="bool{$groupIndex}[]">
-                  <option value="AND"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'AND'} selected="selected"{/if}>{translate text="search_AND"}</option>
-                  <option value="OR"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'OR'} selected="selected"{/if}>{translate text="search_OR"}</option>
-                  <option value="NOT"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'NOT'} selected="selected"{/if}>{translate text="search_NOT"}</option>
-                </select>
+              <div class="searchRelated">
+                <div class="groupSearchDetails">
+                  <div class="join">
+                    <label for="search_bool{$groupIndex}">{translate text="search_match"}:</label>
+                    <select id="search_bool{$groupIndex}" name="bool{$groupIndex}[]">
+                      <option value="AND"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'AND'} selected="selected"{/if}>{translate text="search_AND"}</option>
+                      <option value="OR"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'OR'} selected="selected"{/if}>{translate text="search_OR"}</option>
+                      <option value="NOT"{if $searchDetails and $searchDetails.$groupIndex.group.0.bool == 'NOT'} selected="selected"{/if}>{translate text="search_NOT"}</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
             <div class="groupSearchHolder" id="group{$groupIndex}SearchHolder">
             {if $searchDetails}
               {assign var=numRows value=$searchDetails.$groupIndex.group|@count}
@@ -60,7 +62,7 @@
             {section name=rows loop=$numRows}
               {assign var=rowIndex value=$smarty.section.rows.index}
               {if $searchDetails}{assign var=currRow value=$searchDetails.$groupIndex.group.$rowIndex}{/if}
-              <div class="advRow">
+              <div class="advRow{if $rowIndex == $numGroups - 1} last{/if}">
                 <div class="label">
                   <label {if $rowIndex > 0}class="offscreen" {/if}for="search_lookfor{$groupIndex}_{$rowIndex}">{translate text="adv_search_label"}:</label>&nbsp;
                 </div>
@@ -69,7 +71,7 @@
                 </div>
                 <div class="field">
                   <label for="search_type{$groupIndex}_{$rowIndex}">{translate text="in"}</label>
-                  <select id="search_type{$groupIndex}_{$rowIndex}" class="styledDropdowns" name="type{$groupIndex}[]">
+                  <select id="search_type{$groupIndex}_{$rowIndex}" name="type{$groupIndex}[]">
                   {foreach from=$advSearchTypes item=searchDesc key=searchVal}
                     <option value="{$searchVal}"{if $currRow and $currRow.field == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
                   {/foreach}
@@ -134,22 +136,6 @@
         <div class="clear"></div>
       {/if}
       
-      {if $limitList|@count gt 1}
-        <fieldset class="span-4">
-          <legend>{translate text='Results per page'}</legend>
-          <select id="limit" class="styledDropdowns" name="limit">
-            {foreach from=$limitList item=limitData key=limitLabel}
-              {* If a previous limit was used, make that the default; otherwise, use the "default default" *}
-              {if $lastLimit}
-                <option value="{$limitData.desc|escape}"{if $limitData.desc == $lastLimit} selected="selected"{/if}>{$limitData.desc|escape}</option>
-              {else}
-                <option value="{$limitData.desc|escape}"{if $limitData.selected} selected="selected"{/if}>{$limitData.desc|escape}</option>
-              {/if}
-            {/foreach}
-          </select>
-        </fieldset>
-        <div class="clear"></div>
-      {/if}
         <div class="mapContainer">
           {js filename="jquery.geo.min.js"}
           {js filename="selection_map.js"}
@@ -185,7 +171,24 @@
         </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
       <div class="clear"></div>
-      <input type="submit" class="button buttonTurquoise searchButton right" name="submit" value="{translate text="Find"}"/>
+
+      <div class="advSearchFooter">
+          {if $limitList|@count gt 1}
+              <label for="limit">{translate text='Results per page'}</label>
+              <select id="limit" class="styledDropdowns" name="limit">
+                {foreach from=$limitList item=limitData key=limitLabel}
+                  {* If a previous limit was used, make that the default; otherwise, use the "default default" *}
+                  {if $lastLimit}
+                    <option value="{$limitData.desc|escape}"{if $limitData.desc == $lastLimit} selected="selected"{/if}>{$limitData.desc|escape}</option>
+                  {else}
+                    <option value="{$limitData.desc|escape}"{if $limitData.selected} selected="selected"{/if}>{$limitData.desc|escape}</option>
+                  {/if}
+                {/foreach}
+              </select>
+          {/if}
+
+          <input type="submit" class="button buttonTurquoise searchButton right" name="submit" value="{translate text="Find"}"/>
+      </div>
     </div>
   </div>
 
@@ -212,7 +215,7 @@
 </form>
 {literal}
 <script type="text/html" id="new_search_tmpl">
-<div class="advRow">
+<div class="advRow last">
     <div class="label">
         <label class="<%=(groupSearches[group] > 0 ? "hide" : "")%>" for="search_lookfor<%=group%>_<%=groupSearches[group]%>"><%=searchLabel%>:</label>&nbsp;
     </div>
@@ -221,7 +224,7 @@
     </div>
     <div class="field">
         <label for="search_type<%=group%>_<%=groupSearches[group]%>"><%=searchFieldLabel%></label>
-        <select id="search_type<%=group%>_<%=groupSearches[group]%>" class="styledDropdowns" name="type<%=group%>[]">
+        <select id="search_type<%=group%>_<%=groupSearches[group]%>" name="type<%=group%>[]">
         <% for ( key in searchFields ) { %>
             <option value="<%=key%>"<%=key == field ? ' selected="selected"' : ""%>"><%=searchFields[key]%></option>
         <% } %>
@@ -232,19 +235,21 @@
 </script>
 <script type="text/html" id="new_group_tmpl">
     <div id="group<%=nextGroupNumber%>" class="group group<%=nextGroupNumber % 2%>">
-        <div class="groupSearchDetails">
-            <div class="join">
-                <label for="search_bool<%=nextGroupNumber%>"><%=searchMatch%>:</label>
-                <select id="search_bool<%=nextGroupNumber%>" class="styledDropdowns" name="bool<%=nextGroupNumber%>[]">
-                    <% for ( key in searchJoins ) { %>
-                        <option value="<%=key%>"<%=key == join ? ' selected="selected"' : ""%>"><%=searchJoins[key]%></option>
-                    <% } %>
-                </select>
+        <div class="searchRelated">
+            <div class="groupSearchDetails">
+                <div class="join">
+                    <label for="search_bool<%=nextGroupNumber%>"><%=searchMatch%>:</label>
+                    <select id="search_bool<%=nextGroupNumber%>" name="bool<%=nextGroupNumber%>[]">
+                        <% for ( key in searchJoins ) { %>
+                            <option value="<%=key%>"<%=key == join ? ' selected="selected"' : ""%>"><%=searchJoins[key]%></option>
+                        <% } %>
+                    </select>
+                </div>
             </div>
-            <a href="#" class="delete" id="delete_link_<%=nextGroupNumber%>" onclick="deleteGroupJS(this); return false;"><%=deleteSearchGroupString%></a>
+            <div id="group<%=nextGroupNumber%>SearchHolder" class="groupSearchHolder"></div>
         </div>
-        <div id="group<%=nextGroupNumber%>SearchHolder" class="groupSearchHolder"></div>
         <div class="addSearch"><a href="#" class="add" id="add_search_link_<%=nextGroupNumber%>" onclick="addSearchJS(this); return false;"><%=addSearchString%></a></div>
+        <div class="deleteSearchGroup"><a href="#" class="delete" id="delete_link_<%=nextGroupNumber%>" onclick="deleteGroupJS(this); return false;"><%=deleteSearchGroupString%></a></div>
     </div>
 </script>
 {/literal}

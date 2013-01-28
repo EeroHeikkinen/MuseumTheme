@@ -38,13 +38,14 @@ function initDropdowns() {
 
 // Function for creating dropdowns
 function createDropdowns(){
+    var counter = 0;
     $('.styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select').not('.stylingDone').each(function() { 
         var source = $(this);
         var selected = source.find("option:selected");
         var options = $("option", source);
         var idName = $(this).attr("id");
-        var nameName = $(this).attr("name");
-        var target = 'styled_'+idName+nameName;
+        var target = 'styled_'+idName+counter;
+        counter++;
 
         $(this).hide().addClass('stylingDone').before('<dl id="'+target+'" class="dropdown ' + idName + '"></dl>');
         $('#'+target).append('<dt><a href="#">' + selected.text() + 
