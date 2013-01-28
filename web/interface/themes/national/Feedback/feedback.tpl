@@ -8,13 +8,13 @@
 <form id="feedbackForm" action="" method="post">
     <label for="category">{translate text="Subject"}:</label>
     <select name="category" id="category">
-        <option {if $category=='feedback_category_general'}selected="selected {/if}"value="feedback_category_general">{translate text='feedback_category_general'}</option>
+        <option {if $category=='feedback_category_general'}selected="selected {/if}value="feedback_category_general">{translate text='feedback_category_general'}</option>
         <option {if $category=='feedback_category_metadata'}selected="selected {/if}value="feedback_category_metadata">{translate text='feedback_category_metadata'}</option>
         <option {if $category=='feedback_category_services'}selected="selected {/if}value="feedback_category_services">{translate text='feedback_category_services'}</option>
         <option {if $category=='feedback_category_usability'}selected="selected {/if}value="feedback_category_usability">{translate text='feedback_category_usability'}</option>
         <option {if $category=='feedback_category_technical'}selected="selected {/if}value="feedback_category_technical">{translate text='feedback_category_technical'}</option>
     </select>
-    <label for="subject">{translate text='Message'}:</label>
+    <label for="message">{translate text='Message'}:</label>
     <textarea cols="48" rows="10" id="message" name="message" class="{jquery_validation required='This field is required'}">{$message}</textarea>
     <label id="urlLabel" for="url">{translate text='feedback_url'}:</label>
     <input type="text" id="url" name="feedback_url" value="{$feedback_url}" />
@@ -29,7 +29,7 @@
     <br />
     <input type="submit" id="submit" name="submit" class="button buttonTurquoise" value="{translate text='Send'}" />
 </form>
-<script>
+<script type="text/javascript">
   {literal}
   $(document).ready(function() {
     $('#feedbackForm').validate();

@@ -18,7 +18,7 @@
     {if $img_count > 0}
         <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
     {else}
-        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" /></a></div>
+        <div class="resultImage"><a href="{$url}/{if $summCollection}Collection{else}Record{/if}/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" alt="{translate text='No Cover Image'}" /></a></div>
     {/if}
 
 {* Multiple images *}
@@ -114,9 +114,9 @@
         {if $summURLs}
         <div>
           {if $summURLs|@count > 2}
-          <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></a></p>
+          <p class="resultContentToggle"><a href="#" class="toggleHeader">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" alt="" /></a></p>
           {else}
-          <p class="resultContentToggle">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" /></p>
+          <p class="resultContentToggle">{translate text='Contents'}<img src="{$path}/interface/themes/institution/images/down.png" width="11" height="6" alt="" /></p>
           {/if}
           <div class="resultContentList">
           {foreach from=$summURLs key=recordurl item=urldesc}

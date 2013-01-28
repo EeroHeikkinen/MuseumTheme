@@ -38,31 +38,31 @@ Rekisteriä käytetään käyttäjien tunnistamiseen, jotta voidaan tarjota pers
 
 <p><strong>Rekisterin sisältämät tietotyypit:</strong><br />
 Käyttäjän perustiedot:
-  <ul>
-    <li>Käyttäjätunnus</li>
-    <li>Käyttökieli</li>
-    <li>Nimi</li>
-    <li>Suhde oppilaitokseen tai organisaatioon</li>
-    <li>Sähköpostiosoite</li>
-    <li>Kirjastokorttien tiedot</li>
-  </ul>
 </p>
+<ul>
+  <li>Käyttäjätunnus</li>
+  <li>Käyttökieli</li>
+  <li>Nimi</li>
+  <li>Suhde oppilaitokseen tai organisaatioon</li>
+  <li>Sähköpostiosoite</li>
+  <li>Kirjastokorttien tiedot</li>
+</ul>
 
 <p><strong>Personoituja toimintoja varten kerättävät tiedot:</strong><br />
-  <ul>
-    <li>Käyttäjän henkilökohtaiset asetukset</li>
-    <li>Suosikit</li>
-    <li>Tagit</li>
-    <li>Kommentit</li>
-    <li>Arviot</li>
-    <li>Varaukset</li>
-    <li>Lainat</li>
-    <li>Maksut</li>
-    <li>Kirjahyllyyn lisätyt viitteet</li>
-    <li>Omiin aineistoihin lisätyt aineistot</li>
-    <li>Omiin lehtiin lisätyt lehtiviitteet</li>
-  </ul>
 </p>
+<ul>
+  <li>Käyttäjän henkilökohtaiset asetukset</li>
+  <li>Suosikit</li>
+  <li>Tagit</li>
+  <li>Kommentit</li>
+  <li>Arviot</li>
+  <li>Varaukset</li>
+  <li>Lainat</li>
+  <li>Maksut</li>
+  <li>Kirjahyllyyn lisätyt viitteet</li>
+  <li>Omiin aineistoihin lisätyt aineistot</li>
+  <li>Omiin lehtiin lisätyt lehtiviitteet</li>
+</ul>
 
 <p><strong>Rekisterin suojausperiaatteet:</strong><br />
 Tietoja säilytetään ainoastaan sähköisessä muodossa. Tietoihin pääsevät käsiksi ainoastaan järjestelmän ylläpitäjät, jotka tunnistetaan käyttäjätunnuksella ja salasanalla.</p>

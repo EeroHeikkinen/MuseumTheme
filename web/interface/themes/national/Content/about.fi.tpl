@@ -6,18 +6,15 @@
 
 <p class="ingress">Finna on helppokäyttöinen verkkopalvelu, joka tarjoaa pääsyn arkistojen, kirjastojen ja museoiden aineistoihin ja palveluihin.</p>
 
-<p>Finnan testiversio julkaistiin joulukuussa 2012. Finnaa kehitetään jatkuvasti ja palveluun lisätään uusia toiminnallisuuksia. 
-    Uusia organisaatioita liittyy mukaan vaiheittain. Testiversiossa ovat mukana seuraavien organisaatioiden aineistot:</p>
-<p>
-	<ul>
-	  <li>Jyväskylän yliopiston kirjasto</li>
-	  <li>Kansallisarkisto</li>
-	  <li>Kansalliskirjasto</li>
-	  <li>Lusto – Suomen metsämuseo ja muut nk. Kantapuu-museot (Nurmeksen museo, Pielisen museo, Ilomantsin museosäätiö, Lapin metsämuseo ja Verlan tehdasmuseo)</li>
-	  <li>Tuusulan taidemuseo</li>
-	  <li>Valtion taidemuseo</li>
-	</ul>
-</p>
+<p>Finnan testiversio julkaistiin joulukuussa 2012. Finnaa kehitetään jatkuvasti ja palveluun lisätään uusia toiminnallisuuksia. Uusia organisaatioita liittyy mukaan vaiheittain. Testiversiossa ovat mukana seuraavien organisaatioiden aineistot:</p>
+<ul>
+  <li>Jyväskylän yliopiston kirjasto</li>
+  <li>Kansallisarkisto</li>
+  <li>Kansalliskirjasto</li>
+  <li>Lusto – Suomen metsämuseo ja muut nk. Kantapuu-museot (Nurmeksen museo, Pielisen museo, Ilomantsin museosäätiö, Lapin metsämuseo ja Verlan tehdasmuseo)</li>
+  <li>Tuusulan taidemuseo</li>
+  <li>Valtion taidemuseo</li>
+</ul>
 
 <p>Finna on tarkoitettu kaikille tietoa tarvitseville ja elämyksiä etsiville. Verkkopalvelun avulla voi helposti hakea valitsemaansa aihetta koskevaa aineistoa, 
     kuten kuvia, asiakirjoja, sanomalehtiä, tutkimuksia, videoita ja äänitallenteita. Aineistot ovat saatavissa samasta verkkopalvelusta, eikä tiedonhakijan tarvitse etukäteen 

@@ -65,16 +65,16 @@
 			<div class="coverDiv">
 			  <div class="resultNoImage"><p>{translate text='No image'}</p></div>
 				{if $img_count > 0}
-					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img id="thumbnail_{$summId|escape:"url"} src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:'url'}"><img id="thumbnail_{$summId|escape:'url'}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
 				{else}
-					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" alt="{translate text='No Cover Image'}"/></a></div>
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:'url'}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" alt="{translate text='No Cover Image'}"/></a></div>
 				{/if}
 			
 			{* Multiple images *}
 			{if $img_count > 1}
 			  <div class="imagelinks">
 			{foreach from=$summImages item=desc name=imgLoop}
-				<a href="{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:"url"}').src='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:"url"}').href='{$path}/thumbnail.php?id={$summId|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
+				<a href="{$path}/thumbnail.php?id={$summId|escape:'url'}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onmouseover="document.getElementById('thumbnail_{$summId|escape:'url'}').src='{$path}/thumbnail.php?id={$summId|escape:'url'}&index={$smarty.foreach.imgLoop.iteration-1}&size=small'; document.getElementById('thumbnail_link_{$summId|escape:'url'}').href='{$path}/thumbnail.php?id={$summId|escape:'url'}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;">
 				  {if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if}
 				</a>
 			{/foreach}
@@ -93,7 +93,7 @@
           <div class="resultColumn2">
             {* If $resource.id is set, we have the full Solr record loaded and should display a link... *}
             {if !empty($resource.id)}
-              <a href="{$url}/Record/{$resource.id|escape:"url"}" class="title">{$resource.title|escape}</a>
+              <a href="{$url}/Record/{$resource.id|escape:'url'}" class="title">{$resource.title|escape}</a>
             {* If the record is not available in Solr, perhaps the ILS driver sent us a title we can show... *}
             {elseif !empty($resource.ils_details.title)}
               {$resource.ils_details.title|escape}
@@ -103,12 +103,12 @@
             {/if}
             <br/>
             {if $resource.author}
-              {translate text='by'}: <a href="{$url}/Search/Results?lookfor={$resource.author|escape:"url"}&amp;type=Author">{$resource.author|escape}</a><br/>
+              {translate text='by'}: <a href="{$url}/Search/Results?lookfor={$resource.author|escape:'url'}&amp;type=Author">{$resource.author|escape}</a><br/>
             {/if}
             {if $resource.tags}
               {translate text='Your Tags'}:
               {foreach from=$resource.tags item=tag name=tagLoop}
-                <a href="{$url}/Search/Results?tag={$tag->tag|escape:"url"}">{$tag->tag|escape}</a>{if !$smarty.foreach.tagLoop.last},{/if}
+                <a href="{$url}/Search/Results?tag={$tag->tag|escape:'url'}">{$tag->tag|escape}</a>{if !$smarty.foreach.tagLoop.last},{/if}
               {/foreach}
               <br/>
             {/if}
