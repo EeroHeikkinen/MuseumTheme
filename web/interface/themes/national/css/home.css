@@ -472,6 +472,9 @@ div.searchHomeForm div.searchform #searchForm {
     height:254px;
     color:#fff;
 }
+.home-section.third .loginBoxHome {
+    padding:10px 40px;
+}
 .home-section.third .mapSearchHome p {
     font-size:1.1em;
     font-weight:bold;

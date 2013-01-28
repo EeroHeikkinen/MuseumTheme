@@ -51,9 +51,11 @@
             
         </div>
       {else}
-        <h2>Kirjautumalla voit...</h2>
-        <p class="big">Varata aineistoja, tallentaa haut, arvioida ja kommentoida sekä tehdä suosikkilistoja.</p>
-        <p class="small">Finna tunnukseesi voit yhdistää useiden organisaatioiden tunnuksia. <a class="color-violet" href="{$path}/Content/about">Lue lisää</a>
+        <div class="loginBoxHome">
+          <h2>Kirjautumalla voit...</h2>
+          <p class="big">Varata aineistoja, tallentaa haut, arvioida ja kommentoida sekä tehdä suosikkilistoja.</p>
+          <p class="small">Finna tunnukseesi voit yhdistää useiden organisaatioiden tunnuksia. <a class="color-violet" href="{$path}/Content/about">Lue lisää</a>
+        </div>
       {/if}
     </div>
   </div>

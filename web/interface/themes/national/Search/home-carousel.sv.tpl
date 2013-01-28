@@ -1,4 +1,4 @@
-<!-- START of: Search/home-carousel.fi.tpl -->
+<!-- START of: Search/home-carousel.sv.tpl -->
 
 <h2 class="ribbon">Kokoelmien helmiä</h2>
 <div class="slides_container">
@@ -113,4 +113,4 @@
 <a class="prev disabled" href="#"></a>
 <a class="next disabled" href="#"></a>
 
-<!-- END of: Search/home-carousel.fi.tpl -->
+<!-- END of: Search/home-carousel.sv.tpl -->
