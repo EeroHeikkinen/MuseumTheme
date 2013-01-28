@@ -1484,6 +1484,7 @@ li.result blockquote {
 }
 
 /** Side facets */
+
 .sidegroup ul,
 .sidegroup dl {
     margin:5px 0 0;
@@ -1492,7 +1493,11 @@ li.result blockquote {
 .sidegroup ul.dynatree-container li {
     padding:0
 }
-.sidegroup dl {
+.sidegroup dl:not(.active) {
+    cursor:pointer;
+}
+.sidegroup dl.active,
+.sidegroup dl.open {
     padding-bottom:8px;
 }
 .sidegroup dt {
@@ -1508,7 +1513,7 @@ li.result blockquote {
     padding-top:7px;
 }
 .sidegroup ul.dynatree-container {
-    padding:0px 10px 8px 10px;
+    padding:8px 10px;
 }
 ul.filters {
     list-style-type: none;
@@ -1578,6 +1583,19 @@ dl.narrowList a {
     list-style-type: none;
     /* border-bottom: 1px solid #e3e3e3; */
     margin:0;
+}
+
+.sidegroup dl[id*="Hidden"] {
+    margin-top:-5px;
+}
+.sidegroup dl dd {
+    display:none;
+}
+.sidegroup dl.active dd {
+    display:block;
+}
+.sidegroup dl[id*="Hidden"] dd {
+    display:block;
 }
 .suggestedTopics {
     float: left;
@@ -3008,7 +3026,6 @@ p.citationText {
 .advSearchFooter {
     padding: 25px 35%;
     background-color: #B3E3E9;
-    overflow: hidden;
     margin: 40px 0;
 }
 

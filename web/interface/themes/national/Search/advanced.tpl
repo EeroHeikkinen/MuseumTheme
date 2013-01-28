@@ -53,33 +53,33 @@
                     </select>
                   </div>
                 </div>
-              </div>
-            <div class="groupSearchHolder" id="group{$groupIndex}SearchHolder">
-            {if $searchDetails}
-              {assign var=numRows value=$searchDetails.$groupIndex.group|@count}
-            {/if}
-            {if $numRows < 3}{assign var=numRows value=3}{/if}
-            {section name=rows loop=$numRows}
-              {assign var=rowIndex value=$smarty.section.rows.index}
-              {if $searchDetails}{assign var=currRow value=$searchDetails.$groupIndex.group.$rowIndex}{/if}
-              <div class="advRow{if $rowIndex == $numGroups - 1} last{/if}">
-                <div class="label">
-                  <label {if $rowIndex > 0}class="offscreen" {/if}for="search_lookfor{$groupIndex}_{$rowIndex}">{translate text="adv_search_label"}:</label>&nbsp;
+                <div class="groupSearchHolder" id="group{$groupIndex}SearchHolder">
+                {if $searchDetails}
+                  {assign var=numRows value=$searchDetails.$groupIndex.group|@count}
+                {/if}
+                {if $numRows < 3}{assign var=numRows value=3}{/if}
+                {section name=rows loop=$numRows}
+                  {assign var=rowIndex value=$smarty.section.rows.index}
+                  {if $searchDetails}{assign var=currRow value=$searchDetails.$groupIndex.group.$rowIndex}{/if}
+                  <div class="advRow{if $rowIndex == $numGroups - 1} last{/if}">
+                    <div class="label">
+                      <label {if $rowIndex > 0}class="offscreen" {/if}for="search_lookfor{$groupIndex}_{$rowIndex}">{translate text="adv_search_label"}:</label>&nbsp;
+                    </div>
+                    <div class="terms">
+                      <input id="search_lookfor{$groupIndex}_{$rowIndex}" type="text" value="{if $currRow}{$currRow.lookfor|escape}{/if}" size="50" name="lookfor{$groupIndex}[]"/>
+                    </div>
+                    <div class="field">
+                      <label for="search_type{$groupIndex}_{$rowIndex}">{translate text="in"}</label>
+                      <select id="search_type{$groupIndex}_{$rowIndex}" name="type{$groupIndex}[]">
+                      {foreach from=$advSearchTypes item=searchDesc key=searchVal}
+                        <option value="{$searchVal}"{if $currRow and $currRow.field == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
+                      {/foreach}
+                      </select>
+                    </div>
+                    <span class="clearer"></span>
+                  </div>
+                {/section}
                 </div>
-                <div class="terms">
-                  <input id="search_lookfor{$groupIndex}_{$rowIndex}" type="text" value="{if $currRow}{$currRow.lookfor|escape}{/if}" size="50" name="lookfor{$groupIndex}[]"/>
-                </div>
-                <div class="field">
-                  <label for="search_type{$groupIndex}_{$rowIndex}">{translate text="in"}</label>
-                  <select id="search_type{$groupIndex}_{$rowIndex}" name="type{$groupIndex}[]">
-                  {foreach from=$advSearchTypes item=searchDesc key=searchVal}
-                    <option value="{$searchVal}"{if $currRow and $currRow.field == $searchVal} selected="selected"{/if}>{translate text=$searchDesc}</option>
-                  {/foreach}
-                  </select>
-                </div>
-                <span class="clearer"></span>
-              </div>
-            {/section}
             </div>
           </div>
         {/section}
@@ -188,6 +188,8 @@
           {/if}
 
           <input type="submit" class="button buttonTurquoise searchButton right" name="submit" value="{translate text="Find"}"/>
+          
+          <div class="clear"></div>
       </div>
     </div>
   </div>

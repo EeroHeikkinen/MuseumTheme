@@ -6,6 +6,7 @@ $(document).ready(function() {
     initHeaderMenu();
     initContentMenu();
     initCarousel();
+    initSidebarFacets();
     initInfoBox();
     initDateVisHandle();
 });
@@ -128,3 +129,36 @@ function initContentMenu() {
     }
 }
 
+// Sidebar facets visibility toggler
+function initSidebarFacets() {
+    $('.sidegroup dl').each(function() {
+        
+        // Determine facet use by finding the indicator image
+        if ($(this).find('img[alt="Selected"]').length > 0) {
+                $(this).addClass('active');
+        }
+    })
+    
+    // Toggle facet visibility by clicking its title
+    $('.sidegroup dt').click(function() {
+        
+        // Get the facet container
+        var parentDl = $(this).parent('dl');
+        
+        // Make sure this facet has options
+        if (parentDl.find('dd').length > 0) {
+            
+            // Slide them
+            parentDl.children('dd').slideToggle(100);
+         
+            // If user has clicked "more", hide the additional facets too
+            if (!parentDl.next('dl').hasClass('offscreen') && parentDl.hasClass('open')) {
+                parentDl.next('dl[id*="Hidden"]').addClass('offscreen');
+                parentDl.find('dd[id*="more"]').hide();
+            }
+                
+            // Finally, mark this facet container opened
+            parentDl.toggleClass('open');
+        }
+    })
+}
