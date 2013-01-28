@@ -188,6 +188,8 @@
           {/if}
 
           <input type="submit" class="button buttonTurquoise searchButton right" name="submit" value="{translate text="Find"}"/>
+          
+          <div class="clear"></div>
       </div>
     </div>
   </div>
