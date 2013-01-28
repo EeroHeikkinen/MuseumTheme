@@ -12,6 +12,10 @@
     overflow-x: hidden;   /* platforms apparently due to homeFacers.*/
 }
 
+.container .header-home {
+    background:transparent;
+}
+
 /*** Logo ***/
 
 .searchHomeLogo {

@@ -23,10 +23,12 @@ body {
     max-height: 600px;
     height:100%;
     overflow: hidden;
+    z-index:3;
 }
 .container {
     position:relative;
     width:100%;
+    z-index:4;
 }
 .content {
     width:950px;
@@ -324,10 +326,6 @@ ul.subMenu li:first-child {
     padding-top:170px;
 }
 
-.header, .headerRecord, .headerCollection, .headerContent, .headerAuthor {
-    background-color: #f3f3f3;
-    border-bottom: 1px solid #dddddd;
-}
 .headerMetaLib .searchbox {
     margin: 1em 0 0.5em;
 }
@@ -362,7 +360,7 @@ ul.subMenu li:first-child {
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 2;
+    z-index: 10;
 }
 .feedbackButton:hover {
     color:#fff;
