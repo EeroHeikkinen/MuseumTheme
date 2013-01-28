@@ -279,7 +279,6 @@ px      62    136    210    284    358    432   */
     .pagination, searchtools {
         margin: 0;
         padding: 13px 8px;
-        width: 270px;
     }
     .pagination a {
         margin-left: 0;
