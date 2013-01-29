@@ -137,6 +137,9 @@ function initSidebarFacets() {
         if ($(this).find('img[alt="Selected"]').length > 0) {
                 $(this).addClass('active');
         }
+        
+        // Mark dl collapsible
+        if ($(this).find('dd').length > 0) $(this).addClass('collapsible');
     })
     
     // Toggle facet visibility by clicking its title
@@ -144,6 +147,9 @@ function initSidebarFacets() {
         
         // Get the facet container
         var parentDl = $(this).parent('dl');
+        
+        // Do nothing if facet selected
+        if (parentDl.find('img[alt="Selected"]').length > 0) return false;
         
         // Make sure this facet has options
         if (parentDl.find('dd').length > 0) {
@@ -158,7 +164,7 @@ function initSidebarFacets() {
             }
                 
             // Finally, mark this facet container opened
-            parentDl.toggleClass('open');
+            parentDl.toggleClass('open collapsed');
         }
     })
 }

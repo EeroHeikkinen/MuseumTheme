@@ -316,11 +316,22 @@ a.subjectHeading:hover {
 .navmenu dt {
     font-weight: bold;
 }
-.facetCount, .favoritesCount, .favoritesDescription {
+.favoritesCount, .favoritesDescription {
     font-size: .8em;
 }
-
-
+.sidegroup li,
+.sidegroup dd {
+    line-height:1.33em;
+}
+.sidegroup li li {
+    font-size:1em;
+}
+.sidegroup .filters li {
+    font-size:1em;
+}
+ul.dynatree-container {
+    font-family: "Helvetica neue", Arial, Helvetica, sans-serif;
+}
 /* Resource types */
 .iconlabel { /* Common for all */
     /*line-height: 1.2em;

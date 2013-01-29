@@ -1501,10 +1501,19 @@ li.result blockquote {
     padding-bottom:8px;
 }
 .sidegroup dt {
-    background:#4c4c4c;
-    padding:10px 10px 12px;
-    font-size:1.230em;
-    color:#fff;
+    background: #4C4C4C;
+    color: #FFFFFF;
+    font-size: 1.23em;
+    padding: 10px 10px 12px;
+}
+.sidegroup dl.collapsible dt {
+    background: url("../images/datevis_handle_open.png") no-repeat scroll 107% 50% #4C4C4C;
+}
+.sidegroup dl.collapsible.collapsed dt {
+    background: url("../images/datevis_handle_close.png") no-repeat scroll 107% 50% #4C4C4C;
+}
+.sidegroup dl.collapsible.active dt {
+    background:#4C4C4C;
 }
 .sidegroup dd {
     padding:0 10px;
@@ -1549,11 +1558,11 @@ ul.filters span {
     margin-top: 1.2em;
 }
 div.sidegroup h4 {
-    background-color: #4D4D4D;
-    color: #fff;
-    font-size: 1.2em;
+    background-color: #00A3B5;
+    color: #FFFFFF;
+    font-size: 1.6em;
     margin: 0;
-    padding: 6px 10px;
+    padding: 20px 10px;
 }
 div.sidegroup h4.account, div.sidegroup h4.list {
     padding:0 0 0 1.3em;
@@ -1561,15 +1570,10 @@ div.sidegroup h4.account, div.sidegroup h4.list {
 dl.narrowList img {
     vertical-align: top;
 }
-dl.narrowList a:hover {
-    /*text-decoration: underline;*/
-    background-color:#f9f9f9;
-}
+
 dl.narrowList a {
     display:block;
     text-decoration: none;
-    padding: 0.1em 0 0.1em 0.6em;
-    text-indent: -0.4em;
 }
 .keywordFilterForm {
     margin: 5px 0px 5px 0px;
@@ -1587,6 +1591,7 @@ dl.narrowList a {
 
 .sidegroup dl[id*="Hidden"] {
     margin-top:-5px;
+    padding-bottom: 8px;
 }
 .sidegroup dl dd {
     display:none;
@@ -1597,6 +1602,21 @@ dl.narrowList a {
 .sidegroup dl[id*="Hidden"] dd {
     display:block;
 }
+
+.sidegroup dd[id*="more"] {
+    background: url("../images/facets_more.png") no-repeat 100% 50% transparent;
+    margin-right: 14px;
+}
+.sidegroup a[onclick*="less"] { 
+    background: url("../images/facets_less.png") no-repeat 100% 50% transparent;
+    margin-right: 3px;
+}
+.sidegroup dd[id*="more"] a,
+.sidegroup a[onclick*="less"] {
+    color:#444;
+    margin-top:10px;
+}
+
 .suggestedTopics {
     float: left;
 }
@@ -1609,7 +1629,7 @@ dl.narrowList a {
     margin-right:0.4em;
 }
 .facetCount, .favoritesCount, .favoritesDescription {
-    color: #fff;
+    color: #444;
 }
 .pagingDisabled {
     color: #ddd;
@@ -3831,14 +3851,14 @@ span.dynatree-node {
     margin: 0 0 0 -6px;
 }
 span.dynatree-node a:hover {
-    background-color:#f9f9f9;
-    color: #0099ff;
     border: none;
+    color:#00A3B5;
+    background:none;
 }
 span.dynatree-node a {
     text-decoration: none;
-    padding: 0.1em 0 0.1em 0.2em;
-    color: #0066cc;
+    padding: 0;
+    color:#00A3B5;
     border: none;
 }
 span.dynatree-node .facetTitle {
