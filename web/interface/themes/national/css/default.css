@@ -205,9 +205,12 @@ div.sidegroup {
 }
 
 .openurlIframe {
+    border: 1px solid #DDDDDD;
+    border-radius: 3px 3px 3px 3px;
+    height: 150px;
+    margin-top: 10px;
+    padding: 0;
     width: 100%;
-    height: 250px;
-    border: 1px solid #dddddd;
 }
 .mainContent {
     float: left;
@@ -1364,13 +1367,13 @@ ul.recordSet .resultItemLine2{
     max-width: 126px;
 }
 .resultNoImage {
+    background-color: #FFFFFF;
+    border: 4px solid #CFCFCF;
     display: table;
-    border: 1px solid #f0f0f0;
-    background-color: #ffffff;
+    height: 118px;
     position: relative;
+    width: 118px;
     z-index: 1;
-    width: 124px;
-    height: 124px;
 }
 .resultNoImage p {
     display: table-cell;
@@ -1471,17 +1474,13 @@ li.result blockquote {
     font-size: 0.75em;
 }
 .resultItemLine2, .resultItemLine3, .resultItemLine4 {
-    color: #777777;
+    color: #666;
 }
-.resultItemLine3 a, .resultItemLine4 a {
-    color: #777777;
-}
+
 .resultItemLine3 .highlight {
     color: #666666;
 }
-.resultContentList a, a.openurl_more_full, .metalib_link a {
-    color: #0066cc;
-}
+
 
 /** Side facets */
 
@@ -1493,8 +1492,14 @@ li.result blockquote {
 .sidegroup ul.dynatree-container li {
     padding:0
 }
-.sidegroup dl:not(.active) {
+.sidegroup dl.collapsible {
     cursor:pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 .sidegroup dl.active,
 .sidegroup dl.open {
@@ -1617,6 +1622,13 @@ dl.narrowList a {
     margin-top:10px;
 }
 
+.sidegroup dd a:hover,
+.sidegroup li span.facetTitle:hover{
+    text-decoration:underline !important;
+}
+.sidegroup dd a span:hover {
+    text-decoration:none;
+}
 .suggestedTopics {
     float: left;
 }
@@ -1893,13 +1905,19 @@ ul.recordSet .addToFavLink a {
     padding-left:18px
 }
 .openurl_more {
-    background-image:url(../images/sfx.png);
-    background-repeat:no-repeat;
-    padding-left:16px;
-    margin-left:2px;
+    padding-left:20px;
+    color:#666;
 }
+.openurl_more:hover {
+    color:#666;
+}
+
 .openurl_more img {
-    margin: 0 0 1px 5px;
+    display:none;
+}
+
+.openurl_more more_img {
+    
 }
 .checkedout {
     background-image:url(../images/silk/bullet_red.png);
