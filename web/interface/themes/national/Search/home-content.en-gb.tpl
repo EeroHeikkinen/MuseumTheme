@@ -43,22 +43,13 @@
       {include file="AJAX/loadPopularSearches.tpl"}
     </div>
     <div>
-      {if $user}
-        <div class="mapSearchHome">
-          <h2>Kokeile karttahakua</h2>
-          <p>Voit rajata hakuasi myös kartalla. Karttarajauksen piirissä on tällä hetkellä noin 7200 aineistotietoa.</p>
-          <a class="button" href="">Karttahakuun</a>
-            
-        </div>
-      {else}
-        <div class="loginBoxHome">
-          <h2>Kirjautumalla voit...</h2>
-          <p class="big">Varata aineistoja, tallentaa haut, arvioida ja kommentoida sekä tehdä suosikkilistoja.</p>
-          <p class="small">Finna tunnukseesi voit yhdistää useiden organisaatioiden tunnuksia. <a class="color-violet" href="{$path}/Content/about">Lue lisää</a>
-        </div>
-      {/if}
+      <div class="mapSearchHome">
+        <h2>Kokeile karttahakua</h2>
+        <p>Voit rajata hakuasi myös kartalla. Karttarajauksen piirissä on tällä hetkellä noin 7200 aineistotietoa.</p>
+        <a class="button" href="">Karttahakuun</a>
+      </div>
     </div>
   </div>
 </div>
     
-<!-- END of: Search/home-content.fi.tpl -->
+<!-- END of: Search/home-content.en-gb.tpl -->
