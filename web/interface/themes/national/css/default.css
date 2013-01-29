@@ -1669,12 +1669,17 @@ dl.narrowList a {
 .module-Content .main ul {
     list-style-type: disc;
 }
-.main .contentHeader {
+.main .contentHeader,
+.main .browseHeader {
     background:#f3ec7a;
     padding: 22px 0 24px;
     margin-bottom: 40px;
 }
-.main .contentHeader h1 {
+.main .browseHeader {
+    background:#b3e3e9;
+}
+.main .contentHeader h1,
+.main .browseHeader h1 {
     margin:0;
     padding:0;
 }
@@ -1692,9 +1697,11 @@ dl.narrowList a {
 .module-Content .contentSection.odd {
     background:#f2f2f2;
 }
-.module-Content .main {
-    padding-bottom:24px;
+.module-Content .main,
+.module-Browse .main {
+    padding-bottom:40px;
 }
+
 .module-Content #main .contentSection:first-child h2:first-child {
     margin-top:0;
 }
@@ -3143,11 +3150,12 @@ p.citationText {
 
 /* Browse Lists */
 .browseNav {
-    background-color:#fff;
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    max-height: 300px;
     width: 215px;
-    border: 1px solid;
-    height: 300px;
-    overflow: scroll;
+    overflow:auto;
 }
 .browseNav ul {
     width: 100%;
@@ -3160,36 +3168,42 @@ p.citationText {
     width: 100%;
     display:block;
 }
+.browseNav li:first-child a {
+    border-top:none;
+}
 .browseNav a {
-    display:block;
-    background:url(../images/tabs_bg.jpg) repeat-x right top;
-    padding:.7em 1em .7em 1em;
-    text-decoration:none;
-    /*
-    border-top: 1px solid #ccc;
-    border-left: 1px solid #eee;
-    border-right: 1px solid #ccc;
-    */
-    color:#333;
+    background: none repeat scroll 0 0 #F2F2F2;
+    border-top: 1px solid #FEFEFE;
+    color: #333333;
+    display: block;
+    padding: 0.7em 1em;
+    text-decoration: none;
 }
 .browseNav a:hover {
-    color: #0066CC;
-    background:url(../images/tabs_hover_bg.jpg) repeat-x right top;
+    background: #ff8ee3;
+    color: #FFFFFF;
 }
 .browseNav .active a:hover {
-    background:url(../images/tab_active_bg.jpg) repeat-x right top;
+    background: #ff8ee3;
+    color: #fff;
 }
 .browseNav a.first {
  border-left: 1px solid #ccc;
 }
 .browseNav .active a {
-    background-image:url(../images/tab_active_bg.jpg);
-    color:#000;
+    background: #ff8ee3;
+    color: #FFFFFF;
 }
 .browseNav a.viewRecords {
     float:right;
+    background:transparent;
+    padding:8px;
 }
-
+.browseNav a.viewRecords:hover {
+    background:transparent;
+    text-decoration:underline;
+    color:#555;
+}
 /** Google search **/
 #searchcontrol .gsc-control {
     width: 100%;

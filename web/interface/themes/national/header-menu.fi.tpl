@@ -38,7 +38,7 @@
       </a>
     </li>
     <li>
-      <a href="{$path}/Content/searchhelp">
+      <a href="{$path}/Browse/Home">
         <span>Selaa luetteloa</span>
         <span>Selaa tagien, tekijän, aiheen, genren, alueen tai aikakauden mukaan.</span>
       </a>
