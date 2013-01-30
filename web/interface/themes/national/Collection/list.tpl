@@ -8,7 +8,6 @@
       {include file=$recommendations}
     {/foreach}
   {/if}
-  {include file="Search/paging.tpl" position="Top"}
 
   <span id="collectionItemsHeader">{translate text='Items'}</span>
   <form class="collectionSortSelector" action="{$path}/Search/SortResults" method="post">
@@ -36,6 +35,5 @@
 {else}
   {translate text='collection_empty'}
 {/if}
-{include file="Search/paging.tpl" position="Top"}
 
 <!-- END of: Collection/list.tpl -->

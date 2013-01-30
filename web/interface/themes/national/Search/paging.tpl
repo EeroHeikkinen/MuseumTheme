@@ -1,7 +1,13 @@
 {if $recordCount > 0}
-  <div class="pagination{if $position} pagination{$position}{/if}">
-    <strong>{$recordStart}</strong>-<strong>{$recordEnd}</strong> / <strong>{$recordCount}</strong>
-    {if $pageLinks.back}{$pageLinks.back}{else}<span class="pagingDisabled">{$pageLinks.pagerOptions.prevImg}</span>{/if}
-    {if $pageLinks.next}{$pageLinks.next}{else}<span class="pagingDisabled">{$pageLinks.pagerOptions.nextImg}</span>{/if}
+  {if !empty($pageLinks.pages)} 
+  <div class="resultPagination">
+    <div class="content">
+      <div id="bottomPagination">
+        <span class="paginationMove paginationBack {if !empty($pageLinks.back)}visible{/if}">{$pageLinks.back}<span>&#9668;</span></span>
+        <span class="paginationPages">{$pageLinks.pages}</span>
+        <span class="paginationMove paginationNext {if !empty($pageLinks.next)}visible{/if}">{$pageLinks.next}<span>&#9654;</span></span>
+      </div>
+    </div>
   </div>
+  {/if}
 {/if}

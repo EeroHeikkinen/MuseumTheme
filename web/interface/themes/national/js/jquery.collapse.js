@@ -48,7 +48,7 @@
   $.fn.collapse.defaults = {
     maxRows: 3,
     more: 'more',
-    less: 'less', // Use null or false to omit
+    less: 'less' // Use null or false to omit
   };
 
   function getStyle(el, cssprop) {
