@@ -25,26 +25,24 @@
     {/foreach}
       </div>
     {/if}
-    
-    {* Cover image *}
-        <div class="resultNoImage"><p>{translate text='No image'}</p></div>
-    {if $img_count > 0}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}" id="thumbnail_link_{$summId|escape:"url"}">
-          <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}" />
-        </a></div>
-    {else}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}"><img src="{$path}/images/NoCover2.gif" alt="No image" /></a></div>
-    {/if}
-    	
-    </div>
-    
-  {if is_array($summFormats)}
+      {if is_array($summFormats)}
     {assign var=mainFormat value=$summFormats.0} 
     {assign var=displayFormat value=$summFormats|@end} 
   {else}
     {assign var=mainFormat value=$summFormats} 
     {assign var=displayFormat value=$summFormats} 
   {/if}
+    {* Cover image *}
+        <div class="resultNoImage format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}"></div>
+    {if $img_count > 0}
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}" id="thumbnail_link_{$summId|escape:"url"}">
+          <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}" />
+        </a></div>
+    {/if}
+    	
+    </div>
+    
+
   <div class="resultItemFormat"><span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span></div>
 </div>
 

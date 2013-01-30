@@ -1368,6 +1368,9 @@ ul.recordSet .resultItemLine2{
 }
 .resultNoImage {
     background-color: #FFFFFF;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 50% auto;
     border: 4px solid #CFCFCF;
     display: table;
     height: 118px;
@@ -1420,7 +1423,7 @@ ul.recordSet .resultItemLine2{
 .result .imagelinks a:focus {
     text-decoration:none;
 }
-.resultItemFormat {
+div.resultItemFormat {
     margin: 10px auto 0 auto;
     text-align: center;
 }
