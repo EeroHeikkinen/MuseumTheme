@@ -1508,11 +1508,13 @@ li.result blockquote {
 .sidegroup dl.open {
     padding-bottom:8px;
 }
-.sidegroup dt {
+.sidegroup dt,
+div.sidegroup h4 {
     background: #4C4C4C;
     color: #FFFFFF;
     font-size: 1.23em;
     padding: 10px 10px 12px;
+    margin:0;
 }
 .sidegroup dl.collapsible dt {
     background: url("../images/datevis_handle_open.png") no-repeat scroll 107% 50% #4C4C4C;
@@ -1565,7 +1567,7 @@ ul.filters span {
 #sidebarRecommend div.sidegroup {
     margin-top: 1.2em;
 }
-div.sidegroup h4 {
+.resultListContainer div.sidegroup h4 {
     background-color: #00A3B5;
     color: #FFFFFF;
     font-size: 1.6em;
@@ -1671,6 +1673,9 @@ dl.narrowList a {
 }
 .module-Content .main ul {
     list-style-type: disc;
+}
+.record .content {
+    padding-top:40px;
 }
 .main .contentHeader,
 .main .browseHeader {
@@ -2020,50 +2025,13 @@ ul.recordSet .addToFavLink a {
 /* Resource types (subject to change!) */
 
 .iconlabel { /* Common for all */
-    background-repeat:no-repeat;
-    background-position: left top;
     padding:2px .5em .5em 21px;
     margin-right:1em;
 }
 .icon { /* If using icon only */
-    background-repeat: no-repeat;
-    background-position: left top;
     padding: 1px 2px 1px 20px;
     margin-right: 2px;
 }
-
-.formatbook      {background-image:url(../images/silk/book.png);}
-.formatbookebook {background-image:url(../images/silk/world.png);}
-.formatcd        {background-image:url(../images/silk/cd.png);}
-.formatcdrom     {background-image:url(../images/silk/cd.png);}
-.formatdocument  {background-image:url(../images/silk/page_white_text.png);}
-/*.formatdvd       {background-image:url(../images/silk/dvd.png);}*/
-.formatimage     {background-image:url(../images/silk/photo.png);}
-.formatjournal   {background-image:url(../images/silk/newspaper.png);}
-.formatmusicalscore   {background-image:url(../images/silk/music.png);}
-.formatother     {background-image:url(../images/silk/bullet_green.png);}
-.formatotherkit  {background-image:url(../images/silk/box.png);}
-.formatserial    {background-image:url(../images/silk/report.png);}
-.formatsound     {background-image:url(../images/silk/sound.png);}
-.formatsoundrecording {background-image:url(../images/tango/audio-volume-high.png);}
-.formatvideo     {background-image:url(../images/silk/film.png);}
-/*.formatvideodvd  {background-image:url(../images/silk/dvd.png);} */
-.formatworkofart {background-image:url(../images/silk/script_palette.png);}
-.formatthesis    {background-image:url(../images/silk/report.png);}
-.formatdatabase  {background-image:url(../images/silk/server_database.png);}
-.formatphysicalobject {background-image:url(../images/silk/brick.png);}
-
-/* not used? */
-.electronic {background-image:url(../images/tango/www.png);}
-.formatmap {background-image:url(../images/silk/map.png);}
-.globe {background-image:url(../images/silk/world.png);}
-.microfilm {background-image:url(../images/silk/film.png);}
-.photo {background-image:url(../images/silk/picture.png);}
-.formatkit {background-image:url(../images/silk/package.png);}
-.sensorimage {}
-.physicalobject {}
-.manuscript {background-image:url(../images/silk/report_edit.png);}
-.software {background-image:url(../images/silk/disk_multiple.png);}
 
 /***** Results page blocks ****/
 

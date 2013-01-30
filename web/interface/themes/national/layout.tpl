@@ -50,6 +50,7 @@
     {css media="screen, projection" filename="typography.css"}
     {css media="screen, projection" filename="default.css"}
     {css media="screen, projection" filename="default_custom.css"}
+    {css media="screen, projection" filename="icons.css"}
     {css media="screen, projection" filename="home.css"}
     {css media="screen, projection" filename="home_custom.css"}
     {css media="screen, projection" filename="breadcrumbs.css"}

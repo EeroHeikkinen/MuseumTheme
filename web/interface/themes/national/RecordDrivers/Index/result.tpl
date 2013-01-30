@@ -23,7 +23,7 @@
   {/foreach}
     </div>
   {/if}
-    {if is_array($summFormats)}
+  {if is_array($summFormats)}
     {assign var=mainFormat value=$summFormats.0} 
     {assign var=displayFormat value=$summFormats|@end} 
   {else}

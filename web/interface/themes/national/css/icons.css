@@ -1,0 +1,51 @@
+/***** CSS descriptions for the Finna icon set sprite *****/
+
+/*** Elements that use the sprite ***/
+
+.iconlabel, 
+.icon {
+    background-image: url(../images/icons16-24px.png);
+    background-repeat: no-repeat;
+    background-position:0 0;
+}
+
+/*** Individual element background positions ***/
+
+/* Front page icons */
+
+.home-section .iconlabel.formatdocument {
+    background-position: -45px -384px;
+}
+.home-section .iconlabel.formatphysicalobject {
+    background-position: -46px -217px;
+}
+.home-section .iconlabel.formatmap {
+    background-position: -47px -160px;
+}
+.home-section .iconlabel.formatbook {
+    background-position: -46px -46px;
+}
+.home-section .iconlabel.formatimage {
+    background-position: -47px -494px;
+}
+.home-section .iconlabel.formatjournal {
+    background-position: -47px -103px;
+}
+.home-section .iconlabel.formatmusicalscore {
+    background-position: -47px -329px;
+}
+.home-section .iconlabel.formatthesis {
+    background-position: -45px -719px;
+}
+.home-section .iconlabel.formatworkofart {
+    background-position: -46px -662px;
+}
+.home-section .iconlabel.formatdatabase {
+    background-position: -47px -274px;
+}
+.home-section .iconlabel.formatvideo {
+    background-position: -46px -605px;
+}
+.home-section .iconlabel.formatsoundrecording {
+    background-position: -46px -550px;
+}

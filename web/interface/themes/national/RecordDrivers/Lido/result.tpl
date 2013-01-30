@@ -25,13 +25,13 @@
     {/foreach}
       </div>
     {/if}
-      {if is_array($summFormats)}
-    {assign var=mainFormat value=$summFormats.0} 
-    {assign var=displayFormat value=$summFormats|@end} 
-  {else}
-    {assign var=mainFormat value=$summFormats} 
-    {assign var=displayFormat value=$summFormats} 
-  {/if}
+    {if is_array($summFormats)}
+      {assign var=mainFormat value=$summFormats.0} 
+      {assign var=displayFormat value=$summFormats|@end} 
+    {else}
+      {assign var=mainFormat value=$summFormats} 
+      {assign var=displayFormat value=$summFormats} 
+    {/if}
     {* Cover image *}
         <div class="resultNoImage format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}"></div>
     {if $img_count > 0}
