@@ -6,12 +6,16 @@
 {if !empty($addThis)}
 <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script>
 {/if}
+<div id="collectionHeader">
+  <div class="content"><a href="{$url}/Record/{$collectionID}">&laquo; {translate text="Full Record"}</a></div>
+</div>
+<div class="content">
 <div id="resultsCollection" class="">
   <div class="record" id="collection{$id|escape}">
     <div class="collection-toolbar">
       <span class="backSpan">
         {if $lastsearch}
-          <a href="{$lastsearch|escape}#record{$id|escape:"url"}" class="backtosearch">&laquo; {translate text="BACK TO SEARCH"}</a>
+          <a href="{$lastsearch|escape}#record{$id|escape:"url"}" class="backtosearch">&laquo; {translate text="Back to Search Results"}</a>
         {/if}
       </span>
       <ul>
@@ -53,7 +57,6 @@
       {/if}
       <h1>{$collTitle|escape} {if $collYearRange}({$collYearRange|escape}){/if}</h1>
       <p>{$collSummary|escape}</p>
-      <a href="{$url}/Record/{$collectionID}">{translate text="Full Record"}</a>
     </div>
     <div style="clear: left;"></div>
     <span class="Z3988" title="{$openURL|escape}"></span>
@@ -93,6 +96,8 @@
   {/if}
   {* End Recommendations *}
 </div>
+</div>
+{include file="Search/paging.tpl" position="Bottom"}
 <div class="clear"></div>
 
 <!-- END of: Collection/view.tpl -->

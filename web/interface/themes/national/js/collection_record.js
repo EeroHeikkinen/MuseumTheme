@@ -17,7 +17,13 @@ function showMoreInfoToggle() {
 }
 
 function toggleCollectionInfo() {
-	$("#collectionInfo").toggle();
+	$("#collectionInfo").slideToggle("fast", function() {
+            if($("#collectionInfo").css("display") == "none") {
+                $("#moreInfoToggle").removeClass("active");
+            } else {
+                $("#moreInfoToggle").addClass("active");
+            }
+        });
 }
 
 function showMapTab(collectionID) {
