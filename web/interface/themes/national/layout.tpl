@@ -154,6 +154,13 @@ $(document).ready(function() {
        can also use src="//html5shiv.googlecode.com/svn/trunk/html5.js" *}
     <!--[if lt IE 9]>
       {js filename="html5.js"}
+      {js filename="css3pie/PIE_IE678.js"}
+    <![endif]-->
+    <!--[if IE 9]>
+      {js filename="css3pie/PIE_IE9.js"}
+    <![endif]-->
+    <!--[if IE]>
+      {js filename="css3pie/css3elements.js"} {* List of css3elements for IE *}
     <![endif]-->
 
     {* For mobile devices *}
