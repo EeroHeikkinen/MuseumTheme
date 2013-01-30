@@ -8,7 +8,10 @@
         </div>
         <div class="span-5 last">
       {/if}
-      <a href="{$author.url|escape}">{$author.value|escape}</a>
+ <!-- <a href="{$author.url|escape}">{$author.value|escape}</a> -->
+      
+    <a href="{$url}/Search/Results?lookfor={$author.value|escape}&amp;type=Author">{$author.value|escape}</a>
+      
       {if !$smarty.foreach.authorLoop.last}<br/>{/if}
     {/foreach}
   </div>
