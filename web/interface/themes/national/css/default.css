@@ -2064,15 +2064,15 @@ ul.recordSet .addToFavLink a {
 }
 /* page titles */
 .resultLinks,
-.module-Search .account,
-.module-MyResearch .account,
+.module-Search div.account,
+.module-MyResearch h2.account,
 .module-MyResearch h1,
 #advSearchForm h1 {
     margin: 0;
     padding: 0;
 }
-.module-Search .account,
-.module-MyResearch .account,
+.module-Search div.account,
+.module-MyResearch h2.account,
 .module-MyResearch h1,
 .resultLinks,
 .advSearchHeader,
