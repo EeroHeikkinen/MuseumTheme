@@ -2268,7 +2268,14 @@ ul.recordSet .addToFavLink a {
     padding: 10px 12px 10px 15px;
     width:auto;
 }
-
+.dropdown dt a:hover {
+    color:#fff;
+    text-decoration:underline;
+}
+.searchbox .dropdown dt a:hover {
+    color:#888888;
+    text-decoration:none;
+}
 .resultOptionLimit {
     float:right;
 }
