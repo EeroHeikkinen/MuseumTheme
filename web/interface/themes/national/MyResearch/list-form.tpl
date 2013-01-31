@@ -12,7 +12,7 @@
     <input id="list_public_1" type="radio" name="public" value="1"/> <label for="list_public_1">{translate text="Public"}</label>
     <input id="list_public_0" type="radio" name="public" value="0" checked="checked"/> <label for="list_public_0">{translate text="Private"}</label> 
   </fieldset>
-  <input class="button" type="submit" name="submit" value="{translate text="Save"}"/>
+  <input class="button buttonTurquoise" type="submit" name="submit" value="{translate text="Save"}"/>
   <input type="hidden" name="recordId" value="{$recordId}"/>
   <input type="hidden" name="followupModule" value="{$followupModule}"/>
   <input type="hidden" name="followupAction" value="{$followupAction}"/>

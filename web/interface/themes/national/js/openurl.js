@@ -30,10 +30,9 @@ function loadResolverLinks($target, openUrl) {
                 link.click(function() {
                     var div = $(this).siblings('.openurlDiv');
                     var self = $(this);
+                    self.toggleClass('expanded');
                     if (div.length > 0) {
-                        div.toggle();
-                        self.find(".more_img").toggle();
-                        self.find(".less_img").toggle();
+                        div.slideToggle(150);
                     } else {
                     	div = $('<div/>').addClass('openurlDiv');
                         div.insertAfter(self);
@@ -44,8 +43,6 @@ function loadResolverLinks($target, openUrl) {
                     	iframe.attr('src', self.attr('href'));
                     	div.append(iframe);
                     	div.append(self.siblings('.openurl_more_full').show());
-                    	self.find(".more_img").hide();
-                        self.find(".less_img").show();
                     }
                 	return false;
                 });

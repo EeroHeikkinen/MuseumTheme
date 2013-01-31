@@ -456,14 +456,14 @@ ul.subMenu li:first-child {
 
 
 a.clear_input {
-    background: url("../images/searchbox.png") no-repeat scroll -194px -47px transparent;
-    /* For round clear button use coordinates -215px -47px */
-    color: white;
     padding-left: 10px;
     position: absolute;
     height: 16px;
     width: 15px;
     text-indent:-9999px;
+    margin-right:10px;
+    left: 370px !important;
+    top: 8px !important;
 }
 a.clear_input:hover {
     text-decoration: none;
@@ -1122,13 +1122,14 @@ fieldset.publishDateLimit .ui-slider {
 
 #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
     float: left;
-    margin: 0 30px 0 0;
+    margin: 0 30px 40px 0;
     width: 210px;
 }
 .module-Collection #sidebarCollection {
     margin-left: 10px;
 }
 
+#sidebarFavoritesLists .favoritesCount,
 #sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists .selected,
 #sidebarFavoritesLists .listItem a,
@@ -1152,7 +1153,7 @@ fieldset.publishDateLimit .ui-slider {
     margin-top: 40px;
 }
 #sidebarFavoritesLists ul {
-    margin: 1em 0 0 0;
+    margin: 5px 0 0 0;
     padding: 0;
 }
 #sidebarFavoritesLists .listItem,
@@ -1413,6 +1414,7 @@ ul.recordSet .recordNumber {
 ul.recordSet .addToFavLink {
     width: auto;
     float: right;
+    width: 20px;
 }
 .addToFavLink a {
     height: 20px;
@@ -1423,7 +1425,7 @@ ul.recordSet .resultColumn1 {
 }
 ul.recordSet .resultColumn2 {
     float: left;
-    width: 534px;
+    width: 500px;
     margin-left: 10px;
 }
 ul.recordSet .resultCheckbox {
@@ -1764,7 +1766,9 @@ dl.narrowList a {
     list-style-type: disc;
 }
 .record .content {
-    padding-top:40px;
+    /* padding-top:40px;
+       commented this out because it breaks a few things and I don't know where
+       it should be applied */
 }
 .main .contentHeader,
 .main .browseHeader {
@@ -1841,11 +1845,9 @@ dl.narrowList a {
     display:block;
     text-align:left;
     background-repeat:no-repeat;
-    background-position:4px 8px;
     padding:.5em .5em .5em 25px;
 }
 ul.recordSet .addToFavLink a {
-    background-position:5px 3px;
     padding:.1em .5em .5em 25px;
 }
 .searchtools a.mailSearch {
@@ -1941,12 +1943,6 @@ ul.recordSet .addToFavLink a {
 .mail {
     background-image:url(../images/silk/email.png);
 }
-.fav {
-    background-image:url(../images/silk/heartbw.png);
-}
-.fav:hover {
-    background-image:url(../images/silk/heart.png);
-}
 .addThis {
     background-image:url(../images/silk/tag_yellow.png);
 }
@@ -2010,9 +2006,12 @@ ul.recordSet .addToFavLink a {
 }
 .openurl_more {
     padding-left:20px;
+    padding-right:10px;
     color:#666;
 }
-.openurl_more:hover {
+.openurl_more:hover,
+.openurl_more:active,
+.openurl_more:focus {
     color:#666;
 }
 
@@ -2020,9 +2019,6 @@ ul.recordSet .addToFavLink a {
     display:none;
 }
 
-.openurl_more more_img {
-    
-}
 .checkedout {
     background-image:url(../images/silk/bullet_red.png);
     background-repeat:no-repeat;
@@ -2153,7 +2149,8 @@ ul.recordSet .addToFavLink a {
 }
 /* page titles */
 .resultLinks,
-.module-Search div.account,
+/* module-Search h2.account is actually under user account */
+.module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
 #advSearchForm h1,
@@ -2161,7 +2158,7 @@ ul.recordSet .addToFavLink a {
     margin: 0;
     padding: 0;
 }
-.module-Search div.account,
+.module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
 .resultLinks,
@@ -2171,6 +2168,12 @@ ul.recordSet .addToFavLink a {
     padding: 22px 0 24px;
     background:#b3e3e9;
 }
+.module-Search h2.account,
+.module-MyResearch h2.account,
+.module-MyResearch h1 {
+    background: #b0e9db;
+}
+
 .resultTerms .content {
     overflow:auto;
 }
@@ -2189,13 +2192,12 @@ ul.recordSet .addToFavLink a {
     margin: 4px 0 0;
 }
 .correction .expandSearch {
-    background: url("../images/expand.png") no-repeat scroll 0 0 transparent;
     display: inline-block;
     height: 16px;
     margin-top: 0;
     position: relative;
     top: 3px;
-    width: 17px;
+    width: 20px;
 }
 
 /* Suggested Topics (hidden) */
@@ -2274,7 +2276,14 @@ ul.recordSet .addToFavLink a {
     padding: 10px 12px 10px 15px;
     width:auto;
 }
-
+.dropdown dt a:hover {
+    color:#fff;
+    text-decoration:underline;
+}
+.searchbox .dropdown dt a:hover {
+    color:#888888;
+    text-decoration:none;
+}
 .resultOptionLimit {
     float:right;
 }
@@ -2293,17 +2302,13 @@ ul.recordSet .addToFavLink a {
     left:0;
 }
 .dateVisClear a {
-    background-color: #00A3B5;
-    border-radius: 15px 15px 15px 15px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    color: #FFFFFF;
-    font-size: 1.3em;
     line-height: 1.3em;
-    padding: 1px 8px 3px;
     position: absolute;
-    right: 6px;
-    text-decoration:none;
-    top: 6px;
+    right: 8px;
+    text-indent:-9999px;
+    top: 8px;
+    width:24px;
+    height:24px;
 }
 .dateVisHandle { 
     cursor:pointer;
@@ -2492,9 +2497,9 @@ div.resultLinks a {
     font-weight: bold;
     color: #4D4D4D;
 }
-div.record {
+.module-Record div.record {
     padding: 0;
-    margin: 0 0 1em 0;
+    margin: 4em 0 1em 0;
 }
 .module-MyResearch .record form {
     padding-top: 20px;
@@ -3191,7 +3196,6 @@ p.citationText {
     margin: 0 0 0 12px;
 }
 .myResearchMenu {
-    border-bottom: 1px solid #ddd;
     margin-top: 0;
     padding: 0;
     padding-top: 50px;
@@ -3200,6 +3204,7 @@ p.citationText {
 .myResearchMenu .ui-state-default {
     background-color: #808080;
     font-weight: bold;
+    min-width: 9em;
 }
 .myResearchMenu .ui-state-default a {
     color: #fff;

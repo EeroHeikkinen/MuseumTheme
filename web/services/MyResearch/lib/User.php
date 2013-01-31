@@ -451,10 +451,18 @@ class User extends DB_DataObject
         $this->update();
         
         // Update Session
-
         if ($session_info = UserAccount::isLoggedIn()) {
             $session_info->home_library = $home_library;
             UserAccount::updateSession($session_info);
+        }
+        
+        // Update Account
+        $account = new User_account();
+        $account->user_id = $this->id;
+        $account->cat_username = $this->cat_username;
+        if ($account->find(true)) {
+            $account->home_library = $home_library;
+            $account->update();
         }
         return true;
     }
@@ -501,5 +509,30 @@ class User extends DB_DataObject
             UserAccount::updateSession($session_info);
         }
         return true;
+    }
+    
+    /**
+     * Get a list of catalog accounts
+     * 
+     * @return array Account details
+     */
+    public function getCatalogAccounts()
+    {
+        $accounts = array();
+        $account = new User_account();
+        $account->user_id = $this->id;
+        if ($account->find(false)) {
+            $date = new VuFindDate();
+            while ($account->fetch()) {
+                $accounts[] = array(
+                    'id' => $account->id,
+                    'account_name' => $account->account_name,
+                    'description' => $account->description,
+                    'created' => $date->convertToDisplayDate('Y-m-d H:i:s', $account->created),
+                    'cat_username' => $account->cat_username
+                );
+            }
+        }
+        return $accounts;
     }
 }

@@ -241,6 +241,15 @@ if ($user && (isset($_POST['mylang']) || isset($_GET['lng']))) {
     $user->changeLanguage($language);    
 }
 
+// Activate catalog account
+if (isset($_REQUEST['catalogAccount'])) {
+    if ($_REQUEST['catalogAccount'] == 'new') {
+        header("Location: {$configArray['Site']['url']}/MyResearch/Accounts?add=1");
+        return;
+    }
+    UserAccount::activateCatalogAccountID($_REQUEST['catalogAccount']);
+}
+
 // Assign global interface values now that the environment is all set up:
 $interface->initGlobals();
 

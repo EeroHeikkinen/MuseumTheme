@@ -8,11 +8,26 @@
 <div id="loginHeader" class="last right small">
   {if !$hideLogin}
   <div id="logoutOptions"{if !$user} class="hide"{/if}>
+    {if $catalogAccounts}
+    <form method="post" action="">
+    {/if} 
     <a class="account" href="{$path}/MyResearch/Home">{translate text="Your Account"}</a>
+    {if $catalogAccounts}
+    <select id="catalogAccount" name="catalogAccount" title="{translate text="Selected Library Card"}" class="jumpMenu">
+      {foreach from=$catalogAccounts item=account}
+      <option value="{$account.id|escape}"{if $account.cat_username == $currentCatalogAccount} selected="selected"{/if}>{$account.account_name|escape}</option>
+      {/foreach}
+      <option value="new">{translate text="Add"}...</option>
+    </select>
+    <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
+    {/if}
     {if $mozillaPersonaCurrentUser}
     <a id="personaLogout" class="logout" href="">{translate text="Log Out"}</a>
     {else}
     <a class="logout" href="{$path}/MyResearch/Logout">{translate text="Log Out"}</a>
+    {/if}
+    {if $catalogAccounts}
+    </form>
     {/if}
   </div>
   <div id="loginOptions"{if $user} class="hide"{/if}>
