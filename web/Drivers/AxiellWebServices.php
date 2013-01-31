@@ -166,7 +166,7 @@ class AxiellWebServices implements DriverInterface
                 $this->debugLog("Catalogue record detail request failed for '$id'");
                 $this->debugLog("Request: " . $client->__getLastRequest());
                 $this->debugLog("Response: " . $client->__getLastResponse());
-                return array();
+                return new PEAR_Error('catalog_error_technical');
             }
 
             $this->debugLog("Request: " . $client->__getLastRequest());
@@ -240,7 +240,7 @@ class AxiellWebServices implements DriverInterface
             $this->debugLog($e->getMessage());
             $this->debugLog("Request: " . $client->__getLastRequest());
             $this->debugLog("Response: " . $client->__getLastResponse());
-            return array();
+            return new PEAR_Error('catalog_error_technical');;
         }
     }
 
@@ -315,7 +315,7 @@ class AxiellWebServices implements DriverInterface
      */
     public function getMyProfile($patron)
     {
-        $this->debugLog("AWS: getMyProfile called");
+        $this->debugLog("getMyProfile called");
         return $patron;
     }
 
@@ -337,7 +337,7 @@ class AxiellWebServices implements DriverInterface
         try {
             $patronId = $this->getPatronId($username, $password);
             if (!$patronId) {
-                return null;
+                return new PEAR_Error('authentication_error_technical');
             }
             
             $this->debugLog("Patron login for '$username':");
@@ -347,7 +347,7 @@ class AxiellWebServices implements DriverInterface
                 $this->debugLog("Patron information request failed for '$username'");
                 $this->debugLog("Request: " . $client->__getLastRequest());
                 $this->debugLog("Response: " . $client->__getLastResponse());
-                return null;
+                return new PEAR_Error('authentication_error_technical');;
             }
 
             $this->debugLog("Request: " . $client->__getLastRequest());
@@ -392,7 +392,7 @@ class AxiellWebServices implements DriverInterface
 
         } catch (Exception $e) {
             $this->debugLog($e->getMessage());
-            return null;
+            return new PEAR_Error('authentication_error_technical');;
         }
     }
 
@@ -413,6 +413,9 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->loans_wsdl, $this->soapOptions);
         try {
             $patronId = $this->getPatronId($user['cat_username'], $user['cat_password']);
+            if (!$patronId) {
+                return new PEAR_Error('authentication_error_technical');
+            }
             
             $this->debugLog("Loans request for '{$user['cat_username']}':");
             
@@ -425,15 +428,16 @@ class AxiellWebServices implements DriverInterface
                     // Workaround for AWS problem when it cannot find a record
                     $this->debugLog('AxiellWebServices: It seems we got the loans anyway...');
                 } else {
-                    return null;
+                    return new PEAR_Error('catalog_error_technical');
                 }
             }
             $this->debugLog("Request: " . $client->__getLastRequest());
             $this->debugLog("Response: " . $client->__getLastResponse());
             
             $transList = array();
-            if (!isset($result->loansResponse->loans->loan))
+            if (!isset($result->loansResponse->loans->loan)) {
                 return $transList;
+            }
             $loans = is_object($result->loansResponse->loans->loan) ? array($result->loansResponse->loans->loan) : $result->loansResponse->loans->loan;
             
             foreach ($loans as $loan) {
@@ -450,7 +454,7 @@ class AxiellWebServices implements DriverInterface
 
         } catch (Exception $e) {
             $this->debugLog($e->getMessage());
-            return null;
+            return new PEAR_Error('catalog_error_technical');
         }
     }
 
@@ -489,6 +493,9 @@ class AxiellWebServices implements DriverInterface
             $results = array();
             foreach ($renewDetails['details'] as $id) {
                 $patronId = $this->getPatronId($renewDetails['patron']['cat_username'], $renewDetails['patron']['cat_password']);
+                if (!$patronId) {
+                    return new PEAR_Error('authentication_error_technical');
+                }
                 
                 $this->debugLog("Renew loan request for '{$renewDetails['patron']['cat_username']}':");
                 
@@ -544,6 +551,9 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->payments_wsdl, $this->soapOptions);
         try {
             $patronId = $this->getPatronId($user['cat_username'], $user['cat_password']);
+            if (!$patronId) {
+                return new PEAR_Error('authentication_error_technical');
+            }
             
             $this->debugLog("Debts request for '{$renewDetails['patron']['cat_username']}':");
             
@@ -552,7 +562,7 @@ class AxiellWebServices implements DriverInterface
                 $this->debugLog("Debts request failed for '" . $user['cat_username'] . "'");
                 $this->debugLog("Request: " . $client->__getLastRequest());
                 $this->debugLog("Response: " . $client->__getLastResponse());
-                return null;
+                return new PEAR_Error('catalog_error_technical');
             }
             $this->debugLog("Request: " . $client->__getLastRequest());
             $this->debugLog("Response: " . $client->__getLastResponse());
@@ -578,7 +588,7 @@ class AxiellWebServices implements DriverInterface
 
         } catch (Exception $e) {
             $this->debugLog($e->getMessage());
-            return null;
+            return new PEAR_Error('catalog_error_technical');
         }
     }
 
@@ -598,6 +608,9 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->reservations_wsdl, $this->soapOptions);
         try {
             $patronId = $this->getPatronId($user['cat_username'], $user['cat_password']);
+            if (!$patronId) {
+                return new PEAR_Error('authentication_error_technical');
+            }
             
             $this->debugLog("Holds request for '{$user['cat_username']}':");
             
@@ -606,7 +619,7 @@ class AxiellWebServices implements DriverInterface
                 $this->debugLog("Reservations request failed for '" . $user['cat_username'] . "'");
                 $this->debugLog("Request: " . $client->__getLastRequest());
                 $this->debugLog("Response: " . $client->__getLastResponse());
-                return null;
+                return new PEAR_Error('catalog_error_technical');
             }
 
             $this->debugLog("Reservations Request: " . $client->__getLastRequest());
@@ -643,7 +656,7 @@ class AxiellWebServices implements DriverInterface
 
         } catch (Exception $e) {
             $this->debugLog($e->getMessage());
-            return null;
+            return new PEAR_Error('catalog_error_technical');
         }
     }
 
@@ -663,6 +676,9 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->reservations_wsdl, $this->soapOptions);
         try {
             $patronId = $this->getPatronId($user['cat_username'], $user['cat_password']);
+            if (!$patronId) {
+                return new PEAR_Error('authentication_error_technical');
+            }
             
             $this->debugLog("Holds request for '{$user['cat_username']}':");
             
@@ -671,11 +687,11 @@ class AxiellWebServices implements DriverInterface
                 $this->debugLog("Reservation branches request failed for '" . $user['cat_username'] . "'");
                 $this->debugLog("Request: " . $client->__getLastRequest());
                 $this->debugLog("Response: " . $client->__getLastResponse());
-                return null;
+                return new PEAR_Error('catalog_error_technical');
             }
 
-                    $this->debugLog("Request: " . $client->__getLastRequest());
-                    $this->debugLog("Response: " . $client->__getLastResponse());
+            $this->debugLog("Request: " . $client->__getLastRequest());
+            $this->debugLog("Response: " . $client->__getLastResponse());
                         
             $locationsList = array();
             if (!isset($result->reservationBranchesResponse->organisations->organisation))
@@ -704,7 +720,7 @@ class AxiellWebServices implements DriverInterface
 
         } catch (Exception $e) {
             $this->debugLog($e->getMessage());
-            return null;
+            return new PEAR_Error('catalog_error_technical');
         }
     }
     
@@ -744,6 +760,9 @@ class AxiellWebServices implements DriverInterface
         $client = new SoapClient($this->reservations_wsdl, $this->soapOptions);
         try {
             $patronId = $this->getPatronId($holdDetails['patron']['cat_username'], $holdDetails['patron']['cat_password']);
+            if (!$patronId) {
+                return new PEAR_Error('authentication_error_technical');
+            }
             
             $this->debugLog("Add reservation request for '" . $holdDetails['patron']['cat_username'] . "':");
                         
@@ -773,7 +792,7 @@ class AxiellWebServices implements DriverInterface
             );
         } catch (Exception $e) {
             $this->debugLog($e->getMessage());
-            return null;
+            return new PEAR_Error('catalog_error_technical');
         }
     }
 
@@ -821,7 +840,7 @@ class AxiellWebServices implements DriverInterface
             return $results;
         } catch (Exception $e) {
             $this->debugLog($e->getMessage());
-            return null;
+            return new PEAR_Error('catalog_error_technical');
         }
     }
 
@@ -884,7 +903,7 @@ class AxiellWebServices implements DriverInterface
     {
         $client = new SoapClient($this->patron_wsdl, $this->soapOptions);
         try {
-            $this->debugLog("Authenticate patron request for '$username':");
+            $this->debugLog("Get patron id: Authenticate patron request for '$username':");
             
             $result = $client->authenticatePatron(array('authenticatePatronRequest' => array('arenaMember' => $this->arenaMember, 'language' => 'en', 'user' => $username, 'password' => $password)));
             
