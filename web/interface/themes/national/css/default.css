@@ -1116,13 +1116,14 @@ fieldset.publishDateLimit .ui-slider {
 
 #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
     float: left;
-    margin: 0 30px 0 0;
+    margin: 0 30px 40px 0;
     width: 210px;
 }
 .module-Collection #sidebarCollection {
     margin-left: 10px;
 }
 
+#sidebarFavoritesLists .favoritesCount,
 #sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists .selected,
 #sidebarFavoritesLists .listItem a,
@@ -1146,7 +1147,7 @@ fieldset.publishDateLimit .ui-slider {
     margin-top: 40px;
 }
 #sidebarFavoritesLists ul {
-    margin: 1em 0 0 0;
+    margin: 5px 0 0 0;
     padding: 0;
 }
 #sidebarFavoritesLists .listItem,
@@ -1758,7 +1759,9 @@ dl.narrowList a {
     list-style-type: disc;
 }
 .record .content {
-    padding-top:40px;
+    /* padding-top:40px;
+       commented this out because it breaks a few things and I don't know where
+       it should be applied */
 }
 .main .contentHeader,
 .main .browseHeader {
@@ -2147,7 +2150,8 @@ ul.recordSet .addToFavLink a {
 }
 /* page titles */
 .resultLinks,
-.module-Search div.account,
+/* module-Search h2.account is actually under user account */
+.module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
 #advSearchForm h1,
@@ -2155,7 +2159,7 @@ ul.recordSet .addToFavLink a {
     margin: 0;
     padding: 0;
 }
-.module-Search div.account,
+.module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
 .resultLinks,
@@ -2165,6 +2169,12 @@ ul.recordSet .addToFavLink a {
     padding: 22px 0 24px;
     background:#b3e3e9;
 }
+.module-Search h2.account,
+.module-MyResearch h2.account,
+.module-MyResearch h1 {
+    background: #b0e9db;
+}
+
 .resultTerms .content {
     overflow:auto;
 }
@@ -2493,9 +2503,9 @@ div.resultLinks a {
     font-weight: bold;
     color: #4D4D4D;
 }
-div.record {
+.module-Record div.record {
     padding: 0;
-    margin: 0 0 1em 0;
+    margin: 4em 0 1em 0;
 }
 .module-MyResearch .record form {
     padding-top: 20px;
@@ -3192,7 +3202,6 @@ p.citationText {
     margin: 0 0 0 12px;
 }
 .myResearchMenu {
-    border-bottom: 1px solid #ddd;
     margin-top: 0;
     padding: 0;
     padding-top: 50px;
@@ -3201,6 +3210,7 @@ p.citationText {
 .myResearchMenu .ui-state-default {
     background-color: #808080;
     font-weight: bold;
+    min-width: 9em;
 }
 .myResearchMenu .ui-state-default a {
     color: #fff;
