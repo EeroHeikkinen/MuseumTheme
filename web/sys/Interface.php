@@ -53,7 +53,7 @@ class UInterface extends Smarty
     public function UInterface($local = '')
     {
         global $configArray;
-
+        
         if (!$local) {
             $local = $configArray['Site']['local'];
         }
@@ -212,6 +212,12 @@ class UInterface extends Smarty
             $this->assign('sessionInitiator', $sessionInitiator);
         }
 
+        if (isset($configArray['Authentication']['libraryCard'])  && !$configArray['Authentication']['libraryCard']) {
+            $this->assign('libraryCard', false);
+        } else {
+            $this->assign('libraryCard', true);
+        }
+        
         $this->assign(
             'sidebarOnLeft',
             !isset($configArray['Site']['sidebarOnLeft'])
@@ -404,6 +410,12 @@ class UInterface extends Smarty
             if (!isset($configArray['Authentication']['mozillaPersonaAutoLogout']) || $configArray['Authentication']['mozillaPersonaAutoLogout']) {
                 $this->assign('mozillaPersonaAutoLogout', true);
             }
+        }
+
+        // Catalog Account List
+        if ($user) {
+            $this->assign('currentCatalogAccount', $user->cat_username);
+            $this->assign('catalogAccounts', $user->getCatalogAccounts());
         }
     }
 

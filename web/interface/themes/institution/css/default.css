@@ -860,7 +860,7 @@ fieldset.publishDateLimit .ui-slider {
 #resultList.checkedoutList {
     width: 960px;
 }
-.checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
+.checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo, .accounts table.accountList {
     margin: 1.8em 0 0 0;
 }
 .checkedoutList .iconlabel, .holdsList .iconlabel {
@@ -895,7 +895,7 @@ fieldset.publishDateLimit .ui-slider {
     margin: 2em 0;
     float: right;
 }
-.finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
+.finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td, .accountList td {
     border-bottom: 1px solid #dddddd;
     padding-top: 0.4em;
     padding-bottom: 0.4em;

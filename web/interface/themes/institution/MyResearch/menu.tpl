@@ -9,6 +9,9 @@
       <li class="active ui-state-default ui-corner-top {if $pageTemplate=="holds.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Holds">{translate text='Holds and Requests'}</a></li>
       <li class="active ui-state-default ui-corner-top {if $pageTemplate=="fines.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Fines">{translate text='Fines'}</a></li>
       <li class="active ui-state-default ui-corner-top {if $pageTemplate=="profile.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Profile">{translate text='Profile'}</a></li>
+{if $libraryCard}      
+      <li class="active ui-state-default ui-corner-top {if $pageTemplate=="accounts.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/MyResearch/Accounts">{translate text='Library Cards'}</a></li>
+{/if}      
       {* Only highlight saved searches as active if user is logged in: *}
       <li class="active ui-state-default ui-corner-top {if $user && $pageTemplate=="history.tpl"} ui-tabs-selected ui-state-active{/if}"><a href="{$url}/Search/History?require_login">{translate text='history_saved_searches'}</a></li>
     </ul>

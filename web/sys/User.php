@@ -32,6 +32,7 @@ require_once 'sys/authn/AuthenticationFactory.php';
 
 // This is necessary for unserialize
 require_once 'services/MyResearch/lib/User.php';
+require_once 'services/MyResearch/lib/User_account.php';
 
 /**
  * Wrapper class for handling logged-in user in session.
@@ -167,7 +168,8 @@ class UserAccount
         }
 
         // If we authenticated, store the user in the session:
-        if (!PEAR::isError($user)) {
+        if ($user && !PEAR::isError($user)) {
+            self::verifyAccountInList($user);
             self::updateSession($user);
         }
 
@@ -200,6 +202,7 @@ class UserAccount
                 unset($user->cat_username);
                 unset($user->cat_password);
             } else {
+                self::verifyAccountInList($user);
                 return $patron;
             }
         }
@@ -225,10 +228,54 @@ class UserAccount
             $user->cat_username = $username;
             $user->cat_password = $password;
             $user->update();
+            self::verifyAccountInList($user);
             self::updateSession($user);
             return true;
         }
         return false;
+    }
+
+    /**
+     * Activate a catalog account (no checks performed)
+     * 
+     * @param string $username    User ID
+     * @param string $password    Password
+     * @param string $homeLibrary Home Library
+     * 
+     * @return void
+     */
+    public static function activateCatalogAccount($username, $password, $homeLibrary)
+    {
+        global $user;
+
+        $user->cat_username = $username;
+        $user->cat_password = $password;
+        $user->home_library = $homeLibrary;
+        $user->update();
+        self::updateSession($user);
+    }
+
+    /**
+     * Activate a catalog account (no checks performed)
+     * 
+     * @param string $id Account ID
+     * 
+     * @return void
+     */
+    public static function activateCatalogAccountID($id)
+    {
+        global $user;
+        
+        $account = new User_account();
+        $account->id = $id;
+        $account->user_id = $user->id;
+        if ($account->find(true)) {
+            $user->cat_username = $account->cat_username;
+            $user->cat_password = $account->cat_password;
+            $user->home_library = $account->home_library;
+            $user->update();
+            self::updateSession($user);
+        }
     }
     
     /**
@@ -260,6 +307,35 @@ class UserAccount
         return inet_pton($ip);
     }
 
+    /**
+     * Verify that the current catalog account is in the account list
+     * 
+     * @param object $user User
+     * 
+     * @return void
+     */
+    protected static function verifyAccountInList($user)
+    {
+        if (!isset($user->cat_username) || !$user->cat_username) {
+            return;
+        }
+        $account = new User_account();
+        $account->user_id = $user->id;
+        $account->cat_username = $user->cat_username;
+        if (!$account->find(true)) {
+            list($login_target, $cat_username) = explode('.', $account->cat_username, 2);
+            if ($login_target && $cat_username) {
+                $account->account_name = translate(array('text' => $login_target, 'prefix' => 'source_'));
+            } else {
+                $account->account_name = translate('Default');
+            }
+            $account->cat_password = $user->cat_password;
+            $account->home_library = $user->home_library;
+            $account->created = date('Y-m-d h:i:s');
+            $account->insert();
+        } 
+    }
+    
 }
 
 ?>
