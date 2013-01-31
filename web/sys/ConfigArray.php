@@ -166,13 +166,13 @@ function readConfig($basePath = 'conf', $filename = '')
  */
 function determineSiteUrl($configArray)
 {
-    if (!empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+    if (isset($_SERVER['HTTP_X_FORWARDED_HOST']) && !empty($_SERVER['HTTP_X_FORWARDED_HOST'])) {
         // This should work with Apache/Nginx reverse proxying, but not
         // with WSGI proxies like Deliverance and Diazo.
         // TODO: Survey why, and how can we get this working
         $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
         $path = $_SERVER['HTTP_X_FORWARDED_PATH'];
-    } else if (!empty($_SERVER['HTTP_X_FORWARDED_SERVER'])) {
+    } else if (isset($_SERVER['HTTP_X_FORWARDED_SERVER']) && !empty($_SERVER['HTTP_X_FORWARDED_SERVER'])) {
         $host = $_SERVER['HTTP_X_FORWARDED_SERVER'];
         $path = $_SERVER['HTTP_X_FORWARDED_PATH'];
     } else {
