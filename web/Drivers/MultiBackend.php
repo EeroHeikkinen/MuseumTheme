@@ -255,8 +255,9 @@ class MultiBackend implements DriverInterface
      */
     public function patronLogin($username, $password)
     {
-        if (isset($_SESSION['logins'][$username])) {
-            return unserialize($_SESSION['logins'][$username]);
+        $hash = md5($username . $password);
+        if (isset($_SESSION['logins'][$hash])) {
+            return unserialize($_SESSION['logins'][$hash]);
         }
         $source = $this->getSource($username);
         if (!$source) {
