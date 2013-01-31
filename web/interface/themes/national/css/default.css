@@ -1051,6 +1051,9 @@ fieldset.publishDateLimit .ui-slider {
     margin: 0 30px 0 0;
     width: 210px;
 }
+.module-Collection #sidebarCollection {
+    margin-left: 10px;
+}
 
 #sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists .selected,
@@ -2067,7 +2070,8 @@ ul.recordSet .addToFavLink a {
 .module-Search div.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
-#advSearchForm h1 {
+#advSearchForm h1,
+.module-Collection #collectionHeader {
     margin: 0;
     padding: 0;
 }
@@ -2076,7 +2080,8 @@ ul.recordSet .addToFavLink a {
 .module-MyResearch h1,
 .resultLinks,
 .advSearchHeader,
-.resultTerms {
+.resultTerms,
+.module-Collection #collectionHeader {
     padding: 22px 0 24px;
     background:#b3e3e9;
 }
@@ -2138,6 +2143,7 @@ ul.recordSet .addToFavLink a {
 .resultOptionSort {
     float: left;
 }
+.collectionSortSelector label,
 .resultOptions label,
 .advRow label,
 .advSearchFooter label,
@@ -2152,6 +2158,7 @@ ul.recordSet .addToFavLink a {
     line-height:1em;
     padding: 2px 8px 12px 15px;
 }
+.collectionSortSelector label,
 .resultOptions label,
 .advSearchFooter label,
 .resultOptionSort label,
@@ -2162,6 +2169,7 @@ ul.recordSet .addToFavLink a {
     float:left;
     display:block;
 }
+.collectionSortSelector .dropdown,
 .resultOptions .dropdown,
 .searchGroupDetails .dropdown,
 .groupSearchDetails .dropdown,
@@ -2390,9 +2398,14 @@ div.dateVisHandle.visible {
 }
 /*** Record Page ***/
 
+.module-Collection #collectionHeader,
 div.resultLinks {
     background-color: #E6E6E6;
 }
+.module-Collection #collectionHeader {
+    margin-bottom: 3em;
+}
+.module-Collection #collectionHeader a,
 div.resultLinks a {
     font-weight: bold;
     color: #4D4D4D;
@@ -3393,6 +3406,27 @@ tr:nth-child(even) td.gridMouseOver {
 .collectionBrowseCount {
     padding: 0.5em;
     float: right;
+}
+
+#moreInfoToggle {
+    display: inline;
+}
+#moreInfoToggle:before,
+#moreInfoToggle:after {
+    margin-left: 1em;
+}
+#moreInfoToggle:after {
+    content: "\25bc";
+}
+#moreInfoToggle.active:after {
+    content: "\25b2";
+}
+#moreInfoToggle,
+#moreInfoToggle:link,
+#moreInfoToggle:focus,
+#moreInfoToggle:hover {
+    color: #fff;
+    text-decoration: none;
 }
 
 /* toolbar was changed to collection-toolbar in Collection/view.tpl & Collection/view-alt.tpl */
