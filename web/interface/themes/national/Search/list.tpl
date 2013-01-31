@@ -83,17 +83,14 @@
     </div> {* content *}
   </div> {* resultViewOptions *}
 
-  <div class="resultDates {if !empty($visFacets.main_date_str[0])}expanded{/if}">
-    <div class="content">
+  <div class="resultRecommendations">
     {* Recommendations *}
     {if $topRecommendations}
       {foreach from=$topRecommendations item="recommendations"}
         {include file=$recommendations}
       {/foreach}
     {/if}
-    </div>
   </div>
-
   <div class="resultDatesHeader {if !empty($visFacets.main_date_str[0])}expanded{/if}">
     <div class="content">
       <span class="dateVisHandle">Tulokset aikajanalla<span class="dateVisHelp {if !empty($visFacets.main_date_str[0])}visible{/if}"><span class="infoIndicator">i</span>maalaa hiirellä haluamasi vuosirajaus.</span></span>

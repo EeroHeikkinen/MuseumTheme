@@ -3,7 +3,10 @@
 /*** Elements that use the sprite ***/
 
 .iconlabel, 
-.icon {
+.icon,
+.advancedLink,
+.toggleBox,
+.searchbox .dropdown dt a {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -11,7 +14,7 @@
 
 /*** Individual element background positions ***/
 
-/* Front page icons */
+/* Front page: search suggestion icons */
 
 .home-section .iconlabel.formatdocument {
     background-position: -45px -384px;
@@ -48,4 +51,26 @@
 }
 .home-section .iconlabel.formatsoundrecording {
     background-position: -46px -550px;
+}
+
+/* Header: info box */
+
+.toggleBox.openInfoBox {
+    background-position: -681px -3900px;
+}
+.toggleBox.closeInfoBox {
+    background-position: -365px -4028px;
+}
+
+
+/* Header: Search box */
+
+.advancedLink {
+    background-position:-574px -2003px;
+}
+.searchbox .dropdown dt a {
+    background-position: 67px -4146px; 
+}
+.searchbox .dropdown dt a:hover {
+    background-position:-1181px -4146px;
 }

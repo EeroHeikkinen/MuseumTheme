@@ -36,12 +36,12 @@
     </div>
   </div>
   {/if}
-  {if !$showTopSearchBox}
   <div class="headerInfoBox">
-    <div class="openInfoBox toggleBox">i</div>
-    <div class="closeInfoBox toggleBox">x</div>
+    <div class="openInfoBox toggleBox"></div>
+    <div class="closeInfoBox toggleBox"></div>
     <div class="infoBoxText"></div>
   </div>
+  {if !$showTopSearchBox}
   <div class="headerHomeContent">
     <h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">samalla haulla</span></h2><br />
     <h3>Jo yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
