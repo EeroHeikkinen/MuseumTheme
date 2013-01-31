@@ -450,14 +450,14 @@ ul.subMenu li:first-child {
 
 
 a.clear_input {
-    background: url("../images/searchbox.png") no-repeat scroll -194px -47px transparent;
-    /* For round clear button use coordinates -215px -47px */
-    color: white;
     padding-left: 10px;
     position: absolute;
     height: 16px;
     width: 15px;
     text-indent:-9999px;
+    margin-right:10px;
+    left: 370px !important;
+    top: 8px !important;
 }
 a.clear_input:hover {
     text-decoration: none;
@@ -1408,6 +1408,7 @@ ul.recordSet .recordNumber {
 ul.recordSet .addToFavLink {
     width: auto;
     float: right;
+    width: 20px;
 }
 .addToFavLink a {
     height: 20px;
@@ -1418,7 +1419,7 @@ ul.recordSet .resultColumn1 {
 }
 ul.recordSet .resultColumn2 {
     float: left;
-    width: 534px;
+    width: 500px;
     margin-left: 10px;
 }
 ul.recordSet .resultCheckbox {
@@ -1838,11 +1839,9 @@ dl.narrowList a {
     display:block;
     text-align:left;
     background-repeat:no-repeat;
-    background-position:4px 8px;
     padding:.5em .5em .5em 25px;
 }
 ul.recordSet .addToFavLink a {
-    background-position:5px 3px;
     padding:.1em .5em .5em 25px;
 }
 .searchtools a.mailSearch {
@@ -1938,12 +1937,6 @@ ul.recordSet .addToFavLink a {
 .mail {
     background-image:url(../images/silk/email.png);
 }
-.fav {
-    background-image:url(../images/silk/heartbw.png);
-}
-.fav:hover {
-    background-image:url(../images/silk/heart.png);
-}
 .addThis {
     background-image:url(../images/silk/tag_yellow.png);
 }
@@ -2007,9 +2000,12 @@ ul.recordSet .addToFavLink a {
 }
 .openurl_more {
     padding-left:20px;
+    padding-right:10px;
     color:#666;
 }
-.openurl_more:hover {
+.openurl_more:hover,
+.openurl_more:active,
+.openurl_more:focus {
     color:#666;
 }
 
@@ -2017,9 +2013,6 @@ ul.recordSet .addToFavLink a {
     display:none;
 }
 
-.openurl_more more_img {
-    
-}
 .checkedout {
     background-image:url(../images/silk/bullet_red.png);
     background-repeat:no-repeat;
@@ -2193,13 +2186,12 @@ ul.recordSet .addToFavLink a {
     margin: 4px 0 0;
 }
 .correction .expandSearch {
-    background: url("../images/expand.png") no-repeat scroll 0 0 transparent;
     display: inline-block;
     height: 16px;
     margin-top: 0;
     position: relative;
     top: 3px;
-    width: 17px;
+    width: 20px;
 }
 
 /* Suggested Topics (hidden) */
@@ -2304,17 +2296,13 @@ ul.recordSet .addToFavLink a {
     left:0;
 }
 .dateVisClear a {
-    background-color: #00A3B5;
-    border-radius: 15px 15px 15px 15px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    color: #FFFFFF;
-    font-size: 1.3em;
     line-height: 1.3em;
-    padding: 1px 8px 3px;
     position: absolute;
-    right: 6px;
-    text-decoration:none;
-    top: 6px;
+    right: 8px;
+    text-indent:-9999px;
+    top: 8px;
+    width:24px;
+    height:24px;
 }
 .dateVisHandle { 
     cursor:pointer;

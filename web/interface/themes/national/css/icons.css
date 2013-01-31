@@ -1,56 +1,69 @@
 /***** CSS descriptions for the Finna icon set sprite *****/
 
-/*** Elements that use the sprite ***/
+/*** Elements with 16-24px icons ***/
 
 .iconlabel, 
 .icon,
-.advancedLink,
 .toggleBox,
-.searchbox .dropdown dt a {
+.searchbox .dropdown dt a,
+.openurl_more,
+.fav,
+.correction .expandSearch,
+a.clear_input,
+.dateVisClear a {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
 }
 
+/*** Elements with 32-48px icons ***/
+
+.advancedLink {
+    background-image: url(../images/icons32-48px.png);
+    background-repeat: no-repeat;
+    background-position:0 0;
+}
+
+
 /*** Individual element background positions ***/
 
 /* Front page: search suggestion icons */
 
-.home-section .iconlabel.formatdocument {
-    background-position: -45px -384px;
+.iconlabel.formatdocument {
+    background-position: -45px -385px;
 }
-.home-section .iconlabel.formatphysicalobject {
-    background-position: -46px -217px;
+.iconlabel.formatphysicalobject {
+    background-position: -46px -218px;
 }
-.home-section .iconlabel.formatmap {
-    background-position: -47px -160px;
+ .iconlabel.formatmap {
+    background-position: -47px -161px;
 }
-.home-section .iconlabel.formatbook {
-    background-position: -46px -46px;
+.iconlabel.formatbook {
+    background-position: -46px -47px;
 }
-.home-section .iconlabel.formatimage {
-    background-position: -47px -494px;
+.iconlabel.formatimage {
+    background-position: -47px -495px;
 }
-.home-section .iconlabel.formatjournal {
-    background-position: -47px -103px;
+.iconlabel.formatjournal {
+    background-position: -47px -104px;
 }
-.home-section .iconlabel.formatmusicalscore {
-    background-position: -47px -329px;
+ .iconlabel.formatmusicalscore {
+    background-position: -47px -330px;
 }
-.home-section .iconlabel.formatthesis {
-    background-position: -45px -719px;
+.iconlabel.formatthesis {
+    background-position: -45px -720px;
 }
-.home-section .iconlabel.formatworkofart {
-    background-position: -46px -662px;
+.iconlabel.formatworkofart {
+    background-position: -46px -663px;
 }
-.home-section .iconlabel.formatdatabase {
-    background-position: -47px -274px;
+ .iconlabel.formatdatabase {
+    background-position: -47px -275px;
 }
-.home-section .iconlabel.formatvideo {
-    background-position: -46px -605px;
+.iconlabel.formatvideo {
+    background-position: -46px -606px;
 }
-.home-section .iconlabel.formatsoundrecording {
-    background-position: -46px -550px;
+.iconlabel.formatsoundrecording {
+    background-position: -46px -551px;
 }
 
 /* Header: info box */
@@ -71,6 +84,34 @@
 .searchbox .dropdown dt a {
     background-position: -1534px -4146px; 
 }
-.searchbox .dropdown dt a:hover {
-    background-position:-1181px -4146px;
+a.clear_input {
+    background-position:-47px -3163px;
+}
+/* Header: Search suggestions */
+
+.correction .expandSearch {
+    background-position: -49px -2006px;
+}
+
+/* Main: Result header */
+
+.dateVisClear a {
+    background-position: -365px -4028px; 
+}
+
+/* Main: Search results */
+
+.openurl_more {
+    background-position: -46px -3320px; 
+}
+
+.openurl_more.expanded {
+    background-position: -46px -3271px; 
+}
+
+.fav {
+    background-position: -361px -3041px;
+}
+.fav:hover {
+    background-position: -361px -3041px;
 }
