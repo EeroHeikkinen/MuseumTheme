@@ -412,6 +412,7 @@ ul.subMenu li:first-child {
 
 .searchFormWrapper {
     background: url("../images/search_buttons.png") no-repeat scroll 530px 5px #FFFFFF;
+    background:#fff;
     border-radius: 16px 16px 16px 16px;
     float:left;
     height: 46px;
@@ -443,7 +444,7 @@ ul.subMenu li:first-child {
     width:400px;
     margin: 0;
     padding: 0;
-    background:transparent;
+    background:#fff;
     behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
@@ -465,6 +466,74 @@ a.clear_input:hover {
 .searchbox .styled_select {
     position: absolute;
     right: 82px;
+}
+
+/*** Header info button ***/
+
+.headerInfoBox {
+    width:25px;
+    height:25px;
+    border-radius:13px;
+    margin-top:-10px;
+    float:right;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position:relative;
+    transition:background-color .2s, box-shadow .2s;
+    -moz-transition:background-color .2s, box-shadow .2s;
+    -webkit-transition:background-color .2s, box-shadow .2s;
+}
+.headerInfoBox.visible {
+    background-color:#fff;
+    box-shadow:0 1px 3px rgba(0,0,0,.1);
+}
+.toggleBox {
+    position:absolute;
+    right:3px;
+    cursor:pointer;
+    height:24px;
+    line-height:25px;
+    width:24px;
+    top:3px;
+}
+.closeInfoBox,
+.infoBoxText .moreButton {
+    display:none;
+}
+.infoBoxText {
+    color: #333333;
+    position: absolute;
+    right: 50px;
+    margin: 14px 0 18px;
+    visibility: hidden;
+    width: 325px;
+}
+.infoBoxText .strong {
+    clear:both;
+    margin-bottom:10px;
+    display:block;
+}
+#header .infoBoxText a.more {
+    background:none;
+    padding:0;
+    clear:both;
+    color:#333;
+    margin-top:8px;
+    display:block;
+}
+.infoBoxText .moreButton {
+    display: inline-block;
+    font-size: 0.8em;
+    padding: 0;
+    text-align: center;
+    width: 25px;
+}
+#header .infoBoxText a.more:hover {
+    text-decoration:none;
 }
 
 /** Dropdown **/
@@ -717,7 +786,7 @@ body > .ui-widget .button {
 
 
 #searchForm_searchButton {
-    background: transparent;
+    background: url("../images/search_buttons.png") no-repeat scroll -31px 0 transparent;
     border: medium none;
     color: #555555;
     cursor: pointer;
@@ -729,7 +798,6 @@ body > .ui-widget .button {
     width: 70px;
 }
 .advancedLink {
-    background: url("../images/search_buttons.png") no-repeat 104px -45px;
     color: #FFFFFF;
     display: block;
     font-size: .923em;
@@ -1369,7 +1437,7 @@ ul.recordSet .resultItemLine2{
     margin: 0;
     max-width: 126px;
 }
-.resultNoImage {
+.module-Search .resultListContainer .resultNoImage {
     background-color: #FFFFFF;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -1380,6 +1448,15 @@ ul.recordSet .resultItemLine2{
     position: relative;
     width: 118px;
     z-index: 1;
+}
+.resultNoImage {
+    display: table;
+    border: 1px solid #f0f0f0;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 1;
+    width: 124px;
+    height: 124px;
 }
 .resultNoImage p {
     display: table-cell;
@@ -1430,10 +1507,7 @@ div.resultItemFormat {
     margin: 10px auto 0 auto;
     text-align: center;
 }
-.authorbox,.authorbio {
-    border-bottom: 1px solid #eeeeee;
-    background: url("../images/bg_authorbox.jpg") repeat-x center bottom;
-}
+
 #authorList .authorbio {
     padding: 0 .8em;
 }
@@ -1487,6 +1561,12 @@ li.result blockquote {
     color: #666666;
 }
 
+.recommendation {
+    padding-bottom:20px;
+}
+.resultRecommendations {
+    clear:both;
+}
 
 /** Side facets */
 
@@ -2028,7 +2108,7 @@ ul.recordSet .addToFavLink a {
 /* Resource types (subject to change!) */
 
 .iconlabel { /* Common for all */
-    padding:2px .5em .5em 21px;
+    padding:2px .5em .5em 25px;
     margin-right:1em;
 }
 .icon { /* If using icon only */
@@ -2187,10 +2267,6 @@ ul.recordSet .addToFavLink a {
     line-height:1em;
     padding: 10px 12px 10px 15px;
     width:auto;
-}
-.dropdown dt a:after {
-    content:"\25bc";
-    padding-left:8px;
 }
 
 .resultOptionLimit {

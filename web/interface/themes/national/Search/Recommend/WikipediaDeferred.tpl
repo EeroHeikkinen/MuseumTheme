@@ -1,5 +1,6 @@
 {if $deferredWikipediaLookfor}
-<div id="WikipediaDeferred">
+<div id="WikipediaDeferred" class="recommendation">
+  <div class="content">
     <p>{translate text="Loading"}... <img src="{$path}/images/loading.gif" /></p>
     <script>
     var url = path + "/AJAX/Recommend?mod=Wikipedia&lookfor=" +
@@ -8,5 +9,6 @@
 
     $('#WikipediaDeferred').load(url);
     </script>
+  </div>
 </div>
 {/if}
