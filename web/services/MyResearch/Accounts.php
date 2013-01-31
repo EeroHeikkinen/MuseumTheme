@@ -52,8 +52,6 @@ class Accounts extends MyResearch
         global $interface;
         global $user;
 
-        error_log("UN11: " . $user->cat_username);
-        
         if (isset($_REQUEST['delete'])) {
             $this->deleteAccount($_REQUEST['delete']);
             header('Location: Accounts');
@@ -179,7 +177,6 @@ class Accounts extends MyResearch
         if (!$exists) {
             $account->created = date('Y-m-d h:i:s');
         } else {
-            error_log($user->cat_username . ' == ' . $account->cat_username);
             if ($user->cat_username == $account->cat_username) {
                 // Active account modified, update
                 UserAccount::activateCatalogAccount($username, $password, $account->home_library);
