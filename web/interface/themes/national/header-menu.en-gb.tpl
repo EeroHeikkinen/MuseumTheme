@@ -4,20 +4,20 @@
   <ul class="subMenu">
     <li>
       <a href="{$path}/Content/about">
-        <span>Tietoa Finnasta</span>
-        <span>Perustietoa Finnasta ja sen sisällöistä</span>
+        <span>About Finna</span>
+        <span>Basic information about Finna and its contents</span>
       </a>
     </li>
     <li>
       <a href="{$path}/Content/terms_conditions">
-        <span>Käyttöehdot</span>
-        <span>Finnan aineistojen käyttöehdot</span>
+        <span>Terms & conditions</span>
+        <span>Terms of use for the Finna collections</span>
       </a>
     </li>
     <li>
       <a href="{$path}/Content/register_details">  
-        <span>Rekisteriseloste</span>
-        <span>Finnan asiakasrekisterin seloste</span>
+        <span>Register details</span>
+        <span>Description of the client register for Finna</span>
       </a>
     </li>
   </ul>
@@ -27,31 +27,31 @@
   <ul class="subMenu">
     <li>
       <a href="{$path}/Search/History">
-        <span>Hakuhistoria</span>
-        <span>Istuntokohtainen hakuhistoriasi. Kirjautumalla voit tallentaa hakusi.</span>
+        <span>Search history</span>
+        <span>Your session-specific search history. You may save your searches after logging in.</span>
       </a>    
       </li>
     <li>
       <a href="{$path}/Search/Advanced">
-        <span>Tarkennettu haku</span>
-        <span>Tarkemmat hakuehdot ja karttahaku</span>
+        <span>Advanced search</span>
+        <span>More refined search terms and map search.</span>
       </a>
     </li>
     <li>
-      <a href="{$path}/Content/searchhelp">
-        <span>Selaa luetteloa</span>
-        <span>Selaa tagien, tekijän, aiheen, genren, alueen tai aikakauden mukaan.</span>
+      <a href="{$path}/Browse/Home">
+        <span>Browse the catalogue</span>
+        <span>Browse by author, topic, genre, area, era or tags.</span>
       </a>
     </li>
   </ul>
 </li>
 
-<li class="menuHelp"><a href="#"><span>Apua</span></a>
+<li class="menuHelp"><a href="#"><span>{translate text='navigation_help'}</span></a>
   <ul class="subMenu">
     <li>
       <a href="{$path}/Content/register_details">
-        <span>Hakuohje</span>
-        <span>Yksityiskohtaiset ohjeet hakuun.</span>
+        <span>Search tips</span>
+        <span>Detailed search instructions.</span>
       </a>
     </li>
   </ul> 

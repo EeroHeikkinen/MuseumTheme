@@ -46,7 +46,7 @@
   </ul>
 </li>
 
-<li class="menuHelp"><a href="#"><span>Apua</span></a>
+<li class="menuHelp"><a href="#"><span>{translate text='navigation_help'}</span></a>
   <ul class="subMenu">
     <li>
       <a href="{$path}/Content/register_details">
