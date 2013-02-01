@@ -1,4 +1,4 @@
-<!-- START of: Content/about.fi.tpl -->
+<!-- START of: Content/terms_conditions.fi.tpl -->
 
 {assign var="title" value="Käyttöehdot"}
 {capture append="sections"}{literal}
@@ -17,4 +17,4 @@
 
 {/literal}{/capture}
 {include file="$module/content.tpl" title=$title sections=$sections}
-<!-- END of: Content/about.fi.tpl -->
+<!-- END of: Content/terms_conditions.fi.tpl -->

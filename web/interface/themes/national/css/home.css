@@ -196,7 +196,11 @@ div.searchHomeForm div.searchform #searchForm {
     height:60px;
     font-weight:bold;
 }
-#carousel .slide .pickup-header span {
+.pickup-header-small {
+    font-size: 0.846em;
+    font-weight:bold;
+}
+#carousel .slide .pickup-header span, #carousel .slide .pickup-header-small span {
     padding: 10px 12px;
     display:block;
 }

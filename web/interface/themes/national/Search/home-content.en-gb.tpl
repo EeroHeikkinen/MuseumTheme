@@ -3,27 +3,27 @@
 <div class="home-section first columns clear">
   <div class="content">
     <div>
-      <h2 class="color-finnaBlue">Tietoa tarvitseville ja elämyksiä etsiville</h2>
-      <p class="big">Finna on uudenlainen tiedonhakupalvelu kaikille arkistojen, kirjastojen ja museoiden palveluiden käyttäjille.</p>
-      <p class="big">Finna on nyt testikäytössä, kokeile hakua, <a href="{$path}/Feedback/Home">anna palautetta</a> tai <a class="color-violet" href="{$path}/Content/about">lue lisää</a> palvelusta!</p>
+      <h2 class="color-finnaBlue">For seekers of information and inspiration</h2>
+      <p class="big">Finna is a new kind of information search service for all users of archives, libraries and museums.</p>
+      <p class="big">Finna is currently in test use. Try the search, <a href="{$path}/Feedback/Home">give feedback</a> or <a class="color-violet" href="{$path}/Content/about">read more</a> about the service!</p>
     </div>
     <div>
-      <h2>Haulla löydät...</h2>
+      <h2>From Finna you can find...</h2>
       <ul>
-        <li><span class="iconlabel formatdocument"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDocument"'>» Asiakirjoja</a></span></li>
-        <li><span class="iconlabel formatphysicalobject"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FPhysicalObject"'>» Esineitä</a></span></li>
-        <li><span class="iconlabel formatmap"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMap"'>» Karttoja</a></span></li>
-        <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>» Kirjoja</a></span></li>
-        <li><span class="iconlabel formatimage"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>» Kuvia</a></span></li>
-        <li><span class="iconlabel formatjournal"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>» Lehtiä&nbsp;ja&nbsp;artikkeleita</a></span></li>
+        <li><span class="iconlabel formatdocument"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDocument"'>Documents</a></span></li>
+        <li><span class="iconlabel formatphysicalobject"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FPhysicalObject"'>Physical objects</a></span></li>
+        <li><span class="iconlabel formatmap"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMap"'>Maps</a></span></li>
+        <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>Books</a></span></li>
+        <li><span class="iconlabel formatimage"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>Images</a></span></li>
+        <li><span class="iconlabel formatjournal"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>Journals and Articles</a></span></li>
       </ul>
       <ul>
-        <li><span class="iconlabel formatmusicalscore"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMusicalScore"'>» Nuotteja</a></span></li>
-        <li><span class="iconlabel formatthesis"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FThesis"'>» Opinnäytteitä</a></span></li>
-        <li><span class="iconlabel formatworkofart"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FWorkOfArt"'>» Taideteoksia</a></span></li>
-        <li><span class="iconlabel formatdatabase"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>» Tietokantoja</a></span></li>
-        <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>» Videoita</a></span></li>
-        <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>» Äänitteitä</a></span></li>
+        <li><span class="iconlabel formatmusicalscore"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMusicalScore"'>Musical scores</a></span></li>
+        <li><span class="iconlabel formatthesis"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FThesis"'>Theses</a></span></li>
+        <li><span class="iconlabel formatworkofart"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FWorkOfArt"'>Works of Art</a></span></li>
+        <li><span class="iconlabel formatdatabase"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Databases</a></span></li>
+        <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videos</a></span></li>
+        <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Sound Recordings</a></span></li>
       </ul>
     </div>
   </div>
@@ -38,15 +38,15 @@
 <div class="home-section third columns clear">
   <div class="content">
     <div class="popularSearchesWrap">
-      <h2 class="color-finnaBlue">10 suosituinta hakua</h2>
+      <h2 class="color-finnaBlue">10 most popular searches</h2>
       <div id="popularSearches" class="recent-searches"><div class="loading"></div></div>
       {include file="AJAX/loadPopularSearches.tpl"}
     </div>
     <div>
       <div class="mapSearchHome">
-        <h2>Kokeile karttahakua</h2>
-        <p>Voit rajata hakuasi myös kartalla. Karttarajauksen piirissä on tällä hetkellä noin 7200 aineistotietoa.</p>
-        <a class="button" href="">Karttahakuun</a>
+        <h2>Try the map search</h2>
+        <p>It is possible to narrow down search on a map. Currently there are ca. 7200 records within this search option.</p>
+        <a class="button" href="">Map search</a>
       </div>
     </div>
   </div>

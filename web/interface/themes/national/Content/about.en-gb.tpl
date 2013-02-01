@@ -4,28 +4,26 @@
 {capture append="sections"}
 <h2>The treasures of Finland’s archives, libraries and museums with a single search.</h2>
 
-<p class="ingress">Finna is an easy to use online service that will merge together and make available the content and services of several memory organisations such as archives, libraries and museums.</p>
+<p class="ingress">Finna is a user-friendly online service which provides access to the collections and services of archives, libraries and museums.</p>
 
-<p>Finna offers information and new insights to everyone. You can use the service to search for content such as images, documents, newspapers, research papers, videos and sound recordings on the subject of your interest. In addition you can use the digital services of archives, libraries and museums. Finna’s mission is to replace current user interfaces in such a way that users will find the information they search for through a single interface regardless of the producing organisation.</p>
-
-<p>The test version of Finna was released on December 2012. The version features the following organisations including their content and services:<p>
+<p>The test version of Finna was published in December 2012. Finna is under constant development, and new functionalities are being added. New organisations continue to join Finna in stages. The test version includes materials from the following organisations:</p>
 
 <p>
 	<ul>
-	  <li>Jyväskylä University Library</li>
+	  <li>The Library of the University of Jyväskylä</li>
 	  <li>The National Archives of Finland</li>
 	  <li>The National Library of Finland</li>
-	  <li>Lusto The Finnish Forest Museum and other Kantapuu Museums</li>
+	  <li>Lusto - the Finnish Forest Museum and the other museums participating in the Kantapuu database (Nurmes Town Museum, Pielinen Museum, the Ilomantsi Museum Foundation, the Forestry Museum of Lapland and the Verla Mill Museum.</li>
 	  <li>Tuusula Art Museum</li>
-	  <li>Finnish National Gallery</li>
+	  <li>The Finnish National Gallery</li>
 	</ul>
 </p>
 
-<p>The development of Finna will continue in 2013. New functionalities will be added and new organisations will be gradually introduced to the service.</p>
+<p>Finna is intended for all seekers of information and inspiration. Through the online service, you can easily search for material such as images, documents, newspapers, academic research articles, videos and sound recordings on any topic. The materials are all available through the same service, and the user does not have to know beforehand which organisation originally produced the material. In future, it will be possible to use the digital services of archives, libraries and museums through Finna.</p>
 
-<p>Finna is maintained by The National Library of Finland. The online service is based on open source software VuFind and developed in collaboration with archives, libraries and museums. </p>
+<p>The National Library of Finland established Finna in cooperation with archives, libraries and museums, and continues as its main administrator. Finna is built on VuFind and other open source programmes.</p>
 
-<p>More information on Finna is available on the website of The National Digital Library project at  <a href="http://www.kdk.fi/en">www.kdk.fi/en</a></p>
+<p>Finna is part of the National Digital Library (NDL) project of the Ministry of Education and Culture. For more information on the NDL project and Finna, please visit the project website at  <a href="http://www.kdk.fi/en">www.kdk.fi/en</a></p>
 {/capture}
 {include file="$module/content.tpl" title=$title sections=$sections}
 

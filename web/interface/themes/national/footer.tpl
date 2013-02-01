@@ -5,12 +5,8 @@
     <h4>{translate text='navigation_about'}</h4>
     <ul>
       <li><a href="{$path}/Content/about">{translate text='navigation_about_finna'}</a></li>
-      {if $userLang == 'fi'}
       <li><a href="{$path}/Content/terms_conditions">{translate text='navigation_terms_conditions'}</a></li>
       <li><a href="{$path}/Content/register_details">{translate text='navigation_register_details'}</a></li>
-      {/if}
-      {*<li><a href="{$path}/Search/History">{translate text='Search History'}</a></li>
-      <li><a href="{$path}/Search/Advanced">{translate text='Advanced Search'}</a></li>*}
     </ul>
   </div>
 
