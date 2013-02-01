@@ -1931,21 +1931,7 @@ ul.recordSet .addToFavLink a {
     background-position: left;
     padding:.5em .5em .5em 20px;
 }
-.cite {
-    background-image:url(../images/silk/report.png);
-}
-.export {
-    background-image:url(../images/silk/application_add.png);
-}
-.sms {
-    background-image:url(../images/silk/phone.png);
-}
-.mail {
-    background-image:url(../images/silk/email.png);
-}
-.addThis {
-    background-image:url(../images/silk/tag_yellow.png);
-}
+
 .tag {
     background-image:url(../images/silk/tag_blue.png);
     padding:.5em .5em .5em 20px;
@@ -1987,10 +1973,7 @@ ul.recordSet .addToFavLink a {
     /*margin-left:1em;*/
 }
 .add {
-    background-image:url(../images/silk/add.png);
-    background-repeat:no-repeat;
-    background-position: left;
-    padding:.5em .5em .5em 18px;
+    padding:.5em .5em .5em 30px;
     margin-right:0;
 }
 .available {

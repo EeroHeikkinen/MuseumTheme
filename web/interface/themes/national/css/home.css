@@ -323,6 +323,7 @@ div.searchHomeForm div.searchform #searchForm {
     padding:0;
     float:left;
     margin:0;
+    width:155px;
 }
 .home-section.columns ul li {
     padding-bottom:3px;
