@@ -808,8 +808,8 @@ body > .ui-widget .button {
     display: block;
     font-size: .923em;
     font-weight:bold;
-    height: 22px;
-    line-height: 22px;
+    height: 24px;
+    line-height: 24px;
     margin: 10px 0 0 30px;
     padding-right: 40px;
 }
@@ -1584,7 +1584,7 @@ li.result blockquote {
     background:#f2f2f2;
 }
 .sidegroup ul.dynatree-container li {
-    padding:0
+    padding:0 0 0 5px;
 }
 .sidegroup dl.collapsible {
     cursor:pointer;

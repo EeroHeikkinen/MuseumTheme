@@ -7,6 +7,7 @@
 .toggleBox,
 .searchbox .dropdown dt a,
 .openurl_more,
+.advancedLink,
 .fav,
 .correction .expandSearch,
 a.clear_input,
@@ -16,10 +17,24 @@ a.clear_input,
     background-position:0 0;
 }
 
-/*** Elements with 32-48px icons ***/
+/* Dynatree */
 
-.advancedLink {
-    background-image: url(../images/icons32-48px.png);
+span.dynatree-empty,
+span.dynatree-vline, 
+span.dynatree-connector, 
+span.dynatree-expander, 
+span.dynatree-icon, 
+span.dynatree-checkbox,
+span.dynatree-radio, 
+span.dynatree-drag-helper-img, 
+#dynatree-drop-marker {
+    background-image: url(../images/icons16-24px.png);
+}
+
+/*** Elements with 32px icons ***/
+
+.SOMETHING {
+    background-image: url(../images/icons32.png);
     background-repeat: no-repeat;
     background-position:0 0;
 }
@@ -79,7 +94,7 @@ a.clear_input,
 /* Header: Search box */
 
 .advancedLink {
-    background-position:-574px -2003px;
+    background-position:-574px -5032px;
 }
 .searchbox .dropdown dt a {
     background-position: -1534px -4146px; 
@@ -87,6 +102,7 @@ a.clear_input,
 a.clear_input {
     background-position:-47px -3163px;
 }
+
 /* Header: Search suggestions */
 
 .correction .expandSearch {
@@ -114,4 +130,22 @@ a.clear_input {
 }
 .fav:hover {
     background-position: -361px -3041px;
+}
+
+/* Main: facet sidebar */
+
+.dynatree-exp-e span.dynatree-expander, 
+.dynatree-exp-ed span.dynatree-expander, 
+.dynatree-exp-el span.dynatree-expander, 
+.dynatree-exp-edl span.dynatree-expander,
+.dynatree-exp-e span.dynatree-expander:hover,
+.dynatree-exp-ed span.dynatree-expander:hover, 
+.dynatree-exp-el span.dynatree-expander:hover, 
+.dynatree-exp-edl span.dynatree-expander:hover {
+    background-position: -1300px -3319px;
+}
+
+span.dynatree-expander,
+span.dynatree-expander:hover {
+    background-position: -1298px -3369px;
 }
