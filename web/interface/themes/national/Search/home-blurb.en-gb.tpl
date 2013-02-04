@@ -1,6 +1,6 @@
 <!-- START of: Search/home-blurb.en-gb.tpl -->
 
-<h2>Suomen arkistojen, kirjastojen ja museoiden aarteet <span class="color-turquoise">samalla haulla</span></h2><br />
-<h3>Jo yli <span class="color-finnaBlue">11 280 392</span> aineistotietoa!</h3>
+<h2>Find the treasures of Finnish archives, libraries and museums <span class="color-turquoise">with a single search</span></h2><br />
+<h3>Currently more than <span class="color-finnaBlue">11 280 392</span> entries are included!</h3>
     
 <!-- END of: Search/home-blurb.en-gb.tpl -->
