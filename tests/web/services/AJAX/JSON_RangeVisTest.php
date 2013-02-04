@@ -65,7 +65,13 @@ class JSON_RangeVisTest extends AbstractMockIndexTest
         $this->field = "unit_daterange";
     }
 
-    public function testRangeVisLinear() {
+    /**
+     * Tests range visualization using linear range grouping
+     * 
+     * @return void
+     */
+    public function testRangeVisLinear()
+    {
         $rangeVis = new JSON_RangeVis();
         
         $indexEngine = $rangeVis->getSearchObject()->getIndexEngine();
@@ -78,17 +84,24 @@ class JSON_RangeVisTest extends AbstractMockIndexTest
         $_REQUEST['n'] = 20;
         
         $visData = $rangeVis->getVisData();
-        $this->assertArrayHasKey('data', $visData);
+        $this->assertArrayHasKey('unit_daterange', $visData);
+        $this->assertArrayHasKey('data', $visData['unit_daterange']);
         
         // TODO: check the sent query was correct
         
-        $data = $visData['data'];
+        $data = $visData['unit_daterange']['data'];
         $this->assertEquals(20, count($data));
         
         // TODO: verify the returned data more thoroughly
     }
     
-    public function testRangeVisBezier() {
+    /**
+     * Tests range visualization using parametric bezier curve range grouping
+     * 
+     * @return void
+     */
+    public function testRangeVisBezier()
+    {
         $rangeVis = new JSON_RangeVis();
         
         $indexEngine = $rangeVis->getSearchObject()->getIndexEngine();
@@ -108,7 +121,7 @@ class JSON_RangeVisTest extends AbstractMockIndexTest
         
         // TODO: check the sent query was correct
         
-        $data = $visData['data'];
+        $data = $visData['unit_daterange']['data'];
         $this->assertEquals(20, count($data));
         
         // TODO: verify the returned data more thoroughly

@@ -71,41 +71,41 @@ class SolrPseudoFacetsTest extends AbstractMockIndexTest
      */
     public function testPseudoFacets()
     {
-    	$queries = array("[-500000-01-01T00:00:00Z TO 1000-01-01T00:00:00Z]", 
-    			"[1000-01-01T00:00:00Z TO 1500-01-01T00:00:00Z]",
-    			"[1500-01-01T00:00:00Z TO 2000-01-01T00:00:00Z]");
-    	
-    	$this->_searchObject->addPseudoFacet($this->field, "Date", $queries);
-    	
+        $queries = array("[-500000-01-01T00:00:00Z TO 1000-01-01T00:00:00Z]", 
+                "[1000-01-01T00:00:00Z TO 1500-01-01T00:00:00Z]",
+                "[1500-01-01T00:00:00Z TO 2000-01-01T00:00:00Z]");
+        
+        $this->_searchObject->addPseudoFacet($this->field, "Date", $queries);
+        
         $indexEngine = $this->_searchObject->getIndexEngine();
-    	$this->mockIndexEngineWithSampleResponse($indexEngine, 'mockResponse.json');
-    	
-    	$result = $this->_searchObject->processSearch(true, true);
-    	if (PEAR::isError($result)) {
-    		$this->fail("PEAR error");
-    	}
-    	
-    	// Verify that the sent query was correct
-    	$query = $this->getLastQuery();
-    	$this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B-500000-01-01T00%3A00%3A00Z+.?TO.?+1000-01-01T00%3A00%3A00Z%5D/', $query);
-    	$this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B1000-01-01T00%3A00%3A00Z+.?TO.?+1500-01-01T00%3A00%3A00Z%5D/', $query);
-    	$this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B1500-01-01T00%3A00%3A00Z+.?TO.?+2000-01-01T00%3A00%3A00Z%5D/', $query);
+        $this->mockIndexEngineWithSampleResponse($indexEngine, 'mockResponse.json');
+        
+        $result = $this->_searchObject->processSearch(true, true);
+        if (PEAR::isError($result)) {
+            $this->fail("PEAR error");
+        }
+        
+        // Verify that the sent query was correct
+        $query = $this->getLastQuery();
+        $this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B-500000-01-01T00%3A00%3A00Z+.?TO.?+1000-01-01T00%3A00%3A00Z%5D/', $query);
+        $this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B1000-01-01T00%3A00%3A00Z+.?TO.?+1500-01-01T00%3A00%3A00Z%5D/', $query);
+        $this->assertRegExp('/facet.query='. $this->field .'%3A ?%5B1500-01-01T00%3A00%3A00Z+.?TO.?+2000-01-01T00%3A00%3A00Z%5D/', $query);
 
-    	// Get and analyze the returned facet
-    	$facets = $this->_searchObject->getFacetList(array($this->field));
-    	$this->assertArrayHasKey($this->field, $facets);
-    	$facet = $facets[$this->field];
-    	
-    	$this->assertEquals("Date", $facet['label']);
-    	
-    	$this->assertEquals(1201, $facet['list'][0]['count']);
-    	$this->assertEquals("[-500000-01-01T00:00:00Z TO 1000-01-01T00:00:00Z]", $facet['list'][0]['untranslated']);
-    	
-    	$this->assertEquals(1330, $facet['list'][1]['count']);
-    	$this->assertEquals("[1000-01-01T00:00:00Z TO 1500-01-01T00:00:00Z]", $facet['list'][1]['untranslated']);
-    	
-    	$this->assertEquals(1997970, $facet['list'][2]['count']);
-    	$this->assertEquals("[1500-01-01T00:00:00Z TO 2000-01-01T00:00:00Z]", $facet['list'][2]['untranslated']);
+        // Get and analyze the returned facet
+        $facets = $this->_searchObject->getFacetList(array($this->field));
+        $this->assertArrayHasKey($this->field, $facets);
+        $facet = $facets[$this->field];
+        
+        $this->assertEquals("Date", $facet['label']);
+        
+        $this->assertEquals(1201, $facet['list'][0]['count']);
+        $this->assertEquals("[-500000-01-01T00:00:00Z TO 1000-01-01T00:00:00Z]", $facet['list'][0]['untranslated']);
+        
+        $this->assertEquals(1330, $facet['list'][1]['count']);
+        $this->assertEquals("[1000-01-01T00:00:00Z TO 1500-01-01T00:00:00Z]", $facet['list'][1]['untranslated']);
+        
+        $this->assertEquals(1997970, $facet['list'][2]['count']);
+        $this->assertEquals("[1500-01-01T00:00:00Z TO 2000-01-01T00:00:00Z]", $facet['list'][2]['untranslated']);
     }
 
     /**

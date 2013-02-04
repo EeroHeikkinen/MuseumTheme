@@ -1,11 +1,11 @@
 <?php
 /**
- * Common AJAX functions for the Recommender Visualisation module using JSON as
+ * Date range AJAX functions for the Recommender Visualisation module using JSON as
  * output format.
  *
  * PHP version 5
  *
- * Copyright (C) Till Kinstler 2011.
+ * Copyright (C) Eero Heikkinen 2013.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
@@ -22,7 +22,7 @@
  *
  * @category VuFind
  * @package  Controller_AJAX
- * @author   Till Kinstler <kinstler@gbv.de>
+ * @author   Eero Heikkinen <eero.heikkinen@gmail.com>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
@@ -36,7 +36,7 @@ require_once 'RecordDrivers/Factory.php';
  *
  * @category VuFind
  * @package  Controller_AJAX
- * @author   Till Kinstler <kinstler@gbv.de>
+ * @author   Eero Heikkinen <eero.heikkinen@gmail.com>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/building_a_module Wiki
  */
@@ -59,17 +59,28 @@ class JSON_RangeVis extends JSON
     
     /**
      * Used for unit testing
+     * 
+     * @return SearchObject_Base
      */
-    public function getSearchObject() {
+    public function getSearchObject() 
+    {
         return $this->_searchObject;
     }
     
-    public function printVisData() {
+    /**
+     * Function which outputs requested date range information. 
+     * Called through AJAX service interface with method=printVisData.
+     * 
+     * @return void
+     */
+    public function printVisData() 
+    {
         $visData = $this->getVisData();
-        if($visData == null)
+        if ($visData == null) {
             $this->output("", JSON::STATUS_ERROR);
-        else 
+        } else { 
             $this->output($visData, JSON::STATUS_OK);
+        }
     }
 
     /**
@@ -85,45 +96,47 @@ class JSON_RangeVis extends JSON
         global $interface;
 
         if (is_a($this->_searchObject, 'SearchObject_Solr')) {
-        	if(!empty($_REQUEST["ignoreFilter"])) {
-        		foreach($fields as $field) {
-        			$this->_searchObject->excludeFilterForFacet($field, "exclude");
-        		}
-        	}
-        	
-        	$n = $_REQUEST['n'];
-        	$start = $_REQUEST['start'];
-        	$end = $_REQUEST['end'];
-        	iF(empty($n) || empty($start) || empty($end))
-        	    return;
-        	
-        	$points = array();
-        	switch($_REQUEST['shape']) {
-        	    case 'linear': 
-        	        $points = $this->linear($n);
-        	        break;
-        	    case 'bezier':
-        	        $x0 = $_REQUEST['x0'];
-        	        $y0 = $_REQUEST['y0'];
-        	        $x1 = $_REQUEST['x1'];
-        	        $y1 = $_REQUEST['y1'];
-        	        if(empty($x0) || empty($y0) || empty($x1) || empty($y1))
-        	            return;
-        	        $points = $this->bezier($n, $x0, $y0, $x1, $y1);
-        	        break;
-        	    default:
-        	        return;
-        	}
-        	
-        	$queries = $this->rangeToQueries($start, $end, $points);
-        	
-        	$this->_dateFacets = $fields;
+            if (!empty($_REQUEST["ignoreFilter"])) {
+                foreach ($fields as $field) {
+                    $this->_searchObject->excludeFilterForFacet($field, "exclude");
+                }
+            }
+            
+            $n = $_REQUEST['n'];
+            $start = $_REQUEST['start'];
+            $end = $_REQUEST['end'];
+            if (empty($n) || empty($start) || empty($end)) {
+                return;
+            }
+            
+            $points = array();
+            switch($_REQUEST['shape']) {
+            case 'linear': 
+                $points = $this->_linear($n);
+                break;
+            case 'bezier':
+                $x0 = $_REQUEST['x0'];
+                $y0 = $_REQUEST['y0'];
+                $x1 = $_REQUEST['x1'];
+                $y1 = $_REQUEST['y1'];
+                if (empty($x0) || empty($y0) || empty($x1) || empty($y1)) {
+                    return;
+                }
+                $points = $this->_bezier($n, $x0, $y0, $x1, $y1);
+                break;
+            default:
+                return;
+            }
+            
+            $queries = $this->rangeToQueries($start, $end, $points);
+            
+            $this->_dateFacets = $fields;
             $this->_searchObject->init();
             
             $filters = $this->_searchObject->getFilters();
             
             $fields = $this->_processDateFacets($filters);
-            $facets = $this->getFacets($fields, $queries);
+            $facets = $this->_getFacets($fields, $queries);
             
             return $facets;
         } else {
@@ -134,33 +147,34 @@ class JSON_RangeVis extends JSON
     /**
      * Get facet from index using specified queries.
      *
-     * @param string $field Index field name
-     * @param array $queries Queries to use
+     * @param string $fields  Index field name
+     * @param array  $queries Queries to use
      *
      * @return array
      * @access private
      */
-    private function getFacets($fields, $queries)
+    private function _getFacets($fields, $queries)
     {
         $retVal = array();
-        foreach($fields as $field => $fieldContents) {
+        foreach ($fields as $field => $fieldContents) {
             //die("adding pseudo facet: " . $field);
-        	$this->_searchObject->addPseudoFacet($field, "description", $queries);
-        	
-        	// TODO: This causes multiple index calls instead of just one, refactor out of here 
-    	    $result = $this->_searchObject->processSearch(true, true);
-    	    $facets = $this->_searchObject->getFacetList(array($field));
-    	    
-    	    $facet = $facets[$field];
-    	    //die(var_dump($facet));
-    	    foreach ($facet["list"] as $range) {
-            	$value = $range["untranslated"];
-            	$result = $this->extractFromAndTo($value);
-            	$result["count"] = $range["count"];
-            	
-            	$retVal[$field]["data"][] = $result;
+            $this->_searchObject->addPseudoFacet($field, "description", $queries);
+            
+            // This causes multiple index calls instead of just one 
+            // TODO: refactor out of here 
+            $result = $this->_searchObject->processSearch(true, true);
+            $facets = $this->_searchObject->getFacetList(array($field));
+            
+            $facet = $facets[$field];
+            
+            foreach ($facet["list"] as $range) {
+                $value = $range["untranslated"];
+                $result = $this->_extractFromAndTo($value);
+                $result["count"] = $range["count"];
+                
+                $retVal[$field]["data"][] = $result;
             }
-    	        
+                
             $retVal[$field]["min"] = $fields[$name][0];
             $retVal[$field]["max"] = $fields[$name][1];
         }
@@ -169,9 +183,13 @@ class JSON_RangeVis extends JSON
     }
     
     /**
-     * Splits a range of years to a list of queries, using the specified 
+     * Splits a range of years to a list of queries, using the specified
+     * split points 
      *
-     * @param array[float] $points An array which holds the percentage points (0.0-1.0) where to split the range at.
+     * @param integer      $start  Start year
+     * @param integer      $end    End year
+     * @param array[float] $points An array which holds the percentage 
+     *                             points (0.0-1.0) where to split the range at.
      *
      * @return array
      * @access private
@@ -183,11 +201,11 @@ class JSON_RangeVis extends JSON
         $span = $end - $start;
         
         $lastDate = '';
-        for($i = 0; $i<count($points); $i++) {
+        for ($i = 0; $i<count($points); $i++) {
             $point = $points[$i];
             
             // Special case for first point
-            if($i == 0) {
+            if ($i == 0) {
                 $lastDate = round($start + ($point * $span)) . "-01-01T00:00:00Z";
                 continue;
             }
@@ -203,13 +221,16 @@ class JSON_RangeVis extends JSON
     }
     /**
      * Builds an array of percentage points (0.0 ... 1.0) split linearly.
+     * 
      * @param number $n Number of points to create
-     * @return multitype:number
+     * 
+     * @return array
      */
-    private function linear($n) {
+    private function _linear($n) 
+    {
         $points = array();
         
-        for($i=0; $i<$n; $i++) {
+        for ($i=0; $i<$n; $i++) {
             $points[] = $i / $n;
         }
         
@@ -219,26 +240,36 @@ class JSON_RangeVis extends JSON
     /**
      * Builds an array of percentage points split by bezier curve function.
      * 
-     * @param number $n Number of points to create
-     * @param float $x0 First control point, X
-     * @param float $y0 First control point, Y
-     * @param float $x1 Second control point, X
-     * @param float $y1 Second control point, Y
+     * @param number $n  Number of points to create
+     * @param float  $x0 First control point, X
+     * @param float  $y0 First control point, Y
+     * @param float  $x1 Second control point, X
+     * @param float  $y1 Second control point, Y
+     * 
      * @return array[float]
      */
-    public function bezier($n, $x0, $y0, $x1, $y1) {
+    private function _bezier($n, $x0, $y0, $x1, $y1) 
+    {
         $points = array();
         
-        for($i = 0; $i < $n; $i++) {
+        for ($i = 0; $i < $n; $i++) {
             $points[] = BezierMath::cubicBezier($i / $n, $y0, $x0, $y1, $x1);
         }
         
         return $points;
     }
     
-    private function extractFromAndTo($input) {
-    	preg_match("/\[(.+) TO (.+)\]/i", $input, $results);
-    	return array('from' => $results[1], 'to' => $results[2]);
+    /** 
+     * Extracts numeral 'from' and 'to' from a Solr range query string
+     * 
+     * @param string $input String to extract from
+     * 
+     * @return array
+     */
+    private function _extractFromAndTo($input) 
+    {
+        preg_match("/\[(.+) TO (.+)\]/i", $input, $results);
+        return array('from' => $results[1], 'to' => $results[2]);
     }
 
     /**
@@ -271,13 +302,34 @@ class JSON_RangeVis extends JSON
 
 /**
  * Class for Bezier Math operations
- * @author Eero Heikkinen <eero.heikkinen@nba.fi>
+ * 
+ * @category Math
+ * @package  Controller_AJAX
+ * @author   Eero Heikkinen <eero.heikkinen@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     http://vufind.org/wiki/building_a_module Wiki
  *
  */
-class BezierMath {
-    // Based on Cubic Spline Math by Don Lancaster
-    // Solves y from x using Newton-Raphson approximation
-    public static function cubicBezier ($x, $a, $b, $c, $d){
+class BezierMath
+{
+    /**
+     * Solves y from x using Newton-Raphson approximation
+     * Based on Cubic Spline Math by Don Lancaster
+     * 
+     * @param float $x X 
+     * @param float $a First influence X
+     * @param float $b First influence Y
+     * @param float $c Second influence X 
+     * @param float $d Second influence Y
+     * 
+     * @return number Y
+     * 
+     * @link http://cubic-bezier.com
+     * @author Eero Heikkinen <eero.heikkinen@gmail.com>
+     * @author Don Lancaster <synergetics@tinaja.com>
+     */
+    public static function cubicBezier ($x, $a, $b, $c, $d)
+    {
         $y0a = 0.00; // initial y
         $x0a = 0.00; // initial x
         $y1a = $b;    // 1st influence y
@@ -299,29 +351,68 @@ class BezierMath {
     
         $currentt = $x;
         $nRefinementIterations = 5;
-        for ($i=0; $i < $nRefinementIterations; $i++){
-            $currentx = self::xFromT ($currentt, $A,$B,$C,$D);
-            $currentslope = self::slopeFromT ($currentt, $A,$B,$C);
+        for ($i=0; $i < $nRefinementIterations; $i++) {
+            $currentx = self::_xFromT($currentt, $A, $B, $C, $D);
+            $currentslope = self::_slopeFromT($currentt, $A, $B, $C);
             $currentt -= ($currentx - $x)*($currentslope);
-            if($currentt < 0.0) $currentt = 0.0;
-            if($currentt > 1.0) $currentt = 1.0;
+            if ($currentt < 0.0) {
+                $currentt = 0.0;
+            }
+            if ($currentt > 1.0) {
+                $currentt = 1.0;
+            }
         }
     
-        $y = self::yFromT ($currentt,  $E,$F,$G,$H);
+        $y = self::_yFromT($currentt, $E, $F, $G, $H);
         return $y;
     }
     
-    private static function slopeFromT ($t, $A, $B, $C){
+    /**
+     * Helper function to calculate slope from T
+     * 
+     * @param float $t t
+     * @param float $A a
+     * @param float $B b
+     * @param float $C c
+     * 
+     * @return float Slope
+     */
+    private static function _slopeFromT ($t, $A, $B, $C)
+    {
         $dtdx = 1.0/(3.0*$A*$t*$t + 2.0*$B*$t + $C);
         return $dtdx;
     }
     
-    private static function xFromT ($t, $A, $B, $C, $D){
+    /**
+     * Helper function to calculate x from T
+     * 
+     * @param float $t t
+     * @param float $A a
+     * @param float $B b
+     * @param float $C c
+     * @param float $D d
+     * 
+     * @return float X
+     */
+    private static function _xFromT ($t, $A, $B, $C, $D)
+    {
         $x = $A*($t*$t*$t) + $B*($t*$t) + $C*$t + $D;
         return $x;
     }
     
-    private static function yFromT ($t, $E, $F, $G, $H){
+    /**
+     * Helper function to calculate y from T
+     * 
+     * @param float $t t
+     * @param float $E e
+     * @param float $F f
+     * @param float $G g
+     * @param float $H h
+     * 
+     * @return float Y
+     */
+    private static function _yFromT ($t, $E, $F, $G, $H)
+    {
         $y = $E*($t*$t*$t) + $F*($t*$t) + $G*$t + $H;
         return $y;
     }
