@@ -559,7 +559,6 @@ a.clear_input:hover {
     position: relative;
 }
 .dropdown a, .dropdown a:visited {
-    color: #444;
     outline: none;
     text-decoration: none ! important;
 }
