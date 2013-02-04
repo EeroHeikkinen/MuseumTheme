@@ -4086,11 +4086,14 @@ span.mapMarker  {
     border-radius: 10px 10px 10px 10px;
     color: #444;
     cursor:pointer;
+    font-weight:bold;
     display: inline-block;
     font-size: 1em;
-    font-weight: bold;
-    padding: 6px 13px;
     text-align: center;
+    height: auto;
+    line-height:1em;
+    padding: 8px 12px 8px 15px;
+    width:auto;
     /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
 }
 
