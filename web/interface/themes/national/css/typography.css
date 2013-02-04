@@ -207,6 +207,15 @@ body { -webkit-tap-highlight-color: #bbddff; }
     margin: 0;
     padding: 0 3px;
 }
+/* Header Info Box Texts */
+p.headerInfoLight {
+    color: #888;
+    padding-bottom: 4px;
+}
+p.headerInfoTitle {
+    font-weight: bold;
+    line-height: 1.3em;
+}
 
 
 
