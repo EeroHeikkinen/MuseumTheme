@@ -1134,7 +1134,7 @@ fieldset.publishDateLimit .ui-slider {
     width: 210px;
 }
 .module-Collection #sidebarCollection {
-    margin-left: 10px;
+    float:right;
 }
 
 #sidebarFavoritesLists .favoritesCount,
@@ -3404,7 +3404,6 @@ tr:nth-child(even) td.gridMouseOver {
 }
 .collectionDetails li.result.alt {
     background-color: #FFF;
-    margin-bottom: 0px;
 }
 .collectionDetails .pagination a {
 
