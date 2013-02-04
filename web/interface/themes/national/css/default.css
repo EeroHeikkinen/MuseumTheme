@@ -1255,6 +1255,8 @@ fieldset.publishDateLimit .ui-slider {
 
 table.profileGroup {
     margin: 0;
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
 }
 
 table.profileGroup td,
@@ -2939,6 +2941,8 @@ table.datagrid {
     width: 100%;/*oringinally set to auto*/
     border-collapse: collapse;
     margin-bottom: 1.5em;
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
 }
 
 table.datagrid caption {
