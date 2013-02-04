@@ -39,8 +39,8 @@ function initHeaderMenu() {
 function initCarousel() {
     var ribbonH = $('#carousel h2.ribbon').height();
     $("#carousel").slides({
-         play: 5000,
-         pause: 2500,
+         play: 9000,
+         pause: 9000,
          hoverPause: true
     });
     if ($("#carousel .slide").length > 1)
@@ -169,14 +169,12 @@ function initSidebarFacets() {
             parentDl.toggleClass('open collapsed');
         }
         
-        // Extend to default facets (with no dd children)
+        // Extend to default facets (without dd children)
         
         else {
             parentDl.nextUntil('div').last().next().slideToggle(100);
             parentDl.toggleClass('open collapsed');
         }
-        
-        
         
     })
 }

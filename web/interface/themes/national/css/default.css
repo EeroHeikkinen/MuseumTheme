@@ -1435,7 +1435,7 @@ ul.recordSet .resultColumn2 {
     width: 500px;
     margin-left: 10px;
 }
-ul.recordSet .resultColumn2 > * {
+#recordSet ul.recordSet .resultColumn2 > * {
     line-height: 16px;
     padding: 0 0 6px;
 }
@@ -1460,10 +1460,6 @@ ul.recordSet .resultItemLine2{
     max-width: 126px;
 }
 .module-Search .resultListContainer .resultNoImage {
-    background-color: #FFFFFF;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: 50% auto;
     border: 4px solid #CFCFCF;
     display: table;
     height: 118px;
@@ -1526,7 +1522,7 @@ ul.recordSet .resultItemLine2{
     text-decoration:none;
 }
 div.resultItemFormat {
-    margin: 10px auto 0 auto;
+    margin: 10px auto 0 10px;
     text-align: center;
 }
 
@@ -1660,6 +1656,7 @@ ul.filters a {
     display: block;
     position: absolute;
     color: white;
+    text-indent:-9999px;
     text-decoration: none;
 }
 ul.filters span {
@@ -1966,10 +1963,9 @@ ul.recordSet .addToFavLink a {
     margin-right:.7em;
 }
 .delete {
-    background-image:url(../images/silk/delete.png);
     background-repeat:no-repeat;
     background-position: left;
-    padding:.5em .5em .5em 18px;
+    padding:.5em .5em .5em 30px;
     margin-right:0;
 }
 .feed {
@@ -4122,11 +4118,6 @@ span.mapMarker  {
     line-height:24px;
     width:25px;
 }
-.deleteButton {
-    color:#fff;
-    background:#ff461e;
-}
-
 
 /* Staff view xml styles */
 .xml .re0 {
