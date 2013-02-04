@@ -12,35 +12,32 @@
   <span class="hefty">{translate text='Your Profile'}</span>
     <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
     <div class="profileInfo">
-      <div class="profileGroup">
-      <h4>{translate text='Local Settings'}</h4>
-      </div>
-      <div class="profileGroup">
-        <span>{translate text='Email'}:</span><span><input type="text" name="email" value="{$email|escape}"></input></span><br class="clear"/>
+      <table class="profileGroup">
+      <caption>{translate text='Local Settings'}</caption>
+      <tr>
+        <th>{translate text='Email'}</th><td><input type="text" name="email" value="{$email|escape}"></input></td>
       {if $showHomeLibForm}
-      </div>
-      <div class="profileGroup">
-        <span><label for="home_library">{translate text="Preferred Library"}:</label></span>
+      </tr>
+      <tr>
+        <th><label for="home_library">{translate text="Preferred Library"}</label></th>
         {if count($pickup) > 1}
           {if $profile.home_library != ""}
             {assign var='selected' value=$profile.home_library}
           {else}
             {assign var='selected' value=$defaultPickUpLocation}
           {/if}
-            <span><select id="home_library" name="home_library">
+            <td><select id="home_library" name="home_library">
           {foreach from=$pickup item=lib name=loop}
             <option value="{$lib.locationID|escape}" {if $selected == $lib.locationID}selected="selected"{/if}>{$lib.locationDisplay|escape}</option>
           {/foreach}
-        </select></span>
+        </select></td>
         {else}
           {$pickup.0.locationDisplay}
         {/if}
-        </div>
+        </tr>
       {/if}
-      <div class="profileGroup">
+    </table>
         <input class="button buttonTurquoise" type="submit" value="{translate text='Save'}" />
-      </div>
-    </div>
     </form>
     <div class="clear"></div>
     
@@ -50,44 +47,56 @@
       <p class="success">{translate text=$userMsg}</p>
     {/if}
     </div>
-    <div class="profileInfo">
-      <div class="profileGroup">
-        <h4>{translate text='Source of information'}:
-          {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
-          {translate text=$source prefix='source_'}
-        </h4>
-      </div>
+    <table class="profileGroup">
+      <caption>
+      {translate text='Source of information'}:
+        {assign var=source value=$user->cat_username|regex_replace:'/\..*?$/':''}
+        {translate text=$source prefix='source_'}
+      </caption>
       
-      <div class="profileGroup">
-        <span>{translate text='First Name'}:</span><span>{if $profile.firstname}{$profile.firstname|escape}{else}-{/if}</span><br class="clear"/>
-        <span>{translate text='Last Name'}:</span><span>{if $profile.lastname}{$profile.lastname|escape}{else}-{/if}</span><br class="clear"/>
-      </div>
+      <tr>
+        <th>{translate text='First Name'}</th><td>{if $profile.firstname}{$profile.firstname|escape}{else}-{/if}</td>
+      </tr>
 
-      <div class="profileGroup">
-        <span>{translate text='Address'} 1:</span><span>{if $profile.address1}{$profile.address1|escape}{else}-{/if}</span><br class="clear"/>
-        <span>{translate text='Address'} 2:</span><span>{if $profile.address2}{$profile.address2|escape}{else}-{/if}</span><br class="clear"/>
-        <span>{translate text='Zip'}:</span><span>{if $profile.zip}{$profile.zip|escape}{else}-{/if}</span><br class="clear"/>
-      </div>
+      <tr>
+        <th>{translate text='Last Name'}</th><td>{if $profile.lastname}{$profile.lastname|escape}{else}-{/if}</td>
+      </tr>
+
+      <tr>
+        <th>{translate text='Address'} 1</th><td>{if $profile.address1}{$profile.address1|escape}{else}-{/if}</td>
+      </tr>
+
+      <tr>
+        <th>{translate text='Address'} 2</th><td>{if $profile.address2}{$profile.address2|escape}{else}-{/if}</td>
+      </tr>
+
+      <tr>
+        <th>{translate text='Zip'}</th><td>{if $profile.zip}{$profile.zip|escape}{else}-{/if}</td>
+      </tr>
     
-      <div class="profileGroup">
-        <span>{translate text='Phone Number'}:</span><span>{if $profile.phone}{$profile.phone|escape}{else}-{/if}</span><br class="clear" />
-        <span>{translate text='Email'}:</span><span>{if $info.email}{$info.email|escape}{else}-{/if}</span><br class="clear" />
-      </div>
+      <tr>
+        <th>{translate text='Phone Number'}</th><td>{if $profile.phone}{$profile.phone|escape}{else}-{/if}</td>
+      </tr>
+
+      <tr>
+        <th>{translate text='Email'}</th><td>{if $info.email}{$info.email|escape}{else}-{/if}</td>
+      </tr>
     
-      <div class="profileGroup">
-        <span>{translate text='Group'}:</span><span>{$profile.group|escape}</span><br class="clear"/>
-      </div>
+      <tr>
+        <th>{translate text='Group'}</th><td>{$profile.group|escape}</td>
+      </tr>
     
-      <div class="profileGroup">
+      <tr>
       {foreach from=$profile.blocks item=block name=loop}
         {if $smarty.foreach.loop.first}
-          <span>{translate text='Borrowing Blocks'}:</span>
+          <th>{translate text='Borrowing Blocks'}</th>
         {else}
-          <span>&nbsp;</span>
+          <th>&nbsp;</th>
         {/if}
-        <span>{$block|escape}</span><br class="clear"/>
+        <td>{$block|escape}</td>
       {/foreach}
-      </div>
+      </tr>
+    </table>
       
       {else}
         {include file="MyResearch/catalog-login.tpl"}

@@ -6,7 +6,6 @@
   <div class="content">
     {if !$noHistory}
       {if $saved}
-        <span class="hefty">{translate text="history_saved_searches"}</span>
         {assign var="scheduled" value=false}
         {foreach item=info from=$saved name=historyLoop}
           {if $info.schedule > 0}
@@ -21,6 +20,7 @@
           {/if}
         {/if}
         <table class="datagrid savedHistory" width="100%">
+          <caption>{translate text="history_saved_searches"}</caption>
           <tr>
             <th width="15%">{translate text="history_time"}</th>
             <th width="30%">{translate text="history_search"}</th>
@@ -42,7 +42,7 @@
             {/foreach}{/foreach}</td>
             <td style="text-align:right">{$info.hits}</td>
             <td>
-              <select id="{$info.searchId|escape:"html"}" class="styledDropdowns" name="schedule" onchange="javascript:window.location='{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history&amp;schedule=' + $(this).attr('value'); return false;">
+              <select id="{$info.searchId|escape:"html"}" name="schedule" onchange="javascript:window.location='{$path}/MyResearch/SaveSearch?save={$info.searchId|escape:"url"}&amp;mode=history&amp;schedule=' + $(this).attr('value'); return false;">
                 <option value="0"{if $info.schedule == 0} selected="selected"{/if}>{translate text="schedule_none"}</option>
                 <option value="1"{if $info.schedule == 1} selected="selected"{/if}>{translate text="schedule_daily"}</option>
                 <option value="2"{if $info.schedule == 2} selected="selected"{/if}>{translate text="schedule_weekly"}</option>
@@ -55,8 +55,8 @@
       {/if}
 
       {if $links}
-        <span class="hefty">{translate text="history_recent_searches"}</span>
         <table class="datagrid sessionHistory" width="100%">
+          <caption>{translate text="history_recent_searches"}</caption>
           <tr>
             <th width="15%">{translate text="history_time"}</th>
             <th width="30%">{translate text="history_search"}</th>
@@ -86,9 +86,10 @@
       {/if}
 
     {else}
-      <span class="hefty">{translate text="history_recent_searches"}</span>
-      <div class="resultHead"></div>
-      <br />{translate text="history_no_searches"}
+      <table class="datagrid sessionHistory" width="100%">
+        <caption>{translate text="history_recent_searches"}</caption>
+        <tr><td>{translate text="history_no_searches"}</tr></td>
+      </table>
     {/if}
   </div>
 <div class="clear"></div>

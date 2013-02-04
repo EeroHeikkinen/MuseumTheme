@@ -547,13 +547,21 @@ a.clear_input:hover {
     margin: 0px;
     padding: 0px;
 }
+.dropdown a:after {
+    padding-left: 0.5em;
+    content: "\25bc";
+}
+.dropdown ul a:after {
+    padding-left: 0;
+    content: "";
+}
 .dropdown dd {
     position: relative;
 }
 .dropdown a, .dropdown a:visited {
     color: #444;
     outline: none;
-    text-decoration: none;
+    text-decoration: none ! important;
 }
 .dropdown a:hover {
     color: #444;
@@ -1244,23 +1252,22 @@ fieldset.publishDateLimit .ui-slider {
     line-height: 1.8em;
     width: 452px;
 }
-.profileGroup {
-    margin-bottom: 1em;
+
+table.profileGroup {
+    margin: 0;
 }
-.profileGroup h4 {
-    margin: 1em 0;
+
+table.profileGroup td,
+table.profileGroup th {
+    border-bottom: solid 1px #eee;
 }
-.profileInfo span {
-    float: left;
-    width: 210px;
-    margin-left: 12px;
+
+table.profileGroup caption {
+    background-color: #00A3B5;
+    color: #fff;
+    font-weight: bold;
 }
-.profileInfo label {
-    font-weight: normal;
-}
-.profileInfo span input {
-    width: 204px;
-}
+
 .profileInfo select#home_library {
     width: 210px;
     padding: 2px;
@@ -1270,7 +1277,7 @@ fieldset.publishDateLimit .ui-slider {
     float: right;
 }
 .finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #eee;
     padding-top: 0.4em;
     padding-bottom: 0.4em;
 }
@@ -2936,15 +2943,16 @@ table.datagrid {
     width: 100%;/*oringinally set to auto*/
     border-collapse: collapse;
     margin-bottom: 1.5em;
-    border-left: 1px solid #cccccc;
-    border-right: 1px solid #cccccc;
+}
+
+table.datagrid caption {
+    background-color: #00A3B5;
+    color: #fff;
+    font-weight: bold;
 }
 
 table.datagrid th {
-    color: #000000;
-    background-color: #dddddd;
-    border-top: solid 1px #cccccc;
-    border-bottom: solid 1px #cccccc;
+    background-color: #f2f2f2;
     text-align: left;
     /*border-left: 1px solid #FFFFFF;
     border-right: 1px solid #FFFFFF;*/
