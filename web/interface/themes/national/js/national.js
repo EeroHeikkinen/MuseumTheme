@@ -138,8 +138,10 @@ function initSidebarFacets() {
                 $(this).addClass('active');
         }
         
+        else if ($(this).find('dd').length == 0) $(this).addClass('collapsed open');
+        
         // Mark dl collapsible
-        if ($(this).find('dd').length > 0) $(this).addClass('collapsible');
+        $(this).addClass('collapsible');
     })
     
     // Toggle facet visibility by clicking its title
@@ -166,5 +168,15 @@ function initSidebarFacets() {
             // Finally, mark this facet container opened
             parentDl.toggleClass('open collapsed');
         }
+        
+        // Extend to default facets (with no dd children)
+        
+        else {
+            parentDl.nextUntil('div').last().next().slideToggle(100);
+            parentDl.toggleClass('open collapsed');
+        }
+        
+        
+        
     })
 }

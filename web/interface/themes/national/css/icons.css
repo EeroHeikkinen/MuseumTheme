@@ -77,9 +77,10 @@ span.dynatree-drag-helper-img,
 .iconlabel.formatvideo {
     background-position: -46px -606px;
 }
-.iconlabel.formatsoundrecording {
+.iconlabel.formatsound {
     background-position: -46px -551px;
 }
+
 
 /* Header: info box */
 
@@ -118,11 +119,11 @@ a.clear_input {
 /* Main: Search results */
 
 .openurl_more {
-    background-position: -1297px -3320px; 
+    background-position: -1298px -3370px; 
 }
 
 .openurl_more.expanded {
-    background-position: -1297px -3271px; 
+    background-position: -1300px -3320px;
 }
 
 .recordSet .fav {

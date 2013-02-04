@@ -1384,7 +1384,7 @@ ul.recordSet {
     list-style-type: none;
 }
 ul.recordSet li.result {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 ul.recordSet li.result:hover {
@@ -1427,6 +1427,13 @@ ul.recordSet .resultColumn2 {
     float: left;
     width: 500px;
     margin-left: 10px;
+}
+ul.recordSet .resultColumn2 > * {
+    line-height: 16px;
+    padding: 0 0 6px;
+}
+ul.recordSet .resolver {
+    padding-top:6px;
 }
 ul.recordSet .resultCheckbox {
     position:absolute;
@@ -1623,7 +1630,7 @@ div.sidegroup h4 {
     padding-top:7px;
 }
 .sidegroup ul.dynatree-container {
-    padding:8px 10px;
+    padding:0 10px 8px;
 }
 ul.filters {
     list-style-type: none;
@@ -1988,7 +1995,7 @@ ul.recordSet .addToFavLink a {
     padding-left:18px
 }
 .openurl_more {
-    padding-left:20px;
+    padding-left:16px;
     padding-right:10px;
     color:#666;
 }
