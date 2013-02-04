@@ -512,9 +512,9 @@ span.dynatree-node {
 }
 
 /* Button styles for advanced search. May be added later to all buttons. */
+
 .button {
-    font-family: arial;
-    font-size: 14px;
+    font-family: "Helvetica neue", Arial, Helvetica, sans-serif;
 }
 
 /* Color classes */

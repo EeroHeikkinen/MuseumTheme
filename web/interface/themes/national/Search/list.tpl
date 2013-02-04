@@ -39,10 +39,9 @@
   <div class="resultViewOptions">
     <div class="content">
       <div class="resultNumbers">
-        <span class="currentPage">Sivu {if !empty($pagelinks)}{$pageLinks.pages}{else}1{/if}{$pageLinks.pages}</span>
-        <span class="resultTotals">{$recordCount} tuloksesta</span>
+        <span class="currentPage">{translate text="Search Results"} {$recordStart}&#8201;-&#8201;{$recordEnd} / </span>
+        <span class="resultTotals">{$recordCount}</span>
       </div>
-
       <div class="resultOptions">
         <!--
         <div class="viewButtons">
