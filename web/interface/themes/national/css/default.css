@@ -276,6 +276,7 @@ div.sidegroup {
 }
 
 .menuLogin {
+    padding-top: 2px;
     padding-left: 17px;
     border-left: 2px solid #eee;
 }
