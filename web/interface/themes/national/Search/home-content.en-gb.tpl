@@ -23,7 +23,7 @@
         <li><span class="iconlabel formatworkofart"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FWorkOfArt"'>Works of Art</a></span></li>
         <li><span class="iconlabel formatdatabase"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Databases</a></span></li>
         <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videos</a></span></li>
-        <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Sound Recordings</a></span></li>
+        <li><span class="iconlabel formatsound"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Sound Recordings</a></span></li>
       </ul>
     </div>
   </div>
@@ -45,7 +45,7 @@
     <div>
       <div class="mapSearchHome">
         <h2>Try the map search</h2>
-        <p>It is possible to narrow down search on a map. Currently there are ca. 7200 records within this search option.</p>
+        <p>You can also refine your search to a specific area on the map. The map search function currently encompasses some 7,200 items.</p>
         <a class="button" href="">Map search</a>
       </div>
     </div>

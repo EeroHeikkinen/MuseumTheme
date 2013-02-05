@@ -23,7 +23,7 @@
         <li><span class="iconlabel formatworkofart"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FWorkOfArt"'>Taideteoksia</a></span></li>
         <li><span class="iconlabel formatdatabase"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FDatabase"'>Tietokantoja</a></span></li>
         <li><span class="iconlabel formatvideo"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FVideo"'>Videoita</a></span></li>
-        <li><span class="iconlabel formatsoundrecording"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Äänitteitä</a></span></li>
+        <li><span class="iconlabel formatsound"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FSound"'>Äänitteitä</a></span></li>
       </ul>
     </div>
   </div>

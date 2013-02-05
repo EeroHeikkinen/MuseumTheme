@@ -4,14 +4,12 @@
 
 <div class="myResearch finesList{if $sidebarOnLeft} last{/if}">
   <div class="content">
-  <span class="hefty">{translate text='Your Fines'}</span>
   {if $user->cat_username}
-  <div class="resultHead"></div>
+    <table class="datagrid fines" summary="{translate text='Your Fines'}">
+      <caption>{translate text='Your Fines'}</caption>
     {if empty($rawFinesData)}
-      <br />
-      {translate text='You do not have any fines'}
+      <tr><td>{translate text='You do not have any fines'}</td></tr>
     {else}
-      <table class="datagrid fines" summary="{translate text='Your Fines'}">
       <tr>
         <th style="width:50%;">{translate text='Title'}</th>
         <th>{translate text='Checked Out'}</th>
@@ -45,8 +43,8 @@
         </tr>
       {/foreach}
       <tr><td colspan="5" class="fineBalance">{translate text='Balance total'}: <span class="hefty">{$sum/100.00|safe_money_format|escape}</span></td></tr>
-      </table>
     {/if}
+    </table>
   {else}
     {include file="MyResearch/catalog-login.tpl"}
   {/if}

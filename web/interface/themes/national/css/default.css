@@ -548,13 +548,20 @@ a.clear_input:hover {
     margin: 0px;
     padding: 0px;
 }
+.dropdown a:after {
+    padding-left: 0.5em;
+    content: "\25bc";
+}
+.dropdown ul a:after {
+    padding-left: 0;
+    content: "";
+}
 .dropdown dd {
     position: relative;
 }
 .dropdown a, .dropdown a:visited {
-    color: #444;
     outline: none;
-    text-decoration: none;
+    text-decoration: none ! important;
 }
 .dropdown a:hover {
     color: #444;
@@ -1127,7 +1134,7 @@ fieldset.publishDateLimit .ui-slider {
     width: 210px;
 }
 .module-Collection #sidebarCollection {
-    margin-left: 10px;
+    float:right;
 }
 
 #sidebarFavoritesLists .favoritesCount,
@@ -1245,23 +1252,24 @@ fieldset.publishDateLimit .ui-slider {
     line-height: 1.8em;
     width: 452px;
 }
-.profileGroup {
-    margin-bottom: 1em;
+
+table.profileGroup {
+    margin: 0;
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
 }
-.profileGroup h4 {
-    margin: 1em 0;
+
+table.profileGroup td,
+table.profileGroup th {
+    border-bottom: solid 1px #eee;
 }
-.profileInfo span {
-    float: left;
-    width: 210px;
-    margin-left: 12px;
+
+table.profileGroup caption {
+    background-color: #00A3B5;
+    color: #fff;
+    font-weight: bold;
 }
-.profileInfo label {
-    font-weight: normal;
-}
-.profileInfo span input {
-    width: 204px;
-}
+
 .profileInfo select#home_library {
     width: 210px;
     padding: 2px;
@@ -1271,7 +1279,7 @@ fieldset.publishDateLimit .ui-slider {
     float: right;
 }
 .finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #eee;
     padding-top: 0.4em;
     padding-bottom: 0.4em;
 }
@@ -1385,7 +1393,7 @@ ul.recordSet {
     list-style-type: none;
 }
 ul.recordSet li.result {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 ul.recordSet li.result:hover {
@@ -1429,6 +1437,13 @@ ul.recordSet .resultColumn2 {
     width: 500px;
     margin-left: 10px;
 }
+#recordSet ul.recordSet .resultColumn2 > * {
+    line-height: 16px;
+    padding: 0 0 6px;
+}
+ul.recordSet .resolver {
+    padding-top:6px;
+}
 ul.recordSet .resultCheckbox {
     position:absolute;
     display:none;
@@ -1447,10 +1462,6 @@ ul.recordSet .resultItemLine2{
     max-width: 126px;
 }
 .module-Search .resultListContainer .resultNoImage {
-    background-color: #FFFFFF;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: 50% auto;
     border: 4px solid #CFCFCF;
     display: table;
     height: 118px;
@@ -1513,7 +1524,7 @@ ul.recordSet .resultItemLine2{
     text-decoration:none;
 }
 div.resultItemFormat {
-    margin: 10px auto 0 auto;
+    margin: 10px auto 0 10px;
     text-align: center;
 }
 
@@ -1624,7 +1635,7 @@ div.sidegroup h4 {
     padding-top:7px;
 }
 .sidegroup ul.dynatree-container {
-    padding:8px 10px;
+    padding:0 10px 8px;
 }
 ul.filters {
     list-style-type: none;
@@ -1647,6 +1658,7 @@ ul.filters a {
     display: block;
     position: absolute;
     color: white;
+    text-indent:-9999px;
     text-decoration: none;
 }
 ul.filters span {
@@ -1787,7 +1799,7 @@ dl.narrowList a {
 }
 .main .contentHeader.loginContentHeader,
 .main .contentHeader.loginContentHeader h1 {
-    background: #D8F4ED;
+    background: #b0e9db;
 }
 .main .contentHeader.noResultHeader {
     background: #B3E3E9;
@@ -1944,10 +1956,9 @@ ul.recordSet .addToFavLink a {
     margin-right:.7em;
 }
 .delete {
-    background-image:url(../images/silk/delete.png);
     background-repeat:no-repeat;
     background-position: left;
-    padding:.5em .5em .5em 18px;
+    padding:.5em .5em .5em 30px;
     margin-right:0;
 }
 .feed {
@@ -1980,7 +1991,7 @@ ul.recordSet .addToFavLink a {
     padding-left:18px
 }
 .openurl_more {
-    padding-left:20px;
+    padding-left:16px;
     padding-right:10px;
     color:#666;
 }
@@ -2921,15 +2932,18 @@ table.datagrid {
     width: 100%;/*oringinally set to auto*/
     border-collapse: collapse;
     margin-bottom: 1.5em;
-    border-left: 1px solid #cccccc;
-    border-right: 1px solid #cccccc;
+    border-left: solid 1px #eee;
+    border-right: solid 1px #eee;
+}
+
+table.datagrid caption {
+    background-color: #00A3B5;
+    color: #fff;
+    font-weight: bold;
 }
 
 table.datagrid th {
-    color: #000000;
-    background-color: #dddddd;
-    border-top: solid 1px #cccccc;
-    border-bottom: solid 1px #cccccc;
+    background-color: #f2f2f2;
     text-align: left;
     /*border-left: 1px solid #FFFFFF;
     border-right: 1px solid #FFFFFF;*/
@@ -3381,7 +3395,6 @@ tr:nth-child(even) td.gridMouseOver {
 }
 .collectionDetails li.result.alt {
     background-color: #FFF;
-    margin-bottom: 0px;
 }
 .collectionDetails .pagination a {
 
@@ -4063,11 +4076,14 @@ span.mapMarker  {
     border-radius: 10px 10px 10px 10px;
     color: #444;
     cursor:pointer;
+    font-weight:bold;
     display: inline-block;
     font-size: 1em;
-    font-weight: bold;
-    padding: 6px 13px;
     text-align: center;
+    height: auto;
+    line-height:1em;
+    padding: 8px 12px 8px 15px;
+    width:auto;
     /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
 }
 
@@ -4099,11 +4115,6 @@ span.mapMarker  {
     line-height:24px;
     width:25px;
 }
-.deleteButton {
-    color:#fff;
-    background:#ff461e;
-}
-
 
 /* Staff view xml styles */
 .xml .re0 {

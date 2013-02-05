@@ -211,6 +211,15 @@ body { -webkit-tap-highlight-color: #bbddff; }
     margin: 0;
     padding: 0 3px;
 }
+/* Header Info Box Texts */
+p.headerInfoLight {
+    color: #888;
+    padding-bottom: 4px;
+}
+p.headerInfoTitle {
+    font-weight: bold;
+    line-height: 1.3em;
+}
 
 
 
@@ -325,7 +334,7 @@ a.subjectHeading:hover {
 }
 .sidegroup li,
 .sidegroup dd {
-    line-height:1.33em;
+    line-height:1.5em;
 }
 .sidegroup li li {
     font-size:1em;
@@ -507,9 +516,9 @@ span.dynatree-node {
 }
 
 /* Button styles for advanced search. May be added later to all buttons. */
+
 .button {
-    font-family: arial;
-    font-size: 14px;
+    font-family: "Helvetica neue", Arial, Helvetica, sans-serif;
 }
 
 /* Color classes */
