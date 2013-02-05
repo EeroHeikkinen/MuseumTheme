@@ -311,7 +311,13 @@ div.searchHomeForm div.searchform #searchForm {
 .home-section.first .content > div:first-child {
     width:480px;
     padding-right: 80px;
-   
+}
+.home-section.columns.first ul {
+    padding-bottom:30px;
+}
+.home-section span.iconlabel {
+    float:left;
+    padding:0px 0.5em 3px 25px;
 }
 .home-section.columns .content > div {
     background:#fff;
@@ -338,12 +344,16 @@ div.searchHomeForm div.searchform #searchForm {
     background:#E1EFF4;
     overflow:hidden;
 }
+.home-section.first .content {
+    overflow:hidden;
+}
 .home-section.columns.third .content > div:first-child {
     background:#e1eff4;
     height:auto;
     width:auto;
 }
-.home-section.columns.third .content > div {
+.home-section.columns.third .content > div,
+.home-section.columns.first .content > div {
     padding-bottom: 500px; /* Make floated divs seem equally long */
     margin-bottom: -500px; /* Note: parent element must be overflow:hidden */
 }

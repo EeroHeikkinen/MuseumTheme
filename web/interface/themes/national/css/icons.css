@@ -111,7 +111,10 @@ span.dynatree-drag-helper-img,
 /* Header: Search box */
 
 .advancedLink {
-    background-position:-574px -5032px;
+    background-position:-575px -5032px;
+}
+html[lang="sv"] .advancedLink {
+    background-position:-581px -5032px;
 }
 .searchbox .dropdown dt a {
     background-position: -1534px -4146px; 
