@@ -270,7 +270,7 @@ div.sidegroup {
     display:none;
     position:absolute;
     margin-left:-475px;
-    padding:35px 0 0;
+    padding:25px 0 0;
     left:50%;
     width:950px;
 }
@@ -280,18 +280,18 @@ div.sidegroup {
     border-left: 2px solid #eee;
 }
 
-ul.subMenu li {
+#headerMenu ul.subMenu li {
     float: left;
     width: 25%;
     min-height: 65px;
     margin: 10px 0 0 0;
-    padding: 0 0 7px 15px;
+    padding: 0 10px 7px 15px;
     border-left: 2px solid #eee;
 }
 
-ul.subMenu li:first-child {
+#headerMenu ul.subMenu li:first-child {
     margin: 10px 0 0 0;
-    padding: 0 0 7px;
+    padding: 0 10px 7px 0;
     border: none;
 }
 

@@ -1,27 +1,6 @@
 <!-- START of: header-menu.fi.tpl -->
 
-<li class="menuAbout"><a href="#"><span>{translate text='navigation_about'}</span></a>
-  <ul class="subMenu">
-    <li>
-      <a href="{$path}/Content/about">
-        <span>Tietoa Finnasta</span>
-        <span>Perustietoa Finnasta ja sen sisällöistä</span>
-      </a>
-    </li>
-    <li>
-      <a href="{$path}/Content/terms_conditions">
-        <span>Käyttöehdot</span>
-        <span>Finnan aineistojen käyttöehdot</span>
-      </a>
-    </li>
-    <li>
-      <a href="{$path}/Content/register_details">  
-        <span>Rekisteriseloste</span>
-        <span>Finnan asiakasrekisterin seloste</span>
-      </a>
-    </li>
-  </ul>
-</li>
+<li class="menuAbout"><a href="{$path}/Content/about"><span>{translate text='navigation_about'}</span></a></li>
 
 <li class="menuSearch"><a href="#"><span>{translate text='navigation_search'}</span></a>
   <ul class="subMenu">
@@ -49,7 +28,7 @@
 <li class="menuHelp"><a href="#"><span>{translate text='navigation_help'}</span></a>
   <ul class="subMenu">
     <li>
-      <a href="{$path}/Content/register_details">
+      <a href="{$path}/Content/searchhelp">
         <span>Hakuohje</span>
         <span>Yksityiskohtaiset ohjeet hakuun.</span>
       </a>
@@ -57,11 +36,7 @@
   </ul> 
 </li>
 
-<li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a>
-<!--
-  <ul class="subMenu"></ul>
--->
-</li>
+<li class="menuFeedback"><a href="{$path}/Feedback/Home"><span>{translate text='navigation_feedback'}</span></a></li>
 
 {include file="login-element.tpl"}
 

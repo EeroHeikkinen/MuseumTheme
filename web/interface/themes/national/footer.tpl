@@ -27,10 +27,8 @@
   <div id="footerCol3">
     <h4>{translate text='navigation_help'}</h4>
     <ul>
-      {if $userLang != 'sv'}
-      <li><a href="{$path}/Content/searchhelp" class="searchHelp">{translate text='Search Tips'}</a></li>
-      {/if}
-      <li><a href="{$path}/Feedback/Home" class="searchHelp">{translate text='navigation_feedback'}</a></li>
+      <li><a href="{$path}/Content/searchhelp">{translate text='Search Tips'}</a></li>
+      <li><a href="{$path}/Feedback/Home">{translate text='navigation_feedback'}</a></li>
       {*<li><a href="#">{translate text='Ask a Librarian'}</a></li>
       <li><a href="#">{translate text='FAQs'}</a></li>*}
     </ul>
