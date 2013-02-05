@@ -45,12 +45,7 @@ body {
 
 #header .content {
     width:100%;
-    background: -moz-linear-gradient(top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 300px);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.6)), color-stop(300px,rgba(0,0,0,0)));
-    background: -webkit-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0)300px);
-    background: -o-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
-    background: -ms-linear-gradient(top, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
-    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 300px);
+    background: url("../images/header_top_gradient.png") repeat-x scroll top left transparent;
 }
 #header .content > div {
     width:950px;
@@ -228,12 +223,7 @@ div.sidegroup {
 /*** Header ***/
 #header, #header.header-home {
     border:none;
-    background: -moz-linear-gradient(bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 150px);
-    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%,rgba(0,0,0,0.3)), color-stop(150px,rgba(0,0,0,0)));
-    background: -webkit-linear-gradient(bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
-    background: -o-linear-gradient(bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
-    background: -ms-linear-gradient(bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
-    background: linear-gradient(to top, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 150px);
+    background: url("../images/header_bottom_gradient.png") repeat-x scroll bottom left transparent;
 }
 
 #headerTop {
