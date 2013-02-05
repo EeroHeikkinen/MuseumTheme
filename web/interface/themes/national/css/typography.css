@@ -270,6 +270,10 @@ p.ingress {
     padding: 8px 0 0 0;
 }
 
+a.twoLiner {
+    line-height: 1.3em;
+}
+
 /* Misc styles */
 label.invalid {
     font-weight: bold;

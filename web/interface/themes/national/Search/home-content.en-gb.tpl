@@ -15,7 +15,7 @@
         <li><span class="iconlabel formatmap"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMap"'>Maps</a></span></li>
         <li><span class="iconlabel formatbook"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FBook"'>Books</a></span></li>
         <li><span class="iconlabel formatimage"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FImage"'>Images</a></span></li>
-        <li><span class="iconlabel formatjournal"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>Journals and Articles</a></span></li>
+        <li><span class="iconlabel formatjournal"><a class="twoLiner" href='{$url}/Search/Results?filter[]=format%3A"0%2FJournal"'>Journals and Articles</a></span></li>
       </ul>
       <ul>
         <li><span class="iconlabel formatmusicalscore"><a href='{$url}/Search/Results?filter[]=format%3A"0%2FMusicalScore"'>Musical scores</a></span></li>
