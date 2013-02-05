@@ -230,6 +230,18 @@ span.dynatree-expander:hover {
 
 /* Main: Single record view */
 
+.resultLinks .button {
+    background-position: -672px -3414px;
+}
+.resultLinks .button span {
+    background-position: -679px -1950px;
+}
+.resultscroller .prevRecord {
+    background-position: -364px -4220px;
+}
+.resultscroller .nextRecord {
+    background-position: -364px -4284px;
+}
 .fav {
     background-position: -364px -3043px;
 }

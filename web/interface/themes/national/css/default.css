@@ -2134,7 +2134,7 @@ ul.recordSet .addToFavLink a {
 .advSearchHeader,
 .resultTerms,
 .module-Collection #collectionHeader {
-    padding: 22px 0 24px;
+    padding: 22px 0 22px;
     background:#b3e3e9;
 }
 .module-Search h2.account,
@@ -2453,6 +2453,29 @@ div.resultLinks {
 div.resultLinks a {
     font-weight: bold;
     color: #4D4D4D;
+}
+.resultLinks .button {
+    margin-right: 10px;
+}
+.resultLinks .button span {
+    text-indent: -10000px;
+    display: block;
+    margin-left: 10px;
+}
+.resultscroller .prevRecord,
+.resultscroller .nextRecord {
+    display: block;
+    height: inherit;
+    float:left;
+    width: 32px;
+    padding: 0;
+}
+.resultscroller .nextRecord {
+    float: right;
+}
+.resultscroller .resultNav {
+    text-indent: -10000px;
+    display: block;
 }
 .module-Record div.record {
     padding: 0;
@@ -2851,12 +2874,9 @@ h5.recordTabHeader {
 }
 .resultscroller {
     /* border-bottom: 1px solid #dddddd; */
-}
-.resultscroller .prevRecord {
-    margin-right: 0.5em; 
-}
-.resultscroller .nextRecord {
-    margin-left: 0.5em; 
+    float: right;
+    text-align: center;
+    width: 22%;
 }
 
 

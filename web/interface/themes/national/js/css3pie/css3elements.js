@@ -25,12 +25,10 @@ $(document).ready(function() {
         $('.dropdown dd ul, body > ul.ui-menu.ui-widget').each(function() {
           PIE.attach(this);
         });
-        $('.dropdown dd ul li:first-child a:hover,
-          body > ul.ui-menu.ui-widget li:first-child a:hover').each(function() {
+        $('.dropdown dd ul li:first-child a:hover, body > ul.ui-menu.ui-widget li:first-child a:hover').each(function() {
           PIE.attach(this);
         });
-        $('.dropdown dd ul li:last-child a:hover,
-          body > ul.ui-menu.ui-widget li:last-child a:hover').each(function() {
+        $('.dropdown dd ul li:last-child a:hover, body > ul.ui-menu.ui-widget li:last-child a:hover').each(function() {
           PIE.attach(this);
         });
         $('body > div.ui-dialog').each(function() {
@@ -99,8 +97,7 @@ $(document).ready(function() {
           PIE.attach(this);
         });
 /*** -child ***/
-        $('#headerMenu li a:hover span:first-child,
-          #headerMenu li a:focus span:first-child').each(function() {
+        $('#headerMenu li a:hover span:first-child, #headerMenu li a:focus span:first-child').each(function() {
           PIE.attach(this);
         });
         $('ul.subMenu li:first-child').each(function() {

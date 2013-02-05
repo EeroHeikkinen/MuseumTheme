@@ -37,8 +37,8 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
 
 {* <div class="span-10{if $sidebarOnLeft} push-5 last{/if}"> *}
 
-{if $errorMsg || $infoMsg || $lastsearch || $previousRecord || $nextRecord}
 <div class="resultLinks">
+{if $errorMsg || $infoMsg || $lastsearch || $previousRecord || $nextRecord}
   <div class="content">
   {if $errorMsg || $infoMsg}
   <div class="messages">
@@ -48,23 +48,25 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   {/if}
   {if $lastsearch}
     <div class="backToResults">
-        <a href="{$lastsearch|escape}#record{$id|escape:"url"}">&laquo;&nbsp;{translate text="Back to Search Results"}</a>
+        <a href="{$lastsearch|escape}#record{$id|escape:"url"}"><div class="button buttonTurquoise icon"><span class="icon">&laquo</span></div>{translate text="Back to Search Results"}</a>
     </div>
   {/if}
   {if $previousRecord || $nextRecord}
     <div class="resultscroller">
-    {if $previousRecord}<a href="{$url}/Record/{$previousRecord}" class="prevRecord">&laquo;<span class="resultNav">&nbsp;{translate text="Prev"}</span></a>
-    {else}<span class="prevRecord inactive">&laquo;<span class="resultNav">&nbsp;{translate text="Prev"}</span></span>{/if}
+    {if $previousRecord}<a href="{$url}/Record/{$previousRecord}" class="prevRecord icon"><span class="resultNav">&laquo;&nbsp;{translate text="Prev"}</span></a>
+    {else}<span class="prevRecord inactive"><span class="resultNav">&laquo;&nbsp;{translate text="Prev"}</span></span>{/if}
     {$currentRecordPosition} / {$resultTotal}
     {* #{$currentRecordPosition} {translate text='of'} {$resultTotal} *}
-    {if $nextRecord}<a href="{$url}/Record/{$nextRecord}" class="nextRecord"><span class="resultNav">{translate text="Next"}&nbsp;</span>&raquo;</a>
-    {else}<span class="nextRecord inactive">{translate text="Next"} &raquo;</span>{/if}
+    {if $nextRecord}<a href="{$url}/Record/{$nextRecord}" class="nextRecord icon"><span class="resultNav">{translate text="Next"}&nbsp;&raquo;</span></a>
+    {else}<span class="nextRecord inactive"><span class="resultNav">{translate text="Next"}&nbsp;&raquo;</span></span>{/if}
 	</div>
 	{/if}
   </div>
+{else}
+  &nbsp;
+{/if}
 <div class="clear"></div>
 </div>
-{/if}
 
 <div class="record recordId" id="record{$id|escape}">
 
