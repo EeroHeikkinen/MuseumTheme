@@ -11,10 +11,11 @@
       </div>
   </div>
   <div class="content">
-    <div class="sidegroup">
-      <p><a href="{$url}/Content/searchhelp">{translate text="Search Tips"}</a></p>
-    </div>  
+    
     <div class="advSearchContent">
+        <div class="sidegroup">
+            <p><a href="{$url}/Content/searchhelp">{translate text="Search Tips"}</a></p>
+        </div>  
       {if $editErr}
       {assign var=error value="advSearchError_$editErr"}
         <div class="error">{translate text=$error}</div>

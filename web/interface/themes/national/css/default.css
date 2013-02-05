@@ -3030,11 +3030,12 @@ p.citationText {
     text-align: right;
 }
 .addSearch {
-    padding: 0px 0px 4px 100px;
+    padding: 0px 0px 8px 90px;
     width:50%;
     float:left;
 }
 .deleteSearchGroup {
+    padding: 0 10px 0 0;
     float:right;
     width: 30%;
     text-align: right;
@@ -3101,7 +3102,7 @@ p.citationText {
 
 .advSearchFooter {
     padding: 25px 35%;
-    background-color: #B3E3E9;
+    background-color: #eeeeee;
     margin: 40px 0;
 }
 
