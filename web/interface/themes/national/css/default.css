@@ -477,7 +477,7 @@ a.clear_input:hover {
     width:25px;
     height:25px;
     border-radius:13px;
-    margin-top:-10px;
+    margin-top: 20px;
     float:right;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
