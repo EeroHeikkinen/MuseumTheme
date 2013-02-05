@@ -1,7 +1,5 @@
 /****** Homepage ******/
 
-/* temp style until the browse has been figured out to home page */
-
 .searchHomeContent {
     padding: 3em 0 3em 0;
     margin: 0 auto;
@@ -14,6 +12,10 @@
 
 .container .header-home {
     background:transparent;
+}
+
+.header-home #searchFormHeader {
+    padding-top:290px;
 }
 
 /*** Logo ***/
@@ -135,6 +137,7 @@ div.searchHomeForm div.searchform #searchForm {
     padding:0;
     line-height: 1.4;
     width:500px;
+    position:absolute;
 }
 .headerHomeContent h2, 
 .headerHomeContent h3 {
