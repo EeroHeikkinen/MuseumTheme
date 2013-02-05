@@ -139,6 +139,7 @@ $(document).ready(function() {
     </script>
 
     {* Apply labelOver placeholder for input fields *}
+
     <script type="text/javascript">
     {literal}
         $(function(){
@@ -223,7 +224,19 @@ $(document).ready(function() {
 
     {include file="piwik.tpl"}
     {include file="AJAX/keepAlive.tpl"}
+    
+    {* Init background switcher with language parameter *}
+    {literal}
+    
+    <script type="text/javascript">
+    var bgChanged;
+    if (typeof bgChanged === 'undefined') bgChanged = false;
+    if (bgChanged === false) initBgSwitcher('/Content/headertexts','.backgroundContainer',
+        '{/literal}{$userLang}{literal}');    
+    </script>
+    {/literal}
   </body>
+    
 </html>
 {/if}
 

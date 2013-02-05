@@ -548,10 +548,6 @@ a.clear_input:hover {
     margin: 0px;
     padding: 0px;
 }
-.dropdown a:after {
-    padding-left: 0.5em;
-    content: "\25bc";
-}
 .dropdown ul a:after {
     padding-left: 0;
     content: "";
@@ -2385,23 +2381,12 @@ div.dateVisHandle.visible {
 }
 .paginationMove {
     display: inline-block;
-    font-size: 0.8em;
-    padding: 0;
     top: 27px;
-    text-align: center;
     width: 25px;
-    background: #ccc;
-    border-radius: 13px 13px 13px 13px;
-    color: #FFFFFF;
-    font-size: 1.1em;
-    font-variant: small-caps;
     height:25px;
-    width: 24px;
     position:absolute;
+    text-indent:-9999px;
    
-}
-.paginationMove.visible {
-    background: #00A3B5;
 }
 .paginationMove span {
     font-size: 0.7em;

@@ -8,6 +8,7 @@
 .searchbox .dropdown dt a,
 .openurl_more,
 .advancedLink,
+.paginationMove,
 .fav, .mail, .export, .sms, .export, .cite, .add, .delete,
 .deleteButton,
 .correction .expandSearch,
@@ -148,6 +149,22 @@ a.clear_input {
     background-position: -361px -3041px;
 }
 
+/* Main: Pagination */
+
+.paginationMove.paginationNext.visible {
+    background-position: -364px -4284px;
+}
+.paginationMove.paginationNext {
+    background-position: -1296px -4284px;
+}
+
+.paginationMove.paginationBack.visible {
+    background-position: -364px -4220px;
+}
+.paginationMove.paginationBack {
+    background-position: -1296px -4220px;
+}
+
 /* Main: Search results image icons */
 
 .resultNoImage.formatdocument {
@@ -227,7 +244,7 @@ span.dynatree-expander:hover {
     background-position: -357px -1049px;
 }
 .delete {
-    background-position: -365px -4023px;
+    background-position: -357px -1158px;
 }
 /* Main: Myresearch */
 
