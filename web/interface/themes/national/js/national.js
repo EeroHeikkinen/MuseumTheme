@@ -32,7 +32,7 @@ function initHeaderMenu() {
     $('#headerMenu > li').hover(headerOver, headerOut);
     $('#headerMenu > li > a[href="#"]').click(function() {
         return false;
-    })
+    });
 }
 
 // Front page content carousel
@@ -86,7 +86,7 @@ jQuery.fn.vToggle = function() {
     return this.css('visibility', function(i, visibility) {
         return (visibility == 'visible') ? 'hidden' : 'visible';
     });
-}
+};
 
 // Date range selector 
 function initDateVisHandle() {
@@ -118,7 +118,7 @@ function initContentMenu() {
         $('.module-Content .main h2').each(function() {
             var text = $(this).text(); 
             menu += '<li>'+text+'</li>';
-        })
+        });
         menu += '</ul></div>';
         $('.module-Content .main .menu').append(menu);
         $('.module-Content .main .menu li').click(function(event){		
@@ -140,7 +140,7 @@ function initSidebarFacets() {
         
         // Mark dl collapsible
         if ($(this).find('dd').length > 0) $(this).addClass('collapsible');
-    })
+    });
     
     // Toggle facet visibility by clicking its title
     $('.sidegroup dt').click(function() {
@@ -166,5 +166,5 @@ function initSidebarFacets() {
             // Finally, mark this facet container opened
             parentDl.toggleClass('open collapsed');
         }
-    })
+    });
 }

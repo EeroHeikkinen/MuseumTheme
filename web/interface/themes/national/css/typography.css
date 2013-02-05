@@ -139,6 +139,10 @@ body { -webkit-tap-highlight-color: #bbddff; }
     font-size:1.230em;
     font-weight: bold;
 }
+#headerMenu span#userId {
+    font-size:0.751em;
+    font-weight:bold;
+}
 #header .lang {
     font-size: 0.923em;
     font-weight: bold;

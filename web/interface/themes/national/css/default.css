@@ -134,6 +134,7 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
     color: #fff;
     text-decoration: none;
 }
+
 /*** Hide styled select elements ****/
 .styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select {
     visibility:hidden;
@@ -1899,9 +1900,6 @@ ul.recordSet .addToFavLink a {
     margin-right:1em;
 }
 .login {
-    background-image:url(../images/silk/user.png);
-    background-repeat:no-repeat;
-    background-position: left;
     padding:.5em .5em .5em 20px;
 }
 .persona-login {
@@ -1914,15 +1912,9 @@ ul.recordSet .addToFavLink a {
     background-image: url(../images/ajax_loading.gif);
 }
 .logout {
-    background-image:url(../images/silk/door_out.png);
-    background-repeat:no-repeat;
-    background-position: left;
     padding:.5em .5em .5em 20px;
 }
 .account {
-    background-image:url(../images/silk/user.png);
-    background-repeat:no-repeat;
-    background-position: left;
     padding:.5em .5em .5em 20px;
 }
 .new_account {
