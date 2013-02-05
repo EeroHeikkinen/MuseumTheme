@@ -13,12 +13,18 @@ $(document).ready(function() {
 
 // Header menu
 function initHeaderMenu() {
-   
+    
     function headerOver() {
         var subMenu = $(this).children('ul');
         var subMenuHeight = subMenu.height();
-        $('#headerTop').stop().animate({height: subMenuHeight + 105 // header + bottom padding
+        var menuHeight;
+        if (subMenuHeight == 0 || typeof subMenuHeight === 'undefined') {
+            menuHeight = 95;
+        }
+        else menuHeight = subMenuHeight + 105;  // header + bottom padding
+        $('#headerTop').stop().animate({height: menuHeight
         }, 300);
+        
         
         subMenu.stop(true,true).delay(50).fadeIn(50);
     };
