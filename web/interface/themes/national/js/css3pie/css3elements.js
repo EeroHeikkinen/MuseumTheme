@@ -100,7 +100,7 @@ $(document).ready(function() {
         $('#headerMenu li a:hover span:first-child, #headerMenu li a span:first-child').each(function() {
           PIE.attach(this);
         });
-        $('ul.subMenu li:first-child').each(function() {
+        $('ul.subMenu li:first-child, .home-section.third li span:first-child').each(function() {
           PIE.attach(this);
         });
         $('#header .lang li:first-child').each(function() {

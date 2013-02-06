@@ -267,7 +267,6 @@ div.sidegroup {
 }
 
 .menuLogin {
-    padding-top: 2px;
     padding-left: 17px;
     border-left: 2px solid #eee;
 }
@@ -3156,13 +3155,16 @@ p.citationText {
     margin:0;
 }
 #advancedSearchWrapper input,
-.facetsContainer .chzn-container-multi  .chzn-choices{
+.facetsContainer .chzn-container-multi .chzn-choices {
       border: 1px solid #CCCCCC;
     border-radius: 4px 4px 4px 4px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
     margin-top: -4px;
     padding: 5px;
     background-image:none;
+}
+.facetsContainer .chzn-container-multi  .chzn-choices {
+    margin-top:0;
 }
 #advancedSearchWrapper .facetsContainer .chzn-container-multi input {
     border-radius:0;
@@ -4296,3 +4298,16 @@ form#feedbackForm label {
     clear:both;
     text-indent:0;
 }
+
+
+/*** Webkit hacks ***/
+
+/* TODO: Remove these when a better solution has been found */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+    .menuLogin {
+        padding-top: 2px;
+    }
+
+} 

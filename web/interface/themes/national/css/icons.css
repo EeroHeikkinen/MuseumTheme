@@ -329,3 +329,15 @@ span.dynatree-expander:hover {
 #zoomControlMinus {
     background-position: -49px -1112px;
 }
+
+/*** Webkit hacks ***/
+
+/* TODO: Remove these when a better solution has been found */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+    #advancedSearchWrapper .searchButton {
+        background-position: -668px -1999px;
+    }
+
+} 
