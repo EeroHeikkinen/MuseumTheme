@@ -3,6 +3,8 @@
 {js filename="jquery.geo.min.js"}
 
 {literal}
+
+<div class="content">
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -93,6 +95,7 @@ $(document).ready(function() {
       <div id="zoomControlMinus" class="ui-widget-content ui-corner-all ui-icon ui-icon-minus"></div>
     </div>
   </div>
+</div>
 </div>
 
 <!-- END of: Record/view-googlemap.tpl -->

@@ -36,10 +36,11 @@ body {
     width:100%;
     z-index:4;
 }
-.content {
+.content,
+.ui-tabs-nav {
     width:950px;
     position:relative;
-    margin:0 auto;
+    margin:0 auto !important;
     display: block;
 }
 
@@ -2478,7 +2479,7 @@ div.resultLinks a {
 }
 .module-Record div.record {
     padding: 0;
-    margin: 4em 0 1em 0;
+    margin-top: 4em;
 }
 .module-MyResearch .record form {
     padding-top: 20px;
@@ -2490,6 +2491,11 @@ div.resultLinks a {
     width: 728px;
     margin-right: 12px;
     float: left;
+}
+#resultToolbar ul {
+    border-top: 2px solid #EEEEEE;
+    padding: 0;
+    padding-top: 1em;
 }
 #resultSide {
     width: 210px;
@@ -2507,7 +2513,6 @@ div.resultLinks a {
     background-color: white;
 }
 #recordMetadata tr, .citation tr {
-    background-color: white;
 }
 /*
 #recordMetadata tr:hover {
@@ -2752,7 +2757,7 @@ table.authors th {
     float: left;
 }
 #dyntabnav, #dyntabnav .ui-tabs-nav {
-    padding: 0 0 0 .3em;
+    padding: 0;
 }
 #dyntabnav .ui-tabs-nav li {
     margin-right: 3px;
@@ -2765,16 +2770,30 @@ table.authors th {
 }
 #dyntabnav .ui-widget-header {
     background: #ffffff;
-    border-color: #cccccc;
-    border-style: none none solid none;
+    border: none;
+}
+#dyntabnav .ui-state-active,
+#dyntabnav .ui-state-active.ui-state-hover {
+    background: #B3E3E9 !important;
+}
+#dyntabnav .ui-state-default.ui-state-hover {
+    border: none ! important;
+}
+#dyntabnav .ui-tabs-panel .content {
+    overflow: auto;
 }
 #dyntabnav .ui-tabs-panel {
     padding: 1em 0;
+    background-color: #B3E3E9;
 }
 
 #dyntabnav ul.commentList {
     margin: 1em 0;
     padding: 0 .5em;
+}
+#dyntabnav .ui-corner-bottom {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 #dyntabnav form#commentRecord {
@@ -2785,9 +2804,9 @@ table.authors th {
     vertical-align: middle;
     width: 99%;
 }
-#dyntabnav .ui-state-default, #dyntabnav .ui-widget-content .ui-state-default, #dyntabnav .ui-widget-header .ui-state-default { border: 1px solid #dadada; }
+#dyntabnav .ui-state-default, #dyntabnav .ui-widget-content .ui-state-default, #dyntabnav .ui-widget-header .ui-state-default { border: none; }
 #dyntabnav .ui-state-hover, #dyntabnav .ui-widget-content .ui-state-hover, #dyntabnav .ui-widget-header .ui-state-hover, #dyntabnav .ui-state-focus, .ui-widget-content .ui-state-focus, #dyntabnav .ui-widget-header .ui-state-focus { border: 1px solid #cccccc; background-color: #dadada }
-#dyntabnav .ui-state-active, #dyntabnav .ui-widget-content .ui-state-active, #dyntabnav .ui-widget-header .ui-state-active { border: 1px solid #cccccc; }
+#dyntabnav .ui-state-active, #dyntabnav .ui-widget-content .ui-state-active, #dyntabnav .ui-widget-header .ui-state-active { border: none; }
 #dyntabnav .citation th {
     width: 16em;
 }

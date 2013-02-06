@@ -189,10 +189,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {/if}
   </div>
 
+  </div>
+  
+
    
   <a name="tabnav"></a>
     <div id="{if $dynamicTabs}dyn{/if}tabnav">
-      <div class="content">
     {if !$dynamicTabs || ($tab != 'Hold' && $tab != 'CallSlip')}
       <ul>
         {if $hasHoldings}
@@ -246,7 +248,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
     {/if}
       <div class="clear"></div>
       </div>
-    </div>
   
     {if $dynamicTabs && $tab != 'Hold' && $tab != 'CallSlip'}
     <div class="recordsubcontent">
@@ -260,8 +261,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
   
     {* Add COINS *}
     <span class="Z3988" title="{$openURL|escape}"></span>
-  
-  </div>
   
   <div class="clear"></div>
 </div>

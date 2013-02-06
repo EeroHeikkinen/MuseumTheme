@@ -405,6 +405,10 @@ table.authors th {
     font-size: 1em;
 }
 
+#dyntabnav .ui-tabs-nav {
+    font-size: 1.333em;
+}
+
 /* Similar Items (record view) */
 h5.recordTabHeader {
     font-weight: normal;

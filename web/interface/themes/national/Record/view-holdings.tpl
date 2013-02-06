@@ -1,5 +1,5 @@
 <!-- START of: Record/view-holdings.tpl -->
-
+<div class="content">
 {if $offlineMode == "ils-offline"}
   <div class="sysInfo">
     <h2>{translate text="ils_offline_title"}</h2>
@@ -15,5 +15,5 @@
     setUpCheckRequest();
     setUpCheckCallSlipRequest();
 </script>
-
+</div>
 <!-- END of: Record/view-holdings.tpl -->
