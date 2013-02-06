@@ -26,7 +26,7 @@
     <label class="displayBlock" for="profile_cat_username">{translate text='Library Catalog Username'}:</label>
     <input id="profile_cat_username" type="text" name="cat_username" value="" size="25"/>
     <label class="displayBlock" for="profile_cat_password">{translate text='Library Catalog Password'}:</label>
-    <input id="profile_cat_password" type="text" name="cat_password" value="" size="25"/>
+    <input id="profile_cat_password" type="password" name="cat_password" value="" size="25"/>
     <br/>
     <input type="submit" class="button buttonTurquoise" name="submit" value="{translate text="Save"}"/>
 

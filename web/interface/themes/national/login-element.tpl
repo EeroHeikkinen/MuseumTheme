@@ -27,6 +27,17 @@
             </a>
         </li>
         {/if}
+        {if $catalogAccounts}
+        <form method="post" action="">
+          <select id="catalogAccount" name="catalogAccount" title="{translate text="Selected Library Card"}" class="jumpMenu">
+            {foreach from=$catalogAccounts item=account}
+              <option value="{$account.id|escape}"{if $account.cat_username == $currentCatalogAccount} selected="selected"{/if}>{$account.account_name|escape}</option>
+            {/foreach}
+            <option value="new">{translate text="Add"}...</option>
+          </select>
+        <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
+        </form>
+        {/if}
     {/if}
 {/if}
     </ul>
