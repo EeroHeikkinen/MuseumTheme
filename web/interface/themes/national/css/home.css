@@ -143,7 +143,7 @@ div.searchHomeForm div.searchform #searchForm {
 .headerHomeContent h3 {
     display:inline;
     background:#4d4d4d;
-    background:rgba(77, 77, 77, .8);
+    background: url(../images/ribbon_grey.png);
     box-shadow:0 2px 7px rgba(0, 0, 0, 0.3);
 }
 

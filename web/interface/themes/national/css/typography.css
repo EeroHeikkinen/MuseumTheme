@@ -167,14 +167,19 @@ body { -webkit-tap-highlight-color: #bbddff; }
     margin: 0;
     padding: 0 0 5px;
     line-height: 1.4em;
+    color:#fff;
+    font-size:1em;
+    font-weight:bold;
+    
 }
-#headerMenu ul li span:last-child {
+
+#headerMenu ul li span {
     color: #eee;
     font-size: 0.846em;
     font-weight: normal;
     line-height: 1.4em;
 }
-#headerMenu ul li span:last-child:hover {
+#headerMenu ul li span:hover {
     color:#fff;
 }
 /* jQuery-ui modification */

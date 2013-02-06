@@ -1939,10 +1939,9 @@ ul.recordSet .addToFavLink a {
     margin-right:.7em;
 }
 .delete {
-    background-repeat:no-repeat;
-    background-position: left;
-    padding:.5em .5em .5em 30px;
-    margin-right:0;
+    line-height: 1.23em;
+    margin-right: 0;
+    padding: 10px 5px 5px 30px;
 }
 .feed {
     background-image:url(../images/silk/feed.png);
