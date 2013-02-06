@@ -1,17 +1,17 @@
 <!-- START of: Content/terms_conditions.sv.tpl -->
 
-{assign var="title" value="Terms & conditions"}
+{assign var="title" value="Användarvillkor"}
 {capture append="sections"}{literal}
 
-<h2>Using the Finna collections</h2>
+<h2>Användningen av materialet i Finna</h2>
 
-<p>Finna users may search for information from the collections of archives, libraries and museums. Finna includes: </p>
+<p>I Finna kan användarna söka i arkivens, bibliotekens och museernas material. I Finna kan man: </p>
 
-<p>Searchable and browsable descriptive metadata texts on the available materials. This metadata is presented in search results and can be used freely by all.</p>
+<p>Läsa beskrivningar av materialet, s.k. metadata. Alla kan fritt använda metadata som visas i samband med sökresultaten.</p>
 
-<p>If the material which the metadata describes is available online, Finna will include a link to the website of the organisation which controls the material in question. Statutory or contractual rights and restrictions may apply to materials available through such websites. Any rights and restrictions are specified on the websites.</p>
+<p>Om det material som beskrivs i metadatat finns i digital form på nätet, ger Finna länken till den organisation som förvaltar materialet. Materialet på organisationens webbplats kan omfattas av rättigheter eller begränsningar som regleras i lag eller avtal. Information om rättigheterna och begränsningarna finns på den förvaltande organisationens webbplats.</p>
 
-<p>For some search results, Finna includes an image of the material with the metadata, for example a picture of a museum piece, a work of art, a photograph or a book cover. Such preview images may be subject to use restrictions similar to those applicable to materials on the websites of participating organisations.</p>
+<p>I samband med vissa sökträffar i Finna visas en bild av det material som beskrivs i metadatat, t.ex. en bild av museiföremålet, konstverket, fotot eller boken i fråga. Användningen av de här bilderna kan vara begränsad på samma sätt som användningen av materialet på de förvaltande organisationernas webbplatser.</p>
 
 {/literal}{/capture}
 {include file="$module/content.tpl" title=$title sections=$sections}

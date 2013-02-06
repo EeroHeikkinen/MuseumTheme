@@ -7,30 +7,30 @@
     <li>
       <a href="{$path}/Search/History">
         <span>Sökhistorik</span>
-        <span>Istuntokohtainen hakuhistoriasi. Kirjautumalla voit tallentaa hakusi.</span>
+        <span>Din sökhistorik enligt session. Om du loggar in kan du spara dina sökningar.</span>
       </a>    
       </li>
     <li>
       <a href="{$path}/Search/Advanced">
         <span>Utökad sökning</span>
-        <span>Tarkemmat hakuehdot ja karttahaku</span>
+        <span>Fler sökvillkor och sökning på karta.</span>
       </a>
     </li>
     <li>
       <a href="{$path}/Content/searchhelp">
         <span>Bläddra i katalogen</span>
-        <span>Selaa tagien, tekijän, aiheen, genren, alueen tai aikakauden mukaan.</span>
+        <span>Bläddra enligt författare, ämne, område, tidsperiod eller tagg.</span>
       </a>
     </li>
   </ul>
 </li>
 
-<li class="menuHelp"><a href="#"><span>Apua</span></a>
+<li class="menuHelp"><a href="#"><span>{translate text='navigation_help'}</span></a>
   <ul class="subMenu">
     <li>
       <a href="{$path}/Content/searchhelp">
         <span>Söktips</span>
-        <span>Yksityiskohtaiset ohjeet hakuun.</span>
+        <span>Detaljerade sökanvisningar.</span>
       </a>
     </li>
   </ul> 

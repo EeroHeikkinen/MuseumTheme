@@ -10,7 +10,7 @@
           <div class="pickup-header"><span>Constantine of Africa: Theorica Pantegni</span></div>
           <div class="pickup-text">
             The mediaeval Latin medical textbook Theorica Pantegni is the oldest bound manuscript in Finland, and one of the crown jewels of the collections of the National Library. It is the first comprehensive general work on medicine in Latin, and has been digitised and transcribed into the modern alphabet.
-            <a href="{"http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list"|escape:'html'}">To the search result »</a>
+            <a href="{"http://www.finna.fi/Search/Results?lookfor=theorica+pantegni&type=AllFields&filter[]=building%3A%220%2FNLF%22&filter[]=authorStr%3A%22Constantinus+Africanus%22&view=list&lng=en-gb"|escape:'html'}">To the search result »</a>
           </div>
         </div>
       </li>
@@ -30,7 +30,7 @@
           <div class="pickup-header"><span>Drawings for prefabricated houses</span></div>
           <div class="pickup-text">
             Thia collection of drawings includes a generation of buildings which are very well-known among the Finnish public. The so-called rintamamiestalo (literally, “veteran house”) type was created as a response to the increase in the demand in housing after the Second World War. The prefabricated houses were modern family homes which differed in their appearance from traditional houses.
-            <a href="http://finna.fi/Collection/narc.VAKKA-319655.KA">To the search result »</a>
+            <a href="http://www.finna.fi/Collection/narc.VAKKA-319655.KA">To the search result »</a>
           </div>
         </div>
       </li>
@@ -40,7 +40,7 @@
           <div class="pickup-header"><span>The JYX publications archive</span></div>
           <div class="pickup-text">
             The JYX archive of the University of Jyväskylä ranks among the 100 most respected publications archives in the world. University of Jyväskylä dissertations, articles, theses and online publications are entered into the JYX archive and made openly available. JYX also includes digitised samples of University of Jyväskylä collections, such as historical maps and music recordings. In 2011, more than 1.5 million files were downloaded from JYX.
-            <a href="http://finna.fi/Record/metalib_finelib.FIN25672">To the search result »</a>
+            <a href="http://www.finna.fi/Record/metalib_finelib.FIN25672">To the search result »</a>
           </div>
         </div>
       </li>   
