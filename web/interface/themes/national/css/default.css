@@ -2509,6 +2509,7 @@ div.resultLinks a {
 #resultToolbar ul {
     border-top: 2px solid #EEEEEE;
     padding: 0;
+    margin: 0;
     padding-top: 1em;
 }
 #resultSide {
@@ -2780,7 +2781,7 @@ table.authors th {
     -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px;
 }
 #dyntabnav .ui-tabs li a, #dyntabnav .ui-tabs-nav li a {
-    padding: .5em;
+    padding-left: 30px;
 }
 #dyntabnav .ui-widget-header {
     background: #ffffff;
@@ -2857,13 +2858,32 @@ h5.recordTabHeader {
 }
 .toolbar {
     float: right;
-    padding: 10px 0 10px 0;
     margin: 0 0 40px 0;
     background-color:#fff;
 }
 .toolbar ul {
     list-style-type:none;
 }
+
+.addthis_button_facebook span,
+.addthis_button_twitter span,
+.addthis_button_google_plusone_share span {
+    background: none;
+    width: 32px;
+    height: 32px;
+}
+
+#addThis .mail {
+    float:left;
+    clear:both;
+    height: 16px;
+}
+
+#addThis .icon {
+    width: 20px;
+    height: 20px;
+}
+
 /*
 .toolbar ul li a:hover{
     background-color:#f9f9f9;
@@ -2901,7 +2921,6 @@ h5.recordTabHeader {
 }
 .backToResults {
     float: left;
-    margin-left: 1.6em;
     width: 600px;
 }
 .resultscroller {

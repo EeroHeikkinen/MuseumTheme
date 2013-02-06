@@ -17,7 +17,15 @@
 a.clear_input,
 .dateVisClear a,
 .dropdown dt a:after,
-#advancedSearchWrapper .searchButton {
+#advancedSearchWrapper .searchButton,
+#holdingstab,
+#componentstab,
+#commentstab,
+#reviewstab,
+#excerpttab,
+#hierarchytab,
+#maptab,
+#detailstab {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -249,15 +257,23 @@ span.dynatree-expander:hover {
 .resultscroller .nextRecord {
     background-position: -364px -4284px;
 }
+#addThis .mail {
+    background-position: -361px -2773px;
+}
+.addthis_button_facebook {
+    background-position: -361px -1613px;
+}
+.addthis_button_twitter {
+    background-position: -361px -1667px;
+}
+.addthis_button_google_plusone_share {
+    background-position: -361px -2002px;
+}
 .fav {
     background-position: -364px -3043px;
 }
 .mail {
     background-position: -364px -2769px;
-}
-.feedbackRecord.mail {
-    background-position: -364px -3097px;
-
 }
 .export {
     background-position: -364px -1551px;
@@ -267,6 +283,30 @@ span.dynatree-expander:hover {
 }
 .delete {
     background-position: -357px -1158px;
+}
+#holdingstab {
+    background-position: -41px -1214px;
+}
+#componentstab {
+    background-position: -41px -1436px;
+}
+#commentstab {
+    background-position: -41px -2876px;
+}
+#reviewstab {
+    background-position: -41px -1212px;
+}
+#excerpttab {
+    background-position: -41px -1212px;
+}
+#hierarchytab {
+    background-position: -41px -2490px;
+}
+#maptab {
+    background-position: -41px -152px;
+}
+#detailstab {
+    background-position: -41px -1494px;
 }
 /* Main: Myresearch */
 

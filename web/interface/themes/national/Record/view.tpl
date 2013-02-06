@@ -112,7 +112,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <li><a href="{$url}/Record/{$id|escape:"url"}/SMS" class="smsRecord sms" id="smsRecord{$id|escape}" title="{translate text="Text this"}">{translate text="Text this"}</a></li>
         *}
         
-        <li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li>
+        {*<li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li> *}
         <li><a href="{$url}/Record/{$id|escape:"url"}/Feedback" class="feedbackRecord mail" id="feedbackRecord{$id|escape}" title="{translate text="Send Feedback"}">{translate text="Send Feedback"}</a></li>
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
@@ -137,16 +137,15 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         <li id="addThis"><a class="addThis addthis_button"" href="https://www.addthis.com/bookmark.php?v=250&amp;pub={$addThis|escape:"url"}">{translate text="Bookmark"}</a></li>
         {/if} *}
         {* AddThis for social sharing START *}
-		{if !empty($addThis)}
-		<li id="addThis">
-        <div class="truncateField">
-		 	<div class="addthis_toolbox addthis_default_style ">
-				<a class="addthis_button_facebook"></a>
-				<a class="addthis_button_twitter"></a>
-				<a class="addthis_button_google_plusone_share"></a>
-			</div>
-		</div>
-		</li>
+	{if !empty($addThis)}
+	  <li id="addThis">
+            <div class="addthis_toolbox addthis_default_style ">
+              <a href="{$url}/Record/{$id|escape:"url"}/Email" class="mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}"></a>
+              <a class="icon addthis_button_facebook"></a>
+              <a class="icon addthis_button_twitter"></a>
+              <a class="icon addthis_button_google_plusone_share"></a>
+            </div>
+          </li>
         {/if}
         {* Addthis for social sharing END *}
         {if $bookBag}
@@ -242,12 +241,12 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </li>
         {/if}
         <li{if $tab == 'Details'} class="active"{/if}>
-          <a id="detailstab" href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{*translate text='Staff View'*}{image src="silk/cog.png" width="16" height="16" alt="Staff View"}</a>
+          <a id="detailstab" href="{$url}/Record/{$id|escape:"url"}/Details{if $dynamicTabs}?subPage=1{/if}#tabnav">{translate text='Staff View'}</a>
         </li>
       </ul>
     {/if}
       <div class="clear"></div>
-      </div>
+    </div>
   
     {if $dynamicTabs && $tab != 'Hold' && $tab != 'CallSlip'}
     <div class="recordsubcontent">
