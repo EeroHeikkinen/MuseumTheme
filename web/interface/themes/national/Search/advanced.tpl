@@ -1,21 +1,17 @@
 <!-- START of: Search/advanced.tpl -->
 
 {js filename="dropdown.js"}
-
 <div id="advancedSearchWrapper">
 <form method="get" action="{$url}/Search/Results" id="advSearchForm" name="searchForm" class="search">
   <div class="{*span-10*}">
   <div class="advSearchHeader">
       <div class="content">
-        <h1>{translate text='Advanced Search'}</h1>
+        <h1>{translate text='Advanced Search'}</h1><a class="advancedSearchHelpButton" href="{$url}/Content/searchhelp">{translate text="Search Tips"}</a>
       </div>
   </div>
   <div class="content">
     
     <div class="advSearchContent">
-        <div class="sidegroup">
-            <p><a href="{$url}/Content/searchhelp">{translate text="Search Tips"}</a></p>
-        </div>  
       {if $editErr}
       {assign var=error value="advSearchError_$editErr"}
         <div class="error">{translate text=$error}</div>
@@ -24,7 +20,7 @@
       <div id="groupJoin" class="searchGroups">
         <div class="searchGroupDetails">
           <label for="groupJoinOptions">{translate text="search_match"}:</label>
-          <select id="groupJoinOptions" name="join">
+          <select id="groupJoinOptions" name="join" class="styledDropdowns">
             <option value="AND">{translate text="group_AND"}</option>
             <option value="OR"{if $searchDetails and $searchDetails.0.join == 'OR'} selected="selected"{/if}>{translate text="group_OR"}</option>
           </select>
@@ -33,6 +29,7 @@
       </div>
   
       {* An empty div. This is the target for the javascript that builds this screen *}
+      <div class="advSearchSection first">
       <div id="searchHolder" class="{*span-10*} last">
         {* fallback to a fixed set of search groups/fields if JavaScript is turned off *}
         <noscript>
@@ -88,8 +85,8 @@
       </div>
   
       <a id="addGroupLink" href="#" class="add offscreen" onclick="addGroup(); return false;">{translate text="add_search_group"}</a>
+    </div>
   
-      <br/><br/>
     {if $dateRangeLimit}
         {* Load the jslider UI widget *}
         {js filename="pubdate_slider.js"}
@@ -98,7 +95,7 @@
         {js filename="jquery.dependClass-0.1.js"}
         {js filename="draggable-0.1.js"}
         {js filename="jslider/jquery.slider.js"}   
-    <div id="sliderWrapper" class="{*span-10*}">
+    <div id="sliderWrapper" class="{*span-10*} advSearchSection">
         <input type="hidden" name="daterange[]" value="main_date_str"/>
           <label for="publishDatefrom" id="pubDateLegend">{translate text='Main Year'}</label>
           <input type="text" size="4" maxlength="4" class="yearbox" name="main_date_strfrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" /> - 
@@ -109,8 +106,9 @@
         </div>
     </div>
     {/if}
-  
+    
     {if $facetList}
+        <div id="facetWrapper" class="advSearchSection">
         {js filename="chosen/chosen.jquery.js"}
         {js filename="chosen_multiselects.js"}
         {foreach from=$facetList item="list" key="label"}
@@ -125,7 +123,7 @@
         {/foreach}
         <div class="clear"></div>
       {/if}
-      
+    </div>
       {if $illustratedLimit}
         <fieldset class="span-4">
           <legend>{translate text="Illustrated"}:</legend>
@@ -137,7 +135,7 @@
         <div class="clear"></div>
       {/if}
       
-        <div class="mapContainer">
+        <div class="mapContainer advSearchSection">
           {js filename="jquery.geo.min.js"}
           {js filename="selection_map.js"}
           <label class="displayBlock" for="coordinates">{translate text='Coordinates:'}</label>
@@ -164,34 +162,16 @@
             <div id="selectionMap">              
             </div>
           </div>
-          <span id="selectionMapHelp">
+           <span id="selectionMapHelp">
             <span id="selectionMapHelpPan">{translate text="adv_search_map_pan_help"}</span>
             <span id="selectionMapHelpPolygon" class="hide">{translate text="adv_search_map_polygon_help"}</span>
             <span id="selectionMapHelpRectangle" class="hide">{translate text="adv_search_map_rectangle_help"}</span>
           </span>
         </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
-      <div class="clear"></div>
 
-      <div class="advSearchFooter">
-          {if $limitList|@count gt 1}
-              <label for="limit">{translate text='Results per page'}</label>
-              <select id="limit" class="styledDropdowns" name="limit">
-                {foreach from=$limitList item=limitData key=limitLabel}
-                  {* If a previous limit was used, make that the default; otherwise, use the "default default" *}
-                  {if $lastLimit}
-                    <option value="{$limitData.desc|escape}"{if $limitData.desc == $lastLimit} selected="selected"{/if}>{$limitData.desc|escape}</option>
-                  {else}
-                    <option value="{$limitData.desc|escape}"{if $limitData.selected} selected="selected"{/if}>{$limitData.desc|escape}</option>
-                  {/if}
-                {/foreach}
-              </select>
-          {/if}
-
+      <div class="advSearchFooter advSearchSection">
           <input type="submit" class="button buttonTurquoise searchButton right" name="submit" value="{translate text="Find"}"/>
-          
-          <div class="clear"></div>
-      </div>
     </div>
   </div>
 

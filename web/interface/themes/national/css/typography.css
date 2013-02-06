@@ -442,17 +442,7 @@ label.displayBlock {
 }
 
 /* New advanced search screen stuff */
-.searchGroups {
-    font-size: 125%;
-}
-
 /* Browse Lists */
-.browseNav {
-    font-size: 90%;
-}
-.browseNav a.viewRecords {
-    font-size: 80%;
-}
 
 /* system unavailable and other fatal error pages */
 div.unavailable, div.fatalError {

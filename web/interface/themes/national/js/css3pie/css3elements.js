@@ -22,19 +22,19 @@ $(document).ready(function() {
         $('.headerInfoBox').each(function() {
           PIE.attach(this);
         });
-        $('.dropdown dd ul, body > ul.ui-menu.ui-widget').each(function() {
+        $('.dropdown dd ul, ul.ui-menu.ui-widget').each(function() {
           PIE.attach(this);
         });
-        $('.dropdown dd ul li:first-child a:hover, body > ul.ui-menu.ui-widget li:first-child a:hover').each(function() {
+        $('.dropdown dd ul li:first-child a, ul.ui-menu.ui-widget li:first-child a').each(function() {
           PIE.attach(this);
         });
-        $('.dropdown dd ul li:last-child a:hover, body > ul.ui-menu.ui-widget li:last-child a:hover').each(function() {
+        $('.dropdown dd ul li:last-child a, ul.ui-menu.ui-widget li:last-child a').each(function() {
           PIE.attach(this);
         });
-        $('body > div.ui-dialog').each(function() {
+        $('div.ui-dialog').each(function() {
           PIE.attach(this);
         });
-        $('body >.ui-dialog .ui-widget-header .ui-dialog-titlebar-close').each(function() {
+        $('div.ui-dialog .ui-widget-header .ui-dialog-titlebar-close').each(function() {
           PIE.attach(this);
         });
         $('.searchContextHelp').each(function() {
@@ -97,7 +97,7 @@ $(document).ready(function() {
           PIE.attach(this);
         });
 /*** -child ***/
-        $('#headerMenu li a:hover span:first-child, #headerMenu li a:focus span:first-child').each(function() {
+        $('#headerMenu li a:hover span:first-child, #headerMenu li a span:first-child').each(function() {
           PIE.attach(this);
         });
         $('ul.subMenu li:first-child').each(function() {
@@ -118,7 +118,7 @@ $(document).ready(function() {
         $('.module-Content #main .contentSection:first-child h2:first-child').each(function() {
           PIE.attach(this);
         });
-        $('.searchtools > ul li:first-child').each(function() {
+        $('.searchtools ul li:first-child').each(function() {
           PIE.attach(this);
         });
         $('.groupSearchHolder .advRow:first-child').each(function() {

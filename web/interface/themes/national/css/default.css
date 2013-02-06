@@ -436,7 +436,7 @@ div.sidegroup {
 #searchForm_input {
     border: none;
     height: 33px;
-    width:400px;
+    width:365px;
     margin: 0;
     padding: 0;
     background:#fff;
@@ -2232,6 +2232,9 @@ ul.recordSet .addToFavLink a {
 .advRow .dropdown {
     float:right;
 }
+.groupJoinOptions {
+    margin-top:-8px;
+}
 .dropdown dt a {
     display:block;
     background: #00a3b5;
@@ -2244,9 +2247,20 @@ ul.recordSet .addToFavLink a {
     padding: 10px 12px 10px 15px;
     width:auto;
 }
+.dropdown dt a:after {
+    content: "";
+    display: inline-block;
+    height: 9px;
+    padding-left: 8px;
+    width: 11px;
+}
 .dropdown dt a:hover {
     color:#fff;
     text-decoration:underline;
+}
+.searchbox .dropdown dt a:after {
+    content:none;
+    background:none;
 }
 .searchbox .dropdown dt a:hover {
     color:#888888;
@@ -3030,8 +3044,42 @@ p.citationText {
 
 /* New advanced search screen stuff */
 .advSearchContent {
-    /* Needed for IE7 compatibility: */
-    width: 96%;
+    width: 100%;
+    padding-top:10px;
+}
+.advSearchSection {
+    padding:25px 0;
+    clear:both;
+    
+}
+.advSearchSection.odd {
+    background:#f2f2f2;
+}
+#sliderWrapper.advSearchSection {
+    float:left;
+    clear:none;
+    margin-right: 70px;
+    width: 420px;
+}
+#facetWrapper.advSearchSection {
+    width:460px;
+    float:left;
+    clear:none;
+}
+.advSearchFooter.advSearchSection {
+    padding:10px 0 40px;
+}
+.mapContainer.advSearchSection {
+    padding-top:10px;
+    position:relative;
+}
+.advSearchSection:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
 }
 .groupSearchHolder {
     width: 65%;
@@ -3068,7 +3116,7 @@ p.citationText {
     text-align: right;
 }
 .addSearch {
-    padding: 0px 0px 8px 90px;
+    padding: 0px 0px 0px 90px;
     width:50%;
     float:left;
 }
@@ -3081,8 +3129,34 @@ p.citationText {
 .groupSearchHolder .terms {
     width: 250px;
 }
+#advancedSearchWrapper .searchButton {
+    box-shadow:none;
+    border-radius:10px;
+    border:none;
+    padding:8px 12px 8px 39px;
+    margin:0;
+}
+#advancedSearchWrapper input,
+.facetsContainer .chzn-container-multi  .chzn-choices{
+      border: 1px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+    margin-top: -4px;
+    padding: 5px;
+    background-image:none;
+}
+#advancedSearchWrapper .facetsContainer .chzn-container-multi input {
+    border-radius:0;
+    box-shadow:0 0 0;
+    margin:0;
+}
 .groupSearchHolder .terms input {
-    width: 100%;
+
+    width: 97%;
+}
+.groupSearchHolder .terms input:focus {
+    border: 1px solid #aaa;
+    box-shadow:0 0 0;
 }
 .groupSearchHolder .field {
 }
@@ -3109,10 +3183,13 @@ p.citationText {
 #searchHolder .group1 {
 }
 #searchHolder .group {
+    background: #F1F1F1;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px 10px 10px 10px;
     clear: both;
-    overflow: hidden;
-    background: #eee;
     margin-bottom: 1em;
+    overflow: hidden;
+    padding: 17px;
 }
 .group .searchRelated {
     position: relative;
@@ -3126,11 +3203,8 @@ p.citationText {
 #groupJoin {
     margin-top: 20px;
 }
-#sliderWrapper {
-    margin-bottom: 3em;
-}
 .mapContainer {
-    width: 728px;
+    width: 100%;
 }
 #advSearchForm div.sidegroup {
     border: none;
@@ -3138,12 +3212,18 @@ p.citationText {
     text-align: right;
 }
 
-.advSearchFooter {
-    padding: 25px 35%;
-    background-color: #eeeeee;
-    margin: 40px 0;
+#advSearchForm select {
+    margin-top: -1px;
+    padding: 2px;
 }
-
+.advancedSearchHelpButton {
+    line-height: 2em;
+    padding-left: 30px;
+    position: absolute;
+    right: 0;
+    font-weight:bold;
+    top: 3px;
+}
 /* Profile / MyResearch */
 
 .headerMyResearch {
@@ -4037,13 +4117,18 @@ div#selectionMap {
     box-sizing: border-box;
 }
 input#coordinates {
-    width: 100%;
+    width: 45%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    margin:0;
 }
 #selectionMapTools {
-    background: rgba(255, 255, 255, 0.7);
+    margin: 14px 0;
+}
+#selectionMapHelp {
+    position: relative;
+    top: 8px;
 }
 
 /* Styles that apply to all jquery.geo maps */
@@ -4058,7 +4143,7 @@ span.mapMarker  {
 #zoomSlider { 
     position: absolute;
     left: 10px;
-    top: 30px;
+    top: 45px;
     width: 28px;
     height: 203px;
     z-index: 1004;
@@ -4067,17 +4152,30 @@ span.mapMarker  {
     height: 16px;
     width: 16px;
     cursor: pointer;
+    background-color:#fff;
 }
 #zoomSlider #zoomControlPlus {
     height: 16px;
     width: 16px;
     cursor: pointer;
+    background-color:#fff;
 }
 #zoomSlider #zoomPath 
 {
-    margin: 8px 0 8px 3px;
+    margin: 8px 0 8px 2px;
 }
 
+#zoomRange .ui-slider-handle {
+    border-radius:10px;
+    left:-3px;
+    cursor:pointer;
+    border:0 !important;
+    background:url(../images/zoom_handle.png) center center no-repeat #4d4d4d;
+}
+
+#zoomRange #zoomPath {
+    border:1px solid #aaa;
+}
 /* National theme Buttons */
 
 .button {
