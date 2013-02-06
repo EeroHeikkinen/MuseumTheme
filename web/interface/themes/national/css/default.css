@@ -4217,6 +4217,7 @@ span.mapMarker  {
     line-height:1em;
     padding: 8px 12px 8px 15px;
     width:auto;
+    position: relative; /* for PIE */
     /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
 }
 

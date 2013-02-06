@@ -22,7 +22,7 @@ $(document).ready(function() {
         $('.headerInfoBox').each(function() {
           PIE.attach(this);
         });
-        $('.dropdown dd ul, ul.ui-menu.ui-widget').each(function() {
+        $('.dropdown dd ul, body > ul.ui-menu.ui-widget').each(function() {
           PIE.attach(this);
         });
         $('.dropdown dd ul li:first-child a, ul.ui-menu.ui-widget li:first-child a').each(function() {
@@ -68,6 +68,9 @@ $(document).ready(function() {
           PIE.attach(this);
         });
         $('.searchFormWrapper').each(function() {
+          PIE.attach(this);
+        });
+        $('.ui-corner-top').each(function() {
           PIE.attach(this);
         });
 /*** box-shadow ***/

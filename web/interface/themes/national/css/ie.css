@@ -1,5 +1,13 @@
 /** Hacks for IE */
 
 #searchForm_input {
-	padding-top: 6px;
+    padding-top: 6px;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-radius: 7px 7px 0 0;
+    position: relative;
+}
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-radius: 7px 7px 0 0;
+    position: relative;
 }
