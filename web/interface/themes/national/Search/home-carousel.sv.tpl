@@ -1,6 +1,6 @@
 <!-- START of: Search/home-carousel.sv.tpl -->
 
-<h2 class="ribbon">Kokoelmien helmiä</h2>
+<h2 class="ribbon">Pärlor ur samlingarna</h2>
 <div class="slides_container">
   <div class="slide">
     <ul>
