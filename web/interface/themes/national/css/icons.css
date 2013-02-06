@@ -313,6 +313,15 @@ span.dynatree-expander:hover {
 .sessionHistory .add {
     background-position: -357px -1049px;
 }
+#sidebarFavoritesLists .edit {
+    background-position: -47px -3104px;
+}
+#sidebarFavoritesLists .delete {
+    background-position: -47px -2390px;
+}
+#sidebarFavoritesLists #listAdd {
+    background-position: -492px -1048px;
+}
 
 /* Main: Advanced Search */
 

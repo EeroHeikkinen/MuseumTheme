@@ -1172,7 +1172,7 @@ fieldset.publishDateLimit .ui-slider {
 #sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists .editList a {
     display: block;
-    padding: 0.2em 0.2em 0.2em 22px;
+    padding: 0.2em 0.2em 0.2em 25px;
 }
 #sidebarFavoritesLists a.listAdd,
 #sidebarFavoritesLists ul li div {
@@ -1187,6 +1187,10 @@ fieldset.publishDateLimit .ui-slider {
 }
 #sidebarFavoritesLists .listItem {
     background-color: #4D4D4D;
+}
+#sidebarFavoritesLists .edit,
+#sidebarFavoritesLists .delete {
+  color: #4D4D4D;
 }
 
 .favoritesList {
@@ -1924,13 +1928,13 @@ ul.recordSet .addToFavLink a {
     padding:.5em .5em .5em 20px;
     margin-right:1em;
 }
-.edit {
+/*.edit {
     background-image:url(../images/silk/edit.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em 0 .5em 18px;
     margin-right:.7em;
-}
+}*/
 .save {
     background-image:url(../images/silk/disk-black.png);
     background-repeat:no-repeat;
