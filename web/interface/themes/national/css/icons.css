@@ -313,9 +313,11 @@ span.dynatree-expander:hover {
 .sessionHistory .add {
     background-position: -357px -1049px;
 }
+.editItem .edit,
 #sidebarFavoritesLists .edit {
     background-position: -47px -3104px;
 }
+.editItem .delete,
 #sidebarFavoritesLists .delete {
     background-position: -47px -2390px;
 }
