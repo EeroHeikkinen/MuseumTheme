@@ -84,7 +84,7 @@ class JSON_RangeVis extends JSON
     }
 
     /**
-     * Get data and output in JSON
+     * Get range field facets using specified shaping method
      *
      * @param array $fields Fields to process
      *
@@ -103,29 +103,45 @@ class JSON_RangeVis extends JSON
             }
             
             $n = $_REQUEST['n'];
-            $start = $_REQUEST['start'];
-            $end = $_REQUEST['end'];
-            if (empty($n) || empty($start) || empty($end)) {
+            if (empty($n)) {
                 return;
             }
             
-            $points = array();
-            switch($_REQUEST['shape']) {
-            case 'linear': 
-                $points = $this->_linear($n);
-                break;
-            case 'bezier':
-                $x0 = $_REQUEST['x0'];
-                $y0 = $_REQUEST['y0'];
-                $x1 = $_REQUEST['x1'];
-                $y1 = $_REQUEST['y1'];
-                if (empty($x0) || empty($y0) || empty($x1) || empty($y1)) {
+            if ($_REQUEST['shape'] == 'spread') {
+                $spread = $_REQUEST['spread'];
+                if (empty($spread)) {
                     return;
                 }
-                $points = $this->_bezier($n, $x0, $y0, $x1, $y1);
-                break;
-            default:
-                return;
+                
+                $start = reset($spread);
+                $end = end($spread);
+                
+                $points = $this->_spread($n, $spread);
+            } else {
+                $start = $_REQUEST['start'];
+                $end = $_REQUEST['end'];
+                if (empty($start) || empty($end)) {
+                    return;
+                }
+                
+                $points = array();
+                switch($_REQUEST['shape']) {
+                case 'linear': 
+                    $points = $this->_linear($n);
+                    break;
+                case 'bezier':
+                    $x0 = $_REQUEST['x0'];
+                    $y0 = $_REQUEST['y0'];
+                    $x1 = $_REQUEST['x1'];
+                    $y1 = $_REQUEST['y1'];
+                    if (empty($x0) || empty($y0) || empty($x1) || empty($y1)) {
+                        return;
+                    }
+                    $points = $this->_bezier($n, $x0, $y0, $x1, $y1);
+                    break;
+                default:
+                    return;
+                }
             }
             
             $queries = $this->rangeToQueries($start, $end, $points);
@@ -254,6 +270,39 @@ class JSON_RangeVis extends JSON
         
         for ($i = 0; $i < $n; $i++) {
             $points[] = BezierMath::cubicBezier($i / $n, $y0, $x0, $y1, $x1);
+        }
+        
+        return $points;
+    }
+    
+    /**
+     * Return array of split points to fit a given spread of values
+     * 
+     * @param integer       $n      Number of points to generate
+     * @param array(number) $spread Array of values to fit points into
+     * 
+     * @return multitype:number
+     */
+    private function _spread($n, $spread) 
+    {
+        $points = array();
+        
+        // First value in spread
+        $first = reset($spread);
+        // Span (length) of spread
+        $span = end($spread) - $first;
+        $nRanges = count($spread) - 1;
+        for ($i = 0; $i < $n; $i++) {
+            $position = $i / ($n+1) * $nRanges;
+            $currentSpread = floor($position);
+            $fraction = $position - $currentSpread;
+            
+            $lower = $spread[$currentSpread];
+            $upper = $spread[$currentSpread + 1];
+            
+            $valueAtN = $lower + $fraction * ($upper - $lower);
+            
+            $points[] = ($valueAtN - $first) / $span;
         }
         
         return $points;

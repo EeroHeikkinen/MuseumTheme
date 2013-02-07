@@ -126,6 +126,33 @@ class JSON_RangeVisTest extends AbstractMockIndexTest
         
         // TODO: verify the returned data more thoroughly
     }
+    
+    /**
+     * Tests range visualization using range grouping by provided spread
+     *
+     * @return void
+     */
+    public function testRangeVisSpread()
+    {
+        $rangeVis = new JSON_RangeVis();
+    
+        $indexEngine = $rangeVis->getSearchObject()->getIndexEngine();
+        $this->mockIndexEngineWithSampleResponse($indexEngine, 'rangeQueryMockResponse.json');
+    
+        $_REQUEST['field'] = 'unit_daterange';
+        $_REQUEST['shape'] = 'spread';
+        $_REQUEST['spread'] = array(-10000, 1500, 1900, 2000);
+        $_REQUEST['n'] = 20;
+    
+        $visData = $rangeVis->getVisData();
+    
+        // TODO: check the sent query was correct
+    
+        $data = $visData['unit_daterange']['data'];
+        $this->assertEquals(20, count($data));
+    
+        // TODO: verify the returned data more thoroughly
+    }
 
     /**
      * Standard teardown method.
