@@ -702,18 +702,25 @@ body > .ui-dialog .ui-widget-header {
     font-size: 1.23em;
 }
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close {
-    background:#fff;
-    border-radius:10px;
-    padding:0;
+    height: 24px;
+    margin-right: 2px;
+    margin-top: -12px;
+    padding: 0;
+    width: 24px;
 }
-body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close > span {
-    /*background-image: url("images/ui-icons_454545_256x240.png");*/
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close > span.ui-icon {
+    background:none;
 }
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:hover,
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:focus {
     padding:0;
-    background:#94dde6;
+    background:transparent;
 
+}
+
+body > .ui-dialog .ui-dialog-titlebar {
+    padding: 10px 15px;
+    position: relative;
 }
 
 body > .ui-widget input, 
@@ -2884,6 +2891,9 @@ h5.recordTabHeader {
     float: right;
     margin: 0 0 40px 0;
     background-color:#fff;
+}
+.toolbar #addThis {
+    margin-left: -3px;
 }
 .toolbar ul {
     list-style-type:none;

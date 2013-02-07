@@ -12,6 +12,8 @@
 .paginationMove,
 .fav, .mail, .export, .sms, .export, .cite, .add, .delete,
 #zoomControlPlus, #zoomControlMinus, 
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover,
 .deleteButton,
 .correction .expandSearch,
 a.clear_input,
@@ -339,6 +341,14 @@ span.dynatree-expander:hover {
 }
 #zoomControlMinus {
     background-position: -49px -1112px;
+}
+
+/* jQuery UI Elements */
+
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:hover,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover {
+    background-position:-49px -4628px;
 }
 
 /*** Webkit hacks ***/
