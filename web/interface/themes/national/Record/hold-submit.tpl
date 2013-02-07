@@ -2,6 +2,9 @@
 
 {if $user->cat_username}
 
+<div class="clear" />
+<div class="content">
+
   <h2>{translate text='request_place_text'}</h2>
 
   {* This will always be an error as successes get redirected to MyResearch/Holds.tpl *}
@@ -56,6 +59,7 @@
 
     </form>
 
+  </div>
   </div>
 
 {else}

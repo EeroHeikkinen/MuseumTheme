@@ -2137,6 +2137,7 @@ ul.recordSet .addToFavLink a {
 .module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
+.module-Cart h2,
 #advSearchForm h1,
 .module-Collection #collectionHeader {
     margin: 0;
@@ -2145,16 +2146,18 @@ ul.recordSet .addToFavLink a {
 .module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
+.module-Cart h2,
 .resultLinks,
 .advSearchHeader,
 .resultTerms,
 .module-Collection #collectionHeader {
     padding: 22px 0 22px;
-    background:#b3e3e9;
+    background: #b3e3e9;
 }
 .module-Search h2.account,
 .module-MyResearch h2.account,
-.module-MyResearch h1 {
+.module-MyResearch h1,
+.module-Cart h2 {
     background: #b0e9db;
 }
 
@@ -3339,7 +3342,6 @@ p.citationText {
 .myResearchMenu .ui-state-default {
     background-color: #808080;
     font-weight: bold;
-    min-width: 9em;
 }
 .myResearchMenu .ui-state-default a {
     color: #fff;

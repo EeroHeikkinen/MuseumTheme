@@ -1,3 +1,5 @@
+<!-- START of: Cart/cart.tpl -->
+
 {assign var=records value=$bookBag->getRecordDetails()}
 {if !empty($records)}
   <ul class="cartContent">
@@ -14,3 +16,5 @@
 {else}
   <p>{translate text='bookbag_is_empty'}.</p>
 {/if}
+
+<!-- END of: Cart/cart.tpl -->

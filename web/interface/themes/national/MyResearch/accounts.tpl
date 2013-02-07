@@ -2,7 +2,7 @@
 
 {include file="MyResearch/menu.tpl"}
 
-<div class="myResearch accounts{if $sidebarOnLeft} last{/if}">
+<div class="content myResearch accounts{if $sidebarOnLeft} last{/if}">
   <span class="hefty">{translate text='Library Cards'}</span>
   {if empty($accounts)}
     <br />
@@ -39,7 +39,7 @@
   {/if}
   <form method="get" action="" id="add_form">
     <input type="hidden" name="add" value="1" />
-    <input class="button" type="submit" value="{translate text='Add'}..." />
+    <input class="button buttonTurquoise" type="submit" value="{translate text='Add'}..." />
   </form>  
 </div>
 <div class="clear"></div>
