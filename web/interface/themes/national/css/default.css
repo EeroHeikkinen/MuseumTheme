@@ -556,6 +556,7 @@ a.clear_input:hover {
     height: 14px;
     padding: 5px;
     width: 162px;
+    position:relative; /* To make PIE work */
 }
 
 .dropdown dt a p {
@@ -4177,13 +4178,13 @@ span.mapMarker  {
     height: 16px;
     width: 16px;
     cursor: pointer;
-    background-color:#fff;
+    background-color:transparent;
 }
 #zoomSlider #zoomControlPlus {
     height: 16px;
     width: 16px;
     cursor: pointer;
-    background-color:#fff;
+    background-color:transparent;
 }
 #zoomSlider #zoomPath 
 {
@@ -4217,8 +4218,8 @@ span.mapMarker  {
     line-height:1em;
     padding: 8px 12px 8px 15px;
     width:auto;
-    position: relative; /* for PIE */
     /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
+    position:relative; /* To make PIE work */
 }
 
 .button:hover {

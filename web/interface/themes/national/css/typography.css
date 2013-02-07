@@ -81,6 +81,12 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
+a {
+    transition:all .1s;
+    -moz-transition: all .1s;
+    -webkit-transition: all .1s
+    -ms-transition: all .1s;
+}
 
 /* Is this needed? Would it be better to change h3 to h5 / use class normal? */
 div.recordsubcontent h3 {

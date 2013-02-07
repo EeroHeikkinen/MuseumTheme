@@ -73,6 +73,9 @@ $(document).ready(function() {
         $('.ui-corner-top').each(function() {
           PIE.attach(this);
         });
+        $('#zoomRange .ui-slider-handle').each(function() {
+            PIE.attach(this);
+        })
 /*** box-shadow ***/
         $('.dateVis').each(function() {
           PIE.attach(this);
@@ -103,7 +106,7 @@ $(document).ready(function() {
         $('#headerMenu li a:hover span:first-child, #headerMenu li a span:first-child').each(function() {
           PIE.attach(this);
         });
-        $('ul.subMenu li:first-child, .home-section.third li span:first-child').each(function() {
+        $('ul.subMenu li:first-child').each(function() {
           PIE.attach(this);
         });
         $('#header .lang li:first-child').each(function() {
