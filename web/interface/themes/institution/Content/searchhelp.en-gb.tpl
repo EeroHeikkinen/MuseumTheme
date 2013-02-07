@@ -1,13 +1,14 @@
 <!-- START of: Content/searchhelp.fi.tpl -->
 
-<h1 style="margin-left: 1em;">Search Tips</h1>
-<ul class="HelpMenu">
+<h1>Search Tips</h1>
+<ul class="pageMenu">
   <li><a href="#Wildcard Searches">Wildcard Searches</a></li>
   <li><a href="#Fuzzy Searches">Fuzzy Searches</a></li>
   <li><a href="#Proximity Searches">Proximity Searches</a></li>
   <li><a href="#Range Searches">Range Searches</a></li>
   <li><a href="#Boosting a Term">Boosting a Term</a></li>
   <li><a href="#Boolean operators">Boolean Operators</a></li>
+  <li><a href="#Phrase searches">Phrase searches</a></li>
   <li><h5>Advanced Searching Tips</h5></li>
   <li><a href="#Search Fields">Search Fields</a></li>
   <li><a href="#Search Groups">Search Groups</a></li>
@@ -117,6 +118,13 @@
         <p>To search for documents that contain "economics" but not "Keynes" use the query: </p>
         <pre class="code">economics -Keynes</pre>
       </dd>
+      <dt><a name="Phrase searches"></a>Phrase searches</dt>
+      <dd>
+        <p>Search term or terms enclosed in quotation marks will be used literally.</p>
+        <p>To search for records containing the exact phrase "ancient history" and not e.g. "history in the ancient times":</p>
+        <pre class="code">"ancient history"</pre>
+        <p>Also single words can be enclosed in quotation marks to use the term literally, ignoring different conjugations.</p>
+      </dd>
     </dl>
   </dd>
 </dl>
@@ -168,7 +176,7 @@
   </dd>
 </dl>
 
-<p style="margin-top: 3em;"><a href="{$path}">&laquo; Home</a></p>
+<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 </div>
 
 <!-- END of: Content/searchhelp.fi.tpl -->

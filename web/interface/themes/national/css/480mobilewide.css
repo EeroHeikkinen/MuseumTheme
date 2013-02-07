@@ -8,9 +8,417 @@ px      62    136    210    284    358    432   */
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 
-    body {
-        width: 432px;
-        padding: 0 24px 48px;
+    body, .container, #searchFormHeader,
+    div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
+    .homeCustomContent, #sidebarFacets, #resultMain, #authorList, #resultsCollection, #headingHierarchyCollection, #hierarchyCollection {
+        width: 480px;
     }
 
+    body {
+        padding: 0 0 48px;
+    }
+
+    .w-i-p, #resultList, .mainContent {
+        margin: 0;
+        padding: 0 6px;
+        width: 468px;
+    }
+
+    .w-i-p {
+        font-size: 11px;
+    }
+
+    .container {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: none/*1px solid #dddddd;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px*/;
+    }
+    #searchFormHeader {
+        margin: 0;
+        padding: 0;
+    }
+    div.searchHomeContent {
+        padding: 3em 0 0;
+    }
+/*
+    div.searchHomeLogo img {
+        width:70%;
+        margin: 0 auto;
+    }
+*/
+    #logo {
+        margin: 5px 143px 19px;
+    }
+    div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm {
+        margin: 0 auto;
+        padding: 0;
+        width: 476px;
+    }
+/*
+    .searchHomeForm #searchForm_input {
+        margin-left: auto;
+        border-right: none;
+        border-radius: 0;
+        -moz-border-radius: 0;
+        -webkit-border-radius: 0;
+    }
+    .searchHomeForm div.styled_select {
+        padding-left: 0;
+    }
+*/
+    .searchform #searchForm_searchButton {
+/*
+        float:left;
+*/
+        background-position: -260px -3px;
+        height: 34px;
+        border: none;
+        width: 70px;
+        margin:0;
+        border-radius: 0 6px 6px 0;
+        -moz-border-radius: 0 6px 6px 0;
+        -webkit-border-radius: 0 6px 6px 0;
+    }
+    .searchbox .dropdown dd p {
+        font-size: 1em;
+        line-height: 1em;
+    }
+    .advanced-link-wrapper {
+        margin-bottom: .6em;
+    }
+
+    .keepFilters {
+        padding-bottom: .5em;
+    }
+    .searchContextHelp {
+        width: 432px;
+    }
+    
+    
+    
+
+    .homeNavigation ul li {
+        display: block;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+    }
+    .navigationMenu ul {
+        padding-bottom: 6px;
+    }
+    .navigationMenu ul li a {
+        padding: 6px 0 0;
+    }
+    .homeCustomContent {
+        padding: 0 0 2em;
+    }
+    .homeCustomContent .homeCustomCol1 {
+        margin: 0;
+        padding: 0 18px;
+        width: 444px;
+    }
+    .homeCustomContent .homeCustomCol2 {
+        clear: left;
+        float: none;
+        margin: 0;
+        padding: 1em 18px;
+        width: 444px;
+    }
+    .homeCustomContent .homeCustomCol2 ul {
+/*
+        margin: 0 auto;
+        width: 360px;
+*/
+    }
+    .homeCustomContent .homeCustomCol2 ul li {
+        float: left;
+        margin: 0.5em 0 0.5em 6px;
+        width: 140px;
+    }
+    
+    .module-Content .main {
+        padding-left: 0;
+    }    
+    .module-Content .mainContent {
+        width: 456px;
+        margin-left: 0;
+    }
+    .module-Content .helpMenu {
+        margin-top: 1em;
+    }
+
+
+    form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select {
+        margin-bottom: 1em;
+    }
+    form#feedbackForm input[type="text"] {
+        width: 456px;
+    }
+    form#feedbackForm input[type="submit"] {
+        margin: 1.5em 43% 0 0;
+    }
+    form#feedbackForm textarea {
+        display: block;
+        margin-bottom: 0;
+        width: 462px;
+    }
+
+    .module-MyResearch .account,
+    .module-MyResearch .resultHead,
+    .module-MyResearch #sidebarFavoritesLists,
+    .module-MyResearch .myResearchTitle,
+    .module-MyResearch .paginationTop, 
+    .module-MyResearch .myResearchMenu,
+    .module-Search .myResearchMenu,
+    .module-MyResearch .finesList,
+    .module-MyResearch .profile,
+    .module-MyResearch .noContentMessage {
+        margin: 0 0 0 2px;
+        padding-top: 1em;
+    }
+    .favoritesList {
+        width: 480px;
+    }
+    .favoritesList .bulkActionButtons .floatright {
+        width: 440px;
+    }
+    .favoritesList .bulkActionButtons {
+        height: auto;
+    }
+    .myResearch ul.recordSet .resultCheckbox {
+        margin-left: 0;
+    }
+    .myResearch .dueDate {
+        float: none;
+        clear: both;
+        margin: 0 0 0 106px;
+        width: 346px;
+    }
+    .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
+        margin: 0;
+    }
+    .finesList table tr td:first-child {
+        padding: 2px 0 2px 4px;
+        text-indent: 0;
+    }
+
+    .main-home .footer, .footer {
+        font-size: 1em;
+        padding: .4em 0 0;
+    }
+    #footerCol1, #footerCol2, #footerCol3 {
+        padding: 0 18px;
+        width: 124px;
+    }
+    
+    #footerCol4, #footerCol5, #footerCol6 {
+        padding: 0 18px;
+        width: 124px;
+    }
+    
+    /*
+    #footerCol4 {
+        clear: left;
+        float: none;
+        margin: 0 auto;
+        padding-top: 2em;
+        width: 285px;
+    }  
+   */
+   
+    .footer ul a, ul.similar a {
+        line-height: 1.25em;
+        padding: 0.5em 0;
+    }
+    .footer ul li, ul.similar li {
+        margin: 0.5em 0;
+    }  
+
+
+    #topPubDateVis {
+        width: 450px;
+    }
+    #topFacets {
+        width: 470px;
+    }
+    #suggestedTopics {
+        width: 456px;
+        margin: 0 12px .6em;
+    }
+    span.dynatree-node .facetTitle {
+        max-width: 450px;
+    }
+    .pagination {
+        margin: 0;
+        padding: .5em 12px;
+        width: 270px;
+    }
+    .pagination a {
+        margin-left: 0;
+    }
+    .paginationTop {
+        padding: .5em 0;
+    }
+    
+    .resulthead {
+        padding-left: 6px;
+    }
+    .resultOptions {
+        margin: 0;
+        padding: .2em 0 0 0;
+    }
+    #sort_options_1 {
+        width: 10em;
+    }
+    ul.recordSet {
+        padding: 0;
+    }
+    ul.recordSet li.result {
+        padding: 13px 1px 13px 13px;
+    }
+    ul.recordSet li.result:hover {
+        padding: 12px 0 12px 12px;
+    }
+    ul.recordSet .resultColumn1 {
+        width: 136px;
+        margin-left: 0;
+    }
+    .summcover {
+        max-width: 136px;
+    }
+    .resultNoImage{
+        height: 124px;
+        width: 124px;
+    }
+    .resultImage {
+        margin: -126px 0 0 0;
+        width: 126px;
+    }
+    ul.recordSet .resultColumn1 .resultItemFormat {
+       width: auto;
+    }
+    ul.recordSet .resultColumn2 {
+        width: 270px;
+    }
+    ul.recordSet .addToFavLink {
+        clear: none;
+        float: right;
+        margin: 0;
+    }
+
+    #tagList {
+        width: 330px;
+    }
+
+    .searchtools {
+        margin: 0;
+        padding: .4em 0 0 6px;
+    }
+
+    #sidebarFacets {
+        float:left;
+        margin: 0;
+        border-top: 1px solid #dddddd;
+    }
+    #sidebarFacets .sidegroup {
+        border-left: none;
+        padding-left: 12px;
+    }
+
+
+
+    .backToResults {
+        margin-left: 10px;
+        width: 180px;
+    }
+    .resultscroller {
+        clear: none;
+        margin-left: 0;
+    }
+    #resultSide {
+        width: 460px;
+        margin-right: 0;
+        margin-left: 10px
+    }
+    .coverImages {
+        width: 210px;
+        float: left;
+    }
+    .recordcover {
+        max-width: 210px;
+    }
+    .record .toolbar {
+        width: 210px;
+        float: right;
+    }
+    #qrcode {
+        display: none;
+    }
+    
+    #resultMain {
+        margin-right: 0;
+    }
+    #recordMetadata, #dyntabnav, #resultSidebar {
+        width: 456px;
+        padding: 0 12px;
+    }
+
+    #resultSidebar .sidegroup {
+        border-top: 2px solid #dddddd;
+        border-left: none;
+        padding:  .4em 0 0;
+    }
+    #resultSidebar ul li {
+        width: 136px;
+        margin-right: 0.5em;
+        display: inline-block;
+        vertical-align: top;
+    }
+    #hierarchyTreeHolder {
+        width: 478px;
+        padding-bottom: 0;
+    }
+    #hierarchyTree {
+        overflow: auto;
+        width: 472px;
+    }
+    #hierarchyRecord {
+        width: 456px;
+    }
+    #collectionItemsHeader {
+        display: none;
+    }
+    .collectionDetails .collectionSortSelector {
+        margin-top: .2em;
+    }
+    
+    .jstree ins {
+        display: none;
+    }
+    .jstree li {
+        font-size: .9em;
+    }
+
+    #advancedSearchWrapper, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .groupSearchHolder .label, .groupSearchHolder .join {
+        width: 95px;
+    }
+    .groupSearchHolder .advRow .field {
+        padding-left: 110px;
+    }
+    .advSearchContent .searchButton {
+        margin-right: 2.5em;
+    }
+
+    .mapContainer {
+        width: 433px;
+    }
 }

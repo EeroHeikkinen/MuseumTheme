@@ -244,7 +244,7 @@ class Solr implements IndexEngine
         // Merged records
         if (isset($searchSettings['Records']['merged_records'])) {
            	$this->_mergedRecords = $searchSettings['Records']['merged_records'];
-           	$this->_recordSources = $searchSettings['Records']['sources'];
+           	$this->_recordSources = isset($searchSettings['Records']['sources']) ? $searchSettings['Records']['sources'] : '';
         }
         
         // Hide component parts?
@@ -387,7 +387,11 @@ class Solr implements IndexEngine
                 $options['fq'] = $filters;
             }
         }
+        // TODO: make this nicer, such as an argument to _select
+        $saveMerged = $this->_mergedRecords;
+        $this->_mergedRecords = false;
         $result = $this->_select('GET', $options);
+        $this->_mergedRecords = $saveMerged;
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
         }
@@ -419,7 +423,11 @@ class Solr implements IndexEngine
             'q' => 'id:(' . implode(' OR ', $ids) . ')',
             'rows' => count($ids)
         );
+        // TODO: make this nicer, such as an argument to _select
+        $saveMerged = $this->_mergedRecords;
+        $this->_mergedRecords = false;
         $result = $this->_select('GET', $options);
+        $this->_mergedRecords = $saveMerged;
         if (PEAR::isError($result)) {
             PEAR::raiseError($result);
         }
@@ -470,6 +478,17 @@ class Solr implements IndexEngine
                 $filter = array();
             }
             $filter[] = '-hidden_component_boolean:TRUE';
+        }
+
+        // Data source filters
+        if ($this->_recordSources) {
+            $sources = array_map(
+                function($input) {
+                    return '"' . addcslashes($input, '"') . '"'; 
+                },
+                explode(',', $this->_recordSources)
+            );
+            $filter[] = 'source_str_mv:(' . implode(' OR ', $sources) . ')';
         }
         
         if (isset($filter)) {
@@ -1690,6 +1709,9 @@ class Solr implements IndexEngine
             }
             foreach ($result['response']['docs'] as &$doc) {
                 if (!isset($doc['dedup_data'])) {
+                    if (!isset($doc['id'])) {
+                        continue;
+                    }
                     $source = explode('.', $doc['id'], 2);
                     $source = $source[0];
                     $doc['dedup_data'] = array($source => array('id' => $doc['id']));
@@ -1700,7 +1722,7 @@ class Solr implements IndexEngine
         // Inject highlighting details into results if necessary:
         if (isset($result['highlighting'])) {
             foreach ($result['response']['docs'] as $key => $current) {
-                if (isset($result['highlighting'][$current['id']])) {
+                if (isset($current['id']) && isset($result['highlighting'][$current['id']])) {
                     $result['response']['docs'][$key]['_highlighting']
                         = $result['highlighting'][$current['id']];
                 }

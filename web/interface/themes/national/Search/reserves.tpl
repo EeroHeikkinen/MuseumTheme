@@ -1,3 +1,5 @@
+<!-- START of: Search/reserves.tpl -->
+
 <div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
   <h3>{translate text='Search For Items on Reserve'}</h3>
   {if $useReservesIndex}
@@ -12,13 +14,10 @@
     <div class="resulthead">
       <div class="floatleft">
         {if $recordCount}
-          {translate text="Showing"}
-          <strong>{$recordStart|escape}</strong> - <strong>{$recordEnd|escape}</strong>
-          {translate text='of'} <strong>{$recordCount|escape}</strong>
           {if $searchType == 'Reserves'}{translate text='for search'}: <strong>'{$reservesLookfor|escape:"html"}'</strong>,{/if}
         {/if}
-        {translate text='query time'}: {$qtime|escape}s
       </div>
+      {include file="Search/paging.tpl" position="Top"}
 
       <div class="floatright">
         <form action="{$path}/Search/SortResults" method="post">
@@ -67,7 +66,7 @@
       </tr>
       {/foreach}
       </table>
-      {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+      {include file="Search/paging.tpl"}
     {/if}
   {else}
     <form method="get" action="{$url}/Search/Reserves" name="searchForm" class="search">
@@ -119,3 +118,5 @@
 {* End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Search/reserves.tpl -->

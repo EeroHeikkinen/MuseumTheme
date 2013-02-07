@@ -159,7 +159,7 @@ class Delete extends MyResearch
             // Assign Item Info
             $interface->assign('deleteIDS', $_POST['ids']);
             $interface->assign('listID', $listID);
-            $interface->assign('deleteList', $this->_getDeleteList($_POST['ids']));
+            //Doesn't work with MetaLib records $interface->assign('deleteList', $this->_getDeleteList($_POST['ids']));
             $interface->assign('title', $_GET['message']);
             return $interface->fetch('MyResearch/delete.tpl');
         } else {
@@ -202,7 +202,7 @@ class Delete extends MyResearch
             $interface->setPageTitle(translate('Delete Favorites'));
             $interface->assign('subTemplate', 'delete.tpl');
             $interface->assign('deleteIDS', $ids);
-            $interface->assign('deleteList', $this->_getDeleteList($ids));
+            //Doesn't work with MetaLib records $interface->assign('deleteList', $this->_getDeleteList($ids));
             $interface->setTemplate('../MyResearch/view-alt.tpl');
             $interface->display('layout.tpl');
         } else {

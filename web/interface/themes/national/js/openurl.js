@@ -25,11 +25,31 @@ function loadResolverLinks($target, openUrl) {
         url: url,
         success: function(response) {
             if (response.status == 'OK') {
-                $target.removeClass('ajax_availability')
-                    .empty().append(response.data);
+                $target.removeClass('ajax_availability').empty().append(response.data);
+                link = $target.find('.openurl_more');
+                link.click(function() {
+                    var div = $(this).siblings('.openurlDiv');
+                    var self = $(this);
+                    self.toggleClass('expanded');
+                    if (div.length > 0) {
+                        div.slideToggle(150);
+                    } else {
+                    	div = $('<div/>').addClass('openurlDiv');
+                        div.insertAfter(self);
+                        $('<span class="iframe_loading"/>').insertAfter(self);
+                    	iframe = $('<iframe/>');
+                    	iframe.attr('class', 'openurlIframe');
+                    	iframe.load(function() { $('.iframe_loading').remove(); });
+                    	iframe.attr('src', self.attr('href'));
+                    	div.append(iframe);
+                    	div.append(self.siblings('.openurl_more_full').show());
+                    }
+                	return false;
+                });
             } else {
                 $target.removeClass('ajax_availability').addClass('error')
                     .empty().append(response.data);
+                $('.iframe_loading').removeClass('iframe_loading');
             }
         }
     });

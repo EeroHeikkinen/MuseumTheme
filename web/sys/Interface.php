@@ -45,14 +45,18 @@ class UInterface extends Smarty
 
     /**
      * Constructor
+     * 
+     * @param string $local Local directory for cache and compile  
      *
      * @access public
      */
-    public function UInterface()
+    public function UInterface($local = '')
     {
         global $configArray;
-
-        $local = $configArray['Site']['local'];
+        
+        if (!$local) {
+            $local = $configArray['Site']['local'];
+        }
         $this->_vufindTheme = $configArray['Site']['theme'];
 
         // Use mobile theme for mobile devices (if enabled in config.ini)
@@ -181,10 +185,7 @@ class UInterface extends Smarty
 
         $this->assign('authMethod', $configArray['Authentication']['method']);
 
-        if ($configArray['Authentication']['method'] == 'Shibboleth'
-            || ($configArray['Authentication']['method'] == 'MultiAuth' 
-            && in_array('Shibboleth', explode(',', $configArray['MultiAuth']['method_order'])))
-        ) {
+        if (isset($configArray['Authentication']['shibboleth']) && $configArray['Authentication']['shibboleth']) {
             if (!isset($configArray['Shibboleth']['login'])) {
                 throw new Exception(
                     'Missing parameter in the config.ini. Check if ' .
@@ -211,17 +212,24 @@ class UInterface extends Smarty
             $this->assign('sessionInitiator', $sessionInitiator);
         }
 
+        if (isset($configArray['Authentication']['libraryCard'])  && !$configArray['Authentication']['libraryCard']) {
+            $this->assign('libraryCard', false);
+        } else {
+            $this->assign('libraryCard', true);
+        }
+        
         $this->assign(
             'sidebarOnLeft',
             !isset($configArray['Site']['sidebarOnLeft'])
             ? false : $configArray['Site']['sidebarOnLeft']
         );
         
-        $this->assign(
-            'piwikUrl', 
-            !isset($configArray['Piwik']['url'])
-            ? false : $configArray['Piwik']['url'] 
-        );
+        $piwikUrl = isset($configArray['Piwik']['url']) ? $configArray['Piwik']['url'] : false;
+        if ($piwikUrl && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $piwikUrl = preg_replace('/^http:/', 'https:', $piwikUrl);
+        }
+        $this->assign('piwikUrl', $piwikUrl);
+         
         $this->assign(
             'piwikSiteId', 
             !isset($configArray['Piwik']['site_id'])
@@ -251,6 +259,10 @@ class UInterface extends Smarty
         $hideLogin = isset($configArray['Authentication']['hideLogin'])
             ? $configArray['Authentication']['hideLogin'] : false;
         $this->assign("hideLogin", $hideLogin ? true : $catalog->loginIsHidden());
+        
+        if (isset($configArray['Site']['development']) && $configArray['Site']['development']) {
+            $this->assign('developmentSite', true);    
+        }
     }
 
     /**
@@ -288,7 +300,13 @@ class UInterface extends Smarty
      */
     public function setPageTitle($title)
     {
-        $this->assign('pageTitle', translate($title));
+        global $configArray;
+        if (isset($configArray['Site']['title']) && $configArray['Site']['title']) {
+            $fullTitle = $configArray['Site']['title'] . ' - ' . translate($title);
+        } else {
+            $fullTitle = translate($title);
+        }
+        $this->assign('pageTitle', $fullTitle);
     }
 
     /**
@@ -338,13 +356,6 @@ class UInterface extends Smarty
         // Don't pass a PEAR error to interface
         $this->assign('user', PEAR::isError($user) ? null : $user);
         
-        if (isset($configArray['Authentication']['mozillaPersona']) && $configArray['Authentication']['mozillaPersona']) {
-            $this->assign('mozillaPersona', true);
-            if (isset($_SESSION['authMethod']) && $_SESSION['authMethod'] == 'MozillaPersona') {
-                $this->assign('mozillaPersonaCurrentUser', PEAR::isError($user) ? null : $user->username);
-            }
-        }
-        
         // Load the last limit from the request or session for initializing default
         // in search box:
         if (isset($_REQUEST['limit'])) {
@@ -380,6 +391,31 @@ class UInterface extends Smarty
                 $pageURL .= "?ui=mobile";
             }
             $this->assign("mobileViewLink", $pageURL);
+        }
+
+        // Init Mozilla Persona here now that we may have a valid user
+        if (isset($configArray['Authentication']['mozillaPersona']) && $configArray['Authentication']['mozillaPersona']) {
+            $this->assign('mozillaPersona', true);
+            if (isset($_SESSION['authMethod']) && $_SESSION['authMethod'] == 'MozillaPersona') {
+                if (PEAR::isError($user)) {
+                    $this->assign('mozillaPersonaCurrentUser', null);
+                } else {
+                    $username = $user->username;
+                    if (isset($configArray['Site']['institution']) && strncmp($configArray['Site']['institution'] . ':', $username, strlen($configArray['Site']['institution']) + 1) == 0) {
+                        $username = substr($username, strlen($configArray['Site']['institution']) + 1);
+                    }
+                    $this->assign('mozillaPersonaCurrentUser', $username);
+                }
+            }
+            if (!isset($configArray['Authentication']['mozillaPersonaAutoLogout']) || $configArray['Authentication']['mozillaPersonaAutoLogout']) {
+                $this->assign('mozillaPersonaAutoLogout', true);
+            }
+        }
+
+        // Catalog Account List
+        if ($user) {
+            $this->assign('currentCatalogAccount', $user->cat_username);
+            $this->assign('catalogAccounts', $user->getCatalogAccounts());
         }
     }
 

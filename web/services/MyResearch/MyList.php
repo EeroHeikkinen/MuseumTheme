@@ -101,8 +101,12 @@ class MyList extends Action
 
         // Delete Resource (but only if list owner is logged in!)
         if (isset($_GET['delete']) && $user->id == $list->user_id) {
-            $resource = Resource::staticGet('record_id', $_GET['delete']);
-            $list->removeResource($resource);
+            $resource = new Resource();
+            $resource->record_id = $_GET['delete'];
+            unset($resource->source);
+            if ($resource->find(true)) {
+                $list->removeResource($resource);
+            }
         }
 
         // Send list to template so title/description can be displayed:

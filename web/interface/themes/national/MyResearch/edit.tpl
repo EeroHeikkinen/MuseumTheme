@@ -1,6 +1,9 @@
-<div class="record">
-  <h1>{$record.title|escape:"html"}</h1>
+<!-- START of: MyResearch/edit.tpl -->
 
+<div class="record">
+  <h1><span class="content">{$record.title|escape:"html"}</span></h1>
+
+  <div class="content">
   <form method="post" name="editForm" action="">
   {if empty($savedData)}
     <p>
@@ -20,7 +23,10 @@
       <textarea id="edit_notes{$current.listId}" class="displayBlock" name="notes{$current.listId}" rows="3" cols="50">{$current.notes|escape:"html"}</textarea>
       <br/>
     {/foreach}
-    <input class="button" type="submit" name="submit" value="{translate text='Save'}"/>
+    <input class="button buttonTurquoise" type="submit" name="submit" value="{translate text='Save'}"/>
   {/if}
   </form>
+  </div>
 </div>
+
+<!-- EDIT of: MyResearch/edit.tpl -->

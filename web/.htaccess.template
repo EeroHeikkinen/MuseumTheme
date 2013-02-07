@@ -4,7 +4,7 @@
     
     # Note: this will be replaced by the admin panel as new views
     # are created. The value should point to the view specific URL-path
-    RewriteBase %REWRITEBASE%
+    RewriteBase /
 
     # Note: The following RewriteRule directives include the [B] flag to escape
     # backreferences.  This prevents encoding problems caused by special characters
@@ -13,5 +13,7 @@
     RewriteRule   ^(MyResearch)/([^/]+)/(.+)$   index.php?module=$1&action=$2&id=$3   [B,L,QSA]
     RewriteRule   ^(Record)/([^/]+)/(.+)$       index.php?module=$1&id=$2&action=$3   [B,L,QSA]
     RewriteRule   ^(Record)/(.+)$               index.php?module=$1&id=$2             [B,L,QSA]
+    RewriteRule   ^(Collection)/([^/]+)/(.+)$   index.php?module=$1&collection=$2&action=$3   [B,L,QSA]
+    RewriteRule   ^(Collection)/(.+)$           index.php?module=$1&collection=$2             [B,L,QSA]
     RewriteRule   ^([^/]+)/(.+)$                index.php?module=$1&action=$2         [B,L,QSA]
   </IfModule>

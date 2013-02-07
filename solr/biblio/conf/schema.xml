@@ -276,8 +276,6 @@
  <copyField source="author"    dest="author_browse"/>
  <copyField source="author2"    dest="author_browse"/>
  <copyField source="hierarchy_top_title" dest="hierarchy_browse"/>
- <!-- Copy format to allfields for synonym search -->
- <copyField source="format" dest="allfields"/>
  <!-- Default Boolean Operator -->
  <solrQueryParser defaultOperator="AND"/>
 </schema>

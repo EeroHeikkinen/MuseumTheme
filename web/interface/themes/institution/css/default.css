@@ -12,26 +12,43 @@ body {
     padding: 0 24px 48px;
     background-color: #ffffff;
     color: #3c3c3c;
+    -webkit-text-size-adjust: 100%;
 }
 .container {
     width: 960px; /* make this match the body width above */
     background: none repeat scroll 0 0 #FFFFFF;
-    border: none/*1px solid #dddddd;
-    -moz-border-radius: 5px 5px 5px 5px;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-
-    behavior: url(css/css3pie/PIE.php)*/; /* for IE */
+    border: none;
 }
 
-/*** work-in-progress disclaimer ***/
-.w-i-p {
+/*** Beta banner ***/
+
+#beta-wrapper {
+    position: absolute;
+}
+#beta-banner {
+    background: url('../images/beta-overlay.png') transparent;
+    height: 73px;
+    width: 80px;
+    position: absolute;
+    left: -6px;
+    top: 25px;
+}
+
+/*** Work-In-Progress + IE 6,7 disclaimers (DO NOT REMOVE IE BANNER) ***/
+
+.w-i-p, .ie {
     width: 100%;
     padding: .1em 0;
     text-align: center;
     background-color: #fffec6;
-    border-top: 1px solid #ffeb7c;
+    border-top: 2px solid #ffeb7c;
     border-bottom: 1px solid #ffeb7c;
+}
+
+.ie {
+    background-color: #ffffff;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #cccccc;
 }
 
 /****** General ******/
@@ -86,7 +103,9 @@ img.alignleft {
 }
 .floatright {
     float: right;
+/*
     margin-top: -.6em;
+*/
 }
 /* class to make stuff "invisible" but still readable by screen readers */
 .offscreen {
@@ -123,10 +142,9 @@ div.sidegroup {
     border: 1px solid #dddddd;
 }
 .mainContent {
-    float: right;
-    width: 650px;
-    margin: 0 82px 3em 0;
-    
+    float: left;
+    width: 714px;
+    margin: 0 12px 3em 12px;
 }
 
 /*** Header ***/
@@ -155,7 +173,7 @@ div.sidegroup {
 }
 #searchFormHeader {
     float: left;
-    padding: 2.6em 0 .5em;
+    padding: 2.5em 0 .5em;
     width: 506px;
 }
 .header, .headerRecord, .headerCollection, .headerContent, .headerAuthor {
@@ -197,7 +215,7 @@ div.sidegroup {
     width: 100%;
     border-top: 1px solid #ddd;
     text-align: center;
-    margin-top: 2em;
+    padding: 1.5em 0 1em;
 }
 .navigationMenu-home {
     border-top: none;
@@ -231,9 +249,24 @@ div.sidegroup {
 .searchbox {
     margin: 0;
 }
-#searchForm input, #searchForm select, .styled_select { 
+
+#searchForm input, #searchForm select, .overLabelWrapper, .styled_select { 
     float:left;
 }
+
+.overLabelWrapper {
+    position: relative;
+}
+
+#searchFormLabel {
+    color: #999999;
+    text-indent: -10000em;
+    position: absolute;
+    top: 7px;
+    left: 9px;
+    z-index: 1;
+}
+
 #searchForm_input {
     background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
     border: none;
@@ -255,8 +288,6 @@ div.sidegroup {
     border-radius: 6px 0 0 6px;
     -moz-border-radius: 6px 0 0 6px;
     -webkit-border-radius: 6px 0 0 6px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 
 }
 
@@ -377,8 +408,6 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .dropdown dd ul li a img {
     color: #333333;
@@ -402,20 +431,20 @@ div.styled_select { /* to get rid of the unstylable down-arrow */
 }
 /* Search context help layer */
 .searchContextHelp {
-	position: absolute;
-	display: none;
-	z-index: 1;
-	width: 460px;
-	padding: 20px;
-	margin-top: 6px;
-	background: #ffffff;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	border: 1px solid #999999;
-	-webkit-box-shadow: 0 3px 4px #dddddd;
-	-moz-box-shadow: 0 3px 4px #dddddd;
-	box-shadow: 0 3px 10px #cccccc;
+    position: absolute;
+    display: none;
+    z-index: 9;
+    width: 460px;
+    padding: 20px;
+    margin-top: 6px;
+    background: #ffffff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #999999;
+    -webkit-box-shadow: 0 3px 4px #dddddd;
+    -moz-box-shadow: 0 3px 4px #dddddd;
+    box-shadow: 0 3px 10px #cccccc;
 }
 .searchContextHelp p {
     margin: 0 0 1em 0;
@@ -539,7 +568,7 @@ p.listDescription {
 }
 
 div.truncateField {
-	  background-color: inherit;
+    background-color: inherit;
 }
 div.moreLink, div.lessLink {
     z-index: 1000;
@@ -555,9 +584,13 @@ div.moreLink {
 /** Buttons to do "bulk" actions **/
 
 div.bulkActionButtons {
+    border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
-    padding: 1em 0;
+    border-left: 1px solid transparent;
+    padding: 0.5em 0;
+    height: auto;
 }
+
 div.bulkActionButtons input, div.bulkActionButtons label, div.bulkActionButtons span {
      margin-right: 10px;
 }
@@ -595,6 +628,7 @@ div.bulkActionButtons input.checkbox {
 }
 div.bulkActionButtons select {
     padding: 2px;
+    margin: 2px;
 }
 
 
@@ -723,7 +757,7 @@ fieldset.publishDateLimit .ui-slider {
     margin-bottom: .6em;
     padding-bottom: .6em;
     padding-left: 10px;
-    width: 960px;
+    width: 950px;
 /*
     margin: 0;
     padding: 0 0 0.5em 0;
@@ -763,7 +797,7 @@ fieldset.publishDateLimit .ui-slider {
 #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection  {
     float: left;
     margin: 0 12px 0 0;
-    width: 220px;
+    width: 210px;
 }
 #sidebarFavoritesLists a.listAdd {
     /* float: right; */
@@ -797,13 +831,6 @@ fieldset.publishDateLimit .ui-slider {
 .favoritesList .paginationTop, .favoritesList .resultOptions {
     margin: 0.4em 0 0 0;
 }
-.selectAllCheckboxes {
-    margin:  -2px 0 0 14px;
-}
-div.bulkActionButtons {
-    border-top: 1px solid #eeeeee;
-    height: 10px;
-}
 .favoritesList .bulkActionButtons select {
     max-width: 160px;
 }
@@ -811,25 +838,29 @@ div.bulkActionButtons {
     margin: 0;
 }
 .listentry .summcover, .checkedoutList .summcover, .holdsList .summcover {
-	max-width: 62px;
+    max-width: 62px;
 }
 .listentry .resultNoImage, .checkedoutList .resultNoImage, .holdsList .resultNoImage {
-	height: 60px;
-	width: 60px;
+    height: 60px;
+    width: 60px;
 }
 .listentry .resultImage, .checkedoutList .resultImage, .holdsList .resultImage {
-	margin: -62px 0 0 0;
-	width: 62px;
+    margin: -62px 0 0 0;
+    width: 62px;
 }
 .listentry .result .imagelinks, .checkedoutList .result .imagelinks, .holdsList .result .imagelinks {
-	padding: 5px 0 0 5px;
+    padding: 5px 0 0 5px;
 }
+.allCheckboxBackground {
+    margin: 3px 0 0 9px;
+    float: left;
+} 
 
 /* MyResearch/checkedout */
 #resultList.checkedoutList {
     width: 960px;
 }
-.checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
+.checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo, .accounts table.accountList {
     margin: 1.8em 0 0 0;
 }
 .checkedoutList .iconlabel, .holdsList .iconlabel {
@@ -837,7 +868,7 @@ div.bulkActionButtons {
 }
 .profileInfo {
     line-height: 1.8em;
-    width: 452px;
+    width: 444px;
 }
 .profileGroup {
     margin-bottom: 1em;
@@ -864,7 +895,7 @@ div.bulkActionButtons {
     margin: 2em 0;
     float: right;
 }
-.finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td {
+.finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td, .accountList td {
     border-bottom: 1px solid #dddddd;
     padding-top: 0.4em;
     padding-bottom: 0.4em;
@@ -887,8 +918,11 @@ div.bulkActionButtons {
     margin-bottom: 1em;
 }
 .loginForm h3 {
-	  font-size: 1em;
-	  font-weight: normal;
+    font-size: 1em;
+    font-weight: normal;
+}
+.main .loginForm {
+    margin: 0 12px;
 }
 .loginForm label {
     font-size: 1em;
@@ -899,21 +933,21 @@ div.bulkActionButtons {
     float: right;
 }
 .loginForm .description {
-	  padding: 1em;
-	  background-color: #f3f3f3;
-	  margin-top: 12px; 
+    padding: 1em;
+    background-color: #f3f3f3;
+    margin-top: 12px; 
 }
 .loginForm .descriptionTitle {
-	  font-weight: bold;
+    font-weight: bold;
 }
 .loginForm .separator, .loginForm .separatorSmall {
-	  clear: left;
-	  float: left;
-	  margin: 24px 0 6px 0;
-	  padding: 0;
-	  border-top: 1px solid #dddddd;
-	  background: none;
-	  height: 1px;
+    clear: left;
+    float: left;
+    margin: 24px 0 6px 0;
+    padding: 0;
+    border-top: 1px solid #dddddd;
+    background: none;
+    height: 1px;
     width: 592px;
 }
 .loginForm .separatorSmall {
@@ -921,24 +955,25 @@ div.bulkActionButtons {
 }
 .loginForm .separator .text, .loginForm .separatorSmall .text {
     position: relative;
-	  left: 4em;
-	  top: -0.75em;
-	  padding: 0 1em 0 1em;
-	  background-color: #ffffff;
+    left: 4em;
+    top: -0.75em;
+    padding: 0 1em 0 1em;
+    background-color: #ffffff;
 }
 .loginForm .loginAction, .loginForm .loginTitle {
-	  clear: left;
-	  float: left;
-	  width: 240px;
-	  margin-right: 56px;
+    clear: left;
+    float: left;
+    width: 240px;
+    margin-right: 56px;
 }
 .loginForm .loginTitle {
-	  margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 .loginForm .loginDescription {
     float: left;
     width: 296px;
     margin-right: 12px;
+    margin-bottom: 1em;
 }
 .loginForm .loginDescriptionSmall {
     float: left;
@@ -947,8 +982,8 @@ div.bulkActionButtons {
     font-size: .846em;
 }
 .loginForm input[type='text'], .loginForm input[type='password'], .loginForm select {
-	  width: 100%;
-	  -moz-box-sizing: border-box;
+    width: 100%;
+    -moz-box-sizing: border-box;
 }
 
 /*** Result List ***/
@@ -984,8 +1019,6 @@ ul.recordSet li.result:hover {
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 ul.recordSet li.alt {
@@ -1117,14 +1150,8 @@ ul.recordSet .resultItemLine2{
     margin: 0 .3em;
     padding: .4em .7em 0;
 }
-.resulthead, .myResearch .resultHead {
+.resulthead {
     padding: 0 0 0 .8em;
-/*
-    border-bottom: 1px #eee solid;
-*/
-/*
-    position: relative;
-*/
 }
 
 #authorList .resulthead {
@@ -1172,6 +1199,18 @@ li.result blockquote {
 }
  .resultHierarchyLinks .hierarchyDesc {
     font-size: 0.75em;
+}
+.resultItemLine2, .resultItemLine3, .resultItemLine4 {
+    color: #777777;
+}
+.resultItemLine3 a, .resultItemLine4 a {
+    color: #777777;
+}
+.resultItemLine3 .highlight {
+    color: #666666;
+}
+.resultContentList a, a.openurl_more_full, .metalib_link a {
+    color: #0066cc;
 }
 
 /** Side facets */
@@ -1265,10 +1304,14 @@ dl.narrowList a {
     padding: 6px 10px;
     width: 300px;
 }
-.HelpMenu {
+.module-Content .main {
+    padding-left: 12px;
+}
+.module-Content .pageMenu, .module-Feedback .pageMenu {
     float: left;
-    width: 180px;
+    width: 210px;
     margin: 2.4em 0 0 0;
+    padding: 0;
     line-height: 2em;
 }
 .module-Content dl.Content dt {
@@ -1283,8 +1326,11 @@ dl.narrowList a {
 .module-Content dl.Content ul {
     list-style-type: disc;
 }
-.module-Content dl.Content p {
+.module-Content .main p {
     margin-bottom: 1em;
+}
+.module-Content .mainContent ul {
+    list-style-type: disc;
 }
 
 
@@ -1293,13 +1339,23 @@ dl.narrowList a {
 
 /* common styles */
 
-.toolbar li a, ul.recordSet .addToFavLink a, .searchtools a.mailSearch, .accountFavorites h3 {
+ul.recordSet .addToFavLink a, .searchtools a.mailSearch, .accountFavorites h3 {
     display:block;
     text-align:left;
     background-repeat:no-repeat;
     background-position:5px;
     padding:.5em .5em .5em 25px;
 }
+
+.toolbar li a {
+    display:block;
+    text-align:left;
+    line-height: 1.3em;
+    background-repeat:no-repeat;
+    background-position:5px 7px;
+    padding:.5em .5em .5em 27px;
+}
+
 ul.recordSet .addToFavLink a {
     background-position:5px 3px;
     padding:.1em .5em .5em 25px;
@@ -1398,6 +1454,9 @@ ul.recordSet .addToFavLink a {
     background-image:url(../images/silk/email.png);
 }
 .fav {
+    background-image:url(../images/silk/heartbw.png);
+}
+.fav:hover {
     background-image:url(../images/silk/heart.png);
 }
 .addThis {
@@ -1577,8 +1636,8 @@ ul.recordSet .addToFavLink a {
 .formatbookebook {background-image:url(../images/silk/world.png);}
 .formatcd        {background-image:url(../images/silk/cd.png);}
 .formatcdrom     {background-image:url(../images/silk/cd.png);}
-.formatdocument  {background-image:url(../images/silk/report.png);}
-.formatdvd       {background-image:url(../images/silk/dvd.png);}
+.formatdocument  {background-image:url(../images/silk/page_white_text.png);}
+/*.formatdvd       {background-image:url(../images/silk/dvd.png);}*/
 .formatimage     {background-image:url(../images/silk/photo.png);}
 .formatjournal   {background-image:url(../images/silk/newspaper.png);}
 .formatmusicalscore   {background-image:url(../images/silk/music.png);}
@@ -1587,9 +1646,12 @@ ul.recordSet .addToFavLink a {
 .formatserial    {background-image:url(../images/silk/report.png);}
 .formatsound     {background-image:url(../images/silk/sound.png);}
 .formatsoundrecording {background-image:url(../images/tango/audio-volume-high.png);}
-.formatvideo     {background-image:url(../images/tango/video.png);}
-.formatvideodvd  {background-image:url(../images/silk/dvd.png);}
-.formatworkofart {background-image:url(../images/silk/picture.png);}
+.formatvideo     {background-image:url(../images/silk/film.png);}
+/*.formatvideodvd  {background-image:url(../images/silk/dvd.png);} */
+.formatworkofart {background-image:url(../images/silk/script_palette.png);}
+.formatthesis    {background-image:url(../images/silk/report.png);}
+.formatdatabase  {background-image:url(../images/silk/server_database.png);}
+.formatphysicalobject {background-image:url(../images/silk/brick.png);}
 
 /* not used? */
 .electronic {background-image:url(../images/tango/www.png);}
@@ -1612,7 +1674,6 @@ ul.recordSet .addToFavLink a {
     margin: 0 .3em;
     padding: 13px .7em 13px;
     clear: left;
-    width: 300px;
 }
 .paginationTop {
     margin: 1.5em 0;
@@ -1625,7 +1686,9 @@ ul.recordSet .addToFavLink a {
     border: 1px solid #fff;
 }
 .pagination a:hover {
+/*
     border: 1px solid #cccccc;
+*/
 }
 .pagination span {
     padding: .2em .5em;
@@ -1676,7 +1739,7 @@ div.record {
     background-color: white;
 }
 #recordMetadata tr, .citation tr {
-	  background-color: white;
+    background-color: white;
 }
 /*
 #recordMetadata tr:hover {
@@ -1688,8 +1751,6 @@ div.record {
     border-radius: 6px;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
-
-    behavior: url(css/css3pie/PIE.php);
 }
 */
 .recordTitle {
@@ -1724,10 +1785,10 @@ div.recordsubcontent {
     /* display: none; */
 }
 a#thumbnail_link:hover span {
-    background-position: 250px 0;
+    background-position: 400px 0;
 }
 .coverImageLinks a:hover span {
-    background-position: 250px 32px;
+    background-position: 400px 32px;
 }
 .coverImageLinks a:hover .coverImageLinks a {
     border: 1px solid #dddddd;
@@ -1768,7 +1829,7 @@ a#thumbnail_link:hover span {
     padding: 6px 0;
 }
 #recordMetadata .recordHierarchyLinks {
-	  margin: -6px 0 12px 0;
+    margin: -6px 0 12px 0;
 }
 
 /* hack to hide redundant titles introduced by syndetics plus */
@@ -1779,7 +1840,7 @@ a#thumbnail_link:hover span {
 #syn_video_clip .syn_title {
     display:none;
 }
-/* Browser specific (not valid) styles to make preformatted text wrap */		
+/* Browser specific (not valid) styles to make preformatted text wrap */
 .record pre.xml {
     white-space: pre-wrap;       /* css-3 */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
@@ -1789,13 +1850,13 @@ a#thumbnail_link:hover span {
 }
 
 .call-slip-form .reference {
-	  margin-left: 24px;
+    margin-left: 24px;
 }
 .call-slip-form .label {
-	  width: 70px;
-	  text-align: right;
-	  float: left;
-	  margin-right: 12px;
+    width: 70px;
+    text-align: right;
+    float: left;
+    margin-right: 12px;
 }
 
 /***** Citation Table *****/
@@ -1846,7 +1907,7 @@ table.authors th {
 #tabnav ul {
     float: left;
     margin:0;
-    padding:0px 5px 0 0;
+    padding:0px 5px 0;
     list-style:none;
     background: #ffffff;
     border-color: #dadada;
@@ -1920,7 +1981,7 @@ table.authors th {
     float: left;
 }
 #dyntabnav, #dyntabnav .ui-tabs-nav {
-    padding: 0;
+    padding: 0 0 0 .3em;
 }
 #dyntabnav .ui-tabs-nav li {
     margin-right: 3px;
@@ -1958,6 +2019,9 @@ table.authors th {
 #dyntabnav .ui-state-active, #dyntabnav .ui-widget-content .ui-state-active, #dyntabnav .ui-widget-header .ui-state-active { border: 1px solid #cccccc; }
 #dyntabnav .citation th {
     width: 16em;
+}
+#dyntabnav a#detailstab {
+    height: 1.3em;
 }
 
 /** Similar Items (record view) **/
@@ -2243,6 +2307,9 @@ p.citationText {
 .searchGroups .searchGroupDetails {
     float: right;
 }
+#sliderWrapper {
+    margin-bottom: 3em;
+}
 .mapContainer {
     width: 728px;
 }
@@ -2261,7 +2328,7 @@ p.citationText {
 }
 .myResearch .resultHead {
 /*
-	  width: 716px;
+    width: 716px;
     border-bottom: 1px solid #dddddd;
     padding: 0 12px 0.2em 0;
 */
@@ -2308,7 +2375,9 @@ p.citationText {
     padding: 0;
     margin-bottom: 1em;
 }
-
+.myResearch .noContentMessage {
+    margin-top: 1em;
+}
 
 /* Browse Lists */
 .browseNav {
@@ -2378,8 +2447,6 @@ div.unavailable, div.fatalError {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 /** Open Library Subjects **/
@@ -2503,7 +2570,9 @@ tr:nth-child(even) td.gridMouseOver {
 
 }
 .collectionDetails .pagination span {
+/*
     border: 1px solid #EEEEEE;
+*/
     padding-left: 4px;
     padding-right: 4px;
 }
@@ -2513,20 +2582,28 @@ tr:nth-child(even) td.gridMouseOver {
     padding: 7px 0;
     text-align: center;
 }
+/*
 .collectionDetails .paginationTop:hover {
     padding: 6px 0 7px;
 }
+*/
 .collectionDetails .paginationTop span {
+/*
     border: 1px solid #EEEEEE;
+*/
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 3px;
 }
+/*
 .collectionDetails .paginationTop a:hover {
     border: 1px solid #EEEEEE;
 }
+*/
 .collectionDetails .paginationTop a {
+/*
     border: 1px solid #FFF;
+*/
     padding-left: 4px;
     padding-right: 4px;
     margin-left: 3px;
@@ -2845,13 +2922,13 @@ div#closeContextHelp:active {
 /*** Hierarchy Tree ***/
 
 #hierarchyTreeHolder, #hierarchyRecord {
-    width: 960px;
+    width: 958px;
 }
 
 #hierarchyTreeHolder {
     background-color: #FFF;
     border: 1px solid #DCDCDC;
-    padding: 0.5em;   
+    padding: 0.5em 0;   
 }
 
 .collectionDetailsTree #hierarchyTreeHolder {
@@ -2883,13 +2960,13 @@ div#closeContextHelp:active {
 #treeSearch #search {
     display:block;
     float:right;
-    margin-bottom: 0px;
+    margin: 0 .4em 0 0;
 }
 
 #treeSearch #treeSearchType {
     display:block;
     float:right;
-    margin:2px 4px 0px 4px;
+    margin: 0 4px;
 }
 
 #treeSearch #treeSearchNoResults {
@@ -3016,8 +3093,6 @@ div#closeContextHelp:active {
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 
 .mobileViewLink {
@@ -3094,8 +3169,8 @@ legend#pubDateLegend {
 }
 
 div.facetsContainer {
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-top: 0;
+    margin-bottom: 2em;
 }
 div#selectionMapContainer {
     position: relative;
@@ -3128,22 +3203,22 @@ span.mapMarker  {
     z-index: 1000;
 }
 #zoomSlider { 
-	  position: absolute;
-	  left: 10px;
-	  top: 30px;
-	  width: 28px;
-	  height: 203px;
-	  z-index: 1004;
+    position: absolute;
+    left: 10px;
+    top: 30px;
+    width: 28px;
+    height: 203px;
+    z-index: 1004;
 }
 #zoomSlider #zoomControlMinus { 
-	  height: 16px;
-	  width: 16px;
-	  cursor: pointer;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
 }
 #zoomSlider #zoomControlPlus {
-	  height: 16px;
-	  width: 16px;
-	  cursor: pointer;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
 }
 #zoomSlider #zoomPath 
 {
@@ -3156,6 +3231,7 @@ span.mapMarker  {
 .button {
     text-shadow: none;
     color: #444444;
+    cursor: pointer;
     padding: 6px 6px 4px 6px;
     margin-top: 1em;
     display: inline-block;
@@ -3165,12 +3241,11 @@ span.mapMarker  {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee');
     border: 1px solid #cccccc;
     -webkit-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
-	-moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
-	box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
+    -moz-box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
+    box-shadow:rgba(0,0,0,0.1) 0 1px 0 0;
     border-radius:6px;
     -moz-border-radius:6px;
     -webkit-border-radius:6px;
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .button:hover {
     text-shadow: none;
@@ -3187,8 +3262,8 @@ span.mapMarker  {
     background:-moz-linear-gradient( center top, #dddddd 5%, #ffffff 100% );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dddddd', endColorstr='#ffffff');
     -webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
 /*
 .button {
@@ -3208,8 +3283,6 @@ span.mapMarker  {
     box-shadow:inset 0px 1px 0px 0px #dcecfb;
     -moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
     -webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
-
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 /*}*/
 /*
 .button:hover {
@@ -3229,8 +3302,8 @@ span.mapMarker  {
     background:-moz-linear-gradient( center top, #bddbfa 5%, #80b5ea 100% );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#bddbfa', endColorstr='#80b5ea');
     -webkit-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
-	-moz-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
-	box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
+    -moz-box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
+    box-shadow:rgba(0,0,0,0.3) 0 1px 0 0;
 }
 .searchButton:hover {
     border:1px solid #669fd8;
@@ -3249,16 +3322,16 @@ span.mapMarker  {
     color: #990000;
 }
 .xml .re1 {
-	  color: #990099;
+    color: #990099;
 }
 .xml .st0 {
-	  color: #330099;
+    color: #330099;
 }
 
 /* Feedback form styles */
 
 form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select { 
-    margin-bottom: 1.2em;	
+    margin-bottom: 1.2em;
 }
 
 form#feedbackForm input[type=text] { 
@@ -3276,7 +3349,7 @@ form#feedbackForm textarea {
 }
 
 label#urlLabel {
-	margin-top: 1.2em;
+    margin-top: 1.2em;
 }
 
 form#feedbackForm input.invalid, form#feedbackForm textarea.invalid { 

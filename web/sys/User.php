@@ -32,6 +32,7 @@ require_once 'sys/authn/AuthenticationFactory.php';
 
 // This is necessary for unserialize
 require_once 'services/MyResearch/lib/User.php';
+require_once 'services/MyResearch/lib/User_account.php';
 
 /**
  * Wrapper class for handling logged-in user in session.
@@ -75,28 +76,51 @@ class UserAccount
             }
         }
         
-        if (isset($configArray['Authorization']['ip']) && $configArray['Authorization']['ip'] && isset($configArray['IP_Addresses'])) {
-            foreach ($configArray['IP_Addresses'] as $rangeDef) {
-                $remote = UserAccount::normalizeIp($_SERVER['REMOTE_ADDR']);
-                $ranges = explode(',', $rangeDef);
-                foreach ($ranges as $range) {
-                    $ips = explode('-', $range);
-                    if (!isset($ips[0])) {
-                        continue;
-                    }
-                    $ips[0] = UserAccount::normalizeIp($ips[0]);
-                    if (!isset($ips[1])) {
-                        $ips[1] = $ips[0];
-                    } else {
-                        $ips[1] = UserAccount::normalizeIp($ips[1], true);
-                    }
-                    if ($remote >= $ips[0] && $remote <= $ips[1]) {
-                        return true;
-                    }
-                }
+        if (isset($configArray['Authorization']['ip']) && $configArray['Authorization']['ip']) {
+            if (UserAccount::isInIpRange()) {
+                return true;
             }
         }
         
+        return false;
+    }
+
+    /**
+     * Check if user's IP address is in the known IP addresses
+     * 
+     * @return boolean Whether the IP address is known
+     */
+    public static function isInIpRange()
+    {
+        global $configArray;
+        
+        if (!isset($configArray['IP_Addresses'])) {
+            return false;
+        }
+
+        foreach ($configArray['IP_Addresses'] as $rangeDef) {
+            $remote = UserAccount::normalizeIp($_SERVER['REMOTE_ADDR']);
+            $ranges = explode(',', $rangeDef);
+            foreach ($ranges as $range) {
+                $ips = explode('-', $range);
+                if (!isset($ips[0])) {
+                    continue;
+                }
+                $ips[0] = UserAccount::normalizeIp($ips[0]);
+                if (!isset($ips[1])) {
+                    $ips[1] = $ips[0];
+                } else {
+                    $ips[1] = UserAccount::normalizeIp($ips[1], true);
+                }
+                if ($ips[0] === false || $ips[1] === false) {
+                    error_log("Could not parse IP address/range: $range");
+                    continue;
+                }
+                if ($remote >= $ips[0] && $remote <= $ips[1]) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
     
@@ -120,17 +144,19 @@ class UserAccount
      * Try to log in the user using current query parameters; return User object
      * on success, PEAR error on failure.
      *
+     * @param string $method Optional method to override configuration
+     *
      * @return object
      * @access public
      */
-    public static function login()
+    public static function login($method = '')
     {
         global $configArray;
 
         // Perform authentication:
         try {
             $authN = AuthenticationFactory::initAuthentication(
-                $configArray['Authentication']['method']
+                $method ? $method : $configArray['Authentication']['method']
             );
             $user = $authN->authenticate();
         } catch (Exception $e) {
@@ -142,7 +168,8 @@ class UserAccount
         }
 
         // If we authenticated, store the user in the session:
-        if (!PEAR::isError($user)) {
+        if ($user && !PEAR::isError($user)) {
+            self::verifyAccountInList($user);
             self::updateSession($user);
         }
 
@@ -175,6 +202,7 @@ class UserAccount
                 unset($user->cat_username);
                 unset($user->cat_password);
             } else {
+                self::verifyAccountInList($user);
                 return $patron;
             }
         }
@@ -200,10 +228,54 @@ class UserAccount
             $user->cat_username = $username;
             $user->cat_password = $password;
             $user->update();
+            self::verifyAccountInList($user);
             self::updateSession($user);
             return true;
         }
         return false;
+    }
+
+    /**
+     * Activate a catalog account (no checks performed)
+     * 
+     * @param string $username    User ID
+     * @param string $password    Password
+     * @param string $homeLibrary Home Library
+     * 
+     * @return void
+     */
+    public static function activateCatalogAccount($username, $password, $homeLibrary)
+    {
+        global $user;
+
+        $user->cat_username = $username;
+        $user->cat_password = $password;
+        $user->home_library = $homeLibrary;
+        $user->update();
+        self::updateSession($user);
+    }
+
+    /**
+     * Activate a catalog account (no checks performed)
+     * 
+     * @param string $id Account ID
+     * 
+     * @return void
+     */
+    public static function activateCatalogAccountID($id)
+    {
+        global $user;
+        
+        $account = new User_account();
+        $account->id = $id;
+        $account->user_id = $user->id;
+        if ($account->find(true)) {
+            $user->cat_username = $account->cat_username;
+            $user->cat_password = $account->cat_password;
+            $user->home_library = $account->home_library;
+            $user->update();
+            self::updateSession($user);
+        }
     }
     
     /**
@@ -217,10 +289,12 @@ class UserAccount
     protected static function normalizeIp($ip, $end = false)
     {
         if (strpos($ip, ':') === false) {
-            while (substr_count($ip, '.') < 3) {
-                $ip .= $end ? '.255' : '.0';
+            $addr = explode('.', $ip);
+            while (count($addr) < 4) {
+                $addr[] = $end ? 255 : 0;
             }
-            $ip = "::$ip";
+             
+            $ip = '::' . implode('.', array_map('intval', $addr));
         } else {
             $ip = str_replace('::', ':' . str_repeat('0:', 8 - substr_count($ip, ':')), $ip);
             if ($ip[0] == ':') {
@@ -233,6 +307,35 @@ class UserAccount
         return inet_pton($ip);
     }
 
+    /**
+     * Verify that the current catalog account is in the account list
+     * 
+     * @param object $user User
+     * 
+     * @return void
+     */
+    protected static function verifyAccountInList($user)
+    {
+        if (!isset($user->cat_username) || !$user->cat_username) {
+            return;
+        }
+        $account = new User_account();
+        $account->user_id = $user->id;
+        $account->cat_username = $user->cat_username;
+        if (!$account->find(true)) {
+            list($login_target, $cat_username) = explode('.', $account->cat_username, 2);
+            if ($login_target && $cat_username) {
+                $account->account_name = translate(array('text' => $login_target, 'prefix' => 'source_'));
+            } else {
+                $account->account_name = translate('Default');
+            }
+            $account->cat_password = $user->cat_password;
+            $account->home_library = $user->home_library;
+            $account->created = date('Y-m-d h:i:s');
+            $account->insert();
+        } 
+    }
+    
 }
 
 ?>

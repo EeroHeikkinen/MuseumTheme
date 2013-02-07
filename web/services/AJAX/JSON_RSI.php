@@ -53,6 +53,9 @@ class JSON_RSI extends JSON
         //<SFX server>:<port>/<sfx_instance>/cgi/core/rsi/rsi.cgi
         global $configArray;
 
+        if (!isset($configArray['OpenURL']['url'])) {
+            return $this->output(array(), JSON::STATUS_OK);
+        }
         $sfxUrl = $configArray['OpenURL']['url'] . "/cgi/core/rsi/rsi.cgi";
         $metalib = new MetaLib();
         $indexEngine = SearchObjectFactory::initSearchObject()->getIndexEngine();

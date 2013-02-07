@@ -70,7 +70,7 @@
     <div class="resultItemLine2">
       {if !empty($summAuthor)}
       {translate text='by'}:
-      <a href="{$url}/Author/Home?author={$summAuthorForSearch|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
+      <a href="{$url}/Search/Results?lookfor={$summAuthorForSearch|escape:"url"}&amp;type=Author">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       {/if}
       {if $summDate}{translate text='Published'}: {$summDate.0|escape}{/if}
       {if $summPublicationEndDate} - {if $summPublicationEndDate != 9999}{$summPublicationEndDate}{/if}{/if}
@@ -84,7 +84,7 @@
       {if $summInCollection}
         {foreach from=$summInCollection item=InCollection key=cKey}
           <div>
-            <b>{translate text="in_collection_label"}</b>
+            {translate text="in_collection_label"}
             <a class="collectionLinkText" href="{$path}/Collection/{$summInCollectionID[$cKey]|urlencode|escape:"url"}?recordID={$summId|urlencode|escape:"url"}">
                {$InCollection}
             </a>
@@ -93,7 +93,7 @@
       {else}
           {if !empty($summContainerTitle)}
           <div>
-            <b>{translate text='component_part_is_part_of'}:</b>
+            {translate text='component_part_is_part_of'}:
             {if $summHierarchyParentId}
               <a href="{$url}/Record/{$summHierarchyParentId.0|escape:"url"}">{$summContainerTitle|escape}</a>
             {else}
@@ -106,7 +106,8 @@
     </div>
 
     <div class="resultItemLine3">
-      {if !empty($summSnippetCaption)}<strong>{translate text=$summSnippetCaption}:</strong>{/if}
+      {if !empty($summSnippetCaption)}
+        {translate text=$summSnippetCaption}: {/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       {if $summDedupData}
         <span class="tiny">
@@ -123,7 +124,7 @@
         <strong>{translate text='Located'}:</strong> *} <span class="ajax_availability hide" id="location{$summId|escape}"> </span>
         <div class="hide" id="locationDetails{$summId|escape}"></div>
       {elseif !empty($summCallNo)}
-        <strong>{translate text='Call Number'}:</strong> {$summCallNo|escape}
+        {translate text='Call Number'}: {$summCallNo|escape}
       {/if}
       </div>
 
@@ -141,7 +142,7 @@
           {/if}
           <div class="resultContentList">
           {foreach from=$summURLs key=recordurl item=urldesc}
-          <a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="_blank" title="{$recordurl|escape}">{if $recordurl == $urldesc}{$recordurl|truncate_url|escape}{else}{$urldesc|escape}{/if}</a>
+          <a href="{$recordurl|proxify|escape}" class="fulltext" target="_blank" title="{$recordurl|escape}">{if $recordurl == $urldesc}{$recordurl|truncate_url|escape}{else}{$urldesc|translate_prefix:'link_'|escape}{/if}</a>
           {/foreach}
           </div>
         </div>
@@ -197,7 +198,7 @@
       {foreach from=$summHierarchy key=hierarchyID item=hierarchyTitle}
       <div class="hierarchyTreeLink">
         <input type="hidden" value="{$hierarchyID|escape}" class="hiddenHierarchyId" />
-        <a id="hierarchyTree{$summId|escape}" class="hierarchyTreeLinkText" href="{$path}/Record/{$summId|escape:"url"}/HierarchyTree?hierarchy={$hierarchyID}#tabnav" title="{if $coreShortTitle}{$coreShortTitle|truncate:150:"&nbsp;..."|urlencode}{else}{translate text="hierarchy_tree"}{/if}">
+        <a id="hierarchyTree{$summId|escape}" class="hierarchyTreeLinkText" href="{$url}/Record/{$summId|escape:"url"}/HierarchyTree?hierarchy={$hierarchyID}#tabnav" title="{if $coreShortTitle}{$coreShortTitle|truncate:150:"&nbsp;..."|urlencode}{else}{translate text="hierarchy_tree"}{/if}">
           {if count($summHierarchy) == 1}
             {translate text="hierarchy_view_context"}
           {else}

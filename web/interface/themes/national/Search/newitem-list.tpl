@@ -1,5 +1,17 @@
+<!-- START of: Search/newitem-list.tpl -->
+
 {* Main Listing *}
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div id="topFacets" class="authorbox">
+  {* Recommendations *}
+  {if $topRecommendations}
+    {foreach from=$topRecommendations item="recommendations"}
+      {include file=$recommendations}
+    {/foreach}
+  {/if}
+ <div class="clear"></div>
+</div>
+
+<div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
   {if $errorMsg || $infoMsg}
     <div class="messages">
       {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
@@ -7,27 +19,16 @@
     </div>
   {/if}
   {if empty($recordSet)}
-        <p>{translate text="No new item information is currently available."}</p>
+        <p>{translate text="nohit_prefix"} {translate text="nohit_suffix"}</p>
   {else}
-    {* Recommendations *}
-    {if $topRecommendations}
-          {foreach from=$topRecommendations item="recommendations"}
-            {include file=$recommendations}
-          {/foreach}
-    {/if}
-
     {* Listing Options *}
     <div class="resulthead">
-      <div class="span-12">
-        {if $recordCount}
-          {translate text="Showing"}
-          <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-          {translate text='of'} <strong>{$recordCount}</strong>
-          {translate text='New Items'}
-        {/if}
-      </div>
-
-      <div class="span-5 last">
+      <h3 style="margin:0;">{translate text='New Items'}</h3>
+      <div>{if $range == 1}{translate text='Yesterday'}{else}{translate text='Past'} {$range|escape} {translate text='Days'}{/if}</div>
+ 
+      {include file="Search/paging.tpl" position="Top"}
+ 
+      <div class="floatright small resultOptions">
         <div class="limitSelect"> 
           {if $limitList|@count gt 1}
             <form action="{$path}/Search/LimitResults" method="post">
@@ -61,7 +62,7 @@
       {$pageContent}
     {/if}
 
-    {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+    {include file="Search/paging.tpl"}
       
     <div class="searchtools">
       <strong>{translate text='Search Tools'}:</strong>
@@ -73,7 +74,7 @@
 {* End Main Listing *}
 
 {* Narrow Search Options *}
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div id="sidebarFacets" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   {if $sideRecommendations}
     {foreach from=$sideRecommendations item="recommendations"}
       {include file=$recommendations}
@@ -83,3 +84,5 @@
 {* End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Search/newitem-list.tpl -->

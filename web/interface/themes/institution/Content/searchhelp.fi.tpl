@@ -1,13 +1,14 @@
 <!-- START of: Content/searchhelp.fi.tpl -->
 
-<h1 style="margin-left: 1em;">Hakuohje</h1>
-<ul class="HelpMenu">
+<h1>Hakuohje</h1>
+<ul class="pageMenu">
   <li><a href="#Wildcard Searches">Jokerimerkit</a></li>
   <li><a href="#Fuzzy Searches">Sumeat haut</a></li>
   <li><a href="#Proximity Searches">Etäisyyshaut</a></li>
   <li><a href="#Range Searches">Arvovälihaut</a></li>
   <li><a href="#Boosting a Term">Termin painottaminen</a></li>
   <li><a href="#Boolean operators">Boolean-hakuoperaattorit</a></li>
+  <li><a href="#Phrase searches">Fraasihaut</a></li>
   <li><h5>Tarkennettu haku</h5></li>
   <li><a href="#Search Fields">Hakukentät</a></li>
   <li><a href="#Search Groups">Hakuryhmät</a></li>
@@ -116,6 +117,13 @@
         <pre class="code">NOT economics</pre>
         <p><strong>NOT</strong>-operaattorin voi korvata operaattorilla <strong>-</strong>. </p>
       </dd>
+      <dt><a name="Phrase searches"></a>Fraasihaut</dt>
+      <dd>
+        <p>Tarkan fraasihaun voi tehdä kirjoittamalla hakusanat lainausmerkkeihin.</p>
+        <p>Esimerkki: etsitään vain tietueita, joissa on termi "keskiajan historia", ei esimerkiksi "keskiajan kulttuurihistoria":</p>
+        <pre class="code">"keskiajan historia"</pre>
+        <p>Fraasihakua voi käyttää myös yksittäisen hakusanan kohdalla, jolloin haku kohdistuu vain annettuun hakusanaan, eikä esimerkiksi muihin taivutusmuotoihin.</p>
+      </dd>
     </dl>
   </dd>
 </dl>
@@ -172,7 +180,7 @@
   </dd>
 </dl>
 
-<p style="margin-top: 3em;"><a href="{$path}">&laquo; Etusivulle</a></p>
+<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 </div>
 
 <!-- END of: Content/searchhelp.fi.tpl -->

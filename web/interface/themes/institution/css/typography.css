@@ -18,7 +18,7 @@ body {
  * reference: modularscale.com
  * 3:4 - perfect fourth
  * ===========================
- * px		em      %
+ *  px      em      %
  * ----    -----   -------
  * 26.055  2.004   200.423
  * 23.100  1.777   177.692
@@ -31,19 +31,19 @@ body {
  * ===========================
 */
 .tiny {
-	font-size: .75em;
-	line-height: 1.4em;
+    font-size: .75em;
+    line-height: 1.4em;
 }
 h6, .small, small {
-	font-size: .846em;
-	line-height: 1.4em;
-	letter-spacing: .002em;
+    font-size: .846em;
+    line-height: 1.4em;
+    letter-spacing: .002em;
 }
 h5, .normal {
-	font-size: 1em;
-	line-height: 1.5em;
+    font-size: 1em;
+    line-height: 1.5em;
 }
-h4, .big, #searchForm_input, #searchForm_searchButton {
+h4, .big, #searchFormLabel, #searchForm_input, #searchForm_searchButton {
     font-size: 1.128em;
     line-height: 1.4em;
 }
@@ -114,10 +114,10 @@ body {
 }
 
 /* Selection colors (easy to forget). The values might need a go-through... */
-::selection 	 	{ background: #bbddff; }
-::-moz-selection 	{ background: #bbddff; }
-img::selection 		{ background: transparent; }
-img::-moz-selection	{ background: transparent; }
+::selection         { background: #bbddff; }
+::-moz-selection    { background: #bbddff; }
+img::selection      { background: transparent; }
+img::-moz-selection { background: transparent; }
 body { -webkit-tap-highlight-color: #bbddff; }
 
 

@@ -9,7 +9,7 @@
 
         <div class="mapInfoResultText">
         <a href="{$url}/Record/{$record.id|escape:"url"}">{$record.title|truncate:65}</a><br/>
-        {translate text="by"} <a href="{$url}/Author/Home?author={$record.author|escape:"url"}">{$record.author|truncate:63}</a>
+        {translate text="by"} <a href="{$url}/Search/Results?lookfor={$record.author|escape:"url"}&amp;type=Author">{$record.author|truncate:63}</a>
         </div>
 
       </div>

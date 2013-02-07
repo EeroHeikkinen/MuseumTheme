@@ -1,7 +1,7 @@
 <!-- START of: Content/searchhelp.sv.tpl -->
 
-<h1 style="margin-left: 1em;">Söktips</h1>
-<ul class="HelpMenu">
+<h1>Söktips</h1>
+<ul class="pageMenu">
   <li><a href="#Wildcard Searches">Jokertecken</a></li>
   <li><a href="#Fuzzy Searches">Suddig sökning</a></li>
   <li><a href="#Proximity Searches">Avståndssökning</a></li>
@@ -166,7 +166,7 @@
     <p><i>Kombinera sökgrupper med <strong>Alla grupper (AND)</strong>.</i></p>
   </dd>
 </dl>
-<p style="margin-top: 3em;"><a href="{$path}">&laquo; Hem</a></p>
+<p style="margin-top: 3em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 </div>
 
 <!-- END of: Content/searchhelp.sv.tpl -->

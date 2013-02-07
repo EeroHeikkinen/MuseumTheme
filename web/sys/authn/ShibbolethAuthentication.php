@@ -79,9 +79,22 @@ class ShibbolethAuthentication implements Authentication
             }
         }
 
+        // Store logout url for HAKA logout
+        if (isset($configArray['Shibboleth']['logout_attribute']) 
+            && isset($_SERVER[$configArray['Shibboleth']['logout_attribute']])
+        ) {
+            $logoutUrl = $_SERVER[$configArray['Shibboleth']['logout_attribute']];
+            if (isset($configArray['Shibboleth']['logout'])) {
+                $logoutUrl = $configArray['Shibboleth']['logout'] . '?return=' . urlencode($logoutUrl);
+            }            
+            $_SESSION['logoutUrl'] = $logoutUrl;
+        } elseif (isset($configArray['Shibboleth']['logout'])) {
+            $logoutUrl = $configArray['Shibboleth']['logout'];
+            $_SESSION['logoutUrl'] = $logoutUrl;
+        }
         $user = new User();
         $user->authMethod = 'Shibboleth';
-        $user->username = $_SERVER[$this->_userAttributes['username']];
+        $user->username = (isset($configArray['Site']['institution']) ? $configArray['Site']['institution'] . ':' : '') . $_SERVER[$this->_userAttributes['username']];
         $userIsInVufindDatabase = $this->_isUserInVufindDatabase($user);
 
         // Has the user configured attributes to use for populating the user table?

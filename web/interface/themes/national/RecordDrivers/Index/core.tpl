@@ -1,13 +1,24 @@
-<div class="span-6">
+<!-- START of: RecordDrivers/Index/core.tpl -->
+
+<div id="recordMetadata">
+    
   {* Display Title *}
-  <h1>{$coreShortTitle|escape}
-  {if $coreSubtitle}{$coreSubtitle|escape}{/if}
-  {if $coreTitleSection}{$coreTitleSection|escape}{/if}
-  {* {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
+  <h1 class="recordTitle">{$coreShortTitle|escape}{if $coreSubtitle}&nbsp;: {$coreSubtitle|escape}{/if}
+  {* {if $coreTitleSection} / {$coreTitleSection|escape}{/if}
+  {if $coreTitleStatement}{$coreTitleStatement|escape}{/if} *}
   </h1>
   {* End Title *}
 
-  {* Display Cover Image *}
+  {if !empty($coreRecordLinks)}
+  <div class="recordLinks">
+    {foreach from=$coreRecordLinks item=coreRecordLink}
+      {translate text=$coreRecordLink.title}:
+      <a href="{$coreRecordLink.link|escape}">{$coreRecordLink.value|escape}</a>
+    {/foreach}
+  </div>
+  {/if}
+
+  {* Display Cover Image, commented out since already in view.tpl
   {if $coreThumbMedium}
     {if $coreThumbLarge}<a href="{$coreThumbLarge|escape}">{/if}
       <img alt="{translate text='Cover Image'}" class="recordcover" src="{$coreThumbMedium|escape}"/>
@@ -15,14 +26,30 @@
   {else}
     <img src="{$path}/bookcover.php" class="recordcover" alt="{translate text='No Cover Image'}"/>
   {/if}
-  {* End Cover Image *}
+  End Cover Image *}
 
-  {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape} <a href='{$url}/Record/{$id|escape:"url"}/Description#tabnav'>{translate text='Full description'}</a></p>{/if}
+  {* Summary, commented out since it exists in extended.tpl 
+  {if $coreSummary}<p>{$coreSummary|truncate:300:"..."|escape}</p>{/if}
+  *}
 
   {* Display Main Details *}
   <table cellpadding="2" cellspacing="0" border="0" class="citation" summary="{translate text='Bibliographic Details'}">
+    {if !empty($coreContainerTitle)}
+    <tr valign="top" class="recordContainerReference">
+      <th>{translate text='component_part_is_part_of'}:</th>
+      <td>
+      {if $coreHierarchyParentId}
+        <a href="{$url}/Record/{$coreHierarchyParentId[0]|escape:"url"}/ComponentParts">{$coreContainerTitle|escape}</a>
+      {else}
+        {$coreContainerTitle|escape}
+      {/if}
+      {if !empty($coreContainerReference)}{$coreContainerReference|escape}{/if}
+      </td>
+    </tr>
+    {/if}
+
     {if !empty($coreNextTitles)}
-    <tr valign="top">
+    <tr valign="top" class="recordNextTitles">
       <th>{translate text='New Title'}: </th>
       <td>
         {foreach from=$coreNextTitles item=field name=loop}
@@ -33,7 +60,7 @@
     {/if}
 
     {if !empty($corePrevTitles)}
-    <tr valign="top">
+    <tr valign="top" class="recordPrevTitles">
       <th>{translate text='Previous Title'}: </th>
       <td>
         {foreach from=$corePrevTitles item=field name=loop}
@@ -43,51 +70,95 @@
     </tr>
     {/if}
 
-    {if !empty($coreMainAuthor)}
-    <tr valign="top">
-      <th>{translate text='Main Author'}: </th>
-      <td><a href="{$url}/Author/Home?author={$coreMainAuthor|escape:"url"}">{$coreMainAuthor|escape}</a></td>
-    </tr>
-    {/if}
-
-    {if !empty($coreCorporateAuthor)}
-    <tr valign="top">
-      <th>{translate text='Corporate Author'}: </th>
-      <td><a href="{$url}/Author/Home?author={$coreCorporateAuthor|escape:"url"}">{$coreCorporateAuthor|escape}</a></td>
-    </tr>
-    {/if}
-
-    {if !empty($coreContributors)}
-    <tr valign="top">
-      <th>{translate text='Other Authors'}: </th>
+    {if !empty($coreOtherLinks)}
+    {foreach from=$coreOtherLinks item=coreOtherLink}
+    <tr valign="top" class="recordOtherLink">
+      <th>{translate text=$coreOtherLink.heading prefix='link_'}:</th>
       <td>
-        {foreach from=$coreContributors item=field name=loop}
-          <a href="{$url}/Author/Home?author={$field|escape:"url"}">{$field|escape}</a>{if !$smarty.foreach.loop.last}, {/if}
+        {if $coreOtherLinks.isn}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {else}
+        <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">
+            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+        </a>
+        {/if}
+      </td>
+    </tr>
+    {/foreach}    
+    {/if}
+
+    {if $coreNonPresenterAuthors}
+    <tr valign="top" class="recordAuthors">
+      <th>{translate text='Authors'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$coreNonPresenterAuthors item=field name=loop}
+          <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if $corePresenters.presenters or $corePresenters.details}
+    <tr valign="top" class="recordPresenters">
+      <th>{translate text='Presenters'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$corePresenters.presenters item=field name=loop}
+          <a href="{$url}/Search/Results?lookfor={$field.name|escape:"url"}&amp;type=Author">{$field.name|escape}{if $field.role}, {$field.role|escape}{/if}</a>{if !$smarty.foreach.loop.last} ; {/if}
+      {/foreach}
+      {foreach from=$corePresenters.details item=detail name=loop}
+          <br />
+          {$detail|escape}
+      {/foreach}        
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreAlternativeTitles)}
+    <tr valign="top" class="recordAltTitles">
+      <th>{translate text='Other Titles'}: </th>
+      <td>
+        {foreach from=$coreAlternativeTitles item=field name=loop}
+          {$field|escape}{if !$smarty.foreach.loop.last}; {/if}
         {/foreach}
       </td>
     </tr>
     {/if}
 
-    <tr valign="top">
+    <tr valign="top" class="recordFormat">
       <th>{translate text='Format'}: </th>
       <td>
-       {if is_array($recordFormat)}
-        {foreach from=$recordFormat item=displayFormat name=loop}
-          <span class="iconlabel {$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat}</span>
-        {/foreach}
-      {else}
-        <span class="iconlabel {$recordFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$recordFormat}</span>
-      {/if}
+        {if is_array($recordFormat)}
+          {assign var=mainFormat value=$recordFormat.0} 
+          {assign var=displayFormat value=$recordFormat|@end} 
+        {else}
+          {assign var=mainFormat value=$recordFormat} 
+          {assign var=displayFormat value=$recordFormat} 
+        {/if}
+        <span class="iconlabel format{$mainFormat|lower|regex_replace:"/[^a-z0-9]/":""} format{$displayFormat|lower|regex_replace:"/[^a-z0-9]/":""}">{translate text=$displayFormat prefix='format_'}</span>
+        {if !empty($extendedPhysical)}
+          {assign var=extendedContentDisplayed value=1}
+          {foreach from=$extendedPhysical item=field name=loop}
+            <br/>{$field|escape}
+          {/foreach}
+        {/if}
       </td>
     </tr>
 
-    <tr valign="top">
+    {if $recordLanguage}
+    <tr valign="top" class="recordLanguage">
       <th>{translate text='Language'}: </th>
-      <td>{foreach from=$recordLanguage item=lang}{$lang|escape}<br/>{/foreach}</td>
+      <td>{foreach from=$recordLanguage item=lang}{translate text=$lang prefix='facet_'}<br/>{/foreach}</td>
     </tr>
+    {/if}
 
     {if !empty($corePublications)}
-    <tr valign="top">
+    <tr valign="top" class="recordPublications">
       <th>{translate text='Published'}: </th>
       <td>
         {foreach from=$corePublications item=field name=loop}
@@ -96,9 +167,36 @@
       </td>
     </tr>
     {/if}
+    
+    {if !empty($coreProjectedPublicationDate)}
+    <tr valign="top" class="coreProjectedPublicationDate">
+      <th>{translate text='Projected Publication Date'}: </th>
+      <td>
+        {$coreProjectedPublicationDate}
+      </td>
+    </tr>
+    {/if}
+
+    {if $coreDissertationNote}
+    <tr valign="top" class="coreDissertationNote">
+      <th>{translate text='Dissertation Note'}: </th>
+      <td>
+        {$coreDissertationNote}
+      </td>
+    </tr>
+    {/if}
+    
+    {if !empty($coreManufacturer)}
+    <tr valign="top" class="recordManufacturer">
+      <th>{translate text='Manufacturer'}: </th>
+      <td>
+        {$coreManufacturer|escape}
+      </td>
+    </tr>
+    {/if}
 
     {if !empty($coreEdition)}
-    <tr valign="top">
+    <tr valign="top" class="recordEdition">
       <th>{translate text='Edition'}: </th>
       <td>
         {$coreEdition|escape}
@@ -108,7 +206,7 @@
 
     {* Display series section if at least one series exists. *}
     {if !empty($coreSeries)}
-    <tr valign="top">
+    <tr valign="top" class="recordSeries">
       <th>{translate text='Series'}: </th>
       <td>
         {foreach from=$coreSeries item=field name=loop}
@@ -132,16 +230,44 @@
     {/if}
 
     {if !empty($coreSubjects)}
-    <tr valign="top">
+    <tr valign="top" class="recordSubjects">
       <th>{translate text='Subjects'}: </th>
       <td>
+        <div class="truncateField">
         {foreach from=$coreSubjects item=field name=loop}
         <div class="subjectLine">
           {assign var=subject value=""}
           {foreach from=$field item=subfield name=subloop}
             {if !$smarty.foreach.subloop.first} &gt; {/if}
-            {assign var=subject value="$subject $subfield"}
+            {if $subject}
+              {assign var=subject value="$subject $subfield"}
+            {else}
+              {assign var=subject value="$subfield"}
+            {/if}
             <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|escape}</a>
+          {/foreach}
+        </div>
+        {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+
+    {if !empty($coreGenres)}
+    <tr valign="top" class="recordGenres">
+      <th>{translate text='Genre'}: </th>
+      <td>
+        {foreach from=$coreGenres item=field name=loop}
+        <div class="subjectLine">
+          {assign var=subject value=""}
+          {foreach from=$field item=subfield name=subloop}
+            {if !$smarty.foreach.subloop.first} &gt; {/if}
+            {if $subject}
+              {assign var=subject value="$subject $subfield"}
+            {else}
+              {assign var=subject value="$subfield"}
+            {/if}
+            <a title="{$subject|escape}" href="{$url}/Search/Results?lookfor=%22{$subject|escape:"url"}%22&amp;type=Subject" class="subjectHeading">{$subfield|translate|escape}</a>
           {/foreach}
         </div>
         {/foreach}
@@ -149,30 +275,79 @@
     </tr>
     {/if}
 
-    {if !empty($coreURLs) || $coreOpenURL}
-    <tr valign="top">
-      <th>{translate text='Online Access'}: </th>
+    {if !empty($coreClassifications)}
+    <tr valign="top" class="recordClassifications">
+      <th>{translate text='Classification'}: </th>
       <td>
-        {foreach from=$coreURLs item=desc key=currentUrl name=loop}
-          <a href="{if $proxy}{$proxy}/login?qurl={$currentUrl|escape:"url"}{else}{$currentUrl|escape}{/if}">{$desc|escape}</a><br/>
-        {/foreach}
-        {if $coreOpenURL}
-          {include file="Search/openurl.tpl" openUrl=$coreOpenURL}<br/>
-        {/if}
+        <div class="truncateField">
+        {* This is a single-line mess due to Smarty otherwise adding spaces *}
+        {foreach from=$coreClassifications key=class item=field name=loop}{if !$smarty.foreach.loop.first}, {/if}{foreach from=$field item=subfield name=subloop}{if !$smarty.foreach.subloop.first}, {/if}{$class|escape} {$subfield|escape}{/foreach}{/foreach}
+        </div>
       </td>
     </tr>
     {/if}
 
+    {if $extendedMetadata}
+      {include file=$extendedMetadata}
+    {/if}
+
+    {if $coreComponentPartCount > 0 && !$hasContainedComponentParts}
+    <tr valign="top" class="recordComponentParts">
+      <th>{translate text='component_part_count_label'} </th>
+      <td>
+        {translate text='component_part_count_prefix'} <a href="{$url}/Search/Results?lookfor={$id|escape:"url"}&amp;type=hierarchy_parent_id">{$coreComponentPartCount|escape} {translate text='component_part_count_suffix'}</a>
+      </td>
+    </tr>
+    {/if}
+
+    {assign var="idPrefix" value=$id|substr:0:8}
+    {if !empty($coreURLs) || $coreOpenURL || $idPrefix == 'metalib_'}
+    {*<tr valign="top" class="recordURLs">
+      <th>{translate text='Online Access'}: </th>
+      <td>
+        {foreach from=$coreURLs item=desc key=currentUrl name=loop}
+          <a href="{$currentUrl|proxify|escape}" target="_blank">{$desc|translate_prefix:'link_'|escape}</a><br/>
+        {/foreach}
+        {if $coreOpenURL}
+          {include file="Search/openurl.tpl" openUrl=$coreOpenURL}
+          {include file="Search/rsi.tpl"}
+          {include file="Search/openurl_autocheck.tpl"}
+        {/if}
+        {if $idPrefix == 'metalib_'}
+          <span class="metalib_link">
+            <span id="metalib_link_{$id|escape}" class="hide"><a href="{$path}/MetaLib/Home?set=_ird%3A{$id|regex_replace:'/^.*?\./':''|escape}">{translate text='Search in this database'}</a></span>
+            <span id="metalib_link_na_{$id|escape}" class="hide">{translate text='metalib_not_authorized_single'}<br/></span>
+          </span>
+        {/if}
+      </td>
+    </tr>*}
+    {/if}
+    
+    {*
     {if !empty($coreRecordLinks)}
     {foreach from=$coreRecordLinks item=coreRecordLink}
-    <tr valign="top">
+    <tr valign="top" class="recordLinks">
       <th>{translate text=$coreRecordLink.title}: </th>
       <td><a href="{$coreRecordLink.link|escape}">{$coreRecordLink.value|escape}</a></td>
     </tr>
     {/foreach}
     {/if}
-
-    <tr valign="top">
+    *}
+    
+    {if $toc}
+    <tr valign="top" class="recordTOC">
+      <th>{translate text='Table of Contents'}: </th>
+      <td>
+        <div class="truncateField">
+      {foreach from=$toc item=line}
+        {$line|escape}<br />
+      {/foreach}
+        </div>
+      </td>
+    </tr>
+    {/if}
+    
+    <tr valign="top" class="recordTags">
       <th>{translate text='Tags'}: </th>
       <td>
         <span style="float:right;">
@@ -184,7 +359,7 @@
           <a href="{$url}/Search/Results?tag={$tag->tag|escape:"url"}">{$tag->tag|escape:"html"}</a> ({$tag->cnt}){if !$smarty.foreach.tagLoop.last}, {/if}
             {/foreach}
           {else}
-            {translate text='No Tags'}, {translate text='Be the first to tag this record'}!
+            {translate text='No Tags'}
           {/if}
         </div>
       </td>
@@ -201,22 +376,22 @@
   </div>
 
   {if $showPreviews && (!empty($holdingLCCN) || !empty($isbn) || !empty($holdingArrOCLC))}
-    {if $showGBSPreviews}
-      <div class="previewDiv">
+    {if $googleOptions}
+      <div class="googlePreviewDiv__{$googleOptions}">
         <a title="{translate text='Preview from'} Google Books" class="hide previewGBS{if $isbn} ISBN{$isbn}{/if}{if $holdingLCCN} LCCN{$holdingLCCN}{/if}{if $holdingArrOCLC} OCLC{$holdingArrOCLC|@implode:' OCLC'}{/if}" target="_blank">
           <img src="https://www.google.com/intl/en/googlebooks/images/gbs_preview_button1.png" alt="{translate text='Preview'}"/>
         </a>
       </div>
     {/if}
-    {if $showOLPreviews}
-      <div class="previewDiv">
+    {if $olOptions}
+      <div class="olPreviewDiv__{$olOptions}">
         <a title="{translate text='Preview from'} Open Library" href="" class="hide previewOL{if $isbn} ISBN{$isbn}{/if}{if $holdingLCCN} LCCN{$holdingLCCN}{/if}{if $holdingArrOCLC} OCLC{$holdingArrOCLC|@implode:' OCLC'}{/if}" target="_blank">
           <img src="{$path}/images/preview_ol.gif" alt="{translate text='Preview'}"/>
         </a>
       </div>
     {/if}
-    {if $showHTPreviews}
-      <div class="previewDiv">
+    {if $hathiOptions}
+      <div class="hathiPreviewDiv__{$hathiOptions}">
         <a title="{translate text='Preview from'} HathiTrust" class="hide previewHT{if $isbn} ISBN{$isbn}{/if}{if $holdingLCCN} LCCN{$holdingLCCN}{/if}{if $holdingArrOCLC} OCLC{$holdingArrOCLC|@implode:' OCLC'}{/if}" target="_blank">
           <img src="{$path}/images/preview_ht.gif" alt="{translate text='Preview'}"/>
         </a>
@@ -227,3 +402,5 @@
 </div>
 
 <div class="clear"></div>
+
+<!-- END of: RecordDrivers/Index/core.tpl -->

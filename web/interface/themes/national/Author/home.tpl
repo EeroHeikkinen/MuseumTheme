@@ -1,4 +1,6 @@
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<!-- START of: Author/home.tpl -->
+
+<div id="authorList" class="{if $sidebarOnLeft} push-3 last{/if}">
   {if $info}
     <div class="authorbio">
       <h2>{$info.name|escape}</h2>
@@ -23,18 +25,12 @@
 
   {* Listing Options *}
   <div class="resulthead">
-    <div class="floatleft">
       {if $recordCount}
-        {translate text="Showing"}
-        <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-        {translate text='of'} <strong>{$recordCount}</strong>
-        {translate text='for search'}: <strong>'{$authorName|escape:"html"}'</strong>,
+        <h3 style="margin: 0;">'{$authorName|escape:"html"}'</h3>
       {/if}
-      {translate text='query time'}: {$qtime}s
+    {include file="Search/paging.tpl" position="Top"}
 
-    </div>
-
-    <div class="floatright">
+    <div class="floatright small">
       <div class="viewButtons">
       {if $viewList|@count gt 1}
         {foreach from=$viewList item=viewData key=viewLabel}
@@ -75,7 +71,7 @@
     {$pageContent}
   {/if}
 
-  {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+  {include file="Search/paging.tpl"}
 
   <div class="searchtools">
     <strong>{translate text='Search Tools'}:</strong>
@@ -85,7 +81,7 @@
 </div>
   
 {* Recommendations *}
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div id="sidebarRecommend" class="{if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   {if $sideRecommendations}
     {foreach from=$sideRecommendations item="recommendations"}
       {include file=$recommendations}
@@ -95,3 +91,5 @@
 {* End Recommendations *}
 
 <div class="clear"></div>
+
+<!-- END of: Author/home.tpl -->

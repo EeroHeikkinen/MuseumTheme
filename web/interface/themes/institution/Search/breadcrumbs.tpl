@@ -1,7 +1,7 @@
 <!-- START of: Search/breadcrumbs.tpl -->
 
 {if $searchId}
-<em>{translate text="Search"}: {$lookfor|escape:"html"}</em>
+<em>{translate text="Search"}{if $lookfor}: {$lookfor|escape:"html"}{/if}</em>
 {elseif $pageTemplate=="newitem.tpl" || $pageTemplate=="newitem-list.tpl"}
 <em>{translate text="New Items"}</em>
 {elseif $pageTemplate=="tagcloud-home.tpl"}

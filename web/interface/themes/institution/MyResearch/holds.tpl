@@ -22,16 +22,17 @@
     {if $cancelCallSlipResults.count > 0}
       <div class="holdsMessage"><p class="info">{$cancelCallSlipResults.count|escape} {translate text="call_slip_cancel_success_items"}</p></div>
     {/if}
+    <span class="hefty">{translate text='Holds and Recalls'}</span>
   </div>
-  <span class="hefty">{translate text='Holds and Recalls'}</span>
-  <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
     {if $cancelForm && $recordList}
+  <form name="cancelForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelHold">
     <div class="bulkActionButtons">
-        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
+        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes" name="selectAll" id="addFormCheckboxSelectAll" /></div>
         <div class="floatright">
-          <input type="submit" class="button holdCancel" name="cancelSelected" value="{translate text="hold_cancel_selected"}" onClick="return confirm('{translate text="confirm_hold_cancel_selected_text}')" />
-          <input type="submit" class="button holdCancelAll" name="cancelAll" value="{translate text='hold_cancel_all'}" onClick="return confirm('{translate text="confirm_hold_cancel_all_text}')" />
+          <input type="submit" class="button holdCancel" name="cancelSelected" value="{translate text="hold_cancel_selected"}" onclick="return confirm('{translate text="confirm_hold_cancel_selected_text}')" />
+          <input type="submit" class="button holdCancelAll" name="cancelAll" value="{translate text='hold_cancel_all'}" onclick="return confirm('{translate text="confirm_hold_cancel_all_text}')" />
         </div>
+        <div class="clear"></div>
       </div>
     {/if}
 
@@ -57,7 +58,7 @@
 				{if $img_count > 0}
 					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img id="thumbnail_{$summId|escape:"url"}" src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
 				{else}
-					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" alt="{translate text='No Cover Image'}"/></a></div>
 				{/if}
 			
 			{* Multiple images *}
@@ -71,15 +72,6 @@
 			  </div>
 			{/if}
 			</div>
-          {*
-          <div class="coverDiv">
-            {if $resource.isbn.0}
-              <img src="{$path}/bookcover.php?isn={$resource.isbn.0|@formatISBN}&amp;size=small" class="summcover" alt="{translate text='Cover Image'}"/>
-            {else}
-              <img src="{$path}/bookcover.php" class="summcover" alt="{translate text='No Cover Image'}"/>
-            {/if}
-          </div>
-          *}
           <div class="resultColumn2">
             {* If $resource.id is set, we have the full Solr record loaded and should display a link... *}
             {if !empty($resource.id)}
@@ -93,7 +85,7 @@
             {/if}
             <br/>
             {if $resource.author}
-              {translate text='by'}: <a href="{$url}/Author/Home?author={$resource.author|escape:"url"}">{$resource.author|escape}</a><br/>
+              {translate text='by'}: <a href="{$url}/Search/Results?lookfor={$resource.author|escape:"url"}&amp;type=Author">{$resource.author|escape}</a><br/>
             {/if}
             {if $resource.tags}
               <strong>{translate text='Your Tags'}:</strong>
@@ -179,21 +171,21 @@
     </form>
     {/if}
     {else}
-      <div style="clear:both;padding-top: 2em;">{translate text='You do not have any holds or recalls placed'}.</div>
+      <div class="noContentMessage">{translate text='You do not have any holds or recalls placed'}.</div>
     {/if}
 
     <div style="clear:both;padding-top: 2em;"></div>
 
   {* Call Slips *}
-  <span class="hefty">{translate text='Call Slips'}</span>
-  <form name="cancelCallSlipForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelCallSlip">
+  <span class="hefty myResearchTitle">{translate text='Call Slips'}</span>
     {if is_array($callSlipList)}
+  <form name="cancelCallSlipForm" action="{$url|escape}/MyResearch/Holds" method="post" id="cancelCallSlip">
 
     <div class="bulkActionButtons">
         <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAllCallSlips" /></div>
         <div class="floatright">
-          <input type="submit" class="button holdCancel" name="cancelSelectedCallSlips" value="{translate text="call_slip_cancel_selected"}" onClick="return confirm('{translate text="confirm_call_slip_cancel_selected_text}')" />
-          <input type="submit" class="button holdCancelAll" name="cancelAllCallSlips" value="{translate text='call_slip_cancel_all'}" onClick="return confirm('{translate text="confirm_call_slip_cancel_all_text}')" />
+          <input type="submit" class="button holdCancel" name="cancelSelectedCallSlips" value="{translate text="call_slip_cancel_selected"}" onclick="return confirm('{translate text="confirm_call_slip_cancel_selected_text}')" />
+          <input type="submit" class="button holdCancelAll" name="cancelAllCallSlips" value="{translate text='call_slip_cancel_all'}" onclick="return confirm('{translate text="confirm_call_slip_cancel_all_text}')" />
         </div>
       </div>
 
@@ -254,7 +246,7 @@
             {/if}
             <br/>
             {if $resource.author}
-              {translate text='by'}: <a href="{$url}/Author/Home?author={$resource.author|escape:"url"}">{$resource.author|escape}</a><br/>
+              {translate text='by'}: <a href="{$url}/Search/Results?lookfor={$resource.author|escape:"url"}&amp;type=Author">{$resource.author|escape}</a><br/>
             {/if}
             {if $resource.tags}
               <strong>{translate text='Your Tags'}:</strong>
@@ -334,7 +326,7 @@
     </ul>
     </form>
     {else}
-      <div style="clear:both;padding-top: 2em;">{translate text='You do not have any holds or recalls placed'}.</div>
+      <div class="noContentMessage">{translate text='You do not have any holds or recalls placed'}.</div>
     {/if}
   {else}
     {include file="MyResearch/catalog-login.tpl"}
@@ -342,6 +334,5 @@
 </div>
 
 <div class="clear"></div>
-</div>
 
 <!-- END of: MyResearch/holds.tpl -->

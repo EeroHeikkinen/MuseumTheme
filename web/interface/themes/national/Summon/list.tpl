@@ -1,6 +1,8 @@
+<!-- START of: Summon/list.tpl -->
+
 {js filename="openurl.js"}
 {* Main Listing *}
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
+<div class="span-10{if $sidebarOnLeft} push-3 last{/if}">
   {* Recommendations *}
   {if $topRecommendations}
     {foreach from=$topRecommendations item="recommendations"}
@@ -12,9 +14,6 @@
   <div class="resulthead">
     <div class="floatleft">
       {if $recordCount}
-        {translate text="Showing"}
-        <strong>{$recordStart}</strong> - <strong>{$recordEnd}</strong>
-        {translate text='of'} <strong>{$recordCount}</strong>
         {if $searchType == 'basic'}{translate text='for search'}: <strong>'{$lookfor|escape:"html"}'</strong>,{/if}
       {/if}
       {translate text='query time'}: {$qtime}s
@@ -27,6 +26,7 @@
       </div>
       {/if}
     </div>
+    {include file="Search/paging.tpl" position="Top"}
 
     <div class="floatright">
       <form action="{$path}/Search/SortResults" method="post">
@@ -49,7 +49,7 @@
     {$pageContent}
   {/if}
 
-  {if $pageLinks.all}<div class="pagination">{$pageLinks.all}</div>{/if}
+  {include file="Search/paging.tpl"}
   <div class="searchtools">
     <strong>{translate text='Search Tools'}:</strong>
     {* TODO: Implement RSS <a href="{$rssLink|escape}" class="feed">{translate text='Get RSS Feed'}</a> *}
@@ -60,7 +60,7 @@
 {* End Main Listing *}
 
 {* Narrow Search Options *}
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+<div class="span-3 {if $sidebarOnLeft}pull-10 sidebarOnLeft{else}last{/if}">
   {if $sideRecommendations}
     {foreach from=$sideRecommendations item="recommendations"}
       {include file=$recommendations}
@@ -71,3 +71,4 @@
 
 <div class="clear"></div>
 
+<!-- END of: Summon/list.tpl -->

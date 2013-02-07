@@ -11,7 +11,9 @@
     <td class="locationColumn">{$item.location|escape}</td>
     <td class="callnumColumn">{$item.callnumber|escape}</td>
     <td class="statusColumn">
-      {if $item.availability}
+      {if $item.use_unknown_message}
+        <span class="unknown">{translate text="status_unknown_message"}</span>
+      {elseif $item.availability}
         <span class="available">{if $item.reserve=='Y'}{translate text="On Reserve"}{else}{translate text="Available"}{/if}</span>
       {else}
         <span class="checkedout">{translate text=$item.status}</span>

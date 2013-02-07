@@ -1,3 +1,5 @@
+<!-- START of: Search/list-grid.tpl -->
+
 {js filename="check_item_statuses.js"}
 {js filename="check_save_statuses.js"}
 {js filename="jquery.cookie.js"}
@@ -5,6 +7,12 @@
 {if $showPreviews}
 {js filename="preview.js"}
 {/if}
+{if $metalibEnabled}
+{js filename="metalib_links.js"}
+{/if}
+
+{include file="Search/rsi.tpl"}
+{include file="Search/openurl_autocheck.tpl"}
 
 <form method="post" name="addForm" action="{$url}/Cart/Home">
 <table style="border-bottom:1px solid #eee;">
@@ -19,3 +27,5 @@
   </tr>
 </table>
 </form>
+
+<!-- END of: Search/list-grid.tpl -->

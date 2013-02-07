@@ -1,0 +1,47 @@
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (moz--min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+    #beta-banner {
+        background: url('../images/beta-overlay@2x.png');
+        background-size: 80px 73px;
+    }
+    .searchHomeLogo {
+        background: url('../images/finna-logo_cyan@2x.png') no-repeat center center;
+        background-size: 125px 165px;
+    }
+    #logo {
+        background: url('../images/finna-logo_small@2x.png');
+        background-size: 190px 60px;
+    }
+    a.clear_input {
+        background: url("../images/clear-searchbar-32x32.png") no-repeat 4px 1px;
+        background-size: 16px 16px;
+    }
+    .dropdown dt a {
+        background: url("../images/dropdown_bg@2x.png") no-repeat scroll right center #DADADA;
+        background-size: 300px 32px;
+    }
+    .searchform #searchForm_searchButton {
+        background: url("../images/searchbox@2x.png");
+        background-size: auto 69px;
+        border: 1px solid #999999;
+        border-left: none;
+        border-radius: 0 6px 6px 0;
+    }
+    .footer .KDK-logo {
+        background: url('../images/kdk-logo_small@2x.png') no-repeat left center;
+        background-size: 60px 31px;
+    }
+    .footer .vufind-logo {
+        background: url('../images/vufind-logo_small@2x.png') no-repeat left center;
+        background-size: 88px 33px;    
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .searchHomeLogo {
+        background: url('../images/finna-logo_cyan-80percent@2x.png') no-repeat center center;
+        background-size: 100px 132px;
+    }
+}

@@ -22,7 +22,7 @@
     {if $addHeader}{$addHeader}{/if}
 
     <title>{$pageTitle|truncate:64:"..."}</title>
-    <link rel="shortcut icon" href="{path filename="images/favicon_line.ico"}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{path filename="images/favicon.ico"}" type="image/x-icon" />
     <link rel="apple-touch-icon-precomposed" href="{path filename="images/apple-touch-icon.png"}" />
 
     {if $module=='Record' && $hasRDF}
@@ -58,6 +58,8 @@
     {css media="screen, projection" filename="480mobilewide.css"}
     {css media="screen, projection" filename="320mobile.css"}
     {css media="screen, projection" filename="settings.css"}
+    {* Load retina style sheet last *}
+    {css media="screen, projection" filename="retina.css"}
     
     {css media="print" filename="print.css"}
     {if $dateRangeLimit}
@@ -66,7 +68,7 @@
     {if $facetList}
       {css media="screen, projection" filename="chosen/chosen.css"}
     {/if}
-    <!--[if lt IE 8]>{css media="screen, projection" filename="ie.css"}<![endif]-->
+    <!--[if lt IE 9]>{css media="screen, projection" filename="ie.css"}<![endif]-->
     <!--[if lt IE 7]>{css media="screen, projection" filename="iepngfix/iepngfix.css"}<![endif]-->
 
     {* Set global javascript variables *}
@@ -100,6 +102,9 @@
     {* Load common javascript functions *}
     {js filename="common.js"}
     
+    {* Load QRCodes *}
+    {js filename="qrcode.js"} 
+
     {* Load dropdown menu modification *}
     {* js filename="dropdown.js" *}
 
@@ -116,13 +121,13 @@ $(document).ready(function() {
   $('.truncateField').collapse({maxLength: 150, more: "{/literal}{translate text="more"}{literal}&nbsp;»", less: "«&nbsp;{/literal}{translate text="less"}{literal}"});
 {/literal}
 {if $mozillaPersona}
-    mozillaPersonaSetup({if $mozillaPersonaCurrentUser}"{$mozillaPersonaCurrentUser}"{else}null{/if});
+    mozillaPersonaSetup({if $mozillaPersonaCurrentUser}"{$mozillaPersonaCurrentUser}"{else}null{/if}, {if $mozillaPersonaAutoLogout}true{else}false{/if});
 {/if}
 {literal}
 });
 {/literal}
-    </script>    
-    
+    </script>
+
     {* **** IE fixes **** *}
     {* Load IE CSS1 background-repeat and background-position fix *}
     <!--[if lt IE 7]>{js filename="../css/iepngfix/iepngfix_tilebg.js"}<![endif]-->
@@ -133,7 +138,7 @@ $(document).ready(function() {
     <![endif]-->
 
     {* For mobile devices *}
-    <meta name="viewport" content="width=device-width, maximum-scale=2"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   </head>
   <body>
@@ -151,8 +156,19 @@ $(document).ready(function() {
     {* End LightBox *}
 
     <div class="container module-{$module}">
-      {* Work-In-Progress disclaimer, remove when appropriate *}
+
+      {* Start BETA BANNER - Remove/comment out when not in beta anymore ===> *}
+      {* <=== Remove/comment out when not in beta anymore - End BETA BANNER *}
+      {if $developmentSite}
       <div class="w-i-p">{translate text="development_disclaimer"}</div>
+      {/if}
+      <!--[If lt IE 8]>
+        <div class="ie">{translate text="ie_disclaimer"}</div>
+      <![endif]-->
+      
+      <div id="beta-wrapper">
+          <a id="beta-banner" href="{$url}{if $module=='MetaLib'}/MetaLib/Home{/if}" title="{translate text="Home"}"></a>
+      </div>
       
       <div class="breadcrumbs">
       {if $showBreadcrumbs}
@@ -176,16 +192,16 @@ $(document).ready(function() {
         </div>
       </div>
 
-      <div class="header{if !$showTopSearchBox}-home{/if}{if $module!='Search'}{$module}{/if} clear">
+      <div class="header{if !$showTopSearchBox}-home{/if} {if $module!='Search'}header{$module}{/if} clear">
         {include file="header.tpl"}
         <div class="clear"></div>
       </div>
       
-      {if !$showTopSearchBox}
+      {* if !$showTopSearchBox}
       <div class="navigationMenu navigationMenu-home">
       {include file="Search/navigation.tpl"} 
       </div>
-      {/if}
+      {/if *}
       
       <div class="main{if !$showTopSearchBox}-home{/if} clear">
         {if $useSolr || $useWorldcat || $useSummon || $useEBSCO || $usePCI || $useMetaLib}
@@ -214,38 +230,18 @@ $(document).ready(function() {
         {/if}
         {include file="$module/$pageTemplate"}
         
-		{if $showTopSearchBox}
-		<div class="navigationMenu">
-		  {include file="Search/navigation.tpl"} 
-		</div>
-		{/if}
+        {* if $showTopSearchBox}
+        <div class="navigationMenu">
+          {include file="Search/navigation.tpl"} 
+        </div>
+        {/if *}
+      </div>
       
         <div class="footer clear">
           {include file="footer.tpl"}
         </div>
 
-      </div>
     </div> {* End doc *}
-{* Google Analytics, commented out - remove when/if not needed *}
-{*
-{literal}    
-<script type="text/javascript">
-  <!--//--><![CDATA[//><!--
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-28376324-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-  //--><!]]>
-</script>
-{/literal}
-*}
 
 {include file="piwik.tpl"}
 {include file="AJAX/keepAlive.tpl"}

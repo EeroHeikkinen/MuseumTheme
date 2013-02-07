@@ -1,26 +1,56 @@
-function loadVis(facetFields, searchParams, baseURL, zooming) {
+function loadVis(facetFields, searchParams, baseURL, zooming, collection, collectionAction) {
+
+    // get current year so we can set that as a limit when drawing the graph
+    var d = new Date();
+    var currentYear = d.getFullYear();
+    
     // options for the graph, TODO: make configurable
     var options = {
         series: {
             bars: {
                 show: true,
-                align: "center",
                 fill: true,
-                fillColor: "rgb(0,0,0)"
+                lineWidth:0,
+                fillColor: "#aaaaaa",
+                shadow:0
             }
         },
-        colors: ["rgba(255,0,0,255)"],
+        colors: ["#00a3b5"],
         legend: { noColumns: 2 },
-        xaxis: { tickDecimals: 0 },
+        xaxis: { 
+            max: currentYear, 
+            tickDecimals: 0, 
+            font :{
+                size: 13,
+                family: "'helvetica neue', helvetica,arial,sans-serif",
+                color:'#000',
+                weight:'bold'
+            }                   
+        },
         yaxis: { min: 0, ticks: [] },
-        selection: {mode: "x"},
-        grid: { backgroundColor: null /*"#ffffff"*/ }
+        selection: {mode: "x", color:'#00a3b5;'},
+        grid: { 
+            backgroundColor: null, 
+            borderWidth:0,
+            axisMargin:0,
+            margin:0
+        }
     };
 
+    var url = baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams;
+    if (typeof collection != 'undefined'){
+    	url+= '&collection=' + collection + '&collectionAction='+ collectionAction;
+    }
     // AJAX call
-    $.getJSON(baseURL + '/AJAX/JSON_Vis?method=getVisData&facetFields=' + encodeURIComponent(facetFields) + '&' + searchParams, function (data) {
+    $.getJSON(url, function (data) {
         if (data.status == 'OK') {
             $.each(data['data'], function(key, val) {
+            	//check if there is data to display, if there isn't hide the box
+            	if(val['data'].length == 0){
+            		$("#datevis" + key + "xWrapper").hide();
+            		return;
+            	}
+            	
                 // plot graph
                 var placeholder = $("#datevis" + key + "x");
 
@@ -83,7 +113,7 @@ function loadVis(facetFields, searchParams, baseURL, zooming) {
                     var newdiv = document.createElement('div');
                     var text = document.getElementById("clearButtonText").innerHTML;
                     newdiv.setAttribute('id', 'clearButton' + key);
-                    newdiv.innerHTML = '<a href="' + val['removalURL'] + '">' + text + '</a>';
+                    newdiv.innerHTML = '<a href="' + val['removalURL'] + '">x</a>';
                     newdiv.className += "dateVisClear";
                     placeholder.append(newdiv);
                 }
@@ -94,17 +124,15 @@ function loadVis(facetFields, searchParams, baseURL, zooming) {
 
 function PadDigits(n, totalDigits) 
 { 
-    if (n <= 0){
-        n= 1;
-    }
-    n = n.toString(); 
-    var pd = ''; 
-    if (totalDigits > n.length) 
-    { 
-        for (i=0; i < (totalDigits-n.length); i++) 
-        { 
-            pd += '0'; 
-        } 
-    } 
-    return pd + n; 
+	var neg = false
+	if (n < 0) {
+		neg = true;
+		n = n.toString().substr(1); 
+	} else {
+		n = n.toString();
+	}
+	while (n.length < totalDigits) {
+		n = '0' + n;
+	}
+    return (neg ? '-' : '') + n; 
 }

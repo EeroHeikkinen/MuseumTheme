@@ -63,9 +63,13 @@ class SessionInterface
             array(get_class($this),'read'), array(get_class($this),'write'),
             array(get_class($this),'destroy'), array(get_class($this),'gc')
         );
+        $sitePath = '/';
         if (isset($configArray['Session']['limit_session_path']) && $configArray['Session']['limit_session_path']) {
-            session_set_cookie_params(0, $configArray['Site']['path']);
+            $sitePath = $configArray['Site']['path'] ? $configArray['Site']['path'] : '/';
         } 
+        $useSecure = isset($configArray['Site']['useHttps']) && $configArray['Site']['useHttps'];
+        session_set_cookie_params(0, $sitePath, '', $useSecure);
+
         session_start();
 
         // According to the PHP manual, session_write_close should always be

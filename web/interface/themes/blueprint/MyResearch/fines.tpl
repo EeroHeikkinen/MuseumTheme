@@ -19,7 +19,7 @@
             {if empty($record.title)}
               {translate text='not_applicable'}
             {else}
-              <a href="{$path}/Record/{$record.id|escape}">{$record.title|trim:'/:'|escape}</a>
+              <a href="{$url}/Record/{$record.id|escape}">{$record.title|trim:'/:'|escape}</a>
             {/if}
           </td>
           <td>{$record.checkout|escape}</td>

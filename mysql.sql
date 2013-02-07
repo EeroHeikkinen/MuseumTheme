@@ -70,6 +70,7 @@ CREATE TABLE `search` (
   `search_object` blob,
   `schedule` int(1) NOT NULL DEFAULT '0',
   `last_executed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `schedule_base_url` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `folder_id` (`folder_id`),
@@ -96,7 +97,7 @@ CREATE TABLE `tags` (
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(30) NOT NULL DEFAULT '',
+  `username` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(32) NOT NULL DEFAULT '',
   `firstname` varchar(50) NOT NULL DEFAULT '',
   `lastname` varchar(50) NOT NULL DEFAULT '',
@@ -194,6 +195,28 @@ CREATE TABLE `oai_resumption` (
   `params` text,
   `expires` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8 COLLATE=utf8_swedish_ci;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_account`
+--
+
+CREATE TABLE `user_account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `account_name` varchar(255) NOT NULL DEFAULT '',
+  `description` varchar(255)  NOT NULL DEFAULT '',
+  `cat_username` varchar(50)  NOT NULL DEFAULT '',
+  `cat_password` varchar(50)  NOT NULL DEFAULT '',
+  `home_library` varchar(100) NOT NULL DEFAULT '',
+  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `saved` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `user_account_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8 COLLATE=utf8_swedish_ci;
 
 

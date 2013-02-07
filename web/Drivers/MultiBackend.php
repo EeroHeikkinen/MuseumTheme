@@ -43,8 +43,7 @@ require_once 'Interface.php';
  */
 class MultiBackend implements DriverInterface
 {
-    protected $defaultDriver = '';
-    protected $drivers = array();
+    protected $config = null;
     
     /**
      * Constructor
@@ -54,32 +53,33 @@ class MultiBackend implements DriverInterface
     public function __construct()
     {
         // Load Configuration for this Module
-        $configArray = parse_ini_file(
-            dirname(__FILE__) . '/../conf/MultiBackend.ini', true
-        );
-
-        $this->defaultDriver = $configArray['General']['defaultDriver'];
-        $this->drivers = $configArray['Drivers'];
+        $this->config = getExtraConfigArray('MultiBackend');
     }
     
     /**
-     * Get the drivers (data source IDs) enabled in MultiBackend
+     * Get the drivers (data source IDs) enabled in MultiBackend for login
      * 
      * @return string[]
      */
-    public function getDrivers()
+    public function getLoginDrivers()
     {
-        return array_keys($this->drivers);
+        $drivers = array();
+        foreach ($this->config as $id => $driver) {
+            if (isset($driver['login']) && $driver['login']) {
+                $drivers[] = $id;
+            }
+        }
+        return $drivers;
     }
 
     /**
-     * Get the default driver (data source ID)
+     * Get the default driver (data source ID) for login
      * 
      * @return string
      */
-    public function getDefaultDriver()
+    public function getDefaultLoginDriver()
     {
-        return $this->defaultDriver;
+        return isset($this->config['General']['defaultLoginDriver']) ? $this->config['General']['defaultLoginDriver'] : $this->config['General']['defaultDriver'];
     }
 
     /**
@@ -190,7 +190,7 @@ class MultiBackend implements DriverInterface
      */
     public function getNewItems($page, $limit, $daysOld, $fundId = null)
     {
-        $driver = $this->getDriver($this->defaultDriver);
+        $driver = $this->getDriver($this->config['General']['defaultDriver']);
         if ($driver) {
             return $driver->getNewItems($page, $limit, $daysOld, $fundId);
         }
@@ -212,7 +212,7 @@ class MultiBackend implements DriverInterface
      */
     public function findReserves($course, $inst, $dept)
     {
-        $driver = $this->getDriver($this->defaultDriver);
+        $driver = $this->getDriver($this->config['General']['defaultDriver']);
         if ($driver) {
             return $driver->findReserves($course, $inst, $dept);
         }
@@ -255,12 +255,13 @@ class MultiBackend implements DriverInterface
      */
     public function patronLogin($username, $password)
     {
-        if (isset($_SESSION['logins'][$username])) {
-            return unserialize($_SESSION['logins'][$username]);
+        $hash = md5($username . $password);
+        if (isset($_SESSION['logins'][$hash])) {
+            return unserialize($_SESSION['logins'][$hash]);
         }
         $source = $this->getSource($username);
         if (!$source) {
-            $source = $this->defaultDriver;
+            $source = $this->getDefaultLoginDriver();
         }
         $driver = $this->getDriver($source);
         if ($driver) {
@@ -735,6 +736,7 @@ class MultiBackend implements DriverInterface
                 'HMACKeys' => 'id'
             );
         case 'Renewals':
+        case 'CallSlips':
             return Array();
         default:
             error_log("MultiBackend: unhandled getConfig function: '$function'");
@@ -786,8 +788,8 @@ class MultiBackend implements DriverInterface
     protected function getDriver($source)
     {
         $source = strtolower($source);
-        if (isset($this->drivers[$source])) {
-            $driver = $this->drivers[$source];
+        if (isset($this->config[$source])) {
+            $driver = $this->config[$source]['driver'];
             try {
                 include_once "{$driver}.php";
                 return new $driver("{$driver}_{$source}.ini");

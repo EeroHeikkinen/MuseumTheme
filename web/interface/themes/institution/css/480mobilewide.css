@@ -6,12 +6,23 @@
 cols    1     2      3      4      5      6
 px      62    136    210    284    358    432   */
 
-@media only screen and (min-width: 320px) and (max-width: 767px) {
+@media only screen and (min-width: 480px) and (max-width: 767px) {
 
     body, .container, #searchFormHeader,
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
-    .homeCustomContent, #resultList, #sidebarFacets, #resultMain, #authorList {
+    .homeCustomContent, #authorList {
         width: 480px;
+    }
+
+    #resultList, #resultMain, ul.recordSet, .loginForm .separator,
+    .loginForm .separatorSmall, .loginForm .loginDescription, #sidebarFacets,
+    #resultsCollection, .collectionDetails .paginationTop, 
+    #headingHierarchyCollection, #hierarchyCollection {
+        width: 468px;
+    }
+
+    .resultHead, #sidebarFavoritesLists, #sidebarRecommend, #sidebarCollection {
+        width: 468px;
     }
 
     body {
@@ -19,9 +30,13 @@ px      62    136    210    284    358    432   */
     }
 
     .w-i-p {
-        font-size: 11px;
+        margin: 0;
         padding: 0 6px;
         width: 468px;
+    }
+
+    .w-i-p {
+        font-size: 11px;
     }
 
     .container {
@@ -36,11 +51,15 @@ px      62    136    210    284    358    432   */
         padding: 0;
     }
     div.searchHomeContent {
-        padding: 3em 0 0;
+        padding: 2em 0 0;
     }
-    div.searchHomeLogo img {
-        width:70%;
-        margin: 0 auto;
+    .searchHomeLogo {
+        background: url("../images/finna-logo_cyan-80percent.png") no-repeat scroll center center transparent;
+        height: 132px;
+        margin: 0 auto 2em;
+    }
+    #logo {
+        margin: 0 143px 21px;
     }
     div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm {
         margin: 0 auto;
@@ -72,13 +91,28 @@ px      62    136    210    284    358    432   */
         -moz-border-radius: 0 6px 6px 0;
         -webkit-border-radius: 0 6px 6px 0;
     }
+    #searchForm_searchButton:hover {
+        background: url("../images/searchbox.png") no-repeat scroll -260px -38px transparent;
+        color: #333333;
+}
+
+    .searchbox .dropdown dd p {
+        font-size: 1em;
+        line-height: 1em;
+    }
     .advanced-link-wrapper {
-        margin-bottom: .6em;
+        margin: .2em 0 .6em;
     }
 
     .keepFilters {
         padding-bottom: .5em;
     }
+    .searchContextHelp {
+        width: 432px;
+    }
+    
+    
+    
 
     .homeNavigation ul li {
         display: block;
@@ -91,38 +125,119 @@ px      62    136    210    284    358    432   */
     .navigationMenu ul li a {
         padding: 6px 0 0;
     }
+    .mainContent {
+        margin: 0 18px;
+        width: 444px;
+    }
     .homeCustomContent {
         padding: 0 0 2em;
     }
     .homeCustomContent .homeCustomCol1 {
         margin: 0;
-        padding: 0 12px;
-        width: 456px;
+        padding: 0 18px;
+        width: 444px;
     }
     .homeCustomContent .homeCustomCol2 {
         clear: left;
         float: none;
         margin: 0;
-        padding: 1em 12px;
-        width: 456px;
+        padding: 1em 18px;
+        width: 444px;
     }
     .homeCustomContent .homeCustomCol2 ul {
+/*
         margin: 0 auto;
         width: 360px;
+*/
     }
     .homeCustomContent .homeCustomCol2 ul li {
         float: left;
-        margin: 0.5em 0 0.5em 40px;
+        margin: 0.5em 0 0.5em 6px;
         width: 140px;
     }
     
+    .module-Content .main {
+        padding-left: 0;
+    }    
+/*
+    .module-Content .mainContent {
+        width: 456px;
+        margin-left: 0;
+    }
+*/
+    .module-Content .pageMenu, .module-Feedback .pageMenu {
+        margin: 0;
+    }
+    .module-Content .helpMenu {
+        margin-top: 1em;
+    }
+
+
+    form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select {
+        margin-bottom: 1em;
+    }
+    form#feedbackForm input[type="text"] {
+        width: 456px;
+    }
+    form#feedbackForm input[type="submit"] {
+        margin: 1.5em 43% 0 0;
+    }
+    form#feedbackForm textarea {
+        display: block;
+        margin-bottom: 0;
+        width: 462px;
+    }
+
+    .myResearch {
+        margin-top: 1em;
+    }
+    .module-MyResearch .account,
+    .module-MyResearch .resultHead,
+    .module-MyResearch #sidebarFavoritesLists,
+    .module-MyResearch .myResearchTitle,
+    .module-MyResearch .paginationTop, 
+    .module-MyResearch .myResearchMenu,
+    .module-Search .myResearchMenu,
+    .module-MyResearch .noContentMessage {
+        margin: 0 2px;
+    }
+    .favoritesList {
+        width: 468px;
+    }
+    .account, .favoritesList .bulkActionButtons .floatright {
+        width: 400px;
+    }
+    .main .loginForm, .loginForm .loginDescription {
+        margin: 0;
+    }
+    .myResearch .dueDate {
+        float: none;
+        clear: both;
+        margin: 0 0 0 106px;
+        width: 346px;
+    }
+    .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons,
+    .profileInfo {
+        margin: 0 0 1.5em;
+    }
+    .finesList table.fines {
+        margin: 0 0 1.5em -8px;
+    }
+    .profileInfo {
+        width: 444px;
+    }
+    .finesList table tr td:first-child {
+        padding: 2px 0 2px 4px;
+        text-indent: 0;
+    }
+
     .main-home .footer, .footer {
         font-size: 1em;
-        padding: .2em 0 0;
+        padding: .4em 0 0;
     }
     #footerCol1, #footerCol2, #footerCol3 {
-        padding: 0 12px;
-        width: 132px;
+        padding: 0 18px;
+        width: 124px;
     }
     #footerCol4 {
         clear: left;
@@ -130,42 +245,60 @@ px      62    136    210    284    358    432   */
         margin: 0 auto;
         padding-top: 2em;
         width: 285px;
-    }    
+    }
+    
+    ul.similar {
+        padding-right: 0;
+    }
+    .footer ul a, ul.similar a {
+        line-height: 1.25em;
+        padding: 0.5em 0;
+    }
+    .footer ul li, ul.similar li {
+        margin: 0.5em 0;
+    }  
 
-
+    .resulthead {
+        padding-left: 4px;
+    }
     #topPubDateVis {
-        width: 450px;
+        width: 456px;
     }
     #topFacets {
-        width: 470px;
+        margin-top: .6em;
+        padding: 0;
+        width: 468px;
     }
     #suggestedTopics {
-        width: 456px;
-        margin: 0 12px .6em;
+        width: 452px;
+        margin: 0 0 .6em;
     }
-    .pagination {
+    span.dynatree-node .facetTitle {
+        max-width: 450px;
+    }
+    .pagination, searchtools {
         margin: 0;
-        padding: .5em 12px;
-        width: 275px;
+        padding: 13px 8px;
+    }
+    .pagination a {
+        margin-left: 0;
     }
     .paginationTop {
         padding: .5em 0;
     }
+    
+    .resulthead {
+        padding-left: 6px;
+    }
     .resultOptions {
         margin: 0;
-        padding: .1em 0;
+        padding: .2em 0 0 0;
     }
     #sort_options_1 {
         width: 10em;
     }
     ul.recordSet {
-        padding: 0 12px;
-    }
-    ul.recordSet li.result {
-        padding: 13px 1px 13px 13px;
-    }
-    ul.recordSet li.result:hover {
-        padding: 12px 0 12px 12px;
+        padding: 0;
     }
     ul.recordSet .resultColumn1 {
         width: 136px;
@@ -186,7 +319,7 @@ px      62    136    210    284    358    432   */
        width: auto;
     }
     ul.recordSet .resultColumn2 {
-        width: 246px;
+        width: 274px;
     }
     ul.recordSet .addToFavLink {
         clear: none;
@@ -200,7 +333,7 @@ px      62    136    210    284    358    432   */
 
     .searchtools {
         margin: 0;
-        padding: .4em 0 0 12px;
+        padding: .4em 0 0 6px;
     }
 
     #sidebarFacets {
@@ -208,13 +341,16 @@ px      62    136    210    284    358    432   */
         margin: 0;
         border-top: 1px solid #dddddd;
     }
-    #sidebarFacets .sidegroup {
+    div.sidegroup {
         border-left: none;
-        padding-left: 12px;
+        padding: 0 8px 0 10px;
     }
-
-
-
+    #sidebarCollection div.sidegroup{
+        margin: 0 0 1em;
+    }
+    .resultLinks {
+        margin-top: .5em;
+    }
     .backToResults {
         margin-left: 10px;
         width: 180px;
@@ -224,8 +360,9 @@ px      62    136    210    284    358    432   */
         margin-left: 0;
     }
     #resultSide {
-        width: 432px;
+        width: 460px;
         margin-right: 0;
+        margin-left: 10px
     }
     .coverImages {
         width: 210px;
@@ -246,8 +383,8 @@ px      62    136    210    284    358    432   */
         margin-right: 0;
     }
     #recordMetadata, #dyntabnav, #resultSidebar {
-        width: 456px;
-        padding: 0 12px;
+        width: 462px;
+        padding: 0 4px;
     }
 
     #resultSidebar .sidegroup {
@@ -257,16 +394,44 @@ px      62    136    210    284    358    432   */
     }
     #resultSidebar ul li {
         width: 136px;
-        margin-right:0;
+        margin: 0 .5em;
         display: inline-block;
         vertical-align: top;
     }
 
-    #hierarchyTree {
-        overflow: auto;
-        width: 441px;
+    #resultsCollection div.record, #headingHierarchyCollection div.record {
+        margin: 0;
     }
 
+    .hierarchyTreeLink {
+        display: none;
+    }
+    #hierarchyTreeHolder {
+        width: 466px;
+        padding-bottom: 0;
+    }
+    #hierarchyTree {
+        overflow: auto;
+        width: 459px;
+    }
+    #toggleTree {
+        background-position: .5em .25em;
+        padding: .25em 0 0 2em;
+    }
+    #treeSearch {
+        margin-top: .4em;
+    }
+
+    #hierarchyRecord {
+        width: 456px;
+    }
+    #collectionItemsHeader {
+        display: none;
+    }
+    .collectionDetails .collectionSortSelector {
+        margin-top: .2em;
+    }
+    
     .jstree ins {
         display: none;
     }
@@ -274,4 +439,25 @@ px      62    136    210    284    358    432   */
         font-size: .9em;
     }
 
+    .main, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .groupSearchHolder .label, .groupSearchHolder .join {
+        width: 95px;
+    }
+    .groupSearchHolder .advRow .field {
+        padding-left: 110px;
+    }
+    .advSearchContent .searchButton {
+        margin-right: 2.5em;
+    }
+
+    .mapContainer {
+        width: 433px;
+    }
 }

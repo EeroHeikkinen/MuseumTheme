@@ -131,7 +131,6 @@ class HoldLogicTitle
     {
         $any_available = false;
         $addlink = false;
-        $anyHoldable = false;
 
         $data = array(
             'id' => $id,
@@ -159,12 +158,14 @@ class HoldLogicTitle
             } elseif ($type == "item_holdability") {
 
                 $holdings = $this->catalog->getHolding($id);
+                $allHoldable = true;
                 foreach ($holdings as $holding) {
-                    if ($holding['is_holdable']) {
-                        $anyHoldable = true;
+                    if (!isset($holding['is_holdable']) || !$holding['is_holdable']) {
+                        $allHoldable = false;
+                        break;
                     }
                 }
-                $addlink = $anyHoldable;
+                $addlink = $holdings && $allHoldable;
             }
                 
             if ($addlink) {

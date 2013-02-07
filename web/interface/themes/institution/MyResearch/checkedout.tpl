@@ -10,7 +10,6 @@
     {if $infoMsg}<p class="info">{$infoMsg|translate}{if $showExport} <a class="save" target="_new" href="{$showExport|escape}">{translate text="export_save"}</a>{/if}</p>{/if}
     </div>
   {/if}
-  </div>
   {if $user->cat_username}
     <span class="hefty">{translate text='Your Checked Out Items'}</span>
     {if $blocks}
@@ -18,34 +17,26 @@
         <p class="info">{translate text=$block}</p>
       {/foreach}
     {/if}
-    <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
+  </div>
     {if $transList}
 
       {if $renewForm}
+    <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
       
     <div class="bulkActionButtons">
-        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes floatleft" name="selectAll" id="addFormCheckboxSelectAll" /></div>
+        <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes" name="selectAll" id="addFormCheckboxSelectAll" /></div>
         <div class="floatright">
           <input type="submit" class="button renew" name="renewSelected" value="{translate text="renew_selected"}" />
           <input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" />
         </div>
-     </div>       
-      {*
-      <div class="floatright">
-      <form name="renewals" action="{$url}/MyResearch/CheckedOut" method="post" id="renewals">
-        <div class="toolbar">
-          <ul>
-            <li><input type="submit" class="button renew" name="renewSelected" value="{translate text="renew_selected"}" /></li>
-            <li><input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" /></li>
-          </ul>
-        </div>
-    </div>*}
+        <div class="clear"></div>
+    </div>       
       {/if}
 
       {if $errorMsg}
-        <p class="error">{translate text=$errorMsg}</p>
+      <p class="error">{translate text=$errorMsg}</p>
       {/if}
-      <div class="clear"></div>
+    <div class="clear"></div>
   
 
     <ul class="recordSet">
@@ -75,7 +66,7 @@
 				{if $img_count > 0}
 					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img id="thumbnail_{$summId|escape:"url"} src="{$summThumb|escape}" class="summcover" alt="{translate text='Cover Image'}"/></a></div>
 				{else}
-					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" /></a></div>
+					<div class="resultImage"><a href="{$url}/Record/{$resource.id|escape:"url"}"><img src="{$path}/images/NoCover2.gif" width="62" height="62" alt="{translate text='No Cover Image'}"/></a></div>
 				{/if}
 			
 			{* Multiple images *}
@@ -111,7 +102,7 @@
             {/if}
             <br/>
             {if $resource.author}
-              {translate text='by'}: <a href="{$url}/Author/Home?author={$resource.author|escape:"url"}">{$resource.author|escape}</a><br/>
+              {translate text='by'}: <a href="{$url}/Search/Results?lookfor={$resource.author|escape:"url"}&amp;type=Author">{$resource.author|escape}</a><br/>
             {/if}
             {if $resource.tags}
               {translate text='Your Tags'}:
@@ -190,9 +181,7 @@
     {include file="MyResearch/catalog-login.tpl"}
   {/if}
 </div>
-</div>
 
 <div class="clear"></div>
-</div>
 
 <!-- END of: MyResearch/checkedout.tpl -->

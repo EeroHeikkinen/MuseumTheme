@@ -1,11 +1,8 @@
-<div class="span-18{if $sidebarOnLeft} push-5 last{/if}">
-  {* Recommendations *}
-  {if $topRecommendations}
-    {foreach from=$topRecommendations item="recommendations"}
-      {include file=$recommendations}
-    {/foreach}
-  {/if}
-  <div class="resulthead"><h3>{translate text='nohit_heading'}</h3></div>
+<!-- START of: Search/list-none.tpl -->
+
+<div class="{if $sidebarOnLeft}last {/if}no-hits">
+  <div class="contentHeader noResultHeader"><div class="content"><h1>{translate text='nohit_heading'}</h1></div></div>
+  <div class="content">
   <p class="error">{translate text='nohit_prefix'} - <strong>{$lookfor|escape:"html"}</strong> - {translate text='nohit_suffix'}</p>
 
   {if $parseError}
@@ -19,17 +16,31 @@
     {/foreach}
   </div>
   {/if}
-</div>
 
-  
-{* Narrow Search Options *}
-<div class="span-5 {if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
+  {* Recommendations *}
+  {if $topRecommendations}
+    {foreach from=$topRecommendations item="recommendations"}
+      {include file=$recommendations}
+    {/foreach}
+  {/if}
+
+  {if $noResultsRecommendations}
+    {foreach from=$noResultsRecommendations item="recommendations" key='key' name="noResults"}
+      {include file=$recommendations}
+    {/foreach}
+  {/if}
+</div>
+</div>
+{* Narrow Search Options, commented out for now
+<div class="{if $sidebarOnLeft}pull-18 sidebarOnLeft{else}last{/if}">
   {if $sideRecommendations}
     {foreach from=$sideRecommendations item="recommendations"}
       {include file=$recommendations}
     {/foreach}
   {/if}
 </div>
-{* End Narrow Search Options *}
+End Narrow Search Options *}
 
 <div class="clear"></div>
+
+<!-- END of: Search/list-none.tpl -->

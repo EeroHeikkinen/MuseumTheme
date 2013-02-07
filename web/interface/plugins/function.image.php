@@ -83,6 +83,9 @@ function smarty_function_image($params, &$smarty)
 
     // We found the file -- build the tag:
     $params['src'] = $image;
+    if (!$params['alt']) {
+        $params['alt'] = "";
+    }
     if (isset($params['alt']) && $params['alt']) {
         $params['alt'] = translate($params['alt']);
     }
@@ -90,6 +93,6 @@ function smarty_function_image($params, &$smarty)
         $params['title'] = translate($params['title']);
     }
     array_walk($params, create_function('&$v, $k', '$v="$k=\"$v\"";'));
-    return '<img ' . implode(' ', $params) . '></img>';
+    return '<img ' . implode(' ', $params) . ' />';
 }
 ?>

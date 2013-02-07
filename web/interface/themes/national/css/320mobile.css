@@ -6,11 +6,509 @@
 cols    1     2      3      4
 px      62    136    210    284    */
 
-@media only screen and (max-width: 767px) {
-
-    body {
-        width: 284px;
-        padding: 0 18px 36px;
+@media only screen and (max-width: 479px) {
+/*
+    body, .container, div.searchFormHome,
+    .homeCustomContent .homeCustomCol1, .homeCustomContent .homeCustomCol2,
+    #topFacets, #resultList, #sidebarFacets {
+        width: 320px;
+    }
+*/    
+    body, .container, #searchFormHeader,
+    div.searchHomeForm div.searchform #searchForm, div.searchform #searchForm,
+    .homeCustomContent, #resultList, #sidebarFacets, #resultMain, #authorList, #resultsCollection, #headingHierarchyCollection, #hierarchyCollection {
+        width: 320px;
     }
 
+    body {
+        padding: 0 0 36px 0;
+    }
+
+    .w-i-p, .mainContent {
+        margin: 0;
+        padding: 0 4px;
+        width: 312px;
+    }
+
+    .w-i-p {
+        font-size: 11px;
+    }
+
+    .container {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: none/*1px solid #dddddd;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px*/;
+    }
+    div.searchHomeContent {
+        padding: 3em 0 0 0;
+    }
+    #logoHeader {
+        width: 320px;
+        margin: 0;
+    }
+    #logo {
+        margin: 18px auto;
+    }
+    #searchFormHeader {
+        padding-top: 1em;
+        width: 320px;
+    }
+    div.searchHomeForm div.searchform,
+    div.searchHomeForm div.searchform #searchForm,
+    div.searchform, div.searchform #searchForm {
+        width: 235px;
+        margin: 0 auto;
+    }
+    form#searchForm {
+        padding: 0;
+    }
+    .searchHomeForm #searchForm_input, #searchForm_input {
+        background: none #ffffff;
+        border: 1px solid #999999; 
+/*
+        background-position: -2px -3px;
+        border-right: 1px solid #999999;
+*/
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+    }
+    .searchHomeForm div.styled_select, div.styled_select {
+/*
+        padding-left: 30px;
+*/
+    }
+    .searchHomeForm #searchForm_searchButton, #searchForm_searchButton {
+        background: url("../images/searchbutton_bg.png") transparent;
+        background-position: top right;
+        border: none;
+        color: #555555;
+        cursor: pointer;
+        height: 34px;
+        width: 59px;
+        margin-left: 0;
+        border-radius: 0 6px 6px 0;
+        -moz-border-radius: 0 6px 6px 0;
+        -webkit-border-radius: 0 6px 6px 0;
+    }
+    .dropdown dt a {
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+    .searchbox .dropdown dd p {
+        font-size: 1em;
+        line-height: 1em;
+    }
+    .ui-autocomplete {
+        max-width: 228px;
+    }
+    .advancedLink, .metalibLink {
+        display: inline-block;
+        padding: 1em 0;
+        width: 75px;
+    }
+    .advancedLink {
+        display:inline-block;
+        padding-top: .9em;
+        float: left;
+    }
+    .showSearchHelp {
+        padding: 1em 1em 1em 0;
+        float: right;
+    }
+    .searchContextHelp {
+        width: 192px;
+    }
+    
+    .navigationMenu-home {
+        padding: 1em 0;
+    }    
+    .homeNavigation ul li {
+        display: block;
+        margin: 0;
+        border-bottom: 1px solid #eee;
+    }
+    .navigationMenu ul {
+        padding-bottom: 8px;
+    }
+    .navigationMenu ul li a {
+        padding: 8px 0 0;
+    }
+    .homeCustomContent {
+        padding: 0 0 2em;
+    }
+    .homeCustomContent .homeCustomCol1 {
+        font-size: .846em;
+        margin: 0;
+        padding: 0 14px;
+        width: 292px;
+    }
+    .homeCustomContent .homeCustomCol2 {
+        clear: left;
+        float: none;
+        margin: 0;
+        padding: 1em 14px;
+        width: 292px;
+    }
+    .homeCustomContent .homeCustomCol2 ul {
+        margin: 0 auto;
+        width: auto;
+    }
+    .homeCustomContent .homeCustomCol2 ul li {
+        float: left;
+        margin: 0.5em 0 0.5em 10px;
+        width: 136px;
+    }
+
+    .module-Content .main {
+        padding-left: 0;
+    }
+    .module-Content .mainContent {
+        width: 298px;
+        margin-left: 0;
+    }
+    .module-Content dl.Content pre {
+       width: 274px;
+    }
+    .module-Content .helpMenu {
+        margin-top: 1em;
+    }
+
+
+    form#feedbackForm input, form#feedbackForm textarea, form#feedbackForm select {
+        margin-bottom: 1em;
+    }
+    form#feedbackForm input[type="text"] {
+        width: 300px;
+    }
+    form#feedbackForm input[type="submit"] {
+        margin: 1em 43% 0 0;
+    }
+    form#feedbackForm textarea {
+        display: block;
+        margin-bottom: 0;
+        width: 306px;
+    }
+
+
+   .module-MyResearch .account,
+   .module-MyResearch .resultHead,
+   .module-MyResearch #sidebarFavoritesLists,
+   .module-MyResearch .myResearchTitle,
+   .module-MyResearch .paginationTop, 
+   .module-MyResearch .myResearchMenu,
+   .module-Search .myResearchMenu,
+   .module-MyResearch .finesList,
+   .module-MyResearch .profile,
+   .module-MyResearch .noContentMessage {
+        margin: 0 4px;
+        padding-top: 1em;
+    }
+    .favoritesList {
+        width: 320px;
+    }
+    .favoritesList .bulkActionButtons .floatright {
+        width: 280px;
+    }
+    .favoritesList .bulkActionButtons {
+        height: auto;
+    }
+    .module-MyResearch ul.recordSet .resultCheckbox {
+        margin-left: 0;
+    }
+    .module-MyResearch ul.recordSet .resultColumn2 {
+        width: 180px;
+    }
+    .module-MyResearch ul.recordSet .editItem {
+        display: none;
+    }
+    .myResearch .dueDate {
+        float: none;
+        clear: both;
+        margin: 0 0 0 106px;
+        width: 194px;
+    }
+    .profileInfo {
+        line-height: 1em;
+        width: 312px;
+    }
+    .profileInfo span {
+        float: left;
+        margin-left: 12px;
+        width: 304px;
+    }
+    .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo {
+        margin: 0;
+    }
+    .finesList table tr td:first-child {
+        padding: 2px 0 2px 4px;
+        text-indent: 0;
+    }
+    
+    .main-home .footer, .footer {
+        font-size: 1em;
+        padding: .4em 0;
+    }
+    #footerCol1 {
+        margin-left: 20px;
+        padding: 0;
+        width: 140px;
+    }
+    
+    #footerCol2 {
+        margin-left: 20px;
+        padding: 0;
+        width: 140px;
+    }
+    
+    #footerCol3 {
+        clear: left;
+        margin-left: 20px;
+        padding: 0;
+        width: 140px;
+    }
+    
+    #footerCol4, #footerCol5, #footerCol6 {
+        clear: left;
+        margin-left: 20px;
+        padding: 0 0 20px 0;
+        width: 140px;
+    }
+    
+    /*#footerCol4 {
+        clear: left;
+        float: none;
+        margin: 0 auto;
+        padding-top: 1em;
+        width: 280px;
+    }*/
+    
+       
+    .footer ul a, ul.similar a {
+        line-height: 1.25em;
+        padding: 0.5em 0;
+    }
+    .footer ul li, ul.similar li {
+        margin: 0.5em 0;
+    }
+
+
+
+    #topPubDateVis {
+        width: 296px;
+    }
+    #topFacets {
+        width: 310px;
+    }
+    #suggestedTopics {
+        width: 296px;
+        margin: 0 12px .5em;
+    }
+    .pagination {
+        margin: 0;
+/*
+        padding: .5em 12px;
+        width: 275px;
+*/
+    }
+    .paginationTop {
+        padding: .5em 0;
+    }
+    .resultOptions {
+        margin: 0;
+        padding: .4em 4px 1em;
+    }
+    ul.recordSet li.result {
+        padding: 7px 1px 9px 9px;
+    }
+    ul.recordSet li.result:hover {
+        padding: 6px 0 8px 8px;
+    }
+
+    ul.recordSet .resultColumn1 {
+        width: 62px;
+        margin-left: 0;
+    }
+
+    .coverDiv {
+        padding-top: .3em;
+    }
+    .summcover {
+        max-width: 62px;
+    }
+
+    .resultNoImage{
+        height: 60px;
+        width: 60px;
+    }
+
+    .resultImage {
+        margin: -120px 0 0;
+        width: 62px;
+    }
+    .result .imagelinks {
+        padding: 5px 0 0 5px;
+    }
+    ul.recordSet .resultColumn1 .resultItemFormat {
+       width: 20px;
+       overflow:hidden;
+    }
+    ul.recordSet .resultColumn2 {
+        width: 204px;
+    }
+
+    /*ul.recordSet .addToFavLink {
+        clear: both;
+        float: left;
+        left: 20.7em;
+        position: relative;
+        top: .5em
+        margin-top: -2.2em;
+    }*/
+    ul.recordSet .addToFavLink a {
+/*
+        margin-top: -1.6em;
+*/
+    }
+    .recordPresenters a {
+        display: inline-block;
+    }
+    #sidebarFacets {
+        float:left;
+        margin: 0;
+        border-top: 1px solid #dddddd;
+    }
+    #sidebarFacets .sidegroup {
+        border-left: none;
+        padding-right: 20px;
+    }
+    span.dynatree-node .facetTitle {
+        max-width: 240px;
+    }
+    
+    
+    .backToResults {
+        margin: 0 1em 0 10px;
+        width: auto;
+    }
+    .resultscroller {
+        margin-left: 0px;
+        float: right;
+    }
+    .resultscroller .nextRecord, .resultscroller .prevRecord  {
+        margin: 0;
+        padding: 6px 12px;
+    }
+    .resultNav {
+        display: none;
+    }
+    #resultSide {
+        width: 284px;
+        margin-right: 0;
+    }
+    .coverImages {
+        width: 300px;
+        margin-left: 10px;
+        float: left;
+    }
+    .recordcover {
+        max-width: 300px;
+    }
+    .record .toolbar {
+        width: 320px;
+        float: left;
+        margin-bottom: 1em;
+    }
+    #qrcode {
+        display: none;
+    }
+    
+    #resultMain {
+        width: 284px;
+        margin-right: 0;
+    }
+    #tagList {
+        width: 62px;
+    }
+    #recordMetadata {
+        width: 296px;
+        float: none;
+        padding-left: 12px;
+    }
+    #dyntabnav {
+        width: 300px;
+        margin-left: 10px;
+    }
+    #dyntabnav .ui-tabs-nav li {
+        overflow: hidden;
+    }
+    #dyntabnav .citation th {
+        width: 8em;
+    }
+    #resultSidebar {
+        width: 300px;
+        margin-right: 10px;
+    }
+    #resultSidebar .sidegroup {
+        border-top: 2px solid #dddddd;
+        border-left: none;
+        padding: 10px 0 0 0;
+    }
+    #resultSidebar ul li {
+        width: 130px;
+        margin-right: 10px;
+        display: inline-block;
+        vertical-align: top;
+    }
+    #treeSearch #treeSearchText {
+        display: block;
+        float: right;
+        margin: .2em .4em 0 0;
+    }
+    #hierarchyTreeHolder {
+        width: 318px;
+        padding-bottom: 0;
+    }
+    #hierarchyTree {
+        overflow: auto;
+        width: 312px;
+    }
+    #hierarchyRecord {
+        width: 296px;
+    }
+    #collectionItemsHeader {
+        display: none;
+    }
+
+    .jstree ins {
+        display: none;
+    }
+    .jstree li {
+        font-size: .9em;
+    }
+
+    #advancedSearchWrapper, #sliderContainer {
+        padding: 0 6px;
+    }
+
+    .advSearchContent {
+        width: 100%;
+    }
+
+    .advSearchContent .searchButton {
+        margin-right: 1.2em;
+    }
+
+    .groupSearchHolder .label, .groupSearchHolder .join {
+        text-align: left;
+    }
+    .mapContainer {
+        width: 290px;
+    }
+    #zoomSlider {
+        top: 50px;
+    }
+    
 }

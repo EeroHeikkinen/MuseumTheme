@@ -1,13 +1,21 @@
 /****** Homepage ******/
 
-/* temp style until the browse has been figured out to home page */
-.searchHome {margin-bottom: 15em;}
-
-
 .searchHomeContent {
-    padding: 2em 0 5em;
+    padding: 3em 0 3em 0;
     margin: 0 auto;
     text-align: left;
+}
+
+.main-home {              /* Fix for bleeding white background on some mobile */
+    overflow-x: hidden;   /* platforms apparently due to homeFacers.*/
+}
+
+.container .header-home {
+    background:transparent;
+}
+
+.header-home #searchFormHeader {
+    padding-top:290px;
 }
 
 /*** Logo ***/
@@ -15,13 +23,25 @@
 .searchHomeLogo {
     text-align: center;
 }
+.searchHomeLogoMetaLib {
+    background: url("../images/finna-ml-logo_small.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100px;
+    margin: 0 auto 2em auto;
+    text-align: center;
+}
 .searchHomeLogo img {
     display: block;
-    margin: 0 auto 1em auto;
+    margin: 1em auto 1em auto;
 }
 
 
 /** Search Box **/
+
+.searchHome .searchbox {
+    margin: 0;
+}
 
 .searchHomeForm {
 /*
@@ -32,42 +52,42 @@
 */
     margin: 0 auto;
     text-align: left;
+/*
     font-size: 12pt;
+*/
     color: #264409;
 }
 div.searchHomeForm div.searchform {
     float:none;
-    margin:12px auto 0;
+    margin:0 auto;
 }
 div.searchHomeForm div.searchform #searchForm {
-    margin:12px auto 0;
+    width:506px;
+    margin:0 auto;
 }
 
 .searchHomeForm #searchForm_input {
-    background-color: #ffffff;
-    color: #333333;
-    height: 24px;
-    width: 220px;
-    padding: 4px 4px 4px 8px;
-    border: 1px solid #999999;
-    border-right: 0;
-    border-radius: 6px 0 0 6px;
-    -moz-border-radius: 6px 0 0 6px;
-    -webkit-border-radius: 6px 0 0 6px;
+    width: 200px;
 /*
-    -webkit-border-top-left-radius: 6px;
-    -webkit-border-bottom-left-radius: 6px;
+    background: url("../images/searchbox.png") no-repeat scroll -2px -3px transparent;
+    border: none;
+    color: #333333;
+    height: 16px;
+    width: 220px;
+    padding: 10px 4px 8px 8px;
 */
-    behavior: url(css/css3pie/PIE.php); /* for IE */
 }
 .searchHomeForm div.styled_select { /* to get rid of unstylable down-arrow */
+/*
     border-right: 1px solid #969696;
     width: 145px;
     height: 34px;
     overflow: hidden;
     background: none no-repeat right transparent;
+*/
 }
-.searchHomeForm #searchForm_type {
+.searchHomeForm .searchForm_select {
+/*
     background: url("../images/searchselect_bg.png") transparent no-repeat;
     border: none;
     color: #555555;
@@ -75,24 +95,407 @@ div.searchHomeForm div.searchform #searchForm {
     height: 34px;
     width: 169px;
     padding: 8px 9px;
-    -webkit-border-radius: 0; /* to fix round left corners on mac webkit-browsers */
+*/
+/*    -webkit-border-radius: 0;*/ /* to fix round left corners on mac webkit-browsers */
 }
+
+/** Dropdown **/
+.searchHomeForm .dropdown dd, .searchHomeForm .dropdown dt, .searchHomeForm .dropdown ul {
+/*
+    font-size: .9em;
+*/
+}
+
 .searchHomeForm #searchForm_searchButton {
-    background: url("../images/searchbutton_bg.png") transparent;
+/*
+    background: url("../images/searchbox.png") no-repeat scroll -240px -3px transparent;
     border: none;
     color: #555555;
     cursor: pointer;
     height: 34px;
     width: 89px;
     margin-left: 5px;
+*/
 }
 
+.searchHomeForm #searchForm_searchButton:hover {
+/*
+    background: url("../images/searchbox.png") no-repeat scroll -240px -38px transparent;
+    color: #333333;
+*/
+}
 .searchHomeForm a, .searchHomeForm a:hover {
 /*
     color:#264409;
 */
 }
 
+/*** Header text content ***/
+
+.headerHomeContent {
+    margin:30px 0 0;
+    padding:0;
+    line-height: 1.4;
+    width:525px;
+    position:absolute;
+}
+.blurbLine {
+    padding:0 5px 0 7px;
+}
+.headerHomeContent h2, 
+.headerHomeContent h3 {
+    display:inline;
+    background:#4d4d4d;
+    background: url(../images/ribbon_grey.png);
+    box-shadow:0 2px 7px rgba(0, 0, 0, 0.3);
+}
+
+/*** Carousel ***/
+
+#carousel {
+    position:relative;
+    text-align:center;
+    padding:15px 0;
+}
+#carousel .ribbon {
+    margin: 15px 0 0 -5px;
+    overflow:hidden;
+    position: absolute;
+    white-space:nowrap;
+    z-index: 100;
+}
+#carousel .slides_container {
+    text-align:left;
+    width:100%;
+    height:313px;
+    overflow:hidden;
+}
+#carousel .slide ul {
+    margin:0;
+    padding:0;
+}
+#carousel .slide li {
+    position:relative;
+    float:left;
+    height:313px;
+    overflow:hidden;
+    width:230px;
+    margin-left:10px;
+}
+#carousel .slide li:first-child {
+    margin-left:0;
+}
+#carousel .slide img {
+    background:url(../images/beta-overlay.png) no-repeat 0 0 rgba(0,0,0,.1); /* Remove in production */
+    display: block;
+    height: 313px;
+    position:absolute;
+    width: 230px;
+}
+#carousel .slide .pickup-content {
+    background:url(../images/black_75.png) repeat;
+    position:relative;
+    z-index:101;
+    top:253px;
+}
+#carousel .slide .pickup-header {
+    height:60px;
+    font-weight:bold;
+}
+.pickup-header-small {
+    font-size: 0.846em;
+    font-weight:bold;
+}
+#carousel .slide .pickup-header span, #carousel .slide .pickup-header-small span {
+    padding: 10px 12px;
+    display:block;
+}
+#carousel .slide .pickup-text {
+    padding:0 12px 10px;
+    color:#eee;
+    font-size:0.923em;
+}
+#carousel .slide * {
+    color:#fff;
+}
+#carousel .slide a {
+    margin: 0;
+    padding: 8px 0 0;
+    white-space:nowrap;
+    text-decoration:none;
+    font-weight:bold;
+    display: block
+}
+#carousel .slide a:hover {
+    color: #fdf07f;
+    text-decoration:none;
+}
+#carousel .caption {
+    color: #eee;
+    font-style: italic;
+}
+#carousel .slides_container ~ a {
+    background-image:url(../images/carousel_arrows.png);
+    height:24px;
+    width:12px;
+    display:block;
+    z-index:100;
+}
+#carousel .slides_container ~ a.disabled {
+    display:none;
+}
+#carousel a.prev {
+    background-position:0 0;
+    position:absolute;
+    left:-22px;
+    top:143px;
+}
+#carousel a.prev:hover {
+    background-position:0 -24px;
+}
+#carousel a.next {
+    background-position:-12px 0;
+    right:-22px;
+    top:143px;
+    position:absolute;
+}
+#carousel a.next:hover {
+    background-position:-12px -24px;
+}
+#carousel .pagination {
+    display: inline-block;
+    margin: 14px 0 0;
+    padding: 0;
+    text-align: center;
+    width: auto;
+}
+#carousel .pagination ul,
+#carousel .pagination li {
+    padding:0;
+    margin:0;
+    height:6px;
+    width:6px;
+    float:left;
+}
+    
+#carousel .pagination li {
+    margin-right:6px;
+}
+#carousel .pagination a {
+    background-image: url("../images/carousel_arrows.png");
+    background-position:8px 8px;
+    border: 0 none;
+    display: block;
+    height: 6px;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    width: 6px;
+}
+#carousel .pagination .current a {
+    background-position: -2px 8px;
+}
+
+/*** Custom content ***/
+.home-section p {
+    margin-bottom:20px;
+}
+.home-section.columns {
+    background:rgb(216,244,237);
+    overflow:auto;
+}
+.home-section.columns .content {
+    background: #FFFFFF;
+    overflow: auto;
+}
+.home-section.columns .content > div:first-child {
+    background:rgb(216,244,237);
+    float:left;
+    width:520px;
+    padding:10px 40px 30px 0;
+}
+.home-section.first .content > div:first-child {
+    width:480px;
+    padding-right: 80px;
+}
+.home-section.columns.first ul {
+    padding-bottom:30px;
+}
+.home-section span.iconlabel {
+    float:left;
+    padding:0px 0.5em 3px 25px;
+}
+.home-section.columns .content > div {
+    background:#fff;
+    float:right;
+    width:310px;
+    padding:10px 40px 30px;
+}
+.home-section.columns ul {
+    padding:0;
+    float:left;
+    margin:0;
+    width:155px;
+}
+.home-section.columns ul li {
+    padding-bottom:3px;
+}
+.home-section.second {
+    background:#808080;
+}
+.home-section.third {
+    background:#e1eff4;
+}
+.home-section.third .content {
+    background:#E1EFF4;
+    overflow:hidden;
+}
+.home-section.first .content {
+    overflow:hidden;
+}
+.home-section.columns.third .content > div:first-child {
+    background:#e1eff4;
+    height:auto;
+    width:auto;
+}
+.home-section.columns.third .content > div,
+.home-section.columns.first .content > div {
+    padding-bottom: 500px; /* Make floated divs seem equally long */
+    margin-bottom: -500px; /* Note: parent element must be overflow:hidden */
+}
+.home-section.third ul:first-child {
+    margin-left:0;
+}
+.home-section.third ul {
+    width:230px;
+    margin-left:10px;
+    font-size: 1.1em;
+}
+.home-section.third li span {
+    padding:6px 0 10px;
+    display:block;
+}
+.home-section.third li span:first-child {
+    background: url("../images/circle.png") no-repeat scroll 0 0 transparent;
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 6px;
+    padding: 0;
+    text-align: center;
+    width: 31px;
+}
+.home-section.third li {
+    display:block;
+    clear:both;
+    margin-bottom:5px;
+    line-height:15px;
+}
+.home-section.columns.third .content > div {
+    height:294px;
+    padding: 0 0px 500px;
+    width:390px;
+}
+.home-section.columns.third .content .popularSearchesWrap{
+    padding-top: 10px;
+}
+.home-section.columns.third #popularSearches .loading {
+    background: url("../images/ajax_loading.gif") no-repeat scroll 0 0 transparent;
+    height: 20px;
+    width: 20px;
+}
+.home-section.third .mapSearchHome {
+    background:url(../images/map_search_bg.jpg) no-repeat;
+    padding:10px 40px 30px;
+    height:254px;
+    color:#fff;
+}
+.home-section.third .loginBoxHome {
+    padding:10px 40px;
+}
+.home-section.third .mapSearchHome p {
+    font-size:1.1em;
+    font-weight:bold;
+    line-height: 1.5em;
+}
+.home-section.third .mapSearchHome .button {
+    margin-top:15px;
+    z-index:5;
+}
+.home-section.fourth {
+    width:1280px;
+    margin:0 auto;
+    background:url(../images/map_background_home.jpg) 50% 0;
+    text-align:center;
+    color:#fff;
+    overflow:auto;
+}
+.home-section.fourth .content {
+    background: -moz-linear-gradient(left, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 90%, rgba(0,0,0,1) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,1)), color-stop(10%,rgba(0,0,0,0)), color-stop(90%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,1)));
+    background: -webkit-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,1) 100%);
+    background: -o-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,1) 100%);
+    background: -ms-linear-gradient(left, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(0,0,0,0) 10%,rgba(0,0,0,0) 90%,rgba(0,0,0,1) 100%);
+    padding: 10px 315px 25px;
+    width: 650px;
+    overflow: auto;
+}
+.home-section.fourth .ribbon {
+    float:none;
+    display:inline-block;
+}
+.homeCustomContent {
+    background-color: #f3f3f3;
+    padding: 0 24px 4em;
+}
+
+.homeCustomCol1, .homeCustomCol2, .homeCustomCol3 {
+    float: left;
+    margin-left: 24px;
+}
+
+.homeCustomCol1 {
+    margin-left: 0;
+    width: 340px;
+}
+/*
+.homeCustomContent .homeCustomCol1 h2 {
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1em;
+    margin-bottom: 1em;
+}
+.homeCustomContent .homeCustomCol1 p {
+    line-height: 1.25em;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+*/
+.homeCustomCol2 {
+    margin-top: .8em;
+    width: 304px;
+}
+.homeCustomContent .homeCustomCol2 ul {
+    padding: 0;
+    margin: 0;
+}
+.homeCustomContent .homeCustomCol2 ul li {
+    float: left;
+    width: 140px;
+    margin: 0.5em 10px 0.5em 0;
+    font-size: 1em;
+}
+.homeCustomContent .homeCustomCol2 .iconlabel {
+    font-size: 0.9em;
+    margin-right: 0;
+}
+.homeCustomContent .homeCustomCol3 {
+    width: 210px;
+}
 
 /*** Browse Search ***/
 
@@ -112,5 +515,17 @@ div.searchHomeForm div.searchform #searchForm {
 .searchHomeBrowse ul {
     list-style-type: none;
     padding:0;
+}
+
+/*** Popular searches ***/
+
+#popularSearches a {
+    color: #00a3b5;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#popularSearches a:hover, #popularSearches a:focus {
+    text-decoration: underline;
 }
 

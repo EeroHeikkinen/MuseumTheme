@@ -1,4 +1,4 @@
-@CHARSET "UTF-8";
+@charset "UTF-8";
 
 #headerRight, .searchbox, .breadcrumbs, .authorbox, .resulthead, #tabnav, .main .span-5, .result .span-4, .searchtools, .toolbar, .footer, .pagination, .offscreen, .checkbox {
     display: none;
@@ -11,4 +11,8 @@
 .result .span-9 {
     width: 810px;
     margin-right: 0;
+}
+
+a:link:after, a:visited:after {
+    content: "";
 }

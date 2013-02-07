@@ -1,6 +1,9 @@
 <!-- START of: Feedback/feedback.tpl -->
+
+<div class="pageMenu"></div>
+
 <div class="mainContent">
-<h3 style="font-weight:normal;margin-bottom: 1.4em;">{translate text='feedback_heading'}</h1>
+<h1 style="font-weight:normal;margin-bottom: 1.4em;">{translate text='feedback_heading'}</h1>
 {if not $submitted}
 {if $errorMsg}<p class="error">{$errorMsg}</p>{/if}
 <form id="feedbackForm" action="" method="post">
@@ -44,7 +47,7 @@
 {else}
 {translate text="feedback_thankyou"}
 {/if}
-<p style="margin-top: 6em;"><a href="{$path}">{translate text="Back to Frontpage"}</a></p>
+<p style="margin-top: 6em;"><a href="{$path}/">&laquo; {translate text="To Home"}</a></p>
 </div>
 
 <!-- END of: Feedback/feedback.tpl -->

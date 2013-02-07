@@ -137,6 +137,16 @@ class MetaLib
     }
 
     /**
+     * Check if MetaLib is configured and available
+     * 
+     * @return bool Whether MetaLib is available
+     */
+    public function available()
+    {
+        return isset($this->config['General']);
+    }
+    
+    /**
      * Retrieves a document specified by the ID.
      *
      * @param string $id The document to retrieve from the MetaLib API/cache
@@ -557,6 +567,7 @@ class MetaLib
         $record = $result->source_locate_response->source_full_info->record;
         $record->registerXPathNamespace('m', 'http://www.loc.gov/MARC21/slim');
         $info['access'] = $this->getSingleValue($record, 'AF3a');
+        $info['proxy'] = $this->getSingleValue($record, 'PXYa');
         $this->putCachedResults($queryId, $info);
         return $info;
     }
@@ -727,6 +738,13 @@ class MetaLib
                 }
             }
         }
+
+        $proxy = false;
+        $ird = $this->getSingleValue($record, 'SIDd');
+        if ($ird) {
+            $info = $this->getIRDInfo($ird);
+            $proxy = $info['proxy'] == 'Y';
+        }
         
         $openurl = array();
         if (isset($configArray['OpenURL']['url']) && $configArray['OpenURL']['url']) {
@@ -826,6 +844,7 @@ class MetaLib
             'PublicationTitle' => $hostTitle ? array($hostTitle) : null,
             'openUrl' => !empty($openurl) ? http_build_query($openurl) : null,
             'url' => $urls,
+            'proxy' => $proxy,
             'fullrecord' => $record->asXML(),
             'id' => '',
             'recordtype' => 'marc',

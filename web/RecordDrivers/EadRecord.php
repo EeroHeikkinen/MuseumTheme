@@ -92,6 +92,9 @@ class EadRecord extends IndexRecord
         }
         $interface->assign('coreIdentifier', $this->getIdentifier());
         
+        $interface->assign('coreSubjects', isset($this->fields['topic']) ? $this->fields['topic'] : array());
+        $interface->assign('coreGeographicSubjects', isset($this->fields['geographic']) ? $this->fields['geographic'] : array());
+        
         $interface->assign('coreDocumentOrderLinkTemplate', $configArray['Record']['ead_document_order_link_template']);
         $interface->assign('coreUsagePermissionRequestLinkTemplate', $configArray['Record']['ead_usage_permission_request_link_template']);
         

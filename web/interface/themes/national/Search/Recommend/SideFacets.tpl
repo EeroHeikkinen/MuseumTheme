@@ -1,5 +1,7 @@
+<!-- START of: Search/Recommend/SideFacets.tpl -->
+
 <div class="sidegroup">
-  {if $recordCount > 0}<h4>{translate text='Narrow Search'}</h4>{/if}
+  {if $recordCount > 0}<h4>{translate text=$sideFacetLabel}</h4>{/if}
   {if isset($checkboxFilters) && count($checkboxFilters) > 0}
       {foreach from=$checkboxFilters item=current}
         <div class="checkboxFilter{if $recordCount < 1 && !$current.selected && !$current.alwaysVisible} hide{/if}">
@@ -11,20 +13,33 @@
       {/foreach}
   {/if}
   {if $filterList}
-    <strong>{translate text='Remove Filters'}</strong>
     <ul class="filters">
     {foreach from=$filterList item=filters key=field}
       {foreach from=$filters item=filter}
-        <li><a href="{$filter.removalUrl|escape}"><img src="{$path}/images/silk/delete.png" alt="Delete"/></a> <a href="{$filter.removalUrl|escape}">{translate text=$field}: {$filter.display|escape}</a></li>
+        <li><a class="roundButton deleteButton" href="{$filter.removalUrl|escape}">X</a><span>{translate text=$field}: {$filter.display|escape}</span></li>
       {/foreach}
     {/foreach}
     </ul>
   {/if}
+  {if $collectionKeywordFilters}
+    <dl class="narrowList navmenu">
+      <dt>{translate text="Keyword Filter"}</dt>
+      <dd>
+        <form method="get" action="{$url}/Collection/{$id}/{$collectionAction}" name="keywordFilterForm" id="keywordFilterForm" class="keywordFilterForm">
+          <input id="keywordFilter_lookfor" type="text" name="lookfor" value="{$keywordLookfor|escape}"/>
+          {foreach from=$collectionKeywordFilterList item=filters key=field}
+            {foreach from=$filters item=filter}
+              <input type="text" name="filter[]" value="{$filter.field}:&quot;{$filter.display}&quot;" style="display:none;"/>
+            {/foreach}
+          {/foreach}
+          <input type="submit" name="submit" value="{translate text="Apply"}"/>
+        </form>
+      </dd>
+    </dl>
+  {/if}
   {if $sideFacetSet && $recordCount > 0}
     {foreach from=$sideFacetSet item=cluster key=title}
     {if isset($dateFacets.$title)}
-      {* Load the publication date slider UI widget *}
-      {js filename="pubdate_slider.js"}
       <form action="" name="{$title|escape}Filter" id="{$title|escape}Filter">
         {* keep existing search parameters as hidden inputs *}
         {foreach from=$smarty.get item=paramValue key=paramName}
@@ -46,14 +61,36 @@
         <input type="hidden" name="daterange[]" value="{$title|escape}"/>
         <fieldset class="publishDateLimit" id="{$title|escape}">
           <legend>{translate text=$cluster.label}</legend>
-          <label for="{$title|escape}from">{translate text='date_from'}:</label>
+          <div class="publishDateFrom">
+          <label for="{$title|escape}from">{translate text='date_from'}</label>
           <input type="text" size="4" maxlength="4" class="yearbox" name="{$title|escape}from" id="{$title|escape}from" value="{if $dateFacets.$title.0}{$dateFacets.$title.0|escape}{/if}" />
-          <label for="{$title|escape}to">{translate text='date_to'}:</label>
+          </div>
+          <div class="publishDateTo">
+          <label for="{$title|escape}to">{translate text='date_to'}</label>
           <input type="text" size="4" maxlength="4" class="yearbox" name="{$title|escape}to" id="{$title|escape}to" value="{if $dateFacets.$title.1}{$dateFacets.$title.1|escape}{/if}" />
+          </div>
           <div id="{$title|escape}Slider" class="dateSlider"></div>
           <input type="submit" value="{translate text='Set'}" id="{$title|escape}goButton"/>
         </fieldset>
       </form>
+      {elseif is_array($hierarchicalFacets) && in_array($title, $hierarchicalFacets)}
+      <dl class="narrowList navmenu">
+        <dt>{translate text=$cluster.label}</dt>
+      </dl>
+{literal}
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
+{/literal}
+  enableDynatree('#facet_{$title}', '{$title}', '{$fullPath}');
+{literal}  
+});
+//]]>
+</script>
+{/literal}
+      <div id="facet_{$title}" class="dynatree-facet">
+        <span class="facet_loading hide"></span>
+      </div>
     {else}
       <dl class="narrowList navmenu">
         <dt>{translate text=$cluster.label}</dt>
@@ -66,7 +103,7 @@
           {if $thisFacet.isApplied}
             <dd>{$thisFacet.value|escape} <img src="{$path}/images/silk/tick.png" alt="Selected"/></dd>
           {else}
-            <dd><a href="{$thisFacet.url|escape}">{$thisFacet.value|escape} <span class="facetCount">({$thisFacet.count})</span></a></dd>
+            <dd><a href="{$thisFacet.url|escape}">{$thisFacet.value|escape}&nbsp;<span class="facetCount">({$thisFacet.count})</span></a></dd>
           {/if}
         {/foreach}
         {if $smarty.foreach.narrowLoop.total > 5}<dd><a href="#" onclick="lessFacets('{$title}'); return false;">{translate text='less'} ...</a></dd>{/if}
@@ -75,3 +112,5 @@
     {/foreach}
   {/if}
 </div>
+
+<!-- END of: Search/Recommend/SideFacets.tpl -->

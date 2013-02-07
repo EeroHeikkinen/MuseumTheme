@@ -62,7 +62,7 @@ class NewItem extends Action
         // Read in search-specific configurations:
         $searchSettings = getExtraConfigArray('searches');
 
-        if (count($_GET) > 2) {
+        if (isset($_GET['range'])) {
             // Initialise from the current search globals
             $searchObject = SearchObjectFactory::initSearchObject();
             $searchObject->init();
@@ -89,6 +89,7 @@ class NewItem extends Action
             $interface->assign('sortList', $searchObject->getSortList());
             $interface->assign('limitList', $searchObject->getLimitList());
             $interface->assign('rssLink', $searchObject->getRSSUrl());
+            $interface->assign('range', $_GET['range']);
 
             // This code was originally designed to page through the results
             // retrieved from the catalog in parallel with paging through the
@@ -110,23 +111,7 @@ class NewItem extends Action
             } else {
                 $resultPages = 10;
             }
-            $newItems = $catalog->getNewItems(
-                1, $limit * $resultPages, $_GET['range'],
-                isset($_GET['department']) ? $_GET['department'] : null
-            );
-
-            // Special case -- if no new items were found, don't bother hitting
-            // the index engine:
-            if ($newItems['count'] > 0) {
-                // Query Index for BIB Data
-                $bibIDs = array();
-                for ($i=0; $i<count($newItems['results']); $i++) {
-                    $bibIDs[] = $newItems['results'][$i]['id'];
-                }
-                if (!$searchObject->setQueryIDs($bibIDs)) {
-                    $interface->assign('infoMsg', 'too_many_new_items');
-                }
-
+            if (isset($configArray['Site']['indexBasedNewItems']) && $configArray['Site']['indexBasedNewItems']) {
                 // Build RSS Feed for Results (if requested)
                 if ($searchObject->getView() == 'rss') {
                     // Throw the XML to screen
@@ -150,18 +135,61 @@ class NewItem extends Action
                     'sideRecommendations',
                     $searchObject->getRecommendationsTemplates('side')
                 );
-            } else if ($searchObject->getView() == 'rss') {
-                // Special case -- empty RSS feed:
-
-                // Throw the XML to screen
-                echo $searchObject->buildRSS(
-                    array(
-                        'response' => array('numFound' => 0),
-                        'responseHeader' => array('params' => array('rows' => 0)),
-                    )
+                
+            } else {
+                $newItems = $catalog->getNewItems(
+                    1, $limit * $resultPages, $_GET['range'],
+                    isset($_GET['department']) ? $_GET['department'] : null
                 );
-                // And we're done
-                exit();
+    
+                // Special case -- if no new items were found, don't bother hitting
+                // the index engine:
+                if ($newItems['count'] > 0) {
+                    // Query Index for BIB Data
+                    $bibIDs = array();
+                    for ($i=0; $i<count($newItems['results']); $i++) {
+                        $bibIDs[] = $newItems['results'][$i]['id'];
+                    }
+                    if (!$searchObject->setQueryIDs($bibIDs)) {
+                        $interface->assign('infoMsg', 'too_many_new_items');
+                    }
+    
+                    // Build RSS Feed for Results (if requested)
+                    if ($searchObject->getView() == 'rss') {
+                        // Throw the XML to screen
+                        echo $searchObject->buildRSS();
+                        // And we're done
+                        exit();
+                    }
+    
+                    // Process Search
+                    $result = $searchObject->processSearch(false, true);
+                    if (PEAR::isError($result)) {
+                        PEAR::raiseError($result->getMessage());
+                    }
+    
+                    // Store recommendations (facets, etc.)
+                    $interface->assign(
+                        'topRecommendations',
+                        $searchObject->getRecommendationsTemplates('top')
+                    );
+                    $interface->assign(
+                        'sideRecommendations',
+                        $searchObject->getRecommendationsTemplates('side')
+                    );
+                } else if ($searchObject->getView() == 'rss') {
+                    // Special case -- empty RSS feed:
+    
+                    // Throw the XML to screen
+                    echo $searchObject->buildRSS(
+                        array(
+                            'response' => array('numFound' => 0),
+                            'responseHeader' => array('params' => array('rows' => 0)),
+                        )
+                    );
+                    // And we're done
+                    exit();
+                }
             }
 
             // Send the new items to the template
@@ -186,14 +214,16 @@ class NewItem extends Action
             // Save the URL of this search to the session so we can return to it
             // easily:
             $_SESSION['lastSearchURL'] = $searchObject->renderSearchUrl();
-            // Save the display query too, so we can use it e.g. in the breadcrumbs
-            $_SESSION['lastSearchDisplayQuery'] = $displayQuery;
+            // Use 'New Items' as the display query e.g. in the breadcrumbs
+            $_SESSION['lastSearchDisplayQuery'] = translate('New Items');
         } else {
             $interface->setPageTitle('New Item Search');
             $interface->setTemplate('newitem.tpl');
 
-            $list = $catalog->getFunds();
-            $interface->assign('fundList', $list);
+            if (!isset($configArray['Site']['indexBasedNewItems']) || !$configArray['Site']['indexBasedNewItems']) {
+                $list = $catalog->getFunds();
+                $interface->assign('fundList', $list);
+            }
 
             // Find out if there are user configured range options; if not,
             // default to the standard 1/5/30 days:

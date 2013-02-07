@@ -63,7 +63,7 @@ $(document).ready(function() {
   </div>
   {/if}
 
-  {if $authMethod != 'Shibboleth'}
+  {if $libraryCard && $authMethod != 'Shibboleth'}
     {assign var=loginNumber value=$loginNumber+1}
     {if $mozillaPersona || $sessionInitiator}
   <div class="separator{$lbSmall}"><span class="text">{translate text="login_separator"}</span></div>

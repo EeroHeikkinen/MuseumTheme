@@ -168,7 +168,7 @@ class Save extends Action
         }
 
         $list = new User_list();
-        if ($_GET['list'] != '') {
+        if (isset($_GET['list']) && $_GET['list'] != '') {
             $list->id = $_GET['list'];
         } else {
             $list->user_id = $user->id;
@@ -190,14 +190,17 @@ class Save extends Action
         
         $resource = new Resource();
         $resource->record_id = $_GET['id'];
-        $resource->data = serialize($record);
         if (!$resource->find(true)) {
+            $resource->data = serialize($record);
             $resource->insert();
+        } else {
+            $resource->data = serialize($record);
+            $resource->update();
         }
 
-        preg_match_all('/"[^"]*"|[^ ]+/', $_GET['mytags'], $tagArray);
+        preg_match_all('/"[^"]*"|[^ ]+/', isset($_GET['mytags']) ? $_GET['mytags'] : '', $tagArray);
         return $user->addResource(
-            $resource, $list, $tagArray[0], $_GET['notes']
+            $resource, $list, $tagArray[0], isset($_GET['notes']) ? $_GET['notes'] : ''
         );
     }
 

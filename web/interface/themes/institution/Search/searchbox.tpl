@@ -9,11 +9,24 @@
   <br/>{translate text="Your search terms"} : "<span class="strong">{$lookfor|escape:"html"}
   {foreach from=$orFilters item=values key=filter}
     AND ({foreach from=$values item=value name=orvalues}{translate text=$filter|ucfirst}:{translate text=$value prefix='facet_'}{if !$smarty.foreach.orvalues.last} OR {/if}{/foreach}){/foreach}"</span>
+
 {else}
+  {* Load labelOver placeholder for input field *}
+  {js filename="jquery.labelOver.js"}
+  <script type="text/javascript">
+  {literal}
+      $(function(){
+          $('label.labelOver').labelOver('labelOver')
+          $('.mainFocus').focus();
+      });
+  {/literal}
+  </script>
   <form method="get" action="{$path}/Search/Results" name="searchForm" id="searchForm" class="search">
     <div>
-      <label for="searchForm_input" class="offscreen">{translate text="Search Terms"}</label>
-      <input id="searchForm_input" type="text" name="lookfor" size="27" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" placeholder="{translate text="Find"}&hellip;"/>
+      <div class="overLabelWrapper">
+        <label for="searchForm_input" id="searchFormLabel" class="labelOver normal">{translate text="Find"}&hellip;</label>
+        <input id="searchForm_input" type="text" name="lookfor" size="22" value="{$lookfor|escape}" class="last{if $autocomplete} autocomplete typeSelector:searchForm_type{/if} clearable mainFocus" title='{translate text="Find"}&hellip;' />
+      </div>
   {if $prefilterList}
       <div class="styled_select">
         <select id="searchForm_filter" class="searchForm_styled" name="prefilter">
@@ -32,10 +45,12 @@
   {if $metalibEnabled}
       <a href="{$path}/MetaLib/Home" class="small last metalibLink">{translate text="MetaLib Search"}</a>
   {/if}
-      <a href="#" class="small showSearchHelp">{translate text="Search Tips"}</a>
+      <a href="{$path}/Content/searchhelp" class="small showSearchHelp">{translate text="Search Tips"}</a>
     </div>
     <div class="searchContextHelp">
-    {include file="Content/searchboxhelp.$userLang.tpl"}
+    {if isset($userLang)}
+      {include file="Content/searchboxhelp.$userLang.tpl"}
+    {/if}
     </div>
     
   {* Do we have any checkbox filters? *}

@@ -1,0 +1,381 @@
+/***** CSS descriptions for the Finna icon set sprite *****/
+
+/*** Elements with 16-24px icons ***/
+
+.iconlabel, 
+.icon,
+.toggleBox,
+.searchbox .dropdown dt a,
+.openurl_more,
+.advancedLink,
+.advancedSearchHelpButton,
+.paginationMove,
+.fav, .mail, .export, .sms, .export, .cite, .add, .delete,
+.export img,
+#zoomControlPlus, #zoomControlMinus, 
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover,
+.deleteButton,
+.correction .expandSearch,
+a.clear_input,
+.dateVisClear a,
+.dropdown dt a:after,
+#advancedSearchWrapper .searchButton,
+#holdingstab,
+#componentstab,
+#commentstab,
+#reviewstab,
+#excerpttab,
+#hierarchytab,
+#maptab,
+#detailstab,
+.searchtools li {
+    background-image: url(../images/icons16-24px.png);
+    background-repeat: no-repeat;
+    background-position:0 0;
+}
+
+/* Dynatree */
+
+span.dynatree-empty,
+span.dynatree-vline, 
+span.dynatree-connector, 
+span.dynatree-expander, 
+span.dynatree-icon, 
+span.dynatree-checkbox,
+span.dynatree-radio, 
+span.dynatree-drag-helper-img, 
+#dynatree-drop-marker {
+    background-image: url(../images/icons16-24px.png);
+}
+
+/*** Elements with 32px icons ***/
+
+.SOMETHING {
+    background-image: url(../images/icons32px.png);
+    background-repeat: no-repeat;
+    background-position:0 0;
+}
+
+/*** Elements with 32px icons ***/
+
+.resultNoImage {
+    background-image: url(../images/icons48px.png);
+    background-repeat: no-repeat;
+    background-position:0 0;
+}
+
+/*** Individual element background positions ***/
+
+/* Common: Buttons */
+
+.deleteButton {
+    background-position: -997px -4027px;
+}
+.dropdown dt a:after {
+    background-position: -673px -3324px;
+}
+
+/* Front page: search suggestion icons */
+
+.iconlabel.formatdocument {
+    background-position: -45px -385px;
+}
+.iconlabel.formatphysicalobject {
+    background-position: -46px -218px;
+}
+ .iconlabel.formatmap {
+    background-position: -47px -161px;
+}
+.iconlabel.formatbook {
+    background-position: -46px -47px;
+}
+.iconlabel.formatimage {
+    background-position: -47px -495px;
+}
+.iconlabel.formatjournal {
+    background-position: -47px -104px;
+}
+ .iconlabel.formatmusicalscore {
+    background-position: -47px -330px;
+}
+.iconlabel.formatthesis {
+    background-position: -45px -720px;
+}
+.iconlabel.formatworkofart {
+    background-position: -46px -663px;
+}
+ .iconlabel.formatdatabase {
+    background-position: -47px -275px;
+}
+.iconlabel.formatvideo {
+    background-position: -46px -606px;
+}
+.iconlabel.formatsound,
+.iconlabel.formatsoundrecording {
+    background-position: -46px -551px;
+}
+
+
+/* Header: info box */
+
+.toggleBox.openInfoBox {
+    background-position: -681px -3900px;
+}
+.toggleBox.closeInfoBox {
+    background-position: -365px -4028px;
+}
+
+
+/* Header: Search box */
+
+.advancedLink {
+    background-position:-575px -5032px;
+}
+html[lang="sv"] .advancedLink {
+    background-position:-581px -5032px;
+}
+.searchbox .dropdown dt a {
+    background-position: -1534px -4146px; 
+}
+a.clear_input {
+    background-position:-1647px -3163px;
+}
+
+/* Header: Search suggestions */
+
+.correction .expandSearch {
+    background-position: -49px -2006px;
+}
+
+/* Main: Result header */
+
+.dateVisClear a {
+    background-position: -365px -4028px; 
+}
+
+/* Main: Search results */
+
+.openurl_more {
+    background-position: -1298px -3370px; 
+}
+
+.openurl_more.expanded {
+    background-position: -1300px -3320px;
+}
+
+.recordSet .fav {
+    background-position: -361px -3041px;
+}
+.recordSet .fav:hover {
+    background-position: -361px -3041px;
+}
+
+/* Main: Pagination */
+
+.paginationMove.paginationNext.visible {
+    background-position: -364px -4284px;
+}
+.paginationMove.paginationNext {
+    background-position: -1296px -4284px;
+}
+
+.paginationMove.paginationBack.visible {
+    background-position: -364px -4220px;
+}
+.paginationMove.paginationBack {
+    background-position: -1296px -4220px;
+}
+
+/* Main: Search results image icons */
+
+.resultNoImage.formatdocument {
+    background-position: -8px -2985px;
+}
+.resultNoImage.formatphysicalobject {
+    background-position: -11px -2605px;
+}
+.resultNoImage.formatmap {
+    background-position: -14px -2476px;
+}
+.resultNoImage.formatbook {
+    background-position: -12px -2216px;
+}
+.resultNoImage.formatimage {
+    background-position: -14px -3240px;
+}
+.resultNoImage.formatjournal {
+    background-position: -13px -2348px;
+}
+.resultNoImage.formatmusicalscore {
+    background-position: -14px -2862px;
+}
+.resultNoImage.formatthesis {
+    background-position: -7px -3749px;
+}
+.resultNoImage.formatworkofart {
+    background-position: -11px -3620px;
+}
+.resultNoImage.formatdatabase {
+    background-position: -13px -2732px;
+}
+.resultNoImage.formatvideo {
+    background-position: -14px -3492px;
+}
+.resultNoImage.formatsound {
+    background-position: -12px -3363px;
+}
+.resultNoImage.formatother {
+    background-position: -17px -3882px;
+}
+
+/* Main: Search tools */
+
+.searchtools li.toolSavedSearch {
+    background-position:-49px -3050px;
+}
+.searchtools li.toolRssLink {
+    background-position:-49px -2061px;
+}
+.searchtools li.toolMailSearch {
+    background-position:-49px -2775px;
+}
+
+/* Main: facet sidebar */
+
+.dynatree-exp-e span.dynatree-expander, 
+.dynatree-exp-ed span.dynatree-expander, 
+.dynatree-exp-el span.dynatree-expander, 
+.dynatree-exp-edl span.dynatree-expander,
+.dynatree-exp-e span.dynatree-expander:hover,
+.dynatree-exp-ed span.dynatree-expander:hover, 
+.dynatree-exp-el span.dynatree-expander:hover, 
+.dynatree-exp-edl span.dynatree-expander:hover {
+    background-position: -1300px -3319px;
+}
+
+span.dynatree-expander,
+span.dynatree-expander:hover {
+    background-position: -1298px -3369px;
+}
+
+/* Main: Single record view */
+
+.resultLinks .button {
+    background-position: -672px -3414px;
+}
+.resultLinks .button span {
+    background-position: -679px -1950px;
+}
+.resultscroller .prevRecord {
+    background-position: -364px -4820px;
+}
+.resultscroller .nextRecord {
+    background-position: -364px -4884px;
+}
+#addThis .mail {
+    background-position: -361px -2773px;
+}
+.addthis_button_facebook {
+    background-position: -361px -1613px;
+}
+.addthis_button_twitter {
+    background-position: -361px -1667px;
+}
+.addthis_button_google_plusone_share {
+    background-position: -361px -3480px;
+}
+.fav {
+    background-position: -364px -3043px;
+}
+.mail {
+    background-position: -364px -2769px;
+}
+.export {
+    background-position: -363px -2717px;
+}
+.export img {
+    background-position: -363px -3317px;
+}
+.add {
+    background-position: -357px -1049px;
+}
+.delete {
+    background-position: -357px -1158px;
+}
+#holdingstab {
+    background-position: -41px -1214px;
+}
+#componentstab {
+    background-position: -41px -1436px;
+}
+#commentstab {
+    background-position: -41px -2876px;
+}
+#reviewstab {
+    background-position: -41px -1212px;
+}
+#excerpttab {
+    background-position: -41px -1212px;
+}
+#hierarchytab {
+    background-position: -41px -2490px;
+}
+#maptab {
+    background-position: -41px -152px;
+}
+#detailstab {
+    background-position: -41px -1494px;
+}
+/* Main: Myresearch */
+
+.sessionHistory .add {
+    background-position: -357px -1049px;
+}
+.editItem .edit,
+#sidebarFavoritesLists .edit {
+    background-position: -47px -3104px;
+}
+.editItem .delete,
+#sidebarFavoritesLists .delete {
+    background-position: -47px -2390px;
+}
+#sidebarFavoritesLists #listAdd {
+    background-position: -492px -1048px;
+}
+
+/* Main: Advanced Search */
+
+.advancedSearchHelpButton {
+    background-position: -365px -3899px;
+}
+#advancedSearchWrapper .searchButton {
+    background-position: -668px -1996px;
+}
+
+#zoomControlPlus {
+    background-position: -49px -1056px;
+}
+#zoomControlMinus {
+    background-position: -49px -1112px;
+}
+
+/* jQuery UI Elements */
+
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:hover,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover {
+    background-position:-49px -4628px;
+}
+
+/*** Webkit hacks ***/
+
+/* TODO: Remove these when a better solution has been found */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+
+    #advancedSearchWrapper .searchButton {
+        background-position: -668px -1999px;
+    }
+
+} 

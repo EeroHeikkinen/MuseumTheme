@@ -292,6 +292,14 @@ class SearchObject_Solr extends SearchObject_Base
         $this->initFilters();
         $this->initLimit();
 
+        // New items range search
+        if (isset($_REQUEST['range'])) {
+            $this->searchTerms[] = array(
+                'index'   => '',
+                'lookfor' => 'last_indexed:[' . gmdate('Y-m-d\TH:i:s\Z', strtotime('-' . $_REQUEST['range'] .' day 00:00:00')) . ' TO *]'
+            );
+        }
+            
         //********************
         // Basic Search logic
         if ($this->initBasicSearch()) {
@@ -377,6 +385,14 @@ class SearchObject_Solr extends SearchObject_Base
                 $this->spellcheck  = false;
                 // Only get what's needed:
                 $this->fields = array('id, title, author, format, issn' );
+            }
+            // or a facet query
+            if ($action == 'JSON_Facets' or $action == 'JSON_FacetsNewItem') {
+                $this->limit = 0;
+                $this->spellcheck = false;
+                if ($action == 'JSON_FacetsNewItem') {
+                    $this->searchType = 'newitem';
+                }
             }
         }
 
@@ -1283,6 +1299,7 @@ class SearchObject_Solr extends SearchObject_Base
                 if ($suggestion[0] != "collation") {
                     continue;
                 }
+                $suggestionList[$queryTerm]['freq'] = 0;
                 $suggestionList[$queryTerm]['suggestions'][$suggestion[1]] = 0;
             }
             $count = isset($suggestionList[$queryTerm]['suggestions']) ? count($suggestionList[$queryTerm]['suggestions']) : 0;

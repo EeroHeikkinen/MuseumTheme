@@ -29,7 +29,7 @@
     {* Cover image *}
         <div class="resultNoImage"><p>{translate text='No image'}</p></div>
     {if $img_count > 0}
-        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}">
+        <div class="resultImage"><a href="{$url}/Record/{$summId|escape:"url"}" id="thumbnail_link_{$summId|escape:"url"}">
           <img id="thumbnail_{$summId|escape:"url"}" src="{$path}/thumbnail.php?id={$summId|escape:"url"}&size=small" class="summcover" alt="{translate text='Cover Image'}" />
         </a></div>
     {else}
@@ -56,7 +56,7 @@
       <div class="resultItemLine2">
       	{if !empty($summAuthor)}
       	{translate text='by'}:
-      	<a href="{$url}/Author/Home?author={$summAuthor|escape:"url"}">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
+      	<a href="{$url}/Search/Results?lookfor={$summAuthor|escape:"url"}&amp;type=Author">{if !empty($summHighlightedAuthor)}{$summHighlightedAuthor|highlight}{else}{$summAuthor|escape}{/if}</a>
       	{/if}
 
       	{if $summDate}<br/>{translate text='Main Year'}: {$summDate.0|escape}{/if}
@@ -67,7 +67,7 @@
       </div>
 
       <div class="resultItemLine3">
-      {if !empty($summSnippetCaption)}<b>{translate text=$summSnippetCaption}:</b>{/if}
+      {if !empty($summSnippetCaption)}{translate text=$summSnippetCaption}:{/if}
       {if !empty($summSnippet)}<span class="quotestart">&#8220;</span>...{$summSnippet|highlight}...<span class="quoteend">&#8221;</span><br/>{/if}
       <div id="callnumAndLocation{$summId|escape}">
       {if $summAjaxStatus}
@@ -84,25 +84,6 @@
       </div>
       {/if}
       <div class="resultItemLine4">
-      {if $summOpenUrl || !empty($summURLs)}
-        {if $summOpenUrl}
-          <br/>
-          {include file="Search/openurl.tpl" openUrl=$summOpenUrl}
-        {/if}
-        {foreach from=$summURLs key=recordurl item=urldesc name="urlLoop"}
-          {if $smarty.foreach.urlLoop.iteration <= 10}
-          <br/><a href="{if $proxy}{$proxy}/login?qurl={$recordurl|escape:"url"}{else}{$recordurl|escape}{/if}" class="fulltext" target="new">{if $recordurl == $urldesc}{translate text='Get full text'}{else}{$urldesc|escape}{/if}</a>
-          {/if}
-        {/foreach}
-        {if count($summURLs) > 10}
-          <br/><a href="{$url}/Record/{$summId|escape:"url"}">{math equation="x - 10" x=$summURLs|@count} {translate text='more'} ...</a>
-        {/if}
-      {elseif $summAjaxStatus}
-        <div class="status" id="status{$summId|escape}">
-          <span class="unknown" style="font-size: 8pt;">{translate text='Loading'}...</span>
-        </div>
-      {/if}
-        <div style="display: none;" id="locationDetails{$summId|escape}">&nbsp;</div>
       </div>
 
    <div class="savedLists info hide" id="savedLists{$summId|escape}">

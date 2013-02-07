@@ -1,7 +1,8 @@
 <!-- START of: Search/advanced.tpl -->
 
+<div id="advancedSearchWrapper">
 <form method="get" action="{$url}/Search/Results" id="advSearchForm" name="searchForm" class="search">
-  <div class="span-10">
+  <div class="{*span-10*}">
     <h3>{translate text='Advanced Search'}</h3>
     <div class="advSearchContent">
       {if $editErr}
@@ -21,7 +22,7 @@
       </div>
   
       {* An empty div. This is the target for the javascript that builds this screen *}
-      <div id="searchHolder" class="span-10 last">
+      <div id="searchHolder" class="{*span-10*} last">
         {* fallback to a fixed set of search groups/fields if JavaScript is turned off *}
         <noscript>
         {if $searchDetails}
@@ -84,13 +85,13 @@
         {js filename="jquery.dependClass-0.1.js"}
         {js filename="draggable-0.1.js"}
         {js filename="jslider/jquery.slider.js"}   
-    <div class="span-10">
+    <div id="sliderWrapper" class="{*span-10*}">
         <input type="hidden" name="daterange[]" value="main_date_str"/>
           <label for="publishDatefrom" id="pubDateLegend">{translate text='Main Year'}</label>
           <input type="text" size="4" maxlength="4" class="yearbox" name="main_date_strfrom" id="publishDatefrom" value="{if $dateRangeLimit.0}{$dateRangeLimit.0|escape}{/if}" /> - 
           <input type="text" size="4" maxlength="4" class="yearbox" name="main_date_strto" id="publishDateto" value="{if $dateRangeLimit.1}{$dateRangeLimit.1|escape}{/if}" />
         <br/>
-        <div class="span-10" id="sliderContainer">
+        <div class="{*span-10*}" id="sliderContainer">
             <input id="publishDateSlider" class="dateSlider span-10" type="slider" name="sliderContainer" value="0000;2012" />
         </div>
     </div>
@@ -100,9 +101,9 @@
         {js filename="chosen/chosen.jquery.js"}
         {js filename="chosen_multiselects.js"}
         {foreach from=$facetList item="list" key="label"}
-        <div class="facetsContainer span-4">
+        <div class="facetsContainer span-3">
           <label class="displayBlock" for="limit_{$label|replace:' ':''|escape}">{translate text=$label}:</label>
-          <select class="chzn-select span-4" data-placeholder="{translate text="No Preference"}" id="limit_{$label|replace:' ':''|escape}" name="orfilter[]" multiple="multiple" size="10">
+          <select class="chzn-select span-3" data-placeholder="{translate text="No Preference"}" id="limit_{$label|replace:' ':''|escape}" name="orfilter[]" multiple="multiple" size="10">
             {foreach from=$list item="value" key="display"}
               <option value="{$value.filter|escape}"{if $value.selected} selected="selected"{/if}>{if $value.level > 0}&nbsp;&nbsp;&nbsp;{/if}{if $value.level > 1}&nbsp;&nbsp;&nbsp;{/if}{$value.translated|escape}</option>
             {/foreach}
@@ -120,6 +121,7 @@
             <label for="illustrated_{$current.value|escape}">{translate text=$current.text}</label><br/>
           {/foreach}
         </fieldset>
+        <div class="clear"></div>
       {/if}
       
       {if $limitList|@count gt 1}
@@ -136,6 +138,7 @@
             {/foreach}
           </select>
         </fieldset>
+        <div class="clear"></div>
       {/if}
         <div class="mapContainer">
           {js filename="jquery.geo.min.js"}
@@ -172,7 +175,7 @@
         </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
       <div class="clear"></div>
-      <input type="submit" class="push-9 button searchButton" name="submit" value="{translate text="Find"}"/>
+      <input type="submit" class="button searchButton right" name="submit" value="{translate text="Find"}"/>
     </div>
   </div>
 
@@ -280,5 +283,6 @@
   $("#addGroupLink").removeClass("offscreen");
 //]]>
 </script>
+</div>
 
 <!-- END of: Search/advanced.tpl -->

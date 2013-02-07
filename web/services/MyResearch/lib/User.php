@@ -51,7 +51,7 @@ class User extends DB_DataObject
 
     public $__table = 'user';                // table name
     public $id;                              // int(11)  not_null primary_key auto_increment
-    public $username;                        // string(30)  not_null unique_key
+    public $username;                        // string(255)  not_null unique_key
     public $password;                        // string(32)  not_null
     public $firstname;                       // string(50)  not_null
     public $lastname;                        // string(50)  not_null
@@ -63,7 +63,7 @@ class User extends DB_DataObject
     public $major;                           // string(100)  not_null
     public $created;                         // datetime(19)  not_null binary
     public $language;                        // string(30)  not_null
-
+    
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User',$k,$v); }
 
@@ -451,10 +451,18 @@ class User extends DB_DataObject
         $this->update();
         
         // Update Session
-
         if ($session_info = UserAccount::isLoggedIn()) {
             $session_info->home_library = $home_library;
             UserAccount::updateSession($session_info);
+        }
+        
+        // Update Account
+        $account = new User_account();
+        $account->user_id = $this->id;
+        $account->cat_username = $this->cat_username;
+        if ($account->find(true)) {
+            $account->home_library = $home_library;
+            $account->update();
         }
         return true;
     }
@@ -501,5 +509,30 @@ class User extends DB_DataObject
             UserAccount::updateSession($session_info);
         }
         return true;
+    }
+    
+    /**
+     * Get a list of catalog accounts
+     * 
+     * @return array Account details
+     */
+    public function getCatalogAccounts()
+    {
+        $accounts = array();
+        $account = new User_account();
+        $account->user_id = $this->id;
+        if ($account->find(false)) {
+            $date = new VuFindDate();
+            while ($account->fetch()) {
+                $accounts[] = array(
+                    'id' => $account->id,
+                    'account_name' => $account->account_name,
+                    'description' => $account->description,
+                    'created' => $date->convertToDisplayDate('Y-m-d H:i:s', $account->created),
+                    'cat_username' => $account->cat_username
+                );
+            }
+        }
+        return $accounts;
     }
 }

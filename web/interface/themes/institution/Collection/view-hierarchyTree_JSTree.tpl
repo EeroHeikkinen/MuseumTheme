@@ -2,7 +2,7 @@
 
 {js filename="jsTree/jquery.jstree.js"}
 <script type="text/javascript">
-{literal}$.jstree._themes = "{/literal}{path filename="js/jstree/themes/"}";
+{literal}$.jstree._themes = "{/literal}{path filename="js/jsTree/themes/"}";
 </script>
 {js filename="hierarchyTree_JSTree.js"}
 <script type="text/javascript">

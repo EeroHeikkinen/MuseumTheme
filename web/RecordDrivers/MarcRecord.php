@@ -359,43 +359,34 @@ class MarcRecord extends IndexRecord
         } else {
             $partOrderCounter = 0;                
             foreach ($fields as $field) {
-                $partAuthor = '';
-                $partAdditionalAuthors = '';
-                $partAuthors = '';
+                $partOrderCounter++;
+                $partAuthors = array();
                 $subfields = $field->getSubfields();
                 foreach ($subfields as $subfield) {
                     $subfieldCode = $subfield->getCode();
                     switch ($subfieldCode) {
                     case 'a':
-                        $partOrderCounter++;
                         $partCode = $subfield->getData();
                         break;
                     case 'b':
                         $partTitle = $subfield->getData();
                         break;
                     case 'c':
-                        if ($partAuthor) {
-                            $partAuthor .= '; ';
-                        }    
-                        $partAuthor .= $subfield->getData();
+                        $partAuthors[] = $subfield->getData();
                         break;
                     case 'd':
-                        if ($partAdditionalAuthors) {
-                            $partAdditionalAuthors .= '; ';
-                        } 
-                        $partAdditionalAuthors .= $subfield->getData();
+                        $partAuthors[] = $subfield->getData();
                         break;          
                     }              
                 }
-                if ($partAuthor && $partAdditionalAuthors) {
-                    $partAuthors = $partAuthor . '; ';
-                }
-                $partAuthors .= $partAdditionalAuthors;  
+                // Filter out any empty fields
+                $partAuthors = array_filter($partAuthors);
                 $componentparts[] = array(
-                                        'number' => $partOrderCounter,
-                                        'title' => $partTitle,
-                                        'link' => $baseURI . '/Record/' . $partCode,
-                                        'author' => $partAuthors
+                    'number' => $partOrderCounter,
+                    'title' => $partTitle,
+                    'link' => $baseURI . '/Record/' . $partCode,
+                    'author' => implode('; ', $partAuthors), // For backward compatibility
+                    'authors' => $partAuthors
                 );
             }
             
@@ -1473,7 +1464,7 @@ class MarcRecord extends IndexRecord
      */
     protected function getPrimaryAuthorForSearch()
     {
-        return $this->getFirstFieldValue('100', array('a', 'b', 'c'));
+        return $this->stripTrailingPunctuation($this->getFirstFieldValue('100', array('a', 'b', 'c')));
     }
 
     /**
@@ -1600,13 +1591,16 @@ class MarcRecord extends IndexRecord
                         break;
                     default:    
                         $classification = $this->getSubfieldArray($field, array('2'));
-                        if (empty($classification)) {
-                            continue;
+                        if (!empty($classification)) {
+                            $classification = $classification[0];
                         }
-                        $classification = $classification[0];
                         break;
                     }
-                
+                    // continue doesn't work inside the switch statement
+                    if (empty($classification)) {
+                        continue;
+                    }
+                    
                     $subfields = $this->getSubfieldArray($field, array('a', 'b'));
                     if (!empty($subfields)) {
                         $result[$classification][] = $subfields[0];

@@ -124,7 +124,7 @@ class Holds extends MyResearch
 
             $result = $this->catalog->getMyCallSlips($patron);
             if (!PEAR::isError($result)) {
-                if (count($result)) {
+                if ($result !== false && count($result)) {
                     $recordList = array();
                     foreach ($result as $row) {
                         $record = $this->db->getRecord($row['id']);

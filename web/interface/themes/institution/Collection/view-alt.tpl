@@ -6,7 +6,7 @@
 {if !empty($addThis)}
 <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js?pub={$addThis|escape:"url"}"></script>
 {/if}
-<div id="headingHierarchyCollection" class="span-13">
+<div id="headingHierarchyCollection" class="{*span-13*}">
   <div class="record" id="collection{$id|escape}">
     <div class="collection-toolbar">
       <span class="backSpan">
@@ -51,16 +51,16 @@
         </a>
       </div>
       {/if}
-	  <h1>{$collShortTitle|escape}</h1>
-	  <p>{$collSummary|escape}</p>
-	  <a id="moreInfoToggle" href="#" style="display:none">{translate text="Show/hide more info."}</a>
+      <h1>{$collShortTitle|escape}</h1>
+      <p>{$collSummary|escape}</p>
+      <a id="moreInfoToggle" href="#" style="display:none">{translate text="Show/hide more info."}</a>
       {include file=$info}
     </div>
     <div style="clear: left;"></div>
     <span class="Z3988" title="{$openURL|escape}"></span>
   </div>
 </div>
-<div id="hierarchyCollection" class="span-13">
+<div id="hierarchyCollection" class="{*span-13*}">
   <div id="tabnav" >
     <ul>
       <li{if $tab == 'Home' || $tab == '' || $tab == 'list'} class="active"{/if}>

@@ -50,13 +50,21 @@ class Logout extends Action
     {
         global $configArray;
 
+        if (isset($_SESSION['logoutUrl'])) {
+            // Dynamic logout url
+            $logout = $_SESSION['logoutUrl'] . '?return='
+                . urlencode($configArray['Site']['url']);
+        }
+        
         self::performLogout();
 
         // Forward to the appropriate place (depending on auth settings):
-        if ($configArray['Authentication']['method'] == 'Shibboleth'
+        if (isset($logout)) {
+            header('Location: ' . $logout);
+        } elseif ($configArray['Authentication']['method'] == 'Shibboleth'
             && isset($configArray['Shibboleth']['logout'])
         ) {
-            $logout = $configArray['Shibboleth']['logout'] . "?return="
+            $logout = $configArray['Shibboleth']['logout'] . '?return='
                 . urlencode($configArray['Site']['url']);
             header('Location: ' . $logout);
         } else {

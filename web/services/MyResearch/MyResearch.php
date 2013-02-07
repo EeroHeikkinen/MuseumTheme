@@ -91,9 +91,14 @@ class MyResearch extends Action
         if (isset($_POST['submit']) && !empty($_POST['submit']) && $this->catalog
             && isset($_POST['cat_username']) && isset($_POST['cat_password'])
         ) {
-            if (UserAccount::processCatalogLogin(
-                $_POST['cat_username'], $_POST['cat_password']
-            )) {
+            $username = $_POST['cat_username'];
+            $password = $_POST['cat_password'];
+            $loginTarget = isset($_POST['login_target']) ? $_POST['login_target'] : false;
+            if ($loginTarget) {
+                $username = "$loginTarget.$username";
+            }
+            
+            if (UserAccount::processCatalogLogin($username, $password)) {
                 $interface->assign('user', $user);
             } else {
                 $interface->assign('loginError', 'Invalid Patron Login');

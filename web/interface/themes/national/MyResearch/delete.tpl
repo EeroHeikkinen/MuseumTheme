@@ -1,3 +1,5 @@
+<!-- START of: MyResearch/delete.tpl -->
+
 <form action="{$url}/MyResearch/Delete" method="post" name="bulkDelete">
   {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
   {if $infoMsg}<div class="info">{$infoMsg|translate}</div>{/if}
@@ -10,6 +12,8 @@
       <h2>{translate text="List"}: {$list->title|escape}</h2>
     {/if}
     
+      {translate text="delete_selected_favorites"}
+      <br />
       {foreach from=$deleteList item=favorite}
         <strong>{translate text='Title'}:</strong>
         {$favorite.title|escape}<br />
@@ -28,3 +32,5 @@
       {/if}
   </div>
 </form>
+
+<!-- END of: MyResearch/delete.tpl -->

@@ -499,6 +499,11 @@ class SearchObject_MetaLib extends SearchObject_Base
         global $interface;
     
         $interface->assign(array('record' => $record));
+        
+        // Pass some parameters along to the template to influence edit controls:
+        $interface->assign('listSelected', $listId);
+        $interface->assign('listEditAllowed', $allowEdit);
+        
         return $interface->fetch('MetaLib/listentry.tpl');
     }
     
