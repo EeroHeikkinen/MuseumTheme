@@ -342,6 +342,7 @@
     {/if}
 
     {assign var="idPrefix" value=$id|substr:0:8}
+    {*
     <tr valign="top" class="recordURLs">
       <th>{translate text='Online Access'}: </th>
       <td>
@@ -372,6 +373,7 @@
         </div>
       </td>
     </tr>
+    *}
     
     {*
     {if !empty($coreRecordLinks)}

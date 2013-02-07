@@ -877,8 +877,8 @@ div.truncateField {
     height: 1.5em;
     background-color: inherit;
 }
-#recordMetadata .moreLink a,
-#recordMetadata .lessLink a {
+#recordMetadata .citation .moreLink ,
+#recordMetadata .citation .lessLink {
     background:#fff;
 }
 .recordSummary.truncateField .moreLink,
@@ -2517,7 +2517,6 @@ div.resultLinks a {
 #resultToolbar ul {
     padding: 0;
     margin: 0;
-    padding-top: 1em;
 }
 #resultSide {
     width: 210px;
@@ -2591,12 +2590,15 @@ a#thumbnail_link:hover span {
     background-position: 400px 32px;
 }
 .coverImageLinks a:hover .coverImageLinks a {
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
 }
 .coverImages {
     /* text-align:center; */
     overflow: auto;
-    border-bottom: 2px solid #eee;
+}
+.coverImages img#thumbnail {
+    padding-bottom:20px !important;
+    border-bottom:1px solid #bbb;
 }
 .coverImageLinks a {
     display: inline-block;
@@ -2781,7 +2783,7 @@ table.authors th {
     float: left;
 }
 #dyntabnav .ui-tabs-nav li {
-    margin-right: 3px;
+    margin-right: 5px;
 }
 #dyntabnav, #dyntabnav .ui-tabs-nav {
     padding: 0;
@@ -2804,7 +2806,7 @@ table.authors th {
 #dyntabnav .ui-tabs-panel {
     padding: 1em 0;
     background-color: #fff;
-    border-top: solid 4px #00A3B5;
+    border-top: 3px solid #B3E3E9;
     margin-top: -3px;
     position: relative;
     z-index: 5;
@@ -2828,18 +2830,27 @@ table.authors th {
     width: 99%;
 }
 #dyntabnav .ui-widget-header .ui-state-default {
-    border: solid 4px #EEEEEE;
+    border: 3px solid #B3E3E9;
+    background:#B3E3E9;
+    font-size: 0.90em;
+    line-height: 22px;
+}
+#dyntabnav .ui-widget-header .ui-state-default a,
+#dyntabnav .ui-widget-header .ui-state-default:hover a,
+#dyntabnav .ui-widget-header .ui-state-hover a {
+    color:#212121;
 }
 #dyntabnav .ui-widget-header .ui-tabs-selected {
-    border: solid 4px #00A3B5;
+    border: 3px solid #B3E3E9;
     position: relative;
-    z-index: 10;
+    top: 0;
+    z-index: 15;
 }
 #dyntabnav .citation th {
     width: 16em;
 }
 #dyntabnav a#detailstab {
-    height: 1.3em;
+    height: 22px;
 }
 
 /** Similar Items (record view) **/
