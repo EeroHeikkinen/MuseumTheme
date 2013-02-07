@@ -1865,6 +1865,9 @@ ul.recordSet .addToFavLink a {
 .searchtools a.mailSearch {
     display:inline-block;
 }
+.resultSearchTools .searchtools > ul li {
+    padding-left:22px;
+}
 
 .bookbag {
     background-image:url(../images/fugue/bookbag.png);

@@ -27,7 +27,8 @@ a.clear_input,
 #excerpttab,
 #hierarchytab,
 #maptab,
-#detailstab {
+#detailstab,
+.searchtools li {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -225,6 +226,18 @@ a.clear_input {
 }
 .resultNoImage.formatother {
     background-position: -17px -3882px;
+}
+
+/* Main: Search tools */
+
+.searchtools li.toolSavedSearch {
+    background-position:-49px -3050px;
+}
+.searchtools li.toolRssLink {
+    background-position:-49px -2061px;
+}
+.searchtools li.toolMailSearch {
+    background-position:-49px -2775px;
 }
 
 /* Main: facet sidebar */
