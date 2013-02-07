@@ -2888,6 +2888,12 @@ h5.recordTabHeader {
     margin: 5px 0 20px 0;
 }
 
+.export img {
+    width:16px;
+    height:0;
+    overflow:hidden;
+    padding-top:16px;
+}
 /*********** Toolbar (Record View) ************/
 
 .record .toolbar {

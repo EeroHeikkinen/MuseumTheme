@@ -11,6 +11,7 @@
 .advancedSearchHelpButton,
 .paginationMove,
 .fav, .mail, .export, .sms, .export, .cite, .add, .delete,
+.export img,
 #zoomControlPlus, #zoomControlMinus, 
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover,
@@ -267,10 +268,10 @@ span.dynatree-expander:hover {
     background-position: -679px -1950px;
 }
 .resultscroller .prevRecord {
-    background-position: -364px -4220px;
+    background-position: -364px -4820px;
 }
 .resultscroller .nextRecord {
-    background-position: -364px -4284px;
+    background-position: -364px -4884px;
 }
 #addThis .mail {
     background-position: -361px -2773px;
@@ -291,7 +292,10 @@ span.dynatree-expander:hover {
     background-position: -364px -2769px;
 }
 .export {
-    background-position: -364px -1551px;
+    background-position: -363px -2717px;
+}
+.export img {
+    background-position: -363px -3317px;
 }
 .add {
     background-position: -357px -1049px;
