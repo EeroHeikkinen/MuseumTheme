@@ -1,5 +1,7 @@
 <!-- START of: MyResearch/catalog-login.tpl -->
 
+<div class="clear" />
+
 {if $offlineMode == "ils-offline"}
   <div class="sysInfo">
     <h2>{translate text="ils_offline_title"}</h2>
