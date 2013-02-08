@@ -85,7 +85,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         {if $img_count > 1}
           <div class="coverImageLinks">
         {foreach from=$coreImages item=desc name=imgLoop}
-            <a href="{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title" onclick="document.getElementById('thumbnail').src='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=medium'; document.getElementById('thumbnail_link').href='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;" style="background-image:url('{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small');"><span></span>
+            <a href="{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large" class="title fancybox fancybox.image" onclick="document.getElementById('thumbnail').src='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=medium'; document.getElementById('thumbnail_link').href='{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=large'; return false;" style="background-image:url('{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small');" rel="{$id|escape:"url"}"><span></span>
               {*if $desc}{$desc|escape}{else}{$smarty.foreach.imgLoop.iteration + 1}{/if
               <img src="{$path}/thumbnail.php?id={$id|escape:"url"}&index={$smarty.foreach.imgLoop.iteration-1}&size=small" />
               *}
@@ -94,9 +94,11 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
           </div>
         {/if}
         
-        {if $coreThumbLarge}<a id="thumbnail_link" href="{$coreThumbLarge|escape}">{/if}
+        {if $coreThumbLarge}<a id="thumbnail_link" href="{$path}/thumbnail.php?id={$id|escape:"url"}&index=0&size=large" onclick="launchFancybox(this); return false;" rel="{$id}">{/if}
         <span></span><img id="thumbnail" alt="{translate text="Cover Image"}" class="recordcover" src="{$coreThumbMedium|escape}" style="padding:0" />
-        {if $coreThumbLarge}</a>{/if}
+        {if $coreThumbLarge}</a>
+        {js filename="init_fancybox.js"}
+        {/if}
         
         {else}
         {* <img src="{$path}/bookcover.php" alt="{translate text='No Cover Image'}"> *}

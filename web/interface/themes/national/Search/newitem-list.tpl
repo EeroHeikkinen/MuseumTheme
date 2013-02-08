@@ -10,7 +10,7 @@
   {/if}
  <div class="clear"></div>
 </div>
-
+{js filename="init_fancybox.js"}
 <div id="resultList" class="{if $sidebarOnLeft}sidebarOnLeft last{/if}">
   {if $errorMsg || $infoMsg}
     <div class="messages">
