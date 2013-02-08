@@ -1,6 +1,7 @@
 <!-- START of: MyResearch/list.tpl -->
 
 {js filename="bulk_actions.js"}
+{js filename="init_fancybox.js"}
 {if $bookBag}
 <script type="text/javascript">
 vufindString.bulk_noitems_advice = "{translate text="bulk_noitems_advice"}";

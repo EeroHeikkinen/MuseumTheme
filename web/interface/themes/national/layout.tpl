@@ -33,6 +33,9 @@
 
     {css media="screen, projection" filename="../js/jquery-ui-1.8.23.custom/css/smoothness/jquery-ui-1.8.23.custom.css"}
 
+    {* Load Fancybox css *}
+    {css media="screen" filename="fancybox/jquery.fancybox.css"}
+
     {* Load Blueprint CSS framework *}
     {css media="screen, projection" filename="blueprint/screen.css"}
     {css media="print" filename="blueprint/print.css"}
@@ -90,7 +93,10 @@
     {js filename="jquery.collapse.js"}
     {js filename="jquery.dynatree-1.2.2-mod.js"}
 
-    {* Load backgrond switcher *}
+    {* load Fancybox *}
+    {js filename="fancybox/jquery.fancybox.pack.js"}
+
+    {* Load background switcher *}
     {js filename="bg_switcher.js"}
     
     {* Load dynamic facets *}

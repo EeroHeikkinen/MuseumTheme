@@ -1,5 +1,4 @@
 <!-- START of: Search/list.tpl -->
-
 {* Listing Options *}
 <div class="resultHeader">
 
@@ -100,7 +99,8 @@
 
 </div> {* resultHeader *}
 {* End Listing Options *}
-
+{* Fancybox for images *}
+{js filename="init_fancybox.js"}
 {* Main Listing *}
 <div class="resultListContainer">
   <div class="content">
