@@ -55,9 +55,11 @@
     {* css media="screen, projection" filename="home_custom.css" *}
     {css media="screen, projection" filename="breadcrumbs.css"}
     {css media="screen, projection" filename="footer.css"}
+{* Mobile styles not used just yet. When it's time, remember to enable viewport!
     {css media="screen, projection" filename="768tablet.css"}
     {css media="screen, projection" filename="480mobilewide.css"}
     {css media="screen, projection" filename="320mobile.css"}
+*}
     {css media="screen, projection" filename="settings.css"}
     
     {css media="print" filename="print.css"}
@@ -159,7 +161,9 @@ $(document).ready(function() {
     <![endif]-->
 
     {* For mobile devices *}
+{*
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+*}
 
   </head>
   <body>
