@@ -46,7 +46,7 @@
       <div class="mapSearchHome">
         <h2>Try the map search</h2>
         <p>You can also refine your search to a specific area on the map. The map search function currently encompasses some 7,200 items.</p>
-        <a class="button" href="">Map search</a>
+        <a class="button" href="{$url}/Search/Advanced">Map search</a>
       </div>
     </div>
   </div>
