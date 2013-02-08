@@ -124,7 +124,7 @@
         {translate text='Call Number'}: {$summCallNo|escape}
       {/if}
       </div>
-
+      {*
       {if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
         <span class="openUrlSeparator"></span>
@@ -145,7 +145,7 @@
         </div>
         {/if}
       {/if}
-
+      
       {if $summId|substr:0:8 == 'metalib_'}
         <br/>
         <span class="metalib_link">

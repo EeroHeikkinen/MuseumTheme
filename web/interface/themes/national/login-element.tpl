@@ -27,7 +27,7 @@
             </a>
         </li>
         {/if}
-        {if $catalogAccounts}
+        {* if $catalogAccounts}
         <form method="post" action="">
           <select id="catalogAccount" name="catalogAccount" title="{translate text="Selected Library Card"}" class="jumpMenu">
             {foreach from=$catalogAccounts item=account}
@@ -37,7 +37,7 @@
           </select>
         <noscript><input type="submit" value="{translate text="Set"}" /></noscript>
         </form>
-        {/if}
+        {/if *}
     {/if}
 {/if}
     </ul>

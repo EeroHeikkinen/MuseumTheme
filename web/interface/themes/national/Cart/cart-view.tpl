@@ -1,3 +1,5 @@
+<!-- START of: Cart/cart-view.tpl -->
+
   <script type="text/javascript">
   vufindString.bulk_noitems_advice = "{translate text="bulk_noitems_advice"}";
   vufindString.confirmEmpty = "{translate text="bookbag_confirm_empty"}";
@@ -28,3 +30,5 @@
    
   {include file="Cart/cart.tpl"}
   </form>
+
+<!-- END of: Cart/cart-view.tpl -->

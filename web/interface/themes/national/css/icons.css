@@ -11,7 +11,10 @@
 .advancedSearchHelpButton,
 .paginationMove,
 .fav, .mail, .export, .sms, .export, .cite, .add, .delete,
+.export img,
 #zoomControlPlus, #zoomControlMinus, 
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover,
 .deleteButton,
 .correction .expandSearch,
 a.clear_input,
@@ -25,7 +28,8 @@ a.clear_input,
 #excerpttab,
 #hierarchytab,
 #maptab,
-#detailstab {
+#detailstab,
+.searchtools li {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -225,6 +229,18 @@ a.clear_input {
     background-position: -17px -3882px;
 }
 
+/* Main: Search tools */
+
+.searchtools li.toolSavedSearch {
+    background-position:-49px -3050px;
+}
+.searchtools li.toolRssLink {
+    background-position:-49px -2061px;
+}
+.searchtools li.toolMailSearch {
+    background-position:-49px -2775px;
+}
+
 /* Main: facet sidebar */
 
 .dynatree-exp-e span.dynatree-expander, 
@@ -252,10 +268,10 @@ span.dynatree-expander:hover {
     background-position: -679px -1950px;
 }
 .resultscroller .prevRecord {
-    background-position: -364px -4220px;
+    background-position: -364px -4820px;
 }
 .resultscroller .nextRecord {
-    background-position: -364px -4284px;
+    background-position: -364px -4884px;
 }
 #addThis .mail {
     background-position: -361px -2773px;
@@ -276,7 +292,10 @@ span.dynatree-expander:hover {
     background-position: -364px -2769px;
 }
 .export {
-    background-position: -364px -1551px;
+    background-position: -363px -2717px;
+}
+.export img {
+    background-position: -363px -3317px;
 }
 .add {
     background-position: -357px -1049px;
@@ -313,9 +332,11 @@ span.dynatree-expander:hover {
 .sessionHistory .add {
     background-position: -357px -1049px;
 }
+.editItem .edit,
 #sidebarFavoritesLists .edit {
     background-position: -47px -3104px;
 }
+.editItem .delete,
 #sidebarFavoritesLists .delete {
     background-position: -47px -2390px;
 }
@@ -337,6 +358,14 @@ span.dynatree-expander:hover {
 }
 #zoomControlMinus {
     background-position: -49px -1112px;
+}
+
+/* jQuery UI Elements */
+
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:hover,
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover {
+    background-position:-49px -4628px;
 }
 
 /*** Webkit hacks ***/

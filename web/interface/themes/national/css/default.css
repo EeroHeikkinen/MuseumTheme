@@ -214,6 +214,8 @@ div.sidegroup {
     margin-top: 10px;
     padding: 0;
     width: 100%;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .mainContent {
     float: left;
@@ -358,6 +360,8 @@ div.sidegroup {
     right: 0;
     top: 0;
     z-index: 10;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .feedbackButton:hover {
     color:#fff;
@@ -412,6 +416,8 @@ div.sidegroup {
     height: 46px;
     position:relative;
     width: 636px;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 
 #searchForm select, .overLabelWrapper, .styled_select { 
@@ -480,6 +486,8 @@ a.clear_input:hover {
     -moz-transition:background-color .2s, box-shadow .2s;
     -webkit-transition:background-color .2s, box-shadow .2s;
     transition:background-color .2s, box-shadow .2s;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .headerInfoBox.visible {
     background-color:#fff;
@@ -590,6 +598,8 @@ body > ul.ui-menu.ui-widget {
     -moz-box-shadow: 0px 8px 12px #777;
     -webkit-box-shadow: 0px 8px 12px #777;
     box-shadow: 0px 8px 12px rgba(0,0,0,.5);
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 body > ul.ui-autocomplete {
     max-height:none;
@@ -630,14 +640,16 @@ body > ul.ui-menu.ui-widget li:first-child a:hover {
     -moz-border-radius: 10px 10px 0 0;
     -webkit-border-radius: 10px 10px 0 0;
     border-radius:  10px 10px 0 0;
-    /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .dropdown dd ul li:last-child a:hover,
 body > ul.ui-menu.ui-widget li:last-child a:hover {   
     -moz-border-radius: 0 0 10px 10px;
     -webkit-border-radius: 0 0 10px 10px;
     border-radius:  0 0 10px 10px;
-    /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .dropdown dd ul li a img {
     color: #444;
@@ -677,6 +689,8 @@ body > div.ui-dialog {
     -moz-box-shadow: 0px 8px 12px #777;
     -webkit-box-shadow: 0px 8px 12px #777;
     box-shadow: 0px 8px 12px rgba(0,0,0,.5);
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 body > div.ui-dialog .content {
     width:auto;
@@ -702,18 +716,25 @@ body > .ui-dialog .ui-widget-header {
     font-size: 1.23em;
 }
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close {
-    background:#fff;
-    border-radius:10px;
-    padding:0;
+    height: 24px;
+    margin-right: 2px;
+    margin-top: -12px;
+    padding: 0;
+    width: 24px;
 }
-body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close > span {
-    /*background-image: url("images/ui-icons_454545_256x240.png");*/
+body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close > span.ui-icon {
+    background:none;
 }
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:hover,
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:focus {
     padding:0;
-    background:#94dde6;
+    background:transparent;
 
+}
+
+body > .ui-dialog .ui-dialog-titlebar {
+    padding: 10px 15px;
+    position: relative;
 }
 
 body > .ui-widget input, 
@@ -743,6 +764,8 @@ body > .ui-widget .button {
     -webkit-box-shadow: 0 3px 4px #dddddd;
     -moz-box-shadow: 0 3px 4px #dddddd;
     box-shadow: 0 3px 10px #cccccc;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .searchContextHelp p {
     margin: 0 0 1em 0;
@@ -876,6 +899,10 @@ div.truncateField {
     z-index: 1000;
     height: 1.5em;
     background-color: inherit;
+}
+#recordMetadata .citation .moreLink ,
+#recordMetadata .citation .lessLink {
+    background:#fff;
 }
 .recordSummary.truncateField .moreLink,
 .recordSummary.truncateField .lessLink {
@@ -1854,6 +1881,9 @@ ul.recordSet .addToFavLink a {
 .searchtools a.mailSearch {
     display:inline-block;
 }
+.resultSearchTools .searchtools > ul li {
+    padding-left:22px;
+}
 
 .bookbag {
     background-image:url(../images/fugue/bookbag.png);
@@ -2126,6 +2156,7 @@ ul.recordSet .addToFavLink a {
 .module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
+.module-Cart h2,
 #advSearchForm h1,
 .module-Collection #collectionHeader {
     margin: 0;
@@ -2134,16 +2165,18 @@ ul.recordSet .addToFavLink a {
 .module-Search h2.account,
 .module-MyResearch h2.account,
 .module-MyResearch h1,
+.module-Cart h2,
 .resultLinks,
 .advSearchHeader,
 .resultTerms,
 .module-Collection #collectionHeader {
     padding: 22px 0 22px;
-    background:#b3e3e9;
+    background: #b3e3e9;
 }
 .module-Search h2.account,
 .module-MyResearch h2.account,
-.module-MyResearch h1 {
+.module-MyResearch h1,
+.module-Cart h2 {
     background: #b0e9db;
 }
 
@@ -2250,6 +2283,8 @@ ul.recordSet .addToFavLink a {
     line-height:1em;
     padding: 10px 12px 10px 15px;
     width:auto;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .dropdown dt a:after {
     content: "";
@@ -2322,6 +2357,8 @@ ul.recordSet .addToFavLink a {
     margin-top: 9px;
     text-align: center;
     width: 19px;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 
 .dateVisHandle .dateVisHelp.visible {
@@ -2511,10 +2548,8 @@ div.resultLinks a {
     float: left;
 }
 #resultToolbar ul {
-    border-top: 2px solid #EEEEEE;
     padding: 0;
     margin: 0;
-    padding-top: 1em;
 }
 #resultSide {
     width: 210px;
@@ -2544,7 +2579,8 @@ div.resultLinks a {
     -webkit-border-radius: 6px;
     border-radius: 6px;
 
-    behavior: url(css/css3pie/PIE.php);
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 */
 .recordAuthors td {
@@ -2588,10 +2624,15 @@ a#thumbnail_link:hover span {
     background-position: 400px 32px;
 }
 .coverImageLinks a:hover .coverImageLinks a {
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
 }
 .coverImages {
     /* text-align:center; */
+    overflow: auto;
+}
+.coverImages img#thumbnail {
+    padding-bottom:20px !important;
+    border-bottom:1px solid #bbb;
 }
 .coverImageLinks a {
     display: inline-block;
@@ -2775,35 +2816,36 @@ table.authors th {
     clear: both;
     float: left;
 }
+#dyntabnav .ui-tabs-nav li {
+    margin-right: 5px;
+}
 #dyntabnav, #dyntabnav .ui-tabs-nav {
     padding: 0;
-}
-#dyntabnav .ui-tabs-nav li {
-    margin-right: 3px;
-}
-#dyntabnav .ui-tabs-nav {
     -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px;
+    background: transparent;
+    border: none;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 #dyntabnav .ui-tabs li a, #dyntabnav .ui-tabs-nav li a {
     padding-left: 30px;
 }
-#dyntabnav .ui-widget-header {
-    background: #ffffff;
-    border: none;
-}
 #dyntabnav .ui-state-active,
 #dyntabnav .ui-state-active.ui-state-hover {
-    background: #B3E3E9 !important;
+    background: #fff !important;
 }
 #dyntabnav .ui-state-default.ui-state-hover {
-    border: none ! important;
 }
 #dyntabnav .ui-tabs-panel .content {
     overflow: auto;
 }
 #dyntabnav .ui-tabs-panel {
     padding: 1em 0;
-    background-color: #B3E3E9;
+    background-color: #fff;
+    border-top: 3px solid #B3E3E9;
+    margin-top: -3px;
+    position: relative;
+    z-index: 5;
 }
 
 #dyntabnav ul.commentList {
@@ -2823,14 +2865,28 @@ table.authors th {
     vertical-align: middle;
     width: 99%;
 }
-#dyntabnav .ui-state-default, #dyntabnav .ui-widget-content .ui-state-default, #dyntabnav .ui-widget-header .ui-state-default { border: none; }
-#dyntabnav .ui-state-hover, #dyntabnav .ui-widget-content .ui-state-hover, #dyntabnav .ui-widget-header .ui-state-hover, #dyntabnav .ui-state-focus, .ui-widget-content .ui-state-focus, #dyntabnav .ui-widget-header .ui-state-focus { border: 1px solid #cccccc; background-color: #dadada }
-#dyntabnav .ui-state-active, #dyntabnav .ui-widget-content .ui-state-active, #dyntabnav .ui-widget-header .ui-state-active { border: none; }
+#dyntabnav .ui-widget-header .ui-state-default {
+    border: 3px solid #B3E3E9;
+    background:#B3E3E9;
+    font-size: 0.90em;
+    line-height: 22px;
+}
+#dyntabnav .ui-widget-header .ui-state-default a,
+#dyntabnav .ui-widget-header .ui-state-default:hover a,
+#dyntabnav .ui-widget-header .ui-state-hover a {
+    color:#212121;
+}
+#dyntabnav .ui-widget-header .ui-tabs-selected {
+    border: 3px solid #B3E3E9;
+    position: relative;
+    top: 0;
+    z-index: 15;
+}
 #dyntabnav .citation th {
     width: 16em;
 }
 #dyntabnav a#detailstab {
-    height: 1.3em;
+    height: 22px;
 }
 
 /** Similar Items (record view) **/
@@ -2855,6 +2911,12 @@ h5.recordTabHeader {
     margin: 5px 0 20px 0;
 }
 
+.export img {
+    width:16px;
+    height:0;
+    overflow:hidden;
+    padding-top:16px;
+}
 /*********** Toolbar (Record View) ************/
 
 .record .toolbar {
@@ -2864,6 +2926,9 @@ h5.recordTabHeader {
     float: right;
     margin: 0 0 40px 0;
     background-color:#fff;
+}
+.toolbar #addThis {
+    margin-left: -3px;
 }
 .toolbar ul {
     list-style-type:none;
@@ -3158,6 +3223,8 @@ p.citationText {
     border:none;
     padding:8px 12px 8px 39px;
     margin:0;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 #advancedSearchWrapper input,
 .facetsContainer .chzn-container-multi .chzn-choices {
@@ -3167,6 +3234,8 @@ p.citationText {
     margin-top: -4px;
     padding: 5px;
     background-image:none;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .facetsContainer .chzn-container-multi  .chzn-choices {
     margin-top:0;
@@ -3175,6 +3244,8 @@ p.citationText {
     border-radius:0;
     box-shadow:0 0 0;
     margin:0;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .groupSearchHolder .terms input {
 
@@ -3216,6 +3287,9 @@ p.citationText {
     margin-bottom: 1em;
     overflow: hidden;
     padding: 17px;
+    position: relative;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .group .searchRelated {
     position: relative;
@@ -3309,7 +3383,6 @@ p.citationText {
 .myResearchMenu .ui-state-default {
     background-color: #808080;
     font-weight: bold;
-    min-width: 9em;
 }
 .myResearchMenu .ui-state-default a {
     color: #fff;
@@ -3332,6 +3405,8 @@ p.citationText {
     max-height: 300px;
     width: 215px;
     overflow:auto;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 .browseNav ul {
     width: 100%;
@@ -4051,7 +4126,8 @@ div#closeContextHelp:active {
     -webkit-border-radius: 5px;
     border-radius: 5px;
 
-    /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 
 .mobileViewLink {
@@ -4197,6 +4273,8 @@ span.mapMarker  {
     cursor:pointer;
     border:0 !important;
     background:url(../images/zoom_handle.png) center center no-repeat #4d4d4d;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 
 #zoomRange #zoomPath {
@@ -4218,8 +4296,9 @@ span.mapMarker  {
     line-height:1em;
     padding: 8px 12px 8px 15px;
     width:auto;
-    /* behavior: url(css/css3pie/PIE.php); */ /* for IE */
     position:relative; /* To make PIE work */
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 
 .button:hover {
@@ -4249,6 +4328,8 @@ span.mapMarker  {
     font-weight:bold;
     line-height:24px;
     width:25px;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.htc);
 }
 
 /* Staff view xml styles */

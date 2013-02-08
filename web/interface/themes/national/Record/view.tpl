@@ -116,22 +116,6 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         
         {*<li><a href="{$url}/Record/{$id|escape:"url"}/Email" class="mailRecord mail" id="mailRecord{$id|escape}" title="{translate text="Email this"}">{translate text="Email this"}</a></li> *}
         <li><a href="{$url}/Record/{$id|escape:"url"}/Feedback" class="feedbackRecord mail" id="feedbackRecord{$id|escape}" title="{translate text="Send Feedback"}">{translate text="Send Feedback"}</a></li>
-        {if is_array($exportFormats) && count($exportFormats) > 0}
-        <li>
-          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6" alt=""}</a>
-          <ul class="menu offscreen" id="exportMenu">
-          {foreach from=$exportFormats item=exportFormat}
-            <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
-          {/foreach}
-            <li>
-              <div class="qr_wrapper">
-              <div id="qrcode"><span class="overlay"></span></div>
-              {js filename="qrcodeNDL.js"}
-              </div>
-            </li>
-          </ul>
-        </li>
-        {/if}
         {* Citation commented out for now
         <li><a href="{$url}/Record/{$id|escape:"url"}/Cite" class="citeRecord cite" id="citeRecord{$id|escape}" title="{translate text="Cite this"}">{translate text="Cite this"}</a></li> *}
         {* AddThis-Bookmark commented out
@@ -152,6 +136,21 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         {* Addthis for social sharing END *}
         {if $bookBag}
         <li><a id="recordCart" class="{if in_array($id|escape, $bookBagItems)}bookbagDelete{else}bookbagAdd{/if} offscreen" href="">{translate text="Add to Book Bag"}</a></li>
+        {/if}
+        {if is_array($exportFormats) && count($exportFormats) > 0}
+        <li>
+          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6" alt=""}</a>
+          <ul class="menu offscreen" id="exportMenu">
+          {foreach from=$exportFormats item=exportFormat}
+            <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
+          {/foreach}
+          <li>
+            <div id="qrcode"><span class="overlay"></span></div>
+            {js filename="qrcodeNDL.js"}
+          </li>
+          </ul>
+
+        </li>
         {/if}
       </ul>
       {if $bookBag}

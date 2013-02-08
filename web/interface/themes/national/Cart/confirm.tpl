@@ -1,3 +1,5 @@
+<!-- START of: Cart/confirm.tpl -->
+
 <div class="alignleft">
   {if $listName}
   <h3>{$listName|escape}</h3>
@@ -22,9 +24,10 @@
     <input type="hidden" name="listID" value="{$listID|escape}" />
     {/if}
     <input type="hidden" name="{$confirmAction|escape}" />
-    <input type="submit" name="confirmAction" value="{translate text='confirm_dialog_yes'}" /> <input type="submit" name="cancelAction" value="{translate text='confirm_dialog_no'}" />
+    <input type="submit" class="button buttonTurquoise" name="confirmAction" value="{translate text='confirm_dialog_yes'}" /> <input type="submit" class="button buttonTurquoise" name="cancelAction" value="{translate text='confirm_dialog_no'}" />
     </form>
 
   </div>
 </div>
 
+<!-- END of: Cart/confirm.tpl -->
