@@ -29,7 +29,9 @@ a.clear_input,
 #hierarchytab,
 #maptab,
 #detailstab,
-.searchtools li {
+.searchtools li,
+.citation .moreLink a:after,
+.citation .lessLink a:after {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -274,7 +276,7 @@ span.dynatree-expander:hover {
     background-position: -364px -4884px;
 }
 #addThis .mail {
-    background-position: -361px -2773px;
+    background-position: -361px -2665px;
 }
 .addthis_button_facebook {
     background-position: -361px -1613px;
@@ -327,6 +329,14 @@ span.dynatree-expander:hover {
 #detailstab {
     background-position: -41px -1494px;
 }
+
+.citation .moreLink a:after {
+    background-position: -1646px -3317px;
+}
+.citation .lessLink a:after {
+    background-position: -1646px -3270px;
+}
+
 /* Main: Myresearch */
 
 .sessionHistory .add {

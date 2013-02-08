@@ -9,6 +9,7 @@ $(document).ready(function() {
     initSidebarFacets();
     initInfoBox();
     initDateVisHandle();
+    initCustomEyeCandy();
 });
 
 // Header menu
@@ -182,5 +183,16 @@ function initSidebarFacets() {
             parentDl.toggleClass('open collapsed');
         }
         
+    });
+}
+
+// Custom jQuery effects
+function initCustomEyeCandy() {
+    
+    // Slide record page thumbnail enlarge button up/down
+    $('#thumbnail_link').hover(function() {
+        $(this).children('span').stop().delay(100).animate({top:0}, 150);
+    }, function() {
+        $(this).children('span').stop().delay(100).animate({top:-50}, 150);
     });
 }

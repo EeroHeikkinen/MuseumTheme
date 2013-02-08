@@ -135,7 +135,7 @@
     <script type="text/javascript">
 // Long field truncation
 $(document).ready(function() {
-  $('.truncateField').not('.recordSummary').collapse({maxLength: 150, more: "{/literal}{translate text="more"}{literal}&nbsp;»", less: "«&nbsp;{/literal}{translate text="less"}{literal}"});
+  $('.truncateField').not('.recordSummary').collapse({maxLength: 150, more: "{/literal}{translate text="more"}{literal}", less: "{/literal}{translate text="less"}{literal}"});
   $('.recordSummary.truncateField').collapse({maxLength: 150, maxRows: 5, more: " ", less: " "});
 {/literal}
 {if $mozillaPersona}
