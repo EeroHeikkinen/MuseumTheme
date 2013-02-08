@@ -2004,10 +2004,16 @@ ul.recordSet .addToFavLink a {
     margin-right:0;
 }
 .available {
-    background-image:url(../images/silk/bullet_green.png);
-    background-repeat:no-repeat;
-    color:#009900;
-    padding-left:18px
+    color: #00B270;
+}
+.available:before {
+    content: "•";
+    display: block;
+    float: left;
+    font-size: 4em;
+    height: 10px;
+    line-height: 0.42em;
+    width: 20px;
 }
 .availableLoc {
     background-image:url(../images/fugue/tick-small.png);
@@ -2028,12 +2034,17 @@ ul.recordSet .addToFavLink a {
 .openurl_more img {
     display:none;
 }
-
+.checkedout:before {
+    content: "•";
+    display: block;
+    float: left;
+    font-size: 4em;
+    height: 10px;
+    line-height: 0.42em;
+    width: 20px;
+}
 .checkedout {
-    background-image:url(../images/silk/bullet_red.png);
-    background-repeat:no-repeat;
-    color:#cc0000;
-    padding-left:18px
+    color:#ff461e;
 }
 .checkedoutLoc {
     background-image:url(../images/fugue/cross-small.png);
@@ -2041,7 +2052,6 @@ ul.recordSet .addToFavLink a {
     padding-left:18px
 }
 .holdPlace, .callSlipPlace {
-    background-image:url(../images/fugue/holdPlace.png);
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;
@@ -2892,6 +2902,11 @@ table.authors th {
     height: 22px;
 }
 
+#dyntabnav .content h5 {
+    border-top: 1px solid #bbb;
+    padding-top: 20px;
+}
+
 /** Similar Items (record view) **/
 
 #resultSidebar {
@@ -2931,7 +2946,7 @@ h5.recordTabHeader {
     background-color:#fff;
 }
 .toolbar #addThis {
-    margin-left: -3px;
+    margin-left: -5px;
 }
 .toolbar ul {
     list-style-type:none;
@@ -3958,10 +3973,6 @@ div#closeContextHelp:active {
 }
 
 /*** Hierarchy Tree ***/
-
-#hierarchyTreeHolder, #hierarchyRecord {
-    width: 958px;
-}
 
 #hierarchyTreeHolder {
     background-color: #FFF;
