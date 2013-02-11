@@ -1527,7 +1527,7 @@ ul.recordSet .resultItemLine2{
     position: relative;
     z-index: 3;
     min-height: 20px;
-    padding: 4px 0 0 4px;
+    padding: 4px 0 0 0;
 }
 .result .imagelinks a {
     float:left;
