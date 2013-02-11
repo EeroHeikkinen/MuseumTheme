@@ -15,6 +15,8 @@ $(document).ready(function() {
 // Header menu
 function initHeaderMenu() {
     
+    var disableHover = false;
+    
     function headerOver() {
         var subMenu = $(this).children('ul');
         var subMenuHeight = subMenu.height();
@@ -31,15 +33,26 @@ function initHeaderMenu() {
     };
    
     function headerOut() {
-       var subMenu = $(this).children('ul');
-         $('#headerTop').stop().animate({height: 95}, 300);
-         subMenu.stop(true,true).fadeOut(50);
+       if (!disableHover) {
+           var subMenu = $('#headerMenu > li').children('ul');
+           $('#headerTop').stop().animate({height: 95}, 300);
+           subMenu.stop(true,true).fadeOut(50);
+       }
     };
 
     $('#headerMenu > li').hover(headerOver, headerOut);
     $('#headerMenu > li > a[href="#"]').click(function() {
         return false;
     });
+    
+    var catalogAccount = document.getElementById("catalogAccount");  
+    catalogAccount.onfocus = function () {
+        disableHover = true
+    }
+    catalogAccount.onblur = function () {
+        disableHover = false;
+        headerOut();
+    }
 }
 
 // Front page content carousel
