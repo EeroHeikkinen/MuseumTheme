@@ -176,17 +176,17 @@ a.clear_input {
 /* Main: Pagination */
 
 .paginationMove.paginationNext.visible {
-    background-position: -364px -4284px;
+    background-position: -364px -4883px;
 }
 .paginationMove.paginationNext {
-    background-position: -1296px -4284px;
+    background-position: -1296px -4883px;
 }
 
 .paginationMove.paginationBack.visible {
-    background-position: -364px -4220px;
+    background-position: -364px -4819px;
 }
 .paginationMove.paginationBack {
-    background-position: -1296px -4220px;
+    background-position: -1296px -4819px;
 }
 
 /* Main: Search results image icons */
