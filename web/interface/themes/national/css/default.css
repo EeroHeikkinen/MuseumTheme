@@ -149,7 +149,9 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
 .styledDropdowns, .searchForm_styled, .jumpMenu, .resultOptionLimit select {
     visibility:hidden;
 }
-
+.stylingDone.jumpMenu {
+    visibility: visible;
+}
 
 
 /*** Languages ***/
