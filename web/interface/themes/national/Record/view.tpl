@@ -139,7 +139,7 @@ vufindString.bookbagStatusFull = "{translate text="bookbag_full"}";
         {/if}
         {if is_array($exportFormats) && count($exportFormats) > 0}
         <li>
-          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"} {image src="down.png" width="11" height="6" alt=""}</a>
+          <a href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormats.0|escape:"url"}" class="export exportMenu">{translate text="Export Record"}</a>
           <ul class="menu offscreen" id="exportMenu">
           {foreach from=$exportFormats item=exportFormat}
             <li><a {if $exportFormat=="RefWorks"}target="{$exportFormat}Main" {/if}href="{$url}/Record/{$id|escape:"url"}/Export?style={$exportFormat|escape:"url"}">{translate text="Export to"} {$exportFormat|escape}</a></li>
