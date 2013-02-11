@@ -120,6 +120,20 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
     text-decoration: none;
 }
 
+#headerMenu ul li span:first-child {
+    display: block;
+    margin: 0;
+    padding: 0 0 5px;
+    color:#fff;
+}
+
+#headerMenu ul li span {
+    color: #eee;
+}
+#headerMenu ul li span:hover {
+    color:#fff;
+}
+
 #headerMenu li a:hover span:first-child,
 #headerMenu li a:focus span:first-child {
     color: #fdf07f;
@@ -1947,12 +1961,6 @@ ul.recordSet .addToFavLink a {
 }
 .persona-login-loading {
     background-image: url(../images/ajax_loading.gif);
-}
-.logout {
-    padding:.5em .5em .5em 20px;
-}
-.account {
-    padding:.5em .5em .5em 20px;
 }
 .new_account {
     background-image:url(../images/silk/user_add.png);
@@ -4398,6 +4406,40 @@ form#feedbackForm label {
     text-indent:0;
 }
 
+/* Datatable styles */
+
+.dataTable .sorting_asc,
+.dataTable .sorting_desc,
+.dataTable .sorting,
+.dataTables_paginate .paginate_disabled_previous,
+.dataTables_paginate .paginate_enabled_previous,
+.dataTables_paginate .paginate_enabled_next,
+.dataTables_paginate .paginate_disabled_next {
+    background:none;
+}
+
+.dataTable .sorting_asc:after,
+.dataTable .sorting_desc:after,
+.dataTable .sorting:after,
+.dataTables_paginate .paginate_disabled_previous:before,
+.dataTables_paginate .paginate_enabled_previous:before,
+.dataTables_paginate .paginate_enabled_next:after,
+.dataTables_paginate .paginate_disabled_next:after {
+    content:'';
+    width:16px;
+    height:16px;
+    display:inline-block;
+}
+.dataTables_paginate .paginate_disabled_previous:before,
+.dataTables_paginate .paginate_enabled_previous:before,
+.dataTables_paginate .paginate_enabled_next:after,
+.dataTables_paginate .paginate_disabled_next:after {
+    position:relative;
+    top:1px;
+}
+.dataTables_paginate {
+    min-height: 30px;
+}
 
 /*** Webkit hacks ***/
 

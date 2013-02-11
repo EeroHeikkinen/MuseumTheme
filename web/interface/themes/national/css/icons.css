@@ -51,6 +51,22 @@ span.dynatree-radio,
 span.dynatree-drag-helper-img, 
 #dynatree-drop-marker {
     background-image: url(../images/icons16-24px.png);
+    background-repeat: no-repeat;
+    background-position:0 0;
+}
+
+/* Datatables */
+
+.dataTable .sorting_asc:after,
+.dataTable .sorting_desc:after,
+.dataTable .sorting:after,
+.dataTables_paginate .paginate_disabled_previous:before,
+.dataTables_paginate .paginate_enabled_previous:before,
+.dataTables_paginate .paginate_enabled_next:after,
+.dataTables_paginate .paginate_disabled_next:after {
+    background-image: url(../images/icons16-24px.png);
+    background-repeat: no-repeat;
+    background-position:0 0;
 }
 
 /*** Elements with 32px icons ***/
@@ -398,6 +414,33 @@ body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close:hover,
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close.ui-state-hover {
     background-position:-49px -4628px;
+}
+
+/* Datatables */
+
+.dataTable .sorting_asc:after {
+    background-position:-1295px -3317px;
+}
+
+.dataTable .sorting_desc:after {
+    background-position:-1295px -3268px;
+}
+
+.dataTable .sorting:after {
+    background:none;
+    /*background-position:-44px -3368px;*/
+}
+.dataTables_paginate .paginate_disabled_previous:before {
+    background-position:-1301px -3419px;
+}
+.dataTables_paginate .paginate_enabled_previous:before {
+    background-position:-365px -3419px;
+}
+.dataTables_paginate .paginate_enabled_next:after {
+    background-position:-358px -3368px;
+}
+.dataTables_paginate .paginate_disabled_next:after {
+    background-position:-1292px -3368px;
 }
 
 /*** Webkit hacks ***/
