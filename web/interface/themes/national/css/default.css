@@ -2553,6 +2553,9 @@ div.resultLinks a {
     padding: 0;
     margin-top: 4em;
 }
+.module-Record div.record.view-alt {
+    margin-top:0;
+}
 .module-MyResearch .record form {
     padding-top: 20px;
 }
