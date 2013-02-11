@@ -4414,6 +4414,40 @@ form#feedbackForm label {
     text-indent:0;
 }
 
+/* Datatable styles */
+
+.dataTable .sorting_asc,
+.dataTable .sorting_desc,
+.dataTable .sorting,
+.dataTables_paginate .paginate_disabled_previous,
+.dataTables_paginate .paginate_enabled_previous,
+.dataTables_paginate .paginate_enabled_next,
+.dataTables_paginate .paginate_disabled_next {
+    background:none;
+}
+
+.dataTable .sorting_asc:after,
+.dataTable .sorting_desc:after,
+.dataTable .sorting:after,
+.dataTables_paginate .paginate_disabled_previous:before,
+.dataTables_paginate .paginate_enabled_previous:before,
+.dataTables_paginate .paginate_enabled_next:after,
+.dataTables_paginate .paginate_disabled_next:after {
+    content:'';
+    width:16px;
+    height:16px;
+    display:inline-block;
+}
+.dataTables_paginate .paginate_disabled_previous:before,
+.dataTables_paginate .paginate_enabled_previous:before,
+.dataTables_paginate .paginate_enabled_next:after,
+.dataTables_paginate .paginate_disabled_next:after {
+    position:relative;
+    top:1px;
+}
+.dataTables_paginate {
+    min-height: 30px;
+}
 
 /*** Webkit hacks ***/
 
