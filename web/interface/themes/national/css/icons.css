@@ -31,7 +31,9 @@ a.clear_input,
 #detailstab,
 .searchtools li,
 .citation .moreLink a:after,
-.citation .lessLink a:after {
+.citation .lessLink a:after,
+.availableLoc, .available:before,
+.checkedoutLoc, .checkedout:before {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -151,7 +153,18 @@ a.clear_input {
 }
 
 /* Main: Result header */
-
+.available:before {
+    background-position: -2049px -5339px;
+}
+.availableLoc {
+    background-position: -2049px -5298px;
+}
+.checkedout:before {
+    background-position: -996px -5339px;
+}
+.checkedoutLoc {
+    background-position: -996px -5298px;
+}
 .dateVisClear a {
     background-position: -365px -4028px; 
 }

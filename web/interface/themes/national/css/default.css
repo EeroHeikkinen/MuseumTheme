@@ -2003,22 +2003,18 @@ ul.recordSet .addToFavLink a {
     padding:.5em .5em .5em 30px;
     margin-right:0;
 }
-.available {
-    color: #00B270;
-}
 .available:before {
-    content: "•";
-    display: block;
-    float: left;
-    font-size: 48px;
-    height: 10px;
-    line-height: 0.42em;
-    width: 20px;
+    content: "";
+    display: inline-block;
+    height: 11px;
+    width: 11px;
+    padding-left: 5px;
 }
 .availableLoc {
-    background-image:url(../images/fugue/tick-small.png);
-    background-repeat:no-repeat;
-    padding-left:18px
+    padding-left: 16px;
+}
+.available {
+    color: #00B270;
 }
 .openurl_more {
     padding-left:16px;
@@ -2035,21 +2031,17 @@ ul.recordSet .addToFavLink a {
     display:none;
 }
 .checkedout:before {
-    content: "•";
-    display: block;
-    float: left;
-    font-size: 4em;
-    height: 10px;
-    line-height: 0.42em;
-    width: 20px;
+    content: "";
+    display: inline-block;
+    height: 11px;
+    width: 11px;
+    padding-left: 5px;
 }
 .checkedout {
     color:#ff461e;
 }
 .checkedoutLoc {
-    background-image:url(../images/fugue/cross-small.png);
-    background-repeat:no-repeat;
-    padding-left:18px
+    padding-left: 16px;
 }
 .holdPlace, .callSlipPlace {
     background-repeat:no-repeat;
