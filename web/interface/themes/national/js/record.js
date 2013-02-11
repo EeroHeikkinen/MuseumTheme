@@ -28,7 +28,7 @@ $(document).ready(function(){
         var $dialog = getLightbox(module, 'SMS', id, null, this.title);
         return false;
     });
-    $('a.mailRecord').click(function() {
+    $('#addThis a.mail, a.mailRecord').click(function() {
         var id = this.id.substr('mailRecord'.length);
         var module = 'Record';
         if ($(this).hasClass('mailSummon')) {
@@ -178,7 +178,7 @@ function checkCallSlipRequestIsValid(element, requestURL) {
 }
 
 function registerAjaxCommentRecord() {
-    $('form[name="commentRecord"]').unbind('submit').submit(function(){
+    $('form[name="commentRecord"]').live('submit', function(){
         if (!$(this).valid()) { return false; }
         var form = this;
         var id = form.id.value;
