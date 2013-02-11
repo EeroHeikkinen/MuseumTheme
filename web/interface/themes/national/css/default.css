@@ -120,6 +120,20 @@ a:focus, a:hover, .ui-widget-content a:hover, .ui-widget-content a:focus {
     text-decoration: none;
 }
 
+#headerMenu ul li span:first-child {
+    display: block;
+    margin: 0;
+    padding: 0 0 5px;
+    color:#fff;
+}
+
+#headerMenu ul li span {
+    color: #eee;
+}
+#headerMenu ul li span:hover {
+    color:#fff;
+}
+
 #headerMenu li a:hover span:first-child,
 #headerMenu li a:focus span:first-child {
     color: #fdf07f;
@@ -1947,12 +1961,6 @@ ul.recordSet .addToFavLink a {
 }
 .persona-login-loading {
     background-image: url(../images/ajax_loading.gif);
-}
-.logout {
-    padding:.5em .5em .5em 20px;
-}
-.account {
-    padding:.5em .5em .5em 20px;
 }
 .new_account {
     background-image:url(../images/silk/user_add.png);
