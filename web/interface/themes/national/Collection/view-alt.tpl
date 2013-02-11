@@ -67,11 +67,11 @@
   <div id="hierarchyCollection" class="{*span-13*}">
     <div id="tabnav" >
       <ul>
-        <li{if $tab == 'Home' || $tab == '' || $tab == 'list'} class="active"{/if}>
+        <li class="icon collectionContent{if $tab == 'Home' || $tab == '' || $tab == 'list'} active{/if}">
           <a href="{$url}/Collection/{$collectionID|urlencode}/CollectionList{$filters}#tabnav" class="first holdingsView">{translate text='Collection Items'}</a>
         </li>
         {if $hasHierarchyTree}
-        <li{if $tab == 'HierarchyTree'} class="active"{/if}>
+        <li class="icon collectionHierarchy{if $tab == 'HierarchyTree'} active{/if}">
           <a href="{$url}/Collection/{$collectionID|urlencode}/HierarchyTree{$filters}#tabnav" class="first">{translate text='hierarchy_tree'}</a>
         </li>
         {/if}

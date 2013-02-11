@@ -2748,41 +2748,15 @@ table.authors th {
 /************* Tabs (Record Page) *****************/
 
 #tabnav {
-    margin-top:1em;
-/*
-    padding:0 0 0 1em;
-    background-color:#fafafa;
-    border-top:1px #eee solid;
-*/
-    border-bottom: 1px #dcdcdc solid;
 }
 #tabnav ul {
     float: left;
     margin:0;
     padding:0px 5px 0;
     list-style:none;
-    background: #ffffff;
+    background: transparent;
     border-color: #dadada;
     border-style: none none solid none;
-}
-#tabnav li {
-    float:left;
-    background: url("images/ui-bg_glass_75_e6e6e6_1x400.png") repeat-x scroll 50% 50% #E6E6E6;
-    border: 1px solid #d3d3d3;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    margin-right: 3px;
-    position: relative;
-    top: 1px;
-/*
-    margin:0 0 0 0px;
-    padding:0 0 0 10px;
-*/
-}
-#tabnav li:hover {
-    background: #dadada;
-    border: 1px solid #cccccc;
-    color: #212121;
 }
 #tabnav a {
     color: #555555;
@@ -2801,21 +2775,6 @@ table.authors th {
 #tabnav a:hover {
     color: #212121;
 }
-#tabnav .active {
-/*
-    background:url(../images/subnavTab_left.jpg) no-repeat left top;
-*/
-    background: url("images/ui-bg_glass_65_ffffff_1x400.png") repeat-x scroll 50% 50% #FFFFFF;
-    border: 1px solid #cccccc;
-    border-bottom: 1px solid #ffffff;
-    margin-bottom: -1px;
-    padding-bottom: -1px;
-}
-#tabnav .active:hover {
-    background: url("images/ui-bg_glass_65_ffffff_1x400.png") repeat-x scroll 50% 50% #FFFFFF;
-    border: 1px solid #cccccc;
-    border-bottom: 1px solid #ffffff;
-}
 #tabnav .active a {
     color: #212121;
 /*
@@ -2823,6 +2782,36 @@ table.authors th {
     padding:18px 10px 12px 0px;
 */
 }
+
+#tabnav li,
+#tabnav li:hover {
+    font-weight: bold;
+    float:left;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-right: 3px;
+    position: relative;
+    top: 0px;
+    border: 3px solid #B3E3E9;
+    background-color:#B3E3E9;
+    line-height: 22px;
+    border-bottom: none ! important;
+    padding-left: 30px;
+}
+#tabnav .ui-widget-header .ui-state-default a,
+#tabnav .ui-widget-header .ui-state-default:hover a,
+#tabnav .ui-widget-header .ui-state-hover a {
+    color:#212121;
+}
+#tabnav li.active,
+#tabnav li.active:hover {
+    border: 3px solid #B3E3E9;
+    position: relative;
+    top: 0;
+    z-index: 15;
+    background-color: #fff;
+}
+
 
 /** Dynamic Tabs **/
 
@@ -3586,14 +3575,20 @@ tr:nth-child(even) td.gridMouseOver {
 .dismbiguationItem.alt {
     background-color: #FFF;
 }
-.collectionDetails {
+.collectionDetails,
+.collectionDetailsTree {
     background-color: #ffffff;
     padding: .5em 0 1em;
+    border-top: 3px solid #B3E3E9;
+    margin-top: -3px;
 /*
     border-top: 2px solid #eeeeee;
     margin-top: -2px;
     margin-bottom: 20px;
 */
+}
+.collectionDetailsTree {
+    border: 3px solid #B3E3E9;
 }
 .collectionDetails form {
     border: 1px solid #EEEEEE;
@@ -3979,7 +3974,7 @@ div#closeContextHelp:active {
 
 #hierarchyTreeHolder {
     background-color: #FFF;
-    border: 1px solid #DCDCDC;
+    border: none;
     padding: 0.5em 0;   
 }
 
@@ -3993,6 +3988,11 @@ div#closeContextHelp:active {
     min-height:375px;
     overflow: hidden;
     overflow-y: auto;    
+}
+#hierarchyCollection {
+    clear:both;
+    margin-top: 2em;
+    margin-bottom: 2em;
 }
 
 #treeSearch {

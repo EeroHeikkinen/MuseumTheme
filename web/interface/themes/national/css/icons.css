@@ -332,6 +332,13 @@ span.dynatree-expander:hover {
     background-position: -41px -1494px;
 }
 
+#tabnav .collectionContent {
+    background-position: -41px -2603px;
+}
+#tabnav .collectionHierarchy {
+    background-position: -41px -2493px;
+}
+
 .citation .moreLink a:after {
     background-position: -1646px -3317px;
 }
