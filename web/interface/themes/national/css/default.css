@@ -83,6 +83,22 @@ only screen and (min-device-pixel-ratio: 1.5) {
     }
 }
 
+/*** basic styles for common elements ***/
+
+input[type="text"],
+input[type="password"],
+textarea,
+.facetsContainer .chzn-container-multi .chzn-choices,
+.advSearchSection input {
+    border: 1px solid #CCCCCC;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+    padding: 5px;
+    background-image:none;
+
+    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+}
+
 /*** work-in-progress disclaimer ***/
 .w-i-p, .ie {
     width: 100%;
@@ -484,6 +500,7 @@ div.sidegroup {
     margin: 0;
     padding: 0;
     background:#fff;
+    box-shadow: none;
 }
 
 
@@ -3274,17 +3291,6 @@ p.citationText {
 
     behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
 }
-#advancedSearchWrapper input,
-.facetsContainer .chzn-container-multi .chzn-choices {
-      border: 1px solid #CCCCCC;
-    border-radius: 4px 4px 4px 4px;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1) inset;
-    margin-top: -4px;
-    padding: 5px;
-    background-image:none;
-
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
-}
 .facetsContainer .chzn-container-multi  .chzn-choices {
     margin-top:0;
 }
@@ -3425,7 +3431,7 @@ p.citationText {
 .myResearchMenu {
     margin-top: 0;
     padding: 0;
-    padding-top: 50px;
+    padding-top: 40px;
     margin-bottom: 1em;
 }
 .myResearchMenu .ui-state-default {
