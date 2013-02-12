@@ -320,7 +320,7 @@ abstract class SearchObject_Base
                     || !in_array($value, $skipList[$field])
                 ) {
                     $facetLabel = $this->getFacetLabel($field);
-                    $display = $translate ? translate($translationPrefix . $value) : $value;
+                    $display = $translate ? translate(array('prefix' => $translationPrefix, 'text' => $value)) : $value;
                     $list[$facetLabel][] = array(
                         'value'      => $value,     // raw value for use with Solr
                         'display'    => $display,   // version to display to user
