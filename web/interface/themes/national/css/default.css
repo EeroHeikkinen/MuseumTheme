@@ -925,6 +925,10 @@ div.dialogLoading {
     background: url(../images/ajax_loading.gif) no-repeat left top;
     padding:0 .5em .5em 20px;
 }
+#dyntabnav_spinner {
+    position:relative;
+    left:50%;
+}
 .noLoad {
     background:none;
 }
@@ -2660,7 +2664,12 @@ div.resultLinks a {
     margin-top:0;
 }
 div.recordsubcontent {
-    padding: 1em 1.5em 5em 1.5em;
+    margin: 0 auto;
+    padding: 1em 1.5em 5em;
+    width: 950px;
+}
+div.recordsubcontent .call-slip-form form > p  {
+    margin: 0 0 0.8em;
 }
 #thumbnail_link{
     float: left;
@@ -4114,10 +4123,7 @@ div#closeContextHelp:active {
 }
 
 .currentTree, .hierarchyTreeLinkText {
-    background-image:url(../images/fugue/treeCurrent.png);
-    background-repeat:no-repeat;
-    background-position: left;
-    padding:.5em .5em .5em 20px;
+    padding:.5em .5em .5em 25px;
     margin-right:1em;
 }
 

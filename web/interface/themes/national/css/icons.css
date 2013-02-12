@@ -34,7 +34,8 @@ a.clear_input,
 .citation .lessLink a:after,
 .availableLoc, .available:before,
 .checkedoutLoc, .checkedout:before,
-.holdPlace, .holdPlace:before {
+.holdPlace, .holdPlace:before,
+.currentTree, .hierarchyTreeLinkText {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -207,6 +208,10 @@ a.clear_input {
 }
 .recordSet .fav:hover {
     background-position: -361px -3041px;
+}
+
+.currentTree, .hierarchyTreeLinkText {
+    background-position: -365px -2497px;
 }
 
 /* Main: Pagination */
