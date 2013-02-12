@@ -1321,7 +1321,7 @@ fieldset.publishDateLimit .ui-slider {
     width: 960px;
 }
 .checkedoutList div.bulkActionButtons, .holdsList div.bulkActionButtons, .finesList table.fines, .profileInfo, .accounts table.accountList {
-    margin: 1.8em 0 0 0;
+    margin: 1.8em 0 1em 0;
 }
 .checkedoutList .iconlabel, .holdsList .iconlabel {
     line-height: 2.4em;
@@ -2789,6 +2789,14 @@ div.recordsubcontent {
 */
 }
 
+.ui-tabs-panel .citation td,
+.ui-tabs-panel .citation th {
+    border-top:1px solid #ddd;
+}
+.ui-tabs-panel .citation tbody tr:first-child td,
+.ui-tabs-panel .citation tbody tr:first-child th {
+    border:0;
+}
 div.recordsubcontent table.citation {
     width: auto;
 }
@@ -3384,7 +3392,8 @@ p.citationText {
     border-bottom: 1px solid #dddddd;
 }
 .myResearch {
-    margin: 2em 0 3em 0;
+    padding: 1em 0 1.5em;
+    overflow: auto;
 }
 .myResearch .resultHead {
 /*
