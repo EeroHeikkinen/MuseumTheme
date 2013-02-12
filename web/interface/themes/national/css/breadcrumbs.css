@@ -29,12 +29,6 @@ div.breadcrumbs span {
     overflow: hidden;
     padding: 0 6px 0 0;
     width: 7px;
-    /* To hide &gt; in breadscumbs. Could it be removed otherway? */
-    color: transparent; 
-/*    
-    font-size: 0;
-    line-height: 0;
-    filter: alpha(opacity=40);
-    opacity: 0.4;*/
+    text-indent: -100000px;
 }
 
