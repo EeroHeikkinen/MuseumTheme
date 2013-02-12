@@ -1,10 +1,11 @@
 <!-- START of: MyResearch/editAccount.tpl -->
 
-{if $id}
-<h1>{translate text="Edit Library Card"}</h1>
+<h1><span class="content">{if $id}
+{translate text="Edit Library Card"}
 {else}
-<h1>{translate text="Add a Library Card"}</h1>
-{/if}
+{translate text="Add a Library Card"}
+{/if}</span></h1>
+<div class="content">
 {if $errorMsg}
   <div class="messages">
     {if $errorMsg}<div class="error">{$errorMsg|translate}</div>{/if}
@@ -34,7 +35,8 @@
     <input id="password" type="password" name="password" value="{$cat_password|escape}" class="{jquery_validation required='This field is required'}"/>
     <br class="clear"/>
 
-  <input class="button" type="submit" name="submit" value="{translate text="Save"}"/>
+  <input class="button buttonTurquoise" type="submit" name="submit" value="{translate text="Save"}"/>
 </form>
+</div>
 
 <!-- END of: MyResearch/editList.tpl -->

@@ -45,7 +45,7 @@
     <div>
       <div class="mapSearchHome">
         <h2>Kokeile karttahakua</h2>
-        <p>Voit rajata hakuasi myös kartalla. Karttarajauksen piirissä on tällä hetkellä noin 7200 aineistotietoa.</p>
+        <p>Voit rajata hakuasi myös kartalla. Karttarajauksen piirissä on tällä hetkellä noin 12630 aineistotietoa.</p>
         <a class="button" href="{$url}/Search/Advanced">Karttahakuun</a>
       </div>
     </div>
