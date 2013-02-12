@@ -212,7 +212,7 @@ class VoyagerRestful extends Voyager
     {
         $sqlArray = parent::getHoldingItemsSQL($id);
         $sqlArray['expressions'][] = "null as ITEM_TYPE_ID";
-        $sqlArray['expressions'][] = "null as ITEM.TEMP_ITEM_TYPE_ID";
+        $sqlArray['expressions'][] = "null as TEMP_ITEM_TYPE_ID";
         
         return $sqlArray;        
     }    
