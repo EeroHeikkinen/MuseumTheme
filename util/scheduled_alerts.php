@@ -156,7 +156,7 @@ class ScheduledAlerts
                 }
                 
                 // Setup url if necessary
-                if ($configArray['Site']['url'] == 'http://localhost' || $configArray['Site']['url'] == 'https://localhost') {
+                if (preg_match('/^https?:\/\/localhost/', $configArray['Site']['url'])) {
                     if ($domainModelBase) {
                         $parts = explode('/', $datasourceConfig[$institution]['mainView']);
                         if (end($parts) == 'default') {
