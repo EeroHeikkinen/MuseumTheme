@@ -416,8 +416,27 @@ div.sidegroup {
     color: #999;
     text-decoration: none;
 }
-
-
+#headerMenu li .dropdown.catalogAccount dt a {
+    font-size:0.923em;
+}
+#headerMenu li .dropdown.catalogAccount span.value {
+    display:none;
+}
+#headerMenu li .dropdown.catalogAccount ul {
+    width:auto;
+    margin:0;
+    left:auto;
+    padding:0;
+}
+#headerMenu li .dropdown.catalogAccount li {
+    float:none;
+    min-height:0;
+    padding:0;
+    margin:0;
+    font-size:0.923em;
+    border:0;
+    width:auto;
+}
 /*** Search Box ***/    /* also note home.css for Home Page */
 
 .searchbox {
@@ -4416,7 +4435,7 @@ form#feedbackForm label {
 .dataTables_paginate .paginate_disabled_previous,
 .dataTables_paginate .paginate_enabled_previous,
 .dataTables_paginate .paginate_enabled_next,
-.dataTables_paginate .paginate_disabled_next {
+.dataTables_paginate .paginate_disablecatd_next {
     background:none;
 }
 

@@ -32,12 +32,10 @@ function initHeaderMenu() {
         subMenu.stop(true,true).delay(50).fadeIn(50);
     };
    
-    function headerOut() {
-       if (!disableHover) {
-           var subMenu = $('#headerMenu > li').children('ul');
-           $('#headerTop').stop().animate({height: 95}, 300);
-           subMenu.stop(true,true).fadeOut(50);
-       }
+    function headerOut(e) {
+        var subMenu = $('#headerMenu > li').children('ul');
+        $('#headerTop').stop().animate({height: 95}, 300);
+        subMenu.stop(true,true).fadeOut(50);
     };
 
     $('#headerMenu > li').hover(headerOver, headerOut);
@@ -45,14 +43,6 @@ function initHeaderMenu() {
         return false;
     });
     
-    var catalogAccount = document.getElementById("catalogAccount");  
-    catalogAccount.onfocus = function () {
-        disableHover = true
-    }
-    catalogAccount.onblur = function () {
-        disableHover = false;
-        headerOut();
-    }
 }
 
 // Front page content carousel

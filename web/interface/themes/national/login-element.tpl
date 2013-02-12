@@ -16,7 +16,7 @@
         <li>
             <span>{translate text="Select Library Card"}</span>
             <form method="post" action="">
-              <select id="catalogAccount" name="catalogAccount" title="{translate text="Selected Library Card"}" class="jumpMenu stylingDone">
+              <select id="catalogAccount" name="catalogAccount" title="{translate text="Selected Library Card"}" class="jumpMenu">
                 {foreach from=$catalogAccounts item=account}
                   <option value="{$account.id|escape}"{if $account.cat_username == $currentCatalogAccount} selected="selected"{/if}>{$account.account_name|escape}</option>
                 {/foreach}
