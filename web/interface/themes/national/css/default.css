@@ -416,8 +416,12 @@ div.sidegroup {
     color: #999;
     text-decoration: none;
 }
+#headerMenu li .dropdown.catalogAccount {
+    margin-top:5px;
+}
 #headerMenu li .dropdown.catalogAccount dt a {
-    font-size:0.923em;
+    font-size: 0.8em;
+    padding: 9px 12px 10px;
 }
 #headerMenu li .dropdown.catalogAccount span.value {
     display:none;
@@ -433,7 +437,7 @@ div.sidegroup {
     min-height:0;
     padding:0;
     margin:0;
-    font-size:0.923em;
+    font-size:0.8em;
     border:0;
     width:auto;
 }
