@@ -2072,7 +2072,17 @@ ul.recordSet .addToFavLink a {
 .checkedoutLoc {
     padding-left: 16px;
 }
-.holdPlace, .callSlipPlace {
+.holdPlace:before {
+    content: "";
+    display: inline-block;
+    height: 11px;
+    width: 11px;
+    padding: 0 6px 0 5px;
+}
+.holdPlace {
+    color:#00a2b5;
+}
+.callSlipPlace {
     background-repeat:no-repeat;
     background-position: left;
     padding:.5em .5em .5em 20px;

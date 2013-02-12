@@ -33,7 +33,8 @@ a.clear_input,
 .citation .moreLink a:after,
 .citation .lessLink a:after,
 .availableLoc, .available:before,
-.checkedoutLoc, .checkedout:before {
+.checkedoutLoc, .checkedout:before,
+.holdPlace, .holdPlace:before {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -183,6 +184,12 @@ a.clear_input {
 }
 .dateVisClear a {
     background-position: -365px -4028px; 
+}
+.holdPlace:before {
+    background-position: -365px -5298px;
+}
+.holdPlace {
+    background-position: -356px -3371px; 
 }
 
 /* Main: Search results */
