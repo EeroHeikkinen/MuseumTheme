@@ -1051,6 +1051,11 @@ div.bulkActionButtons select {
     margin: 2px;
 }
 
+#renewals .buttonTurquoise {
+    padding:7px;
+    font-size:1em;
+}
+
 /** Cart **/
 .cartSummary {
     float:right;

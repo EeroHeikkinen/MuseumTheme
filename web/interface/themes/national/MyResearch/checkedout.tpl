@@ -27,8 +27,8 @@
     <div class="bulkActionButtons">
         <div class="allCheckboxBackground"><input type="checkbox" class="selectAllCheckboxes" name="selectAll" id="addFormCheckboxSelectAll" /></div>
         <div class="floatright">
-          <input type="submit" class="button renew" name="renewSelected" value="{translate text="renew_selected"}" />
-          <input type="submit" class="button renewAll" name="renewAll" value="{translate text='renew_all'}" />
+          <input type="submit" class="button buttonTurquoise renew" name="renewSelected" value="{translate text="renew_selected"}" />
+          <input type="submit" class="button buttonTurquoise renewAll" name="renewAll" value="{translate text='renew_all'}" />
         </div>
         <div class="clear"></div>
     </div>       
