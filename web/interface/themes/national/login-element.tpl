@@ -2,7 +2,7 @@
 
 {if !$hideLogin}
 <li class="menuLogin"><a href="{if $user}#{else}{$path}/MyResearch/Home{/if}">
-    <span id="userId">{if $user}{if $mozillaPersonaCurrentUser}{$mozillaPersonaCurrentUser|truncate:25:'...':true:false}{elseif $user->lastname}{if $user->firstname}{$user->firstname}&nbsp;{$user->lastname}{/if}{else}{translate text="Your Account"}{/if}{else}{translate text="Login"}{/if}</span></a>
+    <span id="userId">{if $user}{if $mozillaPersonaCurrentUser}{$mozillaPersonaCurrentUser|truncate:25:'...':true:false}{elseif $user->lastname || $user->firstname}{if $user->firstname}{$user->firstname}&nbsp;{/if}{$user->lastname}{else}{translate text="Your Account"}{/if}{else}{translate text="Login"}{/if}</span></a>
     <ul class="subMenu" style="display:none">
 {if !$hideLogin}
     {if $user}
