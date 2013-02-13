@@ -284,7 +284,7 @@ div.searchHomeForm div.searchform #searchForm {
 }
 #carousel .pagination a {
     background-image: url("../images/carousel_arrows.png");
-    background-position:8px 8px;
+    background-position:-2px 8px;
     border: 0 none;
     display: block;
     height: 6px;
@@ -294,7 +294,7 @@ div.searchHomeForm div.searchform #searchForm {
     width: 6px;
 }
 #carousel .pagination .current a {
-    background-position: -2px 8px;
+    background-position: 8px 8px;
 }
 
 /*** Custom content ***/

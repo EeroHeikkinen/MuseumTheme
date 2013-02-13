@@ -143,6 +143,14 @@
           <span class="small">Valitse kartalta tai syötä käsin muodossa: vasen yläkulma lat, vasen yläkulma lon, oikea alakulma lat, oikea alakulma lon</span>
           *}
           <input id="coordinates" name="coordinates"></input>
+          <div id="selectionMapHelpWrapper">
+            <div class="selectionMapHelpIcon"></div>
+            <span id="selectionMapHelp">
+              <span id="selectionMapHelpPan">{translate text="adv_search_map_pan_help"}</span>
+              <span id="selectionMapHelpPolygon" class="hide">{translate text="adv_search_map_polygon_help"}</span>
+              <span id="selectionMapHelpRectangle" class="hide">{translate text="adv_search_map_rectangle_help"}</span>
+            </span>
+          </div>
           <div id="selectionMapContainer">
             <div id="zoomSlider">
               <div id="zoomControlPlus" class="ui-state-default ui-corner-all ui-icon ui-icon-plus"></div>
@@ -162,11 +170,6 @@
             <div id="selectionMap">              
             </div>
           </div>
-           <span id="selectionMapHelp">
-            <span id="selectionMapHelpPan">{translate text="adv_search_map_pan_help"}</span>
-            <span id="selectionMapHelpPolygon" class="hide">{translate text="adv_search_map_polygon_help"}</span>
-            <span id="selectionMapHelpRectangle" class="hide">{translate text="adv_search_map_rectangle_help"}</span>
-          </span>
         </div>
       {if $lastSort}<input type="hidden" name="sort" value="{$lastSort|escape}" />{/if}
 

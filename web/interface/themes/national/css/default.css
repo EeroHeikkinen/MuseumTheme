@@ -3208,7 +3208,12 @@ input.button {
 #listForm fieldset {
     width: 400px
 }
-
+form[name="editAccountForm"] {
+    padding:20px 0;
+}
+form[name="editAccountForm"] input[type="submit"] {
+    margin:10px 0;
+}
 /** Citation **/
 
 p.citationText {
