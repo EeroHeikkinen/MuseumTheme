@@ -21,13 +21,13 @@
 {/capture}
 {capture append="sections"}
   {literal}
-  <h2 title="Fuzzy Searches">Suddig sökning</h2>
-  <p>Lägg till ett tildetecken <strong>~</strong> direkt efter ett enkelt ord för att göra en suddigt sökning på det.
+  <h2 title="Fuzzy Searches">Oskarp sökning</h2>
+  <p>Lägg till ett tildetecken <strong>~</strong> direkt efter ett enkelt ord för att göra en oskarp sökning på det.
   </p>
-  <p><i>Exempel: Suddig sökning med ordet "petterson":</i></p>
+  <p><i>Exempel: Oskarp sökning med ordet "petterson":</i></p>
   <pre class="code"><i>petterson~</i></pre>
   <p><i>hittar även ord "peterson" och  "petersen".</i></p>
-  <p>Suddigheten kan justeras med en parameter, som kan vara mellan 0 och 1. Ju närmare 1 siffran är, desto mera lika måste termer vara.
+  <p>Den oskarpa sökningen kan justeras med en parameter, som kan vara mellan 0 och 1. Ju närmare 1 siffran är, desto mera lika måste termerna vara.
   </p>
   <p><i>Exempel:</i></p>
   <pre class="code">petterson~0.8</pre>
@@ -62,8 +62,8 @@
 {/capture}
 {capture append="sections"}
   {literal}
-  <h2 title="Boosting a Term">Viktade sökord</h2>
-  <p>Fästa mera vikt på en sökord genom att efter ett ord lägga till insättningstecken <strong>^</strong> (circumflex) och en siffra.
+  <h2 title="Boosting a Term">Vikt av sökord</h2>
+  <p>Fäst mera vikt på ett sökord genom att efter ordet lägga till insättningstecken <strong>^</strong> (circumflex) och en siffra.
   </p>
   <p><i>Exempel:</i></p>
   <pre class="code"><i>Friedman Keynes^5</i></pre>
@@ -71,38 +71,38 @@
 {/capture}
 {capture append="sections"}
   {literal}
-  <h2 title="Boolean operators">Boleska operatorer</h2>
-  <p>Boleska operatorer kopplar söktermer till mera komplicerade sökfrågor. Du kan använda operatorer <strong>AND</strong>, <strong>+</strong>, <strong>OR</strong>, <strong>NOT</strong> och <strong>-</strong>.
+  <h2 title="Boolean operators">Booleska operatorer</h2>
+  <p>Booleska operatorer kopplar ihop söktermer till mera komplicerade sökfrågor. Du kan använda operatorer <strong>AND</strong>, <strong>+</strong>, <strong>OR</strong>, <strong>NOT</strong> och <strong>-</strong>.
   </p>
-  <p>Obs! Du måste skriva boleska operatorer med STORA BOKSTÄVER.</p>
+  <p>Obs! Du måste skriva booleska operatorer med STORA BOKSTÄVER.</p>
   <h3 title="AND">AND</h3>
-  <p><strong>AND</strong> är i Finna en standardoperator: då ingen operator skrivs mellan två ord, antas att en <strong>AND</strong> står mellan dem. And är en s k konjugerande operator. Båda sökord måste finnas i en post för en träff.
+  <p><strong>AND</strong> är i Finna en standardoperator: då ingen operator skrivs mellan två ord, antas att <strong>AND</strong> står mellan dem. And är en s.k. konjugerande operator. Båda sökorden måste finnas i en post för en träff.
   </p>
-  <p><i>Exempel: Sök efter poster som innehåller båda "economics" och "Keynes":</i>
+  <p><i>Exempel: Sök efter poster som innehåller både "economics" och "Keynes":</i>
   </p>
   <pre class="code"><i>economics Keynes</i></pre>
   <p><i>eller</i></p>
   <pre class="code"><i>economics AND Keynes</i></pre>
   <h3 title="+">PLUSTECKEN +</h3>
-  <p>Med plustecknet <strong>+</strong> kan man märka ett sökord, som måste ovillkorligt förekomma i sökresultat.
+  <p>Med plustecknet <strong>+</strong> kan man märka ett sökord, som ovillkorligen måste förekomma i sökresultaten.
   </p>
   <p><i>Exempel: Varje post i sökresultat måste innehålla "economics"; Keynes kan förekomma, och posterna med "Keynes" får högre relevans i resultatlistan:</i>
   </p>
   <pre class="code"><i>+economics Keynes</i></pre>
   <h3 title="OR">OR</h3>
-  <p>Med <strong>OR</strong>--operatorn hittar man poster, där ett (eller flera) av sökord hittas.
+  <p>Med <strong>OR</strong>-operatorn hittar man poster, där ett (eller flera) av sökorden hittas.
   </p>
   <p><i>Exempel: Sök efter resurser, som handlar Österbotten eller Västerbotten:</i>
   </p>
   <pre class="code"><i>österbotten OR västerbotten</i></pre>
   <h3 title="NOT">NOT / MINUSTECKEN -</h3>
-  <p><strong>NOT</strong>-operatorn utestängar poster, där följande sökord förekommer.
+  <p><strong>NOT</strong>-operatorn utesluter poster, där följande sökord förekommer.
   </p>
-  <p><i>Exempel: Sök efter poster med ord "Turing" men utan ord "machine":</i>
+  <p><i>Exempel: Sök efter poster med ord "Turing" men utan ordet "machine":</i>
   </p>
   <pre class="code"><i>turing NOT machine</i></pre>
-  <p>Obs! Not-operatorn kan inte användas med bara ett ord.</p>
-  <p><i>Exempel: Följande sökning vill hitta ingenting:</i></p>
+  <p>Obs! Not-operatorn kan inte användas med endast ett ord.</p>
+  <p><i>Exempel: Följande sökning hittar ingenting:</i></p>
   <pre class="code"><i>NOT sibelius</i></pre>
   <p>Minustecken kan användas i stället för <strong>NOT</strong>.</p>
   <p><i>Exempel:</i></p>
@@ -113,30 +113,30 @@
   {literal}
   <h2>Guide för utökad sökning</h2>
   <h3 title="Search Fields">Sökfält</h3>
-  <p>När du öppnar utökad sökning, ser du en sökgrupp med flera sökfält till reds. Du kan fylla i sökord och sökoperatorer i ett, flera eller alla av dessa fält.
+  <p>När du öppnar den utökade sökningen, ser du en sökgrupp med flera sökfält till reds. Du kan fylla i sökord och sökoperatorer i ett, flera eller alla av dessa fält.
   </p>
-  <p>Vid varje sökfält finns en rullgardinsmeny med vilken kan du välja ett visst fält i posten (titel, upphovsman osv.). Då begränsas sökningen till att bara gälla de här data i en post. Varje sökfält kan begränsas självständigt.
+  <p>Vid varje sökfält finns en rullgardinsmeny ur vilken kan du välja ett visst fält i posten (titel, upphovsman osv.). Då begränsas sökningen till att bara gälla dessa data i en post. Varje sökfält kan begränsas självständigt.
   </p>
-  <p><i>Exempel: Ordet "Helsingfors" kan ofta förekomma i bokens data som tryckningsort. Om du söker information om Helsingfors, löner det sig att söka "helsingfors" bara i titel eller ämne.</i>
+  <p><i>Exempel: Ordet "Helsingfors" kan ofta förekomma i bokens data som tryckningsort. Om du söker information om Helsingfors, lönar det sig att söka "helsingfors" och begränsa sökningen till bara titel eller ämne.</i>
   </p>
-  <p>Med rullgardinsmenyn <strong>Sök</strong> kand du bestämma, hur en sökning med flera sökfält skall hanteras:
+  <p>I rullgardinsmenyn <strong>Sök</strong> kan du bestämma, hur en sökning med flera sökfält skall hanteras:
   </p>
   <ul>
-    <li><strong>Alla söktermer (AND)</strong> &mdash; Resultat måste uppfylla villkor i varje sökfält.
+    <li><strong>Alla söktermer (AND)</strong> &mdash; Resultat måste uppfylla villkoren i varje sökfält.
     </li>
-    <li><strong>Vilka söktermer som helst (OR)</strong> &mdash; Resultat måste uppfylla villkor bara i ett av sökfält.
+    <li><strong>Vilka söktermer som helst (OR)</strong> &mdash; Resultat måste uppfylla villkoren bara i ett av sökfälten.
     </li>
-    <li><strong>Ingen sökterm (NOT)</strong> &mdash; Visar poster som inte uppfyller villkor i något av sökfält.
+    <li><strong>Ingen sökterm (NOT)</strong> &mdash; Visar poster som inte uppfyller villkor i något av sökfälten.
     </li>
   </ul>
   <p>Med <strong>Lägg till ett sökfält</strong> –knappen kan du skapa flera sökfält.
   </p>
   
   <h3 title="Search Groups">Sökgrupp</h3>
-  <p>Med  hjälp av sökgrupp kan du bygga även mera avancerade sökningar.</p>
-  <p><i>Exempel: Du är intresserad om Norge och Danmark i relation till andra världskriget. Med att kombinera sökord "Norge", "Danmark" och "andra världskriget" och söka med <strong>Alla söktermer (AND)</strong> hittar du endast resurser, som handlar Danmark, Norge och andra världskriget på samma gång. Både "Danmark" och "Norge" måste alltså förekomma i samma resursen, och en bok som berättar bara om Norge, hittas inte.</i>
+  <p>Med hjälp av sökgrupp kan du bygga mera avancerade sökningar.</p>
+  <p><i>Exempel: Du är intresserad av Norge och Danmark i relation till andra världskriget. Med att kombinera sökord "Norge", "Danmark" och "andra världskriget" och söka med <strong>Alla söktermer (AND)</strong> hittar du endast resurser, som handlar om Danmark, Norge och andra världskriget på samma gång. Både "Danmark" och "Norge" måste alltså förekomma i samma resurs, och en bok som berättar bara om Norge, hittas inte.</i>
   </p>
-  <p><i>Söker du med justeringen <strong>Vilka söktermer som helst (OR)</strong>, hittar du allt som handlar Danmark, allt som handlar Norge och allt som handlar andra världskriget.</i>
+  <p><i>Söker du med justeringen <strong>Vilka söktermer som helst (OR)</strong>, hittar du allt som handlar om Danmark, allt som handlar Norge och allt som handlar om andra världskriget.</i>
   </p>
   <p>Man måste alltså först gruppera söktermer på rätt sätt med hjälp av sökgrupp.
   </p>
@@ -146,7 +146,7 @@
   </p>
   <p><i>Exempel: Om Danmark och Norge i förhållande till andra världskriget kan man söka så här:</i>
   </p>
-  <p><i>I första sökgruppen fyller man i "Danmark" i det första och "Norge" i det andra fältet. Inom gruppen, välj sökstilen <strong>Vilka söktermer som helst (OR)</strong>.</i>
+  <p><i>I första sökgruppen fyller man i "Danmark" och "Norge" i det andra fältet. Inom gruppen, välj sök stilen <strong>Vilka söktermer som helst (OR)</strong>.</i>
   </p>
   <p><i>Lägg till en sökgrupp. Fyll i sökord "andra världskriget".</i>
   </p>
