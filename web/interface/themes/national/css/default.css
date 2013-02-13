@@ -4309,11 +4309,31 @@ input#coordinates {
 #selectionMapTools {
     margin: 14px 0;
 }
-#selectionMapHelp {
-    position: relative;
-    top: 8px;
+#selectionMapHelpWrapper {
+    border: 1px solid #ccc;
+    display: block;
+    float: right;
+    padding: 6px 10px;
+    width: 480px;
+    position:relative;
 }
-
+.selectionMapHelpIcon {
+    height: 16px;
+    left: 8px;
+    position: absolute;
+    top: 8px;
+    width: 16px;
+}
+#selectionMapHelp span {
+    display:block;
+    margin-left:20px;
+}
+#selectionMapHelp span.hide {
+    display:none;
+}
+#selectionMapHelp span[style="display: inline;"] {
+    display:block!important;
+}
 /* Styles that apply to all jquery.geo maps */
 
 div.geo-map ul {

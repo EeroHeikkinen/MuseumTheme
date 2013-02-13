@@ -35,7 +35,8 @@ a.clear_input,
 .availableLoc, .available:before,
 .checkedoutLoc, .checkedout:before,
 .holdPlace, .holdPlace:before,
-.currentTree, .hierarchyTreeLinkText {
+.currentTree, .hierarchyTreeLinkText,
+.selectionMapHelpIcon {
     background-image: url(../images/icons16-24px.png);
     background-repeat: no-repeat;
     background-position:0 0;
@@ -420,6 +421,9 @@ span.dynatree-expander:hover {
 }
 #zoomControlMinus {
     background-position: -49px -1112px;
+}
+.selectionMapHelpIcon { 
+    background-position: -365px -1000px;
 }
 
 /* jQuery UI Elements */
