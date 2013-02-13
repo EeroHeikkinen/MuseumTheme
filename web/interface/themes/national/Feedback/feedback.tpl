@@ -44,7 +44,7 @@
   {/literal}
 </script>
 {else}
-{translate text="feedback_thankyou"}
+<p>{translate text="feedback_thankyou"}</p>
 {/if}
 </div>
 

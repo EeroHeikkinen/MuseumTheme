@@ -96,7 +96,7 @@ textarea,
     padding: 5px;
     background-image:none;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 
 /*** work-in-progress disclaimer ***/
@@ -247,7 +247,7 @@ div.sidegroup {
     padding: 0;
     width: 100%;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .mainContent {
     float: left;
@@ -393,7 +393,7 @@ div.sidegroup {
     top: 0;
     z-index: 10;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .feedbackButton:hover {
     color:#fff;
@@ -472,7 +472,7 @@ div.sidegroup {
     position:relative;
     width: 636px;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 
 #searchForm select, .overLabelWrapper, .styled_select { 
@@ -542,7 +542,7 @@ a.clear_input:hover {
     -webkit-transition:background-color .2s, box-shadow .2s;
     transition:background-color .2s, box-shadow .2s;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .headerInfoBox.visible {
     background-color:#fff;
@@ -654,7 +654,7 @@ body > ul.ui-menu.ui-widget {
     -webkit-box-shadow: 0px 8px 12px #777;
     box-shadow: 0px 8px 12px rgba(0,0,0,.5);
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 body > ul.ui-autocomplete {
     max-height:none;
@@ -695,7 +695,7 @@ body > ul.ui-menu.ui-widget li:first-child a:hover {
     -webkit-border-radius: 10px 10px 0 0;
     border-radius:  10px 10px 0 0;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .dropdown dd ul li:last-child a:hover,
 body > ul.ui-menu.ui-widget li:last-child a:hover {   
@@ -703,7 +703,7 @@ body > ul.ui-menu.ui-widget li:last-child a:hover {
     -webkit-border-radius: 0 0 10px 10px;
     border-radius:  0 0 10px 10px;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .dropdown dd ul li a img {
     color: #444;
@@ -744,7 +744,7 @@ body > div.ui-dialog {
     -webkit-box-shadow: 0px 8px 12px #777;
     box-shadow: 0px 8px 12px rgba(0,0,0,.5);
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 body > div.ui-dialog .content {
     width:auto;
@@ -819,7 +819,7 @@ body > .ui-widget .button {
     -moz-box-shadow: 0 3px 4px #dddddd;
     box-shadow: 0 3px 10px #cccccc;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .searchContextHelp p {
     margin: 0 0 1em 0;
@@ -2359,7 +2359,7 @@ ul.recordSet .addToFavLink a {
     padding: 10px 12px 10px 15px;
     width:auto;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .dropdown dt a:after {
     content: "";
@@ -2433,7 +2433,7 @@ ul.recordSet .addToFavLink a {
     text-align: center;
     width: 19px;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 
 .dateVisHandle .dateVisHelp.visible {
@@ -2659,7 +2659,7 @@ div.resultLinks a {
     border-radius: 6px;
 
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 */
 .recordAuthors td {
@@ -2904,7 +2904,7 @@ table.authors th {
     background: transparent;
     border: none;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 #dyntabnav .ui-tabs li a, #dyntabnav .ui-tabs-nav li a {
     padding-left: 30px;
@@ -3027,7 +3027,7 @@ h5.recordTabHeader {
 }
 
 #addThis .mail {
-    float:left;
+    float: left;
     clear:both;
     height: 16px;
 }
@@ -3311,7 +3311,7 @@ p.citationText {
     padding:8px 12px 8px 39px;
     margin:0;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .facetsContainer .chzn-container-multi  .chzn-choices {
     margin-top:0;
@@ -3321,7 +3321,7 @@ p.citationText {
     box-shadow:0 0 0;
     margin:0;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .groupSearchHolder .terms input {
 
@@ -3365,7 +3365,7 @@ p.citationText {
     padding: 17px;
     position: relative;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .group .searchRelated {
     position: relative;
@@ -3483,7 +3483,7 @@ p.citationText {
     width: 215px;
     overflow:auto;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 .browseNav ul {
     width: 100%;
@@ -4208,7 +4208,7 @@ div#closeContextHelp:active {
     border-radius: 5px;
 
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 
 .mobileViewLink {
@@ -4355,7 +4355,7 @@ span.mapMarker  {
     border:0 !important;
     background:url(../images/zoom_handle.png) center center no-repeat #4d4d4d;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 
 #zoomRange #zoomPath {
@@ -4379,7 +4379,7 @@ span.mapMarker  {
     width:auto;
     position:relative; /* To make PIE work */
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 
 .button:hover {
@@ -4410,7 +4410,7 @@ span.mapMarker  {
     line-height:24px;
     width:25px;
 
-    behavior: url(/vufind/interface/themes/national/js/css3pie/PIE.php);
+    behavior: url(/interface/themes/national/js/css3pie/PIE.php);
 }
 
 /* Staff view xml styles */
@@ -4447,9 +4447,13 @@ form#feedbackForm textarea {
     margin-bottom: 0;
 }
 
+.module-Feedback p {
+    margin-bottom: 2em;
+}
 form#feedbackForm p { 
     max-width: 470px;
     margin-top: 1em;
+    margin-bottom: 0;
     line-height: 1.5em;
 }
 
