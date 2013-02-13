@@ -2613,7 +2613,10 @@ div.resultLinks a {
     margin-top:0;
 }
 .module-MyResearch .record form {
-    padding-top: 20px;
+    padding:20px 0;
+}
+.module-MyResearch .record form input.button {
+    margin: 10px 0;
 }
 #resultsCollection div.record, #headingHierarchyCollection div.record {
     margin: -1em 0 0 .5em;

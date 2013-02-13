@@ -15,10 +15,13 @@ function initBgSwitcher(source, target, lang) {
                 // Get random number from 0 to the number of elements found - 1
                 randomNumber = Math.floor((Math.random()*texts.length)) + 1;
                 content = texts.eq(randomNumber - 1).html();
-                    
-                $.cookie('bgNumber', randomNumber, { expires: 1 });
-                $.cookie('infoText', content, { expires: 1 });
-                $.cookie('userLang', lang, { expires: 1 });
+                
+                var expire = new Date();
+                var minutes = 30;
+                expire.setTime(expire.getTime() + (minutes * 60 * 1000));
+                $.cookie('bgNumber', randomNumber, { expires: expire });
+                $.cookie('infoText', content, { expires: expire });
+                $.cookie('userLang', lang, { expires: expire });
                 hide = true;
                 fadeSpeed = 1000;
 
