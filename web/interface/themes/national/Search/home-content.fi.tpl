@@ -5,7 +5,7 @@
     <div>
       <h2 class="color-finnaBlue">Tietoa tarvitseville ja elämyksiä etsiville</h2>
       <p class="big">Finna on uudenlainen tiedonhakupalvelu kaikille arkistojen, kirjastojen ja museoiden palveluiden käyttäjille.</p>
-      <p class="big">Finna on nyt testikäytössä, kokeile hakua, <a href="{$path}/Feedback/Home">anna palautetta</a> tai <a class="color-violet" href="{$path}/Content/about">lue lisää</a> palvelusta!</p>
+      <p class="big">Finna on nyt testikäytössä. Kokeile hakua, <a href="{$path}/Feedback/Home">anna palautetta</a> tai <a class="color-violet" href="{$path}/Content/about">lue lisää</a> palvelusta!</p>
     </div>
     <div>
       <h2>Haulla löydät...</h2>
