@@ -181,6 +181,7 @@ div.searchHomeForm div.searchform #searchForm {
     overflow:hidden;
     width:230px;
     margin-left:10px;
+    cursor:pointer;
 }
 #carousel .slide li:first-child {
     margin-left:0;

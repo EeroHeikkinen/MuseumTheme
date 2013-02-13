@@ -81,6 +81,10 @@ function initCarousel() {
     }
 
     $('#carousel li').hover(slideOver, slideOut);
+    $('#carousel li').click(function() {
+        var href = $(this).find('a').attr('href');
+        window.location.href = href;
+    })
 }
 
 // Home page header info box
