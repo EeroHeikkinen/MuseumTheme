@@ -1665,6 +1665,8 @@ li.result blockquote {
 
 .recommendation {
     padding-bottom:20px;
+    margin: 0 auto;
+    width: 950px;
 }
 .resultRecommendations {
     clear:both;

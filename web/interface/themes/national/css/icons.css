@@ -137,7 +137,9 @@ span.dynatree-drag-helper-img,
 .iconlabel.formatsoundrecording {
     background-position: -46px -551px;
 }
-
+.iconlabel.formatother {
+    background-position: -47px -777px;
+}
 
 /* Header: info box */
 
