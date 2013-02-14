@@ -83,11 +83,17 @@ class AJAX_PopularSearches extends Action
         }
         $response = json_decode($request->getResponseBody(), true);
         $searchPhrases = array();
-        foreach ($response as $item) {
-            $searchPhrases[ $item['label'] ] = $item['nb_hits'];
+        if (isset($response['result']) && $response['result'] == 'error') {
+            $logger = new Logger();
+            $logger->log('Piwik error: ' . $response['message'], PEAR_LOG_ERR);
+        } else {
+            foreach ($response as $item) {
+                $searchPhrases[ $item['label'] ] = !isset($item['nb_actions']) || is_null($item['nb_actions']) ? $item['nb_visits'] : $item['nb_actions'];
+            }
+            // Order by hits
+            arsort($searchPhrases);
+            
         }
-        // Order by hits
-        arsort($searchPhrases);
         // Assign values only and 10 first items
         $interface->assign('searchPhrases', array_slice(array_keys($searchPhrases), 0, 10));
         $interface->display('AJAX/popularSearches.tpl');
