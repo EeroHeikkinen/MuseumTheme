@@ -11,6 +11,7 @@
 .advancedSearchHelpButton,
 .paginationMove,
 .fav, .mail, .export, .sms, .export, .cite, .add, .delete, .edit,
+label.invalid ,
 .export img,
 #zoomControlPlus, #zoomControlMinus, 
 body > .ui-dialog .ui-widget-header .ui-dialog-titlebar-close,
@@ -351,6 +352,9 @@ span.dynatree-expander:hover {
 .delete {
     background-position: -357px -2384px;
 }
+.deleteRecordComment {
+    background-position: -352px -2385px;
+}
 .savedHistory .delete {
     background-position: -41px -2384px;
 }
@@ -360,6 +364,10 @@ span.dynatree-expander:hover {
 .accountList .edit {
     background-position: -41px -3098px;
 }
+label.invalid {
+    background-position: -997px -1000px;
+}
+
 #holdingstab {
     background-position: -41px -1214px;
 }

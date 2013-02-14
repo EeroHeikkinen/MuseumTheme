@@ -904,10 +904,9 @@ body > .ui-widget .button {
 
 
 label.invalid {
-    background:url("../images/unchecked.gif") no-repeat scroll 0 0 transparent;
     color:#EA5200;
     padding-bottom:2px;
-    padding-left:16px;
+    padding-left:22px;
     margin-left: 5px;
 }
 
