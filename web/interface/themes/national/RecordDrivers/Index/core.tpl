@@ -71,18 +71,22 @@
     {/if}
 
     {if !empty($coreOtherLinks)}
+    {assign var=prevOtherLinkHeading value=''}
     {foreach from=$coreOtherLinks item=coreOtherLink}
     <tr valign="top" class="recordOtherLink">
-      <th>{translate text=$coreOtherLink.heading prefix='link_'}:</th>
+      <th>{if $prevOtherLinkHeading != $coreOtherLink.heading}{translate text=$coreOtherLink.heading prefix='link_'}:{else}&nbsp;{/if}</th>
+      {assign var=prevOtherLinkHeading value=$coreOtherLink.heading}
       <td>
         {if $coreOtherLinks.isn}
         <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor={$coreOtherLink.isn|escape:"url"}&amp;type=ISN">
-            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+            {$coreOtherLink.title|escape}
         </a>
+        {if $coreOtherLink.author}({$coreOtherLink.author|escape}){/if}
         {else}
         <a title="{$coreOtherLink.title|escape}" href="{$url}/Search/Results?lookfor=%22{$coreOtherLink.title|escape:"url"}%22&amp;type=Title">
-            {if $coreOtherLink.author != ''}{$coreOtherLink.author|escape}: {/if}{$coreOtherLink.title|escape}
+            {$coreOtherLink.title|escape}
         </a>
+        {if $coreOtherLink.author}({$coreOtherLink.author|escape}){/if}
         {/if}
       </td>
     </tr>
