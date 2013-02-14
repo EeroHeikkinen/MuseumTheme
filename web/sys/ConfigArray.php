@@ -171,10 +171,10 @@ function determineSiteUrl($configArray)
         // with WSGI proxies like Deliverance and Diazo.
         // TODO: Survey why, and how can we get this working
         $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-        $path = $_SERVER['HTTP_X_FORWARDED_PATH'];
+        $path = isset($_SERVER['HTTP_X_FORWARDED_PATH']) ? $_SERVER['HTTP_X_FORWARDED_PATH'] : '';
     } else if (isset($_SERVER['HTTP_X_FORWARDED_SERVER']) && !empty($_SERVER['HTTP_X_FORWARDED_SERVER'])) {
         $host = $_SERVER['HTTP_X_FORWARDED_SERVER'];
-        $path = $_SERVER['HTTP_X_FORWARDED_PATH'];
+        $path = isset($_SERVER['HTTP_X_FORWARDED_PATH']) ? $_SERVER['HTTP_X_FORWARDED_PATH'] : '';
     } else {
         $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
         $path = $configArray['Site']['path'];
