@@ -128,7 +128,7 @@
         {translate text='Call Number'}: {$summCallNo|escape}
       {/if}
       </div>
-      {*
+
       {if $summOpenUrl || !empty($summURLs)}
         {if $summOpenUrl}
         <span class="openUrlSeparator"></span>

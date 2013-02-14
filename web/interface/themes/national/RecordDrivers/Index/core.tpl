@@ -306,7 +306,7 @@
 
     {assign var="idPrefix" value=$id|substr:0:8}
     {if !empty($coreURLs) || $coreOpenURL || $idPrefix == 'metalib_'}
-    {*<tr valign="top" class="recordURLs">
+    <tr valign="top" class="recordURLs">
       <th>{translate text='Online Access'}: </th>
       <td>
         {foreach from=$coreURLs item=desc key=currentUrl name=loop}
@@ -324,7 +324,7 @@
           </span>
         {/if}
       </td>
-    </tr>*}
+    </tr>
     {/if}
     
     {*
