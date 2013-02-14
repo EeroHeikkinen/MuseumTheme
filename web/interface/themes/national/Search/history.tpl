@@ -63,7 +63,7 @@
             <th width="20%">{translate text="history_limits"}</th>
             <th width="10%" style="text-align:right">{translate text="history_results"}</th>
             <th width="20%"> </th>
-            <th width="5%">{translate text="history_save"}</th>
+            <th width="5%">{translate text='Actions'}</th>
           </tr>
           {foreach item=info from=$links name=historyLoop}
           {if ($smarty.foreach.historyLoop.iteration % 2) == 0}
