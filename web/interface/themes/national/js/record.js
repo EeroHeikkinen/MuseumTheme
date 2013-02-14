@@ -216,10 +216,12 @@ function refreshCommentList(recordId) {
         dataType: 'json',
         url: url,
         success: function(response) {
+            
             if (response.status == 'OK') {
-                $('#commentList' + recordId).empty();
-                $('#commentList' + recordId).append(response.data);
-                $('#commentList' + recordId + ' a.deleteRecordComment').unbind('click').click(function() {
+                commentUl = 'ul[id="commentList'+ recordId + '"]';
+                $(commentUl).empty();
+                $(commentUl).append(response.data);
+                $(commentUl + ' a.deleteRecordComment').unbind('click').click(function() {
                     var commentId = $(this).attr('id').substr('recordComment'.length);
                     deleteRecordComment(recordId, commentId);
                     return false;
