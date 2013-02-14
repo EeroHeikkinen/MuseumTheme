@@ -2041,11 +2041,17 @@ ul.recordSet .addToFavLink a {
     padding:.5em 0 .5em 18px;
     margin-right:.7em;
 }
+.accountList .edit,
 .delete {
     line-height: 1.23em;
     margin-right: 0;
     padding: 10px 5px 5px 30px;
 }
+.sessionHistory .add,
+.savedHistory .delete {
+  color: #4D4D4D;
+}
+
 .feed {
     background-image:url(../images/silk/feed.png);
     background-repeat:no-repeat;
