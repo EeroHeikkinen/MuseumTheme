@@ -14,7 +14,8 @@
 	  <li>The National Archives of Finland</li>
 	  <li>The National Library of Finland</li>
 	  <li>Lusto - the Finnish Forest Museum and the other museums participating in the Kantapuu database (Nurmes Town Museum, Pielinen Museum, the Ilomantsi Museum Foundation, the Forestry Museum of Lapland and the Verla Mill Museum.</li>
-	  <li>Tuusula Art Museum</li>
+	  <li>National Board of Antiquities</li>
+          <li>Tuusula Art Museum</li>
 	  <li>The Finnish National Gallery</li>
 	</ul>
 </p>

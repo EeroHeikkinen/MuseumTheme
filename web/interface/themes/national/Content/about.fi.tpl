@@ -12,6 +12,7 @@
   <li>Kansallisarkisto</li>
   <li>Kansalliskirjasto</li>
   <li>Lusto – Suomen metsämuseo ja muut nk. Kantapuu-museot (Nurmeksen museo, Pielisen museo, Ilomantsin museosäätiö, Lapin metsämuseo ja Verlan tehdasmuseo)</li>
+  <li>Museovirasto</li>
   <li>Tuusulan taidemuseo</li>
   <li>Valtion taidemuseo</li>
 </ul>
