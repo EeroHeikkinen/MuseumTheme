@@ -7,7 +7,7 @@ title           = Finna
 
 [OpenURL]
 url             = "http://sfx.nelliportaali.fi/sfxtst3"
-rfr_id          = vufind-fe-kktest.lib.helsinki.fi
+;rfr_id          = vufind-fe-kktest.lib.helsinki.fi
 resolver        = sfx
 
 [Extra_Config]
@@ -21,7 +21,7 @@ en-gb       = "English"
 [AddThis]
 ;key = xyz
 
-[Security]
+;[Security]
 ;HMACkey = xyz
 
 ; Use Piwik for visitor tracking
