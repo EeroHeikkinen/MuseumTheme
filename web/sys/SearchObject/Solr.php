@@ -1502,17 +1502,7 @@ class SearchObject_Solr extends SearchObject_Base
                 $currentSettings['untranslated'] = $facet[0];
                 $currentSettings['count'] = $facet[1];
                 $currentSettings['isApplied'] = false;
-                
-                if ($clearFilter == true) {
-                    $previousFilter = $this->filterList[$field];
-                    unset($this->filterList[$field]);
-                    $currentSettings['url']
-                        = $this->renderLinkWithFilter("$field:".$facet[0]);
-                    $this->filterList[$field] = $previousFilter;
-                } else {
-                    $currentSettings['url']
-                        = $this->renderLinkWithFilter("$field:".$facet[0]);
-                }
+                $currentSettings['url'] = $this->renderLinkWithFilter("$field:".$facet[0]);
                 
                 // If we want to have expanding links (all values matching the
                 // facet) in addition to limiting links (filter current search

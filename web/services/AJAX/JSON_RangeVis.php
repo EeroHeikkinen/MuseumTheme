@@ -191,8 +191,12 @@ class JSON_RangeVis extends JSON
                 $retVal[$field]["data"][] = $result;
             }
                 
-            $retVal[$field]["min"] = $fields[$name][0];
-            $retVal[$field]["max"] = $fields[$name][1];
+            $n = count($retVal[$field]["data"]);
+            if($n > 0) {
+                // Calculate bounds for result set
+                $retVal[$field]["min"] = $retVal[$field]["data"][0]["from"];
+                $retVal[$field]["max"] = $retVal[$field]["data"][$n-1]["to"];
+            }
         }
         
         return $retVal;

@@ -1,6 +1,6 @@
 <?php
 /**
- * SearchObject Factory Test Class
+ * JSON Range Visualization Test Class
  *
  * PHP version 5
  *
@@ -22,6 +22,7 @@
  * @category VuFind
  * @package  Tests
  * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Eero Heikkinen <eero.heikkinen@gmail.com>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/unit_tests Wiki
  */
@@ -32,11 +33,12 @@ require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'services/AJAX/JSON_RangeVis.php';
 
 /**
- * SearchObject Factory Test Class
+ * JSON Range Visualization Test Class
  *
  * @category VuFind
  * @package  Tests
  * @author   Demian Katz <demian.katz@villanova.edu>
+ * @author   Eero Heikkinen <eero.heikkinen@gmail.com>
  * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
  * @link     http://vufind.org/wiki/unit_tests Wiki
  */
@@ -92,7 +94,8 @@ class JSON_RangeVisTest extends AbstractMockIndexTest
         $data = $visData['unit_daterange']['data'];
         $this->assertEquals(20, count($data));
         
-        // TODO: verify the returned data more thoroughly
+        $this->assertEquals("2000-01-01T00:00:00Z", $visData['unit_daterange']['max']);
+        $this->assertEquals("-8000-01-01T00:00:00Z", $visData['unit_daterange']['min']);
     }
     
     /**
@@ -124,7 +127,8 @@ class JSON_RangeVisTest extends AbstractMockIndexTest
         $data = $visData['unit_daterange']['data'];
         $this->assertEquals(20, count($data));
         
-        // TODO: verify the returned data more thoroughly
+        $this->assertEquals("2000-01-01T00:00:00Z", $visData['unit_daterange']['max']);
+        $this->assertEquals("-8000-01-01T00:00:00Z", $visData['unit_daterange']['min']);
     }
     
     /**
@@ -151,7 +155,8 @@ class JSON_RangeVisTest extends AbstractMockIndexTest
         $data = $visData['unit_daterange']['data'];
         $this->assertEquals(20, count($data));
     
-        // TODO: verify the returned data more thoroughly
+        $this->assertEquals("2000-01-01T00:00:00Z", $visData['unit_daterange']['max']);
+        $this->assertEquals("-8000-01-01T00:00:00Z", $visData['unit_daterange']['min']);
     }
 
     /**
