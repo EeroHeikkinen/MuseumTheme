@@ -121,7 +121,7 @@ function lightboxDocumentReady() {
 }
 
 function registerAjaxLogin() {
-    $('#modalDialog > form[name="loginForm"]').unbind('submit').submit(function(){
+    $('#modalDialog form[name="loginForm"]').unbind('submit').submit(function(){
         if (!$(this).valid()) { return false; }
         var form = this;
         $.ajax({
