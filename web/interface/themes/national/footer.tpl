@@ -44,18 +44,18 @@
 
   <div id="footerCol5">
     {if $userLang=='en-gb'}
-    <a href="http://www.kdk.fi/en" class="footerLogo">{image src="kdk_logo_en.png" alt="NDL-logo"}</a>
+    <a href="http://www.kdk.fi/en" target="_blank" class="footerLogo">{image src="kdk_logo_en.png" alt="NDL-logo"}</a>
     {/if}
     {if $userLang=='sv'}
-    <a href="http://www.kdk.fi/sv" class="footerLogo">{image src="kdk_logo_sv.png" alt="logo"}</a>
+    <a href="http://www.kdk.fi/sv" target="_blank" class="footerLogo">{image src="kdk_logo_sv.png" alt="logo"}</a>
     {/if}
     {if $userLang=='fi'}
-      <a href="http://www.kdk.fi" class="footerLogo">{image src="kdk_logo_fi.png" alt="KDK-logo"}</a>
+      <a href="http://www.kdk.fi" target="_blank" class="footerLogo">{image src="kdk_logo_fi.png" alt="KDK-logo"}</a>
     {/if}
   </div>
 
   <div id="footerCol6">
-    <a href="http://www.vufind.org" class="footerLogo">{image src="vufind_logo_small.png" alt="vufind-logo"}</a>
+    <a href="http://www.vufind.org" target="_blank" class="footerLogo">{image src="vufind_logo_small.png" alt="vufind-logo"}</a>
 
     {* Comply with Serials Solutions terms of service -- this is intentionally left untranslated. *}
     {if $module == "Summon"}
