@@ -12,7 +12,7 @@
   <li>Jyväskylä universitetsbibliotek</li>
   <li>Riksarkivet</li>
   <li>Nationalbiblioteket</li>
-  <li>Lusto – Finlands skogsmuseum och andra s.k. Kantapuu-museer (Nurmes museum, Pielinens museum, Ilomantsin museosäätiö, Lapplands skogsmuseum och Verla fabriksmuseum) </li>
+  <li>Lusto – Finlands skogsmuseum och andra s.k. Kantapuu-museer (Finlands Jaktmuseum, Ilomantsin museosäätiö, Lapplands skogsmuseum, Nurmes museum, Pielinens museum och Verla fabriksmuseum) </li>
   <li>Museiverket</li>
   <li>Tusby konstmuseum</li>
   <li>Statens konstmuseum</li>
