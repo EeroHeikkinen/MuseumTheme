@@ -5,7 +5,7 @@
 <em>{$breadcrumbText|truncate:30:"..."|escape}</em> <span>&gt;</span>
 {/if}
 {if $subpage!=""}
-<em>{$subpage|replace:'view-':''|replace:'.tpl':''|replace:'Collection/':''|capitalize|translate}</em>
+<em>{$subpage|replace:'view-':''|replace:'.tpl':''|replace:'Collection/':''|capitalize|replace:'HierarchyTree_JSTree':'hierarchy_tree'|translate}</em>
 {/if}
 
 <!-- END of: Collection/breadcrumbs.tpl -->
