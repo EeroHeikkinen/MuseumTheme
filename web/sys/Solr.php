@@ -1641,6 +1641,7 @@ class Solr implements IndexEngine
                     $localIds = $doc['local_ids_str_mv'];
                     $dedupId = $localIds[0];
                     $priority = 99999;
+                    $undefPriority = 99999;
                     // Find the document that matches the source priority best
                     $dedupData = array();
                     foreach ($localIds as $localId) {
@@ -1659,6 +1660,8 @@ class Solr implements IndexEngine
                         if (!isset($localPriority)) {
                             if (isset($sourcePriority[$source])) {
                                 $localPriority = $sourcePriority[$source];
+                            } else {
+                                $localPriority = ++$undefPriority;
                             }
                         }
                         if (isset($localPriority) && $localPriority < $priority) {
