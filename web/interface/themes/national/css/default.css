@@ -2086,14 +2086,14 @@ ul.recordSet .addToFavLink a {
     color: #00B270;
 }
 .openurl_more {
-    padding-left:16px;
+    padding-left:14px;
     padding-right:10px;
-    color:#666;
+    color:#00a2b5;
 }
 .openurl_more:hover,
 .openurl_more:active,
 .openurl_more:focus {
-    color:#666;
+    color:#00a2b5;
 }
 
 .openurl_more img {
