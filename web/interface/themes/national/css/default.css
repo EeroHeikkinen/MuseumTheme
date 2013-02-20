@@ -1543,6 +1543,9 @@ ul.recordSet .coverDiv {
 ul.recordSet .resultItemLine2{
     margin:0.2em 0 0 0;
 }
+ul.recordSet .resultClassification {
+    display:none;
+}
 .summcover {
     margin: 0;
     max-width: 126px;
