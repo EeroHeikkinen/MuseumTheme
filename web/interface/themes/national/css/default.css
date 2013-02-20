@@ -953,7 +953,7 @@ div.truncateField {
 }
 .truncateField .moreLink,
 .truncateField .lessLink {
-    z-index: 1000;
+    z-index: 110;
     height: 1.5em;
     background-color: inherit;
 }
