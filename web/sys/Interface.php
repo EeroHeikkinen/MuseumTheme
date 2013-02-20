@@ -413,7 +413,7 @@ class UInterface extends Smarty
         }
 
         // Catalog Account List
-        if ($user) {
+        if ($user && !PEAR::isError($user)) {
             $this->assign('currentCatalogAccount', $user->cat_username);
             $this->assign('catalogAccounts', $user->getCatalogAccounts());
         }
