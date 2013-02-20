@@ -1148,6 +1148,10 @@ class Solr implements IndexEngine
                 $options['facet.offset'] = $facet['offset'];
                 unset($facet['offset']);
             }
+            if (isset($facet['query'])) {
+            	$options['facet.query'] = $facet['query'];
+            	unset($facet['query']);
+            }
             foreach ($facet as $param => $value) {
                 $options[$param] = $value;
             }
