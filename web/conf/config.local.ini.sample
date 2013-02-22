@@ -40,3 +40,6 @@ available = true
 
 [Shibboleth]
 ;login = https://haka.funet.fi/shibboleth/WAYF
+
+[NormalizationPreview]
+;url = http://localhost/preview
