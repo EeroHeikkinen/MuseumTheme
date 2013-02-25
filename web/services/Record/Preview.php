@@ -45,134 +45,32 @@ require_once 'sys/VuFindDate.php';
 
 class Preview extends Action
 {
-    protected $recordDriver;
-    protected $cacheId;
-    protected $db;
-    protected $catalog;
-    protected $errorMsg;
-    protected $infoMsg;
-    protected $hasHoldings;
+    protected $service;
+    protected $factoryClassName;
+    protected $fields;
 
     /**
-     * Constructor
-     *
-     * @access public
+     * Constructor.
+     * 
+     * @param string $service Service to use for normalization (defaults to RecordManager based service)
      */
-    public function __construct()
+    public function __construct($service = null)
     {
-        global $interface;
         global $configArray;
          
-        $url = isset($configArray['NormalizationPreview']['url']) ? $configArray['NormalizationPreview']['url'] : null;
-        if (empty($url)) {
-            PEAR::raiseError('No normalization preview service configured.');
-            exit();
-        }
-         
-        $record = $this->_getPreviewRecord($url, $_REQUEST['data'], $_REQUEST['format'], $_REQUEST['source']);
-         
-        $this->recordDriver = RecordDriverFactory::initRecordDriver($record);
-        
-        // Define Default Tab
-        $defaultTab = isset($configArray['Site']['defaultRecordTab']) ?
-        $configArray['Site']['defaultRecordTab'] : 'Holdings';
-        
-        if (isset($configArray['Site']['hideHoldingsTabWhenEmpty'])
-            && $configArray['Site']['hideHoldingsTabWhenEmpty']
-        ) {
-            $showHoldingsTab = $this->recordDriver->hasHoldings();
-            $interface->assign('hasHoldings', $showHoldingsTab);
-            $defaultTab =  (!$showHoldingsTab && $defaultTab == "Holdings") ?
-            "Description" : $defaultTab;
-        } else {
-            $interface->assign('hasHoldings', true);
-        }
-        
-        $tab = (isset($_GET['action'])) ? $_GET['action'] : $defaultTab;
-        $interface->assign('tab', $tab);
-        //$interface->debugging = true;
-        
-        // Check if ajax tabs are active
-        if (isset($configArray['Site']['ajaxRecordTabs']) && $configArray['Site']['ajaxRecordTabs']) {
-            $interface->assign('dynamicTabs', true);
-        }
-        
-        $interface->assign('coreMetadata', $this->recordDriver->getCoreMetadata());
-        $interface->assign('coreThumbMedium', $record['thumbnail']);
-        $interface->assign('coreThumbLarge', $record['thumbnail']);
-        
-        // Determine whether to display book previews
-        if (isset($configArray['Content']['previews'])) {
-            $interface->assignPreviews();
-        }
-        
-        // Determine whether to include script tag for syndetics plus
-        if (isset($configArray['Syndetics']['plus'])
-            && $configArray['Syndetics']['plus']
-            && isset($configArray['Syndetics']['plus_id'])
-        ) {
-            $interface->assign(
-                'syndetics_plus_js',
-                "http://plus.syndetics.com/widget.php?id=" .
-                $configArray['Syndetics']['plus_id']
+        if ($service !== null) {
+            $this->service = $service;
+        } else { // Default to RecordManager_Normalization_Service if none specified
+            if (!isset($configArray['NormalizationService']['url'])) {
+                PEAR::raiseError('No normalization service configured.');
+            }
+            
+            $this->service = new RecordManager_Normalization_Service(
+                $configArray['NormalizationService']['url'], 
+                $_REQUEST['format'], 
+                $_REQUEST['source']
             );
         }
-        
-        // Set flags that control which tabs are displayed:
-        if (isset($configArray['Content']['reviews'])) {
-            $interface->assign('hasReviews', $this->recordDriver->hasReviews());
-        }
-        if (isset($configArray['Content']['excerpts'])) {
-            $interface->assign('hasExcerpt', $this->recordDriver->hasExcerpt());
-        }
-        
-        //Hierarchy Tree
-        $interface->assign(
-            'hasHierarchyTree', $this->recordDriver->hasHierarchyTree()
-        );
-        
-        $interface->assign('hasTOC', $this->recordDriver->hasTOC());
-        $interface->assign('hasMap', $this->recordDriver->hasMap());
-        $this->recordDriver->getTOC();
-        
-        $interface->assign(
-            'extendedMetadata', $this->recordDriver->getExtendedMetadata()
-        );
-        
-        
-        // Send down text for inclusion in breadcrumbs
-        $interface->assign('breadcrumbText', $this->recordDriver->getBreadcrumb());
-        
-        // Send down OpenURL for COinS use:
-        $interface->assign('openURL', $this->recordDriver->getOpenURL());
-        
-        // Whether RSI is enabled
-        if (isset($configArray['OpenURL']['use_rsi']) && $configArray['OpenURL']['use_rsi']) {
-            $interface->assign('rsi', true);
-        }
-        
-        // Whether embedded openurl autocheck is enabled
-        if (isset($configArray['OpenURL']['autocheck']) && $configArray['OpenURL']['autocheck']) {
-            $interface->assign('openUrlAutoCheck', true);
-        }
-        
-        // Send down legal export formats (if any):
-        $interface->assign('exportFormats', $this->recordDriver->getExportFormats());
-        
-        // Set AddThis User
-        $interface->assign(
-            'addThis', isset($configArray['AddThis']['key'])
-            ? $configArray['AddThis']['key'] : false
-        );
-        
-        // Set Proxy URL
-        if (isset($configArray['EZproxy']['host'])) {
-            $interface->assign('proxy', $configArray['EZproxy']['host']);
-        }
-        
-        // Get Messages
-        $this->infoMsg = isset($_GET['infoMsg']) ? $_GET['infoMsg'] : false;
-        $this->errorMsg = isset($_GET['errorMsg']) ? $_GET['errorMsg'] : false;
     }
     
     /**
@@ -185,45 +83,116 @@ class Preview extends Action
     {
         global $interface;
         
-        if (!$interface->is_cached($this->cacheId)) {
-            $interface->setPageTitle(
-                translate('Description') . ': ' .
-                $this->recordDriver->getBreadcrumb()
-            );
-            $interface->assign(
-                'extendedMetadata', $this->recordDriver->getExtendedMetadata()
-            );
-            $interface->assign('subTemplate', 'view-description.tpl');
-            $interface->setTemplate('view.tpl');
+        $indexFields = $this->service->normalize($_REQUEST['data']);
+        $driver = $this->getDriver($indexFields);
+        
+        $coreTemplate = $driver->getCoreMetadata();
+        $interface->assign('coreMetadata', $coreTemplate);
+        $interface->setPageTitle('Preview');
+        
+        // Override any thumbnail.php URLs by direct references
+        if (isset($indexFields['thumbnail'])) {
+            $interface->assign('coreThumbMedium', $indexFields['thumbnail']);
+            $interface->assign('coreThumbLarge', $indexFields['thumbnail']);
+            $interface->assign('coreThumbSmall', $indexFields['thumbnail']);
         }
         
-        // Set Messages
-        $interface->assign('infoMsg', $this->infoMsg);
-        $interface->assign('errorMsg', $this->errorMsg);
-        
-        // Display Page
-        $interface->display('layout.tpl', $this->cacheId);
+        $interface->assign('dynamicTabs', true);
+        $interface->setTemplate('view.tpl');
+        $interface->display('layout.tpl');
     }
     
-    protected function _getPreviewRecord($serviceUrl, $metadata, $format, $source = null) {
-        $client = new Proxy_Request();
-        $client->setMethod(HTTP_REQUEST_METHOD_POST);
-        $client->setURL($serviceUrl);
-        $client->addPostData('data', $metadata);
-        $client->addPostData('format', $format);
-        if(!empty($source))
-            $client->addPostData('source', $source);
+    /**
+     * Returns a record driver for handling the pseudo-record. In a separate method so the static call can be mocked.
+     * 
+     * @param array $record The index fields to read from
+     * 
+     * @return Record driver instance
+     */
+    protected function getDriver($record) 
+    {
+        return RecordDriverFactory::initRecordDriver($record);
+    }
+}
+
+/**
+ * RecordManager Normalization Service implementation 
+ * 
+ * @category VuFind
+ * @package  Controller_Record
+ * @author   Eero Heikkinen <eero.heikkinen@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     http://vufind.org/wiki/building_a_module Wiki
+ */
+class RecordManager_Normalization_Service implements Normalization_Service
+{
+    protected $client;
+    
+    /**
+     * Constructor.
+     * 
+     * @param string $url    The URL address of the remote service
+     * @param string $format The record driver format to use
+     * @param string $source The data source id to parse against
+     */
+    public function __construct($url, $format = null, $source = null)
+    {
+        $this->client = new Proxy_Request();
+        $this->client->setMethod(HTTP_REQUEST_METHOD_POST);
+        $this->client->setURL($url);
         
-        $result = $client->sendRequest();
+        if ($format !== null) {
+            $this->client->addPostData('format', $format);
+        }
+        if ($source !== null) {
+            $this->client->addPostData('source', $source);
+        }
+    }
+    
+    /**
+     * Retrieve a record from a remote normalization preview service.
+     * See {@link https://github.com/KDK-Alli/RecordManager/pull/7 this git pull request}
+     * for a description of the contract of such a service.
+     *
+     * @param string $xml The XML metadata to parse
+     *
+     * @return array The parsed index fields as an array
+     */
+    public function normalize($xml)
+    {
+        $this->client->addPostData('data', $xml);
+        
+        $result = $this->client->sendRequest();
         if (!PEAR::isError($result)) {
-            if ($client->getResponseCode() != 200) {
+            if ($this->client->getResponseCode() != 200) {
                 PEAR::raiseError('Error generating normalization preview.');
             }
         } else {
             PEAR::raiseError($result);
         }
-        return json_decode($client->getResponseBody(), true);
+        return json_decode($this->client->getResponseBody(), true);
     }
+}
+
+/**
+ * Generic Normalization Service interface.
+ * 
+ * @category VuFind
+ * @package  Controller_Record
+ * @author   Eero Heikkinen <eero.heikkinen@gmail.com>
+ * @license  http://opensource.org/licenses/gpl-2.0.php GNU General Public License
+ * @link     http://vufind.org/wiki/building_a_module Wiki
+ */
+interface Normalization_Service
+{
+    /**
+     * Normalize a given XML string into a set of index fields.
+     * 
+     * @param string $xml The XML metadata to parse
+     * 
+     * @return array The parsed index fields as an array
+     */
+    public function normalize($xml);
 }
 
 ?>
