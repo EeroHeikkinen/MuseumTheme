@@ -512,6 +512,38 @@ class User extends DB_DataObject
     }
     
     /**
+     * Changes the catalog password of a user
+     *
+     * @param string $password The new password
+     *
+     * @return boolean True on success
+     * @access public
+     */
+    public function changeCatalogPassword($password)
+    {
+        $this->cat_password = $password;
+        $this->update();
+        
+        // Update Session
+
+        if ($session_info = UserAccount::isLoggedIn()) {
+            $session_info->cat_password = $password;
+            UserAccount::updateSession($session_info);
+        }
+        
+        // Update Account
+        $account = new User_account();
+        $account->user_id = $this->id;
+        $account->cat_username = $this->cat_username;
+        if ($account->find(true)) {
+            $account->cat_password = $password;
+            $account->update();
+        }
+        
+        return true;
+    }
+    
+    /**
      * Get a list of catalog accounts
      * 
      * @return array Account details

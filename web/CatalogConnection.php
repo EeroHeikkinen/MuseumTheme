@@ -249,6 +249,27 @@ class CatalogConnection
     }
     
     /**
+     * Check Change Password
+     *
+     * A support method for checkFunction(). This is responsible for checking
+     * the driver configuration to determine if the system supports changing 
+     * the password.
+     *
+     * @param string $functionConfig The change Password service configuration values
+     *
+     * @return mixed On success, an associative array with specific function keys
+     * and values for making the request; on failure, false.
+     * @access private
+     */
+    private function _checkMethodchangePassword($functionConfig)
+    {
+        if (method_exists($this->driver, 'changePassword')) {
+            return $functionConfig;
+        }
+        return false;
+    }    
+    
+    /**
      * Check Request is Valid
      *
      * This is responsible for checking if a request is valid from hold.php
