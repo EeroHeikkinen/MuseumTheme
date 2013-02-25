@@ -54,12 +54,32 @@ class Profile extends MyResearch
         global $user;
 
         if (UserAccount::isLoggedIn()) {
+            // Update email address
             if (isset($_POST['email'])) {
                 if ($user->changeEmailAddress($_POST['email'])) {
                     $interface->assign('userMsg', 'profile_update');
                 }
             }
             $interface->assign('email', $user->email);
+            
+            // Change Password
+            if (isset($_POST['oldPassword']) && isset($_POST['newPassword']) && isset($_POST['newPassword2'])) {
+                if ($_POST['newPassword'] !== $_POST['newPassword2']) {
+                    $interface->assign('userError', 'change_password_error_verification');
+                } else {
+                    $result = $this->changePassword($_POST['oldPassword'], $_POST['newPassword']);
+                    if (PEAR::isError($result)) {
+                        $interface->assign('userError', $result->getMessage());
+                    } else {
+                        if ($result['success']) {
+                            $interface->assign('userMsg', 'change_password_ok');
+                            $user->changeCatalogPassword($_POST['newPassword']);
+                        } else {
+                            $interface->assign('userError', $result['status']);
+                        }
+                    }
+                }
+            }
         }
         
         // Get My Profile
@@ -81,6 +101,10 @@ class Profile extends MyResearch
                 $interface->assign('pickup', $libs);
                 $interface->assign('profile', $result);
             }
+            $result = $this->catalog->checkFunction('changePassword');
+            if ($result !== false) {
+                $interface->assign('changePassword', $result);
+            }
         } else {
             Login::setupLoginFormVars();
         }
@@ -88,6 +112,29 @@ class Profile extends MyResearch
         $interface->setTemplate('profile.tpl');
         $interface->setPageTitle('My Profile');
         $interface->display('layout.tpl');
+    }
+    
+    /**
+     * Change patron's password (PIN code)
+     * 
+     * @param string $oldPassword Old password for verification
+     * @param string $newPassword New password
+     * 
+     * @return mixed Array of information on success/failure, PEAR_Error on error 
+     */
+    protected function changePassword($oldPassword, $newPassword)
+    {
+        if ($patron = UserAccount::catalogLogin()) {
+            if (PEAR::isError($patron)) {
+                PEAR::raiseError($patron);
+            }
+            $data = array(
+                'patron' => $patron,
+                'oldPassword' => $oldPassword,
+                'newPassword' => $newPassword
+            );
+            return $this->catalog->changePassword($data);
+        }
     }
     
 }

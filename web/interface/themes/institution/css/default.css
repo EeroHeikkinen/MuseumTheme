@@ -881,6 +881,9 @@ fieldset.publishDateLimit .ui-slider {
     width: 210px;
     margin-left: 12px;
 }
+.profileInfo p {
+    margin-left: 12px;
+}
 .profileInfo label {
     font-weight: normal;
 }
@@ -892,7 +895,7 @@ fieldset.publishDateLimit .ui-slider {
     padding: 2px;
 }
 .profileInfo .button {
-    margin: 2em 0;
+    margin: 1em 0 2em;
     float: right;
 }
 .finesList table.fines td, .myResearch .savedHistory td, .myResearch .sessionHistory td, .accountList td {

@@ -415,6 +415,9 @@ h5.recordTabHeader {
 ul.commentList li div.posted {
     font-size: 80%;
 }
+form#commentRecord input {
+    font-size: 0.9em;
+}
 
 /* Forms */
 label.displayBlock {

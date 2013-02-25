@@ -9,13 +9,21 @@
 {/if}
 <div class="myResearch profile{if $sidebarOnLeft} last{/if}">
   <div class="content">
+    <div class="resultHead">
+  {if $userMsg}
+      <p class="success">{translate text=$userMsg}</p>
+  {/if}
+  {if $userError}
+      <p class="error">{translate text=$userError}</p>
+  {/if}
+    </div>
   <span class="hefty">{translate text='Your Profile'}</span>
     <form method="post" action="{$url}/MyResearch/Profile" id="profile_form">
     <div class="profileInfo">
       <table class="profileGroup">
       <caption>{translate text='Local Settings'}</caption>
       <tr>
-        <th>{translate text='Email'}</th><td><input type="text" name="email" value="{$email|escape}"></input></td>
+        <th>{translate text='Email'}</th><td><input type="text" name="email" value="{$email|escape}" class="{jquery_validation email='Email address is invalid'}"></input></td>
       {if $showHomeLibForm}
       </tr>
       <tr>
@@ -42,11 +50,6 @@
     <div class="clear"></div>
     
     {if $user->cat_username}
-    <div class="resultHead">
-    {if $userMsg}
-      <p class="success">{translate text=$userMsg}</p>
-    {/if}
-    </div>
     <table class="profileGroup">
       <caption>
       {translate text='Source of information'}:
@@ -98,6 +101,31 @@
       </tr>
     </table>
       
+      {if $changePassword}
+      <br class="clear"/>
+      <form method="post" action="{$url}/MyResearch/Profile" id="password_form">      
+      <table class="profileGroup">
+        <caption>{translate text='change_password_title'}</caption>
+        <tr>
+          <th colspan="2">{translate text='change_password_instructions'}</th>
+        </tr>
+        <tr>
+	        <th>{translate text='change_password_old_password'}:</th>
+	        <td><input type="password" id="oldPassword" name="oldPassword" value=""></input></td>
+        </tr>
+        <tr>
+	        <th>{translate text='change_password_new_password'}:</th>
+	        <td><input type="password" id="newPassword" name="newPassword" value=""></input></td>
+        </tr>
+        <tr>
+	        <th>{translate text='change_password_new_password_again'}:</th>
+	        <td><input type="password" id="newPassword2" name="newPassword2" value=""></input></td>
+        </tr>
+      </table>
+      <input class="button buttonTurquoise" type="submit" value="{translate text='change_password_submit'}" />
+      </form>
+      {/if}
+      
       {else}
         {include file="MyResearch/catalog-login.tpl"}
       {/if}
@@ -105,5 +133,36 @@
   </div>
 </div>
 <div class="clear"></div>
+
+<script>
+  {literal}
+  $(document).ready(function() {
+    $("#profile_form").validate();     
+  {/literal}
+  {if $changePassword}
+    {literal} 
+    $("#password_form").validate();
+    $("#password_form input[type='password']").each(function() {
+        $(this).rules("add", {
+            minlength: {/literal}{$changePassword.minLength}{literal},
+            maxlength: {/literal}{$changePassword.maxLength}{literal},
+            messages: {
+                {/literal}minlength: jQuery.format("{translate text="Minimum length `$smarty.ldelim`0`$smarty.rdelim` characters"}"){literal},
+                {/literal}maxlength: jQuery.format("{translate text="Maximum length `$smarty.ldelim`0`$smarty.rdelim` characters"}"){literal}
+            },
+        });
+    });
+    $("#newPassword2").rules("add", {
+        equalTo: '#newPassword',
+        messages: {
+            equalTo: "{/literal}{translate text='change_password_error_verification'}{literal}"
+        }
+    });
+    {/literal}
+  {/if}
+  {literal} 
+  });
+  {/literal}
+</script>
 
 <!-- END of: MyResearch/profile.tpl -->

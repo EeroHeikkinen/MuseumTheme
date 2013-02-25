@@ -694,6 +694,29 @@ class MultiBackend implements DriverInterface
     }
     
     /**
+     * Change Password
+     *
+     * Attempts to change patron password (PIN code)
+     *
+     * @param array $details An array of patron id and old and new password
+     *
+     * @return mixed An array of data on the request including
+     * whether or not it was successful and a system message (if available) or a
+     * PEAR error on failure of support classes 
+     * @access public
+     */
+    public function changePassword($details)
+    {
+        $source = $this->getSource($details['patron']['cat_username']);
+        $driver = $this->getDriver($source);
+        if ($driver) {
+            $details = $this->stripIdPrefixes($details, $source);
+            return $driver->changePassword($details);
+        }
+        return new PEAR_Error('No suitable backend driver found');
+    }
+    
+    /**
      * Function which specifies renew, hold and cancel settings.
      *
      * @param string $function The name of the feature to be checked
@@ -710,7 +733,7 @@ class MultiBackend implements DriverInterface
         if ($id) {
             $source = $this->getSource($id);
         }
-        if (!$source && $user && isset($user->_cat_username)) {
+        if (!$source && $user && isset($user->cat_username)) {
             $source = $this->getSource($user->cat_username);
         }
         

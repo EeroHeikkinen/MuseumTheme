@@ -256,7 +256,6 @@ class Holds extends MyResearch
                 // whitelist, something has been tampered with -- abort the process.
                 if (!in_array($info, $session_details)) {
                     $interface->assign('errorMsg', 'error_inconsistent_parameters');
-                    echo("INCONSISTENT");
                     return false;
                 }
             }
@@ -265,13 +264,11 @@ class Holds extends MyResearch
             $gatheredDetails['patron'] = $patron;
             $this->cancelCallSlipResults = $this->catalog->cancelCallSlips($gatheredDetails);
             if ($this->cancelCallSlipResults == false) {
-                echo "FAIL";
                 $interface->assign('errorMsg', 'call_slip_cancel_fail');
             } else {
                 return true;
             }
         } else {
-                echo "EMPTY SEL";
             $interface->assign('errorMsg', 'call_slip_empty_selection');
         }
         return false;

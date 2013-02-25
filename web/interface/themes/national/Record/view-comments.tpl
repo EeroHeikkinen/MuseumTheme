@@ -11,7 +11,7 @@
   <input type="hidden" name="id" value="{$id|escape}"/>
   <textarea id="comment" name="comment" rows="4" cols="50" class="{jquery_validation required='This field is required'}"></textarea>
   <br/><br/>
-  <input type="submit" value="{translate text="Add your comment"}"/>
+  <input type="submit" class="button buttonTurquoise" value="{translate text="Add your comment"}"/>
 </form>
 </div>
 
